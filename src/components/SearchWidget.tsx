@@ -147,10 +147,10 @@ const SearchWidget = () => {
           setIsOpen(true);
           setTimeout(() => inputRef.current?.focus(), 150);
         }}
-        className="fixed top-4 right-4 z-40 w-11 h-11 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border border-gray-200/50 dark:border-slate-800/80 rounded-full flex items-center justify-center shadow-lg hover:scale-105 active:scale-95 transition-all text-slate-700 dark:text-slate-200"
+        className="fixed top-3 right-24 md:top-4 md:right-4 z-50 w-9 h-9 md:w-11 md:h-11 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border border-gray-200/50 dark:border-slate-800/80 rounded-full flex items-center justify-center shadow-lg hover:scale-105 active:scale-95 transition-all text-slate-700 dark:text-slate-200"
         aria-label="Search curriculum"
       >
-        <Search size={20} />
+        <Search size={18} className="md:w-5 md:h-5" />
       </button>
 
       {/* YouTube Android App-style Fullscreen Search Modal */}
