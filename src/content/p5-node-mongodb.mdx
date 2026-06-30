@@ -1,0 +1,102 @@
+---
+title: "P5: Node.js & MongoDB"
+description: "Become a Full-Stack Developer by mastering the backend."
+---
+
+# Phase 5: Node.js & MongoDB
+
+Frontend development is fun, but to build real-world applications (like E-Commerce, Social Media, or Dashboards), you need a backend to process logic, authenticate users, and a database to store data permanently.
+
+---
+
+## 1. Node.js & Express.js Basics
+
+Node.js allows you to run JavaScript on the server. Express.js is a framework that makes building Node.js servers incredibly simple.
+
+```javascript
+// server.js
+const express = require('express');
+const app = express();
+const PORT = 5000;
+
+// Allow JSON parsing
+app.use(express.json());
+
+// A simple GET route
+app.get('/api/hello', (req, res) => {
+    res.json({ message: "Hello from the backend!" });
+});
+
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
+```
+
+---
+
+## 2. RESTful APIs
+
+APIs are the bridge between your React frontend and your Node.js backend. We use standard HTTP methods for CRUD (Create, Read, Update, Delete) operations.
+
+- `GET`: Fetch data.
+- `POST`: Create new data.
+- `PUT`: Update existing data.
+- `DELETE`: Remove data.
+
+```javascript
+// POST route to add a new user
+app.post('/api/users', (req, res) => {
+    const newUser = req.body;
+    // Save to database logic here...
+    res.status(201).json({ message: "User created", data: newUser });
+});
+```
+
+---
+
+## 3. MongoDB & Mongoose
+
+MongoDB is a NoSQL database that stores data in JSON-like documents (perfect for JavaScript developers). Mongoose is an elegant tool to interact with MongoDB.
+
+```javascript
+const mongoose = require('mongoose');
+
+// Connect to Database
+mongoose.connect('mongodb://localhost:27017/myDatabase')
+    .then(() => console.log("Connected to MongoDB!"))
+    .catch(err => console.error(err));
+
+// Define a Schema and Model
+const userSchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true }
+});
+
+const User = mongoose.model('User', userSchema);
+```
+
+---
+
+## 4. Authentication (JWT)
+
+Security is crucial. JSON Web Tokens (JWT) allow us to verify if a user is logged in before letting them access protected routes.
+
+1. User sends email/password to login route.
+2. Server verifies and creates a signed token string.
+3. Server sends token to frontend.
+4. Frontend sends token in the header for every subsequent request.
+
+---
+
+## 🎓 Micro-Project: Build a REST API
+
+1. Initialize a new Node.js project (`npm init -y`) and install `express` and `mongoose`.
+2. Create a server that connects to a local MongoDB database.
+3. Create a `Note` model (Title, Content, Date).
+4. Build the full CRUD API:
+   - `GET /api/notes` (Get all notes)
+   - `POST /api/notes` (Create a note)
+   - `PUT /api/notes/:id` (Update a specific note)
+   - `DELETE /api/notes/:id` (Delete a specific note)
+5. Test your API using Postman or ThunderClient!

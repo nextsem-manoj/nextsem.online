@@ -1,0 +1,134 @@
+---
+title: "P2: CSS3 Practical"
+description: "Style your websites and make them visually stunning with CSS3."
+---
+
+# Phase 2: CSS3 Practical
+
+HTML provides the structure, but CSS (Cascading Style Sheets) provides the beauty. Without CSS, the web would be a very boring place consisting of plain text on white backgrounds.
+
+In this phase, we will learn how to master layouts, colors, typography, and animations. 
+
+---
+
+## 1. CSS3 Basics & Selectors
+
+CSS works by "selecting" HTML elements and applying "styles" to them.
+
+```css
+/* Select by tag name */
+h1 {
+    color: blue;
+    font-size: 32px;
+}
+
+/* Select by class name (use a dot) */
+.highlight {
+    background-color: yellow;
+}
+
+/* Select by ID (use a hash) */
+#main-header {
+    text-align: center;
+}
+```
+
+---
+
+## 2. The Box Model
+
+The Box Model is the most important concept in CSS. Every HTML element is essentially a box wrapped in layers:
+
+1. **Content:** The actual text or image.
+2. **Padding:** Space inside the box, around the content.
+3. **Border:** A line surrounding the padding.
+4. **Margin:** Space outside the box, separating it from other elements.
+
+```css
+.box {
+    width: 200px;
+    padding: 20px;
+    border: 2px solid black;
+    margin: 10px;
+}
+```
+
+---
+
+## 3. Flexbox Layout
+
+Flexbox is a one-dimensional layout method for arranging items in rows or columns. It makes alignment incredibly easy.
+
+```css
+.container {
+    display: flex;
+    justify-content: center; /* Centers items horizontally */
+    align-items: center;     /* Centers items vertically */
+    gap: 15px;               /* Space between items */
+}
+```
+
+---
+
+## 4. Grid Layout
+
+CSS Grid is a two-dimensional layout system (rows and columns) perfect for complex webpage layouts (like galleries or dashboards).
+
+```css
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
+    gap: 20px;
+}
+```
+
+---
+
+## 5. Responsive Design
+
+Websites must look good on phones, tablets, and desktops. We use Media Queries to change styles based on screen size.
+
+```css
+/* Default for mobile */
+.container {
+    flex-direction: column;
+}
+
+/* For screens wider than 768px (Tablets/Desktops) */
+@media (min-width: 768px) {
+    .container {
+        flex-direction: row;
+    }
+}
+```
+
+---
+
+## 6. Animations & Transitions
+
+Make your website feel alive!
+
+```css
+.button {
+    background-color: blue;
+    transition: all 0.3s ease; /* Smooth transition */
+}
+
+.button:hover {
+    background-color: darkblue;
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
+```
+
+---
+
+## 🎓 Micro-Project: Style Your Profile Page
+
+Remember the `profile.html` we built in Phase 1? It's time to make it look professional!
+
+1. Create a `styles.css` file and link it in your HTML `<head>`.
+2. Add a global font (e.g., sans-serif).
+3. Use **Flexbox** to center your profile picture and name.
+4. Give your image a circular shape using `border-radius: 50%`.
+5. Style the form inputs with padding and borders.
+6. Add a hover effect to your Submit button.

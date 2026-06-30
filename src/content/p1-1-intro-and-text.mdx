@@ -1,0 +1,72 @@
+---
+title: "P1.1: Web Intro & Text"
+description: "Understanding how the web works and mastering HTML text formatting."
+---
+
+# P1.1: Web Intro & Text Formatting
+
+Welcome to your first deep dive into HTML5! Before we write code, we must understand the environment we are working in.
+
+## 1. How the Web Works
+When you type a URL into a browser (the **Client**), it sends an HTTP Request to a computer far away (the **Server**). The Server responds by sending back HTML, CSS, and JS files, which your browser translates into a visual webpage.
+
+- **HTML** (HyperText Markup Language): The Structure.
+- **CSS** (Cascading Style Sheets): The Design.
+- **JS** (JavaScript): The Interactivity.
+
+## 2. Anatomy of an HTML5 Document
+Every HTML page requires a fundamental skeleton to function properly.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Professional Portfolio</title>
+</head>
+<body>
+    <!-- Visible content goes here -->
+</body>
+</html>
+```
+
+**Breakdown:**
+- `<!DOCTYPE html>`: Tells the browser to use modern HTML5 rules.
+- `<html lang="en">`: The root element. Declaring the language (`en` for English) helps translation tools and screen readers.
+- `<head>`: Contains invisible metadata, title, and links to stylesheets.
+- `<body>`: Contains EVERYTHING the user actually sees on the screen.
+
+## 3. Text Formatting & Typography
+HTML provides specific tags to give structural meaning to text.
+
+### Headings
+Headings range from `<h1>` to `<h6>`. 
+> [!IMPORTANT]
+> **SEO Rule:** Always use exactly one `<h1>` per page. It tells Google what your page is primarily about. Use `<h2>` to `<h6>` logically for sub-sections. Do NOT use headings just to make text bold or big.
+
+```html
+<h1>Main Title of the Page</h1>
+<h2>Sub-section</h2>
+<h3>Minor point under sub-section</h3>
+```
+
+### Paragraphs & Spacing
+- `<p>`: Defines a block of text.
+- `<br>`: A line break (forces text to a new line).
+- `<hr>`: A horizontal rule (a visible line separating content).
+
+### Inline Formatting
+- `<strong>`: Indicates text of strong importance (usually rendered as bold).
+- `<em>`: Indicates emphasized text (usually rendered as italic).
+- `<mark>`: Highlights text (usually with a yellow background).
+- `<code>`: For displaying snippets of computer code (uses a monospace font).
+
+```html
+<p>This is a <strong>very important</strong> warning.</p>
+<p>I <em>love</em> coding in HTML.</p>
+<p>Use the <mark>highlighted</mark> method for emphasis.</p>
+```
+
+## 🎓 Mini-Project: Formatting a Blog Post
+Create a file named `blog.html` and structure a tech blog post using headings, paragraphs, and inline formatting tags. Make sure your `<h1>` is the blog title!

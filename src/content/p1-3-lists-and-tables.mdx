@@ -1,0 +1,85 @@
+---
+title: "P1.3: Lists & Tables"
+description: "Organizing complex data structures in HTML."
+---
+
+# P1.3: Lists & Tables
+
+Information on the web needs to be organized. Lists help structure sequential or related items, while tables handle complex, multi-dimensional data.
+
+## 1. HTML Lists
+
+### Unordered Lists
+Used when the order of items does not matter (like a grocery list or navigation menu).
+```html
+<ul>
+    <li>HTML</li>
+    <li>CSS</li>
+    <li>JavaScript</li>
+</ul>
+```
+
+### Ordered Lists
+Used when the sequence is important (like a recipe or top 10 ranking).
+```html
+<ol type="A" start="3">
+    <li>Learn React</li>
+    <li>Learn Node.js</li>
+</ol>
+<!-- This will output: C. Learn React, D. Learn Node.js -->
+```
+
+### Description Lists
+Used for key-value pairs, like a dictionary or FAQ section.
+```html
+<dl>
+    <dt>HTML</dt>
+    <dd>The structure of a webpage.</dd>
+    <dt>CSS</dt>
+    <dd>The styling of a webpage.</dd>
+</dl>
+```
+
+## 2. HTML Tables (The Right Way)
+In the early 2000s, developers used tables to build entire website layouts. This is now considered terrible practice. **Tables should only be used for tabular data (like spreadsheets).**
+
+A professional table is split into semantic sections: `<thead>`, `<tbody>`, and `<tfoot>`.
+
+```html
+<table border="1">
+    <thead>
+        <tr>
+            <th>Student Name</th>
+            <th>Subject</th>
+            <th>Grade</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Rahul</td>
+            <td>Math</td>
+            <td>A+</td>
+        </tr>
+        <tr>
+            <td>Priya</td>
+            <td>Science</td>
+            <td>A</td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="2">Average Grade</td>
+            <td>A</td>
+        </tr>
+    </tfoot>
+</table>
+```
+
+### Colspan and Rowspan
+Notice the `colspan="2"` in the footer? This merges two columns together. `rowspan` merges rows vertically.
+
+## 🎓 Mini-Project: Class Timetable
+Create a complex table representing your college weekly timetable.
+- Use `<thead>` for the days of the week.
+- Use `rowspan` for a long lab session that spans across 2 hours.
+- Use `colspan` for a lunch break that spans across all days.

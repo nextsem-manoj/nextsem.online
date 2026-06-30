@@ -1,0 +1,144 @@
+---
+title: "P0: Developer Setup"
+description: "Setting up your environment for modern web development."
+---
+
+# Phase 0: The Professional Developer Setup
+
+Welcome to the start of your journey to becoming a Job-Ready Frontend Developer!
+
+Before writing a single line of code, professionals configure their workspace. A well-configured environment saves you hours of debugging, automates tedious tasks, and makes coding significantly more enjoyable. In this chapter, we will transform your PC into a professional web development workstation.
+
+---
+
+## 1. Windows Setup & Optimization
+
+As a web developer, your operating system is your primary tool. We need to ensure Windows is optimized for coding.
+
+### Show File Extensions
+By default, Windows hides file extensions (like `.html` or `.js`). You **must** enable this to avoid creating files like `index.html.txt` by mistake.
+1. Open File Explorer.
+2. Click on the **View** tab at the top.
+3. Check the box that says **File name extensions**.
+
+### Install a Modern Browser
+While Edge is fine, **Google Chrome** is the absolute industry standard for web development due to its powerful Developer Tools (DevTools).
+
+👉 **[Download Google Chrome (Official)](https://www.google.com/chrome/)**
+
+---
+
+## 2. VS Code Mastery
+
+You need a powerful text editor. We will be using **Visual Studio Code (VS Code)**, the most popular code editor in the world. It is lightweight, fast, and highly customizable.
+
+### Installation
+👉 **[Download VS Code for Windows](https://code.visualstudio.com/Download)**
+
+1. Run the installer. 
+2. **Important:** When you reach the "Select Additional Tasks" screen, check all boxes, especially:
+   - *Add "Open with Code" action to Windows Explorer file context menu*
+   - *Add "Open with Code" action to Windows Explorer directory context menu*
+
+### Essential Extensions
+VS Code is powerful because of its extensions. Click on the Extensions icon on the left sidebar (or press `Ctrl+Shift+X`) and install the following:
+
+- **Prettier - Code formatter:** Automatically formats your code so it looks clean and consistent.
+- **Live Server:** Launches a local development server with a live reload feature. Every time you save your code, the browser updates instantly!
+- **Auto Rename Tag:** Automatically renames paired HTML/XML tags.
+- **Material Icon Theme:** Gives your files beautiful, recognizable icons.
+
+> [!TIP]
+> **Enable Format on Save**
+> Go to Settings (`Ctrl + ,`), search for "Format on Save", and check the box. Now, every time you press `Ctrl + S`, Prettier will automatically clean up your code!
+
+---
+
+## 3. Terminal Basics
+
+Real developers use the terminal (Command Line). We won't use the standard Windows Command Prompt; we will use **Git Bash** or **PowerShell**.
+
+For this course, we highly recommend installing Git, which comes with Git Bash—a terminal that uses standard Linux commands.
+
+### Basic Commands to Memorize:
+- `pwd` : Print Working Directory (shows where you are).
+- `ls` : List all files in the current directory.
+- `cd [folder_name]` : Change directory (move into a folder).
+- `cd ..` : Move back one folder.
+- `mkdir [folder_name]` : Make a new directory.
+- `touch [file_name]` : Create a new file (e.g., `touch index.html`).
+
+---
+
+## 4. Git & GitHub: Your New Resume
+
+Git is a version control system that tracks changes in your code. GitHub is a website that hosts your Git repositories. **Your GitHub profile will become your resume.**
+
+### Step 1: Install Git
+👉 **[Download Git for Windows](https://git-scm.com/download/win)**
+
+1. Run the installer and click "Next" through all the default options.
+
+### Step 2: Configure Git
+Open your new terminal (Git Bash) and tell Git who you are:
+```bash
+git config --global user.name "Your Name"
+git config --global user.email "your.email@example.com"
+```
+
+### Step 3: Create a GitHub Account
+👉 **[Create your free GitHub Account](https://github.com/signup)**
+*(Use a professional username!)*
+
+---
+
+## 5. Node.js & NPM
+
+Even though we are focusing on frontend development (HTML/CSS/JS) first, modern frontend tools (like React, Vite, and Tailwind) require Node.js to run.
+
+👉 **[Download Node.js (LTS Version)](https://nodejs.org/en/download/)**
+
+1. Install it using the default settings.
+2. To verify the installation, open your terminal and run:
+
+```bash
+node -v
+npm -v
+```
+*If it prints out version numbers, you are successful!*
+
+---
+
+## 6. AI Developer Tools
+
+Welcome to the future of coding. AI is not here to replace you; it's here to make you 10x faster. 
+
+For this course, we recommend utilizing AI responsibly:
+- **ChatGPT / Claude:** Keep a tab open to ask for explanations of concepts you don't understand. (e.g., *"Explain CSS Flexbox to me like I'm 5 years old."*)
+- **GitHub Copilot / Cursor:** Once you understand the basics, AI autocomplete tools can write boilerplate code for you, saving you typing time.
+
+> [!WARNING]
+> **The Golden Rule of AI:** Never copy and paste code that you do not fully understand. If AI writes it, you must be able to explain how it works line-by-line.
+
+---
+
+## 🎓 Micro-Project: "Hello World" Setup
+
+Let's test your new professional setup!
+
+1. Open your terminal and create a new folder on your Desktop:
+   ```bash
+   cd Desktop
+   mkdir my-first-project
+   cd my-first-project
+   ```
+2. Open this folder in VS Code:
+   ```bash
+   code .
+   ```
+3. Inside VS Code, create a new file named `index.html`.
+4. Type `!` and press `Tab`. VS Code will automatically generate the HTML boilerplate.
+5. Inside the `<body>` tags, add: `<h1>Hello World, I am a Developer!</h1>`
+6. Right-click the `index.html` file and select **Open with Live Server**.
+
+Your browser should open automatically and display your message. **Congratulations! Your developer environment is officially ready.**

@@ -1,0 +1,18 @@
+{
+  "name": "Nextsem JBRS Course",
+  "short_name": "JBRS Course",
+  "description": "Start your journey to become a job-ready Front End Developer.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#060c18",
+  "theme_color": "#060c18",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/next.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

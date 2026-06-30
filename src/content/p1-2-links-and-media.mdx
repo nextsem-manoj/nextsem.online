@@ -1,0 +1,61 @@
+---
+title: "P1.2: Links & Media"
+description: "Connecting the web and adding rich multimedia experiences."
+---
+
+# P1.2: Links & Media
+
+The "HyperText" in HTML literally means text that links to other text. Without links, the web would just be isolated pages. In this module, we learn to connect pages and embed media.
+
+## 1. Hyperlinks (The Anchor Tag)
+The `<a>` (anchor) tag is used to create links. The `href` attribute specifies the destination.
+
+### Absolute vs. Relative Paths
+- **Absolute URL:** A full web address leading to an external site.
+  `<a href="https://google.com">Go to Google</a>`
+- **Relative URL:** A path to a file within your own project.
+  `<a href="/about.html">About Me</a>`
+
+### Opening Links in a New Tab
+To open a link in a new tab, use `target="_blank"`.
+> [!WARNING]
+> When using `target="_blank"`, always add `rel="noopener noreferrer"` to prevent security vulnerabilities where the new tab could hijack the original tab.
+
+```html
+<a href="https://github.com" target="_blank" rel="noopener noreferrer">My GitHub</a>
+```
+
+## 2. Images
+The `<img>` tag is self-closing and embeds an image.
+
+```html
+<img src="profile.jpg" alt="A photo of Rahul writing code" width="300" loading="lazy">
+```
+**Crucial Attributes:**
+- `src`: The path to the image file.
+- `alt`: Alternate text. **Never skip this.** It is read by screen readers for visually impaired users and displayed if the image fails to load.
+- `loading="lazy"`: Tells the browser not to load the image until the user scrolls down to it, drastically speeding up page load times.
+
+## 3. Audio & Video
+HTML5 introduced native media tags, meaning you no longer need third-party plugins (like Flash) to play music or video.
+
+```html
+<!-- Audio -->
+<audio controls>
+  <source src="podcast.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
+<!-- Video -->
+<video width="640" controls muted loop>
+  <source src="demo.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+```
+*Note: The `controls` attribute adds the play/pause/volume buttons.*
+
+## 🎓 Mini-Project: Build a Multimedia Gallery
+Create `gallery.html`. Build a page that contains:
+1. A navigation menu linking to 3 different external websites using `<a>`.
+2. At least 3 images utilizing `alt` and `loading="lazy"`.
+3. An embedded HTML5 `<video>` that auto-loops (use `loop muted autoplay`).

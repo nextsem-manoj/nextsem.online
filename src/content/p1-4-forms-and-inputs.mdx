@@ -1,0 +1,71 @@
+---
+title: "P1.4: Forms & Inputs"
+description: "Collecting user data securely and efficiently."
+---
+
+# P1.4: Forms & Inputs
+
+Forms are the primary way users interact with a backend server (logging in, uploading files, sending messages). Building good forms is a highly sought-after skill.
+
+## 1. The Form Element
+The `<form>` tag wraps all input fields.
+- `action`: The URL where the data is sent.
+- `method`: How the data is sent (`GET` appends data to the URL, `POST` sends data securely in the background).
+
+## 2. Labels & Inputs
+Every `<input>` must have a matching `<label>`. This is critical for accessibility (Screen Readers) and usability (clicking the label focuses the input).
+
+The connection is made using the `for` attribute on the label matching the `id` of the input.
+
+```html
+<form action="/submit" method="POST">
+    <!-- Text Input -->
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="user" required minlength="4">
+    
+    <!-- Password Input (hides text) -->
+    <label for="pwd">Password:</label>
+    <input type="password" id="pwd" name="pwd" required>
+
+    <!-- Email Input (mobile keyboards show '@') -->
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email">
+
+    <button type="submit">Register</button>
+</form>
+```
+
+## 3. Advanced Inputs
+HTML5 introduced powerful inputs that reduce the need for JavaScript validation.
+
+- `<input type="date">`: Pops up a native calendar date picker.
+- `<input type="color">`: Opens a system color wheel.
+- `<input type="range" min="1" max="10">`: Renders a sliding bar.
+- `<input type="file" accept=".pdf, .jpg">`: Allows file uploads.
+
+## 4. Radio Buttons & Checkboxes
+- **Radio Buttons:** User can select exactly ONE option from a group (grouped by sharing the same `name` attribute).
+- **Checkboxes:** User can select multiple options.
+
+```html
+<p>Select your gender:</p>
+<input type="radio" id="male" name="gender" value="male">
+<label for="male">Male</label>
+<input type="radio" id="female" name="gender" value="female">
+<label for="female">Female</label>
+
+<p>Select your skills:</p>
+<input type="checkbox" id="html" name="skills" value="html">
+<label for="html">HTML</label>
+<input type="checkbox" id="css" name="skills" value="css">
+<label for="css">CSS</label>
+```
+
+## 🎓 Mini-Project: College Admission Form
+Build a comprehensive admission form containing:
+1. Text inputs for First/Last name.
+2. Email and Phone (`type="tel"`) inputs.
+3. A Date of Birth picker.
+4. Radio buttons for selecting a Course (BCA, MCA, BTech).
+5. File upload for a Resume (accepting only `.pdf`).
+6. A Submit button.
