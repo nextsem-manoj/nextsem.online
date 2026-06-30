@@ -23,6 +23,7 @@ import { ProgressProvider } from "../context/ProgressContext";
 import BottomNavigation from "../components/BottomNavigation";
 import InstallBanner from "../components/InstallBanner";
 import TranslateWidget from "../components/TranslateWidget";
+import SearchWidget from "../components/SearchWidget";
 
 export default function RootLayout({
   children,
@@ -46,6 +47,7 @@ export default function RootLayout({
             {children}
             <InstallBanner />
             <TranslateWidget />
+            <SearchWidget />
             <BottomNavigation />
           </ProgressProvider>
         </ThemeProvider>
