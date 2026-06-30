@@ -34,18 +34,21 @@ const InteractivePre = ({ children, ...props }: InteractivePreProps) => {
   const handleIframeLoad = (e: React.SyntheticEvent<HTMLIFrameElement>) => {
     const iframe = e.currentTarget;
     if (iframe && iframe.contentWindow) {
+      const win = iframe.contentWindow;
       setTimeout(() => {
         try {
-          const body = iframe.contentWindow.document.body;
-          const html = iframe.contentWindow.document.documentElement;
-          const height = Math.max(
-            body.scrollHeight,
-            body.offsetHeight,
-            html.clientHeight,
-            html.scrollHeight,
-            html.offsetHeight
-          );
-          setIframeHeight(height + 16);
+          const body = win.document.body;
+          const html = win.document.documentElement;
+          if (body && html) {
+            const height = Math.max(
+              body.scrollHeight,
+              body.offsetHeight,
+              html.clientHeight,
+              html.scrollHeight,
+              html.offsetHeight
+            );
+            setIframeHeight(height + 16);
+          }
         } catch (err) {
           console.warn("Could not auto-adjust iframe height", err);
         }
