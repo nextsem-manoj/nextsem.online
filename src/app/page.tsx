@@ -62,6 +62,21 @@ export default function Home() {
     };
   }, []);
 
+  const handleStartLearning = () => {
+    if (typeof window !== "undefined") {
+      const docEl = document.documentElement;
+      try {
+        if (docEl.requestFullscreen) {
+          docEl.requestFullscreen().catch(() => {});
+        } else if ((docEl as any).webkitRequestFullscreen) {
+          (docEl as any).webkitRequestFullscreen();
+        }
+      } catch (err) {
+        console.warn("Fullscreen request blocked", err);
+      }
+    }
+  };
+
   return (
     <div 
       className="h-[100dvh] w-full bg-gray-50 dark:bg-[#060c18] text-gray-900 dark:text-gray-100 font-sans selection:bg-blue-200 relative overflow-hidden select-none"
@@ -96,33 +111,38 @@ export default function Home() {
       >
         
         {/* Slide 0: Hero */}
-        <div className="h-[100dvh] w-full shrink-0 flex items-center justify-center p-4">
-          <div className="flex flex-col items-center justify-center text-center py-10 px-4 w-full max-w-4xl bg-gradient-to-b from-blue-50 to-white dark:from-slate-800 dark:to-[#060c18] rounded-2xl border border-blue-100 dark:border-slate-800 shadow-sm transition-opacity duration-1000">
+        <div className="h-[100dvh] w-full shrink-0 flex items-center justify-center p-3 md:p-4">
+          <div className="flex flex-col items-center justify-center text-center py-6 px-3.5 md:py-10 md:px-4 w-full max-w-4xl bg-gradient-to-b from-blue-50 to-white dark:from-slate-800 dark:to-[#060c18] rounded-2xl border border-blue-100 dark:border-slate-800 shadow-sm transition-opacity duration-1000">
             
             {/* Introductory Badge with NS logo */}
-            <div className="flex items-center gap-2.5 px-4.5 py-2.5 rounded-full bg-emerald-500/5 dark:bg-[#0a1329] border border-emerald-500/15 dark:border-emerald-500/25 mb-8 text-sm md:text-base font-black text-slate-850 dark:text-slate-100 shadow-md">
-              <a href="https://bca-nextsem.web.app/book/p0-developer-setup" className="flex items-center gap-2.5 hover:opacity-90 transition-opacity">
-                <div className="bg-[#0a0f1c] rounded-md w-7.5 h-7.5 flex items-center justify-center border border-[#4ade80]/40 font-black text-xs text-[#4ade80] shadow-[0_0_8px_rgba(74,222,128,0.5)]">
+            <div className="flex items-center gap-2.5 px-3.5 py-1.5 md:px-4.5 md:py-2.5 rounded-full bg-emerald-500/5 dark:bg-[#0a1329] border border-emerald-500/15 dark:border-emerald-500/25 mb-4 md:mb-8 text-xs sm:text-sm md:text-base font-black text-slate-850 dark:text-slate-100 shadow-md">
+              <a href="https://bca-nextsem.web.app/book/p0-developer-setup" onClick={handleStartLearning} className="flex items-center gap-2 hover:opacity-90 transition-opacity">
+                <div className="bg-[#0a0f1c] rounded-md w-6.5 h-6.5 md:w-7.5 md:h-7.5 flex items-center justify-center border border-[#4ade80]/40 font-black text-[10px] md:text-xs text-[#4ade80] shadow-[0_0_8px_rgba(74,222,128,0.5)]">
                   NS
                 </div>
-                <span>Free Front End Developer Course by</span>
+                <span className="text-[10px] sm:text-xs md:text-sm font-bold text-slate-600 dark:text-slate-300">Free Front End Developer Course by</span>
               </a>
               <a 
                 href="https://bca-nextsem.web.app/book/p0-developer-setup" 
-                className="text-emerald-600 dark:text-[#4ade80] hover:text-emerald-500 dark:hover:text-[#6ee7b7] font-black underline decoration-2 decoration-emerald-500/30 hover:decoration-emerald-500 transition-all"
+                onClick={handleStartLearning}
+                className="text-emerald-600 dark:text-[#4ade80] hover:text-emerald-500 dark:hover:text-[#6ee7b7] font-black underline decoration-2 decoration-emerald-500/30 hover:decoration-emerald-500 transition-all text-[10px] sm:text-xs md:text-sm"
               >
                 Nextsem
               </a>
             </div>
 
-            <h2 className="text-4xl md:text-6xl font-black text-slate-900 dark:text-white mb-6 tracking-tight leading-tight">
+            <h2 className="text-xl sm:text-3xl md:text-6xl font-black text-slate-900 dark:text-white mb-3 md:mb-6 tracking-tight leading-tight">
               Start your journey to become a <br className="hidden md:block"/> 
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-green-500">Front End Developer</span>
             </h2>
-            <p className="text-gray-600 dark:text-gray-300 max-w-2xl text-base md:text-lg font-medium mb-10">
+            <p className="text-slate-500 dark:text-gray-300 max-w-2xl text-[10px] sm:text-sm md:text-lg font-medium mb-6 md:mb-10">
               Master the skills needed to build stunning web applications. From absolute beginner to job-ready developer, the JBRS Practical Series will guide you step-by-step through real-world projects.
             </p>
-            <a href="/book/p0-developer-setup" className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-xl py-4 px-10 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 flex items-center gap-3">
+            <a 
+              href="/book/p0-developer-setup" 
+              onClick={handleStartLearning}
+              className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-sm md:text-xl py-3 px-8 md:py-4 md:px-10 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 flex items-center gap-2"
+            >
               <span>🚀</span> Start Learning Now
             </a>
           </div>
@@ -169,6 +189,7 @@ export default function Home() {
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Link 
                     href={`/book/${phase.path}`} 
+                    onClick={handleStartLearning}
                     className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-slate-900 hover:bg-slate-800 dark:bg-white dark:hover:bg-gray-100 text-white dark:text-slate-900 font-bold text-lg py-4 px-8 rounded-xl shadow-lg transition-all transform hover:-translate-y-1"
                   >
                     <span>Explore Phase</span>
