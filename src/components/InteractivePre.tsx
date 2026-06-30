@@ -62,12 +62,12 @@ const InteractivePre = ({ children, ...props }: InteractivePreProps) => {
         <html>
           <head>
             <style>
-              body { font-family: system-ui, -apple-system, sans-serif; padding: 16px; background: white; color: black; }
+              body { font-family: system-ui, -apple-system, sans-serif; padding: 16px; background: #060c18; color: #f8fafc; }
               ${trimmed}
             </style>
           </head>
           <body>
-            <h3>CSS Styles Loaded</h3>
+            <h3 style="margin-top:0">CSS Styles Loaded</h3>
             <p>Modify elements or view styles in action.</p>
             <div class="box">Styled Box</div>
           </body>
@@ -82,12 +82,12 @@ const InteractivePre = ({ children, ...props }: InteractivePreProps) => {
         <html>
           <head>
             <style>
-              body { font-family: system-ui, -apple-system, sans-serif; padding: 16px; background: white; color: black; }
-              #console { background: #f4f4f5; border: 1px solid #e4e4e7; border-radius: 8px; padding: 12px; font-family: monospace; font-size: 13px; min-height: 80px; }
+              body { font-family: system-ui, -apple-system, sans-serif; padding: 16px; background: #060c18; color: #f8fafc; }
+              #console { background: #0b1329; border: 1px solid #1e293b; border-radius: 8px; padding: 12px; font-family: monospace; font-size: 13px; min-height: 80px; color: #38bdf8; }
             </style>
           </head>
           <body>
-            <h3>JavaScript Console Output:</h3>
+            <h3 style="margin-top:0">JavaScript Console Output:</h3>
             <div id="console"></div>
             <script>
               const con = document.getElementById('console');
@@ -97,7 +97,7 @@ const InteractivePre = ({ children, ...props }: InteractivePreProps) => {
               try {
                 ${trimmed}
               } catch(e) {
-                con.innerHTML += '<span style="color:red">Error: ' + e.message + '</span>';
+                con.innerHTML += '<span style="color:#ef4444">Error: ' + e.message + '</span>';
               }
             </script>
           </body>
@@ -116,8 +116,8 @@ const InteractivePre = ({ children, ...props }: InteractivePreProps) => {
               font-family: system-ui, -apple-system, sans-serif; 
               padding: 16px; 
               margin: 0;
-              background: white; 
-              color: black; 
+              background: #060c18; 
+              color: #f8fafc; 
             }
           </style>
         </head>
@@ -180,7 +180,7 @@ const InteractivePre = ({ children, ...props }: InteractivePreProps) => {
                 title="Code block live output playground"
                 srcDoc={getIframeSrcDoc()}
                 sandbox="allow-scripts"
-                className="w-full min-h-[160px] max-h-[400px] border border-gray-200/80 dark:border-slate-800/80 bg-white rounded-lg shadow-inner resize-y overflow-auto"
+                className="w-full min-h-[160px] max-h-[400px] border border-gray-200/80 dark:border-slate-800/80 bg-slate-950 rounded-lg shadow-inner resize-y overflow-auto"
               />
             </div>
           )}
