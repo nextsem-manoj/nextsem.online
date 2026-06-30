@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTheme } from "next-themes";
-import { Moon, Sun, Menu, X, Download, Users, User, RotateCw, Languages } from "lucide-react";
+import { Moon, Sun, Menu, X, Download, Users, User, RotateCw, Languages, HelpCircle } from "lucide-react";
 import { usePWA } from '../hooks/usePWA';
 import { LANGUAGES, changeLanguage } from './TranslateWidget';
 
@@ -162,6 +162,21 @@ const BottomNavigation = () => {
                   ))}
                 </div>
               </div>
+
+              {/* Restart Onboarding Tour */}
+              <button
+                onClick={() => {
+                  window.dispatchEvent(new CustomEvent('restart-tour'));
+                  setMenuOpen(false);
+                }}
+                className="flex items-center gap-4 p-3.5 bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/20 text-blue-600 dark:text-blue-400 rounded-xl font-bold transition-all text-left"
+              >
+                <HelpCircle size={20} />
+                <div>
+                  <span className="block text-sm">App Tour Tutorial</span>
+                  <span className="block text-[10px] text-gray-500 dark:text-gray-400 font-medium">Replay guided instructions on how to use the app</span>
+                </div>
+              </button>
 
               {/* Profile Placeholder */}
               <div className="flex items-center gap-4 p-3.5 bg-gray-100/50 dark:bg-slate-800/50 text-slate-500 dark:text-slate-400 rounded-xl font-bold opacity-60">

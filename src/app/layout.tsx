@@ -24,6 +24,7 @@ import BottomNavigation from "../components/BottomNavigation";
 import InstallBanner from "../components/InstallBanner";
 import TranslateWidget from "../components/TranslateWidget";
 import SearchWidget from "../components/SearchWidget";
+import OnboardingTour from "../components/OnboardingTour";
 
 export default function RootLayout({
   children,
@@ -48,6 +49,7 @@ export default function RootLayout({
             <InstallBanner />
             <TranslateWidget />
             <SearchWidget />
+            <OnboardingTour />
             <BottomNavigation />
           </ProgressProvider>
         </ThemeProvider>
