@@ -4,8 +4,9 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTheme } from "next-themes";
-import { Moon, Sun, Menu, X, Download, Users, User, RotateCw } from "lucide-react";
+import { Moon, Sun, Menu, X, Download, Users, User, RotateCw, Languages } from "lucide-react";
 import { usePWA } from '../hooks/usePWA';
+import { LANGUAGES, changeLanguage } from './TranslateWidget';
 
 const BottomNavigation = () => {
   const pathname = usePathname();
@@ -138,6 +139,29 @@ const BottomNavigation = () => {
                 </div>
                 <span className="text-xs text-emerald-600 dark:text-emerald-400 font-black">Go →</span>
               </a>
+
+              {/* Translate Option inside Menu */}
+              <div className="flex flex-col gap-2 p-3 bg-gray-100/50 dark:bg-slate-800/50 rounded-xl border border-gray-200/20 dark:border-slate-700/20">
+                <div className="flex items-center gap-4 text-slate-750 dark:text-slate-200 font-bold mb-1">
+                  <Languages size={20} className="text-blue-600 dark:text-blue-400 animate-pulse" />
+                  <span className="text-xs uppercase tracking-wider">Change Language</span>
+                </div>
+                <div className="grid grid-cols-3 gap-1.5">
+                  {LANGUAGES.map((lang) => (
+                    <button
+                      key={lang.code}
+                      onClick={() => {
+                        changeLanguage(lang.code);
+                        setMenuOpen(false);
+                      }}
+                      className="flex flex-col items-center justify-center p-2 rounded-lg bg-white dark:bg-slate-900 border border-gray-200/50 dark:border-slate-800/80 hover:border-blue-500/50 hover:bg-blue-50/10 dark:hover:bg-blue-950/20 transition-all active:scale-95"
+                    >
+                      <span className="text-base">{lang.flag}</span>
+                      <span className="text-[9px] font-black text-slate-650 dark:text-slate-350 mt-1 truncate w-full text-center">{lang.label.split(' ')[0]}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
 
               {/* Profile Placeholder */}
               <div className="flex items-center gap-4 p-3.5 bg-gray-100/50 dark:bg-slate-800/50 text-slate-500 dark:text-slate-400 rounded-xl font-bold opacity-60">
