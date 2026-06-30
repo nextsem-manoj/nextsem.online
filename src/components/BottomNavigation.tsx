@@ -180,8 +180,32 @@ const BottomNavigation = () => {
       )}
 
       {/* Main Bottom Navigation Bar */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white/90 dark:bg-slate-900/90 backdrop-blur-lg border-t border-gray-200 dark:border-slate-800 pb-safe z-50 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)]">
-        <div className="flex justify-around items-center h-16 max-w-lg mx-auto">
+      <div className="fixed bottom-4 left-1/2 -translate-x-1/2 w-[92%] max-w-md bg-white/80 dark:bg-slate-950/85 backdrop-blur-xl border border-gray-200/60 dark:border-slate-800/80 px-2 py-1.5 rounded-full shadow-[0_15px_35px_-5px_rgba(0,0,0,0.15)] dark:shadow-[0_15px_35px_-5px_rgba(0,0,0,0.5)] z-50 transition-all duration-300 hover:border-blue-500/30">
+        <div className="relative flex justify-around items-center h-12 w-full">
+          
+          {/* Sliding Active Background */}
+          {(() => {
+            const getActiveIndicatorIndex = () => {
+              if (menuOpen) return 3;
+              if (pathname === '/') return 0;
+              if (pathname?.startsWith('/book')) return 1;
+              return -1;
+            };
+            const activeIndicatorIdx = getActiveIndicatorIndex();
+            if (activeIndicatorIdx < 0) return null;
+            return (
+              <div 
+                className="absolute h-9 bg-gradient-to-r from-blue-500/10 to-indigo-500/10 dark:from-blue-400/10 dark:to-indigo-400/10 rounded-full transition-all duration-[300ms] ease-[cubic-bezier(0.25,1,0.5,1)] pointer-events-none"
+                style={{
+                  width: '21%',
+                  left: `${(activeIndicatorIdx * 25) + 2}%`,
+                  top: '50%',
+                  transform: 'translateY(-50%)'
+                }}
+              />
+            );
+          })()}
+
           {navItems.map((item, idx) => {
             const isActive = !item.isButton && (pathname === item.path || (item.path !== '/' && pathname?.startsWith(item.path)));
             
@@ -190,14 +214,14 @@ const BottomNavigation = () => {
                 <button
                   key={idx}
                   onClick={item.onClick}
-                  className={`flex flex-col items-center justify-center w-full h-full space-y-1 transition-colors ${
-                    menuOpen ? 'text-blue-600 dark:text-blue-400' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+                  className={`relative z-10 flex flex-col items-center justify-center w-full h-full space-y-0.5 transition-colors ${
+                    menuOpen ? 'text-blue-600 dark:text-blue-450' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
                   }`}
                 >
                   <div className={`transition-transform duration-200 hover:scale-110 ${menuOpen ? 'scale-110' : ''}`}>
                     {item.icon}
                   </div>
-                  <span className="text-[10px] font-bold tracking-wide">
+                  <span className="text-[9px] font-bold tracking-wide">
                     {item.label}
                   </span>
                 </button>
@@ -208,16 +232,16 @@ const BottomNavigation = () => {
               <Link 
                 key={idx} 
                 href={item.path}
-                className={`flex flex-col items-center justify-center w-full h-full space-y-1 transition-colors ${
+                className={`relative z-10 flex flex-col items-center justify-center w-full h-full space-y-0.5 transition-colors ${
                   isActive 
-                    ? 'text-blue-600 dark:text-blue-400' 
+                    ? 'text-blue-600 dark:text-blue-450' 
                     : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
                 }`}
               >
                 <div className={`transition-transform duration-200 ${isActive ? 'scale-110' : ''}`}>
                   {item.icon}
                 </div>
-                <span className="text-[10px] font-bold tracking-wide">
+                <span className="text-[9px] font-bold tracking-wide">
                   {item.label}
                 </span>
               </Link>

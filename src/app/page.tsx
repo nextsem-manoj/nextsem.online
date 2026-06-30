@@ -77,12 +77,34 @@ export default function Home() {
     }
   };
 
+  const getGlowClass = (index: number) => {
+    if (index === 0) return "from-blue-500/20 via-indigo-500/10 to-transparent";
+    if (index >= 1 && index <= coursePhases.length) {
+      const phase = coursePhases[index - 1];
+      const id = phase.id;
+      if (id.startsWith("P0")) return "from-blue-500/25 via-sky-500/10 to-transparent";
+      if (id.startsWith("P1")) return "from-violet-500/25 via-purple-500/10 to-transparent";
+      if (id.startsWith("P2")) return "from-pink-500/25 via-rose-500/10 to-transparent";
+      if (id.startsWith("P3")) return "from-amber-500/25 via-yellow-500/10 to-transparent";
+      if (id.startsWith("P4")) return "from-cyan-500/25 via-teal-500/10 to-transparent";
+      if (id.startsWith("P5")) return "from-emerald-500/25 via-teal-500/10 to-transparent";
+      if (id.startsWith("P6")) return "from-fuchsia-500/25 via-pink-500/10 to-transparent";
+      if (id.startsWith("P7")) return "from-purple-500/25 via-indigo-500/10 to-transparent";
+    }
+    return "from-slate-500/15 via-slate-600/10 to-transparent";
+  };
+
   return (
     <div 
-      className="h-[100dvh] w-full bg-gray-50 dark:bg-[#060c18] text-gray-900 dark:text-gray-100 font-sans selection:bg-blue-200 relative overflow-hidden select-none"
+      className="h-[100dvh] w-full bg-slate-50 dark:bg-[#060c18] text-gray-900 dark:text-gray-100 font-sans selection:bg-blue-200 relative overflow-hidden select-none transition-colors duration-1000"
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
+      {/* Dynamic Ambient Background Glows (Stationary for Parallax) */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <div className={`absolute -top-[20%] -left-[20%] w-[80vw] h-[80vw] md:w-[50vw] md:h-[50vw] rounded-full blur-[100px] md:blur-[150px] bg-gradient-to-br ${getGlowClass(activeIndex)} transition-all duration-[1000ms] ease-out animate-slow-rotate`} />
+        <div className={`absolute -bottom-[20%] -right-[20%] w-[80vw] h-[80vw] md:w-[50vw] md:h-[50vw] rounded-full blur-[100px] md:blur-[150px] bg-gradient-to-tl ${getGlowClass((activeIndex + 2) % totalSlides)} transition-all duration-[1000ms] ease-out opacity-80 animate-slow-rotate`} />
+      </div>
       
       {/* Navigation Dots */}
       <div className="absolute right-2 md:right-8 top-1/2 -translate-y-1/2 flex flex-col gap-3 z-50 bg-slate-900/40 dark:bg-black/40 backdrop-blur-md py-4 px-2.5 rounded-full border border-white/10 dark:border-slate-800/50 shadow-lg transition-all duration-300">
