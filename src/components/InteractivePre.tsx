@@ -75,9 +75,13 @@ const InteractivePre = ({ children, ...props }: InteractivePreProps) => {
       resolvedCode = getTextFromChildren(children);
     }
     
-    setCodeText(resolvedCode.trim());
-    setOriginalCode(resolvedCode.trim());
-  }, [children, codeElement]);
+    const trimmed = resolvedCode.trim();
+    // Only update state if the lesson source code has actually changed (e.g. navigation)
+    if (trimmed !== originalCode) {
+      setCodeText(trimmed);
+      setOriginalCode(trimmed);
+    }
+  }, [children, codeElement, originalCode]);
 
   // Determine if the snippet is runnable (HTML, CSS, JS)
   const isRunnable = 
@@ -255,7 +259,11 @@ const InteractivePre = ({ children, ...props }: InteractivePreProps) => {
       )}
 
       {/* Floating Action Bar - Available on ALL code blocks for editing */}
-      <div className="absolute top-2.5 right-2.5 flex items-center gap-1.5 opacity-0 group-hover/code:opacity-100 focus-within:opacity-100 transition-opacity z-10">
+      <div className={`absolute top-2.5 right-2.5 flex items-center gap-1.5 transition-opacity z-10 ${
+        isEditing 
+          ? "opacity-100" 
+          : "opacity-0 group-hover/code:opacity-100 focus-within:opacity-100"
+      }`}>
         {/* Edit / View Code Toggle Button */}
         <button
           onClick={() => setIsEditing(!isEditing)}
