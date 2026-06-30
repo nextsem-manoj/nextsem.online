@@ -183,12 +183,22 @@ const InteractivePre = ({ children, ...props }: InteractivePreProps) => {
             </style>
           </head>
           <body>
-            <div class="sandbox-wrapper" style="padding: 16px; border: 1px solid #1e293b; border-radius: 12px; background: #0b1329; margin-bottom: 16px;">
-              <h1 id="main-heading" style="font-size: 26px; font-weight: 900; color: #f8fafc; margin: 0 0 8px 0; transition: all 0.3s;">Demo Web Heading</h1>
-              <p id="sub-text" style="font-size: 14px; color: #94a3b8; margin: 0 0 16px 0;">This is a live sandbox mock document. Modify styling selectors or trigger events via JavaScript.</p>
-              <button id="submit-btn" class="button" style="padding: 10px 20px; background: #3b82f6; border: none; border-radius: 8px; color: white; font-weight: 700; cursor: pointer; transition: all 0.2s; outline: none;">Interact Button (#submit-btn)</button>
-              <div class="box" style="margin-top: 16px; padding: 20px; border: 2px dashed #334155; border-radius: 10px; text-align: center; color: #94a3b8; font-weight: 600;">
+            <div class="container grid-container sandbox-wrapper" style="padding: 16px; border: 1px solid #1e293b; border-radius: 12px; background: #0b1329; margin-bottom: 16px; transition: all 0.3s;">
+              <header id="main-header" style="transition: all 0.3s;">
+                <h1 id="main-heading" style="font-size: 26px; font-weight: 900; color: #f8fafc; margin: 0 0 8px 0; transition: all 0.3s;">Demo Web Heading</h1>
+                <p id="sub-text" class="highlight" style="font-size: 14px; color: #94a3b8; display: inline-block; padding: 4px 8px; border-radius: 6px; margin: 0 0 16px 0; transition: all 0.3s;">This paragraph has class <code>.highlight</code></p>
+              </header>
+              
+              <button id="submit-btn" class="button" style="padding: 10px 20px; background: #3b82f6; border: none; border-radius: 8px; color: white; font-weight: 700; cursor: pointer; transition: all 0.2s; outline: none;">Interact Button (.button)</button>
+              
+              <div class="box" style="margin-top: 16px; padding: 20px; border: 2px dashed #334155; border-radius: 10px; text-align: center; color: #94a3b8; font-weight: 600; transition: all 0.3s;">
                 Sandbox Block (.box)
+              </div>
+
+              <div style="margin-top: 16px; display: inherit; gap: inherit; grid-template-columns: inherit; flex-direction: inherit; justify-content: inherit; align-items: inherit;">
+                <div style="padding: 12px; background: #1e293b; border-radius: 8px; text-align: center; color: #f8fafc; font-weight: 700; border: 1px solid #334155;">Flex/Grid Item 1</div>
+                <div style="padding: 12px; background: #1e293b; border-radius: 8px; text-align: center; color: #f8fafc; font-weight: 700; border: 1px solid #334155;">Flex/Grid Item 2</div>
+                <div style="padding: 12px; background: #1e293b; border-radius: 8px; text-align: center; color: #f8fafc; font-weight: 700; border: 1px solid #334155;">Flex/Grid Item 3</div>
               </div>
             </div>
             
@@ -212,12 +222,22 @@ const InteractivePre = ({ children, ...props }: InteractivePreProps) => {
             </style>
           </head>
           <body>
-            <div class="sandbox-wrapper" style="padding: 16px; border: 1px solid #1e293b; border-radius: 12px; background: #0b1329; margin-bottom: 16px;">
-              <h1 id="main-heading" style="font-size: 26px; font-weight: 900; color: #f8fafc; margin: 0 0 8px 0; transition: all 0.3s;">Demo Web Heading</h1>
-              <p id="sub-text" style="font-size: 14px; color: #94a3b8; margin: 0 0 16px 0;">This is a live sandbox mock document. Modify styling selectors or trigger events via JavaScript.</p>
-              <button id="submit-btn" class="button" style="padding: 10px 20px; background: #3b82f6; border: none; border-radius: 8px; color: white; font-weight: 700; cursor: pointer; transition: all 0.2s; outline: none;">Interact Button (#submit-btn)</button>
-              <div class="box" style="margin-top: 16px; padding: 20px; border: 2px dashed #334155; border-radius: 10px; text-align: center; color: #94a3b8; font-weight: 600;">
+            <div class="container grid-container sandbox-wrapper" style="padding: 16px; border: 1px solid #1e293b; border-radius: 12px; background: #0b1329; margin-bottom: 16px; transition: all 0.3s;">
+              <header id="main-header" style="transition: all 0.3s;">
+                <h1 id="main-heading" style="font-size: 26px; font-weight: 900; color: #f8fafc; margin: 0 0 8px 0; transition: all 0.3s;">Demo Web Heading</h1>
+                <p id="sub-text" class="highlight" style="font-size: 14px; color: #94a3b8; display: inline-block; padding: 4px 8px; border-radius: 6px; margin: 0 0 16px 0; transition: all 0.3s;">This paragraph has class <code>.highlight</code></p>
+              </header>
+              
+              <button id="submit-btn" class="button" style="padding: 10px 20px; background: #3b82f6; border: none; border-radius: 8px; color: white; font-weight: 700; cursor: pointer; transition: all 0.2s; outline: none;">Interact Button (.button)</button>
+              
+              <div class="box" style="margin-top: 16px; padding: 20px; border: 2px dashed #334155; border-radius: 10px; text-align: center; color: #94a3b8; font-weight: 600; transition: all 0.3s;">
                 Sandbox Block (.box)
+              </div>
+
+              <div style="margin-top: 16px; display: inherit; gap: inherit; grid-template-columns: inherit; flex-direction: inherit; justify-content: inherit; align-items: inherit;">
+                <div style="padding: 12px; background: #1e293b; border-radius: 8px; text-align: center; color: #f8fafc; font-weight: 700; border: 1px solid #334155;">Flex/Grid Item 1</div>
+                <div style="padding: 12px; background: #1e293b; border-radius: 8px; text-align: center; color: #f8fafc; font-weight: 700; border: 1px solid #334155;">Flex/Grid Item 2</div>
+                <div style="padding: 12px; background: #1e293b; border-radius: 8px; text-align: center; color: #f8fafc; font-weight: 700; border: 1px solid #334155;">Flex/Grid Item 3</div>
               </div>
             </div>
             
