@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTheme } from "next-themes";
-import { Moon, Sun, Menu, X, Download, Users, User } from "lucide-react";
+import { Moon, Sun, Menu, X, Download, Users, User, RotateCw } from "lucide-react";
 import { usePWA } from '../hooks/usePWA';
 
 const BottomNavigation = () => {
@@ -17,6 +17,24 @@ const BottomNavigation = () => {
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  const handleRefresh = () => {
+    if (typeof window !== 'undefined') {
+      // Unregister service workers to clear cached PWA shells, then reload
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then((registrations) => {
+          for (let registration of registrations) {
+            registration.unregister();
+          }
+          window.location.reload();
+        }).catch(() => {
+          window.location.reload();
+        });
+      } else {
+        window.location.reload();
+      }
+    }
+  };
 
   const navItems = [
     {
@@ -38,6 +56,13 @@ const BottomNavigation = () => {
           <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
         </svg>
       )
+    },
+    {
+      label: 'Refresh',
+      path: '#',
+      isButton: true,
+      onClick: handleRefresh,
+      icon: <RotateCw size={20} className="transition-transform duration-500 hover:rotate-180" />
     },
     {
       label: 'Theme',
