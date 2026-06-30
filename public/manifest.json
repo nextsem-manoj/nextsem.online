@@ -1,6 +1,6 @@
 {
-  "name": "Nextsem JBRS Course",
-  "short_name": "JBRS Course",
+  "name": "frontend by Nextsem",
+  "short_name": "frontend by Nextsem",
   "description": "Start your journey to become a job-ready Front End Developer.",
   "start_url": "/",
   "display": "standalone",
@@ -9,7 +9,7 @@
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "/next.svg",
+      "src": "/logo.svg",
       "sizes": "512x512",
       "type": "image/svg+xml",
       "purpose": "any maskable"

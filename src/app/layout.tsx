@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Nextsem JBRS Course",
+  title: "frontend by Nextsem",
   description: "Start your journey to become a job-ready Front End Developer.",
   manifest: "/manifest.json",
 };
