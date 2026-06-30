@@ -29,6 +29,29 @@ const InteractivePre = ({ children, ...props }: InteractivePreProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const [codeText, setCodeText] = useState("");
   const [originalCode, setOriginalCode] = useState("");
+  const [iframeHeight, setIframeHeight] = useState(160);
+
+  const handleIframeLoad = (e: React.SyntheticEvent<HTMLIFrameElement>) => {
+    const iframe = e.currentTarget;
+    if (iframe && iframe.contentWindow) {
+      setTimeout(() => {
+        try {
+          const body = iframe.contentWindow.document.body;
+          const html = iframe.contentWindow.document.documentElement;
+          const height = Math.max(
+            body.scrollHeight,
+            body.offsetHeight,
+            html.clientHeight,
+            html.scrollHeight,
+            html.offsetHeight
+          );
+          setIframeHeight(height + 16);
+        } catch (err) {
+          console.warn("Could not auto-adjust iframe height", err);
+        }
+      }, 100);
+    }
+  };
 
   // Extract raw code string and language from children
   const childrenArray = React.Children.toArray(children);
@@ -130,13 +153,18 @@ const InteractivePre = ({ children, ...props }: InteractivePreProps) => {
             </style>
           </head>
           <body>
-            <h1 id="main-heading" style="font-size:24px; font-weight:bold; margin-bottom:8px;">Main Heading (#main-heading)</h1>
-            <button id="submit-btn" style="padding: 8px 16px; background: #3b82f6; border: none; border-radius: 6px; color: white; margin-bottom:12px;">Submit Button (#submit-btn)</button>
-            <div class="box" style="padding: 16px; border: 1px dashed #4b5563; border-radius: 8px; text-align: center; margin-bottom: 16px;">Demo Box (.box)</div>
+            <div class="sandbox-wrapper" style="padding: 16px; border: 1px solid #1e293b; border-radius: 12px; background: #0b1329; margin-bottom: 16px;">
+              <h1 id="main-heading" style="font-size: 26px; font-weight: 900; color: #f8fafc; margin: 0 0 8px 0; transition: all 0.3s;">Demo Web Heading</h1>
+              <p id="sub-text" style="font-size: 14px; color: #94a3b8; margin: 0 0 16px 0;">This is a live sandbox mock document. Modify styling selectors or trigger events via JavaScript.</p>
+              <button id="submit-btn" style="padding: 10px 20px; background: #3b82f6; border: none; border-radius: 8px; color: white; font-weight: 700; cursor: pointer; transition: all 0.2s; outline: none;">Interact Button (#submit-btn)</button>
+              <div class="box" style="margin-top: 16px; padding: 20px; border: 2px dashed #334155; border-radius: 10px; text-align: center; color: #94a3b8; font-weight: 600;">
+                Sandbox Block (.box)
+              </div>
+            </div>
             
             <hr style="border-color: #1e293b; margin: 16px 0;">
             <h3 style="margin-top:0">CSS Sandbox Output</h3>
-            <p>Style the elements above by targeting their tags or IDs in your CSS editor.</p>
+            <p style="font-size: 13px; color: #64748b;">Style the elements above by targeting tags (like <code>h1</code>, <code>button</code>) or classes (<code>.box</code>) in your CSS editor.</p>
           </body>
         </html>
       `;
@@ -150,16 +178,21 @@ const InteractivePre = ({ children, ...props }: InteractivePreProps) => {
           <head>
             ${globalStyles}
             <style>
-              #console { background: #0b1329; border: 1px solid #1e293b; border-radius: 8px; padding: 12px; font-family: monospace; font-size: 13px; min-height: 80px; color: #38bdf8; }
+              #console { background: #0b1329; border: 1px solid #1e293b; border-radius: 8px; padding: 12px; font-family: monospace; font-size: 13px; min-height: 50px; color: #38bdf8; overflow-x: auto; }
             </style>
           </head>
           <body>
-            <h1 id="main-heading" style="font-size:24px; font-weight:bold; margin-bottom:8px;">Main Heading (#main-heading)</h1>
-            <button id="submit-btn" style="padding: 8px 16px; background: #3b82f6; border: none; border-radius: 6px; color: white; cursor: pointer; margin-bottom:12px;">Submit Button (#submit-btn)</button>
-            <div class="box" style="padding: 16px; border: 1px dashed #4b5563; border-radius: 8px; text-align: center; margin-bottom: 16px;">Demo Box (.box)</div>
+            <div class="sandbox-wrapper" style="padding: 16px; border: 1px solid #1e293b; border-radius: 12px; background: #0b1329; margin-bottom: 16px;">
+              <h1 id="main-heading" style="font-size: 26px; font-weight: 900; color: #f8fafc; margin: 0 0 8px 0; transition: all 0.3s;">Demo Web Heading</h1>
+              <p id="sub-text" style="font-size: 14px; color: #94a3b8; margin: 0 0 16px 0;">This is a live sandbox mock document. Modify styling selectors or trigger events via JavaScript.</p>
+              <button id="submit-btn" style="padding: 10px 20px; background: #3b82f6; border: none; border-radius: 8px; color: white; font-weight: 700; cursor: pointer; transition: all 0.2s; outline: none;">Interact Button (#submit-btn)</button>
+              <div class="box" style="margin-top: 16px; padding: 20px; border: 2px dashed #334155; border-radius: 10px; text-align: center; color: #94a3b8; font-weight: 600;">
+                Sandbox Block (.box)
+              </div>
+            </div>
             
             <hr style="border-color: #1e293b; margin: 16px 0;">
-            <h3 style="margin-top:0">JavaScript Console Output:</h3>
+            <h3 style="margin-top:0; font-size: 14px; text-transform: uppercase; color: #64748b;">JavaScript Console Output:</h3>
             <div id="console"></div>
             <script>
               const con = document.getElementById('console');
@@ -292,7 +325,9 @@ const InteractivePre = ({ children, ...props }: InteractivePreProps) => {
                 title="Code block live output playground"
                 srcDoc={getIframeSrcDoc()}
                 sandbox="allow-scripts"
-                className="w-full min-h-[160px] max-h-[400px] border border-gray-200/80 dark:border-slate-800/80 bg-slate-950 rounded-lg shadow-inner resize-y overflow-auto"
+                onLoad={handleIframeLoad}
+                style={{ height: iframeHeight }}
+                className="w-full border border-gray-200/80 dark:border-slate-800/80 bg-slate-950 rounded-lg shadow-inner overflow-hidden transition-all duration-200"
               />
             </div>
           )}
