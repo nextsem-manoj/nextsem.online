@@ -8,6 +8,21 @@ interface InteractivePreProps {
   [key: string]: any;
 }
 
+// Recursive helper to safely extract text content from any React children structure
+const getTextFromChildren = (node: any): string => {
+  if (!node) return "";
+  if (typeof node === 'string' || typeof node === 'number') {
+    return String(node);
+  }
+  if (Array.isArray(node)) {
+    return node.map(getTextFromChildren).join("");
+  }
+  if (node.props && node.props.children !== undefined) {
+    return getTextFromChildren(node.props.children);
+  }
+  return "";
+};
+
 const InteractivePre = ({ children, ...props }: InteractivePreProps) => {
   const [isRunning, setIsRunning] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -20,23 +35,20 @@ const InteractivePre = ({ children, ...props }: InteractivePreProps) => {
   const codeElement = childrenArray[0] as any;
   
   let language = "";
-
   if (codeElement && codeElement.props) {
-    const raw = codeElement.props.children || "";
     const className = codeElement.props.className || "";
     language = className.replace("language-", "").toLowerCase();
-  } else if (typeof children === 'string') {
-    language = "";
   }
 
-  // Initialize codeText once component mounts and children are resolved
+  // Initialize codeText recursively once components mount or change
   useEffect(() => {
     let resolvedCode = "";
     if (codeElement && codeElement.props) {
-      resolvedCode = codeElement.props.children || "";
-    } else if (typeof children === 'string') {
-      resolvedCode = children;
+      resolvedCode = getTextFromChildren(codeElement.props.children);
+    } else {
+      resolvedCode = getTextFromChildren(children);
     }
+    
     setCodeText(resolvedCode.trim());
     setOriginalCode(resolvedCode.trim());
   }, [children, codeElement]);
@@ -47,6 +59,8 @@ const InteractivePre = ({ children, ...props }: InteractivePreProps) => {
     language === 'css' || 
     language === 'javascript' || 
     language === 'js' || 
+    language === 'jsx' ||
+    language === 'tsx' ||
     originalCode.trim().startsWith('<') ||
     originalCode.includes('function') ||
     originalCode.includes('const');
@@ -124,8 +138,8 @@ const InteractivePre = ({ children, ...props }: InteractivePreProps) => {
       `;
     }
 
-    // Wrap JS code blocks in script tags
-    if (language === 'javascript' || language === 'js') {
+    // Wrap JS/React code blocks in script tags
+    if (language === 'javascript' || language === 'js' || language === 'jsx' || language === 'tsx') {
       return `
         <!DOCTYPE html>
         <html>
@@ -154,7 +168,7 @@ const InteractivePre = ({ children, ...props }: InteractivePreProps) => {
       `;
     }
 
-    // Standard HTML snippets (inject standard Tailwind CSS CDN for rich looks if they use Tailwind in example code!)
+    // Standard HTML snippets
     return `
       <!DOCTYPE html>
       <html>
@@ -182,7 +196,6 @@ const InteractivePre = ({ children, ...props }: InteractivePreProps) => {
         />
       ) : (
         <pre {...props} className="overflow-x-auto rounded-xl border border-gray-200/50 dark:border-slate-800/80 shadow-sm relative">
-          {/* Render edited code text if edited, otherwise fallback to standard markdown children highlighting */}
           {codeText !== originalCode ? (
             <code className={codeElement?.props?.className || ""}>
               {codeText}
@@ -193,38 +206,38 @@ const InteractivePre = ({ children, ...props }: InteractivePreProps) => {
         </pre>
       )}
 
-      {/* Floating Action Bar */}
-      {isRunnable && (
-        <div className="absolute top-2.5 right-2.5 flex items-center gap-1.5 opacity-0 group-hover/code:opacity-100 focus-within:opacity-100 transition-opacity z-10">
-          {/* Edit / View Code Toggle Button */}
-          <button
-            onClick={() => setIsEditing(!isEditing)}
-            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-black bg-slate-800/90 hover:bg-slate-700/90 text-slate-200 border border-slate-700/50 shadow-sm transition-all active:scale-95"
-            title={isEditing ? "View rendered code format" : "Edit this code snippet"}
-          >
-            {isEditing ? (
-              <>
-                <Eye size={12} /> View Code
-              </>
-            ) : (
-              <>
-                <Edit2 size={12} /> Edit Code
-              </>
-            )}
-          </button>
-
-          {/* Reset Code Button (only shows when content differs from original) */}
-          {codeText !== originalCode && (
-            <button
-              onClick={handleReset}
-              className="flex items-center justify-center p-1.5 rounded-lg text-xs font-black bg-slate-800/90 hover:bg-slate-700/90 text-slate-200 border border-slate-700/50 shadow-sm transition-all active:scale-95"
-              title="Reset code to original version"
-            >
-              <RotateCcw size={12} />
-            </button>
+      {/* Floating Action Bar - Available on ALL code blocks for editing */}
+      <div className="absolute top-2.5 right-2.5 flex items-center gap-1.5 opacity-0 group-hover/code:opacity-100 focus-within:opacity-100 transition-opacity z-10">
+        {/* Edit / View Code Toggle Button */}
+        <button
+          onClick={() => setIsEditing(!isEditing)}
+          className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-black bg-slate-800/90 hover:bg-slate-700/90 text-slate-200 border border-slate-700/50 shadow-sm transition-all active:scale-95"
+          title={isEditing ? "View rendered code format" : "Edit this code snippet"}
+        >
+          {isEditing ? (
+            <>
+              <Eye size={12} /> View Code
+            </>
+          ) : (
+            <>
+              <Edit2 size={12} /> Edit Code
+            </>
           )}
+        </button>
 
-          {/* Run / Stop Code Button */}
+        {/* Reset Code Button (only shows when content differs from original) */}
+        {codeText !== originalCode && (
+          <button
+            onClick={handleReset}
+            className="flex items-center justify-center p-1.5 rounded-lg text-xs font-black bg-slate-800/90 hover:bg-slate-700/90 text-slate-200 border border-slate-700/50 shadow-sm transition-all active:scale-95"
+            title="Reset code to original version"
+          >
+            <RotateCcw size={12} />
+          </button>
+        )}
+
+        {/* Run / Stop Code Button - Runs only for runnable snippets */}
+        {isRunnable && (
           <button
             onClick={toggleRun}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-black shadow-sm transition-all active:scale-95 ${
@@ -243,8 +256,8 @@ const InteractivePre = ({ children, ...props }: InteractivePreProps) => {
               </>
             )}
           </button>
-        </div>
-      )}
+        )}
+      </div>
 
       {/* Collapsible Live Preview Window */}
       {isRunning && (
