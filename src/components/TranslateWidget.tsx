@@ -205,73 +205,44 @@ const TranslateWidget = () => {
     setDropdownOpen(false);
   };
 
-  const handleClose = () => {
-    setIsVisible(false);
-    localStorage.setItem('translate_banner_dismissed', 'true');
-  };
-
-  if (!isVisible) return <div id="google_translate_element" className="hidden" />;
-
-  const activeLanguage = LANGUAGES.find(l => l.code === currentLang) || LANGUAGES[0];
-
   return (
     <>
       <div id="google_translate_element" className="hidden" />
 
-      {/* Floating Top Banner */}
-      <div className="fixed top-4 left-1/2 -translate-x-1/2 z-[100] w-[92%] max-w-md bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border border-gray-200/50 dark:border-slate-800/80 px-4 py-2.5 rounded-full shadow-[0_10px_25px_-5px_rgba(0,0,0,0.1)] flex items-center justify-between gap-3 animate-in fade-in slide-in-from-top duration-300">
-        <div className="flex items-center gap-2">
-          <div className="p-1.5 bg-blue-500/10 dark:bg-blue-400/10 text-blue-600 dark:text-blue-400 rounded-full">
-            <Languages size={16} />
-          </div>
-          <span className="text-xs md:text-sm font-bold text-slate-700 dark:text-slate-200">
-            Translate page:
-          </span>
-        </div>
-
-        {/* Custom Dropdown */}
-        <div className="relative">
-          <button
-            onClick={() => setDropdownOpen(!dropdownOpen)}
-            className="flex items-center gap-1.5 px-3 py-1 bg-gray-100 dark:bg-slate-800 hover:bg-gray-200 dark:hover:bg-slate-700 border border-gray-200/60 dark:border-slate-700/60 rounded-full text-xs font-black text-slate-800 dark:text-slate-100 transition-all active:scale-95"
-          >
-            <span>{activeLanguage.flag}</span>
-            <span>{activeLanguage.label}</span>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className={`w-3 h-3 transition-transform ${dropdownOpen ? 'rotate-180' : ''}`}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-            </svg>
-          </button>
-
-          {dropdownOpen && (
-            <>
-              <div className="fixed inset-0 z-10" onClick={() => setDropdownOpen(false)} />
-              
-              <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 rounded-2xl shadow-xl py-2 z-20 animate-in fade-in slide-in-from-top-2 duration-150">
-                {LANGUAGES.map((lang) => (
-                  <button
-                    key={lang.code}
-                    onClick={() => handleSelectLanguage(lang.code)}
-                    className="flex items-center justify-between w-full text-left px-4 py-2 text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors"
-                  >
-                    <div className="flex items-center gap-2">
-                      <span>{lang.flag}</span>
-                      <span>{lang.label}</span>
-                    </div>
-                    {currentLang === lang.code && <Check size={14} className="text-emerald-500" />}
-                  </button>
-                ))}
-              </div>
-            </>
-          )}
-        </div>
-
+      {/* Floating Translate Widget */}
+      <div className="fixed top-4 right-18 z-40">
         <button
-          onClick={handleClose}
-          className="p-1 hover:bg-gray-100 dark:hover:bg-slate-800 text-gray-400 hover:text-gray-650 dark:hover:text-slate-200 rounded-full transition-colors"
-          aria-label="Dismiss translation banner"
+          onClick={() => setDropdownOpen(!dropdownOpen)}
+          className="w-11 h-11 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border border-gray-200/50 dark:border-slate-800/80 rounded-full flex items-center justify-center shadow-lg hover:scale-105 active:scale-95 transition-all text-slate-700 dark:text-slate-200"
+          aria-label="Translate page"
         >
-          <X size={16} />
+          <Languages size={20} />
         </button>
+
+        {dropdownOpen && (
+          <>
+            <div className="fixed inset-0 z-10" onClick={() => setDropdownOpen(false)} />
+            
+            <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-slate-950 border border-gray-200 dark:border-slate-800 rounded-2xl shadow-2xl py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
+              <div className="px-4 py-1.5 border-b border-gray-100 dark:border-slate-900 mb-1">
+                <span className="text-[10px] font-black uppercase tracking-wider text-slate-400 dark:text-slate-500">Translate Language</span>
+              </div>
+              {LANGUAGES.map((lang) => (
+                <button
+                  key={lang.code}
+                  onClick={() => handleSelectLanguage(lang.code)}
+                  className="flex items-center justify-between w-full text-left px-4 py-2.5 text-xs font-bold text-slate-750 dark:text-slate-200 hover:bg-gray-100 dark:hover:bg-slate-900 transition-colors"
+                >
+                  <div className="flex items-center gap-2">
+                    <span>{lang.flag}</span>
+                    <span>{lang.label}</span>
+                  </div>
+                  {currentLang === lang.code && <Check size={14} className="text-emerald-500" />}
+                </button>
+              ))}
+            </div>
+          </>
+        )}
       </div>
     </>
   );
