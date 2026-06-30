@@ -130,9 +130,13 @@ const InteractivePre = ({ children, ...props }: InteractivePreProps) => {
             </style>
           </head>
           <body>
-            <h3 style="margin-top:0">CSS Styles Loaded</h3>
-            <p>Modify elements or view styles in action.</p>
-            <div class="box">Styled Box</div>
+            <h1 id="main-heading" style="font-size:24px; font-weight:bold; margin-bottom:8px;">Main Heading (#main-heading)</h1>
+            <button id="submit-btn" style="padding: 8px 16px; background: #3b82f6; border: none; border-radius: 6px; color: white; margin-bottom:12px;">Submit Button (#submit-btn)</button>
+            <div class="box" style="padding: 16px; border: 1px dashed #4b5563; border-radius: 8px; text-align: center; margin-bottom: 16px;">Demo Box (.box)</div>
+            
+            <hr style="border-color: #1e293b; margin: 16px 0;">
+            <h3 style="margin-top:0">CSS Sandbox Output</h3>
+            <p>Style the elements above by targeting their tags or IDs in your CSS editor.</p>
           </body>
         </html>
       `;
@@ -150,12 +154,20 @@ const InteractivePre = ({ children, ...props }: InteractivePreProps) => {
             </style>
           </head>
           <body>
+            <h1 id="main-heading" style="font-size:24px; font-weight:bold; margin-bottom:8px;">Main Heading (#main-heading)</h1>
+            <button id="submit-btn" style="padding: 8px 16px; background: #3b82f6; border: none; border-radius: 6px; color: white; cursor: pointer; margin-bottom:12px;">Submit Button (#submit-btn)</button>
+            <div class="box" style="padding: 16px; border: 1px dashed #4b5563; border-radius: 8px; text-align: center; margin-bottom: 16px;">Demo Box (.box)</div>
+            
+            <hr style="border-color: #1e293b; margin: 16px 0;">
             <h3 style="margin-top:0">JavaScript Console Output:</h3>
             <div id="console"></div>
             <script>
               const con = document.getElementById('console');
               console.log = (...args) => {
                 con.innerHTML += args.map(a => typeof a === 'object' ? JSON.stringify(a) : a).join(' ') + '<br>';
+              };
+              window.alert = (msg) => {
+                con.innerHTML += '<span style="color:#10b981; font-weight:bold;">[Alert] ' + msg + '</span><br>';
               };
               try {
                 ${trimmed}
