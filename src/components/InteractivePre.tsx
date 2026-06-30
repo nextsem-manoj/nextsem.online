@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from 'react';
-import { Play, Square, ChevronDown, ChevronUp } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Play, Square, ChevronDown, ChevronUp, Edit2, RotateCcw, Eye } from 'lucide-react';
 
 interface InteractivePreProps {
   children: React.ReactNode;
@@ -11,21 +11,35 @@ interface InteractivePreProps {
 const InteractivePre = ({ children, ...props }: InteractivePreProps) => {
   const [isRunning, setIsRunning] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [codeText, setCodeText] = useState("");
+  const [originalCode, setOriginalCode] = useState("");
 
   // Extract raw code string and language from children
   const childrenArray = React.Children.toArray(children);
   const codeElement = childrenArray[0] as any;
   
-  let rawCode = "";
   let language = "";
 
   if (codeElement && codeElement.props) {
-    rawCode = codeElement.props.children || "";
+    const raw = codeElement.props.children || "";
     const className = codeElement.props.className || "";
     language = className.replace("language-", "").toLowerCase();
   } else if (typeof children === 'string') {
-    rawCode = children;
+    language = "";
   }
+
+  // Initialize codeText once component mounts and children are resolved
+  useEffect(() => {
+    let resolvedCode = "";
+    if (codeElement && codeElement.props) {
+      resolvedCode = codeElement.props.children || "";
+    } else if (typeof children === 'string') {
+      resolvedCode = children;
+    }
+    setCodeText(resolvedCode.trim());
+    setOriginalCode(resolvedCode.trim());
+  }, [children, codeElement]);
 
   // Determine if the snippet is runnable (HTML, CSS, JS)
   const isRunnable = 
@@ -33,9 +47,9 @@ const InteractivePre = ({ children, ...props }: InteractivePreProps) => {
     language === 'css' || 
     language === 'javascript' || 
     language === 'js' || 
-    rawCode.trim().startsWith('<') ||
-    rawCode.includes('function') ||
-    rawCode.includes('const');
+    originalCode.trim().startsWith('<') ||
+    originalCode.includes('function') ||
+    originalCode.includes('const');
 
   const toggleRun = () => {
     if (!isRunning) {
@@ -46,9 +60,13 @@ const InteractivePre = ({ children, ...props }: InteractivePreProps) => {
     }
   };
 
-  // Compile final iframe document
+  const handleReset = () => {
+    setCodeText(originalCode);
+  };
+
+  // Compile final iframe document based on the current edited codeText
   const getIframeSrcDoc = () => {
-    const trimmed = rawCode.trim();
+    const trimmed = codeText.trim();
     
     // If it's already a full HTML page
     if (trimmed.toLowerCase().includes('<html')) {
@@ -105,7 +123,7 @@ const InteractivePre = ({ children, ...props }: InteractivePreProps) => {
       `;
     }
 
-    // Standard HTML snippets (inject standard Tailwind CSS CDN for rich looks if they use Tailwind in example code!)
+    // Standard HTML snippets
     return `
       <!DOCTYPE html>
       <html>
@@ -130,14 +148,60 @@ const InteractivePre = ({ children, ...props }: InteractivePreProps) => {
 
   return (
     <div className="relative my-6 group/code">
-      {/* Code Block Container */}
-      <pre {...props} className="overflow-x-auto rounded-xl border border-gray-200/50 dark:border-slate-800/80 shadow-sm">
-        {children}
-      </pre>
+      {/* Code Block / Textarea Editor Container */}
+      {isEditing ? (
+        <textarea
+          value={codeText}
+          onChange={(e) => setCodeText(e.target.value)}
+          rows={Math.max(5, codeText.split('\n').length + 1)}
+          className="w-full font-mono text-xs md:text-sm p-4 bg-[#090f1e] text-slate-100 border border-blue-500/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 shadow-inner resize-y leading-relaxed"
+          placeholder="Edit code snippet..."
+        />
+      ) : (
+        <pre {...props} className="overflow-x-auto rounded-xl border border-gray-200/50 dark:border-slate-800/80 shadow-sm relative">
+          {/* Render edited code text if edited, otherwise fallback to standard markdown children highlighting */}
+          {codeText !== originalCode ? (
+            <code className={codeElement?.props?.className || ""}>
+              {codeText}
+            </code>
+          ) : (
+            children
+          )}
+        </pre>
+      )}
 
       {/* Floating Action Bar */}
       {isRunnable && (
-        <div className="absolute top-2 right-2 flex items-center gap-1.5 opacity-0 group-hover/code:opacity-100 focus-within:opacity-100 transition-opacity z-10">
+        <div className="absolute top-2.5 right-2.5 flex items-center gap-1.5 opacity-0 group-hover/code:opacity-100 focus-within:opacity-100 transition-opacity z-10">
+          {/* Edit / View Code Toggle Button */}
+          <button
+            onClick={() => setIsEditing(!isEditing)}
+            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-black bg-slate-800/90 hover:bg-slate-700/90 text-slate-200 border border-slate-700/50 shadow-sm transition-all active:scale-95"
+            title={isEditing ? "View rendered code format" : "Edit this code snippet"}
+          >
+            {isEditing ? (
+              <>
+                <Eye size={12} /> View Code
+              </>
+            ) : (
+              <>
+                <Edit2 size={12} /> Edit Code
+              </>
+            )}
+          </button>
+
+          {/* Reset Code Button (only shows when content differs from original) */}
+          {codeText !== originalCode && (
+            <button
+              onClick={handleReset}
+              className="flex items-center justify-center p-1.5 rounded-lg text-xs font-black bg-slate-800/90 hover:bg-slate-700/90 text-slate-200 border border-slate-700/50 shadow-sm transition-all active:scale-95"
+              title="Reset code to original version"
+            >
+              <RotateCcw size={12} />
+            </button>
+          )}
+
+          {/* Run / Stop Code Button */}
           <button
             onClick={toggleRun}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-black shadow-sm transition-all active:scale-95 ${
