@@ -21,7 +21,7 @@ export default async function ChapterPage({ params }: { params: Promise<{ chapte
   if (!fs.existsSync(filePath)) {
     // Return a beautiful placeholder if the chapter isn't written yet
     return (
-      <article className="prose prose-slate dark:prose-invert lg:prose-lg max-w-none">
+      <article className="prose prose-slate dark:prose-invert max-w-none">
         <h1>Chapter Not Found</h1>
         <p>
           The chapter <strong>{chapter}</strong> is currently being written by the instructor. 
@@ -37,7 +37,7 @@ export default async function ChapterPage({ params }: { params: Promise<{ chapte
 
   return (
     <div className="animate-in fade-in duration-500">
-      <article className="prose prose-slate dark:prose-invert prose-blue lg:prose-lg max-w-none">
+      <article className="prose prose-slate dark:prose-invert prose-blue max-w-none">
         {/* We use next-mdx-remote's RSC implementation to render the markdown securely */}
         <MDXRemote source={content} />
       </article>

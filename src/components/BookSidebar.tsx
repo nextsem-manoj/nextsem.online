@@ -3,7 +3,8 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, ChevronRight } from 'lucide-react';
+import { Menu, X, ChevronRight, Check } from 'lucide-react';
+import { useProgress } from '../context/ProgressContext';
 
 const chapters = [
   { id: 'p0-developer-setup', title: 'P0: Developer Setup' },
@@ -24,6 +25,7 @@ const chapters = [
 const BookSidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
+  const { completedChapters } = useProgress();
 
   const toggleSidebar = () => setIsOpen(!isOpen);
 
@@ -51,6 +53,7 @@ const BookSidebar = () => {
           <nav className="flex flex-col gap-1">
             {chapters.map((chapter) => {
               const isActive = pathname.includes(chapter.id);
+              const isCompleted = completedChapters[chapter.id];
               return (
                 <Link 
                   key={chapter.id}
@@ -63,7 +66,12 @@ const BookSidebar = () => {
                       : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-800'}
                   `}
                 >
-                  {chapter.title}
+                  <div className="flex items-center gap-2 max-w-[85%]">
+                    {isCompleted && (
+                      <Check size={14} className="text-emerald-500 dark:text-emerald-450 shrink-0 font-bold" />
+                    )}
+                    <span className="truncate">{chapter.title}</span>
+                  </div>
                   {isActive && <ChevronRight size={16} />}
                 </Link>
               );

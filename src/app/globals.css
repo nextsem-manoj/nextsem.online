@@ -116,3 +116,35 @@ body {
   border: none !important;
   box-shadow: none !important;
 }
+
+/* Soothing Sepia Reading Theme */
+.sepia-mode {
+  background-color: #f7f1e5 !important;
+  color: #433422 !important;
+  border-color: #e6dcc8 !important;
+}
+.sepia-mode .prose, .sepia-mode p, .sepia-mode li, .sepia-mode span {
+  color: #4e3a24 !important;
+}
+.sepia-mode h1, .sepia-mode h2, .sepia-mode h3, .sepia-mode h4, .sepia-mode strong {
+  color: #2b1f13 !important;
+}
+.sepia-mode code {
+  color: #a76d18 !important;
+  background-color: #efe7d5 !important;
+}
+.sepia-mode pre {
+  background-color: #ebdcb9 !important;
+  border-color: #d8c69d !important;
+}
+.sepia-mode pre code {
+  color: #2b1f13 !important;
+  background-color: transparent !important;
+}
+.sepia-mode a {
+  color: #b45309 !important;
+  text-decoration-color: rgba(180, 83, 9, 0.4) !important;
+}
+.sepia-mode a:hover {
+  color: #d97706 !important;
+}
