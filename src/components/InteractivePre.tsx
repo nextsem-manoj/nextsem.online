@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Play, Square, ChevronDown, ChevronUp, Edit2, RotateCcw, Eye } from 'lucide-react';
 
 interface InteractivePreProps {
@@ -30,17 +30,22 @@ const InteractivePre = ({ children, ...props }: InteractivePreProps) => {
   const [codeText, setCodeText] = useState("");
   const [originalCode, setOriginalCode] = useState("");
   const [iframeHeight, setIframeHeight] = useState(160);
-  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const [iframeElement, setIframeElement] = useState<HTMLIFrameElement | null>(null);
+
+  // Callback ref that saves the actual iframe DOM element in state when it mounts
+  const iframeRef = useCallback((node: HTMLIFrameElement | null) => {
+    if (node !== null) {
+      setIframeElement(node);
+    }
+  }, []);
 
   // Resize iframe automatically to fit content height with no vertical scrollbars
   useEffect(() => {
-    if (isRunning && isOpen && iframeRef.current) {
-      const iframe = iframeRef.current;
-      
+    if (isRunning && isOpen && iframeElement) {
       const resizeIframe = () => {
         try {
-          if (iframe.contentWindow) {
-            const win = iframe.contentWindow;
+          if (iframeElement.contentWindow) {
+            const win = iframeElement.contentWindow;
             const body = win.document.body;
             const html = win.document.documentElement;
             if (body && html) {
@@ -72,7 +77,7 @@ const InteractivePre = ({ children, ...props }: InteractivePreProps) => {
         clearTimeout(t2);
       };
     }
-  }, [codeText, isRunning, isOpen]);
+  }, [iframeElement, codeText, isRunning, isOpen]);
 
   // Extract raw code string and language from children
   const childrenArray = React.Children.toArray(children);
