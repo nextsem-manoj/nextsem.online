@@ -98,6 +98,23 @@ export default function Home() {
         {/* Slide 0: Hero */}
         <div className="h-[100dvh] w-full shrink-0 flex items-center justify-center p-4">
           <div className="flex flex-col items-center justify-center text-center py-10 px-4 w-full max-w-4xl bg-gradient-to-b from-blue-50 to-white dark:from-slate-800 dark:to-[#060c18] rounded-2xl border border-blue-100 dark:border-slate-800 shadow-sm transition-opacity duration-1000">
+            
+            {/* Introductory Badge with NS logo */}
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-100/50 dark:bg-slate-850 border border-blue-200/50 dark:border-slate-700/50 mb-6 text-xs md:text-sm font-semibold text-slate-600 dark:text-slate-350 shadow-sm">
+              <a href="https://bca-nextsem.web.app/book/p0-developer-setup" className="flex items-center gap-2 hover:opacity-85 transition-opacity">
+                <div className="bg-[#0a0f1c] rounded-md w-6 h-6 flex items-center justify-center border border-[#4ade80]/30 font-black text-[10px] text-[#4ade80] shadow-[0_0_5px_rgba(74,222,128,0.4)]">
+                  NS
+                </div>
+                <span>Free Front End Developer Course by</span>
+              </a>
+              <a 
+                href="https://bca-nextsem.web.app/book/p0-developer-setup" 
+                className="text-blue-600 dark:text-blue-400 hover:underline font-bold"
+              >
+                Nextsem
+              </a>
+            </div>
+
             <h2 className="text-4xl md:text-6xl font-black text-slate-900 dark:text-white mb-6 tracking-tight leading-tight">
               Start your journey to become a <br className="hidden md:block"/> 
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-green-500">Front End Developer</span>
