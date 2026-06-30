@@ -186,7 +186,7 @@ const BottomNavigation = () => {
           {/* Sliding Active Background */}
           {(() => {
             const getActiveIndicatorIndex = () => {
-              if (menuOpen) return 3;
+              if (menuOpen) return 4;
               if (pathname === '/') return 0;
               if (pathname?.startsWith('/book')) return 1;
               return -1;
@@ -197,10 +197,10 @@ const BottomNavigation = () => {
               <div 
                 className="absolute h-9 bg-gradient-to-r from-blue-500/10 to-indigo-500/10 dark:from-blue-400/10 dark:to-indigo-400/10 rounded-full transition-all duration-[300ms] ease-[cubic-bezier(0.25,1,0.5,1)] pointer-events-none"
                 style={{
-                  width: '21%',
-                  left: `${(activeIndicatorIdx * 25) + 2}%`,
+                  width: '17%',
+                  left: `${(activeIndicatorIdx * 20) + 1.5}%`,
                   top: '50%',
-                  transform: 'translateY(-50%)'
+                  transform: 'translateY(-55%)'
                 }}
               />
             );
