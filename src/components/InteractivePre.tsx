@@ -351,10 +351,10 @@ const InteractivePre = ({ children, ...props }: InteractivePreProps) => {
           {isOpen && (
             <div className="p-3 bg-gray-50 dark:bg-slate-950">
               <iframe
+                ref={iframeRef}
                 title="Code block live output playground"
                 srcDoc={getIframeSrcDoc()}
                 sandbox="allow-scripts"
-                onLoad={handleIframeLoad}
                 style={{ height: iframeHeight }}
                 className="w-full border border-gray-200/80 dark:border-slate-800/80 bg-slate-950 rounded-lg shadow-inner overflow-hidden transition-all duration-200"
               />
