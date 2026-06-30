@@ -68,9 +68,40 @@ const InteractivePre = ({ children, ...props }: InteractivePreProps) => {
   const getIframeSrcDoc = () => {
     const trimmed = codeText.trim();
     
+    const globalStyles = `
+      <style>
+        body { 
+          font-family: system-ui, -apple-system, sans-serif; 
+          padding: 16px; 
+          margin: 0;
+          background: #060c18 !important; 
+          color: #f8fafc !important; 
+        }
+        h1, h2, h3, h4, h5, h6, p, span, li, label, td, th {
+          color: #f8fafc !important;
+        }
+        /* Style images beautifully */
+        img {
+          max-width: 100%;
+          height: auto;
+          border-radius: 8px;
+        }
+      </style>
+      <script>
+        document.addEventListener('error', function(e) {
+          if (e.target.tagName === 'IMG') {
+            e.target.src = 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400';
+          }
+        }, true);
+      </script>
+    `;
+
     // If it's already a full HTML page
     if (trimmed.toLowerCase().includes('<html')) {
-      return trimmed;
+      if (trimmed.toLowerCase().includes('</head>')) {
+        return trimmed.replace(/<\/head>/i, `${globalStyles}</head>`);
+      }
+      return trimmed + globalStyles;
     }
 
     // Wrap CSS code blocks in style tags
@@ -79,8 +110,8 @@ const InteractivePre = ({ children, ...props }: InteractivePreProps) => {
         <!DOCTYPE html>
         <html>
           <head>
+            ${globalStyles}
             <style>
-              body { font-family: system-ui, -apple-system, sans-serif; padding: 16px; background: #060c18; color: #f8fafc; }
               ${trimmed}
             </style>
           </head>
@@ -99,8 +130,8 @@ const InteractivePre = ({ children, ...props }: InteractivePreProps) => {
         <!DOCTYPE html>
         <html>
           <head>
+            ${globalStyles}
             <style>
-              body { font-family: system-ui, -apple-system, sans-serif; padding: 16px; background: #060c18; color: #f8fafc; }
               #console { background: #0b1329; border: 1px solid #1e293b; border-radius: 8px; padding: 12px; font-family: monospace; font-size: 13px; min-height: 80px; color: #38bdf8; }
             </style>
           </head>
@@ -123,21 +154,13 @@ const InteractivePre = ({ children, ...props }: InteractivePreProps) => {
       `;
     }
 
-    // Standard HTML snippets
+    // Standard HTML snippets (inject standard Tailwind CSS CDN for rich looks if they use Tailwind in example code!)
     return `
       <!DOCTYPE html>
       <html>
         <head>
           <script src="https://cdn.tailwindcss.com"></script>
-          <style>
-            body { 
-              font-family: system-ui, -apple-system, sans-serif; 
-              padding: 16px; 
-              margin: 0;
-              background: #060c18; 
-              color: #f8fafc; 
-            }
-          </style>
+          ${globalStyles}
         </head>
         <body>
           ${trimmed}
