@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Play, Square, ChevronDown, ChevronUp, Edit2, RotateCcw, Eye } from 'lucide-react';
 
 interface InteractivePreProps {
@@ -30,31 +30,49 @@ const InteractivePre = ({ children, ...props }: InteractivePreProps) => {
   const [codeText, setCodeText] = useState("");
   const [originalCode, setOriginalCode] = useState("");
   const [iframeHeight, setIframeHeight] = useState(160);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
 
-  const handleIframeLoad = (e: React.SyntheticEvent<HTMLIFrameElement>) => {
-    const iframe = e.currentTarget;
-    if (iframe && iframe.contentWindow) {
-      const win = iframe.contentWindow;
-      setTimeout(() => {
+  // Resize iframe automatically to fit content height with no vertical scrollbars
+  useEffect(() => {
+    if (isRunning && isOpen && iframeRef.current) {
+      const iframe = iframeRef.current;
+      
+      const resizeIframe = () => {
         try {
-          const body = win.document.body;
-          const html = win.document.documentElement;
-          if (body && html) {
-            const height = Math.max(
-              body.scrollHeight,
-              body.offsetHeight,
-              html.clientHeight,
-              html.scrollHeight,
-              html.offsetHeight
-            );
-            setIframeHeight(height + 16);
+          if (iframe.contentWindow) {
+            const win = iframe.contentWindow;
+            const body = win.document.body;
+            const html = win.document.documentElement;
+            if (body && html) {
+              const height = Math.max(
+                body.scrollHeight,
+                body.offsetHeight,
+                html.clientHeight,
+                html.scrollHeight,
+                html.offsetHeight
+              );
+              // Set height with extra breathing room to prevent scrollbars from appearing
+              setIframeHeight(height + 24);
+            }
           }
         } catch (err) {
-          console.warn("Could not auto-adjust iframe height", err);
+          // Ignore cross-origin error contexts
         }
-      }, 100);
+      };
+
+      // Perform initial layout calculations
+      resizeIframe();
+
+      // Trigger deferred recalculations to allow scripts/fonts/Tailwind to complete rendering
+      const t1 = setTimeout(resizeIframe, 150);
+      const t2 = setTimeout(resizeIframe, 400);
+
+      return () => {
+        clearTimeout(t1);
+        clearTimeout(t2);
+      };
     }
-  };
+  }, [codeText, isRunning, isOpen]);
 
   // Extract raw code string and language from children
   const childrenArray = React.Children.toArray(children);
@@ -163,7 +181,7 @@ const InteractivePre = ({ children, ...props }: InteractivePreProps) => {
             <div class="sandbox-wrapper" style="padding: 16px; border: 1px solid #1e293b; border-radius: 12px; background: #0b1329; margin-bottom: 16px;">
               <h1 id="main-heading" style="font-size: 26px; font-weight: 900; color: #f8fafc; margin: 0 0 8px 0; transition: all 0.3s;">Demo Web Heading</h1>
               <p id="sub-text" style="font-size: 14px; color: #94a3b8; margin: 0 0 16px 0;">This is a live sandbox mock document. Modify styling selectors or trigger events via JavaScript.</p>
-              <button id="submit-btn" style="padding: 10px 20px; background: #3b82f6; border: none; border-radius: 8px; color: white; font-weight: 700; cursor: pointer; transition: all 0.2s; outline: none;">Interact Button (#submit-btn)</button>
+              <button id="submit-btn" class="button" style="padding: 10px 20px; background: #3b82f6; border: none; border-radius: 8px; color: white; font-weight: 700; cursor: pointer; transition: all 0.2s; outline: none;">Interact Button (#submit-btn)</button>
               <div class="box" style="margin-top: 16px; padding: 20px; border: 2px dashed #334155; border-radius: 10px; text-align: center; color: #94a3b8; font-weight: 600;">
                 Sandbox Block (.box)
               </div>
@@ -192,7 +210,7 @@ const InteractivePre = ({ children, ...props }: InteractivePreProps) => {
             <div class="sandbox-wrapper" style="padding: 16px; border: 1px solid #1e293b; border-radius: 12px; background: #0b1329; margin-bottom: 16px;">
               <h1 id="main-heading" style="font-size: 26px; font-weight: 900; color: #f8fafc; margin: 0 0 8px 0; transition: all 0.3s;">Demo Web Heading</h1>
               <p id="sub-text" style="font-size: 14px; color: #94a3b8; margin: 0 0 16px 0;">This is a live sandbox mock document. Modify styling selectors or trigger events via JavaScript.</p>
-              <button id="submit-btn" style="padding: 10px 20px; background: #3b82f6; border: none; border-radius: 8px; color: white; font-weight: 700; cursor: pointer; transition: all 0.2s; outline: none;">Interact Button (#submit-btn)</button>
+              <button id="submit-btn" class="button" style="padding: 10px 20px; background: #3b82f6; border: none; border-radius: 8px; color: white; font-weight: 700; cursor: pointer; transition: all 0.2s; outline: none;">Interact Button (#submit-btn)</button>
               <div class="box" style="margin-top: 16px; padding: 20px; border: 2px dashed #334155; border-radius: 10px; text-align: center; color: #94a3b8; font-weight: 600;">
                 Sandbox Block (.box)
               </div>
