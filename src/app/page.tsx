@@ -137,17 +137,17 @@ export default function Home() {
           <div className="flex flex-col items-center justify-center text-center py-6 px-3.5 md:py-10 md:px-4 w-full max-w-4xl bg-gradient-to-b from-blue-50 to-white dark:from-slate-800 dark:to-[#060c18] rounded-2xl border border-blue-100 dark:border-slate-800 shadow-sm transition-opacity duration-1000">
             
             {/* Introductory Badge with NS logo */}
-            <div className="flex items-center gap-2.5 px-3.5 py-1.5 md:px-4.5 md:py-2.5 rounded-full bg-emerald-500/5 dark:bg-[#0a1329] border border-emerald-500/15 dark:border-emerald-500/25 mb-4 md:mb-8 text-xs sm:text-sm md:text-base font-black text-slate-850 dark:text-slate-100 shadow-md">
+            <div className="flex items-center gap-2.5 px-3.5 py-1.5 md:px-4.5 md:py-2.5 rounded-full bg-[#020713]/90 border border-[#0f533a]/65 dark:border-emerald-500/20 mb-4 md:mb-8 text-xs sm:text-sm md:text-base shadow-[0_0_15px_rgba(16,185,129,0.12)]">
               <a href="https://bca-nextsem.web.app/book/p0-developer-setup" onClick={handleStartLearning} className="flex items-center gap-2 hover:opacity-90 transition-opacity">
-                <div className="bg-[#0a0f1c] rounded-md w-6.5 h-6.5 md:w-7.5 md:h-7.5 flex items-center justify-center border border-[#4ade80]/40 font-black text-[10px] md:text-xs text-[#4ade80] shadow-[0_0_8px_rgba(74,222,128,0.5)]">
+                <div className="bg-black rounded-lg w-6.5 h-6.5 md:w-7.5 md:h-7.5 flex items-center justify-center border border-[#4ade80]/50 font-black text-[10px] md:text-xs text-[#4ade80] shadow-[0_0_10px_rgba(74,222,128,0.4)]">
                   NS
                 </div>
-                <span className="text-[10px] sm:text-xs md:text-sm font-bold text-slate-600 dark:text-slate-300">Free Front End Developer Course by</span>
+                <span className="text-[10px] sm:text-xs md:text-sm font-bold text-slate-100 dark:text-white">Free Front End Developer Course by</span>
               </a>
               <a 
                 href="https://bca-nextsem.web.app/book/p0-developer-setup" 
                 onClick={handleStartLearning}
-                className="text-emerald-600 dark:text-[#4ade80] hover:text-emerald-500 dark:hover:text-[#6ee7b7] font-black underline decoration-2 decoration-emerald-500/30 hover:decoration-emerald-500 transition-all text-[10px] sm:text-xs md:text-sm"
+                className="text-[#4ade80] dark:text-[#4ade80] hover:text-emerald-400 font-black underline decoration-2 decoration-[#4ade80]/40 hover:decoration-[#4ade80] transition-all text-[10px] sm:text-xs md:text-sm"
               >
                 Nextsem
               </a>
