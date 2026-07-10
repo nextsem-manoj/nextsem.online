@@ -9,7 +9,116 @@ import {
   getTotalXP,
   type DesktopSimulatorStep,
 } from "../../data/desktopSimulatorSteps";
-import { Heart, Star, Lightbulb, CheckCircle2, AlertCircle, X, ChevronRight, Trophy, Search } from "lucide-react";
+import { Heart, Star, Lightbulb, CheckCircle2, AlertCircle, X, ChevronRight, Trophy, Search, ImageIcon } from "lucide-react";
+
+// ─── Wallpapers ──────────────────────────────────────────────────────────────
+interface Wallpaper {
+  id: string;
+  name: string;
+  era: string;
+  emoji: string;
+  style: React.CSSProperties;
+}
+
+const WALLPAPERS: Wallpaper[] = [
+  {
+    id: "xp-bliss",
+    name: "Bliss",
+    era: "Windows XP",
+    emoji: "🌄",
+    style: {
+      background: "linear-gradient(180deg, #4da6ff 0%, #87ceeb 35%, #6ab04c 35%, #4a8c2a 55%, #3d7a20 100%)",
+    },
+  },
+  {
+    id: "vista-aurora",
+    name: "Aurora",
+    era: "Windows Vista",
+    emoji: "🌌",
+    style: {
+      background: "radial-gradient(ellipse at 50% 80%, #1a0533 0%, #0d1b4b 30%, #071230 60%, #020812 100%)",
+      backgroundImage: "radial-gradient(ellipse at 50% 80%, #1a0533 0%, #0d1b4b 30%, #071230 60%, #020812 100%), radial-gradient(ellipse at 70% 60%, rgba(100,0,180,0.4) 0%, transparent 60%), radial-gradient(ellipse at 30% 70%, rgba(0,80,160,0.5) 0%, transparent 50%)",
+    },
+  },
+  {
+    id: "win7-harmony",
+    name: "Harmony",
+    era: "Windows 7",
+    emoji: "🎨",
+    style: {
+      background: "linear-gradient(135deg, #1a1a2e 0%, #16213e 25%, #0f3460 50%, #533483 75%, #e94560 100%)",
+    },
+  },
+  {
+    id: "win7-fish",
+    name: "Underwater",
+    era: "Windows 7",
+    emoji: "🐟",
+    style: {
+      background: "radial-gradient(ellipse at 50% 0%, #004466 0%, #002244 40%, #001122 100%)",
+      backgroundImage: "radial-gradient(ellipse at 50% 0%, #005577 0%, #002244 40%, #001122 100%), radial-gradient(circle at 30% 40%, rgba(0,150,255,0.2) 0%, transparent 40%), radial-gradient(circle at 70% 60%, rgba(0,100,200,0.15) 0%, transparent 35%)",
+    },
+  },
+  {
+    id: "win8-hero",
+    name: "Ribbons",
+    era: "Windows 8",
+    emoji: "🎀",
+    style: {
+      background: "linear-gradient(160deg, #00b4d8 0%, #0077b6 20%, #023e8a 40%, #6a00f4 60%, #b5179e 80%, #f72585 100%)",
+    },
+  },
+  {
+    id: "win10-hero",
+    name: "Hero",
+    era: "Windows 10",
+    emoji: "💎",
+    style: {
+      background: "linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%)",
+      backgroundImage: "linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%), radial-gradient(ellipse at 60% 40%, rgba(0,120,255,0.3) 0%, transparent 50%)",
+    },
+  },
+  {
+    id: "win10-spotlight",
+    name: "Spotlight",
+    era: "Windows 10",
+    emoji: "🌠",
+    style: {
+      background: "radial-gradient(ellipse at 70% 30%, #1a3a5c 0%, #0a1628 40%, #050d1a 100%)",
+      backgroundImage: "radial-gradient(ellipse at 70% 30%, #1e4a7a 0%, #0a1628 40%, #050d1a 100%), radial-gradient(ellipse at 20% 80%, rgba(255,200,0,0.08) 0%, transparent 40%)",
+    },
+  },
+  {
+    id: "win11-bloom",
+    name: "Bloom",
+    era: "Windows 11",
+    emoji: "🌸",
+    style: {
+      background: "radial-gradient(ellipse at 50% 50%, #6b2fa0 0%, #2d1b6b 30%, #0d0d2b 70%, #050510 100%)",
+      backgroundImage: "radial-gradient(ellipse at 50% 50%, #7b3fb5 0%, #2d1b6b 30%, #0d0d2b 70%, #050510 100%), radial-gradient(ellipse at 60% 40%, rgba(200,50,200,0.2) 0%, transparent 40%), radial-gradient(ellipse at 40% 60%, rgba(100,0,255,0.15) 0%, transparent 35%)",
+    },
+  },
+  {
+    id: "win95-teal",
+    name: "Classic Teal",
+    era: "Windows 95/98",
+    emoji: "🖥️",
+    style: {
+      background: "#008080",
+    },
+  },
+  {
+    id: "nextsem-os",
+    name: "Nextsem OS",
+    era: "Custom",
+    emoji: "🚀",
+    style: {
+      background: "radial-gradient(ellipse at 30% 20%, #0d2240 0%, #030b18 50%, #010a14 100%)",
+    },
+  },
+];
+
+const wallpaperKey = (e: string) => `nextsem_desktop_wallpaper_${e}`;
 
 // ─── Constants ──────────────────────────────────────────────────────────────
 const MAX_HEARTS   = 5;
@@ -150,12 +259,14 @@ export default function SimulatorPage() {
   const [mcqAnswer,       setMCQAnswer]       = useState<{ selected: string | null; submitted: boolean }>({ selected: null, submitted: false });
 
   // Desktop UI state
-  const [startOpen,    setStartOpen]    = useState(false);
-  const [ctxMenu,      setCtxMenu]      = useState<{ x: number; y: number; items: string[]; targetId?: string } | null>(null);
-  const [openWindows,  setOpenWindows]  = useState<OpenWindow[]>([]);
-  const [time,         setTime]         = useState("");
-  const [date,         setDate]         = useState("");
-  const [searchQuery,  setSearchQuery]  = useState("");
+  const [startOpen,       setStartOpen]       = useState(false);
+  const [ctxMenu,         setCtxMenu]         = useState<{ x: number; y: number; items: string[]; targetId?: string } | null>(null);
+  const [openWindows,     setOpenWindows]     = useState<OpenWindow[]>([]);
+  const [time,            setTime]            = useState("");
+  const [date,            setDate]            = useState("");
+  const [searchQuery,     setSearchQuery]     = useState("");
+  const [wallpaperId,     setWallpaperId]     = useState("nextsem-os");
+  const [showWallpapers,  setShowWallpapers]  = useState(false);
 
   const feedbackTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const step: DesktopSimulatorStep = desktopSimulatorSteps[currentStepIdx];
@@ -184,6 +295,9 @@ export default function SimulatorPage() {
       if (next >= 0) setCurrentStepIdx(next);
     }
     if (savedHrts) setHearts(Math.max(0, parseInt(savedHrts, 10)));
+    // Load saved wallpaper
+    const savedWp = localStorage.getItem(wallpaperKey(userEmail));
+    if (savedWp) setWallpaperId(savedWp);
   }, [userEmail]);
 
   // Clock
@@ -200,10 +314,17 @@ export default function SimulatorPage() {
 
   // Close menus on click outside
   useEffect(() => {
-    const close = () => { setCtxMenu(null); setStartOpen(false); };
+    const close = () => { setCtxMenu(null); setStartOpen(false); setShowWallpapers(false); };
     document.addEventListener("click", close);
     return () => document.removeEventListener("click", close);
   }, []);
+
+  // Change wallpaper
+  const changeWallpaper = useCallback((id: string) => {
+    setWallpaperId(id);
+    if (userEmail) localStorage.setItem(wallpaperKey(userEmail), id);
+    setShowWallpapers(false);
+  }, [userEmail]);
 
   // Save progress
   const saveProgress = useCallback((ids: string[], h: number) => {
@@ -314,7 +435,11 @@ export default function SimulatorPage() {
 
   const handleDesktopRightClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    setCtxMenu({ x: e.clientX, y: e.clientY, items: ["View", "Sort by", "Refresh", "---", "New", "---", "Display settings", "Personalise"] });
+    setCtxMenu({
+      x: e.clientX,
+      y: e.clientY,
+      items: ["View", "Sort by", "Refresh", "---", "New", "---", "🖼️ Change Wallpaper", "---", "Display settings", "Personalise"],
+    });
     validateAction("right-click");
   };
 
@@ -406,13 +531,13 @@ export default function SimulatorPage() {
   const targetIconId = step?.targetElement?.replace("#", "");
 
   // ─── Full Desktop Render ───────────────────────────────────────────────────
+    const activeWp = WALLPAPERS.find((w) => w.id === wallpaperId) ?? WALLPAPERS[WALLPAPERS.length - 1];
+
   return (
     <div
       id="desktop-bg"
-      className="fixed inset-0 overflow-hidden select-none outline-none"
-      style={{
-        background: "radial-gradient(ellipse at 30% 20%, #0d2240 0%, #030b18 50%, #010a14 100%)",
-      }}
+      className="fixed inset-0 overflow-hidden select-none outline-none transition-all duration-700"
+      style={activeWp.style}
       onClick={handleDesktopClick}
       onContextMenu={handleDesktopRightClick}
       onKeyDown={handleKeyDown}
@@ -657,6 +782,16 @@ export default function SimulatorPage() {
 
         {/* System tray */}
         <div className="flex items-center gap-2 text-slate-400 text-[10px] font-mono pr-1">
+          {/* Wallpaper button */}
+          <button
+            title="Change Wallpaper"
+            onClick={(e) => { e.stopPropagation(); setShowWallpapers((v) => !v); }}
+            className={`w-7 h-7 rounded-lg flex items-center justify-center transition-all hover:bg-white/10
+              ${showWallpapers ? "bg-white/15 text-purple-300" : "text-slate-500 hover:text-slate-300"}`}
+          >
+            <ImageIcon size={14} />
+          </button>
+          <div className="h-3 w-px bg-white/10" />
           <span>📶</span>
           <span>🔋</span>
           <div className="h-3 w-px bg-white/10 mx-1" />
@@ -688,7 +823,33 @@ export default function SimulatorPage() {
           CONTEXT MENU
       ───────────────────────────────────────────────────── */}
       {ctxMenu && (
-        <CtxMenu x={ctxMenu.x} y={ctxMenu.y} items={ctxMenu.items} onClose={() => setCtxMenu(null)} />
+        <div
+          className="fixed z-[999] bg-[#1e2d3d]/95 backdrop-blur border border-white/10 rounded-xl shadow-2xl py-1 min-w-[180px] text-xs"
+          style={{ left: ctxMenu.x, top: ctxMenu.y }}
+          onClick={(e) => e.stopPropagation()}
+          onContextMenu={(e) => e.preventDefault()}
+        >
+          {ctxMenu.items.map((item, i) =>
+            item === "---" ? (
+              <div key={i} className="border-t border-white/10 my-1" />
+            ) : (
+              <button
+                key={item}
+                onClick={() => {
+                  if (item.includes("Change Wallpaper")) {
+                    setCtxMenu(null);
+                    setShowWallpapers(true);
+                  } else {
+                    setCtxMenu(null);
+                  }
+                }}
+                className="w-full text-left px-4 py-2 text-slate-300 hover:bg-blue-600/40 hover:text-white transition-colors"
+              >
+                {item}
+              </button>
+            )
+          )}
+        </div>
       )}
 
       {/* ─────────────────────────────────────────────────────
@@ -715,8 +876,68 @@ export default function SimulatorPage() {
         </div>
       )}
 
-      {/* Unused variable warning suppressor */}
-      <span className="hidden">{searchQuery}</span>
+      {/* ─────────────────────────────────────────────────────
+          WALLPAPER PICKER PANEL
+      ───────────────────────────────────────────────────── */}
+      {showWallpapers && (
+        <div
+          className="fixed bottom-12 right-3 z-[500] bg-[#0d1b2a]/95 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl p-4 w-72"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-2">
+              <ImageIcon size={14} className="text-purple-400" />
+              <span className="text-white font-black text-xs">Choose Wallpaper</span>
+            </div>
+            <button onClick={() => setShowWallpapers(false)} className="text-slate-500 hover:text-white transition-colors">
+              <X size={14} />
+            </button>
+          </div>
+
+          <div className="grid grid-cols-2 gap-2">
+            {WALLPAPERS.map((wp) => {
+              const isActive = wallpaperId === wp.id;
+              return (
+                <button
+                  key={wp.id}
+                  onClick={() => changeWallpaper(wp.id)}
+                  className={`relative rounded-2xl overflow-hidden h-16 border-2 transition-all hover:scale-105 active:scale-95
+                    ${isActive ? "border-purple-400 shadow-lg shadow-purple-500/30" : "border-white/10 hover:border-white/30"}`}
+                >
+                  {/* Wallpaper gradient thumbnail */}
+                  <div className="absolute inset-0" style={wp.style} />
+
+                  {/* XP-style grass/sky indicator */}
+                  {wp.id === "xp-bliss" && (
+                    <div className="absolute inset-0">
+                      <div className="absolute top-0 left-0 right-0 h-[45%]" style={{ background: "linear-gradient(180deg,#4da6ff,#87ceeb)" }} />
+                      <div className="absolute bottom-0 left-0 right-0 h-[55%]" style={{ background: "linear-gradient(180deg,#6ab04c,#3d7a20)" }} />
+                    </div>
+                  )}
+
+                  {/* Label overlay */}
+                  <div className="absolute inset-0 bg-black/20 flex flex-col items-center justify-center">
+                    <span className="text-lg">{wp.emoji}</span>
+                    <span className="text-white font-black text-[9px] mt-0.5 drop-shadow">{wp.name}</span>
+                    <span className="text-white/60 text-[8px] drop-shadow">{wp.era}</span>
+                  </div>
+
+                  {/* Active tick */}
+                  {isActive && (
+                    <div className="absolute top-1 right-1 w-4 h-4 bg-purple-500 rounded-full flex items-center justify-center">
+                      <span className="text-white text-[8px] font-black">✓</span>
+                    </div>
+                  )}
+                </button>
+              );
+            })}
+          </div>
+
+          <p className="text-slate-600 text-[9px] text-center mt-3">
+            Wallpaper saved automatically 💾
+          </p>
+        </div>
+      )}
     </div>
   );
 }
