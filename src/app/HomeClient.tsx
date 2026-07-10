@@ -812,9 +812,24 @@ export default function HomeClient() {
         localStorage.setItem("nextsem_user", JSON.stringify(profile));
         setIsOfflineMode(false);
         setAvatarError(false);
-        
+
+        // ── Day 3: First-launch Desktop Simulator redirect ──────────────
+        // If the user has NOT completed the Desktop Simulator, send them
+        // there first. Once certified, they come back to the main app.
+        const email = user.email || "guest";
+        const simCertified = localStorage.getItem(`nextsem_desktop_sim_certified_${email}`);
+        if (simCertified !== "true") {
+          // Only redirect if we're on the home page (not already on /simulator)
+          if (typeof window !== "undefined" && !window.location.pathname.startsWith("/simulator")) {
+            router.push("/simulator");
+            setAuthLoading(false);
+            return;
+          }
+        }
+        // ─────────────────────────────────────────────────────────────────
+
         // Load and reconcile online progress
-        loadOnlineProgress(user.uid, user.email || "guest");
+        loadOnlineProgress(user.uid, email);
       } else {
         setCurrentUser(null);
         localStorage.removeItem("nextsem_user");

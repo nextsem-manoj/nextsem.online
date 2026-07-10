@@ -172,7 +172,11 @@ export default function SimulatorPage() {
     const savedIds   = localStorage.getItem(progressKey(userEmail));
     const savedHrts  = localStorage.getItem(heartsKey(userEmail));
     const certified  = localStorage.getItem(certKey(userEmail));
-    if (certified === "true") { setIsComplete(true); return; }
+    if (certified === "true") {
+      // Already certified — send straight to main app
+      window.location.href = "/";
+      return;
+    }
     if (savedIds) {
       const ids: string[] = JSON.parse(savedIds);
       setCompletedIds(ids);
@@ -382,9 +386,12 @@ export default function SimulatorPage() {
           <div className="text-3xl mb-1">🏅</div>
           <div className="text-amber-400 font-black text-sm">Terminal Cadet Badge</div>
         </div>
-        <a href="/book/cli-ch1-basics" className="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-white font-black rounded-2xl py-3 flex items-center justify-center gap-2 hover:opacity-90 transition-all">
-          🚀 Start Chapter 1 — CLI Basics <ChevronRight size={16} />
-        </a>
+        <button
+          onClick={() => { window.location.href = "/"; }}
+          className="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-white font-black rounded-2xl py-3 flex items-center justify-center gap-2 hover:opacity-90 transition-all"
+        >
+          🚀 Go to Main App <ChevronRight size={16} />
+        </button>
       </div>
     </div>
   );
