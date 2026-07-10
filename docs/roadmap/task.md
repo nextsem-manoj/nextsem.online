@@ -1,6 +1,6 @@
 # 10-Day Gamified Developer Roadmap Checklist
 
-- `[ ]` **Day 1**: Define `desktopSimulatorSteps.ts` metadata, keyboard/mouse objectives.
+- `[x]` **Day 1**: Define `desktopSimulatorSteps.ts` metadata, keyboard/mouse objectives. ✅
 - `[ ]` **Day 2**: Build `DesktopSimulator.tsx` (draggable files, folder double-clicks, recycle bin).
 - `[ ]` **Day 3**: Setup conditional staging redirection to the desktop simulator on first launch.
 - `[ ]` **Day 4**: Refactor `/book/[chapter]` into bite-sized card sliders.
