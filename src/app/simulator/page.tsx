@@ -385,8 +385,8 @@ export default function SimulatorPage() {
 
       if (isSimulatorComplete(next)) {
         setTimeout(() => {
-          setIsComplete(true);
           if (userEmail) localStorage.setItem(certKey(userEmail), "true");
+          window.location.href = "/";
         }, 2000);
         return next;
       }
