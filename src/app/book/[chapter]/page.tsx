@@ -160,6 +160,13 @@ export default async function ChapterPage({
     }
   }
 
+  // Split the MDX source into slides by horizontal rules (---)
+  const slidesMdx = mdxSource.split(/\n---\r?\n/).map(s => s.trim()).filter(Boolean);
+
+  const renderedSlides = slidesMdx.map((slideContent, idx) => (
+    <MDXRemote key={idx} source={slideContent} components={mdxComponents} />
+  ));
+
   return (
     <div className="animate-in fade-in duration-500">
       <div className="mb-4">
@@ -167,13 +174,11 @@ export default async function ChapterPage({
       </div>
 
       <PaginatedSections
-        totalPages={1}
+        slides={renderedSlides}
         hasAssignment={hasAssignment}
         chapterId={chapter}
         instructions={instructions}
-      >
-        <MDXRemote source={mdxSource} components={mdxComponents} />
-      </PaginatedSections>
+      />
 
       <div className="mt-4">
         <AdSenseBanner />

@@ -15,6 +15,7 @@ import { Capacitor } from '@capacitor/core';
 
 const BottomNavigation = () => {
   const pathname = usePathname();
+  if (pathname === '/simulator') return null;
   const { theme, setTheme } = useTheme();
   const { isInstallable, installApp } = usePWA();
   const [currentUser, setCurrentUser] = useState<{ name: string; email: string; avatar: string; photo?: string } | null>(null);

@@ -337,21 +337,18 @@ export default function SimulatorPage() {
     return () => document.removeEventListener("click", close);
   }, []);
 
+
+
   // Auto-hide taskbar (4s) and instructions card (6s) on step change
   useEffect(() => {
     setTaskbarVisible(true);
     setCardMinimized(false);
-
-    const taskbarTimer = setTimeout(() => {
-      setTaskbarVisible(false);
-    }, 4000);
 
     const cardTimer = setTimeout(() => {
       setCardMinimized(true);
     }, 6000);
 
     return () => {
-      clearTimeout(taskbarTimer);
       clearTimeout(cardTimer);
     };
   }, [currentStepIdx]);
@@ -425,6 +422,25 @@ export default function SimulatorPage() {
       deductHeart(step.heartPenalty);
     }
   }, [completeStep, deductHeart, step]);
+
+  // Listen for the Windows key (Meta key) to toggle the simulator's Start Menu
+  useEffect(() => {
+    const handleWinKey = (e: KeyboardEvent) => {
+      if (e.key === "Meta") {
+        e.preventDefault();
+        e.stopPropagation();
+        setStartOpen((prev) => {
+          const next = !prev;
+          if (next) {
+            validateAction("click", "start-button");
+          }
+          return next;
+        });
+      }
+    };
+    window.addEventListener("keydown", handleWinKey, true);
+    return () => window.removeEventListener("keydown", handleWinKey, true);
+  }, [validateAction]);
 
   // Open a window
   const openWindow = useCallback((id: string, title: string, emoji: string, content: React.ReactNode) => {
@@ -803,34 +819,14 @@ export default function SimulatorPage() {
         )}
       </div>
 
-      {/* Taskbar Hover Zone */}
-      <div
-        className="fixed bottom-0 left-0 right-0 h-3 z-[299]"
-        onMouseEnter={() => {
-          if (taskbarLeaveTimer.current) clearTimeout(taskbarLeaveTimer.current);
-          setTaskbarVisible(true);
-        }}
-      />
-
       {/* ─────────────────────────────────────────────────────
           TASKBAR
       ───────────────────────────────────────────────────── */}
       <div
         id="taskbar"
-        className={`absolute bottom-0 left-0 right-0 h-11 z-[300] bg-[#0a1628]/90 backdrop-blur-xl border-t border-white/8 flex items-center px-2 gap-2 transition-transform duration-300
-          ${(taskbarVisible || startOpen || showWallpapers) ? "translate-y-0" : "translate-y-full"}
+        className={`absolute bottom-0 left-0 right-0 h-11 z-[300] bg-[#0a1628]/90 backdrop-blur-xl border-t border-white/8 flex items-center px-2 gap-2
           ${targetIconId === "taskbar" ? "ring-2 ring-inset ring-purple-400" : ""}`}
         onClick={(e) => { e.stopPropagation(); validateAction("click", "taskbar"); }}
-        onMouseEnter={() => {
-          if (taskbarLeaveTimer.current) clearTimeout(taskbarLeaveTimer.current);
-          setTaskbarVisible(true);
-        }}
-        onMouseLeave={() => {
-          if (taskbarLeaveTimer.current) clearTimeout(taskbarLeaveTimer.current);
-          taskbarLeaveTimer.current = setTimeout(() => {
-            setTaskbarVisible(false);
-          }, 800);
-        }}
       >
         {/* Start button */}
         <button
