@@ -4,11 +4,14 @@ import React from 'react';
 import { useProgress } from '../context/ProgressContext';
 import { CheckCircle, Lock } from 'lucide-react';
 import { AdMob } from '@capacitor-community/admob';
+import { useRouter } from 'next/navigation';
+import searchIndex from '../data/searchIndex.json';
 
 export default function MarkCompleteButton({ chapterId, hasAssignment }: { chapterId: string, hasAssignment?: boolean }) {
   const { completedChapters, markCompleted, markIncomplete, completedAssignments } = useProgress();
   const isCompleted = completedChapters[chapterId];
   const isAssignmentDone = !hasAssignment || (completedAssignments && completedAssignments[chapterId]);
+  const router = useRouter();
 
   const prepareAd = async () => {
     try {
@@ -57,6 +60,19 @@ export default function MarkCompleteButton({ chapterId, hasAssignment }: { chapt
 
       if (isNative) {
         prepareAd(); // Pre-load another ad for the next lesson
+      }
+
+      // Auto-navigate to the next lesson or dashboard after a short delay
+      const currentIndex = searchIndex.findIndex((item) => item.id === chapterId);
+      if (currentIndex >= 0 && currentIndex < searchIndex.length - 1) {
+        const nextChapter = searchIndex[currentIndex + 1];
+        setTimeout(() => {
+          router.push(`/book/${nextChapter.id}`);
+        }, 1500);
+      } else {
+        setTimeout(() => {
+          router.push('/');
+        }, 1500);
       }
     }
   };
