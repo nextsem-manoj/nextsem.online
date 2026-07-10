@@ -314,7 +314,7 @@ export default function SimulatorPage() {
 
   // Close menus on click outside
   useEffect(() => {
-    const close = () => { setCtxMenu(null); setStartOpen(false); setShowWallpapers(false); };
+    const close = () => { setCtxMenu(null); setStartOpen(false); };
     document.addEventListener("click", close);
     return () => document.removeEventListener("click", close);
   }, []);
@@ -880,63 +880,70 @@ export default function SimulatorPage() {
           WALLPAPER PICKER PANEL
       ───────────────────────────────────────────────────── */}
       {showWallpapers && (
-        <div
-          className="fixed bottom-12 right-3 z-[500] bg-[#0d1b2a]/95 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl p-4 w-72"
-          onClick={(e) => e.stopPropagation()}
-        >
-          <div className="flex items-center justify-between mb-3">
-            <div className="flex items-center gap-2">
-              <ImageIcon size={14} className="text-purple-400" />
-              <span className="text-white font-black text-xs">Choose Wallpaper</span>
+        <>
+          {/* Backdrop — click outside to close */}
+          <div
+            className="fixed inset-0 z-[499]"
+            onClick={() => setShowWallpapers(false)}
+          />
+          <div
+            className="fixed bottom-12 right-3 z-[500] bg-[#0d1b2a]/95 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl p-4 w-72"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center gap-2">
+                <ImageIcon size={14} className="text-purple-400" />
+                <span className="text-white font-black text-xs">Choose Wallpaper</span>
+              </div>
+              <button onClick={() => setShowWallpapers(false)} className="text-slate-500 hover:text-white transition-colors">
+                <X size={14} />
+              </button>
             </div>
-            <button onClick={() => setShowWallpapers(false)} className="text-slate-500 hover:text-white transition-colors">
-              <X size={14} />
-            </button>
-          </div>
 
-          <div className="grid grid-cols-2 gap-2">
-            {WALLPAPERS.map((wp) => {
-              const isActive = wallpaperId === wp.id;
-              return (
-                <button
-                  key={wp.id}
-                  onClick={() => changeWallpaper(wp.id)}
-                  className={`relative rounded-2xl overflow-hidden h-16 border-2 transition-all hover:scale-105 active:scale-95
-                    ${isActive ? "border-purple-400 shadow-lg shadow-purple-500/30" : "border-white/10 hover:border-white/30"}`}
-                >
-                  {/* Wallpaper gradient thumbnail */}
-                  <div className="absolute inset-0" style={wp.style} />
+            <div className="grid grid-cols-2 gap-2">
+              {WALLPAPERS.map((wp) => {
+                const isActive = wallpaperId === wp.id;
+                return (
+                  <button
+                    key={wp.id}
+                    onClick={() => changeWallpaper(wp.id)}
+                    className={`relative rounded-2xl overflow-hidden h-16 border-2 transition-all hover:scale-105 active:scale-95
+                      ${isActive ? "border-purple-400 shadow-lg shadow-purple-500/30" : "border-white/10 hover:border-white/30"}`}
+                  >
+                    {/* Wallpaper gradient thumbnail */}
+                    <div className="absolute inset-0" style={wp.style} />
 
-                  {/* XP-style grass/sky indicator */}
-                  {wp.id === "xp-bliss" && (
-                    <div className="absolute inset-0">
-                      <div className="absolute top-0 left-0 right-0 h-[45%]" style={{ background: "linear-gradient(180deg,#4da6ff,#87ceeb)" }} />
-                      <div className="absolute bottom-0 left-0 right-0 h-[55%]" style={{ background: "linear-gradient(180deg,#6ab04c,#3d7a20)" }} />
+                    {/* XP-style grass/sky indicator */}
+                    {wp.id === "xp-bliss" && (
+                      <div className="absolute inset-0">
+                        <div className="absolute top-0 left-0 right-0 h-[45%]" style={{ background: "linear-gradient(180deg,#4da6ff,#87ceeb)" }} />
+                        <div className="absolute bottom-0 left-0 right-0 h-[55%]" style={{ background: "linear-gradient(180deg,#6ab04c,#3d7a20)" }} />
+                      </div>
+                    )}
+
+                    {/* Label overlay */}
+                    <div className="absolute inset-0 bg-black/20 flex flex-col items-center justify-center">
+                      <span className="text-lg">{wp.emoji}</span>
+                      <span className="text-white font-black text-[9px] mt-0.5 drop-shadow">{wp.name}</span>
+                      <span className="text-white/60 text-[8px] drop-shadow">{wp.era}</span>
                     </div>
-                  )}
 
-                  {/* Label overlay */}
-                  <div className="absolute inset-0 bg-black/20 flex flex-col items-center justify-center">
-                    <span className="text-lg">{wp.emoji}</span>
-                    <span className="text-white font-black text-[9px] mt-0.5 drop-shadow">{wp.name}</span>
-                    <span className="text-white/60 text-[8px] drop-shadow">{wp.era}</span>
-                  </div>
+                    {/* Active tick */}
+                    {isActive && (
+                      <div className="absolute top-1 right-1 w-4 h-4 bg-purple-500 rounded-full flex items-center justify-center">
+                        <span className="text-white text-[8px] font-black">✓</span>
+                      </div>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
 
-                  {/* Active tick */}
-                  {isActive && (
-                    <div className="absolute top-1 right-1 w-4 h-4 bg-purple-500 rounded-full flex items-center justify-center">
-                      <span className="text-white text-[8px] font-black">✓</span>
-                    </div>
-                  )}
-                </button>
-              );
-            })}
+            <p className="text-slate-600 text-[9px] text-center mt-3">
+              Wallpaper saved automatically 💾
+            </p>
           </div>
-
-          <p className="text-slate-600 text-[9px] text-center mt-3">
-            Wallpaper saved automatically 💾
-          </p>
-        </div>
+        </>
       )}
     </div>
   );
