@@ -5,20 +5,12 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-const chapters = [
-  { id: 'p0-developer-setup', title: 'P0: Developer Setup' },
-  { id: 'p1-1-intro-and-text', title: 'P1.1: Web Intro & Text' },
-  { id: 'p1-2-links-and-media', title: 'P1.2: Links & Media' },
-  { id: 'p1-3-lists-and-tables', title: 'P1.3: Lists & Tables' },
-  { id: 'p1-4-forms-and-inputs', title: 'P1.4: Forms & Inputs' },
-  { id: 'p1-5-semantics-and-seo', title: 'P1.5: Semantics & SEO' },
-  { id: 'p2-css-practical', title: 'P2: CSS Practical' },
-  { id: 'p3-js-practical', title: 'P3: JS Practical' },
-  { id: 'p4-react', title: 'P4: React' },
-  { id: 'p5-node-mongodb', title: 'P5: Node.js & MongoDB' },
-  { id: 'p6-capstone', title: 'P6: Capstone Projects' },
-  { id: 'p7-placement', title: 'P7: Placement Prep' },
-];
+import searchIndex from '../data/searchIndex.json';
+
+const chapters = searchIndex.map(item => ({
+  id: item.id,
+  title: `${item.phase}: ${item.title.split(': ')[1] || item.title}`
+}));
 
 const BookPagination = () => {
   const pathname = usePathname();

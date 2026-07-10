@@ -1,11 +1,19 @@
 {
-  "hosting": {
-    "public": "out",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
-    "cleanUrls": true
-  }
+  "firestore": {
+    "rules": "firestore.rules"
+  },
+  "hosting": [
+    {
+      "target": "production",
+      "public": "out",
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "cleanUrls": true
+    },
+    {
+      "target": "staging",
+      "public": "out",
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "cleanUrls": true
+    }
+  ]
 }

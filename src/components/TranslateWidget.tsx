@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
+import { usePathname } from 'next/navigation';
 import { Languages, X, Check } from 'lucide-react';
 
 export const LANGUAGES = [
@@ -77,27 +78,57 @@ export const changeLanguage = (langCode: string) => {
     window.dispatchEvent(new CustomEvent('langchange', { detail: langCode }));
   } else {
     document.cookie = `googtrans=/en/${targetCode}; path=/;`;
-    document.cookie = `googtrans=/en/${targetCode}; path=/; domain=.web.app`;
-    document.cookie = `googtrans=/en/${targetCode}; path=/; domain=.bca-nextsem.web.app`;
+    document.cookie = `googtrans=/en/${targetCode}; path=/; domain=.nextsem.online`;
     localStorage.setItem('preferred_lang', langCode);
     window.location.reload();
   }
 };
 
+
+interface GoogleTranslateElement {
+  new (
+    options: {
+      pageLanguage: string;
+      includedLanguages?: string;
+      layout?: unknown;
+      autoDisplay?: boolean;
+    },
+    elementId: string
+  ): void;
+  InlineLayout: {
+    SIMPLE: unknown;
+  };
+}
+
+interface WindowWithGoogleTranslate extends Window {
+  googleTranslateElementInit?: () => void;
+  google?: {
+    translate: {
+      TranslateElement: GoogleTranslateElement;
+    };
+  };
+}
+
 const TranslateWidget = () => {
+  const pathname = usePathname();
   const [isVisible, setIsVisible] = useState(false);
   const [currentLang, setCurrentLang] = useState('en');
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [scriptLoaded, setScriptLoaded] = useState(false);
 
+  const isInBook = pathname?.startsWith('/book');
+
   useEffect(() => {
+
     if (typeof window === 'undefined') return;
 
     const isDismissed = localStorage.getItem('translate_banner_dismissed') === 'true';
-    setIsVisible(!isDismissed);
-
     const savedLang = localStorage.getItem('preferred_lang') || 'en';
-    setCurrentLang(savedLang);
+
+    setTimeout(() => {
+      setIsVisible(!isDismissed);
+      setCurrentLang(savedLang);
+    }, 0);
 
     // Watch for global language changes
     const handleLangChange = (e: Event) => {
@@ -106,13 +137,21 @@ const TranslateWidget = () => {
     };
     window.addEventListener('langchange', handleLangChange);
 
-    (window as any).googleTranslateElementInit = () => {
-      new (window as any).google.translate.TranslateElement({
-        pageLanguage: 'en',
-        includedLanguages: 'en,hi,es,fr,de',
-        layout: (window as any).google.translate.TranslateElement.InlineLayout.SIMPLE,
-        autoDisplay: false
-      }, 'google_translate_element');
+    const handleOpenTranslate = () => {
+      setDropdownOpen(true);
+    };
+    window.addEventListener('open_translate', handleOpenTranslate);
+
+    const win = window as unknown as WindowWithGoogleTranslate;
+    win.googleTranslateElementInit = () => {
+      if (win.google && win.google.translate) {
+        new win.google.translate.TranslateElement({
+          pageLanguage: 'en',
+          includedLanguages: 'en,hi,es,fr,de',
+          layout: win.google.translate.TranslateElement.InlineLayout.SIMPLE,
+          autoDisplay: false
+        }, 'google_translate_element');
+      }
       setScriptLoaded(true);
     };
 
@@ -123,11 +162,12 @@ const TranslateWidget = () => {
       script.async = true;
       document.body.appendChild(script);
     } else {
-      setScriptLoaded(true);
+      setTimeout(() => setScriptLoaded(true), 0);
     }
 
     return () => {
       window.removeEventListener('langchange', handleLangChange);
+      window.removeEventListener('open_translate', handleOpenTranslate);
     };
   }, []);
 
@@ -154,7 +194,7 @@ const TranslateWidget = () => {
           }
         }
       } else {
-        for (let child of Array.from(node.childNodes)) {
+        for (const child of Array.from(node.childNodes)) {
           translateNode(child);
         }
       }
@@ -168,11 +208,11 @@ const TranslateWidget = () => {
       observer = new MutationObserver((mutations) => {
         if (observer) observer.disconnect();
         
-        for (let mutation of mutations) {
+        for (const mutation of mutations) {
           if (mutation.type === 'characterData') {
             translateNode(mutation.target);
           } else {
-            for (let addedNode of Array.from(mutation.addedNodes)) {
+            for (const addedNode of Array.from(mutation.addedNodes)) {
               translateNode(addedNode);
             }
           }
@@ -205,45 +245,11 @@ const TranslateWidget = () => {
     setDropdownOpen(false);
   };
 
+  if (pathname === '/playground' || isInBook) return null;
+
   return (
     <>
       <div id="google_translate_element" className="hidden" />
-
-      {/* Floating Translate Widget */}
-      <div className="fixed top-3 right-14 md:top-4 md:right-18 z-50">
-        <button
-          onClick={() => setDropdownOpen(!dropdownOpen)}
-          className="w-9 h-9 md:w-11 md:h-11 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border border-gray-200/50 dark:border-slate-800/80 rounded-full flex items-center justify-center shadow-lg hover:scale-105 active:scale-95 transition-all text-slate-700 dark:text-slate-200"
-          aria-label="Translate page"
-        >
-          <Languages size={18} className="md:w-5 md:h-5" />
-        </button>
-
-        {dropdownOpen && (
-          <>
-            <div className="fixed inset-0 z-10" onClick={() => setDropdownOpen(false)} />
-            
-            <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-slate-950 border border-gray-200 dark:border-slate-800 rounded-2xl shadow-2xl py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
-              <div className="px-4 py-1.5 border-b border-gray-100 dark:border-slate-900 mb-1">
-                <span className="text-[10px] font-black uppercase tracking-wider text-slate-400 dark:text-slate-500">Translate Language</span>
-              </div>
-              {LANGUAGES.map((lang) => (
-                <button
-                  key={lang.code}
-                  onClick={() => handleSelectLanguage(lang.code)}
-                  className="flex items-center justify-between w-full text-left px-4 py-2.5 text-xs font-bold text-slate-750 dark:text-slate-200 hover:bg-gray-100 dark:hover:bg-slate-900 transition-colors"
-                >
-                  <div className="flex items-center gap-2">
-                    <span>{lang.flag}</span>
-                    <span>{lang.label}</span>
-                  </div>
-                  {currentLang === lang.code && <Check size={14} className="text-emerald-500" />}
-                </button>
-              ))}
-            </div>
-          </>
-        )}
-      </div>
     </>
   );
 };

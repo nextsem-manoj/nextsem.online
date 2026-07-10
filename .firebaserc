@@ -1,5 +1,13 @@
 {
   "projects": {
     "default": "bca-nextsem"
+  },
+  "targets": {
+    "bca-nextsem": {
+      "hosting": {
+        "production": ["bca-nextsem"],
+        "staging": ["nextsem-staging"]
+      }
+    }
   }
 }

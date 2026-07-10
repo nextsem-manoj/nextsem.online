@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "983453487133",
+    "project_id": "bca-nextsem",
+    "storage_bucket": "bca-nextsem.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:983453487133:android:c955aa48a55ee60d01b6f4",
+        "android_client_info": {
+          "package_name": "online.nextsem.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "983453487133-7uf9anpdtkc358takthh1p2d3chtovq5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "online.nextsem.app",
+            "certificate_hash": "f886a9f901a6a2e68ddf71d48cdedf36e488e771"
+          }
+        },
+        {
+          "client_id": "983453487133-dcn5rcpm25f9l2q2g6qc3amtmdu6jupt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "online.nextsem.app",
+            "certificate_hash": "384d917024aede715d7e511f9a7f54049ba4b423"
+          }
+        },
+        {
+          "client_id": "983453487133-2ffe4796abuhkbidvtc7mo8n8kvo82ir.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBl2HD6FZMs-2QGBv1KrITW2gSte7ddl6M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "983453487133-2ffe4796abuhkbidvtc7mo8n8kvo82ir.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

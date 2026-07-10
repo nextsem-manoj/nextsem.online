@@ -1,18 +1,35 @@
 {
-  "name": "frontend by Nextsem",
-  "short_name": "frontend by Nextsem",
-  "description": "Start your journey to become a job-ready Front End Developer.",
+  "name": "Nextsem Academy",
+  "short_name": "Nextsem",
+  "description": "Interactive technical courses for BCA, B.Tech, M.Tech & more.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#060c18",
-  "theme_color": "#060c18",
+  "background_color": "#000000",
+  "theme_color": "#39FF14",
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "/logo.svg",
+      "src": "/favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512x512.png",
       "sizes": "512x512",
-      "type": "image/svg+xml",
+      "type": "image/png",
       "purpose": "any maskable"
     }
   ]
 }
+

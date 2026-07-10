@@ -51,7 +51,7 @@ const OnboardingTour = () => {
     if (typeof window !== 'undefined') {
       const completed = localStorage.getItem("nextsem_tour_completed") === "true";
       if (!completed) {
-        setIsOpen(true);
+        setTimeout(() => setIsOpen(true), 0);
       }
     }
 

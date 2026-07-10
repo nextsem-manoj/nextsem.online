@@ -1,41 +1,31 @@
 import React from 'react';
+import Link from 'next/link';
 
 const Footer = () => {
   return (
-    <footer className="bg-[#0f172a] text-white py-4 mt-8 w-full">
-      <div className="max-w-[1600px] mx-auto px-6 flex flex-wrap items-center justify-between gap-4 md:gap-0">
+    <footer className="bg-[#0b0f19] border-t border-slate-900 text-slate-400 py-8 w-full mt-auto select-none">
+      <div className="max-w-[1600px] mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
         
-        <div className="flex items-center gap-2">
-          <span className="text-2xl">📘</span>
-          <span className="text-sm font-semibold tracking-wider">Learn the Right Way</span>
-        </div>
-        
-        <div className="flex items-center gap-2">
-          <span className="text-2xl text-blue-400">{'</>'}</span>
-          <span className="text-sm font-semibold tracking-wider">Build Real Projects</span>
-        </div>
-
-        <div className="flex items-center gap-2">
-          <span className="text-2xl text-yellow-500">📁</span>
-          <span className="text-sm font-semibold tracking-wider">Create Your Portfolio</span>
-        </div>
-
-        <div className="flex items-center gap-2">
-          <span className="text-2xl">👨‍💼</span>
-          <span className="text-sm font-semibold tracking-wider">Get Job Ready</span>
-        </div>
-
-        <div className="flex items-center gap-2">
-          <span className="text-2xl">🚀</span>
-          <span className="text-sm font-semibold tracking-wider">Build Your Dream Career</span>
-        </div>
-
-        <div className="bg-[#1e293b] p-3 rounded-lg border border-gray-600 flex items-center gap-3">
-          <div className="flex flex-col">
-            <span className="text-xs text-gray-400 font-bold uppercase tracking-wide">Your Journey Starts Here!</span>
-            <span className="text-sm text-yellow-400 font-bold">Let's Build Your Future Together.</span>
+        {/* Logo and Tagline */}
+        <div className="flex flex-col items-center md:items-start gap-1">
+          <div className="flex items-center gap-2.5">
+            <img src="/logo.svg" alt="Nextsem Logo" className="w-6 h-6 rounded-md border border-emerald-500/20" />
+            <span className="text-white font-black text-xs md:text-sm tracking-wider uppercase">Nextsem Academy</span>
           </div>
-          <span className="text-3xl text-yellow-400 drop-shadow-[0_0_8px_rgba(250,204,21,0.8)]">🌟</span>
+          <span className="text-[10px] text-slate-500 font-bold">Start your journey to become a job-ready Front End Developer.</span>
+        </div>
+
+        {/* Legal Pages & Links required by AdSense */}
+        <div className="flex flex-wrap items-center justify-center gap-6 text-[10px] font-black uppercase tracking-wider">
+          <Link href="/about" className="hover:text-white transition-colors cursor-pointer">About Us</Link>
+          <Link href="/contact" className="hover:text-white transition-colors cursor-pointer">Contact Us</Link>
+          <Link href="/privacy" className="hover:text-white transition-colors cursor-pointer">Privacy Policy</Link>
+          <Link href="/terms" className="hover:text-white transition-colors cursor-pointer">Terms of Service</Link>
+        </div>
+
+        {/* Copyright notice */}
+        <div className="text-[10px] text-slate-500 font-bold text-center md:text-right">
+          <span>© {new Date().getFullYear()} Nextsem. All rights reserved.</span>
         </div>
 
       </div>

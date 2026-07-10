@@ -1,169 +1,299 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import BookSidebar from "@/components/BookSidebar";
-import { Type, Check, X } from "lucide-react";
+import React, { useState, useEffect, useRef, Suspense } from "react";
 import { useTheme } from "next-themes";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
+import { ChevronLeft, ChevronRight, Sun, Moon, Coffee, LogIn, X } from "lucide-react";
+import BookSidebar from "@/components/BookSidebar";
+import BookNavigation from "@/components/BookNavigation";
+import searchIndex from "@/data/searchIndex.json";
+import { coursePhases } from "@/data/courseData";
+import { getChapterSimulator } from "@/data/chapterSimulators";
+import { signInWithGoogle } from "@/lib/firebase";
+
+interface UserProfile {
+  name: string;
+  email: string;
+  avatar: string;
+  photo?: string;
+}
+
+function BookLayoutContent({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const { theme, setTheme } = useTheme();
+  const cycleTheme = () => {
+    if (theme === 'light') setTheme('dark');
+    else if (theme === 'dark') setTheme('night-light');
+    else setTheme('light');
+  };
+  const renderThemeIcon = () => {
+    if (!mounted) return <div className="w-5 h-5 shrink-0" />;
+    if (theme === 'light') return <Sun size={18} className="text-yellow-500 shrink-0" />;
+    if (theme === 'dark') return <Moon size={18} className="text-blue-400 shrink-0" />;
+    return <Coffee size={18} className="text-amber-600 dark:text-amber-500 shrink-0" />;
+  };
+  const [fontSize, setFontSize] = useState<"sm" | "base" | "lg" | "xl">("lg");
+  const [mounted, setMounted] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [scrollPercent, setScrollPercent] = useState(0);
+
+  const [currentUser, setCurrentUser] = useState<UserProfile | null>(null);
+  useEffect(() => {
+    const checkAuth = () => {
+      const saved = localStorage.getItem('nextsem_user');
+      let userObj = null;
+      if (saved) {
+        try {
+          userObj = JSON.parse(saved);
+        } catch (e) {
+          console.error(e);
+        }
+      }
+      setCurrentUser(userObj);
+    };
+    checkAuth();
+    window.addEventListener("nextsem_auth_changed", checkAuth);
+    return () => {
+      window.removeEventListener("nextsem_auth_changed", checkAuth);
+    };
+  }, []);
+
+  const handleSignIn = async () => {
+    try {
+      await signInWithGoogle();
+      window.location.href = '/';
+    } catch (err) {
+      console.error("Sign-In Error: ", err);
+    }
+  };
+
+  const pathname = usePathname();
+  const currentChapterId = pathname?.split("/book/")[1] || "";
+
+  // Reset scroll container to top on page mount/refresh and pathname changes
+  useEffect(() => {
+    setScrollPercent(0);
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollTop = 0;
+    }
+  }, [pathname]);
+
+  // Track scroll container progress percentage
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    const handleScroll = () => {
+      const totalHeight = container.scrollHeight - container.clientHeight;
+      if (totalHeight <= 0) {
+        setScrollPercent(0);
+        return;
+      }
+      const percent = (container.scrollTop / totalHeight) * 100;
+      setScrollPercent(percent);
+    };
+
+    // Calculate once on mount/pathname changes to capture initial layouts
+    handleScroll();
+
+    container.addEventListener('scroll', handleScroll, { passive: true });
+    return () => container.removeEventListener('scroll', handleScroll);
+  }, [mounted, pathname]);
+
+  useEffect(() => {
+    document.body.classList.add("in-book-mode");
+    
+    const savedFontSize = localStorage.getItem("read_font_size") as "sm" | "base" | "lg" | "xl" | null;
+
+    setTimeout(() => {
+      setMounted(true);
+      if (savedFontSize) setFontSize(savedFontSize);
+    }, 0);
+
+    // Sync when BottomNavigation changes reader settings
+    const onSettingsChange = () => {
+      const f = localStorage.getItem("read_font_size") as "sm" | "base" | "lg" | "xl" | null;
+      setTimeout(() => {
+        if (f) setFontSize(f);
+      }, 0);
+    };
+    window.addEventListener('readerSettingsChanged', onSettingsChange);
+
+    return () => {
+      document.body.classList.remove("in-book-mode");
+      window.removeEventListener('readerSettingsChanged', onSettingsChange);
+    };
+  }, []);
+
+  // Find current index in searchIndex
+  const currentIndex = searchIndex.findIndex((item) => item.id === currentChapterId);
+  const currentChapter = currentIndex >= 0 ? searchIndex[currentIndex] : null;
+
+  // Find corresponding phase
+  const currentPhase = coursePhases.find(phase => 
+    phase.path === currentChapterId || phase.topics.some(t => t.path === currentChapterId)
+  );
+
+  const prevChapter = currentIndex > 0 ? searchIndex[currentIndex - 1] : null;
+  const nextChapter = currentIndex >= 0 && currentIndex < searchIndex.length - 1 ? searchIndex[currentIndex + 1] : null;
+  const prevHref = prevChapter ? `/book/${prevChapter.id}` : null;
+  const nextHref = nextChapter ? `/book/${nextChapter.id}` : null;
+
+  // Set prose sizing to 16px (base) and ensure layout constraints
+  const fontSizeClass = "prose-base text-[16px] md:text-[16px] leading-relaxed w-full max-w-full overflow-x-hidden break-words";
+
+  const themeClass = "bg-[#060c18] border-slate-850 text-white";
+  const headerThemeClass = "bg-[#0f172a] border-slate-850 text-white";
+
+  const isSimulator = !!(pathname && getChapterSimulator(pathname.split("/book/")[1] || ""));
+
+  // For simulator pages, render children directly without the book chrome
+  if (isSimulator) {
+    return <>{children}</>;
+  }
+
+  return (
+    <div className="h-screen flex flex-col bg-[#060c18] text-white font-sans selection:bg-blue-200 transition-colors duration-300 overflow-hidden">
+      <div className="flex-1 flex flex-col md:flex-row w-full max-w-[1600px] mx-auto overflow-hidden pb-14 md:pb-0">
+        <BookSidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
+
+        <main className="flex-1 p-0 md:p-6 w-full flex flex-col overflow-hidden relative">
+          
+          {/* Header Bar matching target design */}
+          <div className={`w-full flex items-center gap-3 px-4 py-3 border-b border-x-0 md:border-x rounded-t-none md:rounded-t-2xl z-20 shrink-0 transition-all ${headerThemeClass}`}>
+            <Link 
+              href="/" 
+              className="p-1 hover:bg-slate-100 dark:hover:bg-slate-800/80 rounded-full transition-all text-slate-650 dark:text-slate-400 shrink-0"
+              title="Close and Go Back to Course Menu"
+            >
+              <X size={22} className="stroke-[2.5]" />
+            </Link>
+            
+            <div className="flex-1 min-w-0 text-left">
+              <span className="block text-[10px] font-black uppercase tracking-wider text-emerald-500 dark:text-emerald-450">
+                {currentPhase?.title || "Web Development"}
+              </span>
+              <h1 className="text-xs md:text-sm font-black truncate mt-0.5">
+                {currentChapter?.title || "Reading Lesson"}
+              </h1>
+            </div>
+
+            {/* Desktop Navigation Controls */}
+            <div className="hidden md:flex items-center gap-1 border-r border-slate-200 dark:border-slate-850 pr-2 mr-1">
+              {prevHref ? (
+                <Link
+                  href={prevHref}
+                  className="px-2.5 py-1.5 hover:bg-slate-200/50 dark:hover:bg-slate-800/80 rounded-lg transition-all text-slate-650 dark:text-slate-400 flex items-center gap-0.5 text-xs font-bold"
+                  title={`Previous: ${prevChapter?.title}`}
+                >
+                  <ChevronLeft size={16} />
+                  <span>Prev</span>
+                </Link>
+              ) : (
+                <div className="px-2.5 py-1.5 opacity-30 text-slate-400 flex items-center gap-0.5 text-xs font-bold cursor-not-allowed">
+                  <ChevronLeft size={16} />
+                  <span>Prev</span>
+                </div>
+              )}
+              {nextHref ? (
+                <Link
+                  href={nextHref}
+                  className="px-2.5 py-1.5 hover:bg-slate-200/50 dark:hover:bg-slate-800/80 rounded-lg transition-all text-slate-650 dark:text-slate-400 flex items-center gap-0.5 text-xs font-bold"
+                  title={`Next: ${nextChapter?.title}`}
+                >
+                  <span>Next</span>
+                  <ChevronRight size={16} />
+                </Link>
+              ) : (
+                <div className="px-2.5 py-1.5 opacity-30 text-slate-400 flex items-center gap-0.5 text-xs font-bold cursor-not-allowed">
+                  <span>Next</span>
+                  <ChevronRight size={16} />
+                </div>
+              )}
+            </div>
+
+
+
+            {/* Desktop Profile / Sign In */}
+            <div className="hidden md:flex items-center gap-2 border-l border-slate-250/20 dark:border-slate-800/40 pl-2 ml-1">
+              {currentUser ? (
+                <Link
+                  href="/profile"
+                  className="flex items-center gap-1.5 hover:bg-slate-200/50 dark:hover:bg-slate-800/80 px-2 py-1 rounded-lg transition-all text-[11px] font-bold text-slate-700 dark:text-slate-350"
+                  title="Profile Dashboard"
+                >
+                  {currentUser.avatar && (currentUser.avatar.startsWith("http") || currentUser.avatar.startsWith("/")) ? (
+                    <img src={currentUser.avatar} alt="" className="w-5 h-5 rounded-full object-cover border border-[#4ade80]/20 shrink-0" />
+                  ) : currentUser.photo ? (
+                    <img src={currentUser.photo} alt="" className="w-5 h-5 rounded-full object-cover border border-[#4ade80]/20 shrink-0" />
+                  ) : (
+                    <div className="w-5 h-5 rounded-full bg-blue-600 text-white flex items-center justify-center font-black text-[9px] shrink-0">
+                      {currentUser.avatar || currentUser.name.charAt(0).toUpperCase()}
+                    </div>
+                  )}
+                  <span className="max-w-[70px] truncate">{currentUser.name.split(" ")[0]}</span>
+                </Link>
+              ) : (
+                <button
+                  onClick={handleSignIn}
+                  className="flex items-center gap-1 hover:bg-slate-250/50 dark:hover:bg-slate-800/80 px-2 py-1 rounded-lg transition-all text-[11px] font-bold text-emerald-600 dark:text-emerald-400 shrink-0 cursor-pointer"
+                  title="Sign In with Google"
+                >
+                  <LogIn size={14} className="shrink-0" />
+                  <span>Sign In</span>
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Glassmorphic Scroll Progress Bar */}
+          <div className="w-full h-2.5 bg-slate-200/10 dark:bg-slate-950/40 backdrop-blur-md relative z-30 overflow-hidden shrink-0 border-x-0 md:border-x border-slate-250/5 flex items-center justify-center">
+            <div 
+              className="absolute left-0 top-0 bottom-0 bg-gradient-to-r from-blue-500 via-[#39FF14] to-emerald-450 rounded-r-full shadow-[0_0_8px_rgba(74,222,128,0.4)] transition-all duration-75"
+              style={{ width: `${scrollPercent}%` }}
+            />
+            <span className="relative z-10 text-[7px] font-black uppercase tracking-wider text-slate-800 dark:text-slate-200 pointer-events-none mix-blend-difference leading-none">
+              {Math.round(scrollPercent)}% Read
+            </span>
+          </div>
+
+          {/* Main Reading Container */}
+          <div 
+            ref={scrollContainerRef}
+            className={`flex-1 px-4 py-5 md:px-8 md:py-8 border-x-0 md:border-x rounded-b-none md:rounded-b-2xl relative z-10 overflow-y-auto transition-all duration-300 ${themeClass} ${fontSizeClass}`}
+          >
+            <div className="max-w-4xl mx-auto w-full">
+              {children}
+            </div>
+          </div>
+
+        </main>
+      </div>
+      <BookNavigation 
+        sidebarOpen={sidebarOpen} 
+        setSidebarOpen={setSidebarOpen}
+      />
+    </div>
+  );
+}
 
 export default function BookLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const { theme, setTheme } = useTheme();
-  const [fontSize, setFontSize] = useState<"sm" | "base" | "lg" | "xl">("base");
-  const [readTheme, setReadTheme] = useState<"default" | "sepia" | "dark">("default");
-  const [settingsOpen, setSettingsOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-    
-    const savedFontSize = localStorage.getItem("read_font_size") as any;
-    if (savedFontSize) setFontSize(savedFontSize);
-
-    const savedReadTheme = localStorage.getItem("read_theme") as any;
-    if (savedReadTheme) {
-      setReadTheme(savedReadTheme);
-    } else if (theme === "dark") {
-      setReadTheme("dark");
-    }
-  }, [theme]);
-
-  const handleThemeChange = (newTheme: "default" | "sepia" | "dark") => {
-    setReadTheme(newTheme);
-    localStorage.setItem("read_theme", newTheme);
-    if (newTheme === "dark") {
-      setTheme("dark");
-    } else {
-      setTheme("light");
-    }
-  };
-
-  const handleFontSizeChange = (newSize: "sm" | "base" | "lg" | "xl") => {
-    setFontSize(newSize);
-    localStorage.setItem("read_font_size", newSize);
-  };
-
-  if (!mounted) {
-    return (
-      <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-[#060c18] text-gray-900 dark:text-gray-100 font-sans pb-20">
-        <div className="flex-1 flex flex-col md:flex-row w-full max-w-[1600px] mx-auto">
-          <BookSidebar />
-          <main className="flex-1 p-4 md:p-8 w-full max-w-4xl mx-auto">
-            <div className="bg-white dark:bg-slate-900 p-6 md:p-10 rounded-xl shadow-sm border border-gray-200 dark:border-slate-800 min-h-[80vh]">
-              {children}
-            </div>
-          </main>
-        </div>
-      </div>
-    );
-  }
-
-  // Map settings state to prose sizing classes
-  const fontSizeClass = {
-    sm: "prose-sm",
-    base: "prose-base",
-    lg: "prose-lg",
-    xl: "prose-xl",
-  }[fontSize];
-
-  // Map settings state to layout theme classes
-  const themeClass = {
-    default: "bg-white border-gray-200 dark:bg-slate-900 dark:border-slate-800 text-gray-900 dark:text-gray-100",
-    sepia: "sepia-mode border-[#e6dcc8]",
-    dark: "bg-slate-900 border-slate-800 text-slate-100",
-  }[readTheme];
-
   return (
-    <div className={`min-h-screen flex flex-col bg-gray-50 dark:bg-[#060c18] text-gray-900 dark:text-gray-100 font-sans selection:bg-blue-200 pb-20 transition-colors duration-300 ${readTheme === 'sepia' ? 'bg-[#f4ecd8] dark:bg-[#f4ecd8]' : ''}`}>
-      <div className="flex-1 flex flex-col md:flex-row w-full max-w-[1600px] mx-auto">
-        <BookSidebar />
-
-        <main className="flex-1 p-4 md:p-8 w-full max-w-4xl mx-auto relative">
-          
-          {/* Main Reading Container */}
-          <div className={`p-6 md:p-10 rounded-xl shadow-sm border relative z-10 min-h-[80vh] transition-all duration-300 ${themeClass} ${fontSizeClass}`}>
-            {children}
-          </div>
-
-          {/* Floating Settings Button ("Aa") */}
-          <div className="fixed bottom-20 right-4 z-40">
-            <button
-              onClick={() => setSettingsOpen(!settingsOpen)}
-              className="w-12 h-12 bg-blue-600 hover:bg-blue-500 dark:bg-blue-500 dark:hover:bg-blue-400 text-white rounded-full flex items-center justify-center shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all"
-              aria-label="Reading Settings"
-            >
-              <Type size={20} />
-            </button>
-
-            {settingsOpen && (
-              <>
-                {/* Backdrop overlay for closing settings */}
-                <div className="fixed inset-0 z-10" onClick={() => setSettingsOpen(false)} />
-                
-                {/* Settings Popover */}
-                <div className="absolute right-0 bottom-14 w-64 bg-white dark:bg-slate-950 border border-gray-200 dark:border-slate-800 p-4 rounded-2xl shadow-2xl z-20 animate-in fade-in slide-in-from-bottom-2 duration-200">
-                  <div className="flex justify-between items-center mb-4 border-b border-gray-100 dark:border-slate-800 pb-2">
-                    <span className="text-xs font-black uppercase tracking-wider text-slate-400 dark:text-slate-500">Reading Settings</span>
-                    <button onClick={() => setSettingsOpen(false)} className="text-gray-400 hover:text-gray-600 dark:hover:text-white">
-                      <X size={16} />
-                    </button>
-                  </div>
-
-                  {/* Font Size Option */}
-                  <div className="mb-4">
-                    <span className="block text-[10px] font-black uppercase text-slate-400 dark:text-slate-500 mb-2">Font Size</span>
-                    <div className="grid grid-cols-4 gap-1 bg-gray-100 dark:bg-slate-900 p-1 rounded-lg">
-                      {(["sm", "base", "lg", "xl"] as const).map((size) => (
-                        <button
-                          key={size}
-                          onClick={() => handleFontSizeChange(size)}
-                          className={`py-1 text-[11px] font-bold rounded capitalize transition-all ${
-                            fontSize === size
-                              ? "bg-white dark:bg-slate-850 text-blue-600 dark:text-blue-400 shadow-sm"
-                              : "text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white"
-                          }`}
-                        >
-                          {size === 'base' ? 'Med' : size}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Theme Option */}
-                  <div>
-                    <span className="block text-[10px] font-black uppercase text-slate-400 dark:text-slate-500 mb-2">Theme</span>
-                    <div className="flex flex-col gap-1.5">
-                      {(["default", "sepia", "dark"] as const).map((t) => (
-                        <button
-                          key={t}
-                          onClick={() => handleThemeChange(t)}
-                          className={`flex items-center justify-between w-full px-3 py-2 text-xs font-bold rounded-lg transition-colors ${
-                            readTheme === t
-                              ? "bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 border border-blue-200/50 dark:border-blue-800/30"
-                              : "hover:bg-gray-100 dark:hover:bg-slate-900 text-slate-700 dark:text-slate-300"
-                          }`}
-                        >
-                          <div className="flex items-center gap-2">
-                            <div className={`w-3.5 h-3.5 rounded-full border border-gray-300/60 ${
-                              t === 'default' ? 'bg-white' : t === 'sepia' ? 'bg-[#f7f1e5]' : 'bg-slate-900'
-                            }`} />
-                            <span className="capitalize">{t}</span>
-                          </div>
-                          {readTheme === t && <Check size={14} className="text-blue-600 dark:text-blue-400" />}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                </div>
-              </>
-            )}
-          </div>
-
-        </main>
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-[#060c18]">
+        <div className="text-sm font-bold text-slate-500 animate-pulse">Loading reader layout...</div>
       </div>
-    </div>
+    }>
+      <BookLayoutContent>{children}</BookLayoutContent>
+    </Suspense>
   );
 }

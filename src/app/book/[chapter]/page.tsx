@@ -6,10 +6,58 @@ import BookPagination from '@/components/BookPagination';
 import MarkCompleteButton from '@/components/MarkCompleteButton';
 import { notFound } from 'next/navigation';
 import InteractivePre from '@/components/InteractivePre';
+import AdSenseBanner from '@/components/AdSenseBanner';
+import DeveloperProfile from '@/components/DeveloperProfile';
+import VideoEmbed from '@/components/VideoEmbed';
+import GraphBar from '@/components/GraphBar';
+import PracticeAssignment from '@/components/PracticeAssignment';
+import ChromeQuiz from '@/components/ChromeQuiz';
+import PaginatedSections from '@/components/PaginatedSections';
+import TabbedOS from '@/components/TabbedOS';
+import TabbedDevTools from '@/components/TabbedDevTools';
+import DragDropQuestion from '@/components/DragDropQuestion';
+import CommandLineQuiz from '@/components/CommandLineQuiz';
+import StartMenuGuide from '@/components/StartMenuGuide';
+import CommandInterpreterSimulation from '@/components/CommandInterpreterSimulation';
+import GuiVsCliSimulation from '@/components/GuiVsCliSimulation';
+import WindowsHistoryTimeline from '@/components/WindowsHistoryTimeline';
+import WhyLearnCliSimulation from '@/components/WhyLearnCliSimulation';
+import TerminalTypingAnimation from '@/components/TerminalTypingAnimation';
+import CommandLineBasicsSimulation from '@/components/CommandLineBasicsSimulation';
+import CommandLineRunner from '@/components/CommandLineRunner';
+import FolderTreeVisualizer from '@/components/FolderTreeVisualizer';
+import SpotTheError from '@/components/SpotTheError';
+import PillCommandBuilder from '@/components/PillCommandBuilder';
+import CommandFlashcard from '@/components/CommandFlashcard';
+import { getChapterSimulator } from '@/data/chapterSimulators';
+import InteractiveChapterSimulator from '@/components/InteractiveChapterSimulator';
 
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
 const mdxComponents = {
-  pre: (props: any) => <InteractivePre {...props} />
+  pre: (props: any) => <InteractivePre {...props} />,
+  DeveloperProfile: (props: any) => <DeveloperProfile {...props} />,
+  VideoEmbed: (props: any) => <VideoEmbed {...props} />,
+  GraphBar: (props: any) => <GraphBar {...props} />,
+  ChromeQuiz: (props: any) => <ChromeQuiz {...props} />,
+  TabbedOS: () => <TabbedOS />,
+  TabbedDevTools: () => <TabbedDevTools />,
+  DragDropQuestion: (props: any) => <DragDropQuestion {...props} />,
+  CommandLineQuiz: (props: any) => <CommandLineQuiz {...props} />,
+  CommandLineRunner: (props: any) => <CommandLineRunner {...props} />,
+  StartMenuGuide: () => <StartMenuGuide />,
+  CommandInterpreterSimulation: () => <CommandInterpreterSimulation />,
+  GuiVsCliSimulation: () => <GuiVsCliSimulation />,
+  WindowsHistoryTimeline: () => <WindowsHistoryTimeline />,
+  WhyLearnCliSimulation: () => <WhyLearnCliSimulation />,
+  TerminalTypingAnimation: () => <TerminalTypingAnimation />,
+  CommandLineBasicsSimulation: () => <CommandLineBasicsSimulation />,
+  FolderTreeVisualizer: (props: any) => <FolderTreeVisualizer {...props} />,
+  SpotTheError: (props: any) => <SpotTheError {...props} />,
+  PillCommandBuilder: (props: any) => <PillCommandBuilder {...props} />,
+  CommandFlashcard: (props: any) => <CommandFlashcard {...props} />,
 };
+/* eslint-enable @typescript-eslint/no-explicit-any */
 
 export async function generateStaticParams() {
   const contentDir = path.join(process.cwd(), 'src/content');
@@ -19,8 +67,57 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function ChapterPage({ params }: { params: Promise<{ chapter: string }> }) {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ chapter: string }>;
+}) {
   const { chapter } = await params;
+  const filePath = path.join(process.cwd(), 'src/content', `${chapter}.mdx`);
+
+  if (!fs.existsSync(filePath)) {
+    return {
+      title: "Chapter Not Found",
+      description: "This chapter is currently being written by the instructor.",
+    };
+  }
+
+  const fileContent = fs.readFileSync(filePath, 'utf8');
+  const { data } = matter(fileContent);
+  const title = data.title || chapter;
+  const description = data.description || `Study ${title} with Nextsem Academy's structured web development curriculum.`;
+
+  return {
+    title: title,
+    description,
+    alternates: { canonical: `/book/${chapter}` },
+    openGraph: {
+      title: `${title} | Nextsem Academy`,
+      description,
+      url: `https://nextsem.online/book/${chapter}`,
+    },
+    twitter: {
+      card: "summary",
+      title: `${title} | Nextsem Academy`,
+      description,
+    },
+  };
+}
+
+
+export default async function ChapterPage({
+  params,
+}: {
+  params: Promise<{ chapter: string }>;
+}) {
+  const { chapter } = await params;
+
+  // Check if we have an interactive simulator for this chapter
+  const simulator = getChapterSimulator(chapter);
+  if (simulator) {
+    return <InteractiveChapterSimulator simulator={simulator} chapterId={chapter} />;
+  }
+
   const filePath = path.join(process.cwd(), 'src/content', `${chapter}.mdx`);
 
   if (!fs.existsSync(filePath)) {
@@ -40,16 +137,49 @@ export default async function ChapterPage({ params }: { params: Promise<{ chapte
   const fileContent = fs.readFileSync(filePath, 'utf8');
   const { content } = matter(fileContent);
 
+  // Parse out Practice Assignment if present
+  let mdxSource = content;
+  let instructions: string[] = [];
+  let hasAssignment = false;
+
+  const assignmentRegex = /## 🎓 Practice Assignment|🎓 Practice Assignment/;
+  const match = content.split(assignmentRegex);
+  
+  if (match.length > 1) {
+    mdxSource = match[0];
+    const isHtmlCssOrJs = chapter.startsWith('p1-') || chapter.startsWith('p2-') || chapter.startsWith('p3-');
+    if (isHtmlCssOrJs) {
+      const rawInstructions = match[1] || "";
+      instructions = rawInstructions
+        .split('\n')
+        .map(line => line.trim())
+        .filter(line => line.startsWith('1.') || line.startsWith('2.') || line.startsWith('3.') || line.startsWith('4.') || line.startsWith('5.') || line.startsWith('-') || line.startsWith('*'))
+        .map(line => line.replace(/^\d+\.\s*/, '').replace(/^[-*]\s*/, ''));
+      
+      hasAssignment = instructions.length > 0;
+    }
+  }
+
   return (
     <div className="animate-in fade-in duration-500">
-      <article className="prose prose-slate dark:prose-invert prose-blue max-w-none">
-        {/* We use next-mdx-remote's RSC implementation to render the markdown securely */}
-        <MDXRemote source={content} components={mdxComponents} />
-      </article>
+      <div className="mb-4">
+        <AdSenseBanner />
+      </div>
 
-      <MarkCompleteButton chapterId={chapter} />
-      
-      <BookPagination />
+      <PaginatedSections
+        totalPages={1}
+        hasAssignment={hasAssignment}
+        chapterId={chapter}
+        instructions={instructions}
+      >
+        <MDXRemote source={mdxSource} components={mdxComponents} />
+      </PaginatedSections>
+
+      <div className="mt-4">
+        <AdSenseBanner />
+      </div>
     </div>
   );
 }
+
+

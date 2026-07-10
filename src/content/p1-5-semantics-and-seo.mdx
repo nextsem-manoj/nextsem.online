@@ -1,96 +1,78 @@
 ---
-title: "P1.5: Semantics & SEO"
-description: "Writing modern, meaningful HTML that ranks well on Google."
+title: "P1.5: Semantic HTML5 & SEO"
+description: "Mastering semantic document structures, page accessibility, and search engine optimization (SEO)."
 ---
 
-# P1.5: Semantic HTML & SEO
+# P1.5: Semantic HTML5 & SEO
 
-In the past, developers built websites using `<div>` tags for everything. While visually fine, a page full of `<div>` tags looks like meaningless soup to Google's Search Bots and Screen Readers used by visually impaired users.
+Semantic HTML means using HTML tags that describe their meaning to both the developer, the browser, and search engines like Google.
 
-Semantic HTML solves this by providing tags that describe their specific purpose.
+---
 
-## 1. Semantic Layout Tags
+## 1. Why Semantics Matter
 
-Instead of `<div id="header">`, use `<header>`.
+Without semantic HTML, browsers treat everything as plain text blocks inside generic `<div>` tags. Proper semantics are crucial for:
+1. **Search Engine Optimization (SEO):** Google crawls tags like `<article>`, `<header>`, and `<h1>` to index and rank webpages.
+2. **Accessibility (a11y):** Screen readers use semantic tags to help visually impaired users navigate.
 
-- `<header>`: The introductory content (usually containing the logo and navigation).
-- `<nav>`: The primary navigation links.
-- `<main>`: The unique, primary content of the page (only one per page).
-- `<article>`: A self-contained piece of content (like a blog post or news story).
-- `<section>`: A thematic grouping of content (like an "About Us" or "Contact" section).
-- `<aside>`: Content loosely related to the main content (like a sidebar).
-- `<footer>`: The closing content (copyright, legal links).
+<GraphBar
+  title="Impact of HTML Semantics on Search Rank"
+  subtitle="Average search engine crawler indexing efficiency scores."
+  items={[
+    { label: "Div-Soup Layouts (no semantics)", value: 20, displayValue: "Poor (20/100)" },
+    { label: "Semantic Layouts (article, nav)", value: 75, displayValue: "Good (75/100)" },
+    { label: "Semantics with ARIA Metadata", value: 95, displayValue: "Excellent (95/100)" }
+  ]}
+/>
 
-### Example of a Semantic Layout:
-```html
-<body>
-    <header>
-        <h1>NextSem Blog</h1>
-        <nav>
-            <a href="/">Home</a>
-            <a href="/about">About</a>
-        </nav>
-    </header>
+---
 
-    <main>
-        <section id="latest-posts">
-            <h2>Latest Posts</h2>
-            <article>
-                <h3>Why Semantics Matter</h3>
-                <p>Content goes here...</p>
-            </article>
-        </section>
+<DeveloperProfile
+  name="Kent C. Dodds"
+  role="JavaScript Engineer & Educator"
+  salary="₹60 Lakhs/yr equivalent"
+  company="Remix / Epic Web"
+  experience="9 Years"
+  avatar="👨‍💻"
+  photoUrl="https://github.com/kentcdodds.png"
+  profileUrl="https://github.com/kentcdodds"
+  stack="HTML5 Semantics, Remix Router, SEO Auditing, ARIA Accessibility"
+  quote="Always remember: a screen reader reads the HTML DOM, not your styled CSS colors. Focus on structural hierarchy. Semantic tags are the foundation of professional web interfaces."
+/>
 
-        <aside>
-            <h4>About the Author</h4>
-            <p>I am a frontend developer.</p>
-        </aside>
-    </main>
+---
 
-    <footer>
-        <p>&copy; 2026 NextSem Academy</p>
-    </footer>
-</body>
-```
-
-## 2. SEO Basics (Search Engine Optimization)
-SEO is how you get your website to show up on the first page of Google. Most SEO relies on the invisible `<head>` tag.
-
-### Essential Meta Tags
-```html
-<head>
-    <!-- Character encoding -->
-    <meta charset="UTF-8">
-    
-    <!-- Mobile responsiveness -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- Title: The most important SEO factor -->
-    <title>Learn Web Development | NextSem Academy</title>
-    
-    <!-- Description: The snippet that appears in Google search results -->
-    <meta name="description" content="Master full-stack web development with our comprehensive, project-based curriculum.">
-</head>
-```
-
-### Open Graph Tags (Social Media)
-Have you ever pasted a link into WhatsApp or Twitter, and a beautiful preview image and title automatically appeared? That's powered by Open Graph (`og:`) meta tags.
+## 2. Semantic Document Structures
+Instead of wrapping sections in `<div>`, use HTML5 semantic tags:
+* `<header>`: Site headers and navigation menus.
+* `<nav>`: Set of navigation links.
+* `<main>`: The dominant, unique content of the page (only one per page).
+* `<article>`: Self-contained composition (blog post, news article).
+* `<section>`: Thematic grouping of content.
+* `<aside>`: Sidebar layout for ads, bio, or links.
+* `<footer>`: Bottom disclaimer, copyright, and links.
 
 ```html
-<meta property="og:title" content="Learn Web Development">
-<meta property="og:description" content="Master full-stack development.">
-<meta property="og:image" content="https://example.com/preview-image.jpg">
+<!-- Example of a Semantic page skeleton -->
+<header>
+  <nav>
+    <a href="/">Home</a>
+  </nav>
+</header>
+<main>
+  <article>
+    <h1>HTML5 Semantics</h1>
+    <p>This is a semantic article.</p>
+  </article>
+</main>
+<footer>
+  <p>&copy; 2026 Nextsem Online.</p>
+</footer>
 ```
 
-## 🎓 Capstone Project for P1: Semantic Personal Portfolio
-This is it. The culmination of Phase 1. 
+---
 
-Create an `index.html` file that serves as your personal portfolio.
-1. Use a strictly Semantic layout (`<header>`, `<nav>`, `<main>`, `<section>`, `<footer>`).
-2. Add a `<header>` with an `<h1>` of your name and a `<nav>` linking to internal sections (e.g., `#about`, `#skills`, `#contact`).
-3. Add a section for your skills using an Unordered List `<ul>`.
-4. Add a section for your Projects using a `<table border="1">` (Project Name, Tech Stack, Link).
-5. Add a Contact section containing a Semantic `<form>`.
-6. Include proper `<meta>` tags for SEO and a descriptive `<title>`.
-
-Once you finish this, you have officially mastered the structure of the web. Prepare yourself for **Phase 2: CSS**, where we will take this structurally perfect portfolio and make it look visually stunning!
+## 🎓 Practice Assignment
+1. Open the file `blog.html` that you created in the first assignment.
+2. Restructure the code so that headers, sidebars, navigation bars, and footers use proper HTML5 semantic tags instead of generic `<div>` wrappers.
+3. Verify using Google Chrome Inspect element that your document DOM tree is semantically organized.

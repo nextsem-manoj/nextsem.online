@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { ThemeToggle } from './ThemeToggle';
 import ProgressIndicator from './ProgressIndicator';
+import { FontSizeControlPill } from './FontSizeControl';
 
 const Header = () => {
   return (
@@ -9,12 +10,10 @@ const Header = () => {
       
       {/* Left Section: Logo + Title in a horizontal row */}
       <div className="flex flex-row items-center gap-3 sm:gap-4">
-        {/* Compact Logo */}
-        <Link href="/" className="flex flex-row items-center gap-2 hover:opacity-80 transition-opacity">
-          <div className="bg-[#0a0f1c] rounded-md w-8 h-8 flex flex-col items-center justify-center border border-[#4ade80]/30">
-            <span className="text-[#4ade80] font-black text-sm leading-none tracking-tighter" style={{ textShadow: '0 0 5px #4ade80' }}>NS</span>
-          </div>
-          <span className="font-black text-lg hidden sm:block bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">NextSem</span>
+        {/* Title Link */}
+        <Link href="/" className="flex flex-row items-center gap-2.5 hover:opacity-80 transition-opacity">
+          <img src="/logo.svg" alt="Nextsem Logo" className="w-7 h-7 rounded-lg border border-emerald-500/20" />
+          <span className="font-black text-lg bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">NextSem</span>
         </Link>
         
         {/* Title */}
@@ -24,10 +23,15 @@ const Header = () => {
         </h1>
       </div>
 
-      {/* Right Section: Progress & Theme Toggle in a horizontal row */}
+      {/* Right Section: Progress, Font Size & Theme Toggle in a horizontal row */}
       <div className="flex flex-row items-center gap-3 sm:gap-4">
         <div className="hidden md:block">
           <ProgressIndicator />
+        </div>
+        
+        {/* Accessibility: Text size control — visible on md+ */}
+        <div className="hidden md:block">
+          <FontSizeControlPill />
         </div>
         
         <ThemeToggle />

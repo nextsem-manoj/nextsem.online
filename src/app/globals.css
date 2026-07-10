@@ -3,54 +3,52 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #060c18;
+  --foreground: #ffffff;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-inter);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0f172a;
-    --foreground: #ededed;
-  }
+html,
+body {
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-  overflow-x: hidden;
+  font-family: var(--font-inter), sans-serif;
+  /* Push content above the flush bottom nav on iPhones */
+  padding-bottom: env(safe-area-inset-bottom);
 }
+
 
 /* Custom Webkit Scrollbar for that premium look */
 .custom-scrollbar::-webkit-scrollbar {
-  height: 8px;
+  width: 5px;
+  height: 5px;
 }
 .custom-scrollbar::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.05);
-  border-radius: 4px;
-}
-.dark .custom-scrollbar::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.05);
+  background: transparent;
 }
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.2);
-  border-radius: 4px;
-}
-.dark .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
+  background: #39ff14; /* Gamified Neon Green */
+  border-radius: 9999px;
+  box-shadow: 0 0 6px rgba(57, 255, 20, 0.5);
 }
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 0, 0, 0.4);
+  background: #2ebd10;
 }
-.dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.4);
+/* Firefox support */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #39ff14 transparent;
 }
 
 /* Glamorous Animations */
@@ -127,34 +125,362 @@ body {
   box-shadow: none !important;
 }
 
-/* Soothing Sepia Reading Theme */
+/* ==========================================================================
+   GLOBAL THEME SYSTEM — CSS CUSTOM PROPERTIES
+   Clean variable-based theming. Body inherits text via cascade.
+   No more per-element !important hacks.
+   ========================================================================== */
+
+/* ── DEFAULT / DARK THEME (Root) ── */
+:root {
+  --background:         #060c18;
+  --foreground:         #ffffff;
+  --theme-bg:           #060c18;
+  --theme-surface:      #0f172a;
+  --theme-card:         #0f172a;
+  --theme-text:         #ffffff;
+  --theme-text-muted:   #94a3b8;
+  --theme-text-subtle:  #475569;
+  --theme-border:       rgba(255, 255, 255, 0.08);
+  --theme-btn-bg:       #ffffff;
+  --theme-btn-text:     #0f172a;
+  --theme-btn-blue-bg:  #3b82f6;
+  --theme-accent:       #10b981;
+}
+
+/* ── LIGHT THEME (html.light) ── */
+html.light {
+  --background:         #f8fafc;
+  --foreground:         #0f172a;
+  --theme-bg:           #f8fafc;
+  --theme-surface:      #ffffff;
+  --theme-card:         #ffffff;
+  --theme-text:         #0f172a;
+  --theme-text-muted:   #64748b;
+  --theme-text-subtle:  #94a3b8;
+  --theme-border:       #e2e8f0;
+  --theme-btn-bg:       #0f172a;
+  --theme-btn-text:     #ffffff;
+  --theme-btn-blue-bg:  #2563eb;
+  --theme-accent:       #2563eb;
+}
+
+/* ── DARK THEME (html.dark) ── */
+html.dark {
+  --background:         #060c18;
+  --foreground:         #ffffff;
+  --theme-bg:           #060c18;
+  --theme-surface:      #0f172a;
+  --theme-card:         #0f172a;
+  --theme-text:         #ffffff;
+  --theme-text-muted:   #94a3b8;
+  --theme-text-subtle:  #475569;
+  --theme-border:       rgba(255, 255, 255, 0.08);
+  --theme-btn-bg:       #ffffff;
+  --theme-btn-text:     #0f172a;
+  --theme-btn-blue-bg:  #3b82f6;
+  --theme-accent:       #10b981;
+}
+
+/* ── NIGHT LIGHT THEME (html.night-light) ── */
+html.night-light {
+  --background:         #fbf0d9;
+  --foreground:         #433422;
+  --theme-bg:           #fbf0d9;
+  --theme-surface:      #f5e8cd;
+  --theme-card:         #f5e8cd;
+  --theme-text:         #433422;
+  --theme-text-muted:   #705845;
+  --theme-text-subtle:  #8c7355;
+  --theme-border:       rgba(140, 98, 57, 0.25);
+  --theme-btn-bg:       #433422;
+  --theme-btn-text:     #fbf0d9;
+  --theme-btn-blue-bg:  #b45309;
+  --theme-accent:       #d97706;
+}
+
+
+/* Light and Sepia modes removed — app is dark-only. */
+
+
+/* Focus Mode: Hide top bar when reading a book chapter, but keep bottom navigation active */
+body.in-book-mode #top-nav-header,
+body.in-book-mode .top-nav-header,
+body.in-book-mode #translate-widget,
+body.in-book-mode .translate-btn {
+  display: none !important;
+}
+
+html:has(body.in-book-mode),
+body.in-book-mode,
+html:has(body.in-home-mode),
+body.in-home-mode {
+  overflow: hidden !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  padding-bottom: 0 !important;
+  padding-top: 0 !important;
+  overscroll-behavior: none !important;
+}
+
+
+/* Shine animation for button hover */
+@keyframes shine {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 150%;
+  }
+}
+.group-hover\/btn\:animate-shine:hover::after,
+.animate-shine {
+  animation: shine 1.2s ease-out infinite;
+}
+
+/* Hand bounce animation used in FeatureSpotlight */
+@keyframes hand-bounce {
+  from { transform: translateY(0px) rotate(-5deg); }
+  to   { transform: translateY(-6px) rotate(5deg); }
+}
+
+/* Layout and Spacing Compression for full-screen view (No vertical scroll) */
+body.in-book-mode .prose {
+  max-width: 100% !important;
+}
+body.in-book-mode .prose h1,
+body.in-book-mode .prose h2,
+body.in-book-mode .prose h3 {
+  margin-top: 0.4rem !important;
+  margin-bottom: 0.2rem !important;
+  line-height: 1.2 !important;
+}
+body.in-book-mode .prose p,
+body.in-book-mode .prose ul,
+body.in-book-mode .prose ol,
+body.in-book-mode .prose li {
+  margin-top: 0.2rem !important;
+  margin-bottom: 0.2rem !important;
+  line-height: 1.35 !important;
+}
+body.in-book-mode .prose pre {
+  margin-top: 0.3rem !important;
+  margin-bottom: 0.3rem !important;
+  padding: 0.3rem 0.5rem !important;
+}
+body.in-book-mode .prose blockquote {
+  margin-top: 0.3rem !important;
+  margin-bottom: 0.3rem !important;
+  padding-top: 0.1rem !important;
+  padding-bottom: 0.1rem !important;
+}
+body.in-book-mode .prose div {
+  margin-top: 0.2rem !important;
+  margin-bottom: 0.2rem !important;
+}
+
+/* Compress DeveloperProfile and GraphBar vertically */
+body.in-book-mode [class*="DeveloperProfile"],
+body.in-book-mode .developer-profile-card,
+body.in-book-mode div:has(> [class*="DeveloperProfile"]) {
+  margin-top: 0.4rem !important;
+  margin-bottom: 0.4rem !important;
+  padding: 0.6rem !important;
+}
+body.in-book-mode [class*="GraphBar"],
+body.in-book-mode .graph-bar-card {
+  margin-top: 0.4rem !important;
+  margin-bottom: 0.4rem !important;
+  padding: 0.6rem !important;
+}
+
+/* Hide scrollbar visually while retaining functionality if needed */
+body.in-book-mode .overflow-y-auto {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* IE and Edge */
+}
+body.in-book-mode .overflow-y-auto::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
+}
+
+/* Book Mode Typography Styling */
+body.in-book-mode {
+  font-family: var(--font-inter), system-ui, -apple-system, sans-serif !important;
+}
+
+body.in-book-mode .prose {
+  font-family: var(--font-inter), system-ui, -apple-system, sans-serif !important;
+}
+
+body.in-book-mode .prose p {
+  font-family: var(--font-inter), system-ui, -apple-system, sans-serif !important;
+  line-height: 1.85 !important;
+  margin-top: 1.25rem !important;
+  margin-bottom: 1.5rem !important;
+  font-size: 1.05rem !important;
+  letter-spacing: -0.011em !important;
+}
+
+/* Alternate paragraph colors to create reading rhythm */
+body.in-book-mode .prose p:nth-of-type(even) {
+  color: #4b5563 !important; /* Softer gray in Light Mode */
+}
+
+.dark body.in-book-mode .prose p:nth-of-type(even) {
+  color: #94a3b8 !important; /* Softer slate in Dark Mode */
+}
+
+.sepia-mode body.in-book-mode .prose p:nth-of-type(even) {
+  color: #705845 !important; /* Softer brown in Sepia Mode */
+}
+
+body.in-book-mode .prose li {
+  font-family: var(--font-inter), system-ui, -apple-system, sans-serif !important;
+  line-height: 1.85 !important;
+  margin-top: 0.5rem !important;
+  margin-bottom: 0.85rem !important;
+  font-size: 1.05rem !important;
+}
+
+body.in-book-mode .prose h1,
+body.in-book-mode .prose h2,
+body.in-book-mode .prose h3,
+body.in-book-mode .prose h4 {
+  font-family: var(--font-outfit), sans-serif !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.02em !important;
+  margin-top: 2.25rem !important;
+  margin-bottom: 1.25rem !important;
+}
+
+body.in-book-mode .prose ul,
+body.in-book-mode .prose ol {
+  margin-top: 1rem !important;
+  margin-bottom: 1.5rem !important;
+  padding-left: 1.5rem !important;
+}
+
+body.in-book-mode .prose blockquote {
+  font-family: var(--font-inter), system-ui, -apple-system, sans-serif !important;
+  line-height: 1.85 !important;
+  border-left-width: 4px !important;
+  padding-left: 1rem !important;
+  margin-top: 1.5rem !important;
+  margin-bottom: 1.5rem !important;
+}
+
+/* Card theme custom variables */
+:root {
+  --profile-card-bg-start: #f8fafc;
+  --profile-card-bg-end: #f1f5f9;
+  --profile-card-border: rgba(148, 163, 184, 0.25);
+  --profile-card-text-primary: #0f172a;
+  --profile-card-text-secondary: #64748b;
+  --profile-card-glow: rgba(16, 185, 129, 0.08);
+  --profile-card-tab-active-bg: rgba(16, 185, 129, 0.06);
+  --profile-card-avatar-bg: #e2e8f0;
+  --profile-card-field-bg: #e2e8f0;
+}
+
+.dark {
+  --profile-card-bg-start: #0f172a;
+  --profile-card-bg-end: #0b0f19;
+  --profile-card-border: rgba(16, 185, 129, 0.15);
+  --profile-card-text-primary: #ffffff;
+  --profile-card-text-secondary: #94a3b8;
+  --profile-card-glow: rgba(57, 255, 20, 0.15);
+  --profile-card-tab-active-bg: rgba(16, 185, 129, 0.1);
+  --profile-card-avatar-bg: #070a13;
+  --profile-card-field-bg: rgba(15, 23, 42, 0.6);
+}
+
+html.night-light,
 .sepia-mode {
-  background-color: #f7f1e5 !important;
-  color: #433422 !important;
-  border-color: #e6dcc8 !important;
+  --profile-card-bg-start: #fbf0d9 !important;
+  --profile-card-bg-end: #ebdcb9 !important;
+  --profile-card-border: rgba(140, 98, 57, 0.25) !important;
+  --profile-card-text-primary: #2b1f13 !important;
+  --profile-card-text-secondary: #705845 !important;
+  --profile-card-glow: rgba(180, 83, 9, 0.1) !important;
+  --profile-card-tab-active-bg: rgba(180, 83, 9, 0.08) !important;
+  --profile-card-avatar-bg: #ecdcb9 !important;
+  --profile-card-field-bg: rgba(235, 220, 185, 0.6) !important;
 }
-.sepia-mode .prose, .sepia-mode p, .sepia-mode li, .sepia-mode span {
-  color: #4e3a24 !important;
-}
-.sepia-mode h1, .sepia-mode h2, .sepia-mode h3, .sepia-mode h4, .sepia-mode strong {
-  color: #2b1f13 !important;
-}
-.sepia-mode code {
-  color: #a76d18 !important;
-  background-color: #efe7d5 !important;
-}
-.sepia-mode pre {
-  background-color: #ebdcb9 !important;
-  border-color: #d8c69d !important;
-}
-.sepia-mode pre code {
-  color: #2b1f13 !important;
+
+/* Ensure Google AdSense containers inherit transparency to match active theme */
+.adsbygoogle,
+.adsbygoogle iframe,
+.adsbygoogle ins {
+  background: transparent !important;
   background-color: transparent !important;
 }
-.sepia-mode a {
-  color: #b45309 !important;
-  text-decoration-color: rgba(180, 83, 9, 0.4) !important;
+
+/* body.sepia-mode background/color is now handled by CSS variables above */
+
+/* ── Nextsem OS Desktop Simulation Custom Styles ── */
+.os-desktop-grid {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
 }
-.sepia-mode a:hover {
-  color: #d97706 !important;
+
+.dark .os-desktop-grid {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
 }
+
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+.crt-scanline::after {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  z-index: 999999;
+  background-size: 100% 3px, 3px 100%;
+  pointer-events: none;
+}
+
+/* Glassmorphism Window panels */
+.os-window-glass {
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.os-window-header {
+  background: rgba(30, 41, 59, 0.5);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.os-desktop-shortcut {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.os-desktop-shortcut:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 15px rgba(57, 255, 20, 0.15);
+}
+
+/* Mobile full-screen apps launcher panel */
+.mobile-app-sheet {
+  height: calc(100vh - 56px);
+  height: calc(100dvh - 56px);
+}
+
+/* Shake animation for wrong drag & drop options */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
+.animate-shake {
+  animation: shake 0.4s ease-in-out;
+}
+

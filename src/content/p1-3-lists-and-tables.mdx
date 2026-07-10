@@ -1,85 +1,167 @@
 ---
 title: "P1.3: Lists & Tables"
-description: "Organizing complex data structures in HTML."
+description: "Mastering HTML lists (ordered, unordered, nested, and definition lists) and constructing complex tables with colspans, rowspans, and semantic tags."
 ---
 
 # P1.3: Lists & Tables
 
-Information on the web needs to be organized. Lists help structure sequential or related items, while tables handle complex, multi-dimensional data.
+Data organization is a key part of web development. In this lesson, we will master how to present structured data using HTML lists and grids.
+
+---
 
 ## 1. HTML Lists
 
-### Unordered Lists
-Used when the order of items does not matter (like a grocery list or navigation menu).
+Lists are used to group related items together. HTML provides three distinct list types, each suited for different structures.
+
+### Unordered Lists (`<ul>`)
+Used when the order of items does not matter. Renders bullet points by default.
 ```html
 <ul>
-    <li>HTML</li>
-    <li>CSS</li>
-    <li>JavaScript</li>
+  <li>2 eggs</li>
+  <li>1 tbs butter</li>
+  <li>2 tbs cream</li>
 </ul>
 ```
 
-### Ordered Lists
-Used when the sequence is important (like a recipe or top 10 ranking).
+### Ordered Lists (`<ol>`)
+Used when the order of items is important (e.g., step-by-step instructions or recipes). Renders numbers by default.
 ```html
-<ol type="A" start="3">
-    <li>Learn React</li>
-    <li>Learn Node.js</li>
+<ol>
+  <li>Melt butter in a frying pan over medium heat.</li>
+  <li>Gently mix the eggs and cream in a bowl.</li>
+  <li>Add mixture to pan and scramble.</li>
 </ol>
-<!-- This will output: C. Learn React, D. Learn Node.js -->
 ```
 
-### Description Lists
-Used for key-value pairs, like a dictionary or FAQ section.
+### Nested Lists
+You can place a second list inside a list item (`<li>`) to create sub-lists or hierarchies. Browsers automatically indent nested lists and change the bullet point style.
+```html
+<ul>
+  <li>Mousses</li>
+  <li>Pastries
+    <ul>
+      <li>Croissant</li>
+      <li>Mille-feuille</li>
+      <li>Palmier</li>
+    </ul>
+  </li>
+  <li>Tarts</li>
+</ul>
+```
+
+### Definition / Description Lists (`<dl>`)
+Used for term-and-definition pairings (such as glossaries, dictionaries, or key-value pairings).
+* `<dl>`: The Description List container.
+* `<dt>`: The Description Term (the word being defined). Renders aligned to the left margin.
+* `<dd>`: The Description Definition (the definition or value). Renders indented by default.
+
 ```html
 <dl>
-    <dt>HTML</dt>
-    <dd>The structure of a webpage.</dd>
-    <dt>CSS</dt>
-    <dd>The styling of a webpage.</dd>
+  <dt>Sashimi</dt>
+  <dd>Sliced raw fish served with condiments like wasabi and soy sauce.</dd>
+  <dt>Scale</dt>
+  <dd>A device used to accurately measure the weight of ingredients.</dd>
+  <dd>A technique by which the scales are removed from a fish.</dd>
 </dl>
 ```
 
-## 2. HTML Tables (The Right Way)
-In the early 2000s, developers used tables to build entire website layouts. This is now considered terrible practice. **Tables should only be used for tabular data (like spreadsheets).**
+---
 
-A professional table is split into semantic sections: `<thead>`, `<tbody>`, and `<tfoot>`.
+## 2. Lists & Tables Usage in Web Layouts
+
+Grids and list structures form the structural backbone of navigation bars, directory indices, and pricing tables.
+
+<GraphBar
+  title="Curriculum Phase Complexity Breakdown"
+  subtitle="Number of structural data elements commonly used in frontend phases."
+  items={[
+    { label: "Phase 1: Basic Lists", value: 30, displayValue: "Simple ol/ul" },
+    { label: "Phase 2: Complex Tables", value: 65, displayValue: "colspan/rowspan" },
+    { label: "Phase 3: JavaScript DOM Grids", value: 95, displayValue: "Dynamic Data Rows" }
+  ]}
+/>
+
+---
+
+<DeveloperProfile
+  name="Jen Simmons"
+  role="Layout Advocate & Designer"
+  salary="₹90 Lakhs/yr equivalent"
+  company="Mozilla / W3C CSS WG"
+  experience="18 Years"
+  avatar="👩‍💻"
+  photoUrl="https://github.com/jensimmons.png"
+  profileUrl="https://github.com/jensimmons"
+  stack="HTML5 structure, CSS Grid, Flexbox, Web Design History"
+  quote="Tables were historically abused to create page layouts in the 90s, which broke accessibility. Today, we use HTML tables only for structured tabular data, and CSS for layouts. Know your tools!"
+/>
+
+---
+
+## 3. HTML Tables (`<table>`)
+
+Tables represent information in grid format (rows and columns). A table is constructed horizontally, row by row.
 
 ```html
-<table border="1">
-    <thead>
-        <tr>
-            <th>Student Name</th>
-            <th>Subject</th>
-            <th>Grade</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Rahul</td>
-            <td>Math</td>
-            <td>A+</td>
-        </tr>
-        <tr>
-            <td>Priya</td>
-            <td>Science</td>
-            <td>A</td>
-        </tr>
-    </tbody>
-    <tfoot>
-        <tr>
-            <td colspan="2">Average Grade</td>
-            <td>A</td>
-        </tr>
-    </tfoot>
+<table>
+  <thead>
+    <tr>
+      <th>Author</th>
+      <th>Title</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>E.E. Cummings</td>
+      <td>Tulips & Chimneys</td>
+      <td>$20.00</td>
+    </tr>
+  </tbody>
 </table>
 ```
 
-### Colspan and Rowspan
-Notice the `colspan="2"` in the footer? This merges two columns together. `rowspan` merges rows vertically.
+### Core Table Elements:
+* `<table>`: Wraps the entire table grid.
+* `<tr>` (Table Row): Defines a horizontal row of cells.
+* `<td>` (Table Data): Defines an individual cell containing data.
+* `<th>` (Table Heading): Represents heading cells for rows or columns. Renders bold and centered by default.
+  * *Best Practice:* Use the `scope` attribute (`scope="col"` or `scope="row"`) to clarify the heading direction for screen readers.
 
-## 🎓 Mini-Project: Class Timetable
-Create a complex table representing your college weekly timetable.
-- Use `<thead>` for the days of the week.
-- Use `rowspan` for a long lab session that spans across 2 hours.
-- Use `colspan` for a lunch break that spans across all days.
+### Spanning Columns & Rows
+* **`colspan` Attribute:** Allows a single cell to stretch across multiple columns horizontally.
+* **`rowspan` Attribute:** Allows a single cell to stretch down across multiple rows vertically.
+
+```html
+<!-- Colspan Example: Timetable spanning 3 hour slots -->
+<tr>
+  <th>Monday</th>
+  <td colspan="3">HTML & CSS Workshop</td>
+  <td>Open Lab</td>
+</tr>
+
+<!-- Rowspan Example: Movie spanning two 1-hour rows -->
+<tr>
+  <th>6pm - 7pm</th>
+  <td rowspan="2">Inception (Movie)</td>
+  <td>Local News</td>
+</tr>
+<tr>
+  <th>7pm - 8pm</th>
+  <td>Current Affairs</td>
+</tr>
+```
+
+### Long Tables & Semantic Groups
+To distinguish between the header, body, and summary footer in long tables, wrap rows in these elements:
+* `<thead>`: Groups the header rows.
+* `<tbody>`: Groups the main body data rows.
+* `<tfoot>`: Groups the summary or totals footer rows.
+
+---
+
+## 🎓 Practice Assignment
+1. Create a page `table.html`. Set up a 3-column table representing a shopping list.
+2. Group the structure using `<thead>`, `<tbody>`, and `<tfoot>`.
+3. Use a `colspan` in the `<tfoot>` row to show a single "Total Price" cell spanning the first two columns.
+4. Construct a nested unordered list displaying your three favorite topics in web design.
