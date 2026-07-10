@@ -360,6 +360,12 @@ export default function SimulatorPage() {
     setShowWallpapers(false);
   }, [userEmail]);
 
+  const handleSkipOnboarding = useCallback(() => {
+    const email = userEmail || "guest";
+    localStorage.setItem(certKey(email), "true");
+    window.location.href = "/";
+  }, [userEmail]);
+
   // Save progress
   const saveProgress = useCallback((ids: string[], h: number) => {
     if (!userEmail) return;
@@ -624,16 +630,23 @@ export default function SimulatorPage() {
           </div>
         </div>
 
-        {/* Right: Hearts + XP */}
+        {/* Right: Hearts + XP + Skip option */}
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-0.5">
             {Array.from({ length: MAX_HEARTS }).map((_, i) => (
               <Heart key={i} size={13} className={i < hearts ? "text-red-400 fill-red-400" : "text-slate-700"} />
             ))}
           </div>
-          <div className="flex items-center gap-1 text-amber-400 font-black text-xs">
+          <div className="flex items-center gap-1 text-amber-400 font-black text-xs mr-1">
             <Star size={12} className="fill-amber-400" />{totalXP}
           </div>
+          <button
+            onClick={handleSkipOnboarding}
+            className="bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 hover:text-white font-bold text-[10px] px-2.5 py-1 rounded-lg transition-all flex items-center gap-1 active:scale-95 cursor-pointer ml-1"
+            title="Skip Simulator and go to dashboard"
+          >
+            Skip Onboarding ➔
+          </button>
         </div>
       </header>
 
