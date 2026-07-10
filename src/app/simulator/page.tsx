@@ -11,7 +11,7 @@ import {
 } from "../../data/desktopSimulatorSteps";
 import { Heart, Star, Lightbulb, CheckCircle2, AlertCircle, X, ChevronRight, Trophy, Search, ImageIcon } from "lucide-react";
 
-// ─── Wallpapers ──────────────────────────────────────────────────────────────
+// ─── Wallpapers (Real Windows Era Wallpapers) ────────────────────────────────
 interface Wallpaper {
   id: string;
   name: string;
@@ -27,7 +27,9 @@ const WALLPAPERS: Wallpaper[] = [
     era: "Windows XP",
     emoji: "🌄",
     style: {
-      background: "linear-gradient(180deg, #4da6ff 0%, #87ceeb 35%, #6ab04c 35%, #4a8c2a 55%, #3d7a20 100%)",
+      backgroundImage: "url('https://upload.wikimedia.org/wikipedia/en/4/49/Bliss_%28Windows_XP%29.png')",
+      backgroundSize: "cover",
+      backgroundPosition: "center",
     },
   },
   {
@@ -36,8 +38,9 @@ const WALLPAPERS: Wallpaper[] = [
     era: "Windows Vista",
     emoji: "🌌",
     style: {
-      background: "radial-gradient(ellipse at 50% 80%, #1a0533 0%, #0d1b4b 30%, #071230 60%, #020812 100%)",
-      backgroundImage: "radial-gradient(ellipse at 50% 80%, #1a0533 0%, #0d1b4b 30%, #071230 60%, #020812 100%), radial-gradient(ellipse at 70% 60%, rgba(100,0,180,0.4) 0%, transparent 60%), radial-gradient(ellipse at 30% 70%, rgba(0,80,160,0.5) 0%, transparent 50%)",
+      backgroundImage: "url('https://archive.org/download/theoriginalfilesofsomewindowswallpapers/Vista%20Destination.jpg')",
+      backgroundSize: "cover",
+      backgroundPosition: "center",
     },
   },
   {
@@ -46,36 +49,42 @@ const WALLPAPERS: Wallpaper[] = [
     era: "Windows 7",
     emoji: "🎨",
     style: {
-      background: "linear-gradient(135deg, #1a1a2e 0%, #16213e 25%, #0f3460 50%, #533483 75%, #e94560 100%)",
+      backgroundImage: "url('https://archive.org/download/theoriginalfilesofsomewindowswallpapers/NTS0043H.jpg')",
+      backgroundSize: "cover",
+      backgroundPosition: "center",
     },
   },
   {
     id: "win7-fish",
-    name: "Underwater",
+    name: "Fish",
     era: "Windows 7",
     emoji: "🐟",
     style: {
-      background: "radial-gradient(ellipse at 50% 0%, #004466 0%, #002244 40%, #001122 100%)",
-      backgroundImage: "radial-gradient(ellipse at 50% 0%, #005577 0%, #002244 40%, #001122 100%), radial-gradient(circle at 30% 40%, rgba(0,150,255,0.2) 0%, transparent 40%), radial-gradient(circle at 70% 60%, rgba(0,100,200,0.15) 0%, transparent 35%)",
+      backgroundImage: "url('https://archive.org/download/theoriginalfilesofsomewindowswallpapers/IL141-016.jpg')",
+      backgroundSize: "cover",
+      backgroundPosition: "center",
     },
   },
   {
     id: "win8-hero",
-    name: "Ribbons",
+    name: "Hero",
     era: "Windows 8",
-    emoji: "🎀",
+    emoji: "🌀",
     style: {
-      background: "linear-gradient(160deg, #00b4d8 0%, #0077b6 20%, #023e8a 40%, #6a00f4 60%, #b5179e 80%, #f72585 100%)",
+      backgroundImage: "url('https://archive.org/download/theoriginalfilesofsomewindowswallpapers/NTS0027H.jpg')",
+      backgroundSize: "cover",
+      backgroundPosition: "center",
     },
   },
   {
     id: "win10-hero",
     name: "Hero",
     era: "Windows 10",
-    emoji: "💎",
+    emoji: "📎",
     style: {
-      background: "linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%)",
-      backgroundImage: "linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%), radial-gradient(ellipse at 60% 40%, rgba(0,120,255,0.3) 0%, transparent 50%)",
+      backgroundImage: "url('https://archive.org/download/theoriginalfilesofsomewindowswallpapers/G719102013.jpg')",
+      backgroundSize: "cover",
+      backgroundPosition: "center",
     },
   },
   {
@@ -84,8 +93,9 @@ const WALLPAPERS: Wallpaper[] = [
     era: "Windows 10",
     emoji: "🌠",
     style: {
-      background: "radial-gradient(ellipse at 70% 30%, #1a3a5c 0%, #0a1628 40%, #050d1a 100%)",
-      backgroundImage: "radial-gradient(ellipse at 70% 30%, #1e4a7a 0%, #0a1628 40%, #050d1a 100%), radial-gradient(ellipse at 20% 80%, rgba(255,200,0,0.08) 0%, transparent 40%)",
+      backgroundImage: "url('https://archive.org/download/theoriginalfilesofsomewindowswallpapers/e4f70bf29a988b6c3213a35085cdc230650ec56f442c752895b3339fd7042441.jpg')",
+      backgroundSize: "cover",
+      backgroundPosition: "center",
     },
   },
   {
@@ -94,8 +104,9 @@ const WALLPAPERS: Wallpaper[] = [
     era: "Windows 11",
     emoji: "🌸",
     style: {
-      background: "radial-gradient(ellipse at 50% 50%, #6b2fa0 0%, #2d1b6b 30%, #0d0d2b 70%, #050510 100%)",
-      backgroundImage: "radial-gradient(ellipse at 50% 50%, #7b3fb5 0%, #2d1b6b 30%, #0d0d2b 70%, #050510 100%), radial-gradient(ellipse at 60% 40%, rgba(200,50,200,0.2) 0%, transparent 40%), radial-gradient(ellipse at 40% 60%, rgba(100,0,255,0.15) 0%, transparent 35%)",
+      backgroundImage: "url('https://raw.githubusercontent.com/viridivn/windows11wallpapers/main/img0.jpg')",
+      backgroundSize: "cover",
+      backgroundPosition: "center",
     },
   },
   {
@@ -113,7 +124,9 @@ const WALLPAPERS: Wallpaper[] = [
     era: "Custom",
     emoji: "🚀",
     style: {
-      background: "radial-gradient(ellipse at 30% 20%, #0d2240 0%, #030b18 50%, #010a14 100%)",
+      backgroundImage: "url('https://archive.org/download/theoriginalfilesofsomewindowswallpapers/earth--from-space-img94-JPG.jpg')",
+      backgroundSize: "cover",
+      backgroundPosition: "center",
     },
   },
 ];
@@ -265,8 +278,13 @@ export default function SimulatorPage() {
   const [time,            setTime]            = useState("");
   const [date,            setDate]            = useState("");
   const [searchQuery,     setSearchQuery]     = useState("");
-  const [wallpaperId,     setWallpaperId]     = useState("nextsem-os");
+  const [wallpaperId,     setWallpaperId]     = useState("xp-bliss");
   const [showWallpapers,  setShowWallpapers]  = useState(false);
+  const [cardMinimized,   setCardMinimized]   = useState(false);
+  const [taskbarVisible,  setTaskbarVisible]  = useState(true);
+
+  const autoHideTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const taskbarLeaveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const feedbackTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const step: DesktopSimulatorStep = desktopSimulatorSteps[currentStepIdx];
@@ -318,6 +336,25 @@ export default function SimulatorPage() {
     document.addEventListener("click", close);
     return () => document.removeEventListener("click", close);
   }, []);
+
+  // Auto-hide taskbar (4s) and instructions card (6s) on step change
+  useEffect(() => {
+    setTaskbarVisible(true);
+    setCardMinimized(false);
+
+    const taskbarTimer = setTimeout(() => {
+      setTaskbarVisible(false);
+    }, 4000);
+
+    const cardTimer = setTimeout(() => {
+      setCardMinimized(true);
+    }, 6000);
+
+    return () => {
+      clearTimeout(taskbarTimer);
+      clearTimeout(cardTimer);
+    };
+  }, [currentStepIdx]);
 
   // Change wallpaper
   const changeWallpaper = useCallback((id: string) => {
@@ -619,140 +656,181 @@ export default function SimulatorPage() {
       ───────────────────────────────────────────────────── */}
       <div
         id="mcq-block"
-        className="absolute bottom-14 left-3 z-[100] w-[340px] sm:w-[380px] bg-[#0d1b2a]/95 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl shadow-purple-500/10 overflow-hidden"
-        onClick={(e) => e.stopPropagation()}
+        className={`absolute left-3 z-[100] bg-[#0d1b2a]/95 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl transition-all duration-300 cursor-pointer overflow-hidden
+          ${cardMinimized 
+            ? "bottom-14 w-44 px-3 py-2.5 hover:bg-[#1a2e46]/95 border-purple-500/30" 
+            : "bottom-14 w-[340px] sm:w-[380px]"}`}
+        onClick={(e) => {
+          e.stopPropagation();
+          if (cardMinimized) setCardMinimized(false);
+        }}
         onContextMenu={(e) => e.stopPropagation()}
       >
-        {/* Card header */}
-        <div className="bg-gradient-to-r from-purple-900/50 to-blue-900/30 px-4 py-3 border-b border-white/5">
-          <div className="flex items-center gap-2">
-            <span className="text-base">
-              {{ "desktop": "🖥️", "start-menu": "🪟", "taskbar": "📌", "file-explorer": "📁", "terminal": "💻", "recycle-bin": "🗑️", "shortcuts": "⌨️" }[step.category] ?? "🎮"}
-            </span>
-            <div className="flex-1">
-              <div className="text-white font-black text-xs">{step.title}</div>
-              <div className="text-slate-500 text-[10px]">Step {currentStepIdx + 1} of {totalSteps} · +{step.xpReward} XP on complete</div>
+        {cardMinimized ? (
+          <div className="flex items-center gap-2 justify-between">
+            <div className="flex items-center gap-1.5 min-w-0">
+              <span className="text-sm shrink-0">📖</span>
+              <span className="text-white font-black text-[10px] truncate">Read Instructions</span>
             </div>
-            <span className={`text-[9px] font-bold border px-2 py-0.5 rounded-full
-              ${{ beginner: "bg-emerald-500/15 text-emerald-400 border-emerald-500/30", easy: "bg-blue-500/15 text-blue-400 border-blue-500/30", medium: "bg-amber-500/15 text-amber-400 border-amber-500/30" }[step.difficulty]}`}>
-              {step.difficulty}
-            </span>
+            <span className="text-[8px] font-bold bg-purple-500/20 text-purple-300 rounded px-1 shrink-0">Step {currentStepIdx + 1}</span>
           </div>
-        </div>
-
-        <div className="p-3 space-y-2 max-h-[280px] overflow-y-auto">
-          {/* Instruction */}
-          <p className="text-slate-200 text-[11px] leading-relaxed whitespace-pre-line">{step.instruction}</p>
-
-          {/* Shortcut bubble */}
-          {step.shortcut && (
-            <div className="inline-flex items-center gap-1.5 bg-slate-800 border border-slate-700 rounded-xl px-3 py-1.5">
-              <span className="text-[10px] text-slate-400">Shortcut:</span>
-              <kbd className="text-[10px] font-mono text-purple-300 font-bold">{step.shortcut}</kbd>
+        ) : (
+          <>
+            {/* Card header */}
+            <div className="bg-gradient-to-r from-purple-900/50 to-blue-900/30 px-4 py-3 border-b border-white/5 flex items-center justify-between">
+              <div className="flex items-center gap-2 min-w-0">
+                <span className="text-base shrink-0">
+                  {{ "desktop": "🖥️", "start-menu": "🪟", "taskbar": "📌", "file-explorer": "📁", "terminal": "💻", "recycle-bin": "🗑️", "shortcuts": "⌨️" }[step.category] ?? "🎮"}
+                </span>
+                <div className="flex-1 min-w-0">
+                  <div className="text-white font-black text-xs truncate">{step.title}</div>
+                  <div className="text-slate-500 text-[10px] truncate">Step {currentStepIdx + 1} of {totalSteps}</div>
+                </div>
+              </div>
+              <button 
+                onClick={(e) => { e.stopPropagation(); setCardMinimized(true); }}
+                className="p-1 rounded-lg hover:bg-white/10 text-slate-400 hover:text-white transition-colors shrink-0"
+                title="Minimize instructions"
+              >
+                <X size={12} />
+              </button>
             </div>
-          )}
 
-          {/* Keyboard zone */}
-          {step.action === "keyboard" && (
-            <div
-              id="shortcut-demo-area"
-              tabIndex={0}
-              className="bg-slate-900 border border-purple-500/30 rounded-2xl p-3 text-center cursor-text outline-none focus:border-purple-400"
-              onKeyDown={(e) => { e.stopPropagation(); completeStep(step); }}
-              onClick={(e) => { e.stopPropagation(); (e.currentTarget as HTMLElement).focus(); }}
-            >
-              <div className="text-2xl mb-1">⌨️</div>
-              <div className="text-slate-400 text-[10px]">Click here, then press:</div>
-              <div className="text-purple-300 font-mono font-black text-sm mt-0.5">{step.shortcut ?? "any key"}</div>
+            <div className="p-3 space-y-2 max-h-[280px] overflow-y-auto">
+              {/* Instruction */}
+              <p className="text-slate-200 text-[11px] leading-relaxed whitespace-pre-line">{step.instruction}</p>
+
+              {/* Shortcut bubble */}
+              {step.shortcut && (
+                <div className="inline-flex items-center gap-1.5 bg-slate-800 border border-slate-700 rounded-xl px-3 py-1.5">
+                  <span className="text-[10px] text-slate-400">Shortcut:</span>
+                  <kbd className="text-[10px] font-mono text-purple-300 font-bold">{step.shortcut}</kbd>
+                </div>
+              )}
+
+              {/* Keyboard zone */}
+              {step.action === "keyboard" && (
+                <div
+                  id="shortcut-demo-area"
+                  tabIndex={0}
+                  className="bg-slate-900 border border-purple-500/30 rounded-2xl p-3 text-center cursor-text outline-none focus:border-purple-400"
+                  onKeyDown={(e) => { e.stopPropagation(); completeStep(step); }}
+                  onClick={(e) => { e.stopPropagation(); (e.currentTarget as HTMLElement).focus(); }}
+                >
+                  <div className="text-2xl mb-1">⌨️</div>
+                  <div className="text-slate-400 text-[10px]">Click here, then press:</div>
+                  <div className="text-purple-300 font-mono font-black text-sm mt-0.5">{step.shortcut ?? "any key"}</div>
+                </div>
+              )}
+
+              {/* Start search zone */}
+              {step.action === "keyboard" && targetIconId === "start-search-input" && (
+                <div className="flex items-center gap-2 bg-white/5 border border-purple-500/30 rounded-xl px-3 py-2">
+                  <Search size={12} className="text-slate-500" />
+                  <input
+                    id="start-search-input"
+                    className="bg-transparent outline-none text-[11px] text-slate-200 w-full placeholder:text-slate-600"
+                    placeholder="Type 'cmd' and press Enter..."
+                    onKeyDown={(e) => { e.stopPropagation(); if (e.key === "Enter") completeStep(step); }}
+                    onChange={() => { if (step.action === "keyboard") completeStep(step); }}
+                  />
+                </div>
+              )}
+
+              {/* MCQ options */}
+              {step.action === "mcq" && step.mcqOptions && (
+                <div className="space-y-1.5">
+                  {step.mcqOptions.map((opt) => {
+                    const sel  = mcqAnswer.selected === opt.label;
+                    const ok   = mcqAnswer.submitted && opt.label === step.correctOption;
+                    const bad  = mcqAnswer.submitted && sel && opt.label !== step.correctOption;
+                    return (
+                      <button key={opt.label}
+                        onClick={(e) => { e.stopPropagation(); if (!mcqAnswer.submitted) setMCQAnswer({ selected: opt.label, submitted: false }); }}
+                        className={`w-full text-left px-3 py-2 rounded-xl text-[11px] font-bold border transition-all
+                          ${ok  ? "bg-emerald-500/20 border-emerald-500 text-emerald-300" : ""}
+                          ${bad ? "bg-red-500/20 border-red-500 text-red-300" : ""}
+                          ${sel && !mcqAnswer.submitted ? "bg-purple-500/20 border-purple-500/60 text-purple-200" : ""}
+                          ${!sel && !mcqAnswer.submitted ? "bg-white/3 border-white/10 text-slate-300 hover:bg-white/8" : ""}
+                        `}
+                      >
+                        <span className="text-slate-500 mr-1.5">[{opt.label}]</span>{opt.text}
+                      </button>
+                    );
+                  })}
+                  {mcqAnswer.selected && !mcqAnswer.submitted && (
+                    <button onClick={(e) => { e.stopPropagation(); handleMCQSubmit(); }}
+                      className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white font-black rounded-xl py-2 text-[11px] active:scale-95 transition-all">
+                      Submit Answer ✓
+                    </button>
+                  )}
+                </div>
+              )}
+
+              {/* Hint */}
+              {hintVisible && (
+                <div className="bg-amber-500/8 border border-amber-500/25 rounded-2xl p-2.5">
+                  <div className="flex items-start gap-2">
+                    <Lightbulb size={13} className="text-amber-400 mt-0.5 shrink-0" />
+                    <p className="text-amber-200 text-[10px] leading-relaxed">{step.hint}</p>
+                  </div>
+                </div>
+              )}
             </div>
-          )}
 
-          {/* Start search zone */}
-          {step.action === "keyboard" && targetIconId === "start-search-input" && (
-            <div className="flex items-center gap-2 bg-white/5 border border-purple-500/30 rounded-xl px-3 py-2">
-              <Search size={12} className="text-slate-500" />
-              <input
-                id="start-search-input"
-                className="bg-transparent outline-none text-[11px] text-slate-200 w-full placeholder:text-slate-600"
-                placeholder="Type 'cmd' and press Enter..."
-                onKeyDown={(e) => { e.stopPropagation(); if (e.key === "Enter") completeStep(step); }}
-                onChange={() => { if (step.action === "keyboard") completeStep(step); }}
-              />
-            </div>
-          )}
-
-          {/* MCQ options */}
-          {step.action === "mcq" && step.mcqOptions && (
-            <div className="space-y-1.5">
-              {step.mcqOptions.map((opt) => {
-                const sel  = mcqAnswer.selected === opt.label;
-                const ok   = mcqAnswer.submitted && opt.label === step.correctOption;
-                const bad  = mcqAnswer.submitted && sel && opt.label !== step.correctOption;
-                return (
-                  <button key={opt.label}
-                    onClick={(e) => { e.stopPropagation(); if (!mcqAnswer.submitted) setMCQAnswer({ selected: opt.label, submitted: false }); }}
-                    className={`w-full text-left px-3 py-2 rounded-xl text-[11px] font-bold border transition-all
-                      ${ok  ? "bg-emerald-500/20 border-emerald-500 text-emerald-300" : ""}
-                      ${bad ? "bg-red-500/20 border-red-500 text-red-300" : ""}
-                      ${sel && !mcqAnswer.submitted ? "bg-purple-500/20 border-purple-500/60 text-purple-200" : ""}
-                      ${!sel && !mcqAnswer.submitted ? "bg-white/3 border-white/10 text-slate-300 hover:bg-white/8" : ""}
-                    `}
-                  >
-                    <span className="text-slate-500 mr-1.5">[{opt.label}]</span>{opt.text}
-                  </button>
-                );
-              })}
-              {mcqAnswer.selected && !mcqAnswer.submitted && (
-                <button onClick={(e) => { e.stopPropagation(); handleMCQSubmit(); }}
-                  className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white font-black rounded-xl py-2 text-[11px] active:scale-95 transition-all">
-                  Submit Answer ✓
+            {/* Card footer */}
+            <div className="px-3 pb-3 pt-1 border-t border-white/5 flex gap-2">
+              <button onClick={() => setHintVisible((v) => !v)}
+                className="flex-1 text-[10px] font-bold text-amber-400 bg-amber-500/8 hover:bg-amber-500/15 border border-amber-500/20 rounded-xl py-1.5 flex items-center justify-center gap-1 transition-all">
+                <Lightbulb size={11} />{hintVisible ? "Hide Hint" : "Hint"}
+              </button>
+              {(step.action === "drag" || step.action === "hover") && (
+                <button onClick={() => completeStep(step)}
+                  id="completion-btn"
+                  className="flex-1 text-[10px] font-black text-white bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl py-1.5 flex items-center justify-center gap-1 active:scale-95 transition-all">
+                  ✓ Done <ChevronRight size={11} />
+                </button>
+              )}
+              {step.id === "world-1-complete" && (
+                <button onClick={() => completeStep(step)}
+                  id="completion-btn"
+                  className="flex-1 text-[10px] font-black text-white bg-gradient-to-r from-amber-500 to-orange-500 rounded-xl py-1.5 flex items-center justify-center gap-1 active:scale-95 transition-all">
+                  🏆 Claim Reward
                 </button>
               )}
             </div>
-          )}
-
-          {/* Hint */}
-          {hintVisible && (
-            <div className="bg-amber-500/8 border border-amber-500/25 rounded-2xl p-2.5">
-              <div className="flex items-start gap-2">
-                <Lightbulb size={13} className="text-amber-400 mt-0.5 shrink-0" />
-                <p className="text-amber-200 text-[10px] leading-relaxed">{step.hint}</p>
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* Card footer */}
-        <div className="px-3 pb-3 pt-1 border-t border-white/5 flex gap-2">
-          <button onClick={() => setHintVisible((v) => !v)}
-            className="flex-1 text-[10px] font-bold text-amber-400 bg-amber-500/8 hover:bg-amber-500/15 border border-amber-500/20 rounded-xl py-1.5 flex items-center justify-center gap-1 transition-all">
-            <Lightbulb size={11} />{hintVisible ? "Hide Hint" : "Hint"}
-          </button>
-          {(step.action === "drag" || step.action === "hover") && (
-            <button onClick={() => completeStep(step)}
-              id="completion-btn"
-              className="flex-1 text-[10px] font-black text-white bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl py-1.5 flex items-center justify-center gap-1 active:scale-95 transition-all">
-              ✓ Done <ChevronRight size={11} />
-            </button>
-          )}
-          {step.id === "world-1-complete" && (
-            <button onClick={() => completeStep(step)}
-              id="completion-btn"
-              className="flex-1 text-[10px] font-black text-white bg-gradient-to-r from-amber-500 to-orange-500 rounded-xl py-1.5 flex items-center justify-center gap-1 active:scale-95 transition-all">
-              🏆 Claim Reward
-            </button>
-          )}
-        </div>
+          </>
+        )}
       </div>
+
+      {/* Taskbar Hover Zone */}
+      <div
+        className="fixed bottom-0 left-0 right-0 h-3 z-[299]"
+        onMouseEnter={() => {
+          if (taskbarLeaveTimer.current) clearTimeout(taskbarLeaveTimer.current);
+          setTaskbarVisible(true);
+        }}
+      />
 
       {/* ─────────────────────────────────────────────────────
           TASKBAR
       ───────────────────────────────────────────────────── */}
       <div
         id="taskbar"
-        className={`absolute bottom-0 left-0 right-0 h-11 z-[300] bg-[#0a1628]/90 backdrop-blur-xl border-t border-white/8 flex items-center px-2 gap-2
+        className={`absolute bottom-0 left-0 right-0 h-11 z-[300] bg-[#0a1628]/90 backdrop-blur-xl border-t border-white/8 flex items-center px-2 gap-2 transition-transform duration-300
+          ${(taskbarVisible || startOpen || showWallpapers) ? "translate-y-0" : "translate-y-full"}
           ${targetIconId === "taskbar" ? "ring-2 ring-inset ring-purple-400" : ""}`}
         onClick={(e) => { e.stopPropagation(); validateAction("click", "taskbar"); }}
+        onMouseEnter={() => {
+          if (taskbarLeaveTimer.current) clearTimeout(taskbarLeaveTimer.current);
+          setTaskbarVisible(true);
+        }}
+        onMouseLeave={() => {
+          if (taskbarLeaveTimer.current) clearTimeout(taskbarLeaveTimer.current);
+          taskbarLeaveTimer.current = setTimeout(() => {
+            setTaskbarVisible(false);
+          }, 800);
+        }}
       >
         {/* Start button */}
         <button
