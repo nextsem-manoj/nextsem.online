@@ -386,7 +386,7 @@ const SearchWidget = () => {
       if (!document.getElementById('google-cse-script')) {
         const script = document.createElement('script');
         script.id = 'google-cse-script';
-        script.src = "https://cse.google.com/cse.js?cx=ca6f30a9bd4194098";
+        script.src = "https://cse.google.com/cse.js?cx=e3ec8ed7ecb624b82";
         script.async = true;
         document.body.appendChild(script);
         script.onload = () => setCseLoaded(true);
@@ -863,7 +863,7 @@ const SearchWidget = () => {
                     </span>
                     {/* The Google Custom Search elements container */}
                     <div 
-                      className="gcse-searchresults-only" 
+                      className="gcse-search" 
                       data-gname="nextsem-search"
                       data-queryParameterName="q"
                     ></div>

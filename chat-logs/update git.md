@@ -1,6 +1,6 @@
 # update git
 
-*Saved on: 18/7/2026, 2:17:06 pm*
+*Saved on: 18/7/2026, 2:19:27 pm*
 *Conversation ID: ebc4490d-b106-4d20-9df5-9ee9bcce088a*
 
 ---
@@ -1272,6 +1272,113 @@ I will verify the modified and newly created project files inside the git worksp
 ### 🤖 Antigravity AI
 
 I will stage and commit the new components and fixes to git.
+
+---
+
+### 🤖 Antigravity AI
+
+I will update the archived chat log once more and commit the final state.
+
+---
+
+### 🤖 Antigravity AI
+
+I have successfully completed your requests and deployed them to production:
+
+### 1. **Mobile Keyboard Overlay Fix for Search**
+* **The Problem**: When focusing on the search input on mobile viewports, the virtual keyboard overlays on top of the content pane, completely covering the recent history and recommended topics.
+* **The Solution**: 
+  * Added `isInputFocused` state tracking to the input.
+  * When focused (even if the search query is empty), the recent searches and recommended topics are rendered directly within the absolute-positioned top-floating suggestions dropdown box.
+  * Because this dropdown floats at the top of the viewport directly below the sticky search bar, it stays visible above the mobile keyboard.
+  * Added a `body` scroll lock (`overflow: hidden`) whenever the search overlay is open. This prevents viewport offset shifts and scrolling when focusing the text field on mobile Safari and Chrome.
+
+### 2. **Floating Bottom-Left Hamburger Navigation**
+* **The Widget**: Created a beautiful, dark-mode circular floating hamburger icon positioned at the bottom-left of the viewport: [GlobalNavigationWidget.tsx](file:///c:/jbrs-landing-page/src/components/GlobalNavigationWidget.tsx).
+* **The Drawer**: Clicking the hamburger icon slides out an organized side drawer from the left containing all website pages categorized neatly:
+  * 💻 **Practice & Coding Simulators** (`CMD Simulator`, `Git Terminal`, `Playground`)
+  * 📚 **Academic Syllabus** (`BCA Subject Hub`, `HTML Tutorials`, `Classroom Syllabus`)
+  * 🏛️ **Humanities & NCERT Hub** (`History`, `Civics`, `Economics`, `All NCERT Notes`)
+  * 👤 **Account & General Info** (`Student Profile`, `About`, `Contact`, `Privacy`, `Terms`)
+* **Integration**: Rendered the widget globally inside the root [layout.tsx](file:///c:/jbrs-landing-page/src/app/layout.tsx), ensuring it remains fully accessible across all pages (excluding the Sandbox Playground itself to avoid workspace clutter).
+
+### 3. **Google Custom Search JSON API Guide**
+* Created a detailed step-by-step developer implementation guide: [google_custom_search_guide.md](file:///C:/Users/manoj2403/.gemini/antigravity-ide/brain/ebc4490d-b106-4d20-9df5-9ee9bcce088a/google_custom_search_guide.md).
+* The guide explains Google CSE setup steps, acquiring your custom Search Engine ID (CX ID), and provides a fully-functional Next.js Route Handler example utilizing Google's Custom Search JSON API to retrieve search results programmatically for custom UI styling.
+
+---
+
+### 👤 User
+
+<script async src="https://cse.google.com/cse.js?cx=e3ec8ed7ecb624b82">
+</script>
+<div class="gcse-search"></div>
+
+---
+
+### 🤖 Antigravity AI
+
+I will search the project for all occurrences of the Google Custom Search script or CX ID to ensure they are all updated to the user's provided CX ID (`e3ec8ed7ecb624b82`).
+
+---
+
+### 🤖 Antigravity AI
+
+I will view lines 380 to 400 of `src/components/SearchWidget.tsx` to find the exact line loading the Google CSE script.
+
+---
+
+### 🤖 Antigravity AI
+
+I will view lines 800 to 825 of `src/components/SearchWidget.tsx` to find the exact container tag for the search results.
+
+---
+
+### 🤖 Antigravity AI
+
+I will view lines 835 to 870 of `SearchWidget.tsx` to find the `isGoogleMode` block.
+
+---
+
+### 🤖 Antigravity AI
+
+I will update the Google Custom Search script URL in `SearchWidget.tsx` to use the provided CX ID `e3ec8ed7ecb624b82`.
+
+---
+
+### 🤖 Antigravity AI
+
+I will view lines 855 to 875 of `src/components/SearchWidget.tsx` to locate the exact line for the `gcse-searchresults-only` element replacement.
+
+---
+
+### 🤖 Antigravity AI
+
+I will update the custom search results container tag in `SearchWidget.tsx` to use the standard `<div className="gcse-search" ...>` element to match the user's snippet and render the search input/results correctly.
+
+---
+
+### 🤖 Antigravity AI
+
+I will execute the production build script to verify there are no compilation errors with the updated Custom Search elements.
+
+---
+
+### 🤖 Antigravity AI
+
+I will wait for the build verification task (task 422) to finish. The system will automatically notify me when it completes.
+
+---
+
+### 🤖 Antigravity AI
+
+I will deploy the updated search configuration using the production script.
+
+---
+
+### 🤖 Antigravity AI
+
+I will wait for the final production deployment of the Custom Search configurations to finish. The system will automatically notify me when it completes.
 
 ---
 
