@@ -497,6 +497,27 @@ const SearchWidget = () => {
     localStorage.removeItem('nextsem_search_history');
   };
 
+  const handleSearchSubmit = () => {
+    if (searchQuery.trim()) {
+      saveSearchToHistory(searchQuery);
+      setAutosuggestions([]);
+      setIsInputFocused(false);
+      inputRef.current?.blur();
+      
+      // If we are in Google Mode, force execution immediately
+      if (isGoogleMode) {
+        // @ts-expect-error google search object
+        const google = window.google;
+        if (google?.search?.cse?.element) {
+          const element = google.search.cse.element.getElement('nextsem-search');
+          if (element) {
+            element.execute(searchQuery);
+          }
+        }
+      }
+    }
+  };
+
   const handleFullscreenTrigger = () => {
     // Disabled OS-level fullscreen request to prevent navigation resets on mobile
   };
@@ -673,16 +694,34 @@ const SearchWidget = () => {
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onFocus={() => setIsInputFocused(true)}
                 onBlur={() => setTimeout(() => setIsInputFocused(false), 200)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    handleSearchSubmit();
+                  }
+                }}
                 placeholder="Ask Nextsem..."
                 className="flex-1 bg-transparent text-white placeholder-slate-500 font-bold focus:outline-none text-sm md:text-base"
               />
               {searchQuery ? (
-                <button
-                  onClick={() => setSearchQuery('')}
-                  className="p-1 hover:bg-slate-800 rounded-full transition-colors text-slate-400 hover:text-white"
-                >
-                  <X size={16} />
-                </button>
+                <div className="flex items-center gap-1 shrink-0">
+                  <button
+                    onClick={handleSearchSubmit}
+                    className="p-1 hover:bg-slate-800 rounded-full transition-colors text-slate-400 hover:text-blue-500 mr-0.5 cursor-pointer"
+                    title="Search"
+                  >
+                    <Search size={15} />
+                  </button>
+                  <button
+                    onClick={() => {
+                      setSearchQuery('');
+                      setAutosuggestions([]);
+                    }}
+                    className="p-1 hover:bg-slate-800 rounded-full transition-colors text-slate-400 hover:text-white cursor-pointer"
+                    title="Clear"
+                  >
+                    <X size={15} />
+                  </button>
+                </div>
               ) : (
                 <div className="flex items-center gap-2 text-slate-500 mr-1 shrink-0">
                   <Mic size={15} />
@@ -805,7 +844,7 @@ const SearchWidget = () => {
               }`}
             >
               <Search size={13} className="text-red-500 animate-pulse" />
-              <span>Google Site Search</span>
+              <span>Google Web Search</span>
             </button>
           </div>
 
@@ -980,44 +1019,61 @@ const SearchWidget = () => {
                     </span>
 
                     {results.length > 0 ? (
-                      <div className="flex flex-col gap-4">
-                        {results.map((item) => (
-                          <Link
-                            key={item.id}
-                            href={getChapterUrl(item.id)}
-                            onClick={() => handleSelectResult(item.title)}
-                            className="flex flex-col sm:flex-row gap-4 p-3 bg-slate-900/30 hover:bg-slate-900/80 border border-slate-850 rounded-2xl transition-all duration-300 group hover:border-blue-500/40 shadow-sm"
-                          >
-                            {/* Thumbnail */}
-                            <div className="aspect-video w-full sm:w-48 bg-slate-950 rounded-xl flex flex-col items-center justify-center border border-slate-850/80 shadow-md relative overflow-hidden shrink-0 group-hover:scale-[1.02] transition-transform duration-300">
-                              <div className={`absolute inset-0 opacity-15 bg-gradient-to-br ${item.color} blur-xl`} />
-                              
-                              <div className={`w-12 h-12 rounded-2xl ${item.color} flex items-center justify-center text-2xl font-black shadow-lg border border-white/20 relative z-10 group-hover:rotate-6 transition-transform duration-300`}>
-                                {item.icon}
+                      <div className="space-y-6">
+                        <div className="flex flex-col gap-4">
+                          {results.map((item) => (
+                            <Link
+                              key={item.id}
+                              href={getChapterUrl(item.id)}
+                              onClick={() => handleSelectResult(item.title)}
+                              className="flex flex-col sm:flex-row gap-4 p-3 bg-slate-900/30 hover:bg-slate-900/80 border border-slate-850 rounded-2xl transition-all duration-300 group hover:border-blue-500/40 shadow-sm"
+                            >
+                              {/* Thumbnail */}
+                              <div className="aspect-video w-full sm:w-48 bg-slate-950 rounded-xl flex flex-col items-center justify-center border border-slate-850/80 shadow-md relative overflow-hidden shrink-0 group-hover:scale-[1.02] transition-transform duration-300">
+                                <div className={`absolute inset-0 opacity-15 bg-gradient-to-br ${item.color} blur-xl`} />
+                                
+                                <div className={`w-12 h-12 rounded-2xl ${item.color} flex items-center justify-center text-2xl font-black shadow-lg border border-white/20 relative z-10 group-hover:rotate-6 transition-transform duration-300`}>
+                                  {item.icon}
+                                </div>
+                                <span className="absolute bottom-2 right-2 bg-black/80 text-[10px] font-black uppercase px-2 py-0.5 rounded border border-white/10 tracking-widest text-slate-250 z-10">
+                                  {item.phase}
+                                </span>
                               </div>
-                              <span className="absolute bottom-2 right-2 bg-black/80 text-[10px] font-black uppercase px-2 py-0.5 rounded border border-white/10 tracking-widest text-slate-250 z-10">
-                                {item.phase}
-                              </span>
-                            </div>
 
-                            {/* Metadata */}
-                            <div className="flex flex-col justify-center flex-1 text-left">
-                              <h4 className="text-base md:text-lg font-black text-white leading-snug group-hover:text-blue-400 transition-colors mb-1.5">
-                                {item.title}
-                              </h4>
-                              
-                              <div className="flex items-center gap-2 text-xs text-slate-400 font-bold mb-2">
-                                <span>Nextsem Academy</span>
-                                <span>•</span>
-                                <span>{item.duration}</span>
+                              {/* Metadata */}
+                              <div className="flex flex-col justify-center flex-1 text-left">
+                                <h4 className="text-base md:text-lg font-black text-white leading-snug group-hover:text-blue-400 transition-colors mb-1.5">
+                                  {item.title}
+                                </h4>
+                                
+                                <div className="flex items-center gap-2 text-xs text-slate-400 font-bold mb-2">
+                                  <span>Nextsem Academy</span>
+                                  <span>•</span>
+                                  <span>{item.duration}</span>
+                                </div>
+                                
+                                <p className="text-xs md:text-sm text-slate-400 font-medium leading-relaxed bg-slate-900/40 border border-slate-850/20 px-3 py-2 rounded-lg font-mono overflow-x-hidden text-ellipsis whitespace-nowrap sm:whitespace-normal">
+                                  {item.excerpt}
+                                </p>
                               </div>
-                              
-                              <p className="text-xs md:text-sm text-slate-400 font-medium leading-relaxed bg-slate-900/40 border border-slate-850/20 px-3 py-2 rounded-lg font-mono overflow-x-hidden text-ellipsis whitespace-nowrap sm:whitespace-normal">
-                                {item.excerpt}
-                              </p>
-                            </div>
-                          </Link>
-                        ))}
+                            </Link>
+                          ))}
+                        </div>
+
+                        {/* Search web suggestion at bottom of filled list */}
+                        <div className="pt-6 border-t border-slate-900 text-center">
+                          <button
+                            onClick={() => {
+                              setIsAiMode(false);
+                              setIsGoogleMode(true);
+                              inputRef.current?.focus();
+                            }}
+                            className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-slate-900 hover:bg-slate-850 border border-slate-800 rounded-xl text-xs font-bold text-slate-300 transition-all active:scale-95 cursor-pointer"
+                          >
+                            <Search size={12} className="text-red-500" />
+                            <span>Not finding what you need? Search &ldquo;{searchQuery}&rdquo; on Google Web Search</span>
+                          </button>
+                        </div>
                       </div>
                     ) : (
                       /* Only show no results if standard results are also empty */
@@ -1025,9 +1081,20 @@ const SearchWidget = () => {
                         <div className="text-center py-12">
                           <span className="block text-4xl mb-4">🔍</span>
                           <h4 className="text-base font-black text-slate-300 mb-1">No Results Found</h4>
-                          <p className="text-xs text-slate-500 max-w-xs mx-auto">
-                            We couldn&apos;t find anything matching &quot;{searchQuery}&quot;. Try searching for HTML, CSS, React, or Setup.
+                          <p className="text-xs text-slate-500 max-w-xs mx-auto mb-5">
+                            We couldn&apos;t find anything matching &quot;{searchQuery}&quot; on Nextsem. Try searching for HTML, CSS, React, or Setup.
                           </p>
+                          <button
+                            onClick={() => {
+                              setIsAiMode(false);
+                              setIsGoogleMode(true);
+                              inputRef.current?.focus();
+                            }}
+                            className="inline-flex items-center gap-1.5 px-5 py-2.5 bg-red-600/10 hover:bg-red-600/20 border border-red-500/30 rounded-xl text-xs font-black text-red-450 transition-all active:scale-95 cursor-pointer shadow-lg"
+                          >
+                            <Search size={12} className="text-red-400 animate-pulse" />
+                            <span>Search &ldquo;{searchQuery}&rdquo; on Google Web Search</span>
+                          </button>
                         </div>
                       )
                     )}

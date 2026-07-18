@@ -1,6 +1,6 @@
 # update git
 
-*Saved on: 18/7/2026, 2:25:57 pm*
+*Saved on: 18/7/2026, 3:40:49 pm*
 *Conversation ID: ebc4490d-b106-4d20-9df5-9ee9bcce088a*
 
 ---
@@ -1513,6 +1513,203 @@ I will verify the modified project files inside the git workspace.
 ### 🤖 Antigravity AI
 
 I will stage and commit the dynamic CSE rendering fixes to git.
+
+---
+
+### 🤖 Antigravity AI
+
+I will run a final update and commit of the chat transcript.
+
+---
+
+### 🤖 Antigravity AI
+
+I have updated the Google Custom Search element renderer to handle dynamic mounting inside React/Next.js:
+
+1. **Dynamic Ref-Based Rendering**:
+   * Previously, the script was loaded globally but because the `<div className="gcse-search"></div>` element is conditionally rendered inside the closed search widget (only mounting when the user actively selects the "Google Site Search" tab), Google's script was unable to locate it on initial load.
+   * To fix this, we created a React `cseRef` reference pointer inside [SearchWidget.tsx](file:///c:/jbrs-landing-page/src/components/SearchWidget.tsx).
+   * Added a `useEffect` layout hook that monitors the mounting state of the Google tab. As soon as the tab opens, it calls Google's API:
+     ```javascript
+     window.google.search.cse.element.render({
+       div: cseRef.current,
+       tag: 'search',
+       gname: 'nextsem-search',
+       attributes: {
+         queryParameterName: 'q',
+         historyPagePath: '',
+         disableWebSearch: false
+       }
+     });
+     ```
+   * This forces Google to initialize and draw the search element (with script parameters `cx=e3ec8ed7ecb624b82`) directly inside our React layout, solving the dynamic mounting issues.
+2. **Auto-Query Triggering**:
+   * Kept programmatic query triggering in place: typing or selecting a search suggestion inside Nextsem's top search bar automatically executes the query inside the newly rendered CSE layout via:
+     `google.search.cse.element.getElement('nextsem-search').execute(searchQuery)`.
+
+The project compiles perfectly and has been deployed live to production!
+
+---
+
+### 👤 User
+
+also suggest search results which are not on our site with exact google search type
+
+---
+
+### 🤖 Antigravity AI
+
+I will search `SearchWidget.tsx` for occurrences of "Google Site Search" to rename it to "Google Web Search", making it clear that it is for web-wide searches.
+
+---
+
+### 🤖 Antigravity AI
+
+I will search for "Site Search" to find the exact occurrences.
+
+---
+
+### 🤖 Antigravity AI
+
+I will view lines 675 to 705 of `SearchWidget.tsx` to find the Google Search tab button text.
+
+---
+
+### 🤖 Antigravity AI
+
+I will view lines 740 to 780 of `SearchWidget.tsx` to find the tab buttons and labels.
+
+---
+
+### 🤖 Antigravity AI
+
+I will view lines 780 to 805 of `SearchWidget.tsx` to find the rest of the tab switcher buttons.
+
+---
+
+### 🤖 Antigravity AI
+
+I will view lines 806 to 825 of `SearchWidget.tsx` to find the rest of the tab buttons.
+
+---
+
+### 🤖 Antigravity AI
+
+I will view lines 900 to 950 of `SearchWidget.tsx` to find the exact DOM spots for the search-on-Google CTA buttons.
+
+---
+
+### 🤖 Antigravity AI
+
+I will view lines 950 to 1000 of `SearchWidget.tsx` to find the standard results lists where we can append the Google search suggestions.
+
+---
+
+### 🤖 Antigravity AI
+
+I will view lines 1001 to 1055 of `SearchWidget.tsx` to find the end of the standard results rendering and the no-results container.
+
+---
+
+### 🤖 Antigravity AI
+
+I will update the Google Custom Search tab button label in `SearchWidget.tsx` to read "Google Web Search".
+
+---
+
+### 🤖 Antigravity AI
+
+I will view lines 980 to 1038 of `SearchWidget.tsx` to double-check the standard results container markup.
+
+---
+
+### 🤖 Antigravity AI
+
+I will add the "Search on Google Web Search" buttons inside both the results found and no-results containers of the standard results view in `SearchWidget.tsx`.
+
+---
+
+### 🤖 Antigravity AI
+
+I will run a production build to verify the compilation of the updated search widget layout.
+
+---
+
+### 🤖 Antigravity AI
+
+I will wait for the build verification task (task 501) to finish. The system will automatically notify me when it completes.
+
+---
+
+### 👤 User
+
+pressing enter or on search icon must show search results
+
+---
+
+### 🤖 Antigravity AI
+
+I will search for `clearHistory` in `SearchWidget.tsx` to find the exact place to add our new `handleSearchSubmit` helper.
+
+---
+
+### 🤖 Antigravity AI
+
+I will search for `history` in `SearchWidget.tsx` to locate the search history methods.
+
+---
+
+### 🤖 Antigravity AI
+
+I will view lines 435 to 470 of `SearchWidget.tsx` to find the search history methods.
+
+---
+
+### 🤖 Antigravity AI
+
+I will view lines 471 to 500 of `SearchWidget.tsx` to find the rest of the hooks and history functions.
+
+---
+
+### 🤖 Antigravity AI
+
+I will add the `handleSearchSubmit` helper method to `SearchWidget.tsx` to handle search submission (storing history, hiding suggestions, and triggering search execution).
+
+---
+
+### 🤖 Antigravity AI
+
+I will view lines 675 to 705 of `SearchWidget.tsx` to find the exact lines for the input element and key triggers.
+
+---
+
+### 🤖 Antigravity AI
+
+I will add the key listener to the search input so that pressing Enter triggers a search, and add a search button next to the input field so that clicking it also triggers a search.
+
+---
+
+### 🤖 Antigravity AI
+
+I will trigger a fresh Next.js build verification to ensure all new submit handlers and icons compile correctly.
+
+---
+
+### 🤖 Antigravity AI
+
+I will wait for the build verification task (task 519) to complete. The system will automatically notify me when it finishes.
+
+---
+
+### 🤖 Antigravity AI
+
+I will run the production deployment to push all the search improvements and the Google Web Search features live.
+
+---
+
+### 🤖 Antigravity AI
+
+I will wait for the production deployment task to finish. The system will automatically notify me when it completes.
 
 ---
 
