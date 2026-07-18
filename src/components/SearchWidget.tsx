@@ -239,6 +239,7 @@ const SearchWidget = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [history, setHistory] = useState<string[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
+  const cseRef = useRef<HTMLDivElement>(null);
 
   const [isAiMode, setIsAiMode] = useState(false);
   const [isGoogleMode, setIsGoogleMode] = useState(false);
@@ -421,21 +422,63 @@ const SearchWidget = () => {
     return () => clearTimeout(delayDebounce);
   }, [searchQuery]);
 
+  // Dynamically initialize and render the Google Custom Search Element when the tab mounts
+  useEffect(() => {
+    if (isGoogleMode && cseRef.current && typeof window !== 'undefined') {
+      const initCse = () => {
+        // @ts-expect-error google search object is injected by cse.js
+        const google = window.google;
+        if (google?.search?.cse?.element) {
+          try {
+            // Check if already rendered to avoid duplicates
+            if (cseRef.current && cseRef.current.innerHTML === '') {
+              google.search.cse.element.render({
+                div: cseRef.current,
+                tag: 'search',
+                gname: 'nextsem-search',
+                attributes: {
+                  queryParameterName: 'q',
+                  historyPagePath: '',
+                  disableWebSearch: false
+                }
+              });
+            }
+          } catch (err) {
+            console.error("Google CSE Render Error:", err);
+          }
+        }
+      };
+
+      if (cseLoaded) {
+        initCse();
+      } else {
+        const interval = setInterval(() => {
+          // @ts-expect-error google search
+          if (window.google?.search?.cse?.element) {
+            initCse();
+            clearInterval(interval);
+          }
+        }, 100);
+        return () => clearInterval(interval);
+      }
+    }
+  }, [isGoogleMode, cseLoaded]);
+
   // Execute Google CSE search query automatically when in Google Search Mode
   useEffect(() => {
     if (isGoogleMode && searchQuery.trim() && typeof window !== 'undefined') {
       const triggerCse = () => {
         // @ts-expect-error google search object is injected by cse.js
-        if (window.google?.search?.cse?.element) {
-          // @ts-expect-error google search API
-          const element = window.google.search.cse.element.getElement('nextsem-search');
+        const google = window.google;
+        if (google?.search?.cse?.element) {
+          const element = google.search.cse.element.getElement('nextsem-search');
           if (element) {
             element.execute(searchQuery);
           }
         }
       };
 
-      const timer = setTimeout(triggerCse, 300);
+      const timer = setTimeout(triggerCse, 500);
       return () => clearTimeout(timer);
     }
   }, [searchQuery, isGoogleMode, cseLoaded]);
@@ -861,12 +904,7 @@ const SearchWidget = () => {
                     <span className="block text-xs font-black uppercase tracking-wider text-slate-400 mb-4">
                       Google Custom Search Results
                     </span>
-                    {/* The Google Custom Search elements container */}
-                    <div 
-                      className="gcse-search" 
-                      data-gname="nextsem-search"
-                      data-queryParameterName="q"
-                    ></div>
+                    <div ref={cseRef} className="w-full min-h-[250px] text-slate-950"></div>
                   </div>
                 )}
 
