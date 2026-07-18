@@ -1,6 +1,6 @@
 # update git
 
-*Saved on: 18/7/2026, 3:40:57 pm*
+*Saved on: 18/7/2026, 3:46:11 pm*
 *Conversation ID: ebc4490d-b106-4d20-9df5-9ee9bcce088a*
 
 ---
@@ -1728,6 +1728,111 @@ I will run git status to check modified files before committing.
 ### 🤖 Antigravity AI
 
 I will stage and commit the search trigger updates to Git.
+
+---
+
+### 🤖 Antigravity AI
+
+I will run a final update and commit of the chat transcript.
+
+---
+
+### 🤖 Antigravity AI
+
+I have implemented all of your requests and deployed them to production:
+
+### 1. **Keyboard "Enter" and Search Icon Triggers**
+* **Keyboard Submission**: Added an `onKeyDown` listener to the search input text field. Pressing the `Enter` key on the keyboard now saves the query to search history, automatically closes the suggestions dropdown to show the search results, and dismisses the mobile virtual keyboard.
+* **Clickable Search Icon**: Inside the search input bar, when the user starts typing, we render a clickable Search icon next to the "X" (clear) button. Clicking this icon immediately executes the search submit actions.
+
+### 2. **Suggested Google Search Results (Web-Wide Search)**
+* **Renamed Tab**: Renamed "Google Site Search" to **"Google Web Search"** to reflect its web-wide searching capability.
+* **Suggestion Prompts**: Added contextual buttons that prompt the user to search the entire web on Google:
+  * **When results are found**: At the bottom of the local curriculum results, we render a button: `"Not finding what you need? Search '[query]' on Google Web Search"`. Clicking it switches to the Google search tab and automatically queries the entire web.
+  * **When no results are found**: In the empty state panel, we replaced the standard static text with a clear action button: `"Search '[query]' on Google Web Search"`. Clicking it instantly switches tabs and triggers your Google Programmable Search.
+
+> [!NOTE]
+> To ensure Google Web Search returns results from the entire web rather than restricting queries solely to `nextsem.online`, verify that you have toggled **"Search the entire web"** to **ON** inside your Google Programmable Search Engine control panel for the CX ID `e3ec8ed7ecb624b82`.
+
+All changes have compiled successfully and have been deployed to production hosting!
+
+---
+
+### 🤖 Antigravity AI
+
+I will view lines 800 to 815 of `SearchWidget.tsx` to update the tab button label back to "Google Site Search".
+
+---
+
+### 🤖 Antigravity AI
+
+I will view lines 816 to 840 of `SearchWidget.tsx` to find the exact tab switcher markup.
+
+---
+
+### 🤖 Antigravity AI
+
+I will view lines 841 to 855 of `SearchWidget.tsx` to find the rest of the tab buttons.
+
+---
+
+### 🤖 Antigravity AI
+
+I will rename the Google search tab in `SearchWidget.tsx` to "Google Site Search", since Google is restricting the embedded Custom Search Engine (CSE) to site-only searches.
+
+---
+
+### 🤖 Antigravity AI
+
+I will view lines 515 to 540 of `SearchWidget.tsx` to find the exact place to add `handleExternalGoogleSearch`.
+
+---
+
+### 🤖 Antigravity AI
+
+I will add the `handleExternalGoogleSearch` helper function to `SearchWidget.tsx` to handle launching web-wide searches on Google in a new browser tab.
+
+---
+
+### 🤖 Antigravity AI
+
+I will view lines 1030 to 1085 of `SearchWidget.tsx` to find the exact lines of the CTA buttons.
+
+---
+
+### 🤖 Antigravity AI
+
+I will view lines 1085 to 1110 of `SearchWidget.tsx` to find the rest of the CTA buttons.
+
+---
+
+### 🤖 Antigravity AI
+
+I will update the Google Web Search suggestions inside `SearchWidget.tsx` to directly launch the web search on `google.com` in a new tab when clicked. This ensures users get the exact Google search results on the entire web, bypassing Google's deprecation of CSE "Search the entire web" mode.
+
+---
+
+### 🤖 Antigravity AI
+
+I will run a production build to check that the external web search handler compiles cleanly.
+
+---
+
+### 🤖 Antigravity AI
+
+I will wait for the build verification task (task 556) to finish. The system will automatically notify me when it completes.
+
+---
+
+### 🤖 Antigravity AI
+
+I will run the production deployment to push these changes live.
+
+---
+
+### 🤖 Antigravity AI
+
+I will wait for the production deployment task to finish. The system will automatically notify me when it completes.
 
 ---
 

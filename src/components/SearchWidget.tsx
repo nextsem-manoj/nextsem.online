@@ -518,6 +518,12 @@ const SearchWidget = () => {
     }
   };
 
+  const handleExternalGoogleSearch = () => {
+    if (typeof window !== 'undefined' && searchQuery.trim()) {
+      window.open(`https://www.google.com/search?q=${encodeURIComponent(searchQuery)}`, '_blank', 'noopener,noreferrer');
+    }
+  };
+
   const handleFullscreenTrigger = () => {
     // Disabled OS-level fullscreen request to prevent navigation resets on mobile
   };
@@ -844,7 +850,7 @@ const SearchWidget = () => {
               }`}
             >
               <Search size={13} className="text-red-500 animate-pulse" />
-              <span>Google Web Search</span>
+              <span>Google Site Search</span>
             </button>
           </div>
 
@@ -1063,14 +1069,10 @@ const SearchWidget = () => {
                         {/* Search web suggestion at bottom of filled list */}
                         <div className="pt-6 border-t border-slate-900 text-center">
                           <button
-                            onClick={() => {
-                              setIsAiMode(false);
-                              setIsGoogleMode(true);
-                              inputRef.current?.focus();
-                            }}
+                            onClick={handleExternalGoogleSearch}
                             className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-slate-900 hover:bg-slate-850 border border-slate-800 rounded-xl text-xs font-bold text-slate-300 transition-all active:scale-95 cursor-pointer"
                           >
-                            <Search size={12} className="text-red-500" />
+                            <Search size={12} className="text-blue-500" />
                             <span>Not finding what you need? Search &ldquo;{searchQuery}&rdquo; on Google Web Search</span>
                           </button>
                         </div>
@@ -1085,14 +1087,10 @@ const SearchWidget = () => {
                             We couldn&apos;t find anything matching &quot;{searchQuery}&quot; on Nextsem. Try searching for HTML, CSS, React, or Setup.
                           </p>
                           <button
-                            onClick={() => {
-                              setIsAiMode(false);
-                              setIsGoogleMode(true);
-                              inputRef.current?.focus();
-                            }}
-                            className="inline-flex items-center gap-1.5 px-5 py-2.5 bg-red-600/10 hover:bg-red-600/20 border border-red-500/30 rounded-xl text-xs font-black text-red-450 transition-all active:scale-95 cursor-pointer shadow-lg"
+                            onClick={handleExternalGoogleSearch}
+                            className="inline-flex items-center gap-1.5 px-5 py-2.5 bg-blue-600/10 hover:bg-blue-600/20 border border-blue-500/30 rounded-xl text-xs font-black text-blue-400 transition-all active:scale-95 cursor-pointer shadow-lg"
                           >
-                            <Search size={12} className="text-red-400 animate-pulse" />
+                            <Search size={12} className="text-blue-400 animate-pulse" />
                             <span>Search &ldquo;{searchQuery}&rdquo; on Google Web Search</span>
                           </button>
                         </div>
