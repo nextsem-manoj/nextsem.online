@@ -1,6 +1,6 @@
 # update git
 
-*Saved on: 18/7/2026, 2:08:05 pm*
+*Saved on: 18/7/2026, 2:16:58 pm*
 *Conversation ID: ebc4490d-b106-4d20-9df5-9ee9bcce088a*
 
 ---
@@ -1050,6 +1050,210 @@ I will add and commit the modified files.
 ### 🤖 Antigravity AI
 
 I will stage and commit the modified files with the correct path names.
+
+---
+
+### 🤖 Antigravity AI
+
+I will perform a final chat log update and commit to ensure our conversation history is fully documented.
+
+---
+
+### 🤖 Antigravity AI
+
+I have successfully implemented all of your requests and deployed them to production:
+
+### 1. **Autosuggestions & Google CSE Search Integration**
+* **Google-like Autocomplete**: Integrated Google's public autocomplete engine in [SearchWidget.tsx](file:///c:/jbrs-landing-page/src/components/SearchWidget.tsx). As the user types in the search input, a clean, styled suggestion dropdown appears directly underneath the search bar. Clicking any suggestion populates the input and auto-queries.
+* **Google Custom Search Engine (CSE)**: Loaded Google Custom Search scripts dynamically and integrated the CSE search results tag (`gcse-searchresults-only`) under a new **"Google Site Search"** tab inside the search popup overlay. Whenever the user is in Google Search Mode, typing or selecting a suggestion automatically queries Google CSE.
+
+### 2. **Pinch-to-Zoom Support on `/learn` (mobile & desktop)**
+* **Viewport Scaling**: Added an explicit viewport configuration in the root [layout.tsx](file:///c:/jbrs-landing-page/src/app/layout.tsx) setting `userScalable: true` and `maximumScale: 5` to ensure mobile viewports allow pinch-to-zoom gestures.
+* **Scrollable Layouts**: Modified [layout.tsx](file:///c:/jbrs-landing-page/src/app/book/layout.tsx) and [layout.tsx](file:///c:/jbrs-landing-page/src/app/html/layout.tsx) to remove strict `h-screen overflow-hidden` wrapper constraints on reading pages, replacing them with a scrollable page layout while making the header and progress bar sticky. This allows browser-level window zoom scrolling on desktop (`Ctrl` + `+` / `Ctrl` + `-`) and pinch-to-zoom on mobile.
+* **Flexible Scroll Tracking**: Updated the scroll progress bar tracker in both layouts to fallback to `window.scrollY` tracking when container heights are unconstrained, keeping the reading percentages 100% accurate under all zoom states.
+
+### 3. **Clean Ad Routing & Visibility**
+* **Terminal Simulator page (`/git/terminal`)**:
+  * Top banner: Configured to hide on mobile viewports (`hidden md:block`), visible only on desktop.
+  * Middle banner: Removed completely.
+  * Bottom banner: Kept visible on all viewports (serving as the single ad below content on mobile).
+  * Right Sidebar banner: Kept visible only on desktop.
+  * Result: Mobile terminal simulator shows exactly **one** ad (below content), and desktop shows exactly **three** ads.
+* **Reading/Lesson pages (`/learn` -> `/book/` & `/html/`)**:
+  * Modified [AdSenseBanner.tsx](file:///c:/jbrs-landing-page/src/components/AdSenseBanner.tsx) to check if we are on a `/book` or `/html` page.
+  * If the page is a reading page and is loaded on a mobile viewport (or mobile user-agent), it returns `null` to ensure **no AdSense ads** are rendered on mobile learn pages.
+
+### 4. **Production Build & Deployment**
+* Ran a production build verify and successfully deployed all updates to production.
+* Saved and committed the complete logs under `chat-logs/update git.md`.
+
+---
+
+### 👤 User
+
+when user clicks inside search on mobile keyboard hides the search suggestions and results do correct that and also integrate google custom search integration inside our site amd gide me to do google custom search api implementation
+
+---
+
+### 🤖 Antigravity AI
+
+I will search for any `onBlur` or `focus` handlers in `SearchWidget.tsx` to see if there is programmatic logic hiding results or suggestions when the input loses/gains focus.
+
+---
+
+### 🤖 Antigravity AI
+
+I will search `SearchWidget.tsx` for `body.style` or scroll locking code.
+
+---
+
+### 🤖 Antigravity AI
+
+I will view lines 240 to 255 of `src/components/SearchWidget.tsx` to confirm where to insert the focus state.
+
+---
+
+### 🤖 Antigravity AI
+
+I will add the `isInputFocused` state to `SearchWidget.tsx` to keep track of search input focus states.
+
+---
+
+### 🤖 Antigravity AI
+
+I will add a `useEffect` hook in `SearchWidget.tsx` to disable document body overflow scrolling when the search overlay is open. This prevents viewport jumping and scroll-hijacking when focusing the text field on mobile Safari and Chrome.
+
+---
+
+### 🤖 Antigravity AI
+
+I will view lines 615 to 665 of `src/components/SearchWidget.tsx` to find the exact search input markup and suggestion list, to apply the focus listeners and the unified dropdown overlay.
+
+---
+
+### 🤖 Antigravity AI
+
+I will update the search input and suggestion list in `SearchWidget.tsx` to handle focusing state and render a unified dropdown containing both autosuggestions (on typing) and recent searches/recommended topics (when empty). This matches Google's mobile interface and remains fully visible above the virtual keyboard.
+
+---
+
+### 🤖 Antigravity AI
+
+I will create a comprehensive, step-by-step guide explaining how we integrated the Google Custom Search Engine (CSE) widget into the site, and how to implement the Google Custom Search JSON API for custom backend/frontend integrations.
+
+---
+
+### 🤖 Antigravity AI
+
+I will create the Google Custom Search Integration & API Guide as a markdown artifact in our designated conversation artifacts directory.
+
+---
+
+### 🤖 Antigravity AI
+
+I will trigger another Next.js production build verification check.
+
+---
+
+### 🤖 Antigravity AI
+
+I will wait for the build check to complete. The system will automatically notify me when it finishes.
+
+---
+
+### 🤖 Antigravity AI
+
+I will trigger the production deployment.
+
+---
+
+### 🤖 Antigravity AI
+
+I will wait for the production deployment task to finish. The system will automatically notify me when it completes.
+
+---
+
+### 👤 User
+
+/add navigation on left bottom side under a hamburger icon with all available pages in an organised mode
+
+---
+
+### 🤖 Antigravity AI
+
+I will view the contents of `src/components/BottomNavigation.tsx` to understand the current bottom navigation structure and see how we can add a left-bottom hamburger menu containing all pages in an organized mode.
+
+---
+
+### 🤖 Antigravity AI
+
+I will create the global navigation widget in `src/components/GlobalNavigationWidget.tsx` and integrate it into the root layout so that users can access all pages from the bottom-left hamburger menu.
+
+---
+
+### 🤖 Antigravity AI
+
+I will create the code file `GlobalNavigationWidget.tsx` in the project `src/components` folder.
+
+---
+
+### 🤖 Antigravity AI
+
+I will view lines 80 to 95 of `layout.tsx` to find the exact place to import `GlobalNavigationWidget`.
+
+---
+
+### 🤖 Antigravity AI
+
+I will view lines 145 to 190 of `layout.tsx` to find the exact rendering location for the widget.
+
+---
+
+### 🤖 Antigravity AI
+
+I will import the `GlobalNavigationWidget` component in `src/app/layout.tsx`.
+
+---
+
+### 🤖 Antigravity AI
+
+I will view lines 170 to 184 of `layout.tsx` to find the exact place to render the component.
+
+---
+
+### 🤖 Antigravity AI
+
+I will insert the `<GlobalNavigationWidget />` component right next to the `<SearchWidget />` component in the JSX structure of `layout.tsx`.
+
+---
+
+### 🤖 Antigravity AI
+
+I will run another production build to ensure that the newly added `GlobalNavigationWidget` compiles without TypeScript or build issues.
+
+---
+
+### 🤖 Antigravity AI
+
+I will wait for the build check to complete. The system will automatically notify me when it finishes.
+
+---
+
+### 🤖 Antigravity AI
+
+I will wait for the build verification task (task 388) to finish to ensure everything is correct.
+
+---
+
+### 🤖 Antigravity AI
+
+I will run the production deployment to push the navigation drawer and search interface updates live.
+
+---
+
+### 🤖 Antigravity AI
+
+I will wait for the final deployment to complete. The system will automatically notify me when it finishes.
 
 ---
 

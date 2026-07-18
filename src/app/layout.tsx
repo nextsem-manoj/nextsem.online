@@ -84,6 +84,7 @@ import CookieBanner from "../components/CookieBanner";
 
 import TranslateWidget from "../components/TranslateWidget";
 import SearchWidget from "../components/SearchWidget";
+import GlobalNavigationWidget from "../components/GlobalNavigationWidget";
 import OnboardingTour from "../components/OnboardingTour";
 import UpdateBanner from "../components/UpdateBanner";
 import SplashScreen from "../components/SplashScreen";
@@ -176,6 +177,7 @@ export default function RootLayout({
             <AndroidBackButtonHandler />
             <TranslateWidget />
             <SearchWidget />
+            <GlobalNavigationWidget />
 
             <BottomNavigation />
           </ProgressProvider>

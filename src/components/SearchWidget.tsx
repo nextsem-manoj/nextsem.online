@@ -246,6 +246,7 @@ const SearchWidget = () => {
   const [cseLoaded, setCseLoaded] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
   const [aiResponse, setAiResponse] = useState<AiResponse | null>(null);
+  const [isInputFocused, setIsInputFocused] = useState(false);
 
   // User Authentication Real States
   const [user, setUser] = useState<{ name: string; email: string; avatar: string; photo?: string } | null>(null);
@@ -266,6 +267,18 @@ const SearchWidget = () => {
   useEffect(() => {
     setTimeout(() => setIsOpen(false), 0);
   }, [pathname]);
+
+  // Lock body scroll when search modal is open to prevent mobile scroll hijacking
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
 
   // Load Search History & register shortcut keys
   useEffect(() => {
@@ -615,6 +628,8 @@ const SearchWidget = () => {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
+                onFocus={() => setIsInputFocused(true)}
+                onBlur={() => setTimeout(() => setIsInputFocused(false), 200)}
                 placeholder="Ask Nextsem..."
                 className="flex-1 bg-transparent text-white placeholder-slate-500 font-bold focus:outline-none text-sm md:text-base"
               />
@@ -632,22 +647,72 @@ const SearchWidget = () => {
                 </div>
               )}
 
-              {/* Google-like Autosuggestions Dropdown */}
-              {autosuggestions.length > 0 && (
-                <div className="absolute top-[110%] left-0 right-0 bg-[#0f172a] border border-slate-800 rounded-2xl shadow-2xl z-55 max-h-[250px] overflow-y-auto p-1.5 flex flex-col text-left">
-                  {autosuggestions.map((sug, i) => (
-                    <button
-                      key={i}
-                      onClick={() => {
-                        setSearchQuery(sug);
-                        setAutosuggestions([]);
-                      }}
-                      className="flex items-center gap-2.5 px-3 py-2.5 hover:bg-slate-800/80 rounded-xl text-xs font-semibold text-slate-200 transition-colors text-left"
-                    >
-                      <Search size={12} className="text-slate-500 shrink-0" />
-                      <span>{sug}</span>
-                    </button>
-                  ))}
+              {/* Google-like Autosuggestions & History Dropdown */}
+              {(autosuggestions.length > 0 || (isInputFocused && !searchQuery)) && (
+                <div className="absolute top-[110%] left-0 right-0 bg-[#0f172a] border border-slate-800 rounded-2xl shadow-2xl z-[100] max-h-[280px] overflow-y-auto p-2 flex flex-col text-left animate-in fade-in slide-in-from-top-1 duration-150">
+                  {searchQuery ? (
+                    // Show autosuggestions on typing
+                    autosuggestions.map((sug, i) => (
+                      <button
+                        key={i}
+                        onClick={() => {
+                          setSearchQuery(sug);
+                          setAutosuggestions([]);
+                          setIsInputFocused(false);
+                        }}
+                        className="flex items-center gap-2.5 px-3 py-2.5 hover:bg-slate-800/80 rounded-xl text-xs font-semibold text-slate-200 transition-colors text-left"
+                      >
+                        <Search size={12} className="text-slate-500 shrink-0" />
+                        <span className="truncate">{sug}</span>
+                      </button>
+                    ))
+                  ) : (
+                    // Show history and recommended topics when focused and empty
+                    <div className="space-y-3 p-1">
+                      {history.length > 0 && (
+                        <div>
+                          <span className="block text-[9px] font-black uppercase tracking-wider text-slate-500 mb-1 flex items-center gap-1">
+                            <History size={10} /> Recent Searches
+                          </span>
+                          <div className="flex flex-col">
+                            {history.slice(0, 3).map((h, i) => (
+                              <button
+                                key={i}
+                                onClick={() => {
+                                  setSearchQuery(h);
+                                  setIsInputFocused(false);
+                                }}
+                                className="flex items-center gap-2 py-2 hover:bg-slate-800/50 text-left text-xs font-semibold text-slate-300 rounded-lg px-1"
+                              >
+                                <History size={11} className="text-slate-550 shrink-0" />
+                                <span className="truncate flex-1">{h}</span>
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                      
+                      <div>
+                        <span className="block text-[9px] font-black uppercase tracking-wider text-slate-500 mb-1 flex items-center gap-1">
+                          <Sparkles size={10} /> Recommended Topics
+                        </span>
+                        <div className="flex flex-wrap gap-1.5">
+                          {SUGGESTED_SEARCHES.slice(0, 3).map((s, idx) => (
+                            <button
+                              key={idx}
+                              onClick={() => {
+                                setSearchQuery(s);
+                                setIsInputFocused(false);
+                              }}
+                              className="px-2.5 py-1.5 bg-slate-850 hover:bg-slate-800 border border-slate-800 rounded-full text-[10px] font-bold text-slate-300 transition-all"
+                            >
+                              {s}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
