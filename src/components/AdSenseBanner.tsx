@@ -26,6 +26,7 @@ export default function AdSenseBanner() {
   const insRef = useRef<HTMLModElement>(null);
   const pathname = usePathname() || '';
   const isInBook = pathname.startsWith('/book/');
+  const isLearnPage = pathname.startsWith('/book/') || pathname.startsWith('/html/');
   const { theme } = useTheme();
 
   useEffect(() => {
@@ -34,7 +35,7 @@ export default function AdSenseBanner() {
     if (typeof window === 'undefined') return;
 
     const native = Capacitor.isNativePlatform();
-    const mobile = window.innerWidth < 768;
+    const mobile = window.innerWidth < 768 || /Mobi|Android|iPhone/i.test(navigator.userAgent);
     setIsNative(native);
     setIsMobile(mobile);
 
@@ -111,6 +112,10 @@ export default function AdSenseBanner() {
     return (
       <div className={`${isInBook ? 'my-1 h-[40px]' : 'my-4 h-[50px]'} w-full bg-transparent pointer-events-none`} />
     );
+  }
+
+  if (isLearnPage && isMobile) {
+    return null;
   }
 
   if (adBlocked) {

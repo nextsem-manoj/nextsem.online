@@ -241,6 +241,9 @@ const SearchWidget = () => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const [isAiMode, setIsAiMode] = useState(false);
+  const [isGoogleMode, setIsGoogleMode] = useState(false);
+  const [autosuggestions, setAutosuggestions] = useState<string[]>([]);
+  const [cseLoaded, setCseLoaded] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
   const [aiResponse, setAiResponse] = useState<AiResponse | null>(null);
 
@@ -363,6 +366,66 @@ const SearchWidget = () => {
       }, 0);
     }
   }, [searchQuery, isAiMode]);
+
+  // Load Google CSE script
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      if (!document.getElementById('google-cse-script')) {
+        const script = document.createElement('script');
+        script.id = 'google-cse-script';
+        script.src = "https://cse.google.com/cse.js?cx=ca6f30a9bd4194098";
+        script.async = true;
+        document.body.appendChild(script);
+        script.onload = () => setCseLoaded(true);
+      } else {
+        setCseLoaded(true);
+      }
+    }
+  }, []);
+
+  // Fetch Google Autosuggestions on typing
+  useEffect(() => {
+    const query = searchQuery.trim();
+    if (!query) {
+      setAutosuggestions([]);
+      return;
+    }
+
+    const delayDebounce = setTimeout(async () => {
+      try {
+        const res = await fetch(`https://suggestqueries.google.com/complete/search?client=firefox&q=${encodeURIComponent(query)}`);
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data) && Array.isArray(data[1])) {
+            setAutosuggestions(data[1]);
+          }
+        }
+      } catch (e) {
+        console.error("Autosuggest error:", e);
+      }
+    }, 150);
+
+    return () => clearTimeout(delayDebounce);
+  }, [searchQuery]);
+
+  // Execute Google CSE search query automatically when in Google Search Mode
+  useEffect(() => {
+    if (isGoogleMode && searchQuery.trim() && typeof window !== 'undefined') {
+      const triggerCse = () => {
+        // @ts-expect-error google search object is injected by cse.js
+        if (window.google?.search?.cse?.element) {
+          // @ts-expect-error google search API
+          const element = window.google.search.cse.element.getElement('nextsem-search');
+          if (element) {
+            element.execute(searchQuery);
+          }
+        }
+      };
+
+      const timer = setTimeout(triggerCse, 300);
+      return () => clearTimeout(timer);
+    }
+  }, [searchQuery, isGoogleMode, cseLoaded]);
 
   // Save history to localStorage
   const saveSearchToHistory = (query: string) => {
@@ -538,7 +601,7 @@ const SearchWidget = () => {
               <ArrowLeft size={22} />
             </button>
             
-            <div className="flex-1 bg-slate-900 rounded-full px-4 py-2 flex items-center gap-2 border border-slate-800 focus-within:border-blue-500/50 transition-colors">
+            <div className="flex-1 bg-slate-900 rounded-full px-4 py-2 flex items-center gap-2 border border-slate-800 focus-within:border-blue-500/50 transition-colors relative">
               <Plus 
                 size={16} 
                 className="text-slate-500 shrink-0 cursor-pointer hover:text-blue-500 hover:scale-115 transition-transform" 
@@ -568,15 +631,37 @@ const SearchWidget = () => {
                   <Camera size={15} className="hidden sm:inline" />
                 </div>
               )}
+
+              {/* Google-like Autosuggestions Dropdown */}
+              {autosuggestions.length > 0 && (
+                <div className="absolute top-[110%] left-0 right-0 bg-[#0f172a] border border-slate-800 rounded-2xl shadow-2xl z-55 max-h-[250px] overflow-y-auto p-1.5 flex flex-col text-left">
+                  {autosuggestions.map((sug, i) => (
+                    <button
+                      key={i}
+                      onClick={() => {
+                        setSearchQuery(sug);
+                        setAutosuggestions([]);
+                      }}
+                      className="flex items-center gap-2.5 px-3 py-2.5 hover:bg-slate-800/80 rounded-xl text-xs font-semibold text-slate-200 transition-colors text-left"
+                    >
+                      <Search size={12} className="text-slate-500 shrink-0" />
+                      <span>{sug}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
 
           {/* Mode Switcher Tabs */}
-          <div className="flex bg-slate-950 px-4 border-b border-slate-900 text-xs shrink-0 select-none">
+          <div className="flex bg-slate-950 px-4 border-b border-slate-900 text-xs shrink-0 select-none overflow-x-auto custom-scrollbar">
             <button
-              onClick={() => setIsAiMode(false)}
-              className={`flex items-center gap-1.5 px-5 py-3 font-black uppercase tracking-wider border-b-2 transition-all ${
-                !isAiMode 
+              onClick={() => {
+                setIsAiMode(false);
+                setIsGoogleMode(false);
+              }}
+              className={`flex items-center gap-1.5 px-5 py-3 font-black uppercase tracking-wider border-b-2 transition-all shrink-0 ${
+                !isAiMode && !isGoogleMode
                   ? "border-blue-500 text-white bg-slate-900/30" 
                   : "border-transparent text-slate-400 hover:text-white"
               }`}
@@ -587,9 +672,10 @@ const SearchWidget = () => {
             <button
               onClick={() => {
                 setIsAiMode(true);
+                setIsGoogleMode(false);
                 inputRef.current?.focus();
               }}
-              className={`flex items-center gap-1.5 px-5 py-3 font-black uppercase tracking-wider border-b-2 transition-all ${
+              className={`flex items-center gap-1.5 px-5 py-3 font-black uppercase tracking-wider border-b-2 transition-all shrink-0 ${
                 isAiMode 
                   ? "border-emerald-500 text-emerald-400 bg-slate-900/30" 
                   : "border-transparent text-slate-400 hover:text-white"
@@ -597,6 +683,21 @@ const SearchWidget = () => {
             >
               <Sparkles size={13} className="text-emerald-500" />
               <span>AI Search Mode</span>
+            </button>
+            <button
+              onClick={() => {
+                setIsAiMode(false);
+                setIsGoogleMode(true);
+                inputRef.current?.focus();
+              }}
+              className={`flex items-center gap-1.5 px-5 py-3 font-black uppercase tracking-wider border-b-2 transition-all shrink-0 ${
+                isGoogleMode 
+                  ? "border-red-500 text-red-400 bg-slate-900/30" 
+                  : "border-transparent text-slate-400 hover:text-white"
+              }`}
+            >
+              <Search size={13} className="text-red-500 animate-pulse" />
+              <span>Google Site Search</span>
             </button>
           </div>
 
@@ -689,6 +790,21 @@ const SearchWidget = () => {
             {searchQuery && (
               <div className="space-y-4">
                 
+                {/* Google CSE Search Result Panel */}
+                {isGoogleMode && (
+                  <div className="bg-[#0b0f19] p-4 rounded-2xl border border-slate-850 min-h-[300px] text-left animate-in fade-in duration-200">
+                    <span className="block text-xs font-black uppercase tracking-wider text-slate-400 mb-4">
+                      Google Custom Search Results
+                    </span>
+                    {/* The Google Custom Search elements container */}
+                    <div 
+                      className="gcse-searchresults-only" 
+                      data-gname="nextsem-search"
+                      data-queryParameterName="q"
+                    ></div>
+                  </div>
+                )}
+
                 {/* AI Search Mode Result Panel */}
                 {isAiMode && (
                   <div>
@@ -753,65 +869,67 @@ const SearchWidget = () => {
                   </div>
                 )}
 
-                {/* Standard Results list (shown always under AI overview for comprehensive references) */}
-                <div className="space-y-4">
-                  <span className="block text-xs font-black uppercase tracking-wider text-slate-400 mb-4 pt-2">
-                    {isAiMode ? "Curriculum References" : "Search Results"} ({results.length})
-                  </span>
+                {/* Standard Results list (shown always under AI overview for comprehensive references, hidden in Google Mode) */}
+                {!isGoogleMode && (
+                  <div className="space-y-4">
+                    <span className="block text-xs font-black uppercase tracking-wider text-slate-400 mb-4 pt-2">
+                      {isAiMode ? "Curriculum References" : "Search Results"} ({results.length})
+                    </span>
 
-                  {results.length > 0 ? (
-                    <div className="flex flex-col gap-4">
-                      {results.map((item) => (
-                        <Link
-                          key={item.id}
-                          href={getChapterUrl(item.id)}
-                          onClick={() => handleSelectResult(item.title)}
-                          className="flex flex-col sm:flex-row gap-4 p-3 bg-slate-900/30 hover:bg-slate-900/80 border border-slate-850 rounded-2xl transition-all duration-300 group hover:border-blue-500/40 shadow-sm"
-                        >
-                          {/* Thumbnail */}
-                          <div className="aspect-video w-full sm:w-48 bg-slate-950 rounded-xl flex flex-col items-center justify-center border border-slate-850/80 shadow-md relative overflow-hidden shrink-0 group-hover:scale-[1.02] transition-transform duration-300">
-                            <div className={`absolute inset-0 opacity-15 bg-gradient-to-br ${item.color} blur-xl`} />
-                            
-                            <div className={`w-12 h-12 rounded-2xl ${item.color} flex items-center justify-center text-2xl font-black shadow-lg border border-white/20 relative z-10 group-hover:rotate-6 transition-transform duration-300`}>
-                              {item.icon}
+                    {results.length > 0 ? (
+                      <div className="flex flex-col gap-4">
+                        {results.map((item) => (
+                          <Link
+                            key={item.id}
+                            href={getChapterUrl(item.id)}
+                            onClick={() => handleSelectResult(item.title)}
+                            className="flex flex-col sm:flex-row gap-4 p-3 bg-slate-900/30 hover:bg-slate-900/80 border border-slate-850 rounded-2xl transition-all duration-300 group hover:border-blue-500/40 shadow-sm"
+                          >
+                            {/* Thumbnail */}
+                            <div className="aspect-video w-full sm:w-48 bg-slate-950 rounded-xl flex flex-col items-center justify-center border border-slate-850/80 shadow-md relative overflow-hidden shrink-0 group-hover:scale-[1.02] transition-transform duration-300">
+                              <div className={`absolute inset-0 opacity-15 bg-gradient-to-br ${item.color} blur-xl`} />
+                              
+                              <div className={`w-12 h-12 rounded-2xl ${item.color} flex items-center justify-center text-2xl font-black shadow-lg border border-white/20 relative z-10 group-hover:rotate-6 transition-transform duration-300`}>
+                                {item.icon}
+                              </div>
+                              <span className="absolute bottom-2 right-2 bg-black/80 text-[10px] font-black uppercase px-2 py-0.5 rounded border border-white/10 tracking-widest text-slate-250 z-10">
+                                {item.phase}
+                              </span>
                             </div>
-                            <span className="absolute bottom-2 right-2 bg-black/80 text-[10px] font-black uppercase px-2 py-0.5 rounded border border-white/10 tracking-widest text-slate-250 z-10">
-                              {item.phase}
-                            </span>
-                          </div>
 
-                          {/* Metadata */}
-                          <div className="flex flex-col justify-center flex-1 text-left">
-                            <h4 className="text-base md:text-lg font-black text-white leading-snug group-hover:text-blue-400 transition-colors mb-1.5">
-                              {item.title}
-                            </h4>
-                            
-                            <div className="flex items-center gap-2 text-xs text-slate-400 font-bold mb-2">
-                              <span>Nextsem Academy</span>
-                              <span>•</span>
-                              <span>{item.duration}</span>
+                            {/* Metadata */}
+                            <div className="flex flex-col justify-center flex-1 text-left">
+                              <h4 className="text-base md:text-lg font-black text-white leading-snug group-hover:text-blue-400 transition-colors mb-1.5">
+                                {item.title}
+                              </h4>
+                              
+                              <div className="flex items-center gap-2 text-xs text-slate-400 font-bold mb-2">
+                                <span>Nextsem Academy</span>
+                                <span>•</span>
+                                <span>{item.duration}</span>
+                              </div>
+                              
+                              <p className="text-xs md:text-sm text-slate-400 font-medium leading-relaxed bg-slate-900/40 border border-slate-850/20 px-3 py-2 rounded-lg font-mono overflow-x-hidden text-ellipsis whitespace-nowrap sm:whitespace-normal">
+                                {item.excerpt}
+                              </p>
                             </div>
-                            
-                            <p className="text-xs md:text-sm text-slate-400 font-medium leading-relaxed bg-slate-900/40 border border-slate-850/20 px-3 py-2 rounded-lg font-mono overflow-x-hidden text-ellipsis whitespace-nowrap sm:whitespace-normal">
-                              {item.excerpt}
-                            </p>
-                          </div>
-                        </Link>
-                      ))}
-                    </div>
-                  ) : (
-                    /* Only show no results if standard results are also empty */
-                    !isGenerating && (
-                      <div className="text-center py-12">
-                        <span className="block text-4xl mb-4">🔍</span>
-                        <h4 className="text-base font-black text-slate-300 mb-1">No Results Found</h4>
-                        <p className="text-xs text-slate-500 max-w-xs mx-auto">
-                          We couldn&apos;t find anything matching &quot;{searchQuery}&quot;. Try searching for HTML, CSS, React, or Setup.
-                        </p>
+                          </Link>
+                        ))}
                       </div>
-                    )
-                  )}
-                </div>
+                    ) : (
+                      /* Only show no results if standard results are also empty */
+                      !isGenerating && (
+                        <div className="text-center py-12">
+                          <span className="block text-4xl mb-4">🔍</span>
+                          <h4 className="text-base font-black text-slate-300 mb-1">No Results Found</h4>
+                          <p className="text-xs text-slate-500 max-w-xs mx-auto">
+                            We couldn&apos;t find anything matching &quot;{searchQuery}&quot;. Try searching for HTML, CSS, React, or Setup.
+                          </p>
+                        </div>
+                      )
+                    )}
+                  </div>
+                )}
 
               </div>
             )}

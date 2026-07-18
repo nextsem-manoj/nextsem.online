@@ -616,7 +616,7 @@ export default function TerminalClient() {
         </div>
 
         <div className="flex items-center gap-3">
-          <span className={`text-[10px] font-black tracking-wider uppercase ${isLight ? 'text-slate-650' : 'text-slate-400'}`}>
+          <span className={`text-[10px] font-black tracking-wider uppercase hidden sm:block ${isLight ? 'text-slate-650' : 'text-slate-400'}`}>
             Nextsem Academy Terminal
           </span>
         </div>
@@ -629,7 +629,7 @@ export default function TerminalClient() {
         <div className="flex-1 flex flex-col p-4 justify-between min-h-0 overflow-y-auto">
           
           {/* Ad Placement 1: Top Responsive Banner */}
-          <div className="w-full mb-3 shrink-0">
+          <div className="hidden md:block w-full mb-3 shrink-0">
             <AdSenseBanner />
           </div>
 
@@ -664,10 +664,7 @@ export default function TerminalClient() {
             )}
           </div>
 
-          {/* Ad Placement 3 (Mobile/Tablet Alternate) */}
-          <div className="block md:hidden w-full my-3 shrink-0">
-            <AdSenseBanner />
-          </div>
+
 
           {/* Windows 11 Styled Windows Terminal Bar Mockup */}
           <div className="mt-4 flex-1 flex flex-col min-h-0">

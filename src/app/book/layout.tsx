@@ -90,20 +90,31 @@ function BookLayoutContent({
     if (!container) return;
 
     const handleScroll = () => {
-      const totalHeight = container.scrollHeight - container.clientHeight;
+      let scrollTop = container.scrollTop;
+      let totalHeight = container.scrollHeight - container.clientHeight;
+
+      if (totalHeight <= 0) {
+        scrollTop = window.scrollY || document.documentElement.scrollTop;
+        totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+      }
+
       if (totalHeight <= 0) {
         setScrollPercent(0);
         return;
       }
-      const percent = (container.scrollTop / totalHeight) * 100;
-      setScrollPercent(percent);
+      const percent = (scrollTop / totalHeight) * 100;
+      setScrollPercent(Math.min(100, Math.max(0, percent)));
     };
 
     // Calculate once on mount/pathname changes to capture initial layouts
     handleScroll();
 
     container.addEventListener('scroll', handleScroll, { passive: true });
-    return () => container.removeEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      container.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, [mounted, pathname]);
 
   useEffect(() => {
@@ -154,14 +165,14 @@ function BookLayoutContent({
 
 
   return (
-    <div className="h-screen flex flex-col bg-[#060c18] text-white font-sans selection:bg-blue-200 transition-colors duration-300 overflow-hidden">
-      <div className="flex-1 flex flex-col md:flex-row w-full max-w-[1800px] mx-auto overflow-hidden pb-14 md:pb-0">
+    <div className="min-h-screen flex flex-col bg-[#060c18] text-white font-sans selection:bg-blue-200 transition-colors duration-300">
+      <div className="flex-1 flex flex-col md:flex-row w-full max-w-[1800px] mx-auto pb-14 md:pb-0">
         <BookSidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
 
-        <main className="flex-1 p-0 md:p-6 w-full flex flex-col overflow-hidden relative">
+        <main className="flex-1 p-0 md:p-6 w-full flex flex-col relative">
           
           {/* Header Bar matching target design */}
-          <div className={`w-full flex items-center gap-3 px-4 py-3 border-b border-x-0 md:border-x rounded-t-none md:rounded-t-2xl z-20 shrink-0 transition-all ${headerThemeClass}`}>
+          <div className={`w-full flex items-center gap-3 px-4 py-3 border-b border-x-0 md:border-x rounded-t-none md:rounded-t-2xl z-20 shrink-0 transition-all sticky top-0 ${headerThemeClass}`}>
             <button
               type="button"
               onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -256,7 +267,7 @@ function BookLayoutContent({
           </div>
 
           {/* Glassmorphic Scroll Progress Bar */}
-          <div className="w-full h-2.5 bg-slate-200/10 dark:bg-slate-950/40 backdrop-blur-md relative z-30 overflow-hidden shrink-0 border-x-0 md:border-x border-slate-250/5 flex items-center justify-center">
+          <div className="w-full h-2.5 bg-slate-200/10 dark:bg-slate-950/40 backdrop-blur-md sticky top-[46px] z-30 overflow-hidden shrink-0 border-x-0 md:border-x border-slate-250/5 flex items-center justify-center">
             <div 
               className="absolute left-0 top-0 bottom-0 bg-gradient-to-r from-blue-500 via-[#39FF14] to-emerald-450 rounded-r-full shadow-[0_0_8px_rgba(74,222,128,0.4)] transition-all duration-75"
               style={{ width: `${scrollPercent}%` }}
@@ -275,7 +286,7 @@ function BookLayoutContent({
                 className={
                   hasSim
                     ? "flex-1 relative z-10 flex flex-col min-h-0 overflow-hidden"
-                    : `flex-1 px-4 py-5 md:px-8 md:py-8 border-x-0 md:border-x rounded-b-none md:rounded-b-2xl relative z-10 overflow-y-auto transition-all duration-300 ${themeClass} ${fontSizeClass}`
+                    : `flex-1 px-4 py-5 md:px-8 md:py-8 border-x-0 md:border-x rounded-b-none md:rounded-b-2xl relative z-10 transition-all duration-300 ${themeClass} ${fontSizeClass}`
                 }
               >
                 <div className={hasSim ? "w-full h-full flex flex-col min-h-0" : "max-w-5xl mx-auto w-full"}>

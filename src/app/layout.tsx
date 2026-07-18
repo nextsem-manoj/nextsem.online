@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Inter, Lora, Outfit } from "next/font/google";
 
 import "./globals.css";
@@ -27,6 +27,13 @@ const outfit = Outfit({
   variable: "--font-outfit",
   subsets: ["latin"],
 });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+};
 
 
 export const metadata: Metadata = {
