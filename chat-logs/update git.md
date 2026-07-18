@@ -1,6 +1,6 @@
 # update git
 
-*Saved on: 18/7/2026, 3:46:21 pm*
+*Saved on: 18/7/2026, 3:51:46 pm*
 *Conversation ID: ebc4490d-b106-4d20-9df5-9ee9bcce088a*
 
 ---
@@ -1851,6 +1851,136 @@ I will check git status to stage and commit the modified files.
 ### 🤖 Antigravity AI
 
 I will stage and commit these updates to Git.
+
+---
+
+### 🤖 Antigravity AI
+
+I will execute a final chat archive and commit it to git.
+
+---
+
+### 🤖 Antigravity AI
+
+I have successfully adapted the Google Search integrations in the codebase based on Google's new CSE deprecation rules:
+
+1. **Google CSE Deprecation Adaptations**:
+   * Since Google has officially deprecated the "Search the entire web" configuration toggle for Programmable Search Engine instances (forcing custom search elements to only search configured sites like `nextsem.online`), the in-app script-based widget will return empty results for queries not indexed on Nextsem.
+   * To solve this and deliver exact web-wide results, the `"Search on Google Web Search"` CTA buttons (both inside the local results footer and inside the "No Results Found" fallback card) now trigger an external window-open redirect:
+     `https://www.google.com/search?q=[query]`
+     This launches a new browser tab with the exact Google Search layout, providing immediate search results across the entire web for their query.
+2. **In-App Search Renaming**:
+   * Renamed the in-app Google search tab from "Google Web Search" back to **"Google Site Search"** to accurately indicate that it searches the `nextsem.online` index via Google's Custom Search.
+
+The application compiles successfully and has been deployed live to production!
+
+---
+
+### 👤 User
+
+page is freezed it is not navigable up amnd down
+
+---
+
+### 🤖 Antigravity AI
+
+I will search the codebase for all references to `body.style.overflow` to see where scroll locking is managed and identify potential conflicts.
+
+---
+
+### 🤖 Antigravity AI
+
+I will view the first 80 lines of `src/app/layout.tsx` to inspect the viewport configuration, html/body element declarations, and custom scroll lock mechanisms.
+
+---
+
+### 🤖 Antigravity AI
+
+I will view lines 95 to 145 of `layout.tsx` to check the `html` element declaration.
+
+---
+
+### 🤖 Antigravity AI
+
+I will view the contents of `src/app/globals.css` to see if there are global styles restricting scroll.
+
+---
+
+### 🤖 Antigravity AI
+
+I will search the codebase for references to `in-book-mode` to see where this class is appended to the body.
+
+---
+
+### 🤖 Antigravity AI
+
+I will view lines 215 to 235 of `src/app/globals.css` to locate the exact CSS selector for `body.in-book-mode` that is freezing the layout.
+
+---
+
+### 🤖 Antigravity AI
+
+I will update `src/app/globals.css` to remove the `in-book-mode` scroll-lock styles, ensuring that the lesson pages can be scrolled normally, supporting both vertical navigation and user scaling/zooming.
+
+---
+
+### 🤖 Antigravity AI
+
+I will view lines 100 to 145 of `src/app/book/layout.tsx` to double-check if any element styling or class names restrict scroll in Next.js.
+
+---
+
+### 🤖 Antigravity AI
+
+I will view lines 220 to 280 of `src/app/book/layout.tsx` to see how the reading layout wrapper classes are styled.
+
+---
+
+### 🤖 Antigravity AI
+
+I will view lines 280 to 329 of `src/app/book/layout.tsx` to inspect the main reading wrapper container.
+
+---
+
+### 🤖 Antigravity AI
+
+I will view lines 170 to 220 of `src/app/book/layout.tsx` to inspect the parent layout markup and wrapper classes.
+
+---
+
+### 🤖 Antigravity AI
+
+I will view lines 145 to 175 of `src/app/book/layout.tsx` to find the parent wrapper div of the page layout.
+
+---
+
+### 🤖 Antigravity AI
+
+I will view lines 80 to 125 of `src/app/html/layout.tsx` to verify if there are any lingering scroll locking classes or DOM lifecycle hooks in the HTML course layout.
+
+---
+
+### 🤖 Antigravity AI
+
+I will run a production build to check that the stylesheet modification compiles correctly without any issues.
+
+---
+
+### 🤖 Antigravity AI
+
+I will wait for the build verification task (task 600) to finish. The system will automatically notify me when it completes.
+
+---
+
+### 🤖 Antigravity AI
+
+I will run the deployment to push the scroll recovery changes live to production.
+
+---
+
+### 🤖 Antigravity AI
+
+I will wait for the final production deployment of the scroll recovery adjustments to complete. The system will automatically notify me when it finishes.
 
 ---
 

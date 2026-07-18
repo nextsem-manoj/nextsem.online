@@ -217,8 +217,6 @@ body.in-book-mode .translate-btn {
   display: none !important;
 }
 
-html:has(body.in-book-mode),
-body.in-book-mode,
 html:has(body.in-home-mode),
 body.in-home-mode {
   overflow: hidden !important;
