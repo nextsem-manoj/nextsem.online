@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import searchIndex from '../data/searchIndex.json';
+import { getChapterUrl } from '../lib/htmlLessonsHelper';
 import { auth, signInWithGoogle } from '../lib/firebase';
 import { signOut, onAuthStateChanged } from 'firebase/auth';
 
@@ -737,7 +738,7 @@ const SearchWidget = () => {
                             <div className="flex items-center justify-between border-t border-slate-900/60 pt-4">
                               <span className="text-[10px] text-slate-500 font-bold">Source: Nextsem Curriculum</span>
                               <Link
-                                href={`/book/${aiResponse.chapter}`}
+                                href={getChapterUrl(aiResponse.chapter)}
                                 onClick={() => handleSelectResult(aiResponse.title)}
                                 className="inline-flex items-center gap-1.5 text-xs font-black text-emerald-400 hover:text-emerald-300 transition-colors uppercase tracking-wider"
                               >
@@ -763,7 +764,7 @@ const SearchWidget = () => {
                       {results.map((item) => (
                         <Link
                           key={item.id}
-                          href={`/book/${item.id}`}
+                          href={getChapterUrl(item.id)}
                           onClick={() => handleSelectResult(item.title)}
                           className="flex flex-col sm:flex-row gap-4 p-3 bg-slate-900/30 hover:bg-slate-900/80 border border-slate-850 rounded-2xl transition-all duration-300 group hover:border-blue-500/40 shadow-sm"
                         >

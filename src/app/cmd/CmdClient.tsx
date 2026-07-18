@@ -7,11 +7,13 @@ import {
   Terminal, ShieldAlert, CheckCircle, HelpCircle, 
   RefreshCw, Play, ArrowRight, LockKeyhole, Sparkles, 
   Star, LogOut, ChevronRight, Award, Copy, Download,
-  Check, ArrowLeft, RefreshCcw, X
+  Check, ArrowLeft, RefreshCcw, X, Menu, GitBranch
 } from "lucide-react";
 import { auth, signInWithGoogle, db } from "../../lib/firebase";
 import { signOut, onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
+import AdSenseBanner from "../../components/AdSenseBanner";
+import { ThemeToggle } from "../../components/ThemeToggle";
 
 interface HistoryLine {
   text: string;
@@ -57,84 +59,44 @@ const COLOR_MAP: Record<string, string> = {
 
 const SIMULATOR_STEPS: StepType[] = [
   {
-    id: "dir",
-    title: "1. Listing Directory Contents",
-    instruction: "Before you do anything, you need to see what files exist in the current folder. Type the directory listing command `dir` and press Enter.",
-    expectedCommand: "dir",
-    hint: "dir",
-    successMsg: "Fantastic! The 'dir' command lists all files, folders, and directories in your current folder path."
-  },
-  {
-    id: "mkdir",
-    title: "2. Creating Folders",
-    instruction: "Let's create a workspace folder. Type `mkdir nextsem` to create a new folder named 'nextsem'.",
-    expectedCommand: "mkdir nextsem",
-    hint: "mkdir nextsem",
-    successMsg: "Perfect! 'mkdir' (Make Directory) is the standard command to create folders on Windows."
-  },
-  {
     id: "cd",
-    title: "3. Navigating Directories",
-    instruction: "To enter the folder you just created, change the active directory. Type `cd nextsem` and press Enter.",
-    expectedCommand: "cd nextsem",
-    hint: "cd nextsem",
-    successMsg: "Awesome! 'cd' (Change Directory) shifts your active path. Notice the prompt updates to C:\\Users\\Student\\nextsem."
+    title: "1. Navigate to Projects Folder",
+    instruction: "First, navigate into the projects directory to set up your workspace. Type `cd projects` and press Enter.",
+    expectedCommand: "cd projects",
+    hint: "cd projects",
+    successMsg: "Excellent! You are now in the C:\\Nextsem\\projects folder."
   },
   {
-    id: "echo",
-    title: "4. Writing Files",
-    instruction: "Now let's write content to a file inside 'nextsem'. Type `echo learn command terminal > index.txt` to create index.txt with that text.",
-    expectedCommand: "echo learn command terminal > index.txt",
-    hint: "echo learn command terminal > index.txt",
-    successMsg: "Great job! The '>' redirect operator redirects the output of 'echo' and writes it to a file named 'index.txt'."
+    id: "git",
+    title: "2. Clone Advanced React Project",
+    instruction: "Now, clone the advanced React starter repository. Type `git clone https://github.com/nextsem-labs/advanced-react` and press Enter.",
+    expectedCommand: "git clone https://github.com/nextsem-labs/advanced-react",
+    hint: "git clone https://github.com/nextsem-labs/advanced-react",
+    successMsg: "Done! Repository successfully cloned to advanced-react folder."
   },
   {
-    id: "type",
-    title: "5. Reading Files",
-    instruction: "To check the contents of a file without editing, print its text. Type `type index.txt` and press Enter.",
-    expectedCommand: "type index.txt",
-    hint: "type index.txt",
-    successMsg: "Outstanding! The 'type' command outputs file contents directly onto the command line screen."
+    id: "code",
+    title: "3. Open Editor (VS Code)",
+    instruction: "Type `code .` to launch VS Code in your workspace and edit your code files.",
+    expectedCommand: "code .",
+    hint: "code .",
+    successMsg: "Launching VS Code editor... project opened successfully!"
   },
   {
-    id: "copy",
-    title: "6. Copying Files",
-    instruction: "Let's copy 'index.txt' to create a backup file. Type `copy index.txt index_backup.txt` and press Enter.",
-    expectedCommand: "copy index.txt index_backup.txt",
-    hint: "copy index.txt index_backup.txt",
-    successMsg: "Superb! The 'copy' command duplicates files in your active workspace directory."
+    id: "install",
+    title: "4. Install Dependencies",
+    instruction: "Next, install all npm package dependencies for your React app. Type `npm install` and press Enter.",
+    expectedCommand: "npm install",
+    hint: "npm install",
+    successMsg: "Dependencies installed! (This might take a while)"
   },
   {
-    id: "ren",
-    title: "7. Renaming Files",
-    instruction: "Let's change the name of the backup file. Type `ren index_backup.txt backup.txt` and press Enter.",
-    expectedCommand: "ren index_backup.txt backup.txt",
-    hint: "ren index_backup.txt backup.txt",
-    successMsg: "Perfect! 'ren' (Rename) updates the file name without moving or duplicate copying it."
-  },
-  {
-    id: "tree",
-    title: "8. Displaying Folder Trees",
-    instruction: "To view your directory structure graphically, print it in a tree diagram. Type `tree` and press Enter.",
-    expectedCommand: "tree",
-    hint: "tree",
-    successMsg: "Fascinating! The 'tree' command displays folder hierarchies recursively using ASCII lines."
-  },
-  {
-    id: "ipconfig",
-    title: "9. Network Configuration Diagnostics",
-    instruction: "Let's run some network commands. Type `ipconfig` to query the local network adapter interfaces.",
-    expectedCommand: "ipconfig",
-    hint: "ipconfig",
-    successMsg: "Excellent! 'ipconfig' is the primary diagnostic utility to check IP addresses, subnets, and gateways."
-  },
-  {
-    id: "ping",
-    title: "10. Pinging Servers",
-    instruction: "Lastly, test network connectivity to the Nextsem server. Type `ping nextsem.online` and press Enter.",
-    expectedCommand: "ping nextsem.online",
-    hint: "ping nextsem.online",
-    successMsg: "Outstanding! You have completed all lessons and mastered basic Windows Command Prompt utilities! +1000 XP!"
+    id: "start",
+    title: "5. Start Development Server",
+    instruction: "Finally, launch the local React server. Type `npm start` and press Enter.",
+    expectedCommand: "npm start",
+    hint: "npm start",
+    successMsg: "Outstanding! Nextsem React Dev Server running at http://localhost:3000. React.js Mastery unlocked! +1000 XP!"
   }
 ];
 
@@ -147,11 +109,169 @@ export default function CmdClient() {
 
   // Lesson progression state
   const [stepIdx, setStepIdx] = useState(0);
+  const [maxStepIdx, setMaxStepIdx] = useState(0);
   const [points, setPoints] = useState(0);
   const [certified, setCertified] = useState(false);
   const [showHint, setShowHint] = useState(false);
   const [showCertOverlay, setShowCertOverlay] = useState(false);
   const [copiedLink, setCopiedLink] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [view, setView] = useState<"tutorial" | "simulator">("simulator");
+  const [isSandboxOpen, setIsSandboxOpen] = useState(false);
+  const [isExercisesOpen, setIsExercisesOpen] = useState(false);
+  const [isQuizOpen, setIsQuizOpen] = useState(false);
+
+  // Sandbox state
+  const [sandboxFiles, setSandboxFiles] = useState<string[]>(["projects", "documents", "README.txt"]);
+  const [sandboxPath, setSandboxPath] = useState("C:\\Nextsem");
+  const [sandboxInput, setSandboxInput] = useState("");
+  const [sandboxHistory, setSandboxHistory] = useState<HistoryLine[]>([
+    { text: "Microsoft Windows [Version 10.0.22621.1702]", type: "output" },
+    { text: "(c) Microsoft Corporation. All rights reserved.", type: "output" },
+    { text: "", type: "output" },
+    { text: "Nextsem Virtual Cmd Console Sandbox [v1.0.0]", type: "system" },
+    { text: "Type 'help' to view the list of supported commands.", type: "system" },
+    { text: "", type: "output" }
+  ]);
+
+  // Quiz state
+  const [quizStep, setQuizStep] = useState(0);
+  const [quizSelectedOption, setQuizSelectedOption] = useState<number | null>(null);
+  const [quizScore, setQuizScore] = useState(0);
+  const [quizAnswered, setQuizAnswered] = useState(false);
+  const [quizFinished, setQuizFinished] = useState(false);
+
+  const quizQuestions = [
+    {
+      q: "What command is used to list files and folders in a directory in Windows CMD?",
+      options: ["ls", "dir", "list", "show"],
+      correct: 1,
+      exp: "In Windows CMD, 'dir' is used to list directory content. 'ls' is used in Unix-like shells (Mac/Linux)."
+    },
+    {
+      q: "How do you navigate up one directory level to the parent directory in Windows CMD?",
+      options: ["cd ..", "cd /", "cd parent", "back"],
+      correct: 0,
+      exp: "'cd ..' changes the directory to the parent folder. 'cd /' returns to the root drive directory."
+    },
+    {
+      q: "Which command is used to create a new folder/directory?",
+      options: ["newdir", "mkdir", "create", "touch"],
+      correct: 1,
+      exp: "'mkdir' stands for 'make directory' and creates a new directory. 'touch' is a Unix command used to create empty files."
+    },
+    {
+      q: "Which command clears the screen history in Windows CMD?",
+      options: ["clear", "cls", "clean", "reset"],
+      correct: 1,
+      exp: "'cls' stands for 'clear screen' and resets the terminal console buffer in Windows."
+    },
+    {
+      q: "What is the command to display IP network address details in Windows?",
+      options: ["ifconfig", "ipconfig", "netstat", "ping"],
+      correct: 1,
+    }
+  ];
+
+  const [shuffledOptions, setShuffledOptions] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (stepIdx < SIMULATOR_STEPS.length) {
+      const correct = SIMULATOR_STEPS[stepIdx].expectedCommand;
+      const pool = [
+        "dir", "cd ..", "mkdir src", "cls", "ipconfig", "git status", "cd documents", "git init", "code .", "npm run dev", "npm install", "git add ."
+      ].filter(d => d.toLowerCase() !== correct.toLowerCase());
+      
+      const shuffledPool = [...pool].sort(() => 0.5 - Math.random());
+      const merged = [correct, shuffledPool[0], shuffledPool[1]].sort(() => 0.5 - Math.random());
+      setShuffledOptions(merged);
+    }
+  }, [stepIdx]);
+
+  const handleSandboxCommand = (cmdStr: string) => {
+    const trimmed = cmdStr.trim();
+    if (!trimmed) return;
+
+    const newHistory = [...sandboxHistory, { text: `${sandboxPath}> ${cmdStr}`, type: "input" as const }];
+    const parts = trimmed.split(" ");
+    const cmd = parts[0].toLowerCase();
+    const arg = parts.slice(1).join(" ");
+
+    let outputText = "";
+    let outputType: "output" | "error" | "system" = "output";
+
+    switch (cmd) {
+      case "help":
+        outputText = "Supported commands:\n  help            - Display list of commands\n  dir             - List files and directories in current folder\n  mkdir <folder>  - Create a new directory\n  cd <folder>     - Change directories (cd .. to go back)\n  echo <text>     - Print text\n  ipconfig        - View simulated network parameters\n  git init        - Initialize empty Git repository\n  cls             - Clear console history";
+        outputType = "system";
+        break;
+      case "cls":
+        setSandboxHistory([]);
+        setSandboxInput("");
+        return;
+      case "dir":
+        outputText = ` Directory of ${sandboxPath}\n\n`;
+        sandboxFiles.forEach((file) => {
+          const isDir = !file.includes(".");
+          outputText += `15-Jul-2026  12:00 PM    ${isDir ? "<DIR>" : "     "}          ${file}\n`;
+        });
+        outputText += `\n               ${sandboxFiles.length} File(s) / Dir(s)`;
+        break;
+      case "mkdir":
+        if (!arg) {
+          outputText = "Error: Please specify directory name. Usage: mkdir <dirname>";
+          outputType = "error";
+        } else if (sandboxFiles.includes(arg)) {
+          outputText = `Error: Subdirectory or file ${arg} already exists.`;
+          outputType = "error";
+        } else {
+          setSandboxFiles([...sandboxFiles, arg]);
+          outputText = `Directory '${arg}' created successfully.`;
+          outputType = "system";
+        }
+        break;
+      case "cd":
+        if (!arg) {
+          outputText = sandboxPath;
+        } else if (arg === "..") {
+          if (sandboxPath === "C:\\Nextsem") {
+            outputText = "Cannot navigate above root in virtual sandbox.";
+            outputType = "error";
+          } else {
+            setSandboxPath("C:\\Nextsem");
+          }
+        } else {
+          if (sandboxFiles.includes(arg) && !arg.includes(".")) {
+            setSandboxPath(`C:\\Nextsem\\${arg}`);
+          } else {
+            outputText = `Error: The system cannot find the path specified: '${arg}'`;
+            outputType = "error";
+          }
+        }
+        break;
+      case "echo":
+        outputText = arg ? arg : "ECHO is on.";
+        break;
+      case "ipconfig":
+        outputText = "\nWindows IP Configuration\n\nEthernet adapter Ethernet0:\n   Connection-specific DNS Suffix  . : localdomain\n   IPv4 Address. . . . . . . . . . . : 192.168.1.108\n   Subnet Mask . . . . . . . . . . . : 255.255.255.0\n   Default Gateway . . . . . . . . . : 192.168.1.1";
+        break;
+      case "git":
+        if (arg === "init") {
+          outputText = "Initialized empty Git repository in C:/Nextsem/.git/";
+          outputType = "system";
+        } else {
+          outputText = `Error: Git command '${arg}' is not supported in this mock terminal. Try 'git init'`;
+          outputType = "error";
+        }
+        break;
+      default:
+        outputText = `'${cmd}' is not recognized as an internal or external command,\noperable program or batch file. Type 'help' for available commands.`;
+        outputType = "error";
+    }
+
+    setSandboxHistory([...newHistory, { text: outputText, type: outputType }]);
+    setSandboxInput("");
+  };
 
   // Terminal state
   const [inputVal, setInputVal] = useState("");
@@ -164,7 +284,7 @@ export default function CmdClient() {
     { text: "", type: "output" }
   ]);
   const [currentDrive, setCurrentDrive] = useState("C");
-  const [currentPath, setCurrentPath] = useState("C:\\Users\\Student");
+  const [currentPath, setCurrentPath] = useState("C:\\NEXTSEM");
   const [commandHistory, setCommandHistory] = useState<string[]>([]);
   const [historyIdx, setHistoryIdx] = useState(-1);
   const [isWorking, setIsWorking] = useState(false);
@@ -179,8 +299,8 @@ export default function CmdClient() {
   const [terminalTitle, setTerminalTitle] = useState("cmd.exe");
   const [shellMode, setShellMode] = useState<"cmd" | "powershell" | "diskpart">("cmd");
   const [envVars, setEnvVars] = useState<Record<string, string>>({
-    "USERNAME": "Student",
-    "USERPROFILE": "C:\\Users\\Student",
+    "USERNAME": "Sarah J.",
+    "USERPROFILE": "C:\\NEXTSEM",
     "COMPUTERNAME": "DESKTOP-NEXTSEM",
     "PATH": "C:\\Windows\\system32;C:\\Windows",
     "OS": "Windows_NT",
@@ -209,18 +329,13 @@ export default function CmdClient() {
   // Virtual Filesystem State
   const [fs, setFs] = useState<VirtualFS>({
     "C:": { isDir: true },
-    "C:\\USERS": { isDir: true },
-    "C:\\USERS\\STUDENT": { isDir: true },
-    "C:\\USERS\\STUDENT\\DESKTOP": { isDir: true },
-    "C:\\USERS\\STUDENT\\DOCUMENTS": { isDir: true },
-    "C:\\USERS\\STUDENT\\DOWNLOADS": { isDir: true },
-    "D:": { isDir: true },
-    "D:\\BACKUPS": { isDir: true },
-    "D:\\SOFTWARE": { isDir: true }
+    "C:\\NEXTSEM": { isDir: true },
+    "C:\\NEXTSEM\\PROJECTS": { isDir: true }
   });
 
   const terminalEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const consoleBufferRef = useRef<HTMLDivElement>(null);
 
   // Reconcile and load user progress
   const loadProgress = async (uid: string, email: string) => {
@@ -249,6 +364,7 @@ export default function CmdClient() {
       }
 
       setStepIdx(finalStep);
+      setMaxStepIdx(finalStep);
       setPoints(finalStep * 100);
       setCertified(finalCertified);
 
@@ -264,6 +380,9 @@ export default function CmdClient() {
 
   // Save progress online & offline
   const saveProgress = async (nextStep: number, isCert: boolean) => {
+    if (nextStep > maxStepIdx) {
+      setMaxStepIdx(nextStep);
+    }
     if (!user) return;
     try {
       const email = user.email;
@@ -301,7 +420,7 @@ export default function CmdClient() {
         loadProgress(firebaseUser.uid, profile.email);
       } else {
         setUser(null);
-        setAuthLoading(false);
+        loadProgress("guest", "guest@nextsem.local");
       }
     });
     return () => unsubscribe();
@@ -309,8 +428,8 @@ export default function CmdClient() {
 
   // Scroll to bottom when terminal history updates
   useEffect(() => {
-    if (terminalEndRef.current) {
-      terminalEndRef.current.scrollIntoView({ behavior: "smooth" });
+    if (consoleBufferRef.current) {
+      consoleBufferRef.current.scrollTop = consoleBufferRef.current.scrollHeight;
     }
   }, [history]);
 
@@ -1839,14 +1958,12 @@ export default function CmdClient() {
     const expected = currentStep.expectedCommand.trim().toLowerCase().replace(/\s+/g, " ");
 
     let match = false;
-    if (expected === "dir") {
-      match = entered.startsWith("dir");
-    } else if (expected === "tree") {
-      match = entered.startsWith("tree");
-    } else if (expected === "ipconfig") {
-      match = entered.startsWith("ipconfig");
-    } else if (expected === "ping nextsem.online") {
-      match = entered.startsWith("ping");
+    if (expected === "git clone https://github.com/nextsem-labs/advanced-react") {
+      match = entered.startsWith("git clone");
+    } else if (expected === "npm install") {
+      match = entered.startsWith("npm install");
+    } else if (expected === "npm start") {
+      match = entered.startsWith("npm start");
     } else {
       match = entered === expected;
     }
@@ -1863,19 +1980,29 @@ export default function CmdClient() {
         setCertified(true);
         setShowCertOverlay(true);
         saveProgress(stepIdx, true);
+        setHistory(prev => [
+          ...prev,
+          { text: `[SYSTEM ALERT] ${currentStep.successMsg}`, type: "system" },
+          { text: `+100 XP gained! Total XP: ${newPoints}`, type: "system" },
+          { text: "Redirecting to next lesson: Windows CLI Chapter 1 in 3 seconds...", type: "system" },
+          { text: "", type: "output" }
+        ]);
+        setTimeout(() => {
+          router.push("/book/cli-ch1-basics");
+        }, 3000);
+        setShowHint(false);
       } else {
         setStepIdx(nextStepIdx);
         saveProgress(nextStepIdx, false);
+        // Add success response banner inside command history log
+        setHistory(prev => [
+          ...prev,
+          { text: `[SYSTEM ALERT] ${currentStep.successMsg}`, type: "system" },
+          { text: `+100 XP gained! Total XP: ${newPoints}`, type: "system" },
+          { text: "", type: "output" }
+        ]);
+        setShowHint(false);
       }
-
-      // Add success response banner inside command history log
-      setHistory(prev => [
-        ...prev,
-        { text: `[SYSTEM ALERT] ${currentStep.successMsg}`, type: "system" },
-        { text: `+100 XP gained! Total XP: ${newPoints}`, type: "system" },
-        { text: "", type: "output" }
-      ]);
-      setShowHint(false);
     }
   };
 
@@ -1911,419 +2038,727 @@ export default function CmdClient() {
     ]);
   };
 
-  // Google sign-in layout
-  if (!user && !authLoading) {
-    return (
-      <div className="min-h-screen bg-[#03060f] flex flex-col items-center justify-center p-4 text-slate-100 font-sans relative overflow-hidden">
-        {/* Glow decorative graphics */}
-        <div className="absolute top-1/4 left-1/4 w-80 h-80 rounded-full bg-blue-600/10 blur-[120px] pointer-events-none" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full bg-emerald-600/10 blur-[130px] pointer-events-none" />
 
-        <div className="max-w-md w-full bg-slate-900/65 backdrop-blur-xl border border-slate-800 rounded-3xl p-8 shadow-2xl text-center flex flex-col items-center justify-between min-h-[460px] relative z-10 animate-in fade-in zoom-in duration-300">
-          <div className="w-full">
-            <div className="bg-[#0a0f1c] rounded-2xl w-14 h-14 flex items-center justify-center border border-emerald-500/20 shadow-inner mb-6 mx-auto">
-              <span className="text-[#39ff14] font-black text-lg tracking-tighter" style={{ textShadow: '0 0 8px #39ff14' }}>⊞</span>
-            </div>
-            
-            <span className="text-[9px] font-black uppercase tracking-widest text-violet-400 bg-violet-500/10 px-3 py-1 rounded-full border border-violet-500/20">
-              Authorization Required
-            </span>
-
-            <h1 className="text-xl md:text-2xl font-black text-white uppercase tracking-tight mt-5">
-              Command Line Simulator
-            </h1>
-            <p className="text-xs text-slate-400 mt-3 leading-relaxed px-2">
-              Sign in with your Google account to unlock the Windows CMD Terminal, track your step-by-step progress, and claim your Certificate of Mastery.
-            </p>
-          </div>
-
-          <div className="w-full mt-8 space-y-4">
-            <button
-              onClick={handleSignIn}
-              className="w-full flex items-center justify-center gap-3 px-6 py-3.5 bg-white hover:bg-slate-100 text-slate-900 font-black text-xs uppercase tracking-wider rounded-2xl transition-all duration-200 cursor-pointer shadow-lg hover:scale-102 active:scale-98"
-            >
-              <svg className="w-4 h-4" viewBox="0 0 24 24">
-                <path fill="#EA4335" d="M12 5.04c1.66 0 3.2.57 4.38 1.69l3.27-3.27C17.67 1.48 14.97 1 12 1 7.24 1 3.2 3.73 1.24 7.72l3.85 2.99C6.01 7.69 8.78 5.04 12 5.04z"/>
-                <path fill="#4285F4" d="M23.49 12.27c0-.81-.07-1.59-.2-2.36H12v4.51h6.46c-.29 1.48-1.14 2.74-2.4 3.58l3.76 2.91c2.2-2.03 3.67-5.02 3.67-8.64z"/>
-                <path fill="#FBBC05" d="M5.09 10.71c-.24-.72-.37-1.49-.37-2.29s.13-1.57.37-2.29L1.24 7.14C.45 8.73 0 10.51 0 12.42s.45 3.69 1.24 5.28l3.85-2.99c-.24-.72-.37-1.49-.37-2.29z"/>
-                <path fill="#34A853" d="M12 23c3.24 0 5.97-1.07 7.96-2.91l-3.76-2.91c-1.1.74-2.52 1.18-4.2 1.18-3.22 0-5.99-2.65-6.91-5.67l-3.85 2.99C3.2 20.27 7.24 23 12 23z"/>
-              </svg>
-              <span>Sign In With Google</span>
-            </button>
-
-            <Link
-              href="/"
-              className="text-[10px] text-slate-500 hover:text-slate-350 transition-colors uppercase font-bold tracking-wider block"
-            >
-              ← Back to Homepage
-            </Link>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   // Loading state
   if (authLoading) {
     return (
-      <div className="min-h-screen bg-[#03060f] flex flex-col items-center justify-center text-slate-400 font-mono">
+      <div className="min-h-screen bg-background flex flex-col items-center justify-center text-foreground font-mono transition-colors">
         <RefreshCw size={24} className="animate-spin text-emerald-400 mb-3" />
         <span className="text-[10px] uppercase tracking-widest text-slate-550 font-bold">Synchronizing Terminal Session...</span>
       </div>
     );
   }
 
-  const currentStep = SIMULATOR_STEPS[stepIdx];
+  const renderSidebarContent = () => (
+    <div className="flex flex-col h-full justify-between select-none">
+      <div className="flex flex-col gap-6 overflow-y-auto pr-1">
+        <Link href="/" className="flex items-center gap-2 select-none group shrink-0">
+          <img src="/logo.svg" alt="Nextsem Logo" className="w-8 h-8 rounded-lg border border-emerald-500/20 group-hover:scale-105 transition-transform select-none" />
+          <span className="font-black text-base tracking-tight text-white uppercase">
+            Nextsem<span className="text-[#04AA6D] lowercase font-bold">.online</span>
+          </span>
+        </Link>
 
-  return (
-    <div className="h-screen w-screen bg-[#03050c] flex flex-col lg:flex-row text-slate-200 overflow-hidden font-sans select-none relative">
-      
-      {/* ── LEFT PANE: LESSONS & PROGRESS ── */}
-      <div className="w-full lg:w-[420px] xl:w-[450px] border-b lg:border-b-0 lg:border-r border-slate-800 bg-[#070b14] flex flex-col justify-between h-[45%] lg:h-full shrink-0 z-10">
-        
-        {/* User Account / Navigation Bar */}
-        <div className="p-4 border-b border-slate-850 flex items-center justify-between bg-slate-950/20">
-          <div className="flex items-center gap-2">
-            <Link 
-              href="/course"
-              className="p-1.5 rounded-lg hover:bg-slate-900 text-slate-400 hover:text-white transition-colors cursor-pointer shrink-0"
-              title="Close and Go Back to Course Menu"
-            >
-              <X size={16} className="stroke-[2.5]" />
-            </Link>
-            <span className="text-[10px] font-black uppercase tracking-widest text-[#39FF14] bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/10">
-              Terminal Academy
-            </span>
+        {/* Lessons List */}
+        <div className="space-y-1.5">
+          <span className="text-[9px] font-black uppercase text-slate-500 tracking-wider block px-2 font-mono">CMD Lessons (5)</span>
+          <div className="space-y-1">
+            {SIMULATOR_STEPS.map((step, idx) => {
+              const isLocked = idx > maxStepIdx;
+              const isActive = !isSandboxOpen && !isQuizOpen && idx === stepIdx;
+              const isDone = idx < maxStepIdx;
+
+              return (
+                <button
+                  key={step.id}
+                  disabled={isLocked}
+                  onClick={() => {
+                    setStepIdx(idx);
+                    setIsSandboxOpen(false);
+                    setIsQuizOpen(false);
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className={`w-full text-left px-3 py-2 rounded-xl text-[11px] font-bold transition-all flex items-center justify-between border ${
+                    isActive 
+                      ? "bg-[#04AA6D]/10 border-[#04AA6D]/25 text-[#04AA6D]"
+                      : isLocked
+                      ? "opacity-35 border-transparent text-slate-500 cursor-not-allowed"
+                      : "hover:bg-slate-850/50 border-transparent text-slate-350 hover:text-white"
+                  }`}
+                >
+                  <span className="truncate pr-1.5">{idx + 1}. {step.title.split('. ')[1] || step.title}</span>
+                  {(isDone || certified) && <CheckCircle size={11} className="text-emerald-400 shrink-0" />}
+                  {isLocked && !certified && <LockKeyhole size={9} className="text-slate-550 shrink-0" />}
+                </button>
+              );
+            })}
           </div>
+        </div>
 
-          {user && (
+        {/* Playgrounds & Quizzes */}
+        <div className="space-y-1.5 pt-2 border-t border-slate-850/50">
+          <span className="text-[9px] font-black uppercase text-slate-500 tracking-wider block px-2 font-mono">Exercises & Assess</span>
+          
+          <button
+            onClick={() => {
+              setIsSandboxOpen(true);
+              setIsQuizOpen(false);
+              setIsMobileMenuOpen(false);
+            }}
+            className={`w-full text-left px-3 py-2 rounded-xl text-[11px] font-bold transition-all flex items-center gap-2 border ${
+              isSandboxOpen && !isQuizOpen
+                ? "bg-[#04AA6D]/10 border-[#04AA6D]/25 text-[#04AA6D]"
+                : "hover:bg-slate-850/50 border-transparent text-slate-355 hover:text-white"
+            }`}
+          >
+            <Terminal size={13} className="shrink-0" />
+            <span>💻 CMD Sandbox Console</span>
+          </button>
+
+          <button
+            onClick={() => {
+              setIsQuizOpen(true);
+              setIsSandboxOpen(false);
+              setIsMobileMenuOpen(false);
+            }}
+            className={`w-full text-left px-3 py-2 rounded-xl text-[11px] font-bold transition-all flex items-center gap-2 border ${
+              isQuizOpen
+                ? "bg-[#04AA6D]/10 border-[#04AA6D]/25 text-[#04AA6D]"
+                : "hover:bg-slate-850/50 border-transparent text-slate-355 hover:text-white"
+            }`}
+          >
+            <Award size={13} className="shrink-0" />
+            <span>📝 CMD Assessment Quiz</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Footer Area */}
+      <div className="flex flex-col gap-4 border-t border-slate-800/60 pt-4 shrink-0">
+        <div className="flex items-center justify-between">
+          <span className="text-[10px] font-black uppercase text-slate-400 tracking-wider">Appearance</span>
+          <ThemeToggle />
+        </div>
+        
+        {user ? (
+          <div className="flex flex-col gap-3 bg-slate-950/20 border border-slate-850/50 rounded-xl p-3">
             <div className="flex items-center gap-3">
-              <div className="text-right">
-                <div className="text-[10px] font-black text-white">{user.name}</div>
-                <div className="text-[8px] font-bold text-slate-500">{points} XP</div>
-              </div>
               {user.avatar ? (
-                <img 
-                  src={user.avatar} 
-                  alt={user.name} 
-                  className="w-7 h-7 rounded-full object-cover border border-slate-800"
-                />
+                <img src={user.avatar} alt={user.name} className="w-7 h-7 rounded-full object-cover border border-slate-800" />
               ) : (
-                <div className="w-7 h-7 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-650 text-white flex items-center justify-center font-black text-xs">
+                <div className="w-7 h-7 rounded-full bg-gradient-to-tr from-violet-600 to-indigo-650 text-white flex items-center justify-center font-black text-xs">
                   {user.name[0]}
                 </div>
               )}
-              <button
-                onClick={handleSignOut}
-                className="p-1.5 rounded-lg hover:bg-rose-500/10 text-slate-500 hover:text-rose-400 transition-colors cursor-pointer"
-                title="Sign Out"
-              >
-                <LogOut size={13} />
-              </button>
-            </div>
-          )}
-        </div>
-
-        {/* Lesson Body Scrolling Area */}
-        <div className="flex-1 overflow-y-auto p-5 space-y-5 scrollbar-thin">
-          
-          {/* Progress Header */}
-          <div className="space-y-2">
-            <div className="flex justify-between items-end text-xs font-black uppercase">
-              <span className="text-slate-400">Mastery Progress</span>
-              <span className="text-[#39FF14]">{certified ? "100" : Math.round((stepIdx / SIMULATOR_STEPS.length) * 100)}%</span>
+              <div className="text-left leading-none">
+                <span className="block text-[10px] font-black text-white">{user.name}</span>
+                <span className="text-[7px] text-slate-500 font-bold">{user.email ? user.email.split('@')[0] + '.dev' : 'guest.dev'}</span>
+              </div>
             </div>
             
-            {/* Progress bar */}
-            <div className="w-full bg-slate-900 border border-slate-850 h-2.5 rounded-full overflow-hidden p-[1px]">
-              <div 
-                className="bg-gradient-to-r from-emerald-500 to-[#39FF14] h-full rounded-full transition-all duration-500 shadow-[0_0_8px_#39ff14]"
-                style={{ width: `${certified ? 100 : (stepIdx / SIMULATOR_STEPS.length) * 100}%` }}
-              />
+            <div className="flex flex-col gap-1 select-none text-[9px] font-black">
+              <div className="flex items-center justify-between">
+                <span className="text-[#39FF14]">⚡ CMD Progress {Math.min(5, maxStepIdx + 1)}/5</span>
+              </div>
             </div>
 
-            <div className="flex items-center gap-1.5 text-[9px] font-black uppercase tracking-wider text-slate-500">
-              <Star size={10} className="fill-amber-500/80 text-amber-500" />
-              <span>{certified ? "10 / 10" : `${stepIdx} / ${SIMULATOR_STEPS.length}`} Lessons Completed</span>
-            </div>
+            <button onClick={handleSignOut} className="w-full py-1.5 rounded bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 text-[10px] font-bold transition-colors flex items-center justify-center gap-1 cursor-pointer border-none">
+              <LogOut size={10} />
+              <span>Sign Out</span>
+            </button>
+          </div>
+        ) : (
+          <button onClick={signInWithGoogle} className="w-full py-2 rounded bg-indigo-600 hover:bg-indigo-500 text-white text-[10px] font-black uppercase tracking-wider transition-all cursor-pointer border-none">
+            Sign In with Google
+          </button>
+        )}
+      </div>
+    </div>
+  );
+
+  const currentStep = SIMULATOR_STEPS[stepIdx];
+
+  return (
+    <div className="min-h-screen w-screen bg-background text-foreground overflow-x-hidden font-sans select-none relative bg-[radial-gradient(var(--dot-color)_1px,transparent_1px)] [background-size:32px_32px] flex flex-col lg:flex-row transition-colors">
+      
+      {/* ── MOBILE MENU SIDEBAR (DRAWER OVERLAY) ── */}
+      <div 
+        className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden transition-opacity duration-300 ${
+          isMobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        }`} 
+        onClick={() => setIsMobileMenuOpen(false)}
+      />
+      
+      <aside 
+        className={`fixed inset-y-0 left-0 w-72 bg-[#070b19]/95 backdrop-blur-xl border-r border-slate-800/80 z-50 p-6 flex flex-col justify-between transform transition-transform duration-300 lg:hidden ${
+          isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
+      >
+        {renderSidebarContent()}
+      </aside>
+
+      {/* ── DESKTOP LEFT SIDEBAR ── */}
+      <aside className="hidden lg:flex w-72 flex-col border-r border-slate-800/80 bg-[#070b19]/35 backdrop-blur-md p-6 h-screen sticky top-0 shrink-0 justify-between z-20">
+        {renderSidebarContent()}
+      </aside>
+
+      {/* ── MAIN WORKSPACE CONTAINER ── */}
+      <div className="flex-1 flex flex-col min-h-screen overflow-x-hidden">
+        
+        {/* ── MOBILE HEADER (Visible on mobile/tablet) ── */}
+        <header className="w-full flex lg:hidden items-center justify-between px-4 py-3 bg-[#0d1225]/40 backdrop-blur-md border-b border-slate-800/80 sticky top-0 z-30 shadow-md">
+          <div className="flex items-center gap-3">
+            <button 
+              onClick={() => setIsMobileMenuOpen(true)}
+              className="p-1.5 rounded-lg hover:bg-slate-800/60 text-slate-300 hover:text-white transition-colors cursor-pointer"
+              aria-label="Open Navigation Menu"
+            >
+              <Menu size={20} />
+            </button>
+            
+            <Link href="/" className="flex items-center gap-2 select-none group">
+              <img src="/logo.svg" alt="Nextsem Logo" className="w-6 h-6 rounded-lg border border-emerald-500/20 group-hover:scale-105 transition-transform select-none" />
+              <span className="font-black text-sm tracking-tight text-white uppercase">
+                Nextsem<span className="text-[#04AA6D] lowercase font-bold">.online</span>
+              </span>
+            </Link>
           </div>
 
-          {/* Lesson Card */}
-          {!certified ? (
-            <div className="bg-[#0b101c] border border-slate-850 rounded-2xl p-5 space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-300 relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-16 h-16 rounded-bl-3xl bg-blue-500/5 border-l border-b border-blue-500/5 flex items-center justify-center font-bold text-xs text-blue-400 select-none">
-                #{stepIdx + 1}
-              </div>
-
-              <div>
-                <span className="text-[9px] font-black uppercase tracking-widest text-blue-400">Current Objective</span>
-                <h2 className="text-sm font-black text-white uppercase tracking-tight mt-1 flex items-center gap-1.5">
-                  {currentStep.title}
-                </h2>
-              </div>
-
-              <p className="text-xs text-slate-400 leading-relaxed font-medium">
-                {currentStep.instruction}
-              </p>
-
-              {/* Expected input prompt */}
-              <div className="p-3 bg-slate-950/80 rounded-xl border border-slate-900/60 flex items-center justify-between">
-                <div 
-                  className="min-w-0 cursor-pointer group"
-                  onClick={() => {
-                    setInputVal(currentStep.expectedCommand);
-                    executeCommand(currentStep.expectedCommand);
-                  }}
-                  title="Click to run command"
-                >
-                  <span className="block text-[8px] font-black uppercase tracking-widest text-slate-500 group-hover:text-slate-450 transition-colors">Expected Command (Click to Run)</span>
-                  <code className="font-mono text-xs text-[#39FF14] break-all group-hover:underline">{currentStep.expectedCommand}</code>
-                </div>
-                <button
-                  onClick={() => {
-                    setInputVal(currentStep.expectedCommand);
-                    executeCommand(currentStep.expectedCommand);
-                  }}
-                  className="p-1.5 px-2.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white transition-all active:scale-90 cursor-pointer text-[9px] font-black uppercase tracking-wide shrink-0"
-                  title="Run command in terminal"
-                >
-                  Run
-                </button>
-              </div>
-
-              {/* Show Hint area */}
-              <div>
-                <button
-                  onClick={() => setShowHint(!showHint)}
-                  className="text-[10px] font-black uppercase tracking-wider text-slate-500 hover:text-white flex items-center gap-1 cursor-pointer transition-colors"
-                >
-                  <HelpCircle size={11} />
-                  <span>{showHint ? "Hide Explanation" : "Need a Hint?"}</span>
-                </button>
-
-                {showHint && (
-                  <div className="mt-2.5 p-3.5 bg-slate-950/40 rounded-xl border border-slate-850/60 text-[10px] text-slate-450 leading-relaxed font-medium transition-all duration-300">
-                    <strong>💡 Command Guide:</strong> {currentStep.hint}
+          {/* Small User Stats Avatar on Mobile Header */}
+          <div>
+            {user ? (
+              <div className="flex items-center gap-2">
+                <span className="text-[9px] font-black text-rose-500 flex items-center gap-0.5">❤️ <span className="text-white">450</span></span>
+                {user.avatar ? (
+                  <img src={user.avatar} alt={user.name} className="w-6 h-6 rounded-full border border-slate-800" />
+                ) : (
+                  <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-violet-600 to-indigo-650 text-white flex items-center justify-center font-black text-[10px]">
+                    {user.name[0]}
                   </div>
                 )}
               </div>
+            ) : (
+              <button 
+                onClick={signInWithGoogle}
+                className="px-2.5 py-1 bg-violet-650 hover:bg-violet-600 text-white text-[9px] font-black uppercase tracking-wider rounded-lg transition-all"
+              >
+                Sign In
+              </button>
+            )}
+          </div>
+        </header>
 
-              {/* Previous / Next Lesson Navigation Controls */}
-              <div className="flex items-center justify-between pt-2 border-t border-slate-900 select-none">
-                <button
-                  disabled={stepIdx === 0}
-                  onClick={() => {
-                    if (stepIdx > 0) {
-                      setStepIdx(prev => prev - 1);
-                      setInputVal("");
-                      setShowHint(false);
-                    }
-                  }}
-                  className="text-[9px] font-black uppercase tracking-widest text-slate-500 hover:text-slate-300 disabled:opacity-30 disabled:cursor-not-allowed transition-colors flex items-center gap-1 cursor-pointer font-sans"
-                >
-                  <span>◀</span> Prev Lesson
-                </button>
-
-                <button
-                  onClick={handleLessonSkip}
-                  className="text-[9px] font-black uppercase tracking-widest text-slate-600 hover:text-slate-400 transition-colors flex items-center gap-0.5 cursor-pointer font-sans"
-                >
-                  <span>Skip Lesson</span>
-                  <ChevronRight size={10} />
-                </button>
-
-                <button
-                  disabled={stepIdx === SIMULATOR_STEPS.length - 1}
-                  onClick={() => {
-                    if (stepIdx < SIMULATOR_STEPS.length - 1) {
-                      setStepIdx(prev => prev + 1);
-                      setInputVal("");
-                      setShowHint(false);
-                    }
-                  }}
-                  className="text-[9px] font-black uppercase tracking-widest text-slate-500 hover:text-slate-300 disabled:opacity-30 disabled:cursor-not-allowed transition-colors flex items-center gap-1 cursor-pointer font-sans"
-                >
-                  Next Lesson <span>▶</span>
-                </button>
-              </div>
-
+        {view === "tutorial" ? (
+          <div className="flex-1 flex flex-col w-full max-w-4xl mx-auto px-4 py-6 md:py-8 select-none animate-in fade-in duration-300">
+            {/* Top Navigation */}
+            <div className="flex justify-between items-center mb-8 border-b border-slate-800/40 pb-4">
+              <button 
+                onClick={() => router.push('/course')} 
+                className="px-3.5 py-1.5 bg-slate-900 hover:bg-slate-850 border border-slate-800 text-slate-355 hover:text-white rounded-xl text-[10px] font-black uppercase tracking-wider transition-all cursor-pointer flex items-center gap-1 active:scale-95 shadow-md"
+              >
+                <ArrowLeft size={11} />
+                <span>Home</span>
+              </button>
+              <button 
+                onClick={() => setView("simulator")} 
+                className="px-3.5 py-1.5 bg-gradient-to-r from-violet-600 to-indigo-650 hover:brightness-110 text-white rounded-xl text-[10px] font-black uppercase tracking-wider transition-all cursor-pointer flex items-center gap-1 active:scale-95 shadow-md"
+              >
+                <span>Next</span>
+                <ArrowRight size={11} />
+              </button>
             </div>
-          ) : (
-            <div className="bg-[#0b101c] border border-[#39ff14]/20 rounded-2xl p-5 space-y-4 text-center relative overflow-hidden shadow-lg shadow-emerald-500/5">
-              <div className="w-12 h-12 rounded-full bg-emerald-500/10 border border-[#39ff14]/30 flex items-center justify-center mx-auto text-[#39ff14] mb-2 animate-bounce">
-                <Award size={20} />
-              </div>
-              <h2 className="text-sm font-black text-white uppercase tracking-tight">
-                Certification Ready!
-              </h2>
-              <p className="text-xs text-slate-450 leading-relaxed font-medium">
-                Excellent! You successfully completed all 10 terminal lessons. Your Windows CMD Terminal Certificate is ready to claim.
+
+            {/* Title / Hero */}
+            <div className="text-center mb-8">
+              <span className="text-[9px] font-black uppercase tracking-widest text-violet-400 bg-violet-500/10 px-3 py-1 rounded-full border border-violet-500/20">Course Lesson 1</span>
+              <h1 className="text-3xl md:text-4xl font-black text-white uppercase tracking-tight mt-3 mb-4 leading-none">
+                🪟 Windows Terminal Commands Tutorial
+              </h1>
+              <p className="text-sm text-slate-400 max-w-xl mx-auto leading-relaxed">
+                Master the essential Command Prompt (CMD) tools to automate operations, initialize repositories, and build local development environments.
               </p>
               
-              <div className="pt-2">
-                <button
-                  onClick={() => setShowCertOverlay(true)}
-                  className="w-full py-2.5 bg-gradient-to-r from-emerald-500 to-[#39ff14] hover:brightness-110 text-slate-950 font-black text-xs uppercase tracking-wider rounded-xl transition-all cursor-pointer shadow-lg shadow-emerald-500/10"
-                >
-                  View & Claim Certificate
-                </button>
+              <button 
+                onClick={() => setView("simulator")} 
+                className="mt-6 px-6 py-3.5 bg-[#39FF14] hover:bg-[#2ebd10] text-[#07070c] text-xs font-black uppercase tracking-wider rounded-3xl transition-all shadow-lg hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
+              >
+                🚀 Learn CMD commands
+              </button>
+            </div>
+
+            {/* AD SLOT 1 */}
+            <div className="my-6 p-4 bg-slate-950/20 border border-slate-900 rounded-2xl flex flex-col items-center justify-center min-h-[90px] text-center select-none relative overflow-hidden">
+              <span className="text-[7px] text-slate-600 font-bold uppercase tracking-widest absolute top-2 right-3">Sponsored Ad Slot</span>
+              <div className="w-full flex justify-center">
+                <AdSenseBanner />
               </div>
+            </div>
+
+            {/* Benefits & Must-Have Knowledge Section */}
+            <section className="bg-[#0d1225]/45 border border-slate-800/80 rounded-3xl p-6 backdrop-blur-md mb-8 shadow-xl">
+              <h2 className="text-lg font-black text-white uppercase tracking-tight mb-4 flex items-center gap-2">
+                🌟 Why Full-Stack Developers Must Learn CMD
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs text-slate-350 leading-relaxed font-medium">
+                <div className="space-y-4">
+                  <div className="flex gap-3">
+                    <span className="text-base shrink-0">⚡</span>
+                    <div>
+                      <h4 className="font-extrabold text-white uppercase tracking-tight mb-0.5">Speed & Efficiency</h4>
+                      <p>Creating files, searching folder trees, or running builds is up to 5x faster in the terminal than using the graphical UI.</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-3">
+                    <span className="text-base shrink-0">🛠️</span>
+                    <div>
+                      <h4 className="font-extrabold text-white uppercase tracking-tight mb-0.5">Automation & Scripting</h4>
+                      <p>Combine multiple CLI commands into custom script files (`.bat` or `.sh`) to automatically run setup scripts or run test suites.</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="space-y-4">
+                  <div className="flex gap-3">
+                    <span className="text-base shrink-0">📦</span>
+                    <div>
+                      <h4 className="font-extrabold text-white uppercase tracking-tight mb-0.5">Toolchains Integration</h4>
+                      <p>Modern package managers (NPM, Yarn), bundlers (Vite, Webpack), and version control systems (Git) are completely CLI-first.</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-3">
+                    <span className="text-base shrink-0">☁️</span>
+                    <div>
+                      <h4 className="font-extrabold text-white uppercase tracking-tight mb-0.5">Server Management</h4>
+                      <p>Deploying projects to AWS, Docker containers, or virtual Linux servers is performed entirely via remote SSH terminals.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Code Examples Card */}
+              <div className="mt-6 border-t border-slate-800/50 pt-6">
+                <h3 className="text-xs font-black text-white uppercase tracking-wider mb-3">💻 Essential CMD Snippets:</h3>
+                <div className="space-y-3">
+                  <div>
+                    <span className="text-[10px] text-slate-500 font-mono"># List directory files:</span>
+                    <pre className="bg-black/45 border border-slate-850 p-2.5 rounded-lg text-emerald-400 font-mono text-[10px] mt-1 select-all">
+                      dir
+                    </pre>
+                  </div>
+                  <div>
+                    <span className="text-[10px] text-slate-500 font-mono"># Create a directory and navigate into it:</span>
+                    <pre className="bg-black/45 border border-slate-850 p-2.5 rounded-lg text-emerald-400 font-mono text-[10px] mt-1 select-all">
+                      mkdir my-react-app && cd my-react-app
+                    </pre>
+                  </div>
+                  <div>
+                    <span className="text-[10px] text-slate-500 font-mono"># Show local IP networking parameters:</span>
+                    <pre className="bg-black/45 border border-slate-850 p-2.5 rounded-lg text-emerald-400 font-mono text-[10px] mt-1 select-all">
+                      ipconfig
+                    </pre>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* Interactive Try It CTA */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+              <button 
+                onClick={() => setIsSandboxOpen(true)}
+                className="py-4 bg-[#0d1225]/45 hover:bg-[#121c38]/60 border border-slate-800/80 rounded-2xl flex flex-col items-center justify-center gap-2 hover:scale-[1.02] transition-all cursor-pointer shadow-md group"
+              >
+                <Terminal size={20} className="text-[#39FF14] group-hover:animate-pulse" />
+                <span className="text-[10px] font-black uppercase text-white tracking-wider">🖥️ Try It Sandbox</span>
+              </button>
+              <button 
+                onClick={() => setIsExercisesOpen(true)}
+                className="py-4 bg-[#0d1225]/45 hover:bg-[#121c38]/60 border border-slate-800/80 rounded-2xl flex flex-col items-center justify-center gap-2 hover:scale-[1.02] transition-all cursor-pointer shadow-md group"
+              >
+                <Award size={20} className="text-amber-500" />
+                <span className="text-[10px] font-black uppercase text-white tracking-wider">📋 See CMD Exercises</span>
+              </button>
+              <button 
+                onClick={() => setIsQuizOpen(true)}
+                className="py-4 bg-[#0d1225]/45 hover:bg-[#121c38]/60 border border-slate-800/80 rounded-2xl flex flex-col items-center justify-center gap-2 hover:scale-[1.02] transition-all cursor-pointer shadow-md group"
+              >
+                <HelpCircle size={20} className="text-violet-400" />
+                <span className="text-[10px] font-black uppercase text-white tracking-wider">❓ Start CMD Quiz</span>
+              </button>
+            </div>
+
+            {/* AD SLOT 2 */}
+            <div className="my-4 p-4 bg-slate-950/20 border border-slate-900 rounded-2xl flex flex-col items-center justify-center min-h-[90px] text-center select-none relative overflow-hidden">
+              <span className="text-[7px] text-slate-600 font-bold uppercase tracking-widest absolute top-2 right-3">Sponsored Ad Slot</span>
+              <div className="w-full flex justify-center">
+                <AdSenseBanner />
+              </div>
+            </div>
+
+            {/* Bottom Navigation */}
+            <div className="flex justify-between items-center mt-8 border-t border-slate-800/40 pt-4">
+              <button 
+                onClick={() => router.push('/course')} 
+                className="px-3.5 py-1.5 bg-slate-900 hover:bg-slate-850 border border-slate-800 text-slate-355 hover:text-white rounded-xl text-[10px] font-black uppercase tracking-wider transition-all cursor-pointer flex items-center gap-1 active:scale-95 shadow-md"
+              >
+                <ArrowLeft size={11} />
+                <span>Home</span>
+              </button>
+              <button 
+                onClick={() => setView("simulator")} 
+                className="px-3.5 py-1.5 bg-gradient-to-r from-violet-600 to-indigo-650 hover:brightness-110 text-white rounded-xl text-[10px] font-black uppercase tracking-wider transition-all cursor-pointer flex items-center gap-1 active:scale-95 shadow-md"
+              >
+                <span>Next</span>
+                <ArrowRight size={11} />
+              </button>
+            </div>
+          </div>
+        ) : (
+          <main className="max-w-7xl mx-auto w-full px-4 py-8 flex-1 grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch select-none relative z-10">
+        
+        {/* ── LEFT COLUMN: CMD WINDOW (lg:col-span-7) ── */}
+        <div className="lg:col-span-7 flex flex-col min-h-[480px] bg-black border-2 border-emerald-500/40 rounded-2xl shadow-[0_0_40px_rgba(16,185,129,0.15)] relative overflow-hidden">
+          
+          {/* Windows Administrator Bar */}
+          <div className="bg-[#1d1d1f] border-b border-[#2d2d2f] flex items-center justify-between px-4 select-none shrink-0 py-2">
+            <div className="flex items-center gap-2">
+              <Terminal size={11} className="text-[#39FF14]" />
+              <span className="font-mono text-[10px] text-slate-300 font-bold select-none">
+                Administrator: C:\Windows\System32\cmd.exe
+              </span>
+            </div>
+            {/* Window control buttons */}
+            <div className="flex items-center gap-3 text-slate-500 hover:text-slate-300 transition-colors text-xs pr-1">
+              <span className="cursor-pointer font-light select-none hover:text-white transition-colors">─</span>
+              <span className="cursor-pointer font-light select-none hover:text-white transition-colors">☐</span>
+              <span className="cursor-pointer font-light select-none hover:text-rose-500 transition-colors">✕</span>
+            </div>
+          </div>
+
+          {/* Console Buffer */}
+          <div 
+            ref={consoleBufferRef}
+            onClick={focusInput}
+            className="flex-1 p-5 overflow-y-auto font-mono text-xs select-text scrollbar-thin cursor-text bg-[#030303]"
+            style={{ color: "#39FF14" }}
+          >
+            <div className="space-y-1">
+              {history.map((line, idx) => {
+                let colorClass = "";
+                if (line.type === "error") colorClass = "text-rose-500 font-bold";
+                if (line.type === "system") colorClass = "text-[#39FF14] font-bold";
+                return (
+                  <div key={idx} className={`whitespace-pre-wrap leading-relaxed ${colorClass}`}>
+                    {line.text}
+                  </div>
+                );
+              })}
+
+              {/* Input Form */}
+              <form 
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  executeCommand(inputVal);
+                }}
+                className="flex items-center leading-relaxed w-full"
+              >
+                <span className="whitespace-nowrap mr-2 select-none">
+                  {getPrompt()}
+                </span>
+                <div className="flex-1 relative flex items-center mr-2">
+                  <input
+                    ref={inputRef}
+                    type="text"
+                    value={inputVal}
+                    onChange={(e) => setInputVal(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                    disabled={isWorking}
+                    autoFocus
+                    autoComplete="off"
+                    autoCorrect="off"
+                    autoCapitalize="off"
+                    spellCheck="false"
+                    className="w-full bg-transparent border-none outline-none focus:ring-0 p-0 text-inherit font-mono leading-relaxed focus:outline-none"
+                  />
+                  {/* Simulated pulsing custom cursor in case input is out of focus */}
+                  {isWorking && (
+                    <span className="absolute left-0 w-1.5 h-3.5 bg-slate-400 animate-pulse ml-0.5" />
+                  )}
+                </div>
+                <button
+                  type="submit"
+                  disabled={isWorking || !inputVal.trim()}
+                  className="px-2.5 py-1 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-350 hover:text-white rounded font-mono text-[9px] uppercase tracking-wide cursor-pointer transition-all active:scale-95 shrink-0 flex items-center gap-1"
+                  title="Execute command (Enter)"
+                >
+                  <span>Enter</span>
+                  <span className="text-[7px]">⏎</span>
+                </button>
+              </form>
+              
+              {/* Mobile Quick Command Option Buttons */}
+              <div className="mt-4 p-3 bg-slate-950/40 border border-slate-900 rounded-xl select-none shrink-0">
+                <span className="text-[8px] font-black uppercase text-slate-500 tracking-wider block mb-2">
+                  📱 Mobile Quick Commands:
+                </span>
+                <div className="flex flex-wrap gap-2">
+                  {shuffledOptions.map((opt, oIdx) => (
+                    <button
+                      key={oIdx}
+                      type="button"
+                      onClick={() => {
+                        setInputVal(opt);
+                        executeCommand(opt);
+                      }}
+                      className="px-2.5 py-1.5 bg-[#0a0f1d] hover:bg-[#121c38] border border-slate-800 hover:border-violet-500 text-slate-300 hover:text-white rounded-lg font-mono text-[9px] cursor-pointer transition-all active:scale-95"
+                    >
+                      {opt}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div ref={terminalEndRef} />
+            </div>
+          </div>
+
+          {/* Reset Lesson State floating bar */}
+          <div className="p-3 border-t border-slate-900/60 bg-black/60 backdrop-blur-sm flex items-center justify-between">
+            <button
+              onClick={resetAllProgress}
+              className="flex items-center gap-1.5 text-[8px] font-black uppercase tracking-widest text-slate-655 hover:text-slate-400 transition-colors cursor-pointer"
+              title="Reset Terminal Progression State"
+            >
+              <RefreshCcw size={10} />
+              <span>Reset Progress</span>
+            </button>
+            <span className="text-[8px] font-mono text-slate-700 font-bold uppercase">
+              v1.2.0-REACT-LAB
+            </span>
+          </div>
+        </div>
+
+        {/* ── RIGHT COLUMN: NEXTSEM CAREER PATH ROADMAP (lg:col-span-5) ── */}
+        <div className="lg:col-span-5 flex flex-col">
+          
+          {/* Pinned Current Simulator Objective */}
+          {!certified && (
+            <div className="bg-[#0b101c]/90 border border-violet-500/35 rounded-2xl p-4 mb-6 shadow-[0_0_20px_rgba(139,92,246,0.1)] relative overflow-hidden flex items-center justify-between gap-4">
+              <div className="absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b from-violet-500 to-indigo-500" />
+              <div className="min-w-0">
+                <span className="text-[8px] font-black uppercase tracking-widest text-violet-400">Current Simulator Objective</span>
+                <h4 className="text-xs font-black text-white uppercase tracking-tight mt-0.5">{currentStep.title}</h4>
+                <p className="text-[10px] text-slate-400 leading-relaxed font-medium mt-1">{currentStep.instruction}</p>
+              </div>
+              <button 
+                onClick={() => {
+                  setInputVal(currentStep.expectedCommand);
+                  executeCommand(currentStep.expectedCommand);
+                }}
+                className="px-3.5 py-1.5 bg-gradient-to-r from-violet-600 to-indigo-650 hover:brightness-110 text-white rounded-lg text-[9px] font-black uppercase tracking-wider shrink-0 cursor-pointer shadow-md active:scale-95 transition-all"
+              >
+                Run
+              </button>
             </div>
           )}
 
-          {/* Quick Info Checklist (Fully Clickable & Unlocked) */}
-          <div className="space-y-2">
-            <span className="text-[9px] font-black uppercase tracking-widest text-slate-500 pl-1">Syllabus Overview</span>
-            <div className="space-y-1.5">
-              {SIMULATOR_STEPS.map((step, idx) => {
-                const isDone = certified || idx < stepIdx;
-                const isActive = !certified && idx === stepIdx;
-                return (
-                  <button 
-                    key={step.id}
-                    onClick={() => {
-                      setStepIdx(idx);
-                      setInputVal("");
-                      setShowHint(false);
-                    }}
-                    className={`w-full flex items-center justify-between p-2.5 rounded-xl border text-[11px] font-medium text-left transition-all cursor-pointer ${
-                      isActive 
-                        ? "bg-blue-500/10 border-blue-500/40 text-white font-bold" 
-                        : isDone 
-                          ? "bg-slate-900/35 border-slate-900 text-slate-350 hover:bg-slate-900/50" 
-                          : "bg-slate-900/10 border-slate-900/40 text-slate-400 hover:bg-slate-900/20"
-                    }`}
-                  >
-                    <div className="flex items-center gap-2 min-w-0">
-                      <div className={`w-4 h-4 rounded-full flex items-center justify-center border shrink-0 ${
-                        isDone 
-                          ? "border-[#39ff14]/30 bg-emerald-500/10 text-[#39ff14]" 
-                          : isActive 
-                            ? "border-blue-400 bg-blue-500/10 text-blue-400 animate-pulse" 
-                            : "border-slate-800 text-slate-500"
-                      }`}>
-                        {isDone ? <Check size={10} className="stroke-[3]" /> : idx + 1}
-                      </div>
-                      <span className="truncate">{step.title}</span>
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-
-        </div>
-
-        {/* Reset settings button */}
-        <div className="p-4 border-t border-slate-850 flex items-center justify-between bg-slate-950/20">
-          <button
-            onClick={resetAllProgress}
-            className="flex items-center gap-1 text-[9px] font-black uppercase tracking-widest text-slate-650 hover:text-slate-450 transition-colors cursor-pointer"
-            title="Reset Terminal Progression State"
-          >
-            <RefreshCcw size={10} />
-            <span>Reset Lesson Progress</span>
-          </button>
-
-          <span className="text-[8px] font-mono text-slate-650 font-bold uppercase">
-            v1.1.0-SIM
-          </span>
-        </div>
-
-      </div>
-
-      {/* ── RIGHT PANE: WINDOWS 11 CMD CONSOLE ── */}
-      <div className="flex-1 flex flex-col h-[55%] lg:h-full bg-slate-950 relative overflow-hidden">
-        
-        {/* Terminal Header Tab Bar (Windows 11 Layout) */}
-            <div className="bg-[#1d1d1f] border-b border-[#2d2d2f] flex items-center justify-between px-4 select-none shrink-0">
-          <div className="flex items-center gap-2">
-            <div className="bg-[#2d2d2f] text-slate-300 font-mono text-[10px] px-3 py-1.5 rounded-t-lg border-t border-x border-[#3d3d3f] flex items-center gap-1.5">
-              <Terminal size={11} className="text-[#39FF14]" />
-              <span className="font-bold">{terminalTitle}</span>
-            </div>
-          </div>
-
-          {/* Windows 11 Chrome window control buttons */}
-          <div className="flex items-center gap-3 text-slate-500 hover:text-slate-300 transition-colors text-xs pr-1">
-            <span className="cursor-pointer font-light select-none hover:text-white transition-colors">─</span>
-            <span className="cursor-pointer font-light select-none hover:text-white transition-colors">☐</span>
-            <span className="cursor-pointer font-light select-none hover:text-rose-500 transition-colors">✕</span>
-          </div>
-        </div>
-
-        {/* Terminal Screen Console Buffer */}
-        <div 
-          onClick={focusInput}
-          className="flex-1 p-5 overflow-y-auto font-mono text-xs select-text scrollbar-thin cursor-text"
-          style={{ 
-            backgroundColor: themeColors.bg, 
-            color: themeColors.text,
-            transition: "background-color 0.3s, color 0.3s"
-          }}
-        >
-          <div className="space-y-1">
-            {history.map((line, idx) => {
-              let colorClass = "";
-              if (line.type === "error") colorClass = "text-rose-500 font-bold";
-              if (line.type === "system") colorClass = "text-[#39FF14] font-bold";
-              return (
-                <div key={idx} className={`whitespace-pre-wrap leading-relaxed ${colorClass}`}>
-                  {line.text}
-                </div>
-              );
-            })}
-
-            {/* Input Line */}
-            <form 
-              onSubmit={(e) => {
-                e.preventDefault();
-                executeCommand(inputVal);
-              }}
-              className="flex items-center leading-relaxed w-full"
-            >
-              <span className="whitespace-nowrap mr-2 select-none">
-                {getPrompt()}
-              </span>
-              <div className="flex-1 relative flex items-center mr-2">
-                <input
-                  ref={inputRef}
-                  type="text"
-                  value={inputVal}
-                  onChange={(e) => setInputVal(e.target.value)}
-                  onKeyDown={handleKeyDown}
-                  disabled={isWorking}
-                  autoFocus
-                  autoComplete="off"
-                  autoCorrect="off"
-                  autoCapitalize="off"
-                  spellCheck="false"
-                  className="w-full bg-transparent border-none outline-none focus:ring-0 p-0 text-inherit font-mono leading-relaxed"
-                />
-                {/* Simulated pulsing custom cursor in case input is out of focus */}
-                {isWorking && (
-                  <span className="absolute left-0 w-1.5 h-3.5 bg-slate-400 animate-pulse ml-0.5" />
-                )}
-              </div>
-              <button
-                type="submit"
-                disabled={isWorking || !inputVal.trim()}
-                className="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-350 hover:text-white rounded font-mono text-[9px] uppercase tracking-wide cursor-pointer transition-all active:scale-95 shrink-0 flex items-center gap-1"
-                title="Execute command (Enter)"
-              >
-                <span>Enter</span>
-                <span className="text-[7px]">⏎</span>
-              </button>
-            </form>
+          {/* Connected Pathways Card */}
+          <div className="bg-[#0d1225]/45 border border-slate-800/80 rounded-3xl p-6 backdrop-blur-md flex-1 relative flex flex-col justify-between overflow-hidden shadow-2xl">
             
-            <div ref={terminalEndRef} />
+            {/* SVG Connecting Paths */}
+            <svg className="absolute inset-0 pointer-events-none z-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="active-path-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#a78bfa" stopOpacity="0.8" />
+                  <stop offset="100%" stopColor="#ec4899" stopOpacity="0.8" />
+                </linearGradient>
+                <linearGradient id="selected-path-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#f59e0b" stopOpacity="0.8" />
+                  <stop offset="100%" stopColor="#ea580c" stopOpacity="0.8" />
+                </linearGradient>
+              </defs>
+              
+              {/* Static Path Connections */}
+              <path d="M 28 17 L 72 17" stroke="#a78bfa" strokeWidth="1" strokeOpacity="0.4" fill="none" />
+              <path d="M 72 17 C 50 17, 50 49, 28 49" stroke="#a78bfa" strokeWidth="1" strokeOpacity="0.4" fill="none" />
+              <path d="M 28 49 L 72 49" stroke="url(#selected-path-gradient)" strokeWidth="2" fill="none" className="drop-shadow-[0_0_6px_#f59e0b]" />
+              <path d="M 72 49 C 50 49, 50 81, 28 81" stroke="#475569" strokeWidth="1" strokeOpacity="0.4" fill="none" />
+              <path d="M 28 81 L 72 81" stroke="#475569" strokeWidth="1" strokeOpacity="0.4" fill="none" />
+            </svg>
+
+            {/* Title */}
+            <div className="relative z-10 mb-6 flex items-center justify-between">
+              <h3 className="text-white font-extrabold text-sm tracking-wide uppercase">Nextsem Career Path</h3>
+              <span className="text-[8px] font-black uppercase text-violet-400 bg-violet-500/10 px-2 py-0.5 rounded border border-violet-500/20">Fullstack Developer</span>
+            </div>
+
+            {/* Vertical Nodes Grid (Zig-Zag Layout matches Mockup) */}
+            <div className="grid grid-cols-2 gap-x-6 gap-y-7 relative z-10 flex-1">
+              
+              {/* HTML & CSS (Row 1 Left) */}
+              <Link href="/course" className="bg-[#11162d]/90 border border-slate-800/80 rounded-2xl p-3 flex flex-col justify-between hover:scale-[1.02] transition-all cursor-pointer h-24 shadow-md">
+                <div className="flex items-center gap-2">
+                  <div className="w-7 h-7 rounded-lg bg-orange-500/10 border border-orange-500/20 flex items-center justify-center text-orange-500 font-black text-[10px]">
+                    5
+                  </div>
+                  <div className="leading-tight">
+                    <span className="block text-[9px] font-black text-white leading-none">HTML & CSS</span>
+                    <span className="text-[7px] text-slate-500 font-bold uppercase">Basic layout</span>
+                  </div>
+                </div>
+                <div className="space-y-1">
+                  <div className="flex justify-between items-center text-[7px] font-black uppercase">
+                    <span className="text-slate-500">Progress</span>
+                    <span className="text-violet-400">75%</span>
+                  </div>
+                  <div className="w-full bg-slate-950 h-1 rounded-full overflow-hidden p-[0.5px]">
+                    <div className="bg-gradient-to-r from-violet-500 to-indigo-500 h-full rounded-full" style={{ width: '75%' }} />
+                  </div>
+                </div>
+              </Link>
+
+              {/* JavaScript Fundamentals (Row 1 Right) */}
+              <Link href="/course" className="bg-[#11162d]/90 border border-slate-800/80 rounded-2xl p-3 flex flex-col justify-between hover:scale-[1.02] transition-all cursor-pointer h-24 shadow-md">
+                <div className="flex items-center gap-2">
+                  <div className="w-7 h-7 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-500 font-black text-[10px]">
+                    JS
+                  </div>
+                  <div className="leading-tight">
+                    <span className="block text-[9px] font-black text-white leading-none">JS Basics</span>
+                    <span className="text-[7px] text-slate-500 font-bold uppercase">Fundamentals</span>
+                  </div>
+                </div>
+                <div className="space-y-1">
+                  <div className="flex justify-between items-center text-[7px] font-black uppercase">
+                    <span className="text-slate-500">Progress</span>
+                    <span className="text-violet-400">90%</span>
+                  </div>
+                  <div className="w-full bg-slate-950 h-1 rounded-full overflow-hidden p-[0.5px]">
+                    <div className="bg-gradient-to-r from-violet-500 to-indigo-500 h-full rounded-full" style={{ width: '90%' }} />
+                  </div>
+                </div>
+              </Link>
+
+              {/* Modern JavaScript ES6+ (Row 2 Left) */}
+              <Link href="/course" className="bg-[#11162d]/90 border border-slate-800/80 rounded-2xl p-3 flex flex-col justify-between hover:scale-[1.02] transition-all cursor-pointer h-24 shadow-md">
+                <div className="flex items-center gap-2">
+                  <div className="w-7 h-7 rounded-lg bg-yellow-500/10 border border-yellow-500/20 flex items-center justify-center text-yellow-500 font-black text-[10px]">
+                    ES
+                  </div>
+                  <div className="leading-tight">
+                    <span className="block text-[9px] font-black text-white leading-none">Modern JS</span>
+                    <span className="text-[7px] text-slate-500 font-bold uppercase">ES6+ logic</span>
+                  </div>
+                </div>
+                <div className="space-y-1">
+                  <div className="flex justify-between items-center text-[7px] font-black uppercase">
+                    <span className="text-slate-500">Progress</span>
+                    <span className="text-violet-400">60%</span>
+                  </div>
+                  <div className="w-full bg-slate-950 h-1 rounded-full overflow-hidden p-[0.5px]">
+                    <div className="bg-gradient-to-r from-violet-500 to-indigo-500 h-full rounded-full" style={{ width: '60%' }} />
+                  </div>
+                </div>
+              </Link>
+
+              {/* React.js Mastery (Row 2 Right - ACTIVE NODE GLOWS ORANGE) */}
+              <div className={`bg-[#11162d] border rounded-2xl p-3 flex flex-col justify-between h-24 shadow-md transition-all ${
+                certified 
+                  ? 'border-emerald-500/40 shadow-[0_0_15px_rgba(16,185,129,0.1)]' 
+                  : 'border-amber-500/60 shadow-[0_0_20px_rgba(245,158,11,0.15)] ring-1 ring-amber-500/35'
+              }`}>
+                <div className="flex items-center gap-2">
+                  <div className={`w-7 h-7 rounded-lg flex items-center justify-center font-black text-[10px] ${
+                    certified
+                      ? 'bg-emerald-500/10 border border-emerald-500/20 text-emerald-400'
+                      : 'bg-amber-500/10 border border-amber-500/20 text-amber-500 animate-pulse'
+                  }`}>
+                    ⚛️
+                  </div>
+                  <div className="leading-tight">
+                    <span className="block text-[9px] font-black text-white leading-none">React.js Mastery</span>
+                    <span className={`text-[7px] font-bold uppercase ${certified ? 'text-emerald-400' : 'text-amber-500'}`}>
+                      {certified ? 'Completed' : 'Active lab'}
+                    </span>
+                  </div>
+                </div>
+                <div className="space-y-1">
+                  <div className="flex justify-between items-center text-[7px] font-black uppercase">
+                    <span className="text-slate-500">Progress</span>
+                    <span className={certified ? 'text-emerald-400' : 'text-amber-500'}>
+                      {certified ? '100%' : `${Math.round((stepIdx / SIMULATOR_STEPS.length) * 75) + 25}%`}
+                    </span>
+                  </div>
+                  <div className="w-full bg-slate-950 h-1 rounded-full overflow-hidden p-[0.5px]">
+                    <div 
+                      className={`h-full rounded-full transition-all duration-500 ${
+                        certified 
+                          ? 'bg-emerald-500' 
+                          : 'bg-gradient-to-r from-amber-500 to-orange-500'
+                      }`} 
+                      style={{ width: `${certified ? 100 : Math.round((stepIdx / SIMULATOR_STEPS.length) * 75) + 25}%` }} 
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Node.js Backend (Row 3 Left) */}
+              <div className="bg-[#11162d]/40 border border-slate-900/60 rounded-2xl p-3 flex flex-col justify-between opacity-50 h-24 shadow-md">
+                <div className="flex items-center gap-2">
+                  <div className="w-7 h-7 rounded-lg bg-slate-800/40 border border-slate-700/20 flex items-center justify-center text-slate-500 font-black text-[10px]">
+                    Node
+                  </div>
+                  <div className="leading-tight">
+                    <span className="block text-[9px] font-black text-slate-400 leading-none">Node.js Backend</span>
+                    <span className="text-[7px] text-slate-655 font-bold uppercase">Server API</span>
+                  </div>
+                </div>
+                <div className="space-y-1">
+                  <div className="flex justify-between items-center text-[7px] font-black uppercase">
+                    <span className="text-slate-650">Progress</span>
+                    <span className="text-slate-650">0%</span>
+                  </div>
+                  <div className="w-full bg-slate-950 h-1 rounded-full overflow-hidden p-[0.5px]">
+                    <div className="bg-slate-800 h-full rounded-full" style={{ width: '0%' }} />
+                  </div>
+                </div>
+              </div>
+
+              {/* Fullstack Project (Row 3 Right) */}
+              <div className="bg-[#11162d]/40 border border-slate-900/60 rounded-2xl p-3 flex flex-col justify-between opacity-50 h-24 shadow-md">
+                <div className="flex items-center gap-2">
+                  <div className="w-7 h-7 rounded-lg bg-slate-800/40 border border-slate-700/20 flex items-center justify-center text-slate-500 font-black text-[10px]">
+                    FS
+                  </div>
+                  <div className="leading-tight">
+                    <span className="block text-[9px] font-black text-slate-400 leading-none">Fullstack Project</span>
+                    <span className="text-[7px] text-slate-655 font-bold uppercase">Deployment</span>
+                  </div>
+                </div>
+                <div className="space-y-1">
+                  <div className="flex justify-between items-center text-[7px] font-black uppercase">
+                    <span className="text-slate-650">Progress</span>
+                    <span className="text-slate-650">0%</span>
+                  </div>
+                  <div className="w-full bg-slate-950 h-1 rounded-full overflow-hidden p-[0.5px]">
+                    <div className="bg-slate-800 h-full rounded-full" style={{ width: '0%' }} />
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div className="mt-4">
+              <AdSenseBanner />
+            </div>
           </div>
+
         </div>
 
-      </div>
+      </main>
+        )}
 
       {/* ── CERTIFICATE CLAIM MODAL OVERLAY ── */}
-      {showCertOverlay && user && (
+      {showCertOverlay && (
         <div className="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4 animate-in fade-in duration-300">
           <div className="max-w-2xl w-full bg-[#0a0f1d] border border-slate-800 rounded-3xl p-6 md:p-8 flex flex-col items-center justify-between text-center relative shadow-2xl overflow-y-auto max-h-[90vh]">
             
@@ -2348,16 +2783,16 @@ export default function CmdClient() {
                 Certificate of Mastery
               </h3>
               <p className="text-[8px] md:text-[9px] font-mono text-slate-550 uppercase tracking-widest mt-1">
-                Nextsem Command Line Workstation
+                Nextsem React Dev Server Setup
               </p>
 
               <div className="my-6">
                 <span className="block text-[9px] font-serif italic text-slate-450">This is to certify that</span>
                 <span className="block text-lg md:text-xl font-bold text-white uppercase tracking-tight mt-1.5 border-b border-slate-850 pb-1.5 max-w-xs mx-auto">
-                  {user.name}
+                  {user ? user.name : "Guest Developer"}
                 </span>
                 <span className="block text-[9px] text-slate-400 leading-relaxed mt-2 px-6">
-                  has successfully completed all practical lessons on the interactive **Windows CMD Simulator**, demonstrating proficiency in listing, navigation, creation, copying, moving, renaming, and diagnostic diagnostics.
+                  has successfully completed the interactive **React Setup Workstation**, demonstrating developer proficiency in workspace configuration, package installations, cloning structures, and server initialization.
                 </span>
               </div>
 
@@ -2389,7 +2824,7 @@ export default function CmdClient() {
                   setCopiedLink(true);
                   setTimeout(() => setCopiedLink(false), 2000);
                 }}
-                className="flex-1 py-3 bg-slate-900 hover:bg-slate-850 border border-slate-800 text-slate-300 font-black text-xs uppercase tracking-wider rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1.5"
+                className="flex-1 py-3 bg-slate-900 hover:bg-slate-850 border border-slate-800 text-slate-350 font-black text-xs uppercase tracking-wider rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1.5"
               >
                 {copiedLink ? (
                   <>
@@ -2405,6 +2840,361 @@ export default function CmdClient() {
               </button>
             </div>
 
+          </div>
+        </div>
+      )}
+
+      {/* ── ADSENSE FRIENDLY GLASSMORPHIC FOOTER ── */}
+      <footer className="w-full max-w-7xl mx-auto px-4 mt-auto pt-12 pb-8 shrink-0 z-20">
+        <div className="bg-[#0d1225]/35 backdrop-blur-md border-t border-slate-850/80 rounded-t-2xl px-6 py-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-[0_-4px_30px_rgba(0,0,0,0.15)] text-center md:text-left">
+          
+          {/* Left Column: Brand & Copyright */}
+          <div className="space-y-2">
+            <div className="flex items-center justify-center md:justify-start gap-2.5">
+              <div className="w-6 h-6 rounded-lg bg-gradient-to-tr from-violet-600 to-indigo-650 flex items-center justify-center text-white font-black text-xs">
+                N
+              </div>
+              <span className="font-extrabold tracking-tight text-white text-sm">
+                Nextsem Academy
+              </span>
+            </div>
+            <p className="text-[10px] text-slate-500 font-medium">
+              © 2026 Nextsem. All rights reserved. Empowering developer journeys.
+            </p>
+            <p className="text-[8px] text-slate-655 leading-relaxed max-w-md mx-auto md:mx-0">
+              Disclaimer: We use cookies to analyze site traffic and personalize content. Google AdSense ads may be shown on this website to support our educational missions.
+            </p>
+          </div>
+
+          {/* Right Column: AdSense Required Policy Links */}
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[10px] font-black uppercase tracking-wider text-slate-400">
+            <Link href="/about" className="hover:text-white transition-colors">About Us</Link>
+            <Link href="/contact" className="hover:text-white transition-colors">Contact Us</Link>
+            <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
+            <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
+          </div>
+
+        </div>
+      </footer>
+
+      </div>
+
+      {/* ── TRY IT TERMINAL SANDBOX WINDOW (MODAL OVERLAY) ── */}
+      {isSandboxOpen && (
+        <div className="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4 animate-in fade-in duration-300">
+          <div className="max-w-3xl w-full bg-black border-2 border-[#39FF14]/40 rounded-2xl shadow-[0_0_40px_rgba(57,255,20,0.15)] overflow-hidden flex flex-col h-[500px]">
+            {/* Title Bar */}
+            <div className="bg-[#1d1d1f] border-b border-[#2d2d2f] flex items-center justify-between px-4 py-2 select-none shrink-0">
+              <div className="flex items-center gap-2">
+                <Terminal size={11} className="text-[#39FF14]" />
+                <span className="font-mono text-[10px] text-slate-350 font-bold">
+                  Administrator: Command Prompt Sandbox (Try It)
+                </span>
+              </div>
+              <button 
+                onClick={() => setIsSandboxOpen(false)}
+                className="p-1 rounded hover:bg-rose-500/10 text-slate-400 hover:text-rose-500 transition-colors cursor-pointer text-xs font-bold"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Sandbox Console buffer */}
+            <div 
+              className="flex-1 p-5 overflow-y-auto font-mono text-xs select-text scrollbar-thin cursor-text bg-[#030303]"
+              style={{ color: "#39FF14" }}
+            >
+              <div className="space-y-1">
+                {sandboxHistory.map((line, idx) => {
+                  let colorClass = "";
+                  if (line.type === "error") colorClass = "text-rose-500 font-bold";
+                  if (line.type === "system") colorClass = "text-[#39FF14] font-bold";
+                  return (
+                    <div key={idx} className={`whitespace-pre-wrap leading-relaxed ${colorClass}`}>
+                      {line.text}
+                    </div>
+                  );
+                })}
+
+                {/* Input Form */}
+                <form 
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    handleSandboxCommand(sandboxInput);
+                  }}
+                  className="flex items-center leading-relaxed w-full"
+                >
+                  <span className="whitespace-nowrap mr-2 select-none">
+                    {sandboxPath}&gt;
+                  </span>
+                  <input
+                    type="text"
+                    value={sandboxInput}
+                    onChange={(e) => setSandboxInput(e.target.value)}
+                    autoFocus
+                    autoComplete="off"
+                    autoCorrect="off"
+                    autoCapitalize="off"
+                    spellCheck="false"
+                    className="flex-1 bg-transparent border-none outline-none focus:ring-0 p-0 text-inherit font-mono leading-relaxed focus:outline-none"
+                  />
+                </form>
+              </div>
+            </div>
+
+            {/* Quick Sandbox Commands Helper */}
+            <div className="p-3 bg-slate-950/20 border-t border-slate-900 select-none shrink-0">
+              <span className="text-[8px] font-black uppercase text-slate-500 tracking-wider block mb-1.5">
+                📱 Mobile Quick Commands:
+              </span>
+              <div className="flex flex-wrap gap-1.5">
+                {["help", "dir", "cd projects", "mkdir components", "cls", "ipconfig", "git init"].map((opt, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => {
+                      setSandboxInput(opt);
+                      handleSandboxCommand(opt);
+                    }}
+                    className="px-2 py-1 bg-black hover:bg-[#121c38] border border-slate-850 hover:border-[#39FF14] text-slate-350 hover:text-white rounded font-mono text-[9px] cursor-pointer transition-all active:scale-95"
+                  >
+                    {opt}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Bottom Bar */}
+            <div className="p-3 border-t border-slate-900 bg-black/60 backdrop-blur-sm flex items-center justify-between text-[8px] font-mono text-slate-550 select-none">
+              <span>Type &apos;help&apos; to view commands. Create directories with mkdir.</span>
+              <button 
+                onClick={() => {
+                  setSandboxHistory([
+                    { text: "Microsoft Windows [Version 10.0.22621.1702]", type: "output" },
+                    { text: "(c) Microsoft Corporation. All rights reserved.", type: "output" },
+                    { text: "", type: "output" },
+                    { text: "Nextsem Virtual Cmd Console Sandbox [v1.0.0]", type: "system" }
+                  ]);
+                  setSandboxFiles(["projects", "documents", "README.txt"]);
+                  setSandboxPath("C:\\Nextsem");
+                }}
+                className="hover:text-white transition-colors uppercase font-bold cursor-pointer"
+              >
+                Reset Virtual Drive
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── MOCK EXERCISES MODAL ── */}
+      {isExercisesOpen && (
+        <div className="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4 animate-in fade-in duration-300">
+          <div className="max-w-2xl w-full bg-[#0a0f1d] border border-slate-800 rounded-3xl p-6 relative shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+            <button
+              onClick={() => setIsExercisesOpen(false)}
+              className="absolute top-4 right-4 text-slate-500 hover:text-white text-lg p-1.5 hover:bg-slate-900 rounded-full transition-colors cursor-pointer"
+            >
+              ✕
+            </button>
+
+            <span className="text-[9px] font-black uppercase tracking-widest text-[#39ff14] bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20 w-fit mb-3">
+              Practice Board
+            </span>
+
+            <h3 className="font-extrabold text-white text-xl uppercase tracking-tight mb-4">
+              📋 Windows CMD Practice Exercises
+            </h3>
+
+            <p className="text-xs text-slate-400 leading-relaxed mb-6">
+              Attempt these 4 hands-on command challenges in the terminal sandbox to build absolute confidence in terminal operations.
+            </p>
+
+            <div className="space-y-4 overflow-y-auto flex-1 pr-2 scrollbar-thin">
+              <div className="bg-slate-950/40 border border-slate-900 p-4 rounded-xl flex gap-3 items-start">
+                <span className="w-5 h-5 rounded bg-violet-650/20 text-violet-400 font-bold text-xs flex items-center justify-center shrink-0">1</span>
+                <div>
+                  <h4 className="font-extrabold text-white text-xs uppercase">Navigate Workspace</h4>
+                  <p className="text-[10px] text-slate-400 mt-1">Navigate into the existing `projects` folder by running the change directory command.</p>
+                  <pre className="bg-black/85 p-2 rounded text-[#39FF14] font-mono text-[9px] mt-2 border border-slate-850">cd projects</pre>
+                </div>
+              </div>
+
+              <div className="bg-slate-950/40 border border-slate-900 p-4 rounded-xl flex gap-3 items-start">
+                <span className="w-5 h-5 rounded bg-violet-650/20 text-violet-400 font-bold text-xs flex items-center justify-center shrink-0">2</span>
+                <div>
+                  <h4 className="font-extrabold text-white text-xs uppercase">Create Directory Structure</h4>
+                  <p className="text-[10px] text-slate-400 mt-1">Create a new assets folder named `components` inside the directory.</p>
+                  <pre className="bg-black/85 p-2 rounded text-[#39FF14] font-mono text-[9px] mt-2 border border-slate-850">mkdir components</pre>
+                </div>
+              </div>
+
+              <div className="bg-slate-950/40 border border-slate-900 p-4 rounded-xl flex gap-3 items-start">
+                <span className="w-5 h-5 rounded bg-violet-650/20 text-violet-400 font-bold text-xs flex items-center justify-center shrink-0">3</span>
+                <div>
+                  <h4 className="font-extrabold text-white text-xs uppercase">Verify Directory Content</h4>
+                  <p className="text-[10px] text-slate-400 mt-1">Verify that your newly created directory exists by listing all files in the current folder.</p>
+                  <pre className="bg-black/85 p-2 rounded text-[#39FF14] font-mono text-[9px] mt-2 border border-slate-850">dir</pre>
+                </div>
+              </div>
+
+              <div className="bg-slate-950/40 border border-slate-900 p-4 rounded-xl flex gap-3 items-start">
+                <span className="w-5 h-5 rounded bg-violet-650/20 text-violet-400 font-bold text-xs flex items-center justify-center shrink-0">4</span>
+                <div>
+                  <h4 className="font-extrabold text-white text-xs uppercase">Clear Console Buffer</h4>
+                  <p className="text-[10px] text-slate-400 mt-1">Reset your screen history buffer to start with a fresh clean screen.</p>
+                  <pre className="bg-black/85 p-2 rounded text-[#39FF14] font-mono text-[9px] mt-2 border border-slate-850">cls</pre>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-6 flex justify-end gap-3 shrink-0">
+              <button 
+                onClick={() => setIsExercisesOpen(false)}
+                className="px-4 py-2 border border-slate-800 hover:bg-slate-900 text-slate-400 hover:text-white text-xs font-black uppercase tracking-wider rounded-xl transition-all cursor-pointer"
+              >
+                Close
+              </button>
+              <button 
+                onClick={() => {
+                  setIsExercisesOpen(false);
+                  setIsSandboxOpen(true);
+                }}
+                className="px-4 py-2 bg-gradient-to-r from-violet-600 to-indigo-650 text-white hover:brightness-110 text-xs font-black uppercase tracking-wider rounded-xl transition-all cursor-pointer shadow-md"
+              >
+                Launch Sandbox to Practice
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── INTERACTIVE QUIZ MODAL ── */}
+      {isQuizOpen && (
+        <div className="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4 animate-in fade-in duration-300">
+          <div className="max-w-xl w-full bg-[#0a0f1d] border border-slate-800 rounded-3xl p-6 relative shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+            <button
+              onClick={() => {
+                setIsQuizOpen(false);
+                setQuizStep(0);
+                setQuizSelectedOption(null);
+                setQuizScore(0);
+                setQuizAnswered(false);
+                setQuizFinished(false);
+              }}
+              className="absolute top-4 right-4 text-slate-500 hover:text-white text-lg p-1.5 hover:bg-slate-900 rounded-full transition-colors cursor-pointer"
+            >
+              ✕
+            </button>
+
+            <span className="text-[9px] font-black uppercase tracking-widest text-violet-400 bg-violet-500/10 px-3 py-1 rounded-full border border-violet-500/20 w-fit mb-3">
+              Quiz Challenge
+            </span>
+
+            {!quizFinished ? (
+              <div className="flex-1 flex flex-col justify-between">
+                <div>
+                  <div className="flex justify-between items-center text-[8px] font-mono text-slate-550 mb-4 uppercase select-none">
+                    <span>Question {quizStep + 1} of {quizQuestions.length}</span>
+                    <span>Score: {quizScore}</span>
+                  </div>
+
+                  <h3 className="font-extrabold text-white text-base leading-snug uppercase mb-6 select-none">
+                    {quizQuestions[quizStep].q}
+                  </h3>
+
+                  <div className="space-y-2.5">
+                    {quizQuestions[quizStep].options.map((option, idx) => {
+                      let btnClass = "border-slate-800 bg-slate-950/30 hover:bg-slate-900/50 text-slate-300";
+                      
+                      if (quizAnswered) {
+                        if (idx === quizQuestions[quizStep].correct) {
+                          btnClass = "border-emerald-500/45 bg-emerald-500/10 text-emerald-400 font-bold";
+                        } else if (idx === quizSelectedOption) {
+                          btnClass = "border-rose-500/45 bg-rose-500/10 text-rose-400 font-bold";
+                        } else {
+                          btnClass = "border-slate-900 bg-slate-950/10 text-slate-655 opacity-55";
+                        }
+                      }
+
+                      return (
+                        <button
+                          key={idx}
+                          disabled={quizAnswered}
+                          onClick={() => {
+                            setQuizSelectedOption(idx);
+                            setQuizAnswered(true);
+                            if (idx === quizQuestions[quizStep].correct) {
+                              setQuizScore(quizScore + 1);
+                            }
+                          }}
+                          className={`w-full text-left p-3.5 border rounded-xl text-xs transition-all cursor-pointer flex justify-between items-center ${btnClass}`}
+                        >
+                          <span>{option}</span>
+                          {quizAnswered && idx === quizQuestions[quizStep].correct && (
+                            <span className="text-emerald-400 text-[10px] font-bold">✓ Correct</span>
+                          )}
+                          {quizAnswered && idx === quizSelectedOption && idx !== quizQuestions[quizStep].correct && (
+                            <span className="text-rose-400 text-[10px] font-bold">✗ Incorrect</span>
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  {quizAnswered && (
+                    <div className="mt-4 p-3 bg-slate-950/50 rounded-xl border border-slate-900 text-[10px] text-slate-400 leading-relaxed select-none">
+                      💡 <span className="font-bold text-slate-300">Explanation:</span> {quizQuestions[quizStep].exp}
+                    </div>
+                  )}
+                </div>
+
+                <div className="mt-6 flex justify-end">
+                  {quizAnswered && (
+                    <button
+                      onClick={() => {
+                        if (quizStep + 1 < quizQuestions.length) {
+                          setQuizStep(quizStep + 1);
+                          setQuizSelectedOption(null);
+                          setQuizAnswered(false);
+                        } else {
+                          setQuizFinished(true);
+                          setPoints(points + 500); // Reward 500 XP
+                        }
+                      }}
+                      className="px-5 py-2.5 bg-gradient-to-r from-violet-600 to-indigo-650 hover:brightness-110 text-white rounded-xl text-xs font-black uppercase tracking-wider transition-all cursor-pointer shadow-md active:scale-95 flex items-center gap-1"
+                    >
+                      <span>{quizStep + 1 < quizQuestions.length ? "Next Question" : "Finish Quiz"}</span>
+                      <ArrowRight size={12} />
+                    </button>
+                  )}
+                </div>
+              </div>
+            ) : (
+              <div className="text-center py-6 flex flex-col items-center justify-center">
+                <span className="text-4xl mb-4">🏆</span>
+                <h3 className="font-extrabold text-white text-lg uppercase tracking-tight mb-2">Quiz Completed!</h3>
+                <p className="text-xs text-slate-400 mb-6">
+                  You scored <span className="text-[#39ff14] font-black">{quizScore} out of {quizQuestions.length}</span> correct answers.
+                </p>
+                <div className="bg-[#39ff14]/10 border border-[#39ff14]/20 rounded-2xl p-4 mb-6 text-center text-xs font-bold text-slate-200">
+                  ⚡ XP Reward Unlocked: <span className="text-[#39ff14]">+500 XP</span> Added to Profile!
+                </div>
+                <button
+                  onClick={() => {
+                    setIsQuizOpen(false);
+                    setQuizStep(0);
+                    setQuizSelectedOption(null);
+                    setQuizScore(0);
+                    setQuizAnswered(false);
+                    setQuizFinished(false);
+                  }}
+                  className="px-6 py-3 bg-[#39ff14] hover:bg-[#2ebd10] text-[#07070c] text-xs font-black uppercase tracking-wider rounded-3xl transition-all cursor-pointer shadow-md"
+                >
+                  Return to Tutorial
+                </button>
+              </div>
+            )}
           </div>
         </div>
       )}

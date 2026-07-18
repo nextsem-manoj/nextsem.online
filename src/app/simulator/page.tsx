@@ -27,7 +27,7 @@ const WALLPAPERS: Wallpaper[] = [
     era: "Windows XP",
     emoji: "🌄",
     style: {
-      backgroundImage: "url('https://upload.wikimedia.org/wikipedia/en/4/49/Bliss_%28Windows_XP%29.png')",
+      backgroundImage: "url('https://www.wallpaperhub.app/_next/image?url=https%3A%2F%2Fcdn.wallpaperhub.app%2Fcloudcache%2Fb%2Fd%2F7%2F6%2F4%2Fb%2Fbd764bb25d49a05105060185774ba14cd2c846f7.jpg&w=4500&q=100')",
       backgroundSize: "cover",
       backgroundPosition: "center",
     },
@@ -141,7 +141,15 @@ const certKey      = (e: string) => `nextsem_desktop_sim_certified_${e}`;
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 interface FeedbackState { type: "success" | "error" | null; message: string; }
-interface OpenWindow { id: string; title: string; emoji: string; content: React.ReactNode; x: number; y: number; }
+interface OpenWindow {
+  id: string;
+  title: string;
+  emoji: string;
+  x: number;
+  y: number;
+  width?: number;
+  minHeight?: number;
+}
 
 // ─── Context Menu ─────────────────────────────────────────────────────────────
 function CtxMenu({ x, y, items, onClose }: { x: number; y: number; items: string[]; onClose: () => void }) {
@@ -169,7 +177,7 @@ function CtxMenu({ x, y, items, onClose }: { x: number; y: number; items: string
 }
 
 // ─── Draggable Window ─────────────────────────────────────────────────────────
-function DesktopWindow({ win, onClose }: { win: OpenWindow; onClose: (id: string) => void }) {
+function DesktopWindow({ win, onClose, children }: { win: OpenWindow; onClose: (id: string) => void; children: React.ReactNode }) {
   const [pos, setPos] = useState({ x: win.x, y: win.y });
   const [dragging, setDragging] = useState(false);
   const dragStart = useRef({ mx: 0, my: 0, wx: 0, wy: 0 });
@@ -193,12 +201,12 @@ function DesktopWindow({ win, onClose }: { win: OpenWindow; onClose: (id: string
 
   return (
     <div
-      className="fixed z-[200] bg-[#0d1b2a]/95 backdrop-blur border border-white/15 rounded-2xl shadow-2xl shadow-black/60 overflow-hidden"
-      style={{ left: pos.x, top: pos.y, width: 480, minHeight: 300 }}
+      className="fixed z-[200] bg-[#0d1b2a]/95 backdrop-blur border border-white/15 rounded-2xl shadow-2xl shadow-black/60 overflow-hidden flex flex-col"
+      style={{ left: pos.x, top: pos.y, width: win.width || 480, minHeight: win.minHeight || 300 }}
     >
       {/* Title bar */}
       <div
-        className="flex items-center justify-between px-4 py-2.5 bg-[#0f2340]/80 border-b border-white/10 cursor-move select-none"
+        className="flex items-center justify-between px-4 py-2.5 bg-[#0f2340]/80 border-b border-white/10 cursor-move select-none shrink-0"
         onMouseDown={onMouseDown}
       >
         <div className="flex items-center gap-2">
@@ -212,13 +220,13 @@ function DesktopWindow({ win, onClose }: { win: OpenWindow; onClose: (id: string
         </div>
       </div>
       {/* Content */}
-      <div className="p-4 text-slate-300 text-xs">{win.content}</div>
+      <div className="p-4 text-slate-300 text-xs flex-1 flex flex-col min-h-0">{children}</div>
     </div>
   );
 }
 
 // ─── Start Menu ───────────────────────────────────────────────────────────────
-function StartMenu({ onClose, onSearch }: { onClose: () => void; onSearch: (q: string) => void }) {
+function StartMenu({ onClose, onSearch, onLaunchApp }: { onClose: () => void; onSearch: (q: string) => void; onLaunchApp: (appId: string) => void }) {
   const [query, setQuery] = useState("");
   return (
     <div className="fixed bottom-12 left-2 z-[500] w-72 bg-[#0f172a]/95 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl p-4 text-slate-300">
@@ -236,8 +244,13 @@ function StartMenu({ onClose, onSearch }: { onClose: () => void; onSearch: (q: s
       </div>
       <div className="text-[10px] text-slate-600 uppercase font-bold mb-2 px-1">Pinned Apps</div>
       <div className="grid grid-cols-4 gap-2 mb-4">
-        {[["📁","File Explorer"],["💻","CMD"],["⚙️","Settings"],["🗑️","Recycle Bin"]].map(([em, label]) => (
-          <button key={label} onClick={onClose} className="flex flex-col items-center gap-1 p-2 rounded-xl hover:bg-white/8 text-center">
+        {[["📁","File Explorer", "file-explorer"],["💻","CMD", "cmd"],["⚙️","Settings", "settings"],["🗑️","Recycle Bin", "recycle-bin"]].map(([em, label, appId]) => (
+          <button
+            key={label}
+            id={appId === "settings" ? "settings-icon-start" : undefined}
+            onClick={() => { onLaunchApp(appId); onClose(); }}
+            className="flex flex-col items-center gap-1 p-2 rounded-xl hover:bg-white/8 text-center cursor-pointer"
+          >
             <span className="text-2xl">{em}</span>
             <span className="text-[9px] text-slate-400 font-bold truncate w-full">{label}</span>
           </button>
@@ -248,7 +261,7 @@ function StartMenu({ onClose, onSearch }: { onClose: () => void; onSearch: (q: s
           <div className="w-7 h-7 rounded-full bg-gradient-to-br from-purple-500 to-blue-600 flex items-center justify-center text-xs font-black">N</div>
           <span className="text-xs font-bold text-white">Student</span>
         </div>
-        <button onClick={onClose} className="text-[10px] text-slate-500 hover:text-red-400 transition-colors">⏻ Shut down</button>
+        <button onClick={onClose} className="text-[10px] text-slate-500 hover:text-red-400 transition-colors cursor-pointer">⏻ Shut down</button>
       </div>
     </div>
   );
@@ -283,6 +296,13 @@ export default function SimulatorPage() {
   const [cardMinimized,   setCardMinimized]   = useState(false);
   const [taskbarVisible,  setTaskbarVisible]  = useState(true);
 
+  // visual enhancements states
+  const [pressedKeys, setPressedKeys] = useState<string[]>([]);
+  const [projectFolderCreated, setProjectFolderCreated] = useState(false);
+  const [chromeKilled, setChromeKilled] = useState(false);
+  const [deletedFiles, setDeletedFiles] = useState<string[]>([]);
+  const [snipActive, setSnipActive] = useState(false);
+
   const autoHideTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const taskbarLeaveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -292,7 +312,21 @@ export default function SimulatorPage() {
 
   // Auth
   useEffect(() => {
-    return onAuthStateChanged(auth, (user) => { setUserEmail(user?.email ?? null); setLoading(false); });
+    return onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUserEmail(user.email);
+      } else {
+        const savedUser = localStorage.getItem("nextsem_user");
+        let email = "guest";
+        if (savedUser) {
+          try {
+            email = JSON.parse(savedUser).email || "guest";
+          } catch (e) {}
+        }
+        setUserEmail(email);
+      }
+      setLoading(false);
+    });
   }, []);
 
   // Load progress
@@ -303,7 +337,7 @@ export default function SimulatorPage() {
     const certified  = localStorage.getItem(certKey(userEmail));
     if (certified === "true") {
       // Already certified — send straight to main app
-      window.location.href = "/";
+      window.location.href = "/?active=0";
       return;
     }
     if (savedIds) {
@@ -337,8 +371,6 @@ export default function SimulatorPage() {
     return () => document.removeEventListener("click", close);
   }, []);
 
-
-
   // Auto-hide taskbar (4s) and instructions card (6s) on step change
   useEffect(() => {
     setTaskbarVisible(true);
@@ -363,7 +395,7 @@ export default function SimulatorPage() {
   const handleSkipOnboarding = useCallback(() => {
     const email = userEmail || "guest";
     localStorage.setItem(certKey(email), "true");
-    window.location.href = "/";
+    window.location.href = "/?active=0";
   }, [userEmail]);
 
   // Save progress
@@ -392,7 +424,7 @@ export default function SimulatorPage() {
       if (isSimulatorComplete(next)) {
         setTimeout(() => {
           if (userEmail) localStorage.setItem(certKey(userEmail), "true");
-          window.location.href = "/";
+          window.location.href = "/?active=0";
         }, 2000);
         return next;
       }
@@ -449,16 +481,82 @@ export default function SimulatorPage() {
   }, [validateAction]);
 
   // Open a window
-  const openWindow = useCallback((id: string, title: string, emoji: string, content: React.ReactNode) => {
+  const openWindow = useCallback((id: string, title: string, emoji: string, x?: number, y?: number, width?: number, minHeight?: number) => {
     setOpenWindows((prev) => {
       if (prev.find((w) => w.id === id)) return prev;
-      return [...prev, { id, title, emoji, content, x: 120 + prev.length * 30, y: 60 + prev.length * 20 }];
+      const defaultX = 120 + prev.length * 30;
+      const defaultY = 60 + prev.length * 20;
+      return [...prev, { id, title, emoji, x: x ?? defaultX, y: y ?? defaultY, width, minHeight }];
     });
   }, []);
 
   const closeWindow = useCallback((id: string) => {
     setOpenWindows((prev) => prev.filter((w) => w.id !== id));
   }, []);
+
+  // On-screen keyboard pressed key tracking & shortcuts interception
+  useEffect(() => {
+    const handleVisualKeyDown = (e: KeyboardEvent) => {
+      const key = e.key.toLowerCase();
+      let keyLabel = key;
+      if (key === "escape") keyLabel = "esc";
+      if (key === "control") keyLabel = "ctrl";
+      if (key === "meta") keyLabel = "win";
+
+      setPressedKeys((prev) => prev.includes(keyLabel) ? prev : [...prev, keyLabel]);
+
+      if (!step) return;
+
+      // Validate keyboard shortcut targets
+      const expected = step.shortcut;
+      let matched = false;
+
+      if (expected === "Ctrl + Shift + Esc") {
+        if (e.ctrlKey && e.shiftKey && e.key === "Escape") {
+          e.preventDefault();
+          e.stopPropagation();
+          matched = true;
+          // Open custom Task Manager window
+          openWindow("task-manager", "Task Manager", "⚙️", 100, 100, 540, 360);
+        }
+      } else if (expected === "⊞ + Shift + S") {
+        if (e.shiftKey && e.key?.toLowerCase() === "s") {
+          e.preventDefault();
+          e.stopPropagation();
+          matched = true;
+          setSnipActive(true);
+        }
+      } else if (expected === "Ctrl + A") {
+        if (e.ctrlKey && e.key?.toLowerCase() === "a") {
+          e.preventDefault();
+          e.stopPropagation();
+          matched = true;
+        }
+      }
+
+      if (matched) {
+        completeStep(step);
+      }
+    };
+
+    const handleVisualKeyUp = (e: KeyboardEvent) => {
+      const key = e.key.toLowerCase();
+      let keyLabel = key;
+      if (key === "escape") keyLabel = "esc";
+      if (key === "control") keyLabel = "ctrl";
+      if (key === "shift") keyLabel = "shift";
+      if (key === "meta") keyLabel = "win";
+
+      setPressedKeys((prev) => prev.filter((k) => k !== keyLabel));
+    };
+
+    window.addEventListener("keydown", handleVisualKeyDown, true);
+    window.addEventListener("keyup", handleVisualKeyUp, true);
+    return () => {
+      window.removeEventListener("keydown", handleVisualKeyDown, true);
+      window.removeEventListener("keyup", handleVisualKeyUp, true);
+    };
+  }, [step, completeStep, openWindow]);
 
   // Desktop icon handlers
   const handleIconClick = (e: React.MouseEvent, id: string) => {
@@ -470,20 +568,12 @@ export default function SimulatorPage() {
     e.stopPropagation();
     validateAction("double-click", id);
     // Actually open window
-    if (id === "recycle-bin-icon") openWindow("recycle-bin", "Recycle Bin", "🗑️",
-      <div className="space-y-2">
-        <p className="text-slate-400 text-center py-8">Recycle Bin is empty.</p>
-      </div>
-    );
-    if (id === "file-explorer-icon" || id === "documents-folder") openWindow("file-explorer", "File Explorer", "📁",
-      <div className="space-y-1">
-        {["Desktop", "Downloads", "Documents", "Pictures", "Music"].map((f) => (
-          <div key={f} className="flex items-center gap-2 px-2 py-1.5 hover:bg-white/5 rounded-lg cursor-pointer">
-            <span>📁</span><span className="text-xs">{f}</span>
-          </div>
-        ))}
-      </div>
-    );
+    if (id === "recycle-bin-icon") {
+      openWindow("recycle-bin", "Recycle Bin", "🗑️");
+    }
+    if (id === "file-explorer-icon" || id === "documents-folder") {
+      openWindow("file-explorer", "File Explorer", "📁");
+    }
   };
 
   const handleIconRightClick = (e: React.MouseEvent, id: string) => {
@@ -518,6 +608,232 @@ export default function SimulatorPage() {
     setMCQAnswer((prev) => ({ ...prev, submitted: true }));
     if (mcqAnswer.selected === step.correctOption) { completeStep(step); }
     else { deductHeart(step.heartPenalty); setTimeout(() => setMCQAnswer({ selected: null, submitted: false }), 1000); }
+  };
+
+  const SettingsWindowContent = () => {
+    return (
+      <div className="flex h-full min-h-[280px] bg-[#0c1322] text-slate-200 rounded-b-xl overflow-hidden font-sans">
+        <div className="w-1/3 bg-[#080d1a] p-3 border-r border-white/5 space-y-1 select-none">
+          <div className="px-2 py-1 bg-white/5 rounded-lg text-xs font-black text-white">🖥️ Personalisation</div>
+          <div className="px-2 py-1 hover:bg-white/5 rounded-lg text-xs text-slate-400 cursor-not-allowed">⚙️ System</div>
+          <div className="px-2 py-1 hover:bg-white/5 rounded-lg text-xs text-slate-400 cursor-not-allowed">👤 Accounts</div>
+          <div className="px-2 py-1 hover:bg-white/5 rounded-lg text-xs text-slate-400 cursor-not-allowed">🔄 Windows Update</div>
+        </div>
+        <div className="w-2/3 p-4 overflow-y-auto space-y-3">
+          <h3 className="text-white font-black text-sm">Personalisation Settings</h3>
+          <p className="text-[10px] text-slate-400">Select a background wallpaper to update your desktop look.</p>
+          <div className="grid grid-cols-2 gap-2 pt-1">
+            {WALLPAPERS.slice(0, 8).map((wp) => {
+              const isActive = wallpaperId === wp.id;
+              const isTargetBloom = wp.id === "win11-bloom";
+              return (
+                <button
+                  key={wp.id}
+                  id={isTargetBloom ? "settings-wallpaper-bloom" : undefined}
+                  onClick={() => {
+                    changeWallpaper(wp.id);
+                    if (isTargetBloom) {
+                      validateAction("click", "settings-wallpaper-bloom");
+                    }
+                  }}
+                  className={`relative rounded-xl overflow-hidden h-14 border-2 transition-all hover:scale-105 cursor-pointer
+                    ${isActive ? "border-purple-500 shadow" : "border-white/10 hover:border-white/20"}`}
+                >
+                  <div className="absolute inset-0" style={wp.style} />
+                  <div className="absolute inset-0 bg-black/30 flex flex-col items-center justify-center">
+                    <span className="text-[8px] text-white font-bold truncate px-1">{wp.name}</span>
+                  </div>
+                  {isActive && (
+                    <div className="absolute top-1 right-1 w-3 h-3 bg-purple-500 rounded-full flex items-center justify-center">
+                      <span className="text-white text-[7px] font-black">✓</span>
+                    </div>
+                  )}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  const CmdWindowContent = () => {
+    const [lines, setLines] = useState<string[]>([
+      "Microsoft Windows [Version 10.0.22000.253]",
+      "(c) Microsoft Corporation. All rights reserved.",
+      "",
+    ]);
+    const [cmdInput, setCmdInput] = useState("");
+    const terminalEnd = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+      terminalEnd.current?.scrollIntoView({ behavior: "smooth" });
+    }, [lines]);
+
+    const handleCmdSubmit = (e: React.FormEvent) => {
+      e.preventDefault();
+      const val = cmdInput.trim();
+      if (!val) return;
+
+      const newLines = [...lines, `C:\\Users\\Student> ${val}`];
+
+      if (val.toLowerCase() === "dir") {
+        const dirOutput = [
+          "",
+          " Directory of C:\\Users\\Student",
+          "",
+          "12/07/2026  12:00 PM    <DIR>          .",
+          "12/07/2026  12:00 PM    <DIR>          ..",
+          projectFolderCreated ? "12/07/2026  12:00 PM    <DIR>          project" : "",
+          `               0 File(s)              0 bytes`,
+          `               ${projectFolderCreated ? 3 : 2} Dir(s)  45,123,456,789 bytes free`,
+          "",
+        ].filter(Boolean);
+
+        setLines([...newLines, ...dirOutput]);
+
+        if (step?.id === "cmd-dir-command" || step?.id === "cmd-dir-verify") {
+          completeStep(step);
+        }
+      } else if (val.toLowerCase() === "mkdir project") {
+        setProjectFolderCreated(true);
+        setLines([...newLines, "", "Directory 'project' created successfully.", ""]);
+        
+        if (step?.id === "cmd-mkdir-project") {
+          completeStep(step);
+        }
+      } else {
+        setLines([...newLines, `'${val}' is not recognised as an internal or external command,`, "operable program or batch file.", ""]);
+      }
+
+      setCmdInput("");
+    };
+
+    return (
+      <div className="flex flex-col h-full min-h-[240px] bg-black text-slate-200 rounded-b-xl overflow-hidden font-mono p-3 text-[13px] border border-white/5">
+        <div className="flex-1 overflow-y-auto space-y-1 pr-1 max-h-[220px]">
+          {lines.map((l, i) => (
+            <div key={i} className="whitespace-pre-wrap leading-tight text-left">{l}</div>
+          ))}
+          <div ref={terminalEnd} />
+        </div>
+        <form onSubmit={handleCmdSubmit} className="flex items-center mt-1 pt-1.5 border-t border-white/5 shrink-0">
+          <span className="text-emerald-400 font-bold mr-1 shrink-0">C:\\Users\\Student&gt;</span>
+          <input
+            id="cmd-input"
+            autoFocus
+            className="flex-1 bg-transparent border-none outline-none focus:ring-0 p-0 text-white font-mono text-[13px] caret-emerald-400"
+            value={cmdInput}
+            onChange={(e) => setCmdInput(e.target.value)}
+            autoComplete="off"
+            autoCapitalize="off"
+            autoCorrect="off"
+            spellCheck={false}
+          />
+        </form>
+      </div>
+    );
+  };
+
+  const TaskManagerContent = () => {
+    const [selectedProcess, setSelectedProcess] = useState<string | null>(null);
+    const [cpuHistory, setCpuHistory] = useState<number[]>(Array.from({ length: 20 }, () => Math.floor(Math.random() * 5) + 94));
+
+    useEffect(() => {
+      const timer = setInterval(() => {
+        setCpuHistory((prev) => {
+          const nextVal = chromeKilled 
+            ? Math.floor(Math.random() * 4) + 2 
+            : Math.floor(Math.random() * 5) + 94; 
+          return [...prev.slice(1), nextVal];
+        });
+      }, 800);
+      return () => clearInterval(timer);
+    }, []);
+
+    const processes = [
+      { name: "Google Chrome", status: chromeKilled ? "Closed" : "Not Responding", cpu: chromeKilled ? 0 : 98.4, mem: chromeKilled ? 0 : 2100 },
+      { name: "File Explorer", status: "Running", cpu: 0.2, mem: 45 },
+      { name: "Command Prompt", status: "Running", cpu: 0.1, mem: 12 },
+      { name: "Task Manager", status: "Running", cpu: 1.5, mem: 32 },
+    ].filter(p => p.cpu > 0 || p.name !== "Google Chrome" || !chromeKilled);
+
+    const maxCpuVal = 100;
+    const chartHeight = 60;
+    const chartWidth = 240;
+    const pointsStr = cpuHistory.map((val, idx) => {
+      const x = (idx / (cpuHistory.length - 1)) * chartWidth;
+      const y = chartHeight - (val / maxCpuVal) * chartHeight;
+      return `${x},${y}`;
+    }).join(" ");
+
+    return (
+      <div className="flex flex-col h-full min-h-[260px] bg-[#1e1e24] text-slate-200 rounded-b-xl p-3 font-sans text-xs">
+        <div className="bg-black/30 rounded-xl p-3 mb-3 border border-white/5 flex items-center justify-between shrink-0">
+          <div>
+            <div className="font-black text-white text-[10px] uppercase tracking-wider">CPU Utilisation</div>
+            <div className="text-lg font-black text-purple-400 mt-0.5">
+              {cpuHistory[cpuHistory.length - 1]}%
+            </div>
+          </div>
+          <div className="relative overflow-hidden w-[240px] h-[60px] border border-purple-500/20 bg-purple-950/5 rounded-lg">
+            <svg width={chartWidth} height={chartHeight} className="overflow-visible">
+              <line x1="0" y1="20" x2="240" y2="20" stroke="rgba(255,255,255,0.05)" />
+              <line x1="0" y1="40" x2="240" y2="40" stroke="rgba(255,255,255,0.05)" />
+              <polyline
+                fill="none"
+                stroke="#a855f7"
+                strokeWidth="2"
+                points={pointsStr}
+                className="transition-all duration-300"
+              />
+            </svg>
+          </div>
+        </div>
+        <div className="flex-1 overflow-y-auto border border-white/5 rounded-xl bg-black/20">
+          <div className="grid grid-cols-4 gap-2 bg-[#121216] p-2 text-[10px] font-black text-slate-500 uppercase border-b border-white/5 select-none">
+            <div>Process Name</div>
+            <div>Status</div>
+            <div className="text-right">CPU %</div>
+            <div className="text-right">RAM (MB)</div>
+          </div>
+          <div className="divide-y divide-white/5 select-none">
+            {processes.map((p) => {
+              const isSelected = selectedProcess === p.name;
+              return (
+                <div
+                  key={p.name}
+                  onClick={() => p.status === "Not Responding" && setSelectedProcess(p.name)}
+                  className={`grid grid-cols-4 gap-2 p-2 cursor-pointer transition-colors text-[11px]
+                    ${isSelected ? "bg-purple-600/30 text-white font-bold" : "hover:bg-white/3 text-slate-350"}`}
+                >
+                  <div className="truncate font-semibold">{p.name}</div>
+                  <div className={p.status === "Not Responding" ? "text-red-400 font-bold" : "text-emerald-400"}>{p.status}</div>
+                  <div className="text-right">{p.cpu}%</div>
+                  <div className="text-right">{p.mem} MB</div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+        <div className="flex justify-end gap-2 pt-3 border-t border-white/5 mt-3 shrink-0">
+          <button
+            id="taskmanager-kill-btn"
+            disabled={!selectedProcess}
+            onClick={() => {
+              if (selectedProcess === "Google Chrome") {
+                setChromeKilled(true);
+                setSelectedProcess(null);
+                validateAction("click", "taskmanager-kill-btn");
+              }
+            }}
+            className="px-4 py-2 bg-red-600 hover:bg-red-500 disabled:opacity-40 disabled:hover:bg-red-600 text-white font-black rounded-xl transition-all cursor-pointer select-none"
+          >
+            End Task
+          </button>
+        </div>
+      </div>
+    );
   };
 
   const progressPercent = Math.round((completedIds.length / totalSteps) * 100);
@@ -571,7 +887,7 @@ export default function SimulatorPage() {
           <div className="text-amber-400 font-black text-sm">Terminal Cadet Badge</div>
         </div>
         <button
-          onClick={() => { window.location.href = "/"; }}
+          onClick={() => { window.location.href = "/?active=0"; }}
           className="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-white font-black rounded-2xl py-3 flex items-center justify-center gap-2 hover:opacity-90 transition-all"
         >
           🚀 Go to Main App <ChevronRight size={16} />
@@ -580,9 +896,31 @@ export default function SimulatorPage() {
     </div>
   );
 
+  // Drag and drop handlers
+  const handleDragStart = (e: React.DragEvent, id: string) => {
+    e.dataTransfer.setData("text/plain", id);
+  };
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    const id = e.dataTransfer.getData("text/plain");
+    if (id === "old-notes-file") {
+      setDeletedFiles((prev) => [...prev, "old-notes-file"]);
+      validateAction("drag", "recycle-bin-icon");
+    }
+  };
+
   // ─── Desktop icons ─────────────────────────────────────────────────────────
   const desktopIcons = [
-    { id: "recycle-bin-icon",   label: "Recycle Bin",   emoji: "🗑️" },
+    { 
+      id: "recycle-bin-icon", 
+      label: deletedFiles.includes("old-notes-file") ? "Recycle Bin (Full)" : "Recycle Bin", 
+      emoji: deletedFiles.includes("old-notes-file") ? "🗑️" : "🗑️" 
+    },
     { id: "file-explorer-icon", label: "File Explorer", emoji: "📁" },
     { id: "documents-folder",   label: "Documents",     emoji: "📄" },
   ];
@@ -650,9 +988,6 @@ export default function SimulatorPage() {
         </div>
       </header>
 
-      {/* ─────────────────────────────────────────────────────
-          DESKTOP ICONS — Left column
-      ───────────────────────────────────────────────────── */}
       <main className="absolute top-10 left-4 bottom-12 flex flex-col gap-4 pt-3 w-20 z-10">
         {desktopIcons.map((icon) => {
           const isTarget = targetIconId === icon.id;
@@ -660,6 +995,8 @@ export default function SimulatorPage() {
             <button
               key={icon.id}
               id={icon.id}
+              onDragOver={icon.id === "recycle-bin-icon" ? handleDragOver : undefined}
+              onDrop={icon.id === "recycle-bin-icon" ? handleDrop : undefined}
               className={`flex flex-col items-center gap-1.5 p-2 rounded-2xl transition-all w-full text-center group
                 ${isTarget
                   ? "bg-white/10 ring-2 ring-purple-400 ring-offset-2 ring-offset-transparent"
@@ -678,6 +1015,20 @@ export default function SimulatorPage() {
             </button>
           );
         })}
+
+        {/* Draggable old_notes.txt */}
+        {!deletedFiles.includes("old-notes-file") && (
+          <div
+            id="old-notes-file"
+            draggable
+            onDragStart={(e) => handleDragStart(e, "old-notes-file")}
+            className="flex flex-col items-center gap-1.5 p-2 rounded-2xl hover:bg-white/8 w-full text-center cursor-grab active:cursor-grabbing select-none group"
+            onClick={(e) => handleIconClick(e, "old-notes-file")}
+          >
+            <span className="text-3xl drop-shadow-lg">📄</span>
+            <span className="text-[10px] text-white font-bold leading-tight drop-shadow">old_notes.txt</span>
+          </div>
+        )}
       </main>
 
       {/* ─────────────────────────────────────────────────────
@@ -859,8 +1210,17 @@ export default function SimulatorPage() {
         <div className="h-5 w-px bg-white/10" />
 
         {/* Pinned taskbar apps */}
-        {[["💻", "CMD"], ["📁", "Files"], ["🌐", "Browser"]].map(([em, label]) => (
-          <button key={label} className="w-9 h-9 rounded-xl flex items-center justify-center text-base hover:bg-white/8 transition-all" title={label}>
+        {[["💻", "CMD", "cmd"], ["📁", "Files", "files"], ["🌐", "Browser", "browser"]].map(([em, label, appId]) => (
+          <button
+            key={label}
+            onClick={() => {
+              if (appId === "cmd") {
+                openWindow("cmd", "Command Prompt", "💻", 80, 80, 520, 320);
+              }
+            }}
+            className="w-9 h-9 rounded-xl flex items-center justify-center text-base hover:bg-white/8 transition-all cursor-pointer"
+            title={label}
+          >
             {em}
           </button>
         ))}
@@ -893,18 +1253,124 @@ export default function SimulatorPage() {
           START MENU
       ───────────────────────────────────────────────────── */}
       {startOpen && (
-        <StartMenu onClose={() => setStartOpen(false)} onSearch={(q) => {
-          setSearchQuery(q);
-          if (q.toLowerCase().includes("cmd") && step.action === "keyboard") completeStep(step);
-        }} />
+        <StartMenu
+          onClose={() => setStartOpen(false)}
+          onSearch={(q) => {
+            setSearchQuery(q);
+            if (q.toLowerCase().includes("cmd") && step?.action === "keyboard") {
+              completeStep(step);
+              openWindow("cmd", "Command Prompt", "💻", 80, 80, 520, 320);
+            }
+          }}
+          onLaunchApp={(appId) => {
+            if (appId === "cmd") {
+              openWindow("cmd", "Command Prompt", "💻", 80, 80, 520, 320);
+            }
+            if (appId === "settings") {
+              openWindow("settings", "Settings", "⚙️", 140, 100, 560, 365);
+            }
+          }}
+        />
       )}
 
       {/* ─────────────────────────────────────────────────────
           OPEN WINDOWS
       ───────────────────────────────────────────────────── */}
-      {openWindows.map((win) => (
-        <DesktopWindow key={win.id} win={win} onClose={closeWindow} />
-      ))}
+      {openWindows.map((win) => {
+        let content: React.ReactNode = null;
+        if (win.id === "recycle-bin") {
+          content = (
+            <div className="space-y-2">
+              <p className="text-slate-400 text-center py-8">Recycle Bin is empty.</p>
+            </div>
+          );
+        } else if (win.id === "file-explorer") {
+          content = (
+            <div className="space-y-1">
+              {["Desktop", "Downloads", "Documents", "Pictures", "Music"].map((f) => (
+                <div key={f} className="flex items-center gap-2 px-2 py-1.5 hover:bg-white/5 rounded-lg cursor-pointer">
+                  <span>📁</span><span className="text-xs">{f}</span>
+                </div>
+              ))}
+            </div>
+          );
+        } else if (win.id === "cmd") {
+          content = <CmdWindowContent />;
+        } else if (win.id === "settings") {
+          content = <SettingsWindowContent />;
+        } else if (win.id === "task-manager") {
+          content = <TaskManagerContent />;
+        }
+
+        return (
+          <DesktopWindow key={win.id} win={win} onClose={closeWindow}>
+            {content}
+          </DesktopWindow>
+        );
+      })}
+
+      {/* ── Virtual On-Screen Keyboard ── */}
+      {step?.action === "keyboard" && (
+        <div className="fixed bottom-14 right-4 z-[400] bg-[#0d1b2a]/95 backdrop-blur-xl border border-white/10 rounded-2xl p-4 shadow-2xl max-w-sm w-80 font-sans">
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-white font-black text-[10px] uppercase tracking-wider">On-Screen Keyboard Helper</span>
+            <span className="text-[9px] text-[#39FF14] font-bold font-sans">Press physical keys to simulate</span>
+          </div>
+          <div className="grid grid-cols-5 gap-1.5 text-center font-mono">
+            {/* Row 1 */}
+            {["Ctrl", "Shift", "Win", "Esc", "A"].map((k) => {
+              const isActive = pressedKeys.includes(k.toLowerCase());
+              return (
+                <div
+                  key={k}
+                  className={`py-2 rounded-lg text-xs font-black border transition-all select-none
+                    ${isActive
+                      ? "bg-[#39FF14]/20 border-[#39FF14] text-[#39FF14] shadow-[0_0_8px_rgba(57,255,20,0.4)]"
+                      : "bg-white/5 border-white/10 text-slate-400"
+                    }`}
+                >
+                  {k}
+                </div>
+              );
+            })}
+            {/* Row 2 */}
+            {["S", "C", "V", "X", "Z"].map((k) => {
+              const isActive = pressedKeys.includes(k.toLowerCase());
+              return (
+                <div
+                  key={k}
+                  className={`py-2 rounded-lg text-xs font-black border transition-all select-none
+                    ${isActive
+                      ? "bg-[#39FF14]/20 border-[#39FF14] text-[#39FF14] shadow-[0_0_8px_rgba(57,255,20,0.4)]"
+                      : "bg-white/5 border-white/10 text-slate-400"
+                    }`}
+                >
+                  {k}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* ── Snip & Sketch Screenshot Overlay ── */}
+      {snipActive && (
+        <div
+          onClick={() => {
+            setSnipActive(false);
+            if (step?.id === "shortcut-screenshot") {
+              completeStep(step);
+            }
+          }}
+          className="fixed inset-0 bg-black/70 z-[9999] flex flex-col items-center justify-center cursor-crosshair font-sans animate-fadeInFast select-none"
+        >
+          <div className="text-center space-y-2">
+            <div className="text-3xl animate-pulse">📸</div>
+            <div className="text-white font-black text-sm uppercase tracking-widest">Snip & Sketch Active</div>
+            <p className="text-slate-400 text-xs max-w-xs leading-relaxed">Click and drag anywhere (or click here to finish snipping) to capture your screenshot.</p>
+          </div>
+        </div>
+      )}
 
       {/* ─────────────────────────────────────────────────────
           CONTEXT MENU

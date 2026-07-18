@@ -15,7 +15,6 @@ import { Capacitor } from '@capacitor/core';
 
 const BottomNavigation = () => {
   const pathname = usePathname();
-  if (pathname === '/simulator') return null;
   const { theme, setTheme } = useTheme();
   const { isInstallable, installApp } = usePWA();
   const [currentUser, setCurrentUser] = useState<{ name: string; email: string; avatar: string; photo?: string } | null>(null);
@@ -68,6 +67,8 @@ const BottomNavigation = () => {
   useEffect(() => {
     setTimeout(() => setMenuOpen(false), 0);
   }, [pathname]);
+
+  if (pathname === '/simulator') return null;
 
 
 
@@ -165,7 +166,8 @@ const BottomNavigation = () => {
   ];
 
 
-  if (isInBook || pathname === '/') return null;
+  if (!mounted) return null;
+  if (isInBook || !isNative) return null;
 
   return (
     <>

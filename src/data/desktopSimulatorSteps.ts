@@ -390,8 +390,104 @@ export const desktopSimulatorSteps: DesktopSimulatorStep[] = [
     hint: "Hold Ctrl + Shift + Esc all at the same time. This opens Task Manager directly!",
     shortcut: "Ctrl + Shift + Esc",
     successMsg:
-      "Task Manager is open! 🏆 This is what you use when an app freezes. Right-click any process and choose 'End Task' to force-close it. Every developer needs this skill!",
-    xpReward: 40,
+      "Task Manager is open! 🏆 Let's use it to diagnose and end a frozen application.",
+    xpReward: 30,
+    heartPenalty: 1,
+  },
+
+  {
+    id: "taskmanager-kill-chrome",
+    title: "🏥 Kill Unresponsive Chrome",
+    category: "shortcuts",
+    action: "click",
+    targetElement: "#taskmanager-kill-btn",
+    difficulty: "medium",
+    instruction:
+      "Look at the Task Manager window! 📊\n\n`Chrome (Not Responding)` is currently consuming 98% of your CPU, causing the system to freeze!\n\n👉 Click the **End Task** button next to Google Chrome to force-close it.",
+    hint: "Click on Google Chrome (Not Responding) in the task list, then click the End Task button at the bottom-right.",
+    successMsg:
+      "Chrome force-closed successfully! 🏥 Look at the CPU graph — it dropped immediately to 2%. Understanding how to kill frozen processes is a vital developer troubleshooting skill!",
+    xpReward: 30,
+    heartPenalty: 1,
+  },
+
+  {
+    id: "settings-open-1",
+    title: "⚙️ Open Settings App",
+    category: "start-menu",
+    action: "click",
+    targetElement: "#settings-icon-start",
+    difficulty: "easy",
+    instruction:
+      "Windows 11 lets you personalize your device and change system settings in the **Settings App**.\n\n👉 Open the **Start Menu** by clicking the Windows logo, then click the **Settings ⚙️** icon under Pinned Apps.",
+    hint: "Click the Windows Start logo at the bottom, then click the gear icon labeled 'Settings'.",
+    successMsg:
+      "Settings app is open! ⚙️ You can configure display settings, custom themes, wallpapers, and accounts from here.",
+    xpReward: 20,
+    heartPenalty: 1,
+  },
+
+  {
+    id: "settings-change-wallpaper",
+    title: "🖼️ Change Desktop Wallpaper",
+    category: "desktop",
+    action: "click",
+    targetElement: "#settings-wallpaper-bloom",
+    difficulty: "easy",
+    instruction:
+      "Let's change our background wallpaper to give our coding environment a premium look!\n\nInside the Settings app, click on the **Bloom (Windows 11)** wallpaper tile.",
+    hint: "Click the blue/purple 'Bloom' wallpaper block under personalization settings.",
+    successMsg:
+      "Amazing! Your desktop wallpaper has been updated. Visual personalization makes your coding workspace feel professional! 🎨",
+    xpReward: 20,
+    heartPenalty: 1,
+  },
+
+  {
+    id: "recycle-bin-drag-1",
+    title: "🗑️ Drag to Recycle Bin",
+    category: "recycle-bin",
+    action: "drag",
+    targetElement: "#recycle-bin-icon",
+    difficulty: "easy",
+    instruction:
+      "You can also delete files by dragging them directly to the trash.\n\nOn the desktop, you'll see a file named **old_notes.txt**.\n\n👉 Click and drag **old_notes.txt** and drop it onto the **Recycle Bin** icon.",
+    hint: "Hold mouse click on old_notes.txt, move it over Recycle Bin, then release click.",
+    successMsg:
+      "Deleted! 🗑️ The Recycle Bin icon has updated to 'full'. You can double-click it to empty it or restore files.",
+    xpReward: 25,
+    heartPenalty: 0,
+  },
+
+  {
+    id: "cmd-mkdir-project",
+    title: "📁 Create Folder in CMD",
+    category: "terminal",
+    action: "keyboard",
+    targetElement: "#cmd-input",
+    difficulty: "easy",
+    instruction:
+      "Let's create a directory (folder) inside the Command Prompt.\n\nThe command `mkdir` stands for **make directory**.\n\n👉 Type `mkdir project` and press **Enter**.",
+    hint: "Type: mkdir project, then press Enter.",
+    successMsg:
+      "Folder created! 📂 Let's run 'dir' next to verify that it is listed.",
+    xpReward: 30,
+    heartPenalty: 1,
+  },
+
+  {
+    id: "cmd-dir-verify",
+    title: "📋 Verify Folder Listing",
+    category: "terminal",
+    action: "keyboard",
+    targetElement: "#cmd-input",
+    difficulty: "easy",
+    instruction:
+      "Now let's check if the directory list shows your new project folder.\n\n👉 Type `dir` and press **Enter**.",
+    hint: "Type `dir` and press Enter.",
+    successMsg:
+      "Success! You can see the new `<DIR> project` folder in the command line listing. You've officially created a folder via CLI! 🚀",
+    xpReward: 30,
     heartPenalty: 1,
   },
 

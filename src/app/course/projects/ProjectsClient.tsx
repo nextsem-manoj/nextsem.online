@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, Check, BookOpen, Clock, BarChart2 } from "lucide-react";
+import AdSenseBanner from "../../../components/AdSenseBanner";
 
 interface ProjectItem {
   id: string;
@@ -26,8 +27,8 @@ const PROJECTS: ProjectItem[] = [
     difficulty: "Beginner",
     duration: "2-3 Hours",
     image: "/html5_illustration.webp",
-    requiredChapters: ["p0-1-setup", "p0-2-terminal", "p1-1-intro-and-text", "p1-2-links-and-media", "p2-3-box-model"],
-    requiredChapterTitles: ["Setup Tools", "CLI Intro", "Web Intro & Text", "Links & Media", "CSS Box Model"]
+    requiredChapters: ["p0-1-setup", "cli-ch1-basics", "p1-1-intro-and-text", "p1-2-links-and-media", "p2-3-box-model"],
+    requiredChapterTitles: ["Setup Tools", "CLI Basics", "Web Intro & Text", "Links & Media", "CSS Box Model"]
   },
   {
     id: "pricing-table",
@@ -160,19 +161,26 @@ export default function ProjectsClient() {
           </p>
         </div>
 
+        <AdSenseBanner />
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {PROJECTS.map((project) => {
+          {PROJECTS.map((project, index) => {
             const isSelected = selectedProjectId === project.id;
             
             return (
-              <div 
-                key={project.id}
-                className={`group rounded-3xl overflow-hidden border transition-all duration-350 flex flex-col justify-between ${
-                  isSelected 
-                    ? "border-emerald-500 bg-[#071911]/80 shadow-[0_0_20px_rgba(16,185,129,0.15)]" 
-                    : "border-slate-850 bg-slate-900/40 hover:border-slate-700 hover:bg-slate-900/60 shadow-xl"
-                }`}
-              >
+              <React.Fragment key={project.id}>
+                {index === 2 && (
+                  <div className="md:col-span-2 py-2">
+                    <AdSenseBanner />
+                  </div>
+                )}
+                <div 
+                  className={`group rounded-3xl overflow-hidden border transition-all duration-350 flex flex-col justify-between ${
+                    isSelected 
+                      ? "border-emerald-500 bg-[#071911]/80 shadow-[0_0_20px_rgba(16,185,129,0.15)]" 
+                      : "border-slate-850 bg-slate-900/40 hover:border-slate-700 hover:bg-slate-900/60 shadow-xl"
+                  }`}
+                >
                 <div>
                   {/* Visual header */}
                   <div className="h-40 w-full relative bg-slate-950 overflow-hidden flex items-center justify-center p-4">
@@ -254,9 +262,12 @@ export default function ProjectsClient() {
                   </button>
                 </div>
               </div>
+            </React.Fragment>
             );
           })}
         </div>
+
+        <AdSenseBanner />
 
       </div>
     </div>

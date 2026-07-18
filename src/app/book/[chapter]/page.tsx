@@ -31,6 +31,10 @@ import PillCommandBuilder from '@/components/PillCommandBuilder';
 import CommandFlashcard from '@/components/CommandFlashcard';
 import { getChapterSimulator } from '@/data/chapterSimulators';
 import InteractiveChapterSimulator from '@/components/InteractiveChapterSimulator';
+import MatchingQuiz from '@/components/MatchingQuiz';
+import MultipleChoiceQuiz from '@/components/MultipleChoiceQuiz';
+import ClientRedirect from '@/components/ClientRedirect';
+import { getChapterUrl } from '@/lib/htmlLessonsHelper';
 
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -56,6 +60,8 @@ const mdxComponents = {
   SpotTheError: (props: any) => <SpotTheError {...props} />,
   PillCommandBuilder: (props: any) => <PillCommandBuilder {...props} />,
   CommandFlashcard: (props: any) => <CommandFlashcard {...props} />,
+  MatchingQuiz: (props: any) => <MatchingQuiz {...props} />,
+  MultipleChoiceQuiz: (props: any) => <MultipleChoiceQuiz {...props} />,
 };
 /* eslint-enable @typescript-eslint/no-explicit-any */
 
@@ -111,6 +117,11 @@ export default async function ChapterPage({
   params: Promise<{ chapter: string }>;
 }) {
   const { chapter } = await params;
+
+  if (chapter.startsWith('p1-')) {
+    const targetUrl = chapter === 'p1-1-intro-and-text' ? '/html' : getChapterUrl(chapter);
+    return <ClientRedirect url={targetUrl} />;
+  }
 
   // Check if we have an interactive simulator for this chapter
   const simulator = getChapterSimulator(chapter);

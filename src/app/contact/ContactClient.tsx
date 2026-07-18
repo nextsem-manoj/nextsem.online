@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { ArrowLeft, Mail, MapPin, Send, HelpCircle } from 'lucide-react';
 import { db } from '../../lib/firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import AdSenseBanner from "../../components/AdSenseBanner";
 
 export default function ContactClient() {
   const [submitted, setSubmitted] = useState(false);
@@ -49,7 +50,11 @@ export default function ContactClient() {
         </Link>
       </div>
 
-      <div className="max-w-4xl mx-auto px-6 pt-12 grid grid-cols-1 md:grid-cols-2 gap-10 text-left">
+      <div className="max-w-4xl mx-auto px-6 pt-6 shrink-0">
+        <AdSenseBanner />
+      </div>
+
+      <div className="max-w-4xl mx-auto px-6 pt-6 grid grid-cols-1 md:grid-cols-2 gap-10 text-left">
         
         {/* Contact Info & Details */}
         <div className="space-y-8">
@@ -68,8 +73,8 @@ export default function ContactClient() {
               </div>
               <div>
                 <span className="block text-[10px] font-black uppercase text-slate-500">Email Address</span>
-                <a href="mailto:support@nextsem.com" className="text-xs md:text-sm text-white font-bold hover:underline">
-                  support@nextsem.com
+                <a href="mailto:nextsem.academy@gmail.com" className="text-xs md:text-sm text-white font-bold hover:underline">
+                  nextsem.academy@gmail.com
                 </a>
               </div>
             </div>
@@ -81,11 +86,13 @@ export default function ContactClient() {
               <div>
                 <span className="block text-[10px] font-black uppercase text-slate-500">Office Location</span>
                 <span className="text-xs md:text-sm text-slate-350 font-bold">
-                  Nextsem EduTech Labs, Bangalore, India
+                  Nextsem Academy New delhi India
                 </span>
               </div>
             </div>
           </div>
+
+          <AdSenseBanner />
 
           {/* FAQ Preview */}
           <div className="p-4 bg-slate-900/30 border border-slate-850 rounded-2xl space-y-3">
@@ -173,6 +180,10 @@ export default function ContactClient() {
           )}
         </div>
 
+      </div>
+
+      <div className="max-w-4xl mx-auto px-6 pb-6 shrink-0">
+        <AdSenseBanner />
       </div>
     </div>
   );

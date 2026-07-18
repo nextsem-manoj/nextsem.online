@@ -21,6 +21,7 @@ const Footer = () => {
           <Link href="/contact" className="hover:text-white transition-colors cursor-pointer">Contact Us</Link>
           <Link href="/privacy" className="hover:text-white transition-colors cursor-pointer">Privacy Policy</Link>
           <Link href="/terms" className="hover:text-white transition-colors cursor-pointer">Terms of Service</Link>
+          <Link href="/sitemap" className="hover:text-emerald-350 text-emerald-450 transition-colors cursor-pointer flex items-center gap-1">Sitemap</Link>
         </div>
 
         {/* Copyright notice */}

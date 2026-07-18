@@ -6,6 +6,7 @@ import PracticeAssignment from "./PracticeAssignment";
 import MarkCompleteButton from "./MarkCompleteButton";
 import ChapterTips from "./ChapterTips";
 import BookPagination from "./BookPagination";
+import AdSenseBanner from "./AdSenseBanner";
 
 interface PaginatedSectionsProps {
   slides: React.ReactNode[];
@@ -106,6 +107,8 @@ export default function PaginatedSections({
         </div>
 
       </div>
+
+      <AdSenseBanner />
 
       {/* Gamification widgets loaded once they finish all slides */}
       {isLastSlide && (

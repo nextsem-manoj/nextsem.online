@@ -292,6 +292,8 @@ export default function ProfileClient() {
               </div>
             </div>
 
+            <AdSenseBanner />
+
             {/* Chapters Syllabus Checklist */}
             <div className="space-y-4 text-left">
               <h2 className="text-sm font-black uppercase tracking-wider text-slate-400 flex items-center gap-1.5 px-1">
@@ -353,6 +355,8 @@ export default function ProfileClient() {
               </p>
             </div>
 
+            <AdSenseBanner />
+
             {/* Google Authentication Trigger Button */}
             <button
               onClick={handleGoogleSignIn}
@@ -373,6 +377,8 @@ export default function ProfileClient() {
             >
               Go back home
             </Link>
+
+            <AdSenseBanner />
           </div>
         )}
 

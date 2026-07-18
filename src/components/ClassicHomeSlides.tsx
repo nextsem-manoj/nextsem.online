@@ -9,6 +9,7 @@ import { usePWA } from "../hooks/usePWA";
 import { Check, ArrowRight, Code2, ShieldAlert, Award, Compass, Laptop, Star, Wifi } from "lucide-react";
 import { auth, signInWithGoogle } from "../lib/firebase";
 import { signOut } from "firebase/auth";
+import { getChapterUrl } from "../lib/htmlLessonsHelper";
 
 interface ClassicHomeSlidesProps {
   currentUser: { name: string; email: string; photo?: string } | null;
@@ -213,7 +214,7 @@ export default function ClassicHomeSlides({ currentUser, onStartLearning }: Clas
                 return (
                   <Link 
                     key={phase.id} 
-                    href={`/book/${phase.topics[0]?.path}`}
+                    href={getChapterUrl(phase.topics[0]?.path)}
                     prefetch={true}
                     className="flex items-center gap-3 hover:bg-slate-50 dark:hover:bg-slate-950/60 p-2 -mx-2 rounded-2xl transition-all cursor-pointer group"
                   >
@@ -341,7 +342,7 @@ export default function ClassicHomeSlides({ currentUser, onStartLearning }: Clas
                         return (
                           <Link
                             key={`${idx}-${topic.path}`}
-                            href={`/book/${topic.path}`}
+                            href={getChapterUrl(topic.path)}
                             className={`flex items-center justify-between p-2 rounded-xl border text-[11px] font-bold ${
                               isDone
                                 ? "bg-emerald-500/5 border-emerald-500/20"
@@ -369,7 +370,7 @@ export default function ClassicHomeSlides({ currentUser, onStartLearning }: Clas
                     </button>
 
                     <Link
-                      href={`/book/${phase.topics[0]?.path}`}
+                      href={getChapterUrl(phase.topics[0]?.path)}
                       className="w-full text-center bg-slate-900 hover:bg-slate-800 dark:bg-slate-950 dark:hover:bg-slate-900 border border-transparent dark:border-slate-850 font-bold text-[10px] uppercase tracking-widest py-2.5 rounded-xl block mt-1"
                       style={{ color: '#ffffff' }}
                     >

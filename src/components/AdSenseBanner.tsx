@@ -58,11 +58,11 @@ export default function AdSenseBanner() {
         try {
           await AdMob.initialize({});
           await AdMob.showBanner({
-            adId: 'ca-app-pub-3940256099942544/6300978111', // Official Google Test Banner Ad ID
+            adId: 'ca-app-pub-4242865347895866/1125281920', // Production AdMob Banner Ad ID from AdMob Console
             adSize: BannerAdSize.BANNER,
             position: BannerAdPosition.TOP_CENTER,
             margin: 0,
-            isTesting: true
+            isTesting: false
           });
           // Push the web content layout down to merge the ad cleanly without hiding headers/content
           document.body.style.paddingTop = '50px';
@@ -114,43 +114,8 @@ export default function AdSenseBanner() {
   }
 
   if (adBlocked) {
-    // Render a premium static fallback ad
-    return (
-      <div className="w-full relative">
-        4        <a
-          href="/course"
-          className="w-full block select-none cursor-pointer"
-        >
-          <div className="relative w-full rounded-2xl overflow-hidden border border-emerald-500/25 bg-gradient-to-r from-slate-950 via-slate-900 to-[#0c1328] p-4 flex flex-col md:flex-row items-center justify-between gap-4 transition-all duration-300 hover:scale-[1.01] hover:border-emerald-500/40 shadow-lg">
-            <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-500/5 rounded-full blur-[40px] pointer-events-none" />
-            <div className="flex items-center gap-3">
-              <span className="text-2xl md:text-3xl shrink-0 animate-pulse">🚀</span>
-              <div className="text-left">
-                <span className="inline-block px-2 py-0.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[8px] font-black uppercase tracking-wider rounded-full mb-1">
-                  PROMO
-                </span>
-                <h4 className="text-xs font-black text-white uppercase tracking-tight">Become a Job-Ready Frontend Developer</h4>
-                <p className="text-[10px] text-slate-400 font-bold leading-relaxed mt-0.5 max-w-lg">
-                  Master HTML, CSS, JavaScript, React, Tailwind & Git from scratch with hands-on labs and 10+ real portfolio projects.
-                </p>
-              </div>
-            </div>
-            <div className="shrink-0 w-full md:w-auto px-4 py-2 bg-[#39FF14] hover:bg-[#32e011] text-black font-black text-[10px] uppercase tracking-widest rounded-xl text-center shadow-md shadow-emerald-500/10">
-              Start Learning →
-            </div>
-          </div>
-        </a>
-        {/* Render a hidden ins element to prevent late-loading Google AdSense scripts from throwing no_div errors */}
-        {!isMobile && (
-          <ins
-            className="adsbygoogle"
-            style={{ display: 'none' }}
-            data-ad-client="ca-pub-4242865347895866"
-            data-ad-slot="6059354880"
-          />
-        )}
-      </div>
-    );
+    // Return null to completely remove the fallback promotional card when ads are blocked
+    return null;
   }
 
   // Decide active visual mode: 'light', 'dark', or 'sepia'

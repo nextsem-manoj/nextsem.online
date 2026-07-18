@@ -10,6 +10,7 @@ import {
 import { auth, signInWithGoogle } from '../../lib/firebase';
 import { signOut, onAuthStateChanged } from 'firebase/auth';
 import FeatureSpotlight from '../../components/FeatureSpotlight';
+import AdSenseBanner from "../../components/AdSenseBanner";
 
 export default function AboutClient() {
   const [currentUser, setCurrentUser] = useState<{ name: string; email: string; avatar: string; photo?: string } | null>(null);
@@ -331,6 +332,8 @@ export default function AboutClient() {
           </div>
         </div>
 
+        <AdSenseBanner />
+
         {/* Section 2: Tools & Projects */}
         <div className="p-6 md:p-12 bg-slate-900/30 border border-slate-850 rounded-3xl space-y-8">
           <div className="text-center space-y-2">
@@ -377,6 +380,8 @@ export default function AboutClient() {
             </div>
           </div>
         </div>
+
+        <AdSenseBanner />
 
         {/* Section 3: Features & Pedagogy */}
         <div className="p-6 md:p-12 bg-slate-900/30 border border-slate-850 rounded-3xl space-y-8">
@@ -439,6 +444,8 @@ export default function AboutClient() {
             </div>
           </div>
         </div>
+
+        <AdSenseBanner />
 
         {/* Section 4: Bottom CTA / Footer */}
         <div className="bg-gradient-to-br from-slate-900/40 to-slate-950 border border-slate-850 p-8 md:p-12 rounded-3xl text-center space-y-6">

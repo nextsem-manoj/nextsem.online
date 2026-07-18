@@ -4,9 +4,10 @@ import React, { useState, useEffect, useRef, Suspense } from "react";
 import { useTheme } from "next-themes";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight, Sun, Moon, Coffee, LogIn, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, Sun, Moon, Coffee, LogIn, X, Menu } from "lucide-react";
 import BookSidebar from "@/components/BookSidebar";
 import BookNavigation from "@/components/BookNavigation";
+import BookRightSidebar from "@/components/BookRightSidebar";
 import searchIndex from "@/data/searchIndex.json";
 import { coursePhases } from "@/data/courseData";
 import { getChapterSimulator } from "@/data/chapterSimulators";
@@ -150,22 +151,25 @@ function BookLayoutContent({
   const themeClass = "bg-[#060c18] border-slate-850 text-white";
   const headerThemeClass = "bg-[#0f172a] border-slate-850 text-white";
 
-  const isSimulator = !!(pathname && getChapterSimulator(pathname.split("/book/")[1] || ""));
 
-  // For simulator pages, render children directly without the book chrome
-  if (isSimulator) {
-    return <>{children}</>;
-  }
 
   return (
     <div className="h-screen flex flex-col bg-[#060c18] text-white font-sans selection:bg-blue-200 transition-colors duration-300 overflow-hidden">
-      <div className="flex-1 flex flex-col md:flex-row w-full max-w-[1600px] mx-auto overflow-hidden pb-14 md:pb-0">
+      <div className="flex-1 flex flex-col md:flex-row w-full max-w-[1800px] mx-auto overflow-hidden pb-14 md:pb-0">
         <BookSidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
 
         <main className="flex-1 p-0 md:p-6 w-full flex flex-col overflow-hidden relative">
           
           {/* Header Bar matching target design */}
           <div className={`w-full flex items-center gap-3 px-4 py-3 border-b border-x-0 md:border-x rounded-t-none md:rounded-t-2xl z-20 shrink-0 transition-all ${headerThemeClass}`}>
+            <button
+              type="button"
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+              className="p-1 hover:bg-slate-800/20 dark:hover:bg-slate-800/80 rounded-lg transition-all text-slate-650 dark:text-slate-400 shrink-0 cursor-pointer"
+              title="Toggle Curriculum Sidebar"
+            >
+              <Menu size={22} className="stroke-[2.5]" />
+            </button>
             <Link 
               href="/" 
               className="p-1 hover:bg-slate-100 dark:hover:bg-slate-800/80 rounded-full transition-all text-slate-650 dark:text-slate-400 shrink-0"
@@ -263,16 +267,30 @@ function BookLayoutContent({
           </div>
 
           {/* Main Reading Container */}
-          <div 
-            ref={scrollContainerRef}
-            className={`flex-1 px-4 py-5 md:px-8 md:py-8 border-x-0 md:border-x rounded-b-none md:rounded-b-2xl relative z-10 overflow-y-auto transition-all duration-300 ${themeClass} ${fontSizeClass}`}
-          >
-            <div className="max-w-4xl mx-auto w-full">
-              {children}
-            </div>
-          </div>
+          {(() => {
+            const hasSim = !!getChapterSimulator(currentChapterId);
+            return (
+              <div 
+                ref={scrollContainerRef}
+                className={
+                  hasSim
+                    ? "flex-1 relative z-10 flex flex-col min-h-0 overflow-hidden"
+                    : `flex-1 px-4 py-5 md:px-8 md:py-8 border-x-0 md:border-x rounded-b-none md:rounded-b-2xl relative z-10 overflow-y-auto transition-all duration-300 ${themeClass} ${fontSizeClass}`
+                }
+              >
+                <div className={hasSim ? "w-full h-full flex flex-col min-h-0" : "max-w-5xl mx-auto w-full"}>
+                  {children}
+                </div>
+              </div>
+            );
+          })()}
 
         </main>
+
+        <BookRightSidebar 
+          currentChapterId={currentChapterId}
+          currentChapterTitle={currentChapter?.title || "Reading Lesson"}
+        />
       </div>
       <BookNavigation 
         sidebarOpen={sidebarOpen} 

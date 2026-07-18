@@ -66,6 +66,7 @@ export const metadata: Metadata = {
 };
 
 
+import Script from "next/script";
 import { ThemeProvider } from "../components/ThemeProvider";
 import { ProgressProvider } from "../context/ProgressContext";
 import BottomNavigation from "../components/BottomNavigation";
@@ -79,10 +80,11 @@ import SearchWidget from "../components/SearchWidget";
 import OnboardingTour from "../components/OnboardingTour";
 import UpdateBanner from "../components/UpdateBanner";
 import SplashScreen from "../components/SplashScreen";
-import OnboardingWrapper from "../components/OnboardingWrapper";
+
 import RateAppPrompt from "../components/RateAppPrompt";
 import OfflineGuard from "../components/OfflineGuard";
 import { FontScaleHydrator } from "../components/FontSizeControl";
+
 
 export default function RootLayout({
   children,
@@ -102,8 +104,12 @@ export default function RootLayout({
             __html: `
               (function() {
                 try {
-                  // Always force dark mode
-                  document.documentElement.classList.add('dark');
+                  var stored = localStorage.getItem('theme');
+                  if (stored) {
+                    document.documentElement.classList.add(stored);
+                  } else {
+                    document.documentElement.classList.add('dark');
+                  }
                 } catch (e) {}
               })();
               window.addEventListener('error', function(e) {
@@ -125,18 +131,23 @@ export default function RootLayout({
           }}
         />
 
-        <script
+        <Script
           async
           src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"
-          {...{ "custom-element": "amp-ad" }}
+          custom-element="amp-ad"
+          strategy="afterInteractive"
         />
-      </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${lora.variable} ${outfit.variable} min-h-full flex flex-col bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors`}>
+
+        {/* Google AdSense Verification - must be a raw <script> tag so crawlers can find it */}
+        {/* eslint-disable-next-line @next/next/no-sync-scripts */}
         <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4242865347895866"
           crossOrigin="anonymous"
         />
+      </head>
+      <body className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${lora.variable} ${outfit.variable} min-h-full flex flex-col bg-background text-foreground transition-colors`}>
+
 
         <ThemeProvider
           attribute="class"
@@ -149,7 +160,7 @@ export default function RootLayout({
             <FontScaleHydrator />
             <OfflineGuard />
             <SplashScreen />
-            <OnboardingWrapper />
+
             <RateAppPrompt />
             <UpdateBanner />
             {children}
@@ -158,6 +169,7 @@ export default function RootLayout({
             <AndroidBackButtonHandler />
             <TranslateWidget />
             <SearchWidget />
+
             <BottomNavigation />
           </ProgressProvider>
         </ThemeProvider>

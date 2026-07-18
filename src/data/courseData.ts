@@ -7,9 +7,8 @@ export const coursePhases = [
     bulletColor: '#1f1f1f',
     imageUrl: '/cli_illustration.webp',
     icon: '>_',
-    path: 'p0-2-terminal',
+    path: 'cli-ch1-basics',
     topics: [
-      { label: 'Intro: CLI Basics & Desktop Navigation', path: 'p0-2-terminal' },
       { label: 'Chapter 1: Command Line Basics', path: 'cli-ch1-basics' },
       { label: 'Chapter 2: Drive Letters and the File System', path: 'cli-ch2-drives' },
       { label: 'Chapter 3: Understanding the Prompt', path: 'cli-ch3-prompt' },
@@ -135,6 +134,21 @@ export const coursePhases = [
       { label: 'RESTful HTTP API Endpoints', path: 'p5-2-rest' },
       { label: 'MongoDB CRUD Storage', path: 'p5-3-mongodb' },
       { label: 'Firebase Hosting & PWA', path: 'p5-4-firebase' },
+    ]
+  },
+  {
+    id: 'FS',
+    title: 'Full-Stack Mastery',
+    duration: '2-3 Weeks',
+    color: 'bg-[#8e44ad]',
+    bulletColor: '#8e44ad',
+    imageUrl: '/cli_illustration.webp',
+    icon: '⚡',
+    path: 'fs-ch1-intro',
+    topics: [
+      { label: 'Full-Stack Web Architecture', path: 'fs-ch1-intro' },
+      { label: 'Node.js Runtime & Modules', path: 'fs-ch2-nodejs' },
+      { label: 'Express.js & REST API Routing', path: 'fs-ch3-express' },
     ]
   },
   {

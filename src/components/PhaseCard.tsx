@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import { getChapterUrl } from '../lib/htmlLessonsHelper';
 
 interface Topic {
   label: string;
@@ -163,7 +164,7 @@ const PhaseCard: React.FC<PhaseCardProps> = ({ phase }) => {
         {phase.topics.map((topic, idx) => (
           <li key={idx}>
             <Link
-              href={`/book/${topic.path}`}
+              href={getChapterUrl(topic.path)}
               className="flex items-center gap-3 px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group/item"
             >
               {/* Numbered bullet */}
@@ -199,7 +200,7 @@ const PhaseCard: React.FC<PhaseCardProps> = ({ phase }) => {
       {/* ── CTA Footer ── */}
       <div className="px-4 py-3 bg-slate-50 dark:bg-slate-900/60 border-t border-slate-100 dark:border-slate-800">
         <Link
-          href={`/book/${phase.path}`}
+          href={getChapterUrl(phase.path)}
           className={`w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r ${meta.gradient} text-white font-black text-[11px] uppercase tracking-widest py-3 px-5 rounded-xl shadow-md transition-all active:scale-[0.97] hover:opacity-90 cursor-pointer`}
           style={{ boxShadow: `0 4px 14px ${meta.glow}` }}
         >

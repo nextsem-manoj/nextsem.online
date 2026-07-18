@@ -11,6 +11,7 @@ import {
   Trophy, Wifi, Battery, Calendar, Clock, Monitor, RefreshCw, Languages, Gem, ArrowRight
 } from "lucide-react";
 import { coursePhases } from "../data/courseData";
+import { getChapterUrl } from "../lib/htmlLessonsHelper";
 import TabbedOS from "./TabbedOS";
 
 // Define app window interfaces
@@ -400,7 +401,7 @@ export default function OSDesktop({ currentUser, userXP, userGems, onLogout, onS
                           </div>
                           
                           <Link 
-                            href={`/book/${phase.topics[0]?.path}`}
+                            href={getChapterUrl(phase.topics[0]?.path)}
                             className="inline-flex items-center justify-center gap-1.5 py-2 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 font-black text-[10px] uppercase text-white tracking-widest transition-all text-center"
                           >
                             <span>Open Phase</span>

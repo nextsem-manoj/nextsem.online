@@ -2927,4 +2927,5 @@ I will deploy these final layout updates, progress bar refinements, and complete
 I will wait for the deployment to finish.
 
 ---
-
+#############added by me ###########
+/learn keeping lesson names links routing all search engine friendly as i want my app and site to come first whenever a users searches html web free lessons etc that is must because our target is both rich userfriendly environment as well as numerous advierws so keep that in mind too that is maximum adviews per page view 

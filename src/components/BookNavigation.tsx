@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { ChevronLeft, ChevronRight, Home, Menu, LogIn } from "lucide-react";
 import searchIndex from "../data/searchIndex.json";
 import { auth, signInWithGoogle } from "../lib/firebase";
+import { getChapterIdFromPath, getChapterUrl } from "../lib/htmlLessonsHelper";
 
 interface BookNavigationProps {
   sidebarOpen: boolean;
@@ -24,7 +25,7 @@ function NavigationContent({
   setSidebarOpen,
 }: BookNavigationProps) {
   const pathname = usePathname();
-  const currentChapterId = pathname?.split("/book/")[1] || "";
+  const currentChapterId = getChapterIdFromPath(pathname);
   const [currentUser, setCurrentUser] = React.useState<UserProfile | null>(null);
 
   React.useEffect(() => {
@@ -62,8 +63,8 @@ function NavigationContent({
   const nextChapter = currentIndex >= 0 && currentIndex < searchIndex.length - 1 ? searchIndex[currentIndex + 1] : null;
 
   // Calculate Prev / Next Href pointing directly to adjacent chapters
-  const prevHref = prevChapter ? `/book/${prevChapter.id}` : null;
-  const nextHref = nextChapter ? `/book/${nextChapter.id}` : null;
+  const prevHref = prevChapter ? getChapterUrl(prevChapter.id) : null;
+  const nextHref = nextChapter ? getChapterUrl(nextChapter.id) : null;
 
   const containerThemeClass = "bg-slate-950/80 text-slate-100 border border-white/5 shadow-2xl backdrop-blur-xl rounded-2xl";
   const buttonHoverClass = "hover:bg-slate-900/50 text-slate-400 hover:text-white";

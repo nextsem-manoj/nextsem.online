@@ -292,15 +292,6 @@ export default function OnboardingIntro({ onComplete }: { onComplete: () => void
               >
                 I&apos;m a learner
               </button>
-              <button
-                onClick={() => {
-                  playToggleSound();
-                  setStep("launch");
-                }}
-                className="w-full py-4 bg-slate-900/60 hover:bg-slate-850/80 border border-slate-800 text-slate-200 text-sm font-bold rounded-3xl transition-all hover:scale-101 active:scale-98 cursor-pointer"
-              >
-                I&apos;m a parent or teacher
-              </button>
             </div>
           </div>
         )}

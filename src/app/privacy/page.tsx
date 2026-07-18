@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import React from 'react';
 import Link from 'next/link';
 import { ArrowLeft, Shield } from 'lucide-react';
+import AdSenseBanner from "@/components/AdSenseBanner";
 
 export const metadata: Metadata = {
   title: "Privacy Policy | Nextsem Academy",
@@ -46,6 +47,8 @@ export default function PrivacyPage() {
 
         <hr className="border-slate-850" />
 
+        <AdSenseBanner />
+
         <div className="space-y-4 text-xs md:text-sm text-slate-300 leading-relaxed font-medium">
           <p>
             At Nextsem Academy, accessible from https://nextsem.online, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by Nextsem Academy and how we use it.
@@ -61,6 +64,8 @@ export default function PrivacyPage() {
             Google is one of a third-party vendor on our site. It also uses cookies, known as DART cookies, to serve ads to our site visitors based upon their visit to our site and other sites on the internet. However, visitors may choose to decline the use of DART cookies by visiting the Google ad and content network Privacy Policy at the following URL – <a href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">https://policies.google.com/technologies/ads</a>
           </p>
 
+          <AdSenseBanner />
+
           <h3 className="text-base font-black text-white pt-2">Cookies and Web Beacons</h3>
           <p>
             Like any other website, Nextsem Academy uses &apos;cookies&apos;. These cookies are used to store information including visitors&apos; preferences, and the pages on the website that the visitor accessed or visited. The information is used to optimize the users&apos; experience by customizing our web page content based on visitors&apos; browser type and/or other information.
@@ -75,6 +80,8 @@ export default function PrivacyPage() {
           <p>
             By using our website, you hereby consent to our Privacy Policy and agree to its Terms and Conditions.
           </p>
+
+          <AdSenseBanner />
         </div>
 
       </div>

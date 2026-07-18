@@ -7,6 +7,7 @@ import {
   ArrowLeft, Sun, Moon, Coffee, Trash2, Plus, Sliders, Type, Grid, MousePointerClick,
   RefreshCw, Sparkles, Globe
 } from "lucide-react";
+import AdSenseBanner from "../../components/AdSenseBanner";
 
 interface LogEntry {
   type: "log" | "error";
@@ -388,6 +389,10 @@ export default function PlaygroundClient() {
         </div>
       </header>
 
+      <div className="w-full shrink-0">
+        <AdSenseBanner />
+      </div>
+
       {/* ── WORKSPACE PANELS ── */}
       <div className="flex-1 flex flex-col md:flex-row overflow-hidden relative pb-[104px] md:pb-14">
         
@@ -435,6 +440,8 @@ export default function PlaygroundClient() {
                 <Grid size={14} className="text-amber-400" />
                 <span>Image</span>
               </div>
+
+              <AdSenseBanner />
             </div>
 
             {/* Droppable Canvas Panel (Center) */}
@@ -581,6 +588,8 @@ export default function PlaygroundClient() {
               ) : (
                 <p className="text-[10px] text-slate-500 italic">Select any canvas component to edit its details.</p>
               )}
+
+              <AdSenseBanner />
             </div>
             
           </div>
@@ -624,11 +633,20 @@ export default function PlaygroundClient() {
               </button>
             </div>
 
-            <div className="flex-1 relative overflow-hidden bg-[#090d16] font-mono text-xs">
+            <div className="flex-1 relative overflow-hidden bg-[#090d16]">
               {/* Highlight Overlay Underneath */}
               <pre
                 ref={highlightRef}
-                className="absolute inset-0 p-4 text-slate-300 pointer-events-none whitespace-pre-wrap break-all overflow-y-auto leading-relaxed h-full w-full select-none"
+                className="absolute inset-0 text-slate-350 pointer-events-none whitespace-pre-wrap break-all overflow-y-auto h-full w-full select-none"
+                style={{
+                  fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace',
+                  fontSize: '13px',
+                  lineHeight: '20px',
+                  padding: '16px',
+                  border: 'none',
+                  margin: '0',
+                  boxSizing: 'border-box'
+                }}
                 dangerouslySetInnerHTML={{
                   __html: activeTab === "html" 
                     ? highlightHTML(htmlCode) 
@@ -647,10 +665,21 @@ export default function PlaygroundClient() {
                   else setJsCode(e.target.value);
                 }}
                 onScroll={handleScroll}
-                className="absolute inset-0 p-4 bg-transparent focus:outline-none resize-none overflow-y-auto leading-relaxed h-full w-full text-transparent caret-white whitespace-pre-wrap break-all"
+                className="absolute inset-0 bg-transparent focus:outline-none resize-none overflow-y-auto text-transparent caret-white whitespace-pre-wrap break-all"
+                style={{
+                  fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace',
+                  fontSize: '13px',
+                  lineHeight: '20px',
+                  padding: '16px',
+                  border: 'none',
+                  margin: '0',
+                  boxSizing: 'border-box'
+                }}
                 spellCheck="false"
               />
             </div>
+
+            <AdSenseBanner />
           </div>
         )}
 
@@ -759,6 +788,10 @@ export default function PlaygroundClient() {
                   </div>
                 ))
               )}
+            </div>
+
+            <div className="shrink-0 border-t border-slate-900 bg-slate-950 p-1">
+              <AdSenseBanner />
             </div>
           </div>
  
@@ -892,88 +925,134 @@ function formatJS(js: string): string {
   return formatted.replace(/\n\s*\n/g, "\n\n").trim();
 }
 
-// ── VS CODE SYNTAX HIGH LIGHTING ──
-function highlightHTML(code: string): string {
-  let escaped = code
+function escapeHtml(text: string): string {
+  return text
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;");
-  
-  // Highlight comments
-  escaped = escaped.replace(/(&lt;!--[\s\S]*?--&gt;)/g, '<span class="text-slate-500 font-normal italic">$1</span>');
-  
-  // Highlight tags: &lt;tag or &lt;/tag
-  escaped = escaped.replace(/(&lt;\/?[a-zA-Z0-9\-]+)/g, '<span class="text-blue-400 font-bold">$1</span>');
-  
-  // Highlight tag ends: &gt; or /&gt;
-  escaped = escaped.replace(/(\/?&gt;)/g, '<span class="text-blue-400 font-bold">$1</span>');
-  
-  // Highlight attribute values: ="value"
-  escaped = escaped.replace(/(=["'][^"']*?["'])/g, '<span class="text-amber-300">$1</span>');
-  
-  // Highlight attributes: attributeName=
-  escaped = escaped.replace(/(\s[a-zA-Z0-9\-]+)=/g, ' <span class="text-cyan-400">$1</span>=');
-  
-  return escaped;
+}
+
+// ── VS CODE SYNTAX HIGH LIGHTING ──
+function highlightHTML(code: string): string {
+  const parts = code.split(/(<!--[\s\S]*?-->|<[^>]+>)/g);
+  return parts.map(part => {
+    if (!part) return "";
+    
+    // Comment
+    if (part.startsWith("<!--") && part.endsWith("-->")) {
+      const escaped = escapeHtml(part);
+      return `<span class="text-slate-500 font-normal italic">${escaped}</span>`;
+    }
+    
+    // Tag
+    if (part.startsWith("<") && part.endsWith(">")) {
+      const isClosing = part.startsWith("</");
+      const cleanTag = part.replace(/[<>]/g, ""); // strip < and >
+      
+      // Highlight attributes inside the clean tag
+      // Attribute values: ="..." or ='...'
+      let highlighted = cleanTag.replace(/(=["'][^"']*?["'])/g, '<span class="text-amber-300">$1</span>');
+      
+      // Attributes: name=
+      highlighted = highlighted.replace(/(\s[a-zA-Z0-9\-]+)=/g, ' <span class="text-cyan-400">$1</span>=');
+      
+      // Tag name: at the start of the tag
+      if (isClosing) {
+        highlighted = highlighted.replace(/^(\/[a-zA-Z0-9\-]+)/, '<span class="text-blue-400 font-bold">$1</span>');
+      } else {
+        highlighted = highlighted.replace(/^([a-zA-Z0-9\-]+)/, '<span class="text-blue-400 font-bold">$1</span>');
+      }
+      
+      return `<span class="text-blue-400 font-bold">&lt;</span>${highlighted}<span class="text-blue-400 font-bold">&gt;</span>`;
+    }
+    
+    // Text content
+    return escapeHtml(part);
+  }).join("");
 }
 
 function highlightCSS(code: string): string {
-  let escaped = code
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
+  const parts = code.split(/(\/\*[\s\S]*?\*\/)/g);
+  let inRule = false;
   
-  // Highlight braces
-  escaped = escaped.replace(/({|})/g, '<span class="text-yellow-500 font-bold">$1</span>');
-  
-  // Highlight comments
-  escaped = escaped.replace(/(\/\*[\s\S]*?\*\/)/g, '<span class="text-slate-500 italic">$1</span>');
-  
-  // Highlight values: : value;
-  escaped = escaped.replace(/(:\s*[^;{}]+;)/g, (match) => {
-    const val = match.slice(1, -1);
-    return `:<span class="text-emerald-400">${val}</span>;`;
-  });
-  
-  // Highlight properties: propertyName:
-  escaped = escaped.replace(/([a-zA-Z0-9\-]+\s*):/g, '<span class="text-cyan-400">$1</span>:');
-  
-  // Highlight selectors: selector {
-  escaped = escaped.replace(/([^{}\n]+)\s*\{/g, '<span class="text-orange-400 font-bold">$1</span> {');
-  
-  return escaped;
+  return parts.map(part => {
+    if (!part) return "";
+    
+    // Comment
+    if (part.startsWith("/*") && part.endsWith("*/")) {
+      return `<span class="text-slate-500 italic">${escapeHtml(part)}</span>`;
+    }
+    
+    // Split by brackets
+    const subParts = part.split(/([{}])/g);
+    return subParts.map(sub => {
+      if (sub === "{") {
+        inRule = true;
+        return '<span class="text-yellow-500 font-bold">{</span>';
+      }
+      if (sub === "}") {
+        inRule = false;
+        return '<span class="text-yellow-500 font-bold">}</span>';
+      }
+      if (!sub.trim()) return sub;
+      
+      if (!inRule) {
+        return `<span class="text-orange-400 font-bold">${escapeHtml(sub)}</span>`;
+      } else {
+        const decls = sub.split(/(;)/g);
+        return decls.map(decl => {
+          if (decl === ";") {
+            return '<span class="text-slate-400">;</span>';
+          }
+          if (!decl.trim()) return decl;
+          
+          const colonIdx = decl.indexOf(":");
+          if (colonIdx >= 0) {
+            const prop = decl.slice(0, colonIdx);
+            const val = decl.slice(colonIdx + 1);
+            return `<span class="text-cyan-400">${escapeHtml(prop)}</span>:<span class="text-emerald-400">${escapeHtml(val)}</span>`;
+          }
+          return escapeHtml(decl);
+        }).join("");
+      }
+    }).join("");
+  }).join("");
 }
 
 function highlightJS(code: string): string {
-  let escaped = code
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
-  
-  // Highlight strings
-  escaped = escaped.replace(/("[^"]*?")/g, '<span class="text-amber-300">$1</span>');
-  escaped = escaped.replace(/('[^']*?')/g, '<span class="text-amber-300">$1</span>');
-  escaped = escaped.replace(/(`[^`]*?`)/g, '<span class="text-amber-300">$1</span>');
-  
-  // Highlight single-line comments
-  escaped = escaped.replace(/(\/\/[^\n]*)/g, '<span class="text-slate-500 italic">$1</span>');
-  
-  // Highlight keywords
+  const parts = code.split(/(\/\/[^\n]*|\/\*[\s\S]*?\*\/|"[^"\\]*(?:\\.[^"\\]*)*"|'[^'\\]*(?:\\.[^'\\]*)*'|`[^`\\]*(?:\\.[`\\]*)*`)/g);
   const keywords = [
     "const", "let", "var", "function", "return", "if", "else", "for", "while", 
     "do", "switch", "case", "break", "continue", "new", "this", "class", "export", 
     "import", "from", "default", "true", "false", "null", "undefined", "document", "window"
   ];
-  keywords.forEach(kw => {
-    const regex = new RegExp(`\\b(${kw})\\b`, "g");
-    escaped = escaped.replace(regex, '<span class="text-blue-400 font-bold">$1</span>');
-  });
-
-  // Highlight numbers
-  escaped = escaped.replace(/\b(\d+)\b/g, '<span class="text-purple-400">$1</span>');
   
-  // Highlight methods/functions: console.log or addEventListener
-  escaped = escaped.replace(/(\.[a-zA-Z0-9_]+)(?=\()/g, '.<span class="text-yellow-400 font-bold">$1</span>');
-  
-  return escaped;
+  return parts.map(part => {
+    if (!part) return "";
+    
+    // Comments
+    if (part.startsWith("//") || part.startsWith("/*")) {
+      return `<span class="text-slate-500 italic">${escapeHtml(part)}</span>`;
+    }
+    
+    // Strings
+    if (part.startsWith('"') || part.startsWith("'") || part.startsWith("`")) {
+      return `<span class="text-amber-300">${escapeHtml(part)}</span>`;
+    }
+    
+    // Normal code
+    const escaped = escapeHtml(part);
+    let highlighted = escaped;
+    
+    highlighted = highlighted.replace(/\b(\d+)\b/g, '<span class="text-purple-400">$1</span>');
+    
+    keywords.forEach(kw => {
+      const regex = new RegExp(`\\b(${kw})\\b`, "g");
+      highlighted = highlighted.replace(regex, '<span class="text-blue-400 font-bold">$1</span>');
+    });
+    
+    highlighted = highlighted.replace(/(\.[a-zA-Z0-9_]+)(?=\()/g, '.<span class="text-yellow-400 font-bold">$1</span>');
+    
+    return highlighted;
+  }).join("");
 }

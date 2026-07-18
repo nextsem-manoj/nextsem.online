@@ -12,6 +12,8 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-inter);
   --font-mono: var(--font-geist-mono);
+  --font-serif: var(--font-lora);
+  --font-outfit: var(--font-outfit);
 }
 
 html,
@@ -146,6 +148,7 @@ body {
   --theme-btn-text:     #0f172a;
   --theme-btn-blue-bg:  #3b82f6;
   --theme-accent:       #10b981;
+  --dot-color:          rgba(28, 27, 79, 0.4);
 }
 
 /* ── LIGHT THEME (html.light) ── */
@@ -163,6 +166,7 @@ html.light {
   --theme-btn-text:     #ffffff;
   --theme-btn-blue-bg:  #2563eb;
   --theme-accent:       #2563eb;
+  --dot-color:          rgba(148, 163, 184, 0.25);
 }
 
 /* ── DARK THEME (html.dark) ── */
@@ -180,6 +184,7 @@ html.dark {
   --theme-btn-text:     #0f172a;
   --theme-btn-blue-bg:  #3b82f6;
   --theme-accent:       #10b981;
+  --dot-color:          rgba(28, 27, 79, 0.4);
 }
 
 /* ── NIGHT LIGHT THEME (html.night-light) ── */
@@ -197,6 +202,7 @@ html.night-light {
   --theme-btn-text:     #fbf0d9;
   --theme-btn-blue-bg:  #b45309;
   --theme-accent:       #d97706;
+  --dot-color:          rgba(140, 98, 57, 0.25);
 }
 
 

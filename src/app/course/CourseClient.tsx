@@ -7,6 +7,7 @@ import { auth } from '../../lib/firebase';
 import { coursePhases } from '../../data/courseData';
 import chapterSimulators from '../../data/chapterSimulators';
 import { onAuthStateChanged, signOut, User } from 'firebase/auth';
+import AdSenseBanner from "../../components/AdSenseBanner";
 import {
   Code,
   Palette,
@@ -96,7 +97,6 @@ export default function CourseClient() {
         setCurrentUser(user);
       } else {
         setCurrentUser(null);
-        router.push('/');
       }
     });
     return () => unsubscribe();
@@ -535,6 +535,10 @@ export default function CourseClient() {
         </span>
       </section>
 
+      <div className="max-w-md mx-auto px-4 shrink-0">
+        <AdSenseBanner />
+      </div>
+
       {/* ── 3. Modules List (84vh) ── */}
       <section className="flex-1 overflow-y-auto px-4 sm:px-6 py-4 space-y-4 custom-scrollbar pb-safe select-none">
         <div className="max-w-md mx-auto space-y-4">
@@ -545,9 +549,12 @@ export default function CourseClient() {
             const modPercentComplete = topicsList.length > 0 ? Math.round((completedTopics.length / topicsList.length) * 100) : 0;
             
             return (
-              <div
-                key={mod.id}
-                className="bg-[#111116]/90 border border-white/5 rounded-3xl p-5 flex flex-col gap-4 shadow-xl relative overflow-hidden"
+              <React.Fragment key={mod.id}>
+                {index === 3 && (
+                  <AdSenseBanner />
+                )}
+                <div
+                  className="bg-[#111116]/90 border border-white/5 rounded-3xl p-5 flex flex-col gap-4 shadow-xl relative overflow-hidden"
               >
                 {/* Glow accent */}
                 <div 
@@ -658,8 +665,12 @@ export default function CourseClient() {
                 </div>
 
               </div>
+              </React.Fragment>
             );
           })}
+        </div>
+        <div className="max-w-md mx-auto px-4 mt-4 shrink-0">
+          <AdSenseBanner />
         </div>
       </section>
 

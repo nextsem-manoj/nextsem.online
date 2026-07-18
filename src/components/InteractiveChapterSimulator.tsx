@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { ChapterSimulator, ChapterLesson, getNextChapterSimulator } from "@/data/chapterSimulators";
 import { coursePhases } from "@/data/courseData";
+import AdSenseBanner from "./AdSenseBanner";
 
 interface Props {
   simulator: ChapterSimulator;
@@ -237,42 +238,12 @@ export default function InteractiveChapterSimulator({ simulator, chapterId, user
 
   return (
     <div
-      className="fixed inset-0 flex flex-col bg-[#06060a] text-white overflow-hidden"
+      className="relative w-full h-full flex flex-col bg-[#06060a] text-white overflow-hidden"
       style={{ fontFamily: "'Courier New', 'Consolas', monospace" }}
     >
-      {/* ── Top Progress Bar ─────────────────────────────────────────────── */}
-      <div className="w-full h-9 bg-[#111118] flex items-center px-3 gap-3 border-b border-slate-800/60 shrink-0 z-30">
-        {/* Close / Exit button — always visible */}
-        <button
-          onClick={() => {
-            const activeIdx = coursePhases.findIndex(p => p.topics.some(t => t.path === chapterId));
-            router.push(`/?active=${activeIdx !== -1 ? activeIdx : 0}`);
-          }}
-          title="Exit to Course Selection"
-          className="flex items-center justify-center w-6 h-6 rounded-full bg-slate-800/80 hover:bg-red-900/70 border border-slate-700 hover:border-red-500/60 text-slate-400 hover:text-red-300 transition-all cursor-pointer text-xs font-black shrink-0"
-        >
-          ✕
-        </button>
-        <span className="text-[9px] font-black uppercase tracking-widest text-slate-500 font-sans">PROGRESS</span>
-        <div className="flex-1 h-2 bg-slate-800 rounded-full overflow-hidden">
-          <div
-            className="h-full bg-gradient-to-r from-[#39FF14] via-cyan-400 to-emerald-400 rounded-full transition-all duration-500 shadow-[0_0_6px_rgba(57,255,20,0.5)]"
-            style={{ width: `${progressPct}%` }}
-          />
-        </div>
-        <span className="text-[9px] font-black text-[#39FF14] font-sans">{progressPct}%</span>
-        <button
-          onClick={() => setShowStars((v) => !v)}
-          className="relative ml-1"
-          title="Stars / Points"
-        >
-          <span className="text-yellow-400 text-lg">⭐</span>
-          {showStars && (
-            <div className="absolute right-0 top-7 bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-[11px] text-yellow-300 font-black font-sans whitespace-nowrap shadow-xl z-50">
-              ⭐ {points} Points
-            </div>
-          )}
-        </button>
+      {/* Mobile-only top ad */}
+      <div className="md:hidden w-full shrink-0 px-4 pt-2">
+        <AdSenseBanner />
       </div>
 
       {/* ── Desktop Split View Main Container ────────────────────────────── */}
@@ -297,6 +268,7 @@ export default function InteractiveChapterSimulator({ simulator, chapterId, user
             <h1 className="text-xl font-black text-white uppercase tracking-tight leading-snug mt-2 font-sans">
               {currentLesson.title}
             </h1>
+            <AdSenseBanner />
 
             {/* Progress Divider */}
             <div className="w-12 h-1 bg-[#39FF14] rounded-full shadow-[0_0_8px_rgba(57,255,20,0.4)]" />
@@ -335,6 +307,8 @@ export default function InteractiveChapterSimulator({ simulator, chapterId, user
             )}
           </div>
 
+          <AdSenseBanner />
+
           {/* Bottom Card Inside Left Panel: Tips/Hints */}
           <div className="mt-8 pt-4 border-t border-slate-900 shrink-0 font-sans">
             <div className="bg-amber-950/20 border border-amber-900/30 rounded-xl p-4 flex flex-col gap-2">
@@ -346,6 +320,7 @@ export default function InteractiveChapterSimulator({ simulator, chapterId, user
               </p>
             </div>
           </div>
+          <AdSenseBanner />
         </div>
 
         {/* Right Panel: Terminal Window Container */}
@@ -440,6 +415,11 @@ export default function InteractiveChapterSimulator({ simulator, chapterId, user
             </div>
           </div>
 
+          {/* Mobile-only middle ad */}
+          <div className="md:hidden w-full shrink-0">
+            <AdSenseBanner />
+          </div>
+
           {/* Terminal console */}
           <div className="flex-1 p-4 font-mono text-[16px] overflow-y-auto space-y-1.5 flex flex-col">
             {history.map((line, idx) => {
@@ -482,7 +462,7 @@ export default function InteractiveChapterSimulator({ simulator, chapterId, user
           </div>
 
           {/* Prompt row */}
-          {!certified && (
+          {!certified && feedbackStatus === "waiting" && (
             <div
               className={`w-full flex flex-col px-4 py-2 transition-all duration-200 ${
                 !isWorking
@@ -553,7 +533,7 @@ export default function InteractiveChapterSimulator({ simulator, chapterId, user
           )}
 
           {/* Hint bar */}
-          {!certified && (currentLesson.type === "terminal" || currentLesson.hintImage) && (
+          {!certified && feedbackStatus === "waiting" && (currentLesson.type === "terminal" || currentLesson.hintImage) && (
             <div className="shrink-0 flex items-center gap-3 px-4 py-2.5 border-t border-violet-900/30 bg-gradient-to-r from-violet-950/50 to-slate-950/80 select-none">
               <button
                 onClick={() => setShowHint((v) => !v)}
@@ -588,16 +568,20 @@ export default function InteractiveChapterSimulator({ simulator, chapterId, user
           {/* Spacer to leave 20% space between hint/tip and feedback dock */}
           <div className="h-[4vh] shrink-0" />
 
+          {/* Mobile-only bottom ad */}
+          <div className="md:hidden w-full shrink-0 px-4">
+            <AdSenseBanner />
+          </div>
+
       {/* ── Bottom Feedback Dock ──────────────────────────────────────────── */}
       <div
-        className={`w-full shrink-0 flex items-center justify-center px-4 sm:px-8 z-20 transition-all duration-500 ${
+        className={`w-full shrink-0 flex items-center justify-center px-4 sm:px-8 py-3.5 z-20 transition-all duration-500 min-h-[14vh] ${
           feedbackStatus === "correct" || certified
             ? "bg-gradient-to-r from-emerald-950 via-teal-950 to-emerald-950 border-t-2 border-emerald-400 shadow-[0_-8px_30px_rgba(52,211,153,0.25)]"
             : feedbackStatus === "wrong"
             ? "bg-gradient-to-r from-red-950 via-rose-950 to-red-950 border-t-2 border-red-500 shadow-[0_-8px_30px_rgba(239,68,68,0.25)]"
             : "bg-gradient-to-r from-violet-950/80 via-slate-900/90 to-indigo-950/80 border-t border-violet-800/30"
         }`}
-        style={{ height: "10vh" }}
       >
         {/* Centre: Feedback controls */}
         <div className="flex-1 flex flex-col items-center justify-center">
@@ -742,7 +726,7 @@ export default function InteractiveChapterSimulator({ simulator, chapterId, user
           onClick={() => setShowImageModal(false)}
         >
           <div
-            className="relative w-full max-w-3xl mx-4 rounded-2xl overflow-hidden border border-amber-400/30 shadow-[0_0_60px_rgba(251,191,36,0.2)]"
+            className="relative w-full max-w-3xl mx-4 rounded-2xl overflow-hidden border border-amber-400/30 shadow-[0_0_60px_rgba(251,191,36,0.2)] flex flex-col max-h-[90vh] bg-black"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Modal Header */}
@@ -762,7 +746,7 @@ export default function InteractiveChapterSimulator({ simulator, chapterId, user
             </div>
 
             {/* Screenshot Image */}
-            <div className="relative bg-black max-h-[70vh] overflow-auto">
+            <div className="relative bg-black flex-1 min-h-0 overflow-auto">
               <Image
                 src={currentLesson.hintImage}
                 alt={`Hint screenshot for ${currentLesson.title}`}
