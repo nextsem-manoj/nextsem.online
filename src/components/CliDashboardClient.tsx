@@ -140,7 +140,7 @@ export default function CliDashboardClient() {
         {/* Action Button */}
         <div className="z-10 shrink-0 w-full md:w-auto">
           <button
-            onClick={() => router.push(`/book/${nextLesson.slug}`)}
+            onClick={() => router.push(`/cli/${nextLesson.slug}`)}
             className="w-full md:w-auto flex items-center justify-center gap-2.5 px-8 py-4 bg-[#c1a648] hover:bg-[#7f7034] text-[#1e303f] hover:text-white font-black text-xs uppercase tracking-wider rounded-2xl shadow-lg shadow-[#c1a648]/20 hover:shadow-[#c1a648]/30 transition-all border border-[#c1a648]/25 group cursor-pointer"
           >
             <Play size={14} className="fill-current" />
@@ -182,7 +182,7 @@ export default function CliDashboardClient() {
                       {mod.completedInMod}/{mod.lessons.length} Lessons
                     </span>
                     <button
-                      onClick={() => router.push(`/book/${mod.lessons[0].slug}`)}
+                      onClick={() => router.push(`/cli/${mod.lessons[0].slug}`)}
                       className="inline-flex items-center gap-1 text-[10px] font-black uppercase text-[#c1a648] hover:text-[#7f7034] transition-colors cursor-pointer"
                     >
                       <span>Explore</span>
@@ -213,7 +213,7 @@ export default function CliDashboardClient() {
                   <div key={lesson.id} className="w-full">
                     {isUnlocked ? (
                       <Link
-                        href={`/book/${lesson.slug}`}
+                        href={`/cli/${lesson.slug}`}
                         className={`w-full p-3.5 rounded-xl border flex items-center justify-between gap-3 transition-all text-left ${
                           isCompleted
                             ? "bg-emerald-950/10 border-emerald-500/25 hover:border-emerald-500/40 text-slate-300"

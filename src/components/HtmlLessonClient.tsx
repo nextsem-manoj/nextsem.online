@@ -89,13 +89,39 @@ export default function HtmlLessonClient({ lesson }: HtmlLessonClientProps) {
   const isLessonCompletedKey = `nextsem_html_completed_${userEmail}_${lesson.id}`;
   const [isLessonDone, setIsLessonDone] = useState(false);
 
+  // Compute current exercise based on selected language (with fallback to english)
+  const rawExercise = lesson.exercise;
+  const currentExercise = (() => {
+    if (rawExercise && typeof rawExercise === "object" && "english" in rawExercise) {
+      // New multilingual format
+      const multiEx = rawExercise as {
+        english: { question: string; options: string[]; correctAnswer: string; hint: string };
+        hinglish?: { question: string; options: string[]; correctAnswer: string; hint: string };
+        hindi?: { question: string; options: string[]; correctAnswer: string; hint: string };
+      };
+      return multiEx[selectedLang] ?? multiEx.english;
+    }
+    // Legacy single-language format — use as English for all languages
+    return rawExercise as { question: string; options: string[]; correctAnswer: string; hint: string };
+  })();
+
+  // Reset MCQ when language changes (don't reset if already completed)
+  useEffect(() => {
+    if (!isLessonDone) {
+      setSelectedOption(null);
+      setIsCorrect(false);
+      setShowFeedback(false);
+      setShowHint(false);
+    }
+  }, [selectedLang, isLessonDone]);
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       const done = localStorage.getItem(isLessonCompletedKey) === "true";
       setIsLessonDone(done);
       if (done) {
         // Pre-fill answer if already completed
-        setSelectedOption(lesson.exercise.correctAnswer);
+        setSelectedOption(currentExercise.correctAnswer);
         setIsCorrect(true);
         setShowFeedback(true);
       } else {
@@ -118,7 +144,7 @@ export default function HtmlLessonClient({ lesson }: HtmlLessonClientProps) {
   const handleOptionSelect = (option: string) => {
     if (isLessonDone) return; // Prevent change after completion
     setSelectedOption(option);
-    const correct = option === lesson.exercise.correctAnswer;
+    const correct = option === currentExercise.correctAnswer;
     setIsCorrect(correct);
     setShowFeedback(true);
 
@@ -381,12 +407,12 @@ export default function HtmlLessonClient({ lesson }: HtmlLessonClientProps) {
 
         <div className="p-5 md:p-6 space-y-4">
           <h4 className="text-sm font-bold text-slate-100 leading-snug">
-            {lesson.exercise.question}
+            {currentExercise.question}
           </h4>
 
           {/* Multiple Choice Options */}
           <div className="grid grid-cols-1 gap-2.5">
-            {lesson.exercise.options.map((option, idx) => {
+            {currentExercise.options.map((option, idx) => {
               const isSelected = selectedOption === option;
               let btnStyle = "bg-slate-950/50 border-slate-850 text-slate-350 hover:bg-slate-900 hover:text-white";
               
@@ -439,7 +465,7 @@ export default function HtmlLessonClient({ lesson }: HtmlLessonClientProps) {
                     </p>
                     {showHint ? (
                       <div className="mt-2 text-[11px] bg-slate-950/40 p-2.5 rounded-lg border border-slate-800 text-slate-400 leading-relaxed font-medium">
-                        💡 **Hint**: {lesson.exercise.hint}
+                        💡 **Hint**: {currentExercise.hint}
                       </div>
                     ) : (
                       <button

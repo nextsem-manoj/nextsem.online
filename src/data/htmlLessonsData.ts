@@ -1,15 +1,26 @@
+/** Single language exercise (legacy format) */
+export interface ExerciseBlock {
+  question: string;
+  options: string[];
+  correctAnswer: string;
+  hint: string;
+}
+
+/** Multilingual exercise format (new standard) */
+export interface MultilingualExercise {
+  english: ExerciseBlock;
+  hinglish: ExerciseBlock;
+  hindi: ExerciseBlock;
+}
+
 export interface Lesson {
   id: number;
   slug: string;
   title: string;
   unit: string;
   bookRef: string;
-  exercise: {
-    question: string;
-    options: string[];
-    correctAnswer: string;
-    hint: string;
-  };
+  /** Supports both legacy ExerciseBlock and new MultilingualExercise */
+  exercise: ExerciseBlock | MultilingualExercise;
   english: {
     kid: string;
     pro: string;
@@ -32,15 +43,39 @@ export const htmlLessons: Lesson[] = [
     unit: "Unit 1: Web Fundamentals & Client-Server Architecture",
     bookRef: "Duckett Chapter 1 (p. 2-5)",
     exercise: {
-      question: "What is the physical reality of the internet?",
-      options: [
-        "A magical cloud in the sky",
-        "A global network of physical cables, routers, and data centers",
-        "A satellite-only beam that doesn't use wires",
-        "A software package installed on Windows"
-      ],
-      correctAnswer: "A global network of physical cables, routers, and data centers",
-      hint: "Remember, the internet is not magical or invisible. It relies on thousands of miles of cables running under the oceans!"
+      english: {
+        question: "What is the physical reality of the internet?",
+        options: [
+          "A magical cloud in the sky",
+          "A global network of physical cables, routers, and data centers",
+          "A satellite-only beam that doesn't use wires",
+          "A software package installed on Windows"
+        ],
+        correctAnswer: "A global network of physical cables, routers, and data centers",
+        hint: "Remember, the internet is not magical or invisible. It relies on thousands of miles of cables running under the oceans!"
+      },
+      hinglish: {
+        question: "Internet ki physical reality kya hai?",
+        options: [
+          "Ek jadui baadal jo hawa mein hai",
+          "Dunia bhar mein failye physical cables, routers aur data centers ka network",
+          "Sirf satellite se chalne wali beam jo wires use nahi karti",
+          "Windows par install hua ek software package"
+        ],
+        correctAnswer: "Dunia bhar mein failye physical cables, routers aur data centers ka network",
+        hint: "Yaad raho, internet koi jaadu nahi hai. Yeh samudron ke neeche bikhre hazaaron miles ke cables par nirbhar karta hai!"
+      },
+      hindi: {
+        question: "इंटरनेट की वास्तविकता क्या है?",
+        options: [
+          "आकाश में एक जादुई बादल",
+          "भौतिक केबलों, राउटरों और डेटा केंद्रों का एक वैश्विक नेटवर्क",
+          "एक सैटेलाइट बीम जो तारों का उपयोग नहीं करती",
+          "🪟 Windows पर इंस्टॉल किया गया एक सॉफ्टवेयर पैकेज"
+        ],
+        correctAnswer: "भौतिक केबलों, राउटरों और डेटा केंद्रों का एक वैश्विक नेटवर्क",
+        hint: "याद रखें, इंटरनेट कोई जादू नहीं है। यह समुद्र के नीचे फैले हजारों मील के केबलों पर निर्भर करता है!"
+      }
     },
     english: {
       kid: "### 📮 The Internet is a Giant Road of Cables!\nImagine the internet is like a massive highway system, but instead of cars, it carries **letters and packets of data**. Many people think the internet is a magic cloud, but it is actually a real-world network of copper wires and glass cables running underground and under oceans! \n\n* **Your Device**: Your phone or computer is like a house on this highway.\n* **The Data**: Photos, games, and website files are divided into tiny envelopes called **packets** to travel fast.\n\n✏️ **Fun Analogy**: Sending a message online is like sending lego blocks in separate envelopes. They fly down the wire and snap back together when they arrive at your friend's computer!",
@@ -62,15 +97,24 @@ export const htmlLessons: Lesson[] = [
     unit: "Unit 1: Web Fundamentals & Client-Server Architecture",
     bookRef: "Duckett Chapter 1 (p. 6-10)",
     exercise: {
-      question: "Which role is played by your web browser (like Chrome or Safari)?",
-      options: [
-        "The Server",
-        "The Client",
-        "The Router",
-        "The DNS Resolver"
-      ],
-      correctAnswer: "The Client",
-      hint: "Your browser requests pages from websites. The requester is always the Client!"
+      english: {
+        question: "Which role is played by your web browser (like Chrome or Safari)?",
+        options: ["The Server", "The Client", "The Router", "The DNS Resolver"],
+        correctAnswer: "The Client",
+        hint: "Your browser requests pages from websites. The requester is always the Client!"
+      },
+      hinglish: {
+        question: "Aapka web browser (jaise Chrome ya Safari) kaun sa role play karta hai?",
+        options: ["Server", "Client", "Router", "DNS Resolver"],
+        correctAnswer: "Client",
+        hint: "Aapka browser websites se pages maangta hai. Jo maangta hai woh hamesha Client hota hai!"
+      },
+      hindi: {
+        question: "आपका वेब ब्राउज़र (जैसे Chrome या Safari) कौन सी भूमिका निभाता है?",
+        options: ["सर्वर", "क्लाइंट", "राउटर", "DNS रिज़ॉल्वर"],
+        correctAnswer: "क्लाइंट",
+        hint: "आपका ब्राउज़र वेबसाइटों से पेज मांगता है। जो मांगता है वह हमेशा क्लाइंट होता है!"
+      }
     },
     english: {
       kid: "### 🧒 Client & Server: The Story of a Customer and a Librarian!\nIn the web world, computers have two main roles:\n1. **The Client (You)**: This is your computer or phone. When you open Chrome, you are the customer asking, *'Can I have a page?'*\n2. **The Server (The website computer)**: This is a giant computer far away that acts like a librarian. It sits waiting for requests, finds the file you want, and sends it back to you.\n\n* **Analogy**: The Client is a hungry kid looking at a menu; the Server is the chef cooking the meal!",
@@ -92,15 +136,39 @@ export const htmlLessons: Lesson[] = [
     unit: "Unit 1: Web Fundamentals & Client-Server Architecture",
     bookRef: "Freeman Chapter 2 (p. 25-28)",
     exercise: {
-      question: "What is the primary job of a DNS server?",
-      options: [
-        "To host website styling sheets",
-        "To translate easy-to-read domains (like nextsem.online) into IP addresses",
-        "To encrypt local hard drive databases",
-        "To speed up browser keyboard typing"
-      ],
-      correctAnswer: "To translate easy-to-read domains (like nextsem.online) into IP addresses",
-      hint: "DNS acts like the contact list on your phone. It maps names to numbers!"
+      english: {
+        question: "What is the primary job of a DNS server?",
+        options: [
+          "To host website styling sheets",
+          "To translate easy-to-read domains (like nextsem.online) into IP addresses",
+          "To encrypt local hard drive databases",
+          "To speed up browser keyboard typing"
+        ],
+        correctAnswer: "To translate easy-to-read domains (like nextsem.online) into IP addresses",
+        hint: "DNS acts like the contact list on your phone. It maps names to numbers!"
+      },
+      hinglish: {
+        question: "DNS server ka kaam kya hai?",
+        options: [
+          "Website ki styling sheets host karna",
+          "Domain names (jaise nextsem.online) ko IP address mein translate karna",
+          "Local hard drive encrypt karna",
+          "Browser ki typing speed badhaana"
+        ],
+        correctAnswer: "Domain names (jaise nextsem.online) ko IP address mein translate karna",
+        hint: "DNS phone ki contact list ki tarah kaam karta hai. Yeh naam ko number se map karta hai!"
+      },
+      hindi: {
+        question: "DNS सर्वर का मुख्य काम क्या है?",
+        options: [
+          "वेबसाइट की स्टाइलिंग होस्ट करना",
+          "डोमेन नामों (जैसे nextsem.online) को IP एड्रेस में बदलना",
+          "लोकल हार्ड ड्राइव एन्क्रिप्ट करना",
+          "ब्राउज़र की टाइपिंग गति बढ़ाना"
+        ],
+        correctAnswer: "डोमेन नामों (जैसे nextsem.online) को IP एड्रेस में बदलना",
+        hint: "DNS आपके फोन की कॉन्टैक्ट लिस्ट की तरह काम करता है। यह नाम को नंबर से जोड़ता है!"
+      }
     },
     english: {
       kid: "### 📞 DNS: The Phonebook of the Web!\nComputers don't understand words like `nextsem.online`. They only understand numbers called IP addresses. \n\n* **DNS (Domain Name System)** acts like the contacts list on your phone. \n* When you type `nextsem.online`, your browser quickly calls the DNS operator and asks: *'What is the number for nextsem.online?'* \n* The operator replies: *'It is 192.168.29.170!'* Your browser then dials that number instantly!\n\n✨ **Result**: You type letters, but computers talk in numbers, thanks to DNS!",
@@ -122,15 +190,24 @@ export const htmlLessons: Lesson[] = [
     unit: "Unit 1: Web Fundamentals & Client-Server Architecture",
     bookRef: "Freeman Chapter 2 (p. 29-32)",
     exercise: {
-      question: "Which address below is an example of an IPv4 address?",
-      options: [
-        "192.168.1.1",
-        "2001:db8:3333:4444:5555:6666:7777:8888",
-        "nextsem.online",
-        "C:\\Users\\Student"
-      ],
-      correctAnswer: "192.168.1.1",
-      hint: "IPv4 is written in four numbers separated by dots (dots/periods)!"
+      english: {
+        question: "Which address below is an example of an IPv4 address?",
+        options: ["192.168.1.1", "2001:db8:3333:4444:5555:6666:7777:8888", "nextsem.online", "C:\\Users\\Student"],
+        correctAnswer: "192.168.1.1",
+        hint: "IPv4 is written in four numbers separated by dots!"
+      },
+      hinglish: {
+        question: "Neeche diye mein se IPv4 address ka example kaun sa hai?",
+        options: ["192.168.1.1", "2001:db8:3333:4444:5555:6666:7777:8888", "nextsem.online", "C:\\Users\\Student"],
+        correctAnswer: "192.168.1.1",
+        hint: "IPv4 mein chaar numbers hote hain jo dots se alag hote hain!"
+      },
+      hindi: {
+        question: "नीचे दिए गए में से IPv4 एड्रेस का उदाहरण कौन सा है?",
+        options: ["192.168.1.1", "2001:db8:3333:4444:5555:6666:7777:8888", "nextsem.online", "C:\\Users\\Student"],
+        correctAnswer: "192.168.1.1",
+        hint: "IPv4 में चार नंबर होते हैं जो डॉट्स से अलग होते हैं!"
+      }
     },
     english: {
       kid: "### 🏠 Your Website Has a Mailing Address!\nJust like your house needs a mailing address for letters, every computer connected to the internet needs a unique number called an **IP Address**.\n\n* **IPv4**: The classic format, like `192.168.1.1`. It uses 4 numbers separated by dots. \n* **IPv6**: The new, super-sized format like `2001:0db8:85a3...`. It uses letters and numbers because the world ran out of IPv4 numbers!",
@@ -152,15 +229,24 @@ export const htmlLessons: Lesson[] = [
     unit: "Unit 1: Web Fundamentals & Client-Server Architecture",
     bookRef: "Freeman Chapter 2 (p. 33-35)",
     exercise: {
-      question: "Select the correct sequence of flags exchanged during a TCP connection handshake.",
-      options: [
-        "SYN -> SYN-ACK -> ACK",
-        "GET -> POST -> RESPOND",
-        "SYN -> ACK -> FIN",
-        "HELLO -> BYE -> OK"
-      ],
-      correctAnswer: "SYN -> SYN-ACK -> ACK",
-      hint: "Remember the sequence: Synchronize (SYN), Synchronize-Acknowledge (SYN-ACK), Acknowledge (ACK)."
+      english: {
+        question: "Select the correct sequence of flags exchanged during a TCP connection handshake.",
+        options: ["SYN -> SYN-ACK -> ACK", "GET -> POST -> RESPOND", "SYN -> ACK -> FIN", "HELLO -> BYE -> OK"],
+        correctAnswer: "SYN -> SYN-ACK -> ACK",
+        hint: "Remember the sequence: Synchronize (SYN), Synchronize-Acknowledge (SYN-ACK), Acknowledge (ACK)."
+      },
+      hinglish: {
+        question: "TCP connection handshake mein flags ka sahi sequence kya hai?",
+        options: ["SYN -> SYN-ACK -> ACK", "GET -> POST -> RESPOND", "SYN -> ACK -> FIN", "HELLO -> BYE -> OK"],
+        correctAnswer: "SYN -> SYN-ACK -> ACK",
+        hint: "Yaad rakho sequence: Synchronize (SYN), Synchronize-Acknowledge (SYN-ACK), Acknowledge (ACK)."
+      },
+      hindi: {
+        question: "TCP कनेक्शन हैंडशेक में flags का सही क्रम क्या है?",
+        options: ["SYN -> SYN-ACK -> ACK", "GET -> POST -> RESPOND", "SYN -> ACK -> FIN", "HELLO -> BYE -> OK"],
+        correctAnswer: "SYN -> SYN-ACK -> ACK",
+        hint: "क्रम याद रखें: Synchronize (SYN), Synchronize-Acknowledge (SYN-ACK), Acknowledge (ACK)."
+      }
     },
     english: {
       kid: "### 🤝 The 3-Step Handshake: Saying Hello!\nBefore your computer sends website data, it does a polite handshaking routine with the server:\n1. **SYN (Hello)**: You say: *'Hey, can we talk?'*\n2. **SYN-ACK (Hello Back)**: The server says: *'Yes, I hear you! Can you hear me?'*\n3. **ACK (Confirm)**: You say: *'Yes, I can hear you! Let's start!'*\n\n🤝 Now, the connection is active, and the data can flow safely!",
