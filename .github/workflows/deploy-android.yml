@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       KEYSTORE_PATH: keystore.jks
-      PLAY_STORE_JSON_KEY: fastlane/play_store.json
+      PLAY_STORE_JSON_KEY: mobile/android/fastlane/play_store.json
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
