@@ -37,8 +37,8 @@ export default function PaginatedSections({
       try {
         // Prepare Rewarded Video Ad
         await AdMob.prepareRewardVideoAd({
-          adId: 'ca-app-pub-3940256099942544/5224354917', // Google Test Rewarded Ad ID
-          isTesting: true
+          adId: 'ca-app-pub-4242865347895866/5641573985', // Production AdMob Rewarded Ad ID
+          isTesting: false
         });
 
         // Setup event listener for reward

@@ -16,8 +16,8 @@ export default function MarkCompleteButton({ chapterId, hasAssignment }: { chapt
   const prepareAd = async () => {
     try {
       await AdMob.prepareInterstitial({
-        adId: 'ca-app-pub-3940256099942544/1033173712', // Official Google Test Interstitial ID
-        isTesting: true
+        adId: 'ca-app-pub-4242865347895866/3489485149', // Production AdMob Interstitial ID
+        isTesting: false
       });
     } catch (e) {
       console.error("Failed to prepare AdMob Interstitial ad:", e);

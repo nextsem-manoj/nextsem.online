@@ -25,8 +25,8 @@ export default function AdSenseBanner() {
   const [adBlocked, setAdBlocked] = useState(false);
   const insRef = useRef<HTMLModElement>(null);
   const pathname = usePathname() || '';
-  const isInBook = pathname.startsWith('/book/');
-  const isLearnPage = pathname.startsWith('/book/') || pathname.startsWith('/html/');
+  const isInBook = pathname.startsWith('/book/') || pathname.startsWith('/cli/');
+  const isLearnPage = pathname.startsWith('/book/') || pathname.startsWith('/html/') || pathname.startsWith('/cli/');
   const { theme } = useTheme();
 
   useEffect(() => {

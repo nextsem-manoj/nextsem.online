@@ -4,6 +4,13 @@ const config: CapacitorConfig = {
   appId: 'online.nextsem.app',
   appName: 'Nextsem Academy',
   webDir: 'out',
+  server: {
+    // Load content from live production server instead of bundling 100MB+ of web assets
+    // This keeps the AAB under 10MB while all features remain fully functional
+    url: 'https://nextsem.online',
+    cleartext: false,
+    androidScheme: 'https',
+  },
   plugins: {
     GoogleAuth: {
       scopes: ["profile", "email"],

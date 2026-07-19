@@ -204,7 +204,7 @@ export default function CliDashboardClient() {
               Click on any unlocked lesson below to jump directly into the slide-deck lesson and solve check problems.
             </p>
 
-            <div className="h-[550px] overflow-y-auto pr-1 space-y-1.5 scrollbar-thin">
+            <div className="max-h-[60vh] min-h-[300px] overflow-y-auto pr-1 space-y-1.5 scrollbar-thin">
               {cliLessons.map((lesson) => {
                 const isCompleted = completedLessons.has(lesson.id);
                 const isUnlocked = isLessonUnlocked(lesson.id);
