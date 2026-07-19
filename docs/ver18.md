@@ -106,28 +106,118 @@ server: {
 - [ ] Update banner showing v18 changes on Home page
 - [ ] `gradlew bundleRelease` → verify size < 10MB
 - [ ] Upload to Internal Testing → Promote to Closed → Promote to Production
-/learn for ver 18 release sav it in ver18.md following suggestiosn 
-1. update logo of app using new colour scheme as in our currebt oriject 
-2. reward video does not return pdf 
-3.if pdf is returned there is no content do add current lesson inside the pdf 
-4.404 error page not found come randomly add an option to recheck on error page and an option to go back to last lesson 
-5.there is a delay on clicking the buttona and opening of link 
-6.theme option i think just keep two themes only dark default and light on request but theme toggling does not do the purpose
-i find on light theme the text is not visible background is not shifted please make sure backround and text should be updated as per theme 
-7.complete cli lessons with 100 lessons target 
-7.complete css lessons with 100 lessons target 
-7.complete js lessons with 100 lessons target 
-7.complete React lessons with 100 lessons target 
-7.complete node.js lessons with 100 lessons target 
-7.complete React Native lessons with 100 lessons target 
-7.complete sql lessons with 100 lessons target 
-8.complete python lessons with 100 lessons target 
-9.complete bootstrap lessons with 100 lessons target 
-8.next.js lessons with 100 lessons target 
-10. complete typescript lessons with 100 lessons target 
-11. complete mongodb lessons with 100 lessons target 
-12. complete mern stack lessons with 100 lessons target.
-13. complete DSA with 100 lessons target.  
-14. complete git and github with 100 lessons target.
-15. complete devops with 100 lessons target.  
 
+---
+
+## 🐛 User-Reported Bugs (Fix in v18)
+
+> Issues found after v17 (2.2.4) Beta — must fix before v18 ships
+
+- [ ] **1. Logo update** — Redesign app icon using current color scheme (dark bg + blue/emerald gradients)
+- [ ] **2. Rewarded ad PDF bug** — Fix AdMob v8 event names: `rewardedVideoReward` → `onRewardedVideoAdReward`, `rewardedVideoClosed` → `onRewardedVideoAdDismissed`
+- [ ] **3. PDF has no content** — Use `#print-section` hidden div + `@media print` CSS to render all lesson slides
+- [ ] **4. Random 404 errors** — Update `not-found.tsx` with Retry button + “Go back to last lesson” (localStorage)
+- [ ] **5. Button tap delay** — Add `touch-action: manipulation` to globals.css on all buttons/links
+- [ ] **6. Light theme broken** — Keep only Dark (default) + Light themes; fix all components with proper `dark:` / light fallbacks
+
+---
+
+## 📚 Full Stack Web Developer — Complete Curriculum Roadmap
+
+> **Target**: Every subject = 100 lessons, multilingual (EN/Hinglish/Hindi), Kid+Pro mode, SEO slugs, MCQ quiz
+> 
+> This is the **master curriculum plan** for Nextsem Academy to become a complete full-stack learning platform.
+
+### 🏗️ Phase 1 — Foundation (Must Know First)
+
+| # | Subject | Lessons | Priority | Data File |
+|---|---|---|---|---|
+| 1 | **HTML5** | 100 | 🔴 Critical | `htmlLessonsData.ts` |
+| 2 | **CSS3 (Basics)** | 100 | 🔴 Critical | `cssLessonsData.ts` (NEW) |
+| 3 | **JavaScript (ES6+)** | 100 | 🔴 Critical | `jsLessonsData.ts` (NEW) |
+| 4 | **Windows CLI / CMD** | 100 | 🔴 Critical | `cliLessonsData.ts` — 15 done |
+| 5 | **Git & GitHub** | 100 | 🔴 Critical | `gitLessonsData.ts` (NEW) |
+
+### 🎨 Phase 2 — Frontend Development
+
+| # | Subject | Lessons | Priority | Data File |
+|---|---|---|---|---|
+| 6 | **Bootstrap 5** | 100 | 🟡 High | `bootstrapLessonsData.ts` (NEW) |
+| 7 | **Tailwind CSS** | 100 | 🟡 High | `tailwindLessonsData.ts` (NEW) |
+| 8 | **Advanced CSS** (Animations, Grid, Flexbox, Variables) | 100 | 🟡 High | `advCssLessonsData.ts` (NEW) |
+| 9 | **React.js (Core)** | 100 | 🔴 Critical | `reactLessonsData.ts` (NEW) |
+| 10 | **Advanced React** (Hooks, Context API, Redux, Zustand) | 100 | 🔴 Critical | `advReactLessonsData.ts` (NEW) |
+| 11 | **TypeScript** | 100 | 🔴 Critical | `typescriptLessonsData.ts` (NEW) |
+| 12 | **Next.js** (App Router, SSR, SSG, ISR) | 100 | 🔴 Critical | `nextjsLessonsData.ts` (NEW) |
+| 13 | **React Native** (Expo + Capacitor) | 100 | 🟡 High | `reactNativeLessonsData.ts` (NEW) |
+
+### ⚙️ Phase 3 — Backend Development
+
+| # | Subject | Lessons | Priority | Data File |
+|---|---|---|---|---|
+| 14 | **Node.js** (Core, Streams, Events) | 100 | 🔴 Critical | `nodeLessonsData.ts` (NEW) |
+| 15 | **Express.js** (REST APIs, Middleware, Auth) | 100 | 🔴 Critical | `expressLessonsData.ts` (NEW) |
+| 16 | **Advanced JS** (Closures, Promises, Event Loop, OOP) | 100 | 🔴 Critical | `advJsLessonsData.ts` (NEW) |
+| 17 | **REST API Design** (HTTP, JSON, Swagger, Versioning) | 50 | 🟡 High | `restApiLessonsData.ts` (NEW) |
+| 18 | **GraphQL** | 50 | 🟢 Medium | `graphqlLessonsData.ts` (NEW) |
+| 19 | **WebSockets & Real-time** | 30 | 🟢 Medium | `websocketLessonsData.ts` (NEW) |
+| 20 | **Authentication** (JWT, OAuth, Sessions, Firebase Auth) | 50 | 🔴 Critical | `authLessonsData.ts` (NEW) |
+| 21 | **Python** (Scripting + Backend) | 100 | 🟡 High | `pythonLessonsData.ts` (NEW) |
+| 22 | **Django / FastAPI** | 100 | 🟢 Medium | `djangoLessonsData.ts` (NEW) |
+
+### 🗄️ Phase 4 — Databases
+
+| # | Subject | Lessons | Priority | Data File |
+|---|---|---|---|---|
+| 23 | **SQL** (MySQL, PostgreSQL) | 100 | 🔴 Critical | `sqlLessonsData.ts` (NEW) |
+| 24 | **MongoDB** (NoSQL, Aggregation) | 100 | 🔴 Critical | `mongoLessonsData.ts` (NEW) |
+| 25 | **Prisma ORM** | 50 | 🟡 High | `prismaLessonsData.ts` (NEW) |
+| 26 | **Redis** (Caching, Sessions, Pub/Sub) | 50 | 🟢 Medium | `redisLessonsData.ts` (NEW) |
+
+### 🚀 Phase 5 — Full Stack Projects
+
+| # | Subject | Lessons | Priority | Data File |
+|---|---|---|---|---|
+| 27 | **MERN Stack** (Full Projects) | 100 | 🔴 Critical | `mernLessonsData.ts` (NEW) |
+| 28 | **Full Stack Next.js Projects** | 50 | 🔴 Critical | `nextjsProjectsData.ts` (NEW) |
+| 29 | **System Design** (LLD, HLD, Scalability) | 100 | 🔴 Critical | `systemDesignData.ts` (NEW) |
+
+### 🔧 Phase 6 — DevOps & Deployment
+
+| # | Subject | Lessons | Priority | Data File |
+|---|---|---|---|---|
+| 30 | **Linux CLI** (Bash, Shell Scripting) | 100 | 🟡 High | `linuxLessonsData.ts` (NEW) |
+| 31 | **Docker** (Containers, Compose, Images) | 100 | 🔴 Critical | `dockerLessonsData.ts` (NEW) |
+| 32 | **CI/CD** (GitHub Actions, Pipelines) | 50 | 🟡 High | `cicdLessonsData.ts` (NEW) |
+| 33 | **Cloud (AWS / Firebase / Vercel)** | 100 | 🟡 High | `cloudLessonsData.ts` (NEW) |
+| 34 | **Kubernetes** (Basics) | 50 | 🟢 Medium | `k8sLessonsData.ts` (NEW) |
+| 35 | **Nginx & Web Servers** | 30 | 🟢 Medium | `nginxLessonsData.ts` (NEW) |
+| 36 | **DevOps Complete** (End-to-End Workflow) | 100 | 🟡 High | `devopsLessonsData.ts` (NEW) |
+
+### 🧠 Phase 7 — CS Fundamentals & Advanced
+
+| # | Subject | Lessons | Priority | Data File |
+|---|---|---|---|---|
+| 37 | **DSA** (Arrays, Trees, Graphs, DP, Sorting) | 100 | 🔴 Critical | `dsaLessonsData.ts` (NEW) |
+| 38 | **Computer Networks** (HTTP, TCP/IP, DNS, SSL) | 100 | 🔴 Critical | `networkingData.ts` (NEW) |
+| 39 | **Web Security** (OWASP Top 10, XSS, CSRF, SQL Injection) | 50 | 🔴 Critical | `securityLessonsData.ts` (NEW) |
+| 40 | **Performance Optimization** (Web Vitals, Caching, Lazy Load) | 50 | 🟡 High | `perfLessonsData.ts` (NEW) |
+| 41 | **Testing** (Jest, Vitest, Cypress, RTL) | 50 | 🟡 High | `testingLessonsData.ts` (NEW) |
+| 42 | **Operating Systems Basics** | 50 | 🟢 Medium | `osLessonsData.ts` (NEW) |
+
+---
+
+### 📊 Total Curriculum Overview
+
+| Phase | Subjects | Total Lessons |
+|---|---|---|
+| Phase 1 — Foundation | 5 subjects | ~500 lessons |
+| Phase 2 — Frontend | 8 subjects | ~800 lessons |
+| Phase 3 — Backend | 9 subjects | ~730 lessons |
+| Phase 4 — Databases | 4 subjects | ~300 lessons |
+| Phase 5 — Full Stack | 3 subjects | ~250 lessons |
+| Phase 6 — DevOps | 7 subjects | ~530 lessons |
+| Phase 7 — CS + Advanced | 6 subjects | ~400 lessons |
+| **🏆 TOTAL** | **42 subjects** | **~3,510 lessons** |
+
+> **Nextsem Academy Goal**: Become the #1 free multilingual Full Stack Web Dev platform in India 🇮🇳
