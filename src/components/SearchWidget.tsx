@@ -4,7 +4,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 import { 
   Search, ArrowLeft, X, History, Sparkles, BookOpen, Plus, 
-  Mic, Camera, UploadCloud, FileText, CheckCircle2, XCircle 
+  Mic, Camera, UploadCloud, FileText, CheckCircle2, XCircle,
+  ExternalLink, Code 
 } from 'lucide-react';
 import Link from 'next/link';
 import searchIndex from '../data/searchIndex.json';
@@ -19,6 +20,52 @@ const SUGGESTED_SEARCHES = [
   'Node Express APIs',
   'MongoDB database collections'
 ];
+
+const STOP_WORDS = new Set(['a', 'about', 'above', 'after', 'again', 'against', 'all', 'am', 'an', 'and', 'any', 'are', 'arent', 'as', 'at', 'be', 'because', 'been', 'before', 'being', 'below', 'between', 'both', 'but', 'by', 'cant', 'cannot', 'could', 'couldnt', 'did', 'didnt', 'do', 'does', 'doesnt', 'doing', 'dont', 'down', 'during', 'each', 'few', 'for', 'from', 'further', 'had', 'hadnt', 'has', 'hasnt', 'have', 'havent', 'having', 'he', 'hed', 'hell', 'hes', 'her', 'here', 'heres', 'hers', 'herself', 'him', 'himself', 'his', 'how', 'hows', 'i', 'id', 'ill', 'im', 'ive', 'if', 'in', 'into', 'is', 'isnt', 'it', 'its', 'itself', 'lets', 'me', 'more', 'most', 'mustnt', 'my', 'myself', 'no', 'nor', 'not', 'of', 'off', 'on', 'once', 'only', 'or', 'other', 'ought', 'our', 'ours', 'ourselves', 'out', 'over', 'own', 'same', 'shant', 'she', 'shed', 'shell', 'shes', 'should', 'shouldnt', 'so', 'some', 'such', 'than', 'that', 'thats', 'the', 'their', 'theirs', 'them', 'themselves', 'then', 'there', 'theres', 'these', 'they', 'theyd', 'theyll', 'theyre', 'theyve', 'this', 'those', 'through', 'to', 'too', 'under', 'until', 'up', 'very', 'was', 'wasnt', 'we', 'wed', 'well', 'were', 'weve', 'werent', 'what', 'whats', 'when', 'whens', 'where', 'wheres', 'which', 'while', 'who', 'whos', 'whom', 'why', 'whys', 'with', 'wont', 'would', 'wouldnt', 'you', 'youd', 'youll', 'youre', 'youve', 'your', 'yours', 'yourself', 'yourselves']);
+
+function getLevenshteinDistance(a: string, b: string): number {
+  const tmp = [];
+  for (let i = 0; i <= a.length; i++) tmp[i] = [i];
+  for (let j = 0; j <= b.length; j++) tmp[0][j] = j;
+  for (let i = 1; i <= a.length; i++) {
+    for (let j = 1; j <= b.length; j++) {
+      tmp[i][j] = Math.min(
+        tmp[i - 1][j] + 1,
+        tmp[i][j - 1] + 1,
+        tmp[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1)
+      );
+    }
+  }
+  return tmp[a.length][b.length];
+}
+
+const highlightText = (text: string, query: string) => {
+  if (!query) return <span>{text}</span>;
+  const words = query.toLowerCase().split(/\s+/).filter(w => w.length > 1 && !STOP_WORDS.has(w));
+  if (words.length === 0) {
+    const cleanQ = query.trim();
+    if (!cleanQ) return <span>{text}</span>;
+    words.push(cleanQ.toLowerCase());
+  }
+
+  const pattern = words.map(w => w.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')).join('|');
+  const regex = new RegExp(`(${pattern})`, 'gi');
+  const parts = text.split(regex);
+
+  return (
+    <span>
+      {parts.map((part, index) =>
+        regex.test(part) ? (
+          <mark key={index} className="bg-blue-500/20 text-blue-400 font-bold border border-blue-500/20 px-0.5 rounded">
+            {part}
+          </mark>
+        ) : (
+          part
+        )
+      )}
+    </span>
+  );
+};
 
 interface SearchItem {
   id: string;
@@ -242,9 +289,7 @@ const SearchWidget = () => {
   const cseRef = useRef<HTMLDivElement>(null);
 
   const [isAiMode, setIsAiMode] = useState(false);
-  const [isGoogleMode, setIsGoogleMode] = useState(false);
   const [autosuggestions, setAutosuggestions] = useState<string[]>([]);
-  const [cseLoaded, setCseLoaded] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
   const [aiResponse, setAiResponse] = useState<AiResponse | null>(null);
   const [isInputFocused, setIsInputFocused] = useState(false);
@@ -318,11 +363,16 @@ const SearchWidget = () => {
     };
     window.addEventListener("open_google_auth", handleOpenAuth);
 
-    const handleOpenSearch = () => {
+    const handleOpenSearch = (e: Event) => {
+      const detail = (e as CustomEvent).detail;
+      const query = typeof detail === 'object' && detail !== null && 'query' in detail ? detail.query : '';
       setIsOpen(true);
+      if (query) {
+        setSearchQuery(query);
+      }
       setTimeout(() => inputRef.current?.focus(), 150);
     };
-    window.addEventListener("open_search", handleOpenSearch);
+    window.addEventListener("open_search", handleOpenSearch as EventListener);
 
     const handleAuthError = (e: Event) => {
       const customEvent = e as CustomEvent<string>;
@@ -357,7 +407,7 @@ const SearchWidget = () => {
 
     return () => {
       window.removeEventListener("open_google_auth", handleOpenAuth);
-      window.removeEventListener("open_search", handleOpenSearch);
+      window.removeEventListener("open_search", handleOpenSearch as EventListener);
       window.removeEventListener("nextsem_auth_error", handleAuthError as EventListener);
       unsubscribe();
     };
@@ -381,107 +431,7 @@ const SearchWidget = () => {
     }
   }, [searchQuery, isAiMode]);
 
-  // Load Google CSE script
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      if (!document.getElementById('google-cse-script')) {
-        const script = document.createElement('script');
-        script.id = 'google-cse-script';
-        script.src = "https://cse.google.com/cse.js?cx=e3ec8ed7ecb624b82";
-        script.async = true;
-        document.body.appendChild(script);
-        script.onload = () => setCseLoaded(true);
-      } else {
-        setCseLoaded(true);
-      }
-    }
-  }, []);
 
-  // Fetch Google Autosuggestions on typing
-  useEffect(() => {
-    const query = searchQuery.trim();
-    if (!query) {
-      setAutosuggestions([]);
-      return;
-    }
-
-    const delayDebounce = setTimeout(async () => {
-      try {
-        const res = await fetch(`https://suggestqueries.google.com/complete/search?client=firefox&q=${encodeURIComponent(query)}`);
-        if (res.ok) {
-          const data = await res.json();
-          if (Array.isArray(data) && Array.isArray(data[1])) {
-            setAutosuggestions(data[1]);
-          }
-        }
-      } catch (e) {
-        console.error("Autosuggest error:", e);
-      }
-    }, 150);
-
-    return () => clearTimeout(delayDebounce);
-  }, [searchQuery]);
-
-  // Dynamically initialize and render the Google Custom Search Element when the tab mounts
-  useEffect(() => {
-    if (isGoogleMode && cseRef.current && typeof window !== 'undefined') {
-      const initCse = () => {
-        // @ts-expect-error google search object is injected by cse.js
-        const google = window.google;
-        if (google?.search?.cse?.element) {
-          try {
-            // Check if already rendered to avoid duplicates
-            if (cseRef.current && cseRef.current.innerHTML === '') {
-              google.search.cse.element.render({
-                div: cseRef.current,
-                tag: 'search',
-                gname: 'nextsem-search',
-                attributes: {
-                  queryParameterName: 'q',
-                  historyPagePath: '',
-                  disableWebSearch: false
-                }
-              });
-            }
-          } catch (err) {
-            console.error("Google CSE Render Error:", err);
-          }
-        }
-      };
-
-      if (cseLoaded) {
-        initCse();
-      } else {
-        const interval = setInterval(() => {
-          // @ts-expect-error google search
-          if (window.google?.search?.cse?.element) {
-            initCse();
-            clearInterval(interval);
-          }
-        }, 100);
-        return () => clearInterval(interval);
-      }
-    }
-  }, [isGoogleMode, cseLoaded]);
-
-  // Execute Google CSE search query automatically when in Google Search Mode
-  useEffect(() => {
-    if (isGoogleMode && searchQuery.trim() && typeof window !== 'undefined') {
-      const triggerCse = () => {
-        // @ts-expect-error google search object is injected by cse.js
-        const google = window.google;
-        if (google?.search?.cse?.element) {
-          const element = google.search.cse.element.getElement('nextsem-search');
-          if (element) {
-            element.execute(searchQuery);
-          }
-        }
-      };
-
-      const timer = setTimeout(triggerCse, 500);
-      return () => clearTimeout(timer);
-    }
-  }, [searchQuery, isGoogleMode, cseLoaded]);
 
   // Save history to localStorage
   const saveSearchToHistory = (query: string) => {
@@ -503,18 +453,6 @@ const SearchWidget = () => {
       setAutosuggestions([]);
       setIsInputFocused(false);
       inputRef.current?.blur();
-      
-      // If we are in Google Mode, force execution immediately
-      if (isGoogleMode) {
-        // @ts-expect-error google search object
-        const google = window.google;
-        if (google?.search?.cse?.element) {
-          const element = google.search.cse.element.getElement('nextsem-search');
-          if (element) {
-            element.execute(searchQuery);
-          }
-        }
-      }
     }
   };
 
@@ -538,46 +476,100 @@ const SearchWidget = () => {
     const query = searchQuery.trim().toLowerCase();
     if (!query) return [];
 
+    const queryWords = query.split(/\s+/).filter(w => w.length > 1);
+    const stopWordsFiltered = queryWords.filter(w => !STOP_WORDS.has(w));
+    const wordsToSearch = stopWordsFiltered.length > 0 ? stopWordsFiltered : queryWords;
+
     return (searchIndex as SearchItem[])
       .map((item) => {
         let score = 0;
         const lowerTitle = item.title.toLowerCase();
         const lowerContent = item.content.toLowerCase();
 
-        // Exact title match: highest weight
+        // 1. Exact title match boost
         if (lowerTitle === query) {
-          score += 1000;
+          score += 1500;
         } else if (lowerTitle.startsWith(query)) {
-          score += 500;
+          score += 800;
         } else if (lowerTitle.includes(query)) {
-          score += 200;
+          score += 400;
         }
 
-        // Check for individual word matches in title or content
-        const words = query.split(/\s+/).filter((w) => w.length > 1);
-        words.forEach((word) => {
-          if (lowerTitle.includes(word)) score += 50;
-          if (lowerContent.includes(word)) score += 10;
+        // 2. Substring phrase match in content
+        if (lowerContent.includes(query)) {
+          score += 300;
+        }
+
+        // 3. Word matches in title & content
+        wordsToSearch.forEach((word) => {
+          // Word match in title
+          if (lowerTitle.includes(word)) {
+            score += 100;
+            // Matches exact word in title (boundaries)
+            const regex = new RegExp(`\\b${word}\\b`, 'i');
+            if (regex.test(lowerTitle)) {
+              score += 150;
+            }
+          }
+
+          // Word occurrences in content (TF-IDF approximation)
+          const occurrences = lowerContent.split(word).length - 1;
+          if (occurrences > 0) {
+            score += Math.min(occurrences * 15, 150); // cap TF at 150
+          }
+
+          // 4. Fuzzy word matches in title (Levenshtein distance)
+          if (word.length >= 4) {
+            const titleWords = lowerTitle.split(/\s+/);
+            titleWords.forEach((tWord) => {
+              const cleanTWord = tWord.replace(/[^a-zA-Z]/g, '');
+              if (cleanTWord.length >= 4) {
+                const dist = getLevenshteinDistance(word, cleanTWord);
+                if (dist === 1) {
+                  score += 80;
+                } else if (dist === 2) {
+                  score += 40;
+                }
+              }
+            });
+          }
         });
 
-        // Exact letter match (single letter search support)
-        if (query.length === 1) {
-          if (lowerTitle.includes(query)) score += 5;
-          if (lowerContent.includes(query)) score += 1;
+        // 5. Word Proximity Boost
+        if (wordsToSearch.length > 1) {
+          let lastIndex = -1;
+          let minDistance = Infinity;
+          wordsToSearch.forEach((word) => {
+            const idx = lowerContent.indexOf(word);
+            if (idx !== -1) {
+              if (lastIndex !== -1) {
+                const dist = Math.abs(idx - lastIndex);
+                if (dist < minDistance) minDistance = dist;
+              }
+              lastIndex = idx;
+            }
+          });
+          if (minDistance < 150) {
+            score += 100; // close proximity boost
+          }
         }
 
         // Extract a clean matched text snippet around the query
         let excerpt = '';
-        if (lowerContent.includes(query)) {
-          const index = lowerContent.indexOf(query);
-          const start = Math.max(0, index - 40);
-          const end = Math.min(item.content.length, index + query.length + 60);
-          excerpt = '...' + item.content.substring(start, end).replace(/\s+/g, ' ').trim() + '...';
-        } else if (item.content.length > 100) {
-          excerpt = item.content.substring(0, 100) + '...';
-        } else {
-          excerpt = item.content;
+        let bestIndex = 0;
+        for (const word of wordsToSearch) {
+          const idx = lowerContent.indexOf(word);
+          if (idx !== -1) {
+            bestIndex = idx;
+            break;
+          }
         }
+
+        const start = Math.max(0, bestIndex - 40);
+        const end = Math.min(item.content.length, bestIndex + 120);
+        excerpt = item.content.substring(start, end).replace(/\s+/g, ' ').trim();
+        if (start > 0) excerpt = '...' + excerpt;
+        if (end < item.content.length) excerpt = excerpt + '...';
 
         return { ...item, score, excerpt };
       })
@@ -811,10 +803,9 @@ const SearchWidget = () => {
             <button
               onClick={() => {
                 setIsAiMode(false);
-                setIsGoogleMode(false);
               }}
               className={`flex items-center gap-1.5 px-5 py-3 font-black uppercase tracking-wider border-b-2 transition-all shrink-0 ${
-                !isAiMode && !isGoogleMode
+                !isAiMode
                   ? "border-blue-500 text-white bg-slate-900/30" 
                   : "border-transparent text-slate-400 hover:text-white"
               }`}
@@ -825,7 +816,6 @@ const SearchWidget = () => {
             <button
               onClick={() => {
                 setIsAiMode(true);
-                setIsGoogleMode(false);
                 inputRef.current?.focus();
               }}
               className={`flex items-center gap-1.5 px-5 py-3 font-black uppercase tracking-wider border-b-2 transition-all shrink-0 ${
@@ -836,21 +826,6 @@ const SearchWidget = () => {
             >
               <Sparkles size={13} className="text-emerald-500" />
               <span>AI Search Mode</span>
-            </button>
-            <button
-              onClick={() => {
-                setIsAiMode(false);
-                setIsGoogleMode(true);
-                inputRef.current?.focus();
-              }}
-              className={`flex items-center gap-1.5 px-5 py-3 font-black uppercase tracking-wider border-b-2 transition-all shrink-0 ${
-                isGoogleMode 
-                  ? "border-red-500 text-red-400 bg-slate-900/30" 
-                  : "border-transparent text-slate-400 hover:text-white"
-              }`}
-            >
-              <Search size={13} className="text-red-500 animate-pulse" />
-              <span>Google Site Search</span>
             </button>
           </div>
 
@@ -942,16 +917,6 @@ const SearchWidget = () => {
             {/* Case B: Query Entered */}
             {searchQuery && (
               <div className="space-y-4">
-                
-                {/* Google CSE Search Result Panel */}
-                {isGoogleMode && (
-                  <div className="bg-[#0b0f19] p-4 rounded-2xl border border-slate-850 min-h-[300px] text-left animate-in fade-in duration-200">
-                    <span className="block text-xs font-black uppercase tracking-wider text-slate-400 mb-4">
-                      Google Custom Search Results
-                    </span>
-                    <div ref={cseRef} className="w-full min-h-[250px] text-slate-950"></div>
-                  </div>
-                )}
 
                 {/* AI Search Mode Result Panel */}
                 {isAiMode && (
@@ -1017,93 +982,109 @@ const SearchWidget = () => {
                   </div>
                 )}
 
-                {/* Standard Results list (shown always under AI overview for comprehensive references, hidden in Google Mode) */}
-                {!isGoogleMode && (
+                {/* Standard Results list */}
+                <div className="space-y-6">
+                  {/* Nextsem Suggested Results */}
                   <div className="space-y-4">
                     <span className="block text-xs font-black uppercase tracking-wider text-slate-400 mb-4 pt-2">
-                      {isAiMode ? "Curriculum References" : "Search Results"} ({results.length})
+                      {isAiMode ? "Curriculum References" : "Nextsem Suggested Results"} ({results.length})
                     </span>
 
                     {results.length > 0 ? (
-                      <div className="space-y-6">
-                        <div className="flex flex-col gap-4">
-                          {results.map((item) => (
-                            <Link
-                              key={item.id}
-                              href={getChapterUrl(item.id)}
-                              onClick={() => handleSelectResult(item.title)}
-                              className="flex flex-col sm:flex-row gap-4 p-3 bg-slate-900/30 hover:bg-slate-900/80 border border-slate-850 rounded-2xl transition-all duration-300 group hover:border-blue-500/40 shadow-sm"
-                            >
-                              {/* Thumbnail */}
-                              <div className="aspect-video w-full sm:w-48 bg-slate-950 rounded-xl flex flex-col items-center justify-center border border-slate-850/80 shadow-md relative overflow-hidden shrink-0 group-hover:scale-[1.02] transition-transform duration-300">
-                                <div className={`absolute inset-0 opacity-15 bg-gradient-to-br ${item.color} blur-xl`} />
-                                
-                                <div className={`w-12 h-12 rounded-2xl ${item.color} flex items-center justify-center text-2xl font-black shadow-lg border border-white/20 relative z-10 group-hover:rotate-6 transition-transform duration-300`}>
-                                  {item.icon}
-                                </div>
-                                <span className="absolute bottom-2 right-2 bg-black/80 text-[10px] font-black uppercase px-2 py-0.5 rounded border border-white/10 tracking-widest text-slate-250 z-10">
-                                  {item.phase}
-                                </span>
-                              </div>
-
-                              {/* Metadata */}
-                              <div className="flex flex-col justify-center flex-1 text-left">
-                                <h4 className="text-base md:text-lg font-black text-white leading-snug group-hover:text-blue-400 transition-colors mb-1.5">
-                                  {item.title}
-                                </h4>
-                                
-                                <div className="flex items-center gap-2 text-xs text-slate-400 font-bold mb-2">
-                                  <span>Nextsem Academy</span>
-                                  <span>•</span>
-                                  <span>{item.duration}</span>
-                                </div>
-                                
-                                <p className="text-xs md:text-sm text-slate-400 font-medium leading-relaxed bg-slate-900/40 border border-slate-850/20 px-3 py-2 rounded-lg font-mono overflow-x-hidden text-ellipsis whitespace-nowrap sm:whitespace-normal">
-                                  {item.excerpt}
-                                </p>
-                              </div>
-                            </Link>
-                          ))}
-                        </div>
-
-                        {/* Search web suggestion at bottom of filled list */}
-                        <div className="pt-6 border-t border-slate-900 text-center">
-                          <button
-                            onClick={handleExternalGoogleSearch}
-                            className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-slate-900 hover:bg-slate-850 border border-slate-800 rounded-xl text-xs font-bold text-slate-300 transition-all active:scale-95 cursor-pointer"
+                      <div className="flex flex-col gap-4">
+                        {results.map((item) => (
+                          <Link
+                            key={item.id}
+                            href={getChapterUrl(item.id)}
+                            onClick={() => handleSelectResult(item.title)}
+                            className="flex flex-col sm:flex-row gap-4 p-3 bg-slate-900/30 hover:bg-slate-900/80 border border-slate-850 rounded-2xl transition-all duration-300 group hover:border-blue-500/40 shadow-sm"
                           >
-                            <Search size={12} className="text-blue-500" />
-                            <span>Not finding what you need? Search &ldquo;{searchQuery}&rdquo; on Google Web Search</span>
-                          </button>
-                        </div>
+                            {/* Thumbnail */}
+                            <div className="aspect-video w-full sm:w-48 bg-slate-950 rounded-xl flex flex-col items-center justify-center border border-slate-850/80 shadow-md relative overflow-hidden shrink-0 group-hover:scale-[1.02] transition-transform duration-300">
+                              <div className={`absolute inset-0 opacity-15 bg-gradient-to-br ${item.color} blur-xl`} />
+                              
+                              <div className={`w-12 h-12 rounded-2xl ${item.color} flex items-center justify-center text-2xl font-black shadow-lg border border-white/20 relative z-10 group-hover:rotate-6 transition-transform duration-300`}>
+                                {item.icon}
+                              </div>
+                              <span className="absolute bottom-2 right-2 bg-black/80 text-[10px] font-black uppercase px-2 py-0.5 rounded border border-white/10 tracking-widest text-slate-250 z-10">
+                                {item.phase}
+                              </span>
+                            </div>
+
+                            {/* Metadata */}
+                            <div className="flex flex-col justify-center flex-1 text-left">
+                              <h4 className="text-base md:text-lg font-black text-white leading-snug group-hover:text-blue-400 transition-colors mb-1.5">
+                                {highlightText(item.title, searchQuery)}
+                              </h4>
+                              
+                              <div className="flex items-center gap-2 text-xs text-slate-400 font-bold mb-2">
+                                <span>Nextsem Academy</span>
+                                <span>•</span>
+                                <span>{item.duration}</span>
+                              </div>
+                              
+                              <p className="text-xs md:text-sm text-slate-400 font-medium leading-relaxed bg-slate-900/40 border border-slate-850/20 px-3 py-2 rounded-lg font-mono overflow-x-hidden text-ellipsis whitespace-nowrap sm:whitespace-normal">
+                                {highlightText(item.excerpt, searchQuery)}
+                              </p>
+                            </div>
+                          </Link>
+                        ))}
                       </div>
                     ) : (
-                      /* Only show no results if standard results are also empty */
+                      /* Only show no local results message if not generating */
                       !isGenerating && (
-                        <div className="text-center py-12">
-                          <span className="block text-4xl mb-4">🔍</span>
-                          <h4 className="text-base font-black text-slate-300 mb-1">No Results Found</h4>
-                          <p className="text-xs text-slate-500 max-w-xs mx-auto mb-5">
-                            We couldn&apos;t find anything matching &quot;{searchQuery}&quot; on Nextsem. Try searching for HTML, CSS, React, or Setup.
+                        <div className="text-center py-10 border border-dashed border-slate-855 rounded-2xl bg-slate-900/10">
+                          <span className="block text-2xl mb-2">🔍</span>
+                          <h4 className="text-xs font-black text-slate-400 mb-1">No Matching Academy Tutorials</h4>
+                          <p className="text-[10px] text-slate-500 max-w-xs mx-auto">
+                            No internal tutorials match &quot;{searchQuery}&quot;. Please refer to the external search resources below.
                           </p>
-                          <button
-                            onClick={handleExternalGoogleSearch}
-                            className="inline-flex items-center gap-1.5 px-5 py-2.5 bg-blue-600/10 hover:bg-blue-600/20 border border-blue-500/30 rounded-xl text-xs font-black text-blue-400 transition-all active:scale-95 cursor-pointer shadow-lg"
-                          >
-                            <Search size={12} className="text-blue-400 animate-pulse" />
-                            <span>Search &ldquo;{searchQuery}&rdquo; on Google Web Search</span>
-                          </button>
                         </div>
                       )
                     )}
                   </div>
-                )}
+                </div>
 
               </div>
             )}
 
-          </div>
+            {/* External Web Search fallback shortcuts (replaces Google CSE element) */}
+            {!isAiMode && searchQuery.trim() !== '' && (
+              <div className="bg-slate-900/30 p-5 rounded-2xl border border-slate-850 text-left animate-in fade-in duration-200 mt-6">
+                <span className="block text-xs font-black uppercase tracking-wider text-slate-400 mb-3 flex items-center gap-1.5 font-bold">
+                  <ExternalLink size={13} className="text-blue-400" />
+                  <span>Search on External Developer Resources</span>
+                </span>
+                <p className="text-[11px] text-slate-500 font-semibold mb-4 leading-relaxed">
+                  If you did not find what you were looking for in the Nextsem Academy curriculum, try searching directly on these trusted developer platforms:
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                  <button
+                    onClick={() => window.open(`https://www.google.com/search?q=${encodeURIComponent(searchQuery)}`, '_blank', 'noopener,noreferrer')}
+                    className="flex items-center gap-2.5 px-3 py-2.5 bg-slate-950 hover:bg-slate-900 border border-slate-855 rounded-xl text-xs font-bold text-slate-300 transition-all active:scale-97 cursor-pointer hover:border-blue-500/30"
+                  >
+                    <Search size={12} className="text-blue-500 shrink-0" />
+                    <span className="truncate">Google Search</span>
+                  </button>
+                  <button
+                    onClick={() => window.open(`https://developer.mozilla.org/en-US/search?q=${encodeURIComponent(searchQuery)}`, '_blank', 'noopener,noreferrer')}
+                    className="flex items-center gap-2.5 px-3 py-2.5 bg-slate-950 hover:bg-slate-900 border border-slate-855 rounded-xl text-xs font-bold text-slate-300 transition-all active:scale-97 cursor-pointer hover:border-orange-500/30"
+                  >
+                    <BookOpen size={12} className="text-orange-500 shrink-0" />
+                    <span className="truncate">MDN Web Docs</span>
+                  </button>
+                  <button
+                    onClick={() => window.open(`https://stackoverflow.com/search?q=${encodeURIComponent(searchQuery)}`, '_blank', 'noopener,noreferrer')}
+                    className="flex items-center gap-2.5 px-3 py-2.5 bg-slate-950 hover:bg-slate-900 border border-slate-855 rounded-xl text-xs font-bold text-slate-300 transition-all active:scale-97 cursor-pointer hover:border-amber-500/30"
+                  >
+                    <Code size={12} className="text-amber-500 shrink-0" />
+                    <span className="truncate">Stack Overflow</span>
+                  </button>
+                </div>
+              </div>
+            )}
 
+          </div>
         </div>
       )}
 

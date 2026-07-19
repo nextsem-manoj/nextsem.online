@@ -1,0 +1,2 @@
+json_key_file("fastlane/play_store.json")
+package_name("online.nextsem.nextsem_mobile")

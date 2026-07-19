@@ -241,6 +241,26 @@ export default function HomeClient() {
     performSearch(navSearchQuery, setNavSearchResults);
   }, [navSearchQuery]);
 
+  const handleHeroSearchSubmit = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    if (heroSearchQuery.trim()) {
+      window.dispatchEvent(new CustomEvent("open_search", { 
+        detail: { query: heroSearchQuery.trim() } 
+      }));
+      setHeroSearchQuery('');
+    }
+  };
+
+  const handleNavSearchSubmit = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    if (navSearchQuery.trim()) {
+      window.dispatchEvent(new CustomEvent("open_search", { 
+        detail: { query: navSearchQuery.trim() } 
+      }));
+      setNavSearchQuery('');
+    }
+  };
+
   // Statistics
   const totalChaptersCount = coursePhases.reduce((acc, phase) => acc + phase.topics.length, 0);
   const completedChaptersCount = Object.keys(completedChapters).filter(k => completedChapters[k]).length;
@@ -286,23 +306,75 @@ export default function HomeClient() {
                 </button>
 
                 {tutorialsDropdownOpen && (
-                  <div className="absolute top-full left-0 mt-1 bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 rounded-xl shadow-xl p-4 grid grid-cols-2 gap-4 w-[400px] z-50 text-left animate-in fade-in slide-in-from-top-2 duration-150">
+                  <div className="absolute top-full left-0 mt-2 bg-white/95 dark:bg-[#0f172a]/95 backdrop-blur-md border border-slate-200 dark:border-slate-800/80 rounded-2xl shadow-2xl p-4 grid grid-cols-2 gap-4 w-[420px] z-50 text-left animate-in fade-in slide-in-from-top-2 duration-150">
                     <div>
-                      <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest block mb-2">Systems & Basics</span>
+                      <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest block mb-2 px-1">
+                        🖥️ Systems & Basics
+                      </span>
                       <div className="flex flex-col gap-1 text-xs">
-                        <button onClick={() => { handleScrollToId('cli-section'); setTutorialsDropdownOpen(false); }} className="text-left py-1 hover:text-[#04AA6D] transition-colors">🪟 Windows Commands (CLI)</button>
-                        <button onClick={() => { handleScrollToId('setup-section'); setTutorialsDropdownOpen(false); }} className="text-left py-1 hover:text-[#04AA6D] transition-colors">⚙️ Setup & Software</button>
-                        <button onClick={() => { handleScrollToId('setup-section'); setTutorialsDropdownOpen(false); }} className="text-left py-1 hover:text-[#04AA6D] transition-colors">🌿 Git & Version Control</button>
+                        <button 
+                          onClick={() => { handleScrollToId('cli-section'); setTutorialsDropdownOpen(false); }} 
+                          className="flex items-center gap-2 p-2 hover:bg-slate-100 dark:hover:bg-slate-800/60 rounded-xl hover:text-[#04AA6D] transition-all text-left font-bold"
+                        >
+                          <span>🪟</span>
+                          <span className="truncate">Windows Commands (CLI)</span>
+                        </button>
+                        <button 
+                          onClick={() => { handleScrollToId('setup-section'); setTutorialsDropdownOpen(false); }} 
+                          className="flex items-center gap-2 p-2 hover:bg-slate-100 dark:hover:bg-slate-800/60 rounded-xl hover:text-[#04AA6D] transition-all text-left font-bold"
+                        >
+                          <span>⚙️</span>
+                          <span className="truncate">Setup & Software</span>
+                        </button>
+                        <button 
+                          onClick={() => { handleScrollToId('setup-section'); setTutorialsDropdownOpen(false); }} 
+                          className="flex items-center gap-2 p-2 hover:bg-slate-100 dark:hover:bg-slate-800/60 rounded-xl hover:text-[#04AA6D] transition-all text-left font-bold"
+                        >
+                          <span>🌿</span>
+                          <span className="truncate">Git & Version Control</span>
+                        </button>
                       </div>
                     </div>
                     <div>
-                      <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest block mb-2">Frontend & Backend</span>
+                      <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest block mb-2 px-1">
+                        🚀 Web Development
+                      </span>
                       <div className="flex flex-col gap-1 text-xs">
-                        <button onClick={() => { handleScrollToId('html-section'); setTutorialsDropdownOpen(false); }} className="text-left py-1 hover:text-[#04AA6D] transition-colors">📝 HTML Tutorials</button>
-                        <button onClick={() => { handleScrollToId('css-section'); setTutorialsDropdownOpen(false); }} className="text-left py-1 hover:text-[#04AA6D] transition-colors">🎨 CSS Styling</button>
-                        <button onClick={() => { handleScrollToId('js-section'); setTutorialsDropdownOpen(false); }} className="text-left py-1 hover:text-[#04AA6D] transition-colors">⚡ JavaScript Coding</button>
-                        <button onClick={() => { handleScrollToId('react-section'); setTutorialsDropdownOpen(false); }} className="text-left py-1 hover:text-[#04AA6D] transition-colors">⚛️ React Library</button>
-                        <button onClick={() => { handleScrollToId('backend-section'); setTutorialsDropdownOpen(false); }} className="text-left py-1 hover:text-[#04AA6D] transition-colors">🔌 Node.js & Express</button>
+                        <button 
+                          onClick={() => { handleScrollToId('html-section'); setTutorialsDropdownOpen(false); }} 
+                          className="flex items-center gap-2 p-2 hover:bg-slate-100 dark:hover:bg-slate-800/60 rounded-xl hover:text-[#04AA6D] transition-all text-left font-bold"
+                        >
+                          <span>📝</span>
+                          <span className="truncate">HTML Tutorials</span>
+                        </button>
+                        <button 
+                          onClick={() => { handleScrollToId('css-section'); setTutorialsDropdownOpen(false); }} 
+                          className="flex items-center gap-2 p-2 hover:bg-slate-100 dark:hover:bg-slate-800/60 rounded-xl hover:text-[#04AA6D] transition-all text-left font-bold"
+                        >
+                          <span>🎨</span>
+                          <span className="truncate">CSS Styling & Flex</span>
+                        </button>
+                        <button 
+                          onClick={() => { handleScrollToId('js-section'); setTutorialsDropdownOpen(false); }} 
+                          className="flex items-center gap-2 p-2 hover:bg-slate-100 dark:hover:bg-slate-800/60 rounded-xl hover:text-[#04AA6D] transition-all text-left font-bold"
+                        >
+                          <span>⚡</span>
+                          <span className="truncate">JavaScript Coding</span>
+                        </button>
+                        <button 
+                          onClick={() => { handleScrollToId('react-section'); setTutorialsDropdownOpen(false); }} 
+                          className="flex items-center gap-2 p-2 hover:bg-slate-100 dark:hover:bg-slate-800/60 rounded-xl hover:text-[#04AA6D] transition-all text-left font-bold"
+                        >
+                          <span>⚛️</span>
+                          <span className="truncate">React UI Library</span>
+                        </button>
+                        <button 
+                          onClick={() => { handleScrollToId('backend-section'); setTutorialsDropdownOpen(false); }} 
+                          className="flex items-center gap-2 p-2 hover:bg-slate-100 dark:hover:bg-slate-800/60 rounded-xl hover:text-[#04AA6D] transition-all text-left font-bold col-span-2"
+                        >
+                          <span>🔌</span>
+                          <span className="truncate">Node.js & Express</span>
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -322,14 +394,34 @@ export default function HomeClient() {
                 </button>
 
                 {exercisesDropdownOpen && (
-                  <div className="absolute top-full left-0 mt-1 bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 rounded-xl shadow-xl p-3 flex flex-col gap-1 w-[220px] z-50 text-left animate-in fade-in slide-in-from-top-2 duration-150">
-                    <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest block px-2 mb-1.5">Interactive Tools</span>
-                    <Link href="/cmd" target="_blank" onClick={() => setExercisesDropdownOpen(false)} className="text-xs px-2 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-[#04AA6D] text-left">🪟 Windows CMD Simulator</Link>
-                    <Link href="/git" target="_blank" onClick={() => setExercisesDropdownOpen(false)} className="text-xs px-2 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-[#04AA6D] text-left">🌿 Git Simulator</Link>
-                    <Link href="/playground" onClick={() => setExercisesDropdownOpen(false)} className="text-xs px-2 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-[#04AA6D] text-left">💻 Code Sandbox</Link>
-                    <Link href="/ncert" onClick={() => setExercisesDropdownOpen(false)} className="text-xs px-2 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-[#04AA6D] text-left flex items-center gap-1.5">📚 NCERT Study Companion</Link>
-                    <Link href="/bca" onClick={() => setExercisesDropdownOpen(false)} className="text-xs px-2 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-[#04AA6D] text-left flex items-center gap-1.5">🎓 BCA Semester Hub</Link>
-                    <button onClick={() => { handleScrollToId('exercises-section'); setExercisesDropdownOpen(false); }} className="text-xs px-2 py-1.5 text-left hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-[#04AA6D] rounded-lg">🏆 Course Quizzes</button>
+                  <div className="absolute top-full left-0 mt-2 bg-white/95 dark:bg-[#0f172a]/95 backdrop-blur-md border border-slate-200 dark:border-slate-800/80 rounded-2xl shadow-2xl p-3 flex flex-col gap-1.5 w-[240px] z-50 text-left animate-in fade-in slide-in-from-top-2 duration-150">
+                    <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest block px-2 mb-1.5">
+                      🛠️ Interactive Tools
+                    </span>
+                    <Link href="/cmd" target="_blank" onClick={() => setExercisesDropdownOpen(false)} className="flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-[#04AA6D] text-xs font-bold transition-all">
+                      <span>🪟</span>
+                      <span>CMD Simulator</span>
+                    </Link>
+                    <Link href="/git" target="_blank" onClick={() => setExercisesDropdownOpen(false)} className="flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-[#04AA6D] text-xs font-bold transition-all">
+                      <span>🌿</span>
+                      <span>Git Simulator</span>
+                    </Link>
+                    <Link href="/playground" onClick={() => setExercisesDropdownOpen(false)} className="flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-[#04AA6D] text-xs font-bold transition-all">
+                      <span>💻</span>
+                      <span>Code Sandbox</span>
+                    </Link>
+                    <Link href="/ncert" onClick={() => setExercisesDropdownOpen(false)} className="flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-[#04AA6D] text-xs font-bold transition-all">
+                      <span>📚</span>
+                      <span>NCERT Study Hub</span>
+                    </Link>
+                    <Link href="/bca" onClick={() => setExercisesDropdownOpen(false)} className="flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-[#04AA6D] text-xs font-bold transition-all">
+                      <span>🎓</span>
+                      <span>BCA Semester Hub</span>
+                    </Link>
+                    <button onClick={() => { handleScrollToId('exercises-section'); setExercisesDropdownOpen(false); }} className="flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-[#04AA6D] text-xs font-bold transition-all text-left">
+                      <span>🏆</span>
+                      <span>Course Quizzes</span>
+                    </button>
                   </div>
                 )}
               </div>
@@ -352,7 +444,7 @@ export default function HomeClient() {
             
             {/* Header Search Box */}
             <div ref={navSearchRef} className="relative hidden lg:block w-[180px] xl:w-[240px]">
-              <div className="relative">
+              <form onSubmit={handleNavSearchSubmit} className="relative">
                 <input 
                   type="text"
                   placeholder="Search tutorials..."
@@ -361,26 +453,45 @@ export default function HomeClient() {
                   className="w-full h-8 pl-8 pr-3 text-xs bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/80 rounded-full focus:outline-none focus:border-[#04AA6D] focus:ring-1 focus:ring-[#04AA6D] dark:text-white"
                 />
                 <Search size={14} className="absolute left-3 top-2 text-slate-400" />
-              </div>
+              </form>
 
-              {navSearchResults.length > 0 && (
-                <div className="absolute top-full right-0 mt-1.5 w-[300px] bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 rounded-xl shadow-xl max-h-[300px] overflow-y-auto z-50 text-left p-2 animate-in fade-in slide-in-from-top-1">
-                  {navSearchResults.map((result) => (
-                    <button
-                      key={result.id}
-                      onClick={() => {
-                        handleLaunchChapter(result.id);
-                        setNavSearchQuery('');
-                      }}
-                      className="w-full p-2 hover:bg-slate-100 dark:hover:bg-slate-800/50 rounded-lg text-left transition-colors flex items-start gap-2 border-b border-slate-100 dark:border-slate-900 last:border-b-0"
-                    >
-                      <span className="text-sm mt-0.5">{result.icon || '📄'}</span>
-                      <div>
-                        <div className="text-xs font-bold text-slate-800 dark:text-white">{result.title}</div>
-                        <div className="text-[10px] text-slate-400 truncate max-w-[230px]">{result.duration || '5 min read'} • {result.phase || 'Chapter'}</div>
-                      </div>
-                    </button>
-                  ))}
+              {(navSearchResults.length > 0 || navSearchQuery.trim()) && (
+                <div className="absolute top-full right-0 mt-1.5 w-[300px] bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 rounded-xl shadow-xl max-h-[350px] overflow-y-auto z-50 text-left p-2 animate-in fade-in slide-in-from-top-1">
+                  {navSearchResults.length > 0 && (
+                    <>
+                      {navSearchResults.map((result) => (
+                        <button
+                          key={result.id}
+                          onClick={() => {
+                            handleLaunchChapter(result.id);
+                            setNavSearchQuery('');
+                          }}
+                          className="w-full p-2 hover:bg-slate-100 dark:hover:bg-slate-800/50 rounded-lg text-left transition-colors flex items-start gap-2 border-b border-slate-100 dark:border-slate-900 last:border-b-0"
+                        >
+                          <span className="text-sm mt-0.5">{result.icon || '📄'}</span>
+                          <div>
+                            <div className="text-xs font-bold text-slate-800 dark:text-white">{result.title}</div>
+                            <div className="text-[10px] text-slate-400 truncate max-w-[230px]">{result.duration || '5 min read'} • {result.phase || 'Chapter'}</div>
+                          </div>
+                        </button>
+                      ))}
+                    </>
+                  )}
+
+                  {navSearchQuery.trim() && (
+                    <div className="pt-1.5 border-t border-slate-150 dark:border-slate-900 mt-1">
+                      <button
+                        onClick={() => {
+                          window.open(`https://www.google.com/search?q=${encodeURIComponent(navSearchQuery.trim())}`, '_blank', 'noopener,noreferrer');
+                          setNavSearchQuery('');
+                        }}
+                        className="w-full p-2 hover:bg-blue-50 dark:hover:bg-blue-950/20 rounded-lg text-left transition-colors flex items-center gap-2 text-blue-600 dark:text-blue-400 font-bold text-xs"
+                      >
+                        <Search size={12} className="text-blue-500 shrink-0" />
+                        <span>Search &ldquo;{navSearchQuery}&rdquo; on Google Search</span>
+                      </button>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
@@ -448,32 +559,121 @@ export default function HomeClient() {
 
         {/* Mobile Dropdown Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0b0f19] px-4 py-3 flex flex-col gap-2.5 text-left font-bold text-slate-700 dark:text-slate-350 animate-in slide-in-from-top duration-150">
-            <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Tutorials</span>
-            <div className="grid grid-cols-2 gap-2 text-xs font-medium pl-2">
-              <button onClick={() => { handleScrollToId('cli-section'); setMobileMenuOpen(false); }} className="text-left py-1 hover:text-[#04AA6D]">CLI (Windows Commands)</button>
-              <button onClick={() => { handleScrollToId('setup-section'); setMobileMenuOpen(false); }} className="text-left py-1 hover:text-[#04AA6D]">Software Setup</button>
-              <button onClick={() => { handleScrollToId('html-section'); setMobileMenuOpen(false); }} className="text-left py-1 hover:text-[#04AA6D]">HTML Web Pages</button>
-              <button onClick={() => { handleScrollToId('css-section'); setMobileMenuOpen(false); }} className="text-left py-1 hover:text-[#04AA6D]">CSS Layouts</button>
-              <button onClick={() => { handleScrollToId('js-section'); setMobileMenuOpen(false); }} className="text-left py-1 hover:text-[#04AA6D]">JavaScript Logic</button>
-              <button onClick={() => { handleScrollToId('react-section'); setMobileMenuOpen(false); }} className="text-left py-1 hover:text-[#04AA6D]">React UI</button>
-              <button onClick={() => { handleScrollToId('backend-section'); setMobileMenuOpen(false); }} className="text-left py-1 hover:text-[#04AA6D]">Backend Servers</button>
-            </div>
+          <div className="md:hidden border-t border-slate-200 dark:border-slate-800 bg-[#fafafa]/98 dark:bg-[#0b0f19]/98 backdrop-blur-md px-5 py-4 flex flex-col gap-4 text-left font-bold text-slate-800 dark:text-slate-200 animate-in slide-in-from-top-4 duration-200 shadow-2xl rounded-b-2xl">
             
-            <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mt-2">Exercises & Tools</span>
-            <div className="flex flex-col gap-2 text-xs font-medium pl-2">
-              <Link href="/cmd" target="_blank" className="hover:text-[#04AA6D]">🪟 Windows CMD Simulator</Link>
-              <Link href="/git" target="_blank" className="hover:text-[#04AA6D]">🌿 Git Simulator</Link>
-              <Link href="/playground" className="hover:text-[#04AA6D]">💻 Code Sandbox</Link>
-              <Link href="/ncert" onClick={() => setMobileMenuOpen(false)} className="hover:text-[#04AA6D] flex items-center gap-1.5">📚 NCERT Study Hub</Link>
-              <Link href="/bca" onClick={() => setMobileMenuOpen(false)} className="hover:text-[#04AA6D] flex items-center gap-1.5">🎓 BCA Semester Hub</Link>
+            {/* Tutorials Section */}
+            <div>
+              <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest block mb-2 px-1">
+                📚 Tutorials
+              </span>
+              <div className="grid grid-cols-2 gap-2 text-xs font-semibold">
+                <button 
+                  onClick={() => { handleScrollToId('cli-section'); setMobileMenuOpen(false); }} 
+                  className="flex items-center gap-1.5 p-2 bg-slate-100/50 dark:bg-slate-900/50 hover:bg-[#04AA6D]/10 dark:hover:bg-[#04AA6D]/20 hover:text-[#04AA6D] border border-slate-200/40 dark:border-slate-800/40 rounded-xl transition-all text-left"
+                >
+                  <span>🪟</span>
+                  <span className="truncate">CLI (CMD)</span>
+                </button>
+                <button 
+                  onClick={() => { handleScrollToId('setup-section'); setMobileMenuOpen(false); }} 
+                  className="flex items-center gap-1.5 p-2 bg-slate-100/50 dark:bg-slate-900/50 hover:bg-[#04AA6D]/10 dark:hover:bg-[#04AA6D]/20 hover:text-[#04AA6D] border border-slate-200/40 dark:border-slate-800/40 rounded-xl transition-all text-left"
+                >
+                  <span>⚙️</span>
+                  <span className="truncate">Software Setup</span>
+                </button>
+                <button 
+                  onClick={() => { handleScrollToId('html-section'); setMobileMenuOpen(false); }} 
+                  className="flex items-center gap-1.5 p-2 bg-slate-100/50 dark:bg-slate-900/50 hover:bg-[#04AA6D]/10 dark:hover:bg-[#04AA6D]/20 hover:text-[#04AA6D] border border-slate-200/40 dark:border-slate-800/40 rounded-xl transition-all text-left"
+                >
+                  <span>📝</span>
+                  <span className="truncate">HTML Web Pages</span>
+                </button>
+                <button 
+                  onClick={() => { handleScrollToId('css-section'); setMobileMenuOpen(false); }} 
+                  className="flex items-center gap-1.5 p-2 bg-slate-100/50 dark:bg-slate-900/50 hover:bg-[#04AA6D]/10 dark:hover:bg-[#04AA6D]/20 hover:text-[#04AA6D] border border-slate-200/40 dark:border-slate-800/40 rounded-xl transition-all text-left"
+                >
+                  <span>🎨</span>
+                  <span className="truncate">CSS Layouts</span>
+                </button>
+                <button 
+                  onClick={() => { handleScrollToId('js-section'); setMobileMenuOpen(false); }} 
+                  className="flex items-center gap-1.5 p-2 bg-slate-100/50 dark:bg-slate-900/50 hover:bg-[#04AA6D]/10 dark:hover:bg-[#04AA6D]/20 hover:text-[#04AA6D] border border-slate-200/40 dark:border-slate-800/40 rounded-xl transition-all text-left"
+                >
+                  <span>⚡</span>
+                  <span className="truncate">JS Logic</span>
+                </button>
+                <button 
+                  onClick={() => { handleScrollToId('react-section'); setMobileMenuOpen(false); }} 
+                  className="flex items-center gap-1.5 p-2 bg-slate-100/50 dark:bg-slate-900/50 hover:bg-[#04AA6D]/10 dark:hover:bg-[#04AA6D]/20 hover:text-[#04AA6D] border border-slate-200/40 dark:border-slate-800/40 rounded-xl transition-all text-left"
+                >
+                  <span>⚛️</span>
+                  <span className="truncate">React UI</span>
+                </button>
+                <button 
+                  onClick={() => { handleScrollToId('backend-section'); setMobileMenuOpen(false); }} 
+                  className="flex items-center gap-1.5 p-2 bg-slate-100/50 dark:bg-slate-900/50 hover:bg-[#04AA6D]/10 dark:hover:bg-[#04AA6D]/20 hover:text-[#04AA6D] border border-slate-200/40 dark:border-slate-800/40 rounded-xl transition-all text-left col-span-2"
+                >
+                  <span>🔌</span>
+                  <span className="truncate">Backend Server Development</span>
+                </button>
+              </div>
             </div>
-            
+
+            {/* Exercises & Tools Section */}
+            <div>
+              <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest block mb-2 px-1">
+                🛠️ Exercises & Tools
+              </span>
+              <div className="flex flex-col gap-1.5 text-xs font-semibold">
+                <Link 
+                  href="/cmd" 
+                  target="_blank" 
+                  className="flex items-center gap-2.5 p-2 bg-slate-100/50 dark:bg-slate-900/50 hover:bg-[#04AA6D]/10 dark:hover:bg-[#04AA6D]/20 hover:text-[#04AA6D] border border-slate-200/40 dark:border-slate-800/40 rounded-xl transition-all"
+                >
+                  <span>🪟</span>
+                  <span>Windows CMD Simulator</span>
+                </Link>
+                <Link 
+                  href="/git" 
+                  target="_blank" 
+                  className="flex items-center gap-2.5 p-2 bg-slate-100/50 dark:bg-slate-900/50 hover:bg-[#04AA6D]/10 dark:hover:bg-[#04AA6D]/20 hover:text-[#04AA6D] border border-slate-200/40 dark:border-slate-800/40 rounded-xl transition-all"
+                >
+                  <span>🌿</span>
+                  <span>Git Version Control Simulator</span>
+                </Link>
+                <Link 
+                  href="/playground" 
+                  className="flex items-center gap-2.5 p-2 bg-slate-100/50 dark:bg-slate-900/50 hover:bg-[#04AA6D]/10 dark:hover:bg-[#04AA6D]/20 hover:text-[#04AA6D] border border-slate-200/40 dark:border-slate-800/40 rounded-xl transition-all"
+                >
+                  <span>💻</span>
+                  <span>Interactive Code Sandbox</span>
+                </Link>
+                <Link 
+                  href="/ncert" 
+                  onClick={() => setMobileMenuOpen(false)} 
+                  className="flex items-center gap-2.5 p-2 bg-slate-100/50 dark:bg-slate-900/50 hover:bg-[#04AA6D]/10 dark:hover:bg-[#04AA6D]/20 hover:text-[#04AA6D] border border-slate-200/40 dark:border-slate-800/40 rounded-xl transition-all"
+                >
+                  <span>📚</span>
+                  <span>NCERT Study Hub Companion</span>
+                </Link>
+                <Link 
+                  href="/bca" 
+                  onClick={() => setMobileMenuOpen(false)} 
+                  className="flex items-center gap-2.5 p-2 bg-slate-100/50 dark:bg-slate-900/50 hover:bg-[#04AA6D]/10 dark:hover:bg-[#04AA6D]/20 hover:text-[#04AA6D] border border-slate-200/40 dark:border-slate-800/40 rounded-xl transition-all"
+                >
+                  <span>🎓</span>
+                  <span>BCA Semester Hub</span>
+                </Link>
+              </div>
+            </div>
+
+            {/* Certificates Footer Link */}
             <button 
               onClick={() => { handleScrollToId('certificate-section'); setMobileMenuOpen(false); }} 
-              className="text-left text-xs hover:text-[#04AA6D] mt-1"
+              className="flex items-center justify-center gap-2 p-2.5 bg-gradient-to-r from-amber-500/20 to-yellow-500/20 hover:from-amber-500/30 hover:to-yellow-500/30 text-amber-600 dark:text-amber-400 border border-amber-500/30 rounded-xl text-xs font-black uppercase tracking-wider transition-all"
             >
-              🏅 Certificates
+              <span>🏅</span>
+              <span>Claim Course Certificates</span>
             </button>
           </div>
         )}
@@ -494,7 +694,7 @@ export default function HomeClient() {
 
           {/* Hero Big Search Box */}
           <div ref={heroSearchRef} className="mt-8 max-w-[560px] mx-auto relative">
-            <div className="flex shadow-2xl rounded-full overflow-hidden bg-white">
+            <form onSubmit={handleHeroSearchSubmit} className="flex shadow-2xl rounded-full overflow-hidden bg-white">
               <input 
                 type="text"
                 placeholder="Search our tutorials, e.g. HTML"
@@ -502,31 +702,51 @@ export default function HomeClient() {
                 onChange={(e) => setHeroSearchQuery(e.target.value)}
                 className="flex-1 px-6 py-4 text-slate-900 text-sm md:text-base focus:outline-none placeholder-slate-455 font-medium"
               />
-              <button className="bg-[#04AA6D] hover:bg-[#039861] text-white px-6 md:px-8 transition-colors flex items-center justify-center cursor-pointer">
+              <button type="submit" className="bg-[#04AA6D] hover:bg-[#039861] text-white px-6 md:px-8 transition-colors flex items-center justify-center cursor-pointer">
                 <Search size={20} />
               </button>
-            </div>
+            </form>
 
             {/* Hero Search Results Dropdown */}
-            {heroSearchResults.length > 0 && (
-              <div className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl max-h-[320px] overflow-y-auto z-40 text-left p-3 animate-in fade-in duration-200">
-                <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest block mb-2 px-2">Matching Tutorials</span>
-                {heroSearchResults.map((result) => (
-                  <button
-                    key={result.id}
-                    onClick={() => {
-                      handleLaunchChapter(result.id);
-                      setHeroSearchQuery('');
-                    }}
-                    className="w-full p-2.5 hover:bg-slate-100 dark:hover:bg-slate-800/60 rounded-xl text-left transition-colors flex items-start gap-3 border-b border-slate-100 dark:border-slate-900 last:border-b-0"
-                  >
-                    <span className="text-lg mt-0.5">{result.icon || '📄'}</span>
-                    <div>
-                      <div className="text-sm font-bold text-slate-800 dark:text-white">{result.title}</div>
-                      <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 truncate max-w-[420px]">{result.duration || '5 min read'} • {result.phase || 'Course Chapter'}</div>
-                    </div>
-                  </button>
-                ))}
+            {(heroSearchResults.length > 0 || heroSearchQuery.trim()) && (
+              <div className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl max-h-[400px] overflow-y-auto z-40 text-left p-3 animate-in fade-in duration-200">
+                {heroSearchResults.length > 0 && (
+                  <>
+                    <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest block mb-2 px-2">Matching Tutorials</span>
+                    {heroSearchResults.map((result) => (
+                      <button
+                        key={result.id}
+                        onClick={() => {
+                          handleLaunchChapter(result.id);
+                          setHeroSearchQuery('');
+                        }}
+                        className="w-full p-2.5 hover:bg-slate-100 dark:hover:bg-slate-800/60 rounded-xl text-left transition-colors flex items-start gap-3 border-b border-slate-100 dark:border-slate-900 last:border-b-0"
+                      >
+                        <span className="text-lg mt-0.5">{result.icon || '📄'}</span>
+                        <div>
+                          <div className="text-sm font-bold text-slate-800 dark:text-white">{result.title}</div>
+                          <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 truncate max-w-[420px]">{result.duration || '5 min read'} • {result.phase || 'Course Chapter'}</div>
+                        </div>
+                      </button>
+                    ))}
+                  </>
+                )}
+
+                {heroSearchQuery.trim() && (
+                  <div className="pt-2 border-t border-slate-100 dark:border-slate-800 mt-2">
+                    <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest block mb-2 px-2">Google Web Search</span>
+                    <button
+                      onClick={() => {
+                        window.open(`https://www.google.com/search?q=${encodeURIComponent(heroSearchQuery.trim())}`, '_blank', 'noopener,noreferrer');
+                        setHeroSearchQuery('');
+                      }}
+                      className="w-full p-2.5 hover:bg-blue-50 dark:hover:bg-blue-950/20 rounded-xl text-left transition-colors flex items-center gap-3 text-blue-600 dark:text-blue-400 font-bold text-xs"
+                    >
+                      <Search size={14} className="text-blue-500 shrink-0" />
+                      <span>Search &ldquo;{heroSearchQuery}&rdquo; on Google Search</span>
+                    </button>
+                  </div>
+                )}
               </div>
             )}
           </div>
