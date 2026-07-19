@@ -121,11 +121,21 @@ export default function HomeClient() {
   const [exercisesDropdownOpen, setExercisesDropdownOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
+  interface SearchItem {
+    id: string;
+    title: string;
+    content: string;
+    phase: string;
+    duration: string;
+    color: string;
+    icon: string;
+  }
+
   // Search states
   const [heroSearchQuery, setHeroSearchQuery] = useState('');
   const [navSearchQuery, setNavSearchQuery] = useState('');
-  const [heroSearchResults, setHeroSearchResults] = useState<any[]>([]);
-  const [navSearchResults, setNavSearchResults] = useState<any[]>([]);
+  const [heroSearchResults, setHeroSearchResults] = useState<SearchItem[]>([]);
+  const [navSearchResults, setNavSearchResults] = useState<SearchItem[]>([]);
   
   const [activeModuleIdx, setActiveModuleIdx] = useState(0);
 
@@ -220,13 +230,13 @@ export default function HomeClient() {
   };
 
   // Search logic
-  const performSearch = (queryStr: string, setResults: React.Dispatch<React.SetStateAction<any[]>>) => {
+  const performSearch = (queryStr: string, setResults: React.Dispatch<React.SetStateAction<SearchItem[]>>) => {
     if (!queryStr.trim()) {
       setResults([]);
       return;
     }
     const cleanQuery = queryStr.toLowerCase();
-    const matches = searchIndex.filter((item: any) => 
+    const matches = (searchIndex as SearchItem[]).filter((item: SearchItem) => 
       item.title.toLowerCase().includes(cleanQuery) || 
       item.content.toLowerCase().includes(cleanQuery)
     ).slice(0, 6);
@@ -275,7 +285,7 @@ export default function HomeClient() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-[#060c18] text-slate-900 dark:text-white flex flex-col font-sans selection:bg-[#04AA6D]/30 transition-colors duration-200">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white flex flex-col font-sans selection:bg-[#c1a648]/30 transition-colors duration-200">
       
       {/* ── TOP NAVIGATION BAR (W3Schools Style) ── */}
       <header className="sticky top-0 z-50 bg-white dark:bg-[#0b0f19] border-b border-slate-200 dark:border-slate-800 shadow-sm transition-colors duration-200">
@@ -790,42 +800,45 @@ export default function HomeClient() {
       {/* ── CORE LANGUAGE SECTIONS (W3Schools band layouts) ── */}
       
       {/* 1. Windows Commands CLI Band */}
-      <section id="cli-section" className="bg-[#111111] border-b border-green-500/20 text-[#39FF14] py-16 px-4 md:px-8">
+      <section id="cli-section" className="bg-[#1e303f] border-b border-[#c1a648]/20 text-[#c1a648] py-16 px-4 md:px-8">
         <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
           <div className="text-left space-y-4">
-            <span className="text-[10px] font-black uppercase bg-green-500/10 border border-green-500/20 px-3 py-1 rounded-full text-green-400">
+            <span className="text-[10px] font-black uppercase bg-[#c1a648]/10 border border-[#c1a648]/20 px-3 py-1 rounded-full text-[#c1a648]">
               Module 1: Terminal Operations
             </span>
-            <h2 className="text-3xl md:text-4xl font-black uppercase text-white font-mono">
-              &gt;_ 🪟 Windows CLI
+            <h2 className="text-3xl md:text-4xl font-black uppercase text-white font-mono flex items-center gap-3">
+              <span>&gt;_</span>
+              <svg viewBox="0 0 24 24" className="w-8 h-8 inline-block shrink-0" aria-hidden="true">
+                <defs>
+                  <linearGradient id="win11-blue" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#00adef" />
+                    <stop offset="100%" stopColor="#0078d4" />
+                  </linearGradient>
+                </defs>
+                <path fill="url(#win11-blue)" d="M0 0h11.5v11.5H0zM12.5 0H24v11.5H12.5zM0 12.5h11.5V24H0zM12.5 12.5H24V24H12.5z" />
+              </svg>
+              <span>Windows CLI</span>
             </h2>
             <p className="text-slate-400 text-sm md:text-base max-w-lg leading-relaxed">
               The ultimate starting point. Command your operating system, automate backups, and control folders directly via typed text shell utilities.
             </p>
             <div className="flex flex-wrap gap-3 pt-4">
-              <button 
-                onClick={() => handleLaunchChapter('cli-ch1-basics')}
-                className="px-5 py-2.5 bg-green-600 hover:bg-green-500 text-black rounded-lg text-xs font-black uppercase tracking-wider transition-all cursor-pointer font-mono"
-              >
-                Start Learning CLI
-              </button>
               <Link 
-                href="/cmd" 
-                target="_blank"
-                className="px-5 py-2.5 border border-green-500 hover:bg-green-500/10 text-green-400 rounded-lg text-xs font-black uppercase tracking-wider transition-all font-mono"
+                href="/cli"
+                className="px-5 py-2.5 bg-[#c1a648] hover:bg-[#7f7034] text-[#1e303f] rounded-lg text-xs font-black uppercase tracking-wider transition-all cursor-pointer font-mono no-underline inline-flex items-center justify-center"
               >
-                Launch CLI Simulator
+                Learn Windows Command Line
               </Link>
             </div>
           </div>
           
           {/* Mock Console */}
-          <div className="bg-[#0c0c0c] border border-green-500/30 rounded-xl overflow-hidden shadow-2xl max-w-md lg:max-w-full mx-auto w-full font-mono text-xs text-left">
-            <div className="bg-[#1f1f1f] px-4 py-2 flex items-center justify-between border-b border-green-500/10 select-none">
+          <div className="bg-[#0c0c0c] border border-[#c1a648]/30 rounded-xl overflow-hidden shadow-2xl max-w-md lg:max-w-full mx-auto w-full font-mono text-xs text-left">
+            <div className="bg-[#1f1f1f] px-4 py-2 flex items-center justify-between border-b border-[#c1a648]/10 select-none">
               <div className="flex items-center gap-1.5">
                 <div className="w-2.5 h-2.5 rounded-full bg-red-500/60" />
                 <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/60" />
-                <div className="w-2.5 h-2.5 rounded-full bg-green-500/60" />
+                <div className="w-2.5 h-2.5 rounded-full bg-[#c1a648]/80" />
               </div>
               <span className="text-[10px] text-slate-500 font-bold uppercase">Command Prompt (cmd.exe)</span>
               <span className="w-4" />
