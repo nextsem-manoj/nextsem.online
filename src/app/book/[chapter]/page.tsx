@@ -124,10 +124,10 @@ export default async function ChapterPage({
   }
 
   // Check if we have an interactive simulator for this chapter
-  const simulator = getChapterSimulator(chapter);
-  if (simulator) {
-    return <InteractiveChapterSimulator simulator={simulator} chapterId={chapter} />;
-  }
+  // const simulator = getChapterSimulator(chapter);
+  // if (simulator) {
+  //   return <InteractiveChapterSimulator simulator={simulator} chapterId={chapter} />;
+  // }
 
   const filePath = path.join(process.cwd(), 'src/content', `${chapter}.mdx`);
 
