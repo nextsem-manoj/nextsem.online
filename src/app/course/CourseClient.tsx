@@ -504,7 +504,7 @@ export default function CourseClient() {
 
   if (!mounted || !currentUser) {
     return (
-      <div className="fixed inset-0 bg-[#07070c] text-white flex items-center justify-center">
+      <div className="fixed inset-0 bg-slate-950 text-white flex items-center justify-center">
         <div className="flex flex-col items-center gap-3">
           <div className="w-8 h-8 border-4 border-[#39FF14] border-t-transparent rounded-full animate-spin"></div>
           <span className="text-xs font-black uppercase tracking-wider text-[#39FF14]">Synchronizing Session...</span>
@@ -516,7 +516,7 @@ export default function CourseClient() {
   const activeModule = modules[activeCardIdx];
 
   return (
-    <div className="fixed inset-0 flex flex-col justify-between bg-[#07070c] text-white overflow-hidden pb-16 md:pb-0 select-none font-sans">
+    <div className="fixed inset-0 flex flex-col justify-between bg-slate-950 text-white overflow-hidden pb-16 md:pb-0 select-none font-sans">
       {/* Ambient glowing radial light */}
       <div
         className="absolute top-[-50px] left-1/2 -translate-x-1/2 w-80 h-80 rounded-full blur-[100px] pointer-events-none opacity-20 transition-all duration-750"

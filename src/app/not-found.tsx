@@ -6,7 +6,7 @@ import { Home, BookOpen, Terminal, ArrowRight, HelpCircle } from 'lucide-react';
 
 export default function NotFound() {
   return (
-    <div className="w-full min-h-screen bg-[#07070c] text-white flex flex-col items-center justify-center font-sans selection:bg-indigo-500/30 relative overflow-hidden px-4">
+    <div className="w-full min-h-screen bg-slate-950 text-white flex flex-col items-center justify-center font-sans selection:bg-[#c1a648]/30 relative overflow-hidden px-4">
       {/* Ambient background glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-indigo-950/10 blur-[130px] pointer-events-none" />
 

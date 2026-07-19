@@ -51,7 +51,7 @@ export default function NcertClient() {
 
   if (!mounted) {
     return (
-      <div className="w-full h-screen bg-[#07070c] flex items-center justify-center">
+      <div className="w-full h-screen bg-slate-950 flex items-center justify-center">
         <div className="w-10 h-10 border-4 border-t-blue-500 border-slate-800 rounded-full animate-spin" />
       </div>
     );
@@ -69,13 +69,13 @@ export default function NcertClient() {
       a + b.units.filter(u => !!completedChapters[`ncert_unit:${u.noteKey}`]).length, 0), 0);
 
   return (
-    <div className="w-full h-screen bg-[#07070c] text-white flex flex-col justify-between font-sans selection:bg-blue-500/30 relative overflow-hidden">
+    <div className="w-full h-screen bg-slate-950 text-white flex flex-col justify-between font-sans selection:bg-[#c1a648]/30 relative overflow-hidden">
       {/* Background glow */}
       <div className="fixed top-0 left-1/4 w-[600px] h-[400px] rounded-full bg-blue-900/8 blur-[140px] pointer-events-none" />
       <div className="fixed bottom-0 right-1/4 w-[400px] h-[300px] rounded-full bg-violet-900/8 blur-[120px] pointer-events-none" />
 
       {/* Header bar */}
-      <header className="h-16 border-b border-slate-850/50 bg-[#07070c]/85 backdrop-blur-md sticky top-0 z-40 flex items-center justify-between px-4 md:px-8 shrink-0">
+      <header className="h-16 border-b border-slate-850/50 bg-slate-950/85 backdrop-blur-md sticky top-0 z-40 flex items-center justify-between px-4 md:px-8 shrink-0">
         <a
           href={isSubdomain ? "https://nextsem.online" : "/"}
           className="flex items-center gap-2 text-slate-400 hover:text-white font-bold text-sm transition-all"

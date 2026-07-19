@@ -131,10 +131,10 @@ export default async function ChapterPage({
   //   return <InteractiveChapterSimulator simulator={simulator} chapterId={chapter} />;
   // }
 
-  // Check if we have a CLI lesson for this chapter
-  const cliLesson = cliLessons.find((l) => l.slug === chapter);
+  // Check if we have a CLI lesson for this chapter and redirect to SEO URL
+  const cliLesson = cliLessons.find((l) => l.originalChapterId === chapter || l.slug === chapter);
   if (cliLesson) {
-    return <CliLessonClient lesson={cliLesson} />;
+    return <ClientRedirect url={`/cli/${cliLesson.slug}`} />;
   }
 
   const filePath = path.join(process.cwd(), 'src/content', `${chapter}.mdx`);

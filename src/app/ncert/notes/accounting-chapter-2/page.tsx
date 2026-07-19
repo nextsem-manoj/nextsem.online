@@ -269,12 +269,12 @@ export default function AccountingTheoryNotesPage() {
   };
 
   return (
-    <div className="w-full min-h-screen bg-[#07070c] text-white flex flex-col justify-between font-sans selection:bg-emerald-500/30 relative pb-12">
+    <div className="w-full min-h-screen bg-slate-950 text-white flex flex-col justify-between font-sans selection:bg-[#c1a648]/30 relative pb-12">
       {/* Ambient background glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[500px] rounded-full bg-indigo-950/5 blur-[130px] pointer-events-none" />
 
       {/* Header bar */}
-      <header className="h-16 border-b border-slate-850/50 bg-[#07070c]/85 backdrop-blur-md sticky top-0 z-40 flex items-center justify-between px-4 md:px-8 shrink-0">
+      <header className="h-16 border-b border-slate-850/50 bg-slate-950/85 backdrop-blur-md sticky top-0 z-40 flex items-center justify-between px-4 md:px-8 shrink-0">
         <Link 
           href="/ncert" 
           className="flex items-center gap-2 text-slate-400 hover:text-white font-bold text-sm transition-all"
@@ -557,13 +557,13 @@ export default function AccountingTheoryNotesPage() {
                     <div className="mt-3 flex flex-wrap gap-2.5 items-center">
                       <button
                         onClick={() => toggleBlankReveal(item.id)}
-                        className="px-3 py-1.5 bg-[#07070c] border border-slate-880 hover:border-slate-700 text-[10px] text-indigo-400 hover:text-white font-bold rounded-lg cursor-pointer"
+                        className="px-3 py-1.5 bg-slate-950 border border-slate-880 hover:border-slate-700 text-[10px] text-indigo-400 hover:text-white font-bold rounded-lg cursor-pointer"
                       >
                         {reveal ? `Answer: ${item.answer}` : 'Reveal Answer'}
                       </button>
                       <button
                         onClick={() => toggleBlankHint(item.id)}
-                        className="px-3 py-1.5 bg-[#07070c] border border-slate-880 hover:border-slate-700 text-[10px] text-amber-500 hover:text-amber-450 font-bold rounded-lg cursor-pointer"
+                        className="px-3 py-1.5 bg-slate-950 border border-slate-880 hover:border-slate-700 text-[10px] text-amber-500 hover:text-amber-450 font-bold rounded-lg cursor-pointer"
                       >
                         {showHint ? `Hint: ${item.hint}` : 'Show Hint'}
                       </button>

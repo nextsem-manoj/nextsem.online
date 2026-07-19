@@ -135,11 +135,11 @@ function HtmlLayoutContent({ children }: { children: React.ReactNode }) {
       : `/book/${nextChapter.id}`
     : null;
 
-  const themeClass = "bg-[#060c18] border-slate-850 text-white";
-  const headerThemeClass = "bg-[#0f172a] border-slate-850 text-white";
+  const themeClass = "bg-background border-slate-850 text-foreground";
+  const headerThemeClass = "bg-background border-slate-850 text-foreground";
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#060c18] text-white font-sans selection:bg-blue-200 transition-colors duration-300">
+    <div className="min-h-screen flex flex-col bg-background text-foreground font-sans selection:bg-[#c1a648]/30 transition-colors duration-300">
       <div className="flex-1 flex flex-col md:flex-row w-full max-w-[1800px] mx-auto pb-14 md:pb-0">
         <BookSidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
 
@@ -165,7 +165,7 @@ function HtmlLayoutContent({ children }: { children: React.ReactNode }) {
             </Link>
 
             <div className="flex-1 min-w-0 text-left">
-              <span className="block text-[10px] font-black uppercase tracking-wider text-emerald-500 dark:text-emerald-450">
+              <span className="block text-[10px] font-black uppercase tracking-wider text-[#c1a648]">
                 {currentPhase?.title || "Web Development"}
               </span>
               <h1 className="text-xs md:text-sm font-black truncate mt-0.5">
@@ -221,13 +221,13 @@ function HtmlLayoutContent({ children }: { children: React.ReactNode }) {
                     <img
                       src={currentUser.avatar}
                       alt=""
-                      className="w-5 h-5 rounded-full object-cover border border-[#4ade80]/20 shrink-0"
+                      className="w-5 h-5 rounded-full object-cover border border-[#c1a648]/20 shrink-0"
                     />
                   ) : currentUser.photo ? (
                     <img
                       src={currentUser.photo}
                       alt=""
-                      className="w-5 h-5 rounded-full object-cover border border-[#4ade80]/20 shrink-0"
+                      className="w-5 h-5 rounded-full object-cover border border-[#c1a648]/20 shrink-0"
                     />
                   ) : (
                     <div className="w-5 h-5 rounded-full bg-blue-600 text-white flex items-center justify-center font-black text-[9px] shrink-0">
@@ -242,7 +242,7 @@ function HtmlLayoutContent({ children }: { children: React.ReactNode }) {
               ) : (
                 <button
                   onClick={handleSignIn}
-                  className="flex items-center gap-1 hover:bg-slate-250/50 dark:hover:bg-slate-800/80 px-2 py-1 rounded-lg transition-all text-[11px] font-bold text-emerald-600 dark:text-emerald-400 shrink-0 cursor-pointer"
+                  className="flex items-center gap-1 hover:bg-slate-250/50 dark:hover:bg-slate-800/80 px-2 py-1 rounded-lg transition-all text-[11px] font-bold text-[#c1a648] shrink-0 cursor-pointer"
                   title="Sign In with Google"
                 >
                   <LogIn size={14} className="shrink-0" />
@@ -255,7 +255,7 @@ function HtmlLayoutContent({ children }: { children: React.ReactNode }) {
           {/* Glassmorphic Scroll Progress Bar */}
           <div className="w-full h-2.5 bg-slate-200/10 dark:bg-slate-950/40 backdrop-blur-md sticky top-[46px] z-30 overflow-hidden shrink-0 border-x-0 md:border-x border-slate-250/5 flex items-center justify-center">
             <div
-              className="absolute left-0 top-0 bottom-0 bg-gradient-to-r from-blue-500 via-[#39FF14] to-emerald-450 rounded-r-full shadow-[0_0_8px_rgba(74,222,128,0.4)] transition-all duration-75"
+              className="absolute left-0 top-0 bottom-0 bg-gradient-to-r from-[#e4ca67] via-[#c1a648] to-[#967b26] rounded-r-full shadow-[0_0_8px_rgba(193,166,72,0.4)] transition-all duration-75"
               style={{ width: `${scrollPercent}%` }}
             />
             <span className="relative z-10 text-[7px] font-black uppercase tracking-wider text-slate-800 dark:text-slate-200 pointer-events-none mix-blend-difference leading-none">
@@ -286,7 +286,7 @@ export default function HtmlLayout({ children }: { children: React.ReactNode }) 
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-[#060c18]">
+        <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-background">
           <div className="text-sm font-bold text-slate-500 animate-pulse">
             Loading course layout...
           </div>

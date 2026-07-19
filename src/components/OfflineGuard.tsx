@@ -73,7 +73,7 @@ export default function OfflineGuard() {
 
   // Fullscreen block overlay when 24 hours of offline use has expired
   return (
-    <div className="fixed inset-0 bg-[#060c18] z-[999999] flex flex-col items-center justify-center p-6 text-center select-none animate-in fade-in duration-300">
+    <div className="fixed inset-0 bg-background z-[999999] flex flex-col items-center justify-center p-6 text-center select-none animate-in fade-in duration-300">
       <div className="w-full max-w-sm bg-slate-900 border border-slate-800 rounded-3xl p-8 shadow-2xl relative">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-rose-500/10 border border-rose-500/30 rounded-full flex items-center justify-center">
           <ShieldAlert className="text-rose-500 w-8 h-8 animate-pulse" />

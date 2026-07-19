@@ -82,21 +82,19 @@ export default function AdSenseBanner() {
         window.removeEventListener('readerSettingsChanged', onSettingsChange);
       };
     } else {
-      // Standard web browser: Initialize Google AdSense
+      // Standard web browser & PWA: Initialize Google AdSense for all viewport layouts
       let checkTimeout: NodeJS.Timeout;
-      if (!mobile) {
-        try {
-          // @ts-expect-error: adsbygoogle global is dynamically injected by the Google AdSense script
-          (window.adsbygoogle = window.adsbygoogle || []).push({});
+      try {
+        // @ts-expect-error: adsbygoogle global is dynamically injected by the Google AdSense script
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
 
-          checkTimeout = setTimeout(() => {
-            if (insRef.current && insRef.current.innerHTML.trim() === "") {
-              setAdBlocked(true);
-            }
-          }, 4000);
-        } catch (err) {
-          setAdBlocked(true);
-        }
+        checkTimeout = setTimeout(() => {
+          if (insRef.current && insRef.current.innerHTML.trim() === "") {
+            setAdBlocked(true);
+          }
+        }, 4000);
+      } catch (err) {
+        setAdBlocked(true);
       }
 
       return () => {
@@ -162,35 +160,21 @@ export default function AdSenseBanner() {
       <span className={labelClass}>Ads by Google</span>
 
       <div className="w-full flex justify-center">
-        {isMobile ? (
-          <AmpAd
-            width="100vw"
-            height="320"
-            type="adsense"
-            data-ad-client="ca-pub-4242865347895866"
-            data-ad-slot="6059354880"
-            data-auto-format="rspv"
-            data-full-width=""
-          >
-            <OverflowDiv overflow=""></OverflowDiv>
-          </AmpAd>
-        ) : (
-          /* Google AdSense Responsive Ad Unit */
-          <ins
-            ref={insRef}
-            className="adsbygoogle"
-            style={{
-              display: 'inline-block',
-              width: '100%',
-              height: isInBook ? '45px' : '90px',
-              background: 'transparent'
-            }}
-            data-ad-client="ca-pub-4242865347895866"
-            data-ad-slot="6059354880"
-            data-ad-format="auto"
-            data-full-width-responsive="false"
-          ></ins>
-        )}
+        {/* Google AdSense Responsive Ad Unit for PWAs and Responsive Web Layouts */}
+        <ins
+          ref={insRef}
+          className="adsbygoogle"
+          style={{
+            display: 'block',
+            width: '100%',
+            minHeight: isInBook ? '50px' : '90px',
+            background: 'transparent'
+          }}
+          data-ad-client="ca-pub-4242865347895866"
+          data-ad-slot="6059354880"
+          data-ad-format="auto"
+          data-full-width-responsive="true"
+        ></ins>
       </div>
     </div>
   );

@@ -153,6 +153,7 @@ export default function RootLayout({
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4242865347895866"
           crossOrigin="anonymous"
         />
+        <meta name="google-adsense-account" content="ca-pub-4242865347895866" />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${lora.variable} ${outfit.variable} min-h-full flex flex-col bg-background text-foreground transition-colors`}>
 

@@ -244,7 +244,7 @@ export default function OnboardingIntro({ onComplete }: { onComplete: () => void
               </div>
               
               {/* Terminal Window Card */}
-              <div className="absolute right-6 top-6 w-44 h-48 bg-[#07070c] border border-slate-800 rounded-2xl p-3 shadow-2xl flex flex-col justify-between select-none">
+              <div className="absolute right-6 top-6 w-44 h-48 bg-slate-950 border border-slate-800 rounded-2xl p-3 shadow-2xl flex flex-col justify-between select-none">
                 {/* Terminal Header */}
                 <div className="flex items-center justify-between border-b border-slate-850 pb-1.5 mb-1.5 shrink-0">
                   <div className="flex items-center gap-1.5">

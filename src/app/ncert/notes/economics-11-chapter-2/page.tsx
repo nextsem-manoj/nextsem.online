@@ -22,9 +22,9 @@ export default function EconomicsChapter2Page() {
   ];
 
   return (
-    <div className="w-full min-h-screen bg-[#07070c] text-white font-sans">
+    <div className="w-full min-h-screen bg-slate-950 text-white font-sans">
       <div className="fixed top-0 right-1/3 w-96 h-96 rounded-full bg-emerald-900/8 blur-[120px] pointer-events-none" />
-      <header className="h-16 border-b border-white/5 bg-[#07070c]/90 backdrop-blur-md sticky top-0 z-40 flex items-center justify-between px-4 md:px-8">
+      <header className="h-16 border-b border-white/5 bg-slate-950/90 backdrop-blur-md sticky top-0 z-40 flex items-center justify-between px-4 md:px-8">
         <Link href="/ncert" className="flex items-center gap-2 text-slate-400 hover:text-white font-bold text-sm transition-all">
           <ArrowLeft size={16} /> NCERT Hub
         </Link>
@@ -46,7 +46,7 @@ export default function EconomicsChapter2Page() {
           <h1 className="text-3xl md:text-4xl font-black tracking-tight mb-3">
             Indian Economy <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-400">1950–1990</span>
           </h1>
-          <p className="text-slate-400 text-sm leading-relaxed max-w-2xl">The four decades of planned economic development — exploring Five Year Plans, the role of public sector, the Green Revolution, and India's mixed economy model.</p>
+          <p className="text-slate-400 text-sm leading-relaxed max-w-2xl">The four decades of planned economic development — exploring Five Year Plans, the role of public sector, the Green Revolution, and India&apos;s mixed economy model.</p>
         </section>
 
         <section>

@@ -72,7 +72,7 @@ export default async function EconomicsChapterPage({
   const nextChapter = currentIdx !== -1 && currentIdx < topics.length - 1 ? topics[currentIdx + 1] : null;
 
   return (
-    <div className="w-full min-h-screen bg-[#07070c] text-white flex flex-col justify-between font-sans selection:bg-blue-500/30">
+    <div className="w-full min-h-screen bg-slate-950 text-white flex flex-col justify-between font-sans selection:bg-[#c1a648]/30">
       
       {/* Navbar header */}
       <header className="h-16 border-b border-slate-850/50 bg-slate-950/80 backdrop-blur-md sticky top-0 z-40 flex items-center justify-between px-4 md:px-8 shrink-0">

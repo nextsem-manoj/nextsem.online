@@ -90,6 +90,8 @@ export default function CliLessonClient({ lesson }: CliLessonClientProps) {
     }
   }, []);
 
+  const currentExercise = lesson.exercise[selectedLang] || lesson.exercise.english;
+
   // Check if current lesson is completed
   const isLessonCompletedKey = `nextsem_cli_completed_${userEmail}_${lesson.id}`;
   const [isLessonDone, setIsLessonDone] = useState(false);
@@ -100,7 +102,7 @@ export default function CliLessonClient({ lesson }: CliLessonClientProps) {
       setIsLessonDone(done);
       if (done) {
         // Pre-fill answer if already completed
-        setSelectedOption(lesson.exercise.correctAnswer);
+        setSelectedOption(currentExercise.correctAnswer);
         setIsCorrect(true);
         setShowFeedback(true);
       } else {
@@ -110,7 +112,7 @@ export default function CliLessonClient({ lesson }: CliLessonClientProps) {
         setShowHint(false);
       }
     }
-  }, [lesson, isLessonCompletedKey, completedChapters]);
+  }, [lesson, isLessonCompletedKey, completedChapters, selectedLang, currentExercise]);
 
   // Find adjacent lessons
   const currentIndex = cliLessons.findIndex((l) => l.id === lesson.id);
@@ -123,7 +125,7 @@ export default function CliLessonClient({ lesson }: CliLessonClientProps) {
   const handleOptionSelect = (option: string) => {
     if (isLessonDone) return; // Prevent change after completion
     setSelectedOption(option);
-    const correct = option === lesson.exercise.correctAnswer;
+    const correct = option === currentExercise.correctAnswer;
     setIsCorrect(correct);
     setShowFeedback(true);
 
@@ -413,12 +415,12 @@ export default function CliLessonClient({ lesson }: CliLessonClientProps) {
 
         <div className="p-5 md:p-6 space-y-4">
           <h4 className="text-sm font-bold text-slate-100 leading-snug">
-            {lesson.exercise.question}
+            {currentExercise.question}
           </h4>
 
           {/* Multiple Choice Options */}
           <div className="grid grid-cols-1 gap-2.5">
-            {lesson.exercise.options.map((option: string, idx: number) => {
+            {currentExercise.options.map((option: string, idx: number) => {
               const isSelected = selectedOption === option;
               let btnStyle = "bg-slate-950/50 border-slate-850 text-slate-350 hover:bg-slate-900 hover:text-white";
               
@@ -471,7 +473,7 @@ export default function CliLessonClient({ lesson }: CliLessonClientProps) {
                     </p>
                     {showHint ? (
                       <div className="mt-2 text-[11px] bg-slate-950/40 p-2.5 rounded-lg border border-slate-800 text-slate-400 leading-relaxed font-medium">
-                        💡 **Hint**: {lesson.exercise.hint}
+                        💡 **Hint**: {currentExercise.hint}
                       </div>
                     ) : (
                       <button

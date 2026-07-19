@@ -690,7 +690,7 @@ export default function MyPersonalComputerVisualGuide() {
   };
 
   return (
-    <div className="w-full min-h-screen bg-[#07070c] text-white flex flex-col justify-between font-sans selection:bg-emerald-500/30 relative">
+    <div className="w-full min-h-screen bg-slate-950 text-white flex flex-col justify-between font-sans selection:bg-[#c1a648]/30 relative">
       {/* Background radial glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 rounded-full bg-emerald-950/15 blur-[120px] pointer-events-none" />
 

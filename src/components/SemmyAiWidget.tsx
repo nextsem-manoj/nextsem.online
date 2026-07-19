@@ -24,11 +24,6 @@ const GREETINGS = [
 ];
 
 export default function SemmyAiWidget() {
-  // Do not show Semmy AI on native mobile app builds
-  if (typeof window !== 'undefined' && Capacitor.isNativePlatform()) {
-    return null;
-  }
-
   const [isOpen, setIsOpen] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
   const [input, setInput] = useState('');
@@ -174,6 +169,11 @@ export default function SemmyAiWidget() {
     }, 900);
   };
 
+  // Do not show Semmy AI on native mobile app builds
+  if (typeof window !== 'undefined' && Capacitor.isNativePlatform()) {
+    return null;
+  }
+
   return (
     <>
       {/* Floating Bubble Trigger */}
@@ -206,7 +206,7 @@ export default function SemmyAiWidget() {
 
         {/* Chat Window */}
         {isOpen && (
-          <div className={`bg-[#07070c] border border-indigo-500/20 rounded-[28px] shadow-2xl shadow-indigo-900/40 flex flex-col overflow-hidden transition-all duration-300 ${
+          <div className={`bg-slate-950 border border-indigo-500/20 rounded-[28px] shadow-2xl shadow-indigo-900/40 flex flex-col overflow-hidden transition-all duration-300 ${
             isMinimized 
               ? 'w-72 h-14' 
               : 'w-[340px] sm:w-[380px] h-[500px] sm:h-[560px]'
@@ -263,7 +263,7 @@ export default function SemmyAiWidget() {
               <>
                 {showSettings ? (
                   // Settings View
-                  <div className="flex-1 flex flex-col p-4 bg-[#07070c] text-left">
+                  <div className="flex-1 flex flex-col p-4 bg-slate-950 text-left">
                     <div className="flex-1 space-y-4">
                       <div>
                         <h4 className="text-xs font-black text-white uppercase tracking-wider mb-1 flex items-center gap-1.5">

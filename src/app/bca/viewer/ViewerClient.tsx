@@ -361,14 +361,14 @@ export default function TextbookViewer() {
 
   if (!mounted) {
     return (
-      <div className="w-full h-screen bg-[#07070c] flex items-center justify-center">
+      <div className="w-full h-screen bg-slate-950 flex items-center justify-center">
         <div className="w-10 h-10 border-4 border-t-emerald-500 border-slate-800 rounded-full animate-spin" />
       </div>
     );
   }
 
   return (
-    <div className="w-full h-screen bg-[#07070c] text-white flex flex-col justify-between font-sans selection:bg-emerald-500/30 overflow-hidden relative">
+    <div className="w-full h-screen bg-slate-950 text-white flex flex-col justify-between font-sans selection:bg-[#c1a648]/30 overflow-hidden relative">
       
       {/* Header bar */}
       <header className="h-16 border-b border-slate-850/50 bg-[#0a0a0f] flex items-center justify-between px-4 md:px-6 shrink-0 z-30">

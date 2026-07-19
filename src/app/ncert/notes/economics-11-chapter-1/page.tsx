@@ -83,11 +83,11 @@ export default function EconomicsChapter1Page() {
   ];
 
   return (
-    <div className="w-full min-h-screen bg-[#07070c] text-white font-sans">
+    <div className="w-full min-h-screen bg-slate-950 text-white font-sans">
       <div className="fixed top-0 left-1/3 w-96 h-96 rounded-full bg-emerald-900/10 blur-[120px] pointer-events-none" />
 
       {/* Header */}
-      <header className="h-16 border-b border-white/5 bg-[#07070c]/90 backdrop-blur-md sticky top-0 z-40 flex items-center justify-between px-4 md:px-8">
+      <header className="h-16 border-b border-white/5 bg-slate-950/90 backdrop-blur-md sticky top-0 z-40 flex items-center justify-between px-4 md:px-8">
         <Link href="/ncert" className="flex items-center gap-2 text-slate-400 hover:text-white font-bold text-sm transition-all">
           <ArrowLeft size={16} />
           NCERT Hub
@@ -118,7 +118,7 @@ export default function EconomicsChapter1Page() {
             Indian Economy on the <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-400">Eve of Independence</span>
           </h1>
           <p className="text-slate-400 text-sm leading-relaxed max-w-2xl">
-            Understand the state of India's economy under British colonial rule — how it was systematically drained, de-industrialised, and left impoverished by 1947.
+            Understand the state of India&apos;s economy under British colonial rule — how it was systematically drained, de-industrialised, and left impoverished by 1947.
           </p>
         </section>
 

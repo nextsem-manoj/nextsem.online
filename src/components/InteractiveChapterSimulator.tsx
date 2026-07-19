@@ -35,7 +35,7 @@ const renderLineWithHighlights = (text: string, defaultClass: string = "text-whi
           return (
             <span 
               key={index} 
-              className="text-[#39FF14] underline decoration-2 font-black tracking-wider shadow-[0_0_8px_rgba(57,255,20,0.4)] bg-[#39FF14]/15 px-1.5 py-0.5 rounded mx-0.5"
+              className="text-[#c1a648] underline decoration-2 font-black tracking-wider shadow-[0_0_8px_rgba(193,166,72,0.4)] bg-[#c1a648]/15 px-1.5 py-0.5 rounded mx-0.5"
             >
               {part}
             </span>
@@ -238,8 +238,7 @@ export default function InteractiveChapterSimulator({ simulator, chapterId, user
 
   return (
     <div
-      className="relative w-full h-full flex flex-col bg-[#06060a] text-white overflow-hidden"
-      style={{ fontFamily: "'Courier New', 'Consolas', monospace" }}
+      className="relative w-full h-full flex flex-col bg-[#1e303f] text-white overflow-hidden"
     >
       {/* Mobile-only top ad */}
       <div className="md:hidden w-full shrink-0 px-4 pt-2">
@@ -248,18 +247,18 @@ export default function InteractiveChapterSimulator({ simulator, chapterId, user
 
       {/* ── Desktop Split View Main Container ────────────────────────────── */}
       <main
-        className="relative flex-1 flex flex-col md:flex-row min-h-0 overflow-hidden bg-[#06060a]"
+        className="relative flex-1 flex flex-col md:flex-row min-h-0 overflow-hidden bg-[#1e303f]"
         onClick={() => { if (!isMobile) focusTerminal(); }}
       >
         {/* Left Panel: Textbook Guide (Desktop Only) */}
-        <div className="hidden md:flex md:w-[38%] bg-[#08080c] border-r border-slate-900/60 flex-col overflow-y-auto p-6 font-sans select-none shrink-0 justify-between">
+        <div className="hidden md:flex md:w-[38%] bg-[#121d27] border-r border-[#c1a648]/15 flex-col overflow-y-auto p-6 font-sans select-none shrink-0 justify-between">
           <div className="flex flex-col gap-5">
             {/* Header info */}
             <div className="flex items-center justify-between">
-              <span className="text-[10px] font-black tracking-widest text-[#39FF14] bg-[#39FF14]/10 border border-[#39FF14]/20 px-2.5 py-1 rounded-full uppercase">
+              <span className="text-[10px] font-black tracking-widest text-[#c1a648] bg-[#c1a648]/10 border border-[#c1a648]/20 px-2.5 py-1 rounded-full uppercase">
                 Lesson Guide
               </span>
-              <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest font-sans">
+              <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest font-sans">
                 STEP {certified ? lessons.length : stepIdx + 1}/{lessons.length}
               </span>
             </div>
@@ -271,7 +270,7 @@ export default function InteractiveChapterSimulator({ simulator, chapterId, user
             <AdSenseBanner />
 
             {/* Progress Divider */}
-            <div className="w-12 h-1 bg-[#39FF14] rounded-full shadow-[0_0_8px_rgba(57,255,20,0.4)]" />
+            <div className="w-12 h-1 bg-[#c1a648] rounded-full shadow-[0_0_8px_rgba(193,166,72,0.4)]" />
 
             {/* Textbook Instruction Card */}
             <div className="text-slate-350 text-sm leading-relaxed space-y-4 font-sans">
@@ -295,9 +294,9 @@ export default function InteractiveChapterSimulator({ simulator, chapterId, user
                     return (
                       <div 
                         key={optIdx} 
-                        className="p-3 bg-slate-950/60 border border-slate-900 rounded-xl text-xs font-bold text-slate-300 flex items-center gap-3 transition-colors hover:border-[#39FF14]/20"
+                        className="p-3 bg-[#121d27]/60 border border-[#c1a648]/15 rounded-xl text-xs font-bold text-slate-350 flex items-center gap-3 transition-colors hover:border-[#c1a648]/40"
                       >
-                        <span className="w-5 h-5 rounded bg-slate-900 border border-slate-800 text-[#39FF14] flex items-center justify-center text-[10px] font-black">{letter}</span>
+                        <span className="w-5 h-5 rounded bg-[#1c2d3b] border border-[#c1a648]/20 text-[#c1a648] flex items-center justify-center text-[10px] font-black">{letter}</span>
                         <span>{opt}</span>
                       </div>
                     );
@@ -310,12 +309,12 @@ export default function InteractiveChapterSimulator({ simulator, chapterId, user
           <AdSenseBanner />
 
           {/* Bottom Card Inside Left Panel: Tips/Hints */}
-          <div className="mt-8 pt-4 border-t border-slate-900 shrink-0 font-sans">
-            <div className="bg-amber-950/20 border border-amber-900/30 rounded-xl p-4 flex flex-col gap-2">
-              <span className="text-[9px] font-black text-amber-400 uppercase tracking-widest flex items-center gap-1.5 font-sans">
+          <div className="mt-8 pt-4 border-t border-[#c1a648]/10 shrink-0 font-sans">
+            <div className="bg-[#c1a648]/5 border border-[#c1a648]/15 rounded-xl p-4 flex flex-col gap-2">
+              <span className="text-[9px] font-black text-[#c1a648] uppercase tracking-widest flex items-center gap-1.5 font-sans">
                 <span>💡</span> Learning Hint
               </span>
-              <p className="text-[11px] font-bold text-amber-200/90 leading-relaxed font-sans">
+              <p className="text-[11px] font-bold text-slate-350 leading-relaxed font-sans">
                 {currentLesson.hint}
               </p>
             </div>
@@ -324,8 +323,8 @@ export default function InteractiveChapterSimulator({ simulator, chapterId, user
         </div>
 
         {/* Right Panel: Terminal Window Container */}
-        <div className="flex-1 md:w-[62%] flex flex-col min-h-0 px-2 md:px-4 py-3 bg-[#06060a]">
-          <div className="w-full h-full flex flex-col rounded-2xl bg-[#0a0a0f] border border-violet-500/20 shadow-[0_0_40px_rgba(139,92,246,0.08)] overflow-hidden cursor-text select-text">
+        <div className="flex-1 md:w-[62%] flex flex-col min-h-0 px-2 md:px-4 py-3 bg-[#1e303f]">
+          <div className="w-full h-full flex flex-col rounded-2xl bg-[#121d27] border border-[#c1a648]/20 shadow-[0_0_40px_rgba(193,166,72,0.08)] overflow-hidden cursor-text select-text">
           {/* Titlebar */}
           <div className="w-full bg-[#1c1c24] pl-4 pr-0 py-0 flex items-center justify-between border-b border-slate-900 shrink-0 select-none">
             <div className="flex items-center gap-2">
@@ -378,7 +377,7 @@ export default function InteractiveChapterSimulator({ simulator, chapterId, user
                   <React.Fragment key={lesson.id}>
                     {idx > 0 && (
                       <div className={`h-[2px] w-6 transition-all duration-300 ${
-                        isCompleted ? "bg-[#39FF14]" : "bg-slate-800"
+                        isCompleted ? "bg-[#c1a648]" : "bg-slate-800"
                       }`} />
                     )}
                     <button
@@ -395,10 +394,10 @@ export default function InteractiveChapterSimulator({ simulator, chapterId, user
                       title={`${lesson.title}${isClickable ? " — click to jump here" : isActive ? " (current)" : " (locked)"}`}
                       className={`relative group flex items-center justify-center w-5 h-5 rounded-full border text-[9px] font-black font-sans transition-all duration-300 ${
                         isActive
-                          ? "border-[#39FF14] bg-[#39FF14]/10 text-[#39FF14] shadow-[0_0_8px_rgba(57,255,20,0.4)] scale-110"
+                          ? "border-[#c1a648] bg-[#c1a648]/10 text-[#c1a648] shadow-[0_0_8px_rgba(193,166,72,0.4)] scale-110"
                           : isCompleted
-                          ? "border-[#39FF14] bg-[#39FF14] text-black cursor-pointer hover:scale-125 hover:shadow-[0_0_10px_rgba(57,255,20,0.6)] active:scale-95"
-                          : "border-slate-800 bg-[#111118] text-slate-500 cursor-not-allowed"
+                          ? "border-[#c1a648] bg-[#c1a648] text-[#1e303f] cursor-pointer hover:scale-125 hover:shadow-[0_0_10px_rgba(193,166,72,0.6)] active:scale-95"
+                          : "border-slate-800 bg-[#1c2d3b] text-slate-500 cursor-not-allowed"
                       }`}
                     >
                       {isCompleted && !isActive ? "✓" : idx + 1}
@@ -406,7 +405,7 @@ export default function InteractiveChapterSimulator({ simulator, chapterId, user
                       {/* Tooltip on hover */}
                       <div className="absolute top-6 left-1/2 -translate-x-1/2 hidden group-hover:block bg-slate-950 border border-slate-700 text-white text-[8px] font-bold px-2 py-1 rounded whitespace-nowrap shadow-xl z-50 pointer-events-none">
                         {lesson.title}
-                        {isClickable && <span className="ml-1 text-[#39FF14]">↩ jump</span>}
+                        {isClickable && <span className="ml-1 text-[#c1a648]">↩ jump</span>}
                       </div>
                     </button>
                   </React.Fragment>
@@ -466,7 +465,7 @@ export default function InteractiveChapterSimulator({ simulator, chapterId, user
             <div
               className={`w-full flex flex-col px-4 py-2 transition-all duration-200 ${
                 !isWorking
-                  ? "opacity-100 bg-gradient-to-r from-[#39FF14]/5 to-violet-500/5 border-l-2 border-[#39FF14]"
+                  ? "opacity-100 bg-[#1e303f]/20 border-l-2 border-[#c1a648]"
                   : "opacity-30 pointer-events-none"
               }`}
             >
@@ -481,7 +480,7 @@ export default function InteractiveChapterSimulator({ simulator, chapterId, user
                   onChange={(e) => setInputVal(e.target.value)}
                   disabled={isWorking}
                   readOnly={isMobile}
-                  className="flex-1 bg-transparent border-none outline-none focus:ring-0 p-0 text-white font-bold font-mono text-[16px] ml-1.5 caret-[#39FF14]"
+                  className="flex-1 bg-transparent border-none outline-none focus:ring-0 p-0 text-white font-bold font-mono text-[16px] ml-1.5 caret-[#c1a648]"
                   autoComplete="off"
                   autoCapitalize="off"
                   autoCorrect="off"
@@ -521,7 +520,7 @@ export default function InteractiveChapterSimulator({ simulator, chapterId, user
                             key={i}
                             type="button"
                             onClick={() => executeCommand(cmd)}
-                            className="px-3 py-1.5 rounded-lg border border-[#39FF14]/30 bg-[#39FF14]/5 text-[#39FF14] hover:bg-[#39FF14]/15 hover:shadow-[0_0_10px_rgba(57,255,20,0.3)] font-mono text-[10px] cursor-pointer active:scale-95 transition-all"
+                            className="px-3 py-1.5 rounded-lg border border-[#c1a648]/30 bg-[#c1a648]/5 text-[#c1a648] hover:bg-[#c1a648]/15 hover:shadow-[0_0_10px_rgba(193,166,72,0.3)] font-mono text-[10px] cursor-pointer active:scale-95 transition-all"
                           >
                             $ {cmd}
                           </button>
@@ -672,9 +671,9 @@ export default function InteractiveChapterSimulator({ simulator, chapterId, user
                     key={i}
                     className={`h-1.5 rounded-full transition-all duration-300 ${
                       i < stepIdx
-                        ? "bg-[#39FF14]/60 w-2.5"
+                        ? "bg-[#c1a648]/60 w-2.5"
                         : i === stepIdx
-                        ? "bg-[#39FF14] w-5 shadow-[0_0_8px_rgba(57,255,20,0.6)]"
+                        ? "bg-[#c1a648] w-5 shadow-[0_0_8px_rgba(193,166,72,0.6)]"
                         : "bg-slate-700 w-2"
                     }`}
                   />

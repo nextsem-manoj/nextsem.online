@@ -49,7 +49,7 @@ export default function SubjectSyllabusDashboard({ semester, subject }: { semest
 
   if (!mounted) {
     return (
-      <div className="w-full h-screen bg-[#07070c] flex items-center justify-center">
+      <div className="w-full h-screen bg-slate-950 flex items-center justify-center">
         <div className="w-10 h-10 border-4 border-t-emerald-500 border-slate-800 rounded-full animate-spin" />
       </div>
     );
@@ -57,10 +57,10 @@ export default function SubjectSyllabusDashboard({ semester, subject }: { semest
 
   if (!currentSemester || !currentSubject) {
     return (
-      <div className="w-full min-h-screen bg-[#07070c] text-white flex flex-col items-center justify-center p-6 text-center">
+      <div className="w-full min-h-screen bg-slate-950 text-white flex flex-col items-center justify-center p-6 text-center">
         <HelpCircle size={48} className="text-emerald-500 mb-4 animate-pulse" />
         <h1 className="text-2xl font-black mb-2">Subject Not Found</h1>
-        <p className="text-slate-400 text-sm mb-6 max-w-sm">We couldn't locate this course syllabus in our BCA revised programme database.</p>
+        <p className="text-slate-400 text-sm mb-6 max-w-sm">We couldn&apos;t locate this course syllabus in our BCA revised programme database.</p>
         <Link href="/bca" className="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-500 font-bold rounded-xl text-xs uppercase tracking-wider transition-all">
           Back to BCA Hub
         </Link>
@@ -121,7 +121,7 @@ export default function SubjectSyllabusDashboard({ semester, subject }: { semest
   };
 
   return (
-    <div className="w-full min-h-screen bg-[#07070c] text-white flex flex-col justify-between font-sans selection:bg-emerald-500/30 relative">
+    <div className="w-full min-h-screen bg-slate-950 text-white flex flex-col justify-between font-sans selection:bg-[#c1a648]/30 relative">
       {/* Background glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 rounded-full bg-emerald-900/10 blur-[120px] pointer-events-none" />
 

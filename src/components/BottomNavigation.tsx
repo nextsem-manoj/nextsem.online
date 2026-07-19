@@ -118,8 +118,8 @@ const BottomNavigation = () => {
       path: '/',
       isButton: false,
       icon: (
-        <div className="bg-[#0a0f1c] rounded-md w-6 h-6 flex flex-col items-center justify-center border border-[#4ade80]/30">
-          <span className="text-[#4ade80] font-black text-[10px] leading-none tracking-tighter" style={{ textShadow: '0 0 5px #4ade80' }}>NS</span>
+        <div className="bg-[#0a0f1c] rounded-md w-6 h-6 flex flex-col items-center justify-center border border-[#c1a648]/30">
+          <span className="text-[#c1a648] font-black text-[10px] leading-none tracking-tighter" style={{ textShadow: '0 0 5px #c1a648' }}>NS</span>
         </div>
       )
     },
@@ -146,11 +146,11 @@ const BottomNavigation = () => {
           {!mounted ? (
             <Sun size={20} />
           ) : theme === 'light' ? (
-            <Sun size={20} className="text-yellow-500" />
+            <Sun size={20} className="text-[#c1a648]" />
           ) : theme === 'dark' ? (
-            <Moon size={20} className="text-blue-400" />
+            <Moon size={20} className="text-slate-350" />
           ) : (
-            <Coffee size={20} className="text-amber-500" />
+            <Coffee size={20} className="text-[#7f7034]" />
           )}
         </div>
       )
@@ -186,7 +186,7 @@ const BottomNavigation = () => {
             {/* Header */}
             <div className="flex justify-between items-center mb-4 border-b border-gray-100 dark:border-slate-900 pb-2">
               <div className="flex items-center gap-2.5">
-                <img src="/logo.svg" alt="Nextsem Logo" className="w-6 h-6 rounded-md border border-emerald-500/20" />
+                <img src="/logo.svg" alt="Nextsem Logo" className="w-6 h-6 rounded-md border border-[#c1a648]/20" />
                 <h3 className="font-black text-sm uppercase tracking-widest text-slate-800 dark:text-white flex items-center gap-1">
                   Nextsem <span className="text-amber-500 dark:text-amber-400 font-extrabold text-[10px] px-1.5 py-0.5 bg-amber-500/10 rounded-full border border-amber-500/20">Menu</span>
                 </h3>
@@ -393,11 +393,11 @@ const BottomNavigation = () => {
                     <Sun size={14} className="text-amber-500" />
                     <span>Choose Theme</span>
                   </div>
-                  <div className="grid grid-cols-3 gap-2">
+                  <div className="grid grid-cols-3 gap-1.5">
                     {[
-                      { name: 'light', label: '☀️ Light', color: 'hover:border-yellow-500/40 text-yellow-600 dark:text-yellow-400' },
-                      { name: 'dark', label: '🌙 Dark', color: 'hover:border-blue-500/40 text-blue-500 dark:text-blue-400' },
-                      { name: 'night-light', label: '💡 Night', color: 'hover:border-amber-500/40 text-amber-600 dark:text-amber-500' }
+                      { name: 'light', label: '☀️ Light', color: 'hover:border-[#c1a648]/40 text-[#c1a648]' },
+                      { name: 'dark', label: '🌙 Dark', color: 'hover:border-[#c1a648]/40 text-slate-350' },
+                      { name: 'night-light', label: '☕ Relaxing', color: 'hover:border-[#7f7034]/40 text-[#7f7034]' }
                     ].map((t) => (
                       <button
                         key={t.name}
@@ -516,7 +516,7 @@ const BottomNavigation = () => {
             if (activeIndicatorIdx < 0) return null;
             return (
               <div 
-                className="absolute h-9 bg-gradient-to-r from-blue-500/10 to-indigo-500/10 dark:from-blue-400/10 dark:to-indigo-400/10 rounded-xl transition-all duration-[300ms] ease-[cubic-bezier(0.25,1,0.5,1)] pointer-events-none"
+                className="absolute h-9 bg-gradient-to-r from-[#c1a648]/15 to-[#e4ca67]/15 rounded-xl transition-all duration-[300ms] ease-[cubic-bezier(0.25,1,0.5,1)] pointer-events-none"
                 style={{
                   width: '22%',
                   left: `${(activeIndicatorIdx * 24) + 2}%`,
@@ -538,7 +538,7 @@ const BottomNavigation = () => {
                   key={idx}
                   onClick={item.onClick}
                   className={`relative z-10 flex flex-col items-center justify-center w-full h-full space-y-0.5 transition-colors ${
-                    menuOpen ? 'text-blue-600 dark:text-blue-450' : 'text-gray-500 dark:text-gray-450 hover:text-white'
+                    menuOpen ? 'text-[#c1a648]' : 'text-gray-500 dark:text-gray-450 hover:text-white'
                   }`}
                 >
                   <div className={`transition-transform duration-200 hover:scale-110 ${menuOpen ? 'scale-110' : ''}`}>
@@ -557,7 +557,7 @@ const BottomNavigation = () => {
                 href={item.path}
                 className={`relative z-10 flex flex-col items-center justify-center w-full h-full space-y-0.5 transition-colors ${
                   isActive 
-                    ? 'text-blue-600 dark:text-blue-450' 
+                    ? 'text-[#c1a648]' 
                     : 'text-gray-500 dark:text-gray-450 hover:text-white'
                 }`}
               >

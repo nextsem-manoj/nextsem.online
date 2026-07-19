@@ -1,9 +1,13 @@
 import { htmlLessons } from "../data/htmlLessonsData";
+import { cliLessons } from "../data/cliLessonsData";
 
 export function getChapterIdFromPath(pathname: string): string {
   if (!pathname) return "";
   if (pathname === "/html") {
     return "p1-1-intro-and-text";
+  }
+  if (pathname === "/cli") {
+    return "p0-2-terminal";
   }
   if (pathname.startsWith("/html/")) {
     const slug = pathname.split("/html/")[1]?.split("?")[0];
@@ -17,6 +21,13 @@ export function getChapterIdFromPath(pathname: string): string {
       return "p1-6-html5-tags";
     }
   }
+  if (pathname.startsWith("/cli/")) {
+    const slug = pathname.split("/cli/")[1]?.split("?")[0];
+    const lesson = cliLessons.find((l) => l.slug === slug);
+    if (lesson) {
+      return lesson.originalChapterId;
+    }
+  }
   return pathname.split("/book/")[1]?.split("?")[0] || "";
 }
 
@@ -25,8 +36,15 @@ export function isHtmlLessonPath(pathname: string): boolean {
   return pathname === "/html" || pathname.startsWith("/html/");
 }
 
+export function isCliLessonPath(pathname: string): boolean {
+  if (!pathname) return false;
+  return pathname === "/cli" || pathname.startsWith("/cli/");
+}
+
 export function getChapterUrl(chapterId: string): string {
   if (chapterId === "p1-1-intro-and-text") return "/html";
+  if (chapterId === "p0-2-terminal") return "/cli";
+  
   if (chapterId.startsWith("p1-")) {
     // Map phase chapter key back to the first lesson slug of that unit
     const phaseMap: Record<string, string> = {
@@ -43,5 +61,12 @@ export function getChapterUrl(chapterId: string): string {
       return `/html/${slug}`;
     }
   }
+
+  // Check if it matches a CLI lesson
+  const cliLesson = cliLessons.find(l => l.originalChapterId === chapterId || l.slug === chapterId);
+  if (cliLesson) {
+    return `/cli/${cliLesson.slug}`;
+  }
+
   return `/book/${chapterId}`;
 }

@@ -22,6 +22,8 @@ const eslintConfig = defineConfig([
     "node_modules/**",
     "scripts/**",
     "*.js",
+    ".gradle_user_home/**",
+    ".gradle/**",
   ]),
 ]);
 

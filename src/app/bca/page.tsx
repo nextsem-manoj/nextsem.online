@@ -91,7 +91,7 @@ export default function BcaDashboard() {
 
   if (!mounted) {
     return (
-      <div className="w-full h-screen bg-[#07070c] flex items-center justify-center">
+      <div className="w-full h-screen bg-slate-950 flex items-center justify-center">
         <div className="w-10 h-10 border-4 border-t-emerald-500 border-slate-800 rounded-full animate-spin" />
       </div>
     );
@@ -100,7 +100,7 @@ export default function BcaDashboard() {
   const overall = getOverallProgress();
 
   return (
-    <div className="w-full min-h-screen bg-[#07070c] text-white flex flex-col justify-between font-sans selection:bg-emerald-500/30 relative">
+    <div className="w-full min-h-screen bg-slate-950 text-white flex flex-col justify-between font-sans selection:bg-[#c1a648]/30 relative">
       {/* Background radial glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 rounded-full bg-emerald-900/10 blur-[120px] pointer-events-none" />
 

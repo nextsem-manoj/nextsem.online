@@ -182,7 +182,7 @@ export default function BcaInteractiveModal({ unitNumber, defaultTab = "home", o
     <div className="fixed inset-0 z-50 flex items-center justify-center p-0 sm:p-4 bg-slate-950/80 backdrop-blur-md">
       
       {/* Outer Wrapper */}
-      <div className="w-full h-full sm:max-h-[92vh] sm:max-w-5xl bg-[#07070c] border border-white/5 sm:rounded-[36px] overflow-hidden flex flex-col relative shadow-2xl">
+      <div className="w-full h-full sm:max-h-[92vh] sm:max-w-5xl bg-slate-950 border border-white/5 sm:rounded-[36px] overflow-hidden flex flex-col relative shadow-2xl">
         
         {/* Top Toolbar */}
         <div className="h-14 border-b border-slate-850/50 bg-[#0a0a0f] px-6 flex items-center justify-between shrink-0">

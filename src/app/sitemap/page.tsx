@@ -173,7 +173,7 @@ export default function UserSitemap() {
   }, [allRoutes, searchQuery, activeCategory]);
 
   return (
-    <div className="w-full min-h-screen bg-[#07070c] text-white flex flex-col justify-between font-sans selection:bg-emerald-500/30 relative">
+    <div className="w-full min-h-screen bg-slate-950 text-white flex flex-col justify-between font-sans selection:bg-[#c1a648]/30 relative">
       {/* Background radial glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[500px] rounded-full bg-emerald-955/10 blur-[130px] pointer-events-none" />
 
@@ -331,7 +331,7 @@ export default function UserSitemap() {
             <Compass size={32} className="mx-auto text-slate-650" />
             <h3 className="text-sm font-bold text-white">No pages match your search</h3>
             <p className="text-xs text-slate-500 max-w-sm mx-auto">
-              We couldn't find any routes that match &ldquo;{searchQuery}&rdquo;. Try using a different keyword or browsing by category tabs.
+              We couldn&apos;t find any routes that match &ldquo;{searchQuery}&rdquo;. Try using a different keyword or browsing by category tabs.
             </p>
           </div>
         )}

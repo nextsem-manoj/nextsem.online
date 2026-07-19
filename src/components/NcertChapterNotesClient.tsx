@@ -119,9 +119,9 @@ export default function NcertChapterNotesClient({
   };
 
   return (
-    <div className="w-full min-h-screen bg-[#07070c] text-white flex flex-col justify-between font-sans selection:bg-blue-500/30">
+    <div className="w-full min-h-screen bg-slate-950 text-white flex flex-col justify-between font-sans selection:bg-[#c1a648]/30">
       {/* Header bar */}
-      <header className="h-16 border-b border-slate-850/50 bg-[#07070c]/85 backdrop-blur-md sticky top-0 z-40 flex items-center justify-between px-4 md:px-8">
+      <header className="h-16 border-b border-slate-850/50 bg-slate-950/85 backdrop-blur-md sticky top-0 z-40 flex items-center justify-between px-4 md:px-8">
         <Link
           href="/ncert"
           className="flex items-center gap-2 text-slate-400 hover:text-white font-bold text-sm transition-all"
@@ -238,7 +238,7 @@ export default function NcertChapterNotesClient({
                         const isCorrect = oIdx === mcq.answer;
                         const isSelected = selected === oIdx;
                         
-                        let btnStyle = "bg-[#07070c] border-slate-800 text-slate-350 hover:border-slate-700 hover:text-white";
+                        let btnStyle = "bg-slate-950 border-slate-800 text-slate-350 hover:border-slate-700 hover:text-white";
                         if (showAnswer) {
                           if (isCorrect) {
                             btnStyle = "bg-emerald-500/10 border-emerald-500/40 text-emerald-300";
@@ -344,13 +344,13 @@ export default function NcertChapterNotesClient({
                     <div className="mt-3 flex flex-wrap gap-2.5 items-center">
                       <button
                         onClick={() => toggleBlankReveal(item.id)}
-                        className="px-3 py-1.5 bg-[#07070c] border border-slate-800 hover:border-slate-700 text-[10px] text-indigo-400 hover:text-white font-bold rounded-lg cursor-pointer"
+                        className="px-3 py-1.5 bg-slate-950 border border-slate-800 hover:border-slate-700 text-[10px] text-indigo-400 hover:text-white font-bold rounded-lg cursor-pointer"
                       >
                         {reveal ? `Answer: ${getTranslation(item.answer)}` : 'Reveal Answer'}
                       </button>
                       <button
                         onClick={() => toggleBlankHint(item.id)}
-                        className="px-3 py-1.5 bg-[#07070c] border border-slate-800 hover:border-slate-700 text-[10px] text-amber-500 hover:text-amber-450 font-bold rounded-lg cursor-pointer"
+                        className="px-3 py-1.5 bg-slate-950 border border-slate-800 hover:border-slate-700 text-[10px] text-amber-500 hover:text-amber-450 font-bold rounded-lg cursor-pointer"
                       >
                         {showHint ? `Hint: ${getTranslation(item.hint)}` : 'Show Hint'}
                       </button>

@@ -9,7 +9,7 @@ export const metadata = {
 export default function SemmyAiPage() {
   return (
     <Suspense fallback={
-      <div className="w-full h-screen bg-[#07070c] flex items-center justify-center">
+      <div className="w-full h-screen bg-slate-950 flex items-center justify-center">
         <div className="w-10 h-10 border-4 border-t-indigo-500 border-slate-800 rounded-full animate-spin" />
       </div>
     }>

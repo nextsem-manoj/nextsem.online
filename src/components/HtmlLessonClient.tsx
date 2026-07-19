@@ -163,7 +163,7 @@ export default function HtmlLessonClient({ lesson }: HtmlLessonClientProps) {
       if (trimmed.startsWith("###")) {
         return (
           <h3 key={idx} className="text-md md:text-lg font-black text-slate-100 mt-6 mb-3 flex items-center gap-2 border-b border-slate-800/40 pb-1">
-            <span className="text-[#04AA6D]">#</span>
+            <span className="text-[#c1a648]">#</span>
             {trimmed.replace("###", "").trim()}
           </h3>
         );
@@ -193,7 +193,7 @@ export default function HtmlLessonClient({ lesson }: HtmlLessonClientProps) {
       // Detect raw code snippets blocks
       if (trimmed.startsWith("Host:") || trimmed.startsWith("GET ") || trimmed.startsWith("HTTP/1.1 ") || trimmed.startsWith("<!DOCTYPE html>")) {
         return (
-          <pre key={idx} className="bg-slate-950/80 p-3 rounded-lg border border-slate-800/50 font-mono text-[10px] md:text-xs text-emerald-400 overflow-x-auto my-3 leading-relaxed">
+          <pre key={idx} className="bg-slate-950/80 p-3 rounded-lg border border-slate-800/50 font-mono text-[10px] md:text-xs text-[#c1a648] overflow-x-auto my-3 leading-relaxed">
             {trimmed}
           </pre>
         );
@@ -206,7 +206,7 @@ export default function HtmlLessonClient({ lesson }: HtmlLessonClientProps) {
         const parts = trimmed.split(boldRegex);
         return (
           <p key={idx} className="text-xs md:text-sm text-slate-350 leading-relaxed my-2.5 font-medium">
-            {parts.map((part, pIdx) => pIdx % 2 === 1 ? <strong key={pIdx} className="text-[#39FF14] font-black">{part}</strong> : part)}
+            {parts.map((part, pIdx) => pIdx % 2 === 1 ? <strong key={pIdx} className="text-[#c1a648] font-black">{part}</strong> : part)}
           </p>
         );
       }
@@ -242,7 +242,7 @@ export default function HtmlLessonClient({ lesson }: HtmlLessonClientProps) {
           <span className="text-[9px] font-black uppercase tracking-wider text-slate-400 bg-slate-900 border border-slate-850 px-2 py-0.5 rounded-md">
             {lesson.unit}
           </span>
-          <h2 className="text-lg md:text-xl font-black text-white mt-1">
+          <h2 className="text-lg md:text-xl font-black text-foreground mt-1">
             Lesson {lesson.id}: {lesson.title}
           </h2>
           <span className="text-[10px] text-slate-500 font-bold block mt-0.5">
@@ -307,7 +307,7 @@ export default function HtmlLessonClient({ lesson }: HtmlLessonClientProps) {
                 onClick={() => handleLangChange(lang)}
                 className={`flex-1 py-1.5 text-[11px] font-black uppercase tracking-wider rounded-lg transition-all cursor-pointer ${
                   selectedLang === lang
-                    ? "bg-[#04AA6D] text-white shadow-sm font-black"
+                    ? "bg-[#c1a648] text-[#1e303f] shadow-sm font-black"
                     : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/40"
                 }`}
               >
@@ -328,7 +328,7 @@ export default function HtmlLessonClient({ lesson }: HtmlLessonClientProps) {
                 onClick={() => handleLevelChange(level)}
                 className={`flex-1 py-1.5 text-[11px] font-black uppercase tracking-wider rounded-lg transition-all cursor-pointer ${
                   selectedLevel === level
-                    ? "bg-indigo-650 text-white shadow-sm font-black"
+                    ? "bg-[#7f7034] text-white shadow-sm font-black"
                     : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/40"
                 }`}
               >
@@ -340,7 +340,7 @@ export default function HtmlLessonClient({ lesson }: HtmlLessonClientProps) {
       </div>
 
       {/* Main Content Area */}
-      <div className="bg-[#0f172a]/40 border border-slate-850 p-5 md:p-8 rounded-2xl shadow-xl backdrop-blur-xl relative overflow-hidden">
+      <div className="bg-slate-900/40 border border-slate-850 p-5 md:p-8 rounded-2xl shadow-xl backdrop-blur-xl relative overflow-hidden">
         {/* Dynamic Mode Watermark */}
         <div className="absolute top-2 right-4 text-[9px] font-black uppercase tracking-widest text-slate-700 pointer-events-none select-none">
           {selectedLang} • {selectedLevel}
@@ -365,7 +365,7 @@ export default function HtmlLessonClient({ lesson }: HtmlLessonClientProps) {
       </div>
 
       {/* Gamified Exercise Box */}
-      <div className="bg-[#0b0f19] border border-slate-800/60 rounded-2xl overflow-hidden shadow-2xl text-left">
+      <div className="bg-slate-950 border border-slate-800/60 rounded-2xl overflow-hidden shadow-2xl text-left">
         <div className="bg-slate-900/60 px-5 py-3 border-b border-slate-850 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <HelpCircle size={16} className="text-indigo-400" />
@@ -475,7 +475,7 @@ export default function HtmlLessonClient({ lesson }: HtmlLessonClientProps) {
           isNextUnlocked ? (
             <Link
               href={`/html/${nextLesson.slug}`}
-              className="flex items-center gap-2 px-5 py-2.5 bg-[#04AA6D] hover:bg-[#039861] text-white rounded-xl text-[11px] font-black uppercase tracking-wider transition-all w-full sm:w-auto justify-center shadow-lg shadow-[#04AA6D]/10"
+              className="flex items-center gap-2 px-5 py-2.5 bg-[#c1a648] hover:bg-[#7f7034] text-[#1e303f] hover:text-white rounded-xl text-[11px] font-black uppercase tracking-wider transition-all w-full sm:w-auto justify-center shadow-lg shadow-[#c1a648]/10"
             >
               <span>Next: {nextLesson.title}</span>
               <ChevronRight size={14} />

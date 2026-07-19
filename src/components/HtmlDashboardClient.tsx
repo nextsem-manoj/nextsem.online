@@ -83,23 +83,23 @@ export default function HtmlDashboardClient() {
 
   if (!mounted) {
     return (
-      <div className="min-h-screen bg-[#060c18] flex items-center justify-center text-white">
+      <div className="min-h-screen bg-background flex items-center justify-center text-white">
         <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-indigo-500"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#060c18] text-white py-8 px-4 md:px-10 max-w-[1400px] mx-auto">
+    <div className="min-h-screen bg-background text-white py-8 px-4 md:px-10 max-w-[1400px] mx-auto">
       {/* Top Banner section */}
-      <div className="relative rounded-3xl p-6 md:p-10 overflow-hidden border border-white/5 bg-gradient-to-br from-[#121c38]/40 via-[#0e172e]/55 to-slate-950 shadow-2xl mb-8 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div className="relative rounded-3xl p-6 md:p-10 overflow-hidden border border-white/5 bg-gradient-to-br from-[#1c2d3b]/40 via-[#121d27]/55 to-slate-950 shadow-2xl mb-8 flex flex-col md:flex-row items-center justify-between gap-6">
         {/* Blur overlays for premium glass aesthetics */}
-        <div className="absolute -top-12 -left-12 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute -bottom-12 -right-12 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -top-12 -left-12 w-64 h-64 bg-[#c1a648]/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-12 -right-12 w-64 h-64 bg-[#7f7034]/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="text-left space-y-3 z-10 flex-1">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 text-[10px] font-black uppercase tracking-wider border border-indigo-500/20">
-            <Zap size={10} className="fill-indigo-400" />
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#c1a648]/10 text-[#c1a648] text-[10px] font-black uppercase tracking-wider border border-[#c1a648]/20">
+            <Zap size={10} className="fill-[#c1a648]" />
             <span>Interactive Course</span>
           </span>
           <h1 className="text-2xl md:text-4xl font-black tracking-tight leading-none bg-gradient-to-r from-white via-slate-100 to-slate-350 bg-clip-text text-transparent">
@@ -113,11 +113,11 @@ export default function HtmlDashboardClient() {
           <div className="pt-2">
             <div className="flex items-center justify-between text-xs font-bold text-slate-400 mb-1.5">
               <span>Course Progress</span>
-              <span className="text-indigo-400">{completedCount} / {totalLessons} Lessons ({progressPercent}%)</span>
+              <span className="text-[#c1a648]">{completedCount} / {totalLessons} Lessons ({progressPercent}%)</span>
             </div>
             <div className="w-full h-2 rounded-full bg-slate-900 overflow-hidden border border-white/5">
               <div 
-                className="h-full bg-gradient-to-r from-indigo-500 via-indigo-400 to-emerald-500 rounded-full transition-all duration-500"
+                className="h-full bg-gradient-to-r from-[#e4ca67] via-[#c1a648] to-[#967b26] rounded-full transition-all duration-500"
                 style={{ width: `${progressPercent}%` }}
               />
             </div>
@@ -128,9 +128,9 @@ export default function HtmlDashboardClient() {
         <div className="z-10 shrink-0 w-full md:w-auto">
           <button
             onClick={() => router.push(`/html/${nextLesson.slug}`)}
-            className="w-full md:w-auto flex items-center justify-center gap-2.5 px-8 py-4 bg-indigo-650 hover:bg-indigo-600 text-white font-black text-xs uppercase tracking-wider rounded-2xl shadow-lg shadow-indigo-650/20 hover:shadow-indigo-650/30 transition-all border border-indigo-500/25 group cursor-pointer"
+            className="w-full md:w-auto flex items-center justify-center gap-2.5 px-8 py-4 bg-[#c1a648] hover:bg-[#7f7034] text-[#1e303f] hover:text-white font-black text-xs uppercase tracking-wider rounded-2xl shadow-lg shadow-[#c1a648]/20 hover:shadow-[#c1a648]/30 transition-all border border-[#c1a648]/25 group cursor-pointer"
           >
-            <Play size={14} className="fill-white" />
+            <Play size={14} className="fill-current" />
             <span>{completedCount > 0 ? "Resume Learning" : "Start Learning"}</span>
             <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
           </button>
@@ -152,7 +152,7 @@ export default function HtmlDashboardClient() {
                 >
                   <div className="space-y-1.5 flex-1">
                     <div className="flex items-center gap-2">
-                      <span className="text-[9px] font-black uppercase text-indigo-400 tracking-wider">Unit {mod.id}</span>
+                      <span className="text-[9px] font-black uppercase text-[#c1a648] tracking-wider">Unit {mod.id}</span>
                       {allDone && (
                         <span className="inline-flex items-center gap-0.5 text-[8px] font-black uppercase bg-emerald-950/60 text-emerald-400 border border-emerald-500/20 px-1.5 py-0.5 rounded-full">
                           <CheckCircle size={8} className="text-emerald-405" /> Completed
@@ -170,7 +170,7 @@ export default function HtmlDashboardClient() {
                     </span>
                     <button
                       onClick={() => router.push(`/html/${mod.lessons[0].slug}`)}
-                      className="inline-flex items-center gap-1 text-[10px] font-black uppercase text-indigo-400 hover:text-indigo-300 transition-colors cursor-pointer"
+                      className="inline-flex items-center gap-1 text-[10px] font-black uppercase text-[#c1a648] hover:text-[#7f7034] transition-colors cursor-pointer"
                     >
                       <span>Explore</span>
                       <ChevronRight size={10} />
@@ -213,7 +213,7 @@ export default function HtmlDashboardClient() {
                               <CheckCircle size={10} className="text-white" />
                             </span>
                           ) : (
-                            <span className="shrink-0 text-[10px] font-bold font-mono text-indigo-400 bg-indigo-950/40 w-4 h-4 rounded-full flex items-center justify-center border border-indigo-500/20">
+                            <span className="shrink-0 text-[10px] font-bold font-mono text-[#c1a648] bg-[#c1a648]/10 w-4 h-4 rounded-full flex items-center justify-center border border-[#c1a648]/20">
                               {lesson.id}
                             </span>
                           )}

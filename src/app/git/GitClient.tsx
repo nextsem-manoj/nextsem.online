@@ -407,7 +407,7 @@ export default function GitClient() {
   const [quizAnswered, setQuizAnswered] = useState(false);
   const [quizFinished, setQuizFinished] = useState(false);
 
-  const loadProgress = async (currentUser: any) => {
+  const loadProgress = async (currentUser: { uid: string; email: string }) => {
     try {
       const docRef = doc(db, "users_progress", currentUser.uid);
       const docSnap = await getDoc(docRef);
@@ -437,7 +437,7 @@ export default function GitClient() {
           avatar: currentUser.photoURL || ""
         };
         setUser(u);
-        await loadProgress(currentUser);
+        await loadProgress(u);
       } else {
         setUser(null);
         const localStep = localStorage.getItem("nextsem_git_step_guest");
@@ -637,7 +637,7 @@ export default function GitClient() {
   );
 
   return (
-    <div className="flex bg-[#060813] text-slate-100 font-sans min-h-screen relative selection:bg-indigo-500/30 selection:text-white">
+    <div className="flex bg-[#060813] text-slate-100 font-sans min-h-screen relative selection:bg-[#c1a648]/30 selection:text-white">
       
       {/* ── DESKTOP LEFT DOCKED SIDEBAR ── */}
       <aside className="hidden lg:flex w-72 flex-col border-r border-slate-800/80 bg-[#070b19]/35 backdrop-blur-md p-6 h-screen sticky top-0 shrink-0 z-25">

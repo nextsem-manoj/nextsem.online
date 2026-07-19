@@ -3,7 +3,8 @@
 import React, { Suspense } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ChevronLeft, ChevronRight, Home, Menu, LogIn } from "lucide-react";
+import { ChevronLeft, ChevronRight, Home, Menu, LogIn, Sun, Moon, Coffee } from "lucide-react";
+import { useTheme } from "next-themes";
 import searchIndex from "../data/searchIndex.json";
 import { auth, signInWithGoogle } from "../lib/firebase";
 import { getChapterIdFromPath, getChapterUrl } from "../lib/htmlLessonsHelper";
@@ -27,6 +28,17 @@ function NavigationContent({
   const pathname = usePathname();
   const currentChapterId = getChapterIdFromPath(pathname);
   const [currentUser, setCurrentUser] = React.useState<UserProfile | null>(null);
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const cycleTheme = () => {
+    const nextTheme = theme === 'light' ? 'dark' : theme === 'dark' ? 'night-light' : 'light';
+    setTheme(nextTheme);
+  };
 
   React.useEffect(() => {
     const checkAuth = () => {
@@ -100,6 +112,25 @@ function NavigationContent({
           <span className="text-[9px] font-black uppercase tracking-wider">Menu</span>
         </button>
 
+        {/* Theme Switch Button */}
+        <button
+          onClick={cycleTheme}
+          className={`flex flex-col items-center justify-center flex-1 py-1.5 rounded-xl transition-all ${buttonHoverClass}`}
+          aria-label="Toggle Visual Theme"
+          title="Toggle Theme"
+        >
+          {!mounted ? (
+            <Sun size={18} className="mb-0.5" />
+          ) : theme === 'light' ? (
+            <Sun size={18} className="mb-0.5 text-[#c1a648]" />
+          ) : theme === 'dark' ? (
+            <Moon size={18} className="mb-0.5 text-slate-350" />
+          ) : (
+            <Coffee size={18} className="mb-0.5 text-[#7f7034]" />
+          )}
+          <span className="text-[9px] font-black uppercase tracking-wider">Theme</span>
+        </button>
+
         {/* Profile / Sign In Button beside Menu */}
         {currentUser ? (
           <Link
@@ -108,7 +139,7 @@ function NavigationContent({
             title="Profile Dashboard"
           >
             {currentUser.photo ? (
-              <img src={currentUser.photo} alt="" className="w-5 h-5 rounded-full object-cover border border-[#4ade80]/20 mb-0.5 shrink-0" />
+              <img src={currentUser.photo} alt="" className="w-5 h-5 rounded-full object-cover border border-[#c1a648]/20 mb-0.5 shrink-0" />
             ) : (
               <div className="w-5 h-5 rounded-full bg-blue-600 text-white flex items-center justify-center font-black text-[9px] mb-0.5 shrink-0">
                 {currentUser.avatar}
@@ -122,8 +153,8 @@ function NavigationContent({
             className={`flex flex-col items-center justify-center flex-1 py-1.5 rounded-xl transition-all ${buttonHoverClass}`}
             title="Sign In"
           >
-            <LogIn size={18} className="mb-0.5 text-emerald-400" />
-            <span className="text-[9px] font-black uppercase tracking-wider text-emerald-400">Sign In</span>
+            <LogIn size={18} className="mb-0.5 text-[#c1a648]" />
+            <span className="text-[9px] font-black uppercase tracking-wider text-[#c1a648]">Sign In</span>
           </button>
         )}
 

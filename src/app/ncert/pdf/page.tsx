@@ -155,7 +155,7 @@ function NcertPdfViewerContent() {
   });
 
   return (
-    <div className="w-full h-screen bg-[#07070c] text-white flex font-sans overflow-hidden relative">
+    <div className="w-full h-screen bg-slate-950 text-white flex font-sans overflow-hidden relative">
 
       {/* ── LEFT SIDEBAR (Subject & Chapter Selector) ────────────────── */}
       <aside className={`w-72 md:w-80 shrink-0 bg-[#0a0a14] border-r border-white/5 flex flex-col h-full z-45 transition-transform duration-300 md:translate-x-0 ${
@@ -314,7 +314,7 @@ function NcertPdfViewerContent() {
 
           {/* Checking */}
           {source === 'checking' && (
-            <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-[#07070c] z-20">
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-slate-950 z-20">
               <div className="w-12 h-12 border-4 border-t-blue-500 border-slate-800 rounded-full animate-spin" />
               <div className="text-center">
                 <p className="text-white font-black text-sm">Connecting to NCERT…</p>
@@ -325,7 +325,7 @@ function NcertPdfViewerContent() {
 
           {/* Unavailable */}
           {source === 'unavailable' && (
-            <div className="absolute inset-0 flex flex-col items-center justify-center gap-6 bg-[#07070c] z-20 px-6">
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-6 bg-slate-950 z-20 px-6">
               <div className="w-16 h-16 rounded-2xl bg-red-500/10 border border-red-500/20 flex items-center justify-center">
                 <AlertTriangle size={28} className="text-red-400" />
               </div>
@@ -383,7 +383,7 @@ function NcertPdfViewerContent() {
 export default function NcertPdfViewerPage() {
   return (
     <Suspense fallback={
-      <div className="w-full h-screen bg-[#07070c] flex items-center justify-center">
+      <div className="w-full h-screen bg-slate-950 flex items-center justify-center">
         <div className="w-10 h-10 border-4 border-t-blue-500 border-slate-800 rounded-full animate-spin" />
       </div>
     }>

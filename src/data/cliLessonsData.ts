@@ -1,15 +1,22 @@
+export interface LessonExercise {
+  question: string;
+  options: string[];
+  correctAnswer: string;
+  hint: string;
+}
+
 export interface Lesson {
   id: number;
   slug: string;
+  originalChapterId: string;
   title: string;
   unit: string;
   bookRef: string;
   icon: string;
   exercise: {
-    question: string;
-    options: string[];
-    correctAnswer: string;
-    hint: string;
+    english: LessonExercise;
+    hinglish: LessonExercise;
+    hindi: LessonExercise;
   };
   english: {
     kid: string;
@@ -28,21 +35,46 @@ export interface Lesson {
 export const cliLessons: Lesson[] = [
   {
     id: 1,
-    slug: "p0-2-terminal",
+    slug: "introduction-to-command-line-interface-cli-basics",
+    originalChapterId: "p0-2-terminal",
     title: "CLI Introduction & Desktop Navigation",
     unit: "Unit 1: Command Line Fundamentals",
     bookRef: "Windows CLI Basics (p. 2-5)",
     icon: "💻",
     exercise: {
-      question: "Which interface do professional developers prefer for automation and scripting?",
-      options: [
-        "Graphical User Interface (GUI)",
-        "Command Line Interface (CLI)",
-        "Both are identical",
-        "Neither"
-      ],
-      correctAnswer: "Command Line Interface (CLI)",
-      hint: "CLI allows you to write scripts and execute operations without touching a mouse!"
+      english: {
+        question: "Which interface do professional developers prefer for automation and scripting?",
+        options: [
+          "Graphical User Interface (GUI)",
+          "Command Line Interface (CLI)",
+          "Both are identical",
+          "Neither"
+        ],
+        correctAnswer: "Command Line Interface (CLI)",
+        hint: "CLI allows you to write scripts and execute operations without touching a mouse!"
+      },
+      hinglish: {
+        question: "Professional developers automation aur scripting ke liye kaunsa interface prefer karte hain?",
+        options: [
+          "Graphical User Interface (GUI)",
+          "Command Line Interface (CLI)",
+          "Dono same hain",
+          "Koi bhi nahi"
+        ],
+        correctAnswer: "Command Line Interface (CLI)",
+        hint: "CLI se aap bina mouse ke fast scripting aur server operations kar sakte hain!"
+      },
+      hindi: {
+        question: "प्रोफेशनल डेवलपर्स ऑटोमेशन और स्क्रिप्टिंग के लिए कौन सा इंटरफ़ेस पसंद करते हैं?",
+        options: [
+          "ग्राफिकल यूजर इंटरफेस (GUI)",
+          "कमांड लाइन इंटरफेस (CLI)",
+          "दोनों समान हैं",
+          "कोई नहीं"
+        ],
+        correctAnswer: "कमांड लाइन इंटरफेस (CLI)",
+        hint: "सीएलआई आपको माउस को छुए बिना स्क्रिप्ट लिखने और काम करने की अनुमति देता है!"
+      }
     },
     english: {
       kid: "### 🖥️ Welcome to the Terminal World!\nImagine your computer is a magical castle. A GUI (Graphical User Interface) is like looking at the castle through windows and pointing at things with a mouse.\n\nA CLI (Command Line Interface) is like having a direct talk with the castle wizard! You type magic words (commands) and the wizard executes them instantly!\n\n* **GUI**: Slow but pretty.\n* **CLI**: Fast, powerful, and keyboard-only!",
@@ -59,21 +91,46 @@ export const cliLessons: Lesson[] = [
   },
   {
     id: 2,
-    slug: "cli-ch1-basics",
+    slug: "learn-windows-command-prompt-cmd-basics",
+    originalChapterId: "cli-ch1-basics",
     title: "Command Line Basics",
     unit: "Unit 1: Command Line Fundamentals",
     bookRef: "Windows CLI Basics (p. 6-10)",
     icon: "🖥️",
     exercise: {
-      question: "Which command is used to display the active Windows version in the terminal?",
-      options: [
-        "cls",
-        "ver",
-        "help",
-        "mkdir"
-      ],
-      correctAnswer: "ver",
-      hint: "Type 'ver' to view the operating system's build version."
+      english: {
+        question: "Which command is used to display the active Windows version in the terminal?",
+        options: [
+          "cls",
+          "ver",
+          "help",
+          "mkdir"
+        ],
+        correctAnswer: "ver",
+        hint: "Type 'ver' to view the operating system's build version."
+      },
+      hinglish: {
+        question: "Terminal me active Windows version dekhne ke liye kaunsi command use hoti hai?",
+        options: [
+          "cls",
+          "ver",
+          "help",
+          "mkdir"
+        ],
+        correctAnswer: "ver",
+        hint: "Active OS build dekhne ke liye 'ver' type karein."
+      },
+      hindi: {
+        question: "टर्मिनल में सक्रिय विंडोज संस्करण को प्रदर्शित करने के लिए किस कमांड का उपयोग किया जाता है?",
+        options: [
+          "cls",
+          "ver",
+          "help",
+          "mkdir"
+        ],
+        correctAnswer: "ver",
+        hint: "ऑपरेटिंग सिस्टम का संस्करण देखने के लिए 'ver' टाइप करें।"
+      }
     },
     english: {
       kid: "### 🏛️ The First Command Line Words\nNow let's learn some basic commands! Every command is a instruction word:\n\n* `ver`: Shows your Windows Version.\n* `cls`: Clears the messy screen and gives you a fresh page.\n* `help`: Lists all available commands if you ever get lost!",
@@ -90,21 +147,46 @@ export const cliLessons: Lesson[] = [
   },
   {
     id: 3,
-    slug: "cli-ch2-drives",
+    slug: "windows-drive-letters-and-file-system-structure",
+    originalChapterId: "cli-ch2-drives",
     title: "Drive Letters and the File System",
     unit: "Unit 1: Command Line Fundamentals",
     bookRef: "Windows CLI Basics (p. 11-15)",
     icon: "💾",
     exercise: {
-      question: "Which directory separator does Windows use in file paths?",
-      options: [
-        "Forward slash ( / )",
-        "Backslash ( \\ )",
-        "Colon ( : )",
-        "Dot ( . )"
-      ],
-      correctAnswer: "Backslash ( \\ )",
-      hint: "Windows uses backslashes like C:\\Users\\Student, while Linux uses forward slashes."
+      english: {
+        question: "Which directory separator does Windows use in file paths?",
+        options: [
+          "Forward slash ( / )",
+          "Backslash ( \\ )",
+          "Colon ( : )",
+          "Dot ( . )"
+        ],
+        correctAnswer: "Backslash ( \\ )",
+        hint: "Windows uses backslashes like C:\\Users\\Student, while Linux uses forward slashes."
+      },
+      hinglish: {
+        question: "Windows file paths me directory separator ke roop me kiska use karta hai?",
+        options: [
+          "Forward slash ( / )",
+          "Backslash ( \\ )",
+          "Colon ( : )",
+          "Dot ( . )"
+        ],
+        correctAnswer: "Backslash ( \\ )",
+        hint: "Windows backslash (\\) use karta hai jaise C:\\Users, jabki Linux forward slash use karta hai."
+      },
+      hindi: {
+        question: "विंडोज फ़ाइल पथ (file path) में डायरेक्टरी सेपरेटर के रूप में किसका उपयोग करता है?",
+        options: [
+          "फॉरवर्ड स्लैश ( / )",
+          "बैकस्लैश ( \\ )",
+          "कोलन ( : )",
+          "डॉट ( . )"
+        ],
+        correctAnswer: "बैकस्लैश ( \\ )",
+        hint: "विंडोज C:\\Users की तरह बैकस्लैश का उपयोग करता है, जबकि लिनक्स फॉरवर्ड स्लैश का उपयोग करता है।"
+      }
     },
     english: {
       kid: "### 💾 Storing Files on Drives\nWindows organizes your hard drive using alphabetical letters followed by a colon:\n\n* `C:`: The main drive where Windows lives.\n* `D:`: A secondary backup drive.\n\nTo jump to a drive, simply type its letter and a colon (like `D:`) and press Enter!",
@@ -121,21 +203,46 @@ export const cliLessons: Lesson[] = [
   },
   {
     id: 4,
-    slug: "cli-ch3-prompt",
+    slug: "how-to-customize-windows-command-prompt",
+    originalChapterId: "cli-ch3-prompt",
     title: "Understanding the Prompt",
     unit: "Unit 1: Command Line Fundamentals",
     bookRef: "Windows CLI Basics (p. 16-20)",
     icon: "⚡",
     exercise: {
-      question: "Which command customization flag displays the active directory path and the standard '>' sign?",
-      options: [
-        "prompt $p$g",
-        "prompt $t$g",
-        "prompt $d$g",
-        "prompt reset"
-      ],
-      correctAnswer: "prompt $p$g",
-      hint: "In Windows CLI, $p$g formats the prompt with current path ($p) and greater-than sign ($g)."
+      english: {
+        question: "Which command customization flag displays the active directory path and the standard '>' sign?",
+        options: [
+          "prompt $p$g",
+          "prompt $t$g",
+          "prompt $d$g",
+          "prompt reset"
+        ],
+        correctAnswer: "prompt $p$g",
+        hint: "In Windows CLI, $p$g formats the prompt with current path ($p) and greater-than sign ($g)."
+      },
+      hinglish: {
+        question: "Kaunsa prompt customization flag active directory path aur '>' sign display karta hai?",
+        options: [
+          "prompt $p$g",
+          "prompt $t$g",
+          "prompt $d$g",
+          "prompt reset"
+        ],
+        correctAnswer: "prompt $p$g",
+        hint: "$p$g prompt ko current path ($p) aur greater-than symbol ($g) ke sath format karta hai."
+      },
+      hindi: {
+        question: "कौन सा प्रॉम्प्ट कस्टमाइजेशन फ्लैग सक्रिय डायरेक्टरी पाथ और मानक '>' चिह्न प्रदर्शित करता है?",
+        options: [
+          "prompt $p$g",
+          "prompt $t$g",
+          "prompt $d$g",
+          "prompt reset"
+        ],
+        correctAnswer: "prompt $p$g",
+        hint: "$p$g प्रॉम्प्ट को वर्तमान पथ ($p) और ग्रेटर-दैन संकेत ($g) के साथ रेंडर करता है।"
+      }
     },
     english: {
       kid: "### ⚡ Customizing the Blinking Prompt\nThe text that tells you where you are (e.g., `C:\\Users\\Student>`) is called the **prompt**.\n\nYou can change it using the `prompt` command! For example, `prompt Hello>` will make the terminal say Hello instead of the folder path!",
@@ -146,27 +253,52 @@ export const cliLessons: Lesson[] = [
       pro: "### ⚡ System Level Prompt Tuning\nPrompt format ko dynamically edit karne ke liye dynamic tokens utilize kiye jaate hain. System standard `$p$g` path aur bracket notation format render karta hai."
     },
     hindi: {
-      kid: "### ⚡ प्रॉम्प्ट को कस्टमाइज़ करना\nटर्मिनल पर ब्लिंकिंग कर्सर से पहले जो टेक्स्ट दिखता है उसे प्रॉम्प्ट कहते हैं। आप इसे `prompt` कमांड से बदल सकते हैं!",
+      kid: "### ⚡ प्रॉम्प्ट को कस्टमाइज़ करना\nटर्मिनल पर प्रॉम्प्ट का मतलब वह टेक्स्ट है जो आपके इनपुट से पहले आता है। आप इसे `prompt` कमांड से बदल सकते हैं!",
       pro: "### ⚡ प्रॉम्प्ट एन्वायरमेंट वेरिएबल्स\nविंडोज प्रॉम्प्ट `$p$g` पैरामीटर के साथ वर्तमान डायरेक्टरी और सिंबल को रेंडर करता है।"
     }
   },
   {
     id: 5,
-    slug: "cli-ch4-directories",
+    slug: "mkdir-cd-dir-working-with-windows-directories",
+    originalChapterId: "cli-ch4-directories",
     title: "Working with Directories",
     unit: "Unit 2: File System & Directories",
     bookRef: "Windows CLI Basics (p. 21-25)",
     icon: "📂",
     exercise: {
-      question: "Which command is used to create a new directory (folder) in Windows?",
-      options: [
-        "cd",
-        "dir",
-        "mkdir",
-        "rmdir"
-      ],
-      correctAnswer: "mkdir",
-      hint: "Think of 'make directory'."
+      english: {
+        question: "Which command is used to create a new directory (folder) in Windows?",
+        options: [
+          "cd",
+          "dir",
+          "mkdir",
+          "rmdir"
+        ],
+        correctAnswer: "mkdir",
+        hint: "Think of 'make directory'."
+      },
+      hinglish: {
+        question: "Windows me naya directory (folder) banane ke liye kaunsi command use hoti hai?",
+        options: [
+          "cd",
+          "dir",
+          "mkdir",
+          "rmdir"
+        ],
+        correctAnswer: "mkdir",
+        hint: "Naya folder banane ke liye 'mkdir' (make directory) use kiya jata hai."
+      },
+      hindi: {
+        question: "विंडोज में एक नई डायरेक्टरी (फ़ोल्डर) बनाने के लिए किस कमांड का उपयोग किया जाता है?",
+        options: [
+          "cd",
+          "dir",
+          "mkdir",
+          "rmdir"
+        ],
+        correctAnswer: "mkdir",
+        hint: "'mkdir' का मतलब 'make directory' है।"
+      }
     },
     english: {
       kid: "### 📂 Creating and Navigating Folders\nFolders are called **directories** in the CLI. Here are the tools to rule them:\n\n* `dir`: Lists all folders and files inside the current folder.\n* `mkdir [name]`: Makes a brand new folder.\n* `cd [name]`: Changes folder to enter inside it.",
@@ -183,21 +315,46 @@ export const cliLessons: Lesson[] = [
   },
   {
     id: 6,
-    slug: "cli-ch5-attributes",
+    slug: "modify-file-attributes-ntfs-permissions-attrib",
+    originalChapterId: "cli-ch5-attributes",
     title: "File Attributes and NTFS Permissions",
     unit: "Unit 2: File System & Directories",
     bookRef: "Windows CLI Basics (p. 26-30)",
     icon: "🔒",
     exercise: {
-      question: "Which attribute letter stands for a Hidden file in the attrib command?",
-      options: [
-        "R",
-        "H",
-        "S",
-        "A"
-      ],
-      correctAnswer: "H",
-      hint: "H stands for Hidden, R stands for Read-only, S stands for System."
+      english: {
+        question: "Which attribute letter stands for a Hidden file in the attrib command?",
+        options: [
+          "R",
+          "H",
+          "S",
+          "A"
+        ],
+        correctAnswer: "H",
+        hint: "H stands for Hidden, R stands for Read-only, S stands for System."
+      },
+      hinglish: {
+        question: "attrib command me file ko chhipane ke liye (Hidden) kaunsa letter use hota hai?",
+        options: [
+          "R",
+          "H",
+          "S",
+          "A"
+        ],
+        correctAnswer: "H",
+        hint: "H se Hidden, R se Read-only aur S se System attribute assign hota hai."
+      },
+      hindi: {
+        question: "attrib कमांड में हिडन (Hidden) फ़ाइल के लिए कौन सा विशेषता अक्षर उपयोग किया जाता है?",
+        options: [
+          "R",
+          "H",
+          "S",
+          "A"
+        ],
+        correctAnswer: "H",
+        hint: "H का अर्थ हिडन (Hidden) और R का अर्थ रीड-ओनली (Read-Only) है।"
+      }
     },
     english: {
       kid: "### 🔒 Secret Hidden Files!\nEvery file has qualities called **attributes**. You can make a file read-only (so no one can change it) or hide it like a secret treasure!\n\n* `attrib +h [filename]`: Hides a file from view!\n* `attrib -h [filename]`: Shows it again!",
@@ -214,21 +371,46 @@ export const cliLessons: Lesson[] = [
   },
   {
     id: 7,
-    slug: "cli-ch7-operations",
+    slug: "copy-move-rename-delete-files-cmd",
+    originalChapterId: "cli-ch7-operations",
     title: "Copying, Moving, Renaming, and Deleting Files",
     unit: "Unit 2: File System & Directories",
     bookRef: "Windows CLI Basics (p. 31-35)",
     icon: "📑",
     exercise: {
-      question: "Which command deletes a file in Windows CLI?",
-      options: [
-        "del",
-        "ren",
-        "move",
-        "copy"
-      ],
-      correctAnswer: "del",
-      hint: "Use the 'del' command, which is short for delete."
+      english: {
+        question: "Which command deletes a file in Windows CLI?",
+        options: [
+          "del",
+          "ren",
+          "move",
+          "copy"
+        ],
+        correctAnswer: "del",
+        hint: "Use the 'del' command, which is short for delete."
+      },
+      hinglish: {
+        question: "Windows CLI me file ko delete karne ke liye kaunsi command use hoti hai?",
+        options: [
+          "del",
+          "ren",
+          "move",
+          "copy"
+        ],
+        correctAnswer: "del",
+        hint: "File delete karne ke liye 'del' (delete) command use hoti hai."
+      },
+      hindi: {
+        question: "विंडोज सीएलआई (CLI) में फ़ाइल हटाने (delete) के लिए किस कमांड का उपयोग किया जाता है?",
+        options: [
+          "del",
+          "ren",
+          "move",
+          "copy"
+        ],
+        correctAnswer: "del",
+        hint: "'del' का उपयोग किया जाता है जो डिलीट का संक्षिप्त रूप है।"
+      }
     },
     english: {
       kid: "### 📑 Copy, Move, Rename, and Delete\nLet's manage files like office documents:\n\n* `copy file.txt clone.txt`: Makes a twin copy.\n* `ren file.txt new.txt`: Renames the file.\n* `del file.txt`: Deletes the file forever!",
@@ -245,21 +427,46 @@ export const cliLessons: Lesson[] = [
   },
   {
     id: 8,
-    slug: "cli-ch6-redirection",
+    slug: "windows-cli-wildcards-and-stream-redirection",
+    originalChapterId: "cli-ch6-redirection",
     title: "Wildcards and Redirection",
     unit: "Unit 3: I/O Redirection & Disk Management",
     bookRef: "Windows CLI Basics (p. 36-40)",
     icon: "🔍",
     exercise: {
-      question: "Which operator is used to redirect command output to a file, overwriting its contents?",
-      options: [
-        ">",
-        ">>",
-        "<",
-        "|"
-      ],
-      correctAnswer: ">",
-      hint: "Single '>' overwrites, double '>>' appends to the file."
+      english: {
+        question: "Which operator is used to redirect command output to a file, overwriting its contents?",
+        options: [
+          ">",
+          ">>",
+          "<",
+          "|"
+        ],
+        correctAnswer: ">",
+        hint: "Single '>' overwrites, double '>>' appends to the file."
+      },
+      hinglish: {
+        question: "Kaunsa operator command output ko kisi file me save karta hai (data overwrite karke)?",
+        options: [
+          ">",
+          ">>",
+          "<",
+          "|"
+        ],
+        correctAnswer: ">",
+        hint: "Single '>' overwrite karta hai, aur double '>>' purane data ke aage jodta hai."
+      },
+      hindi: {
+        question: "किस ऑपरेटर का उपयोग कमांड आउटपुट को फ़ाइल में रीडायरेक्ट करने के लिए किया जाता है, जिससे उसकी सामग्री ओवरराइट हो जाती है?",
+        options: [
+          ">",
+          ">>",
+          "<",
+          "|"
+        ],
+        correctAnswer: ">",
+        hint: "एकल '>' फ़ाइल को ओवरराइट करता है, जबकि '>>' फ़ाइल के अंत में जोड़ता है।"
+      }
     },
     english: {
       kid: "### 🔍 Redirecting Outputs\nNormally, commands print their text on the screen. But you can redirect the text to save it inside a file using the `>` symbol!\n\n* `echo Hello > doc.txt`: Saves the word Hello inside doc.txt!",
@@ -276,21 +483,46 @@ export const cliLessons: Lesson[] = [
   },
   {
     id: 9,
-    slug: "cli-ch9-disk",
+    slug: "windows-disk-management-chkdsk-defrag-diskpart",
+    originalChapterId: "cli-ch9-disk",
     title: "Disk Management",
     unit: "Unit 3: I/O Redirection & Disk Management",
     bookRef: "Windows CLI Basics (p. 41-45)",
     icon: "💿",
     exercise: {
-      question: "Which command runs the disk partition utility in Windows CLI?",
-      options: [
-        "chkdsk",
-        "defrag",
-        "diskpart",
-        "format"
-      ],
-      correctAnswer: "diskpart",
-      hint: "Type 'diskpart' to enter the disk partition manager console."
+      english: {
+        question: "Which command runs the disk partition utility in Windows CLI?",
+        options: [
+          "chkdsk",
+          "defrag",
+          "diskpart",
+          "format"
+        ],
+        correctAnswer: "diskpart",
+        hint: "Type 'diskpart' to enter the disk partition manager console."
+      },
+      hinglish: {
+        question: "Windows CLI me disk partition utility console open karne ke liye kaunsi command use hoti hai?",
+        options: [
+          "chkdsk",
+          "defrag",
+          "diskpart",
+          "format"
+        ],
+        correctAnswer: "diskpart",
+        hint: "Disk partition settings ke liye 'diskpart' system tool use hota hai."
+      },
+      hindi: {
+        question: "विंडोज सीएलआई (CLI) में डिस्क विभाजन उपयोगिता (partition utility) कौन सी कमांड चलाती है?",
+        options: [
+          "chkdsk",
+          "defrag",
+          "diskpart",
+          "format"
+        ],
+        correctAnswer: "diskpart",
+        hint: "विभाजन प्रबंधित करने के लिए 'diskpart' कमांड का उपयोग करें।"
+      }
     },
     english: {
       kid: "### 💿 Disk Clean Up & Health Check\nIs your hard drive feeling sick? You can check its health using disk utility tools:\n\n* `chkdsk`: Checks for disk storage errors and bad spots.\n* `defrag`: Arranges scrambled data blocks to speed up files.",
@@ -307,21 +539,46 @@ export const cliLessons: Lesson[] = [
   },
   {
     id: 10,
-    slug: "cli-ch10-shares",
+    slug: "connect-network-shares-net-use-command",
+    originalChapterId: "cli-ch10-shares",
     title: "Connecting to File Shares",
     unit: "Unit 3: I/O Redirection & Disk Management",
     bookRef: "Windows CLI Basics (p. 46-50)",
     icon: "🔗",
     exercise: {
-      question: "Which net command is used to map a shared network directory to a local drive letter?",
-      options: [
-        "net share",
-        "net use",
-        "net view",
-        "net session"
-      ],
-      correctAnswer: "net use",
-      hint: "Use net use to map network resources, e.g. net use Z: \\\\Server\\Share."
+      english: {
+        question: "Which net command is used to map a shared network directory to a local drive letter?",
+        options: [
+          "net share",
+          "net use",
+          "net view",
+          "net session"
+        ],
+        correctAnswer: "net use",
+        hint: "Use net use to map network resources, e.g. net use Z: \\\\Server\\Share."
+      },
+      hinglish: {
+        question: "Kaunsi net command shared network directory ko local drive mapping ke liye use hoti hai?",
+        options: [
+          "net share",
+          "net use",
+          "net view",
+          "net session"
+        ],
+        correctAnswer: "net use",
+        hint: "Z: drive map karne ke liye `net use Z: \\\\Server\\Folder` command hoti hai."
+      },
+      hindi: {
+        question: "साझा नेटवर्क डायरेक्टरी को स्थानीय ड्राइव अक्षरों से जोड़ने के लिए किस नेट कमांड का उपयोग होता है?",
+        options: [
+          "net share",
+          "net use",
+          "net view",
+          "net session"
+        ],
+        correctAnswer: "net use",
+        hint: "नेटवर्क संसाधन माउंट करने के लिए `net use Z: \\\\Server\\Share` का उपयोग करें।"
+      }
     },
     english: {
       kid: "### 🔗 Connecting to Network Folders\nWant to access a folder sitting on another computer across the room? You can map network drives easily:\n\n* `net view`: Displays all computers in the local network.\n* `net use`: Mounts a network folder locally.",
@@ -338,21 +595,46 @@ export const cliLessons: Lesson[] = [
   },
   {
     id: 11,
-    slug: "cli-ch11-users",
+    slug: "manage-windows-user-accounts-groups-net-user",
+    originalChapterId: "cli-ch11-users",
     title: "Managing User Accounts",
     unit: "Unit 4: User Accounts & Networking",
     bookRef: "Windows CLI Basics (p. 51-55)",
     icon: "👥",
     exercise: {
-      question: "Which command displays details of all active user accounts on Windows?",
-      options: [
-        "net user",
-        "net group",
-        "whoami",
-        "net accounts"
-      ],
-      correctAnswer: "net user",
-      hint: "Simply type 'net user' to list local accounts."
+      english: {
+        question: "Which command displays details of all active user accounts on Windows?",
+        options: [
+          "net user",
+          "net group",
+          "whoami",
+          "net accounts"
+        ],
+        correctAnswer: "net user",
+        hint: "Simply type 'net user' to list local accounts."
+      },
+      hinglish: {
+        question: "Windows me sabhi active user accounts ki list dekhne ke liye kaunsi command chalti hai?",
+        options: [
+          "net user",
+          "net group",
+          "whoami",
+          "net accounts"
+        ],
+        correctAnswer: "net user",
+        hint: "Local user profiles audit karne ke liye 'net user' execute karein."
+      },
+      hindi: {
+        question: "कौन सी कमांड विंडोज पर सभी सक्रिय यूज़र खातों का विवरण प्रदर्शित करती है?",
+        options: [
+          "net user",
+          "net group",
+          "whoami",
+          "net accounts"
+        ],
+        correctAnswer: "net user",
+        hint: "स्थानीय खातों की सूची देखने के लिए बस 'net user' टाइप करें।"
+      }
     },
     english: {
       kid: "### 👥 Windows User Accounts\nIf multiple people share a computer, you can manage their profiles:\n\n* `net user`: Lists all accounts (like Student, Administrator).\n* `net user [name] [password] /add`: Creates a new user!",
@@ -369,21 +651,46 @@ export const cliLessons: Lesson[] = [
   },
   {
     id: 12,
-    slug: "cli-ch8-networking",
+    slug: "network-troubleshooting-ping-tracert-ipconfig",
+    originalChapterId: "cli-ch8-networking",
     title: "Networking",
     unit: "Unit 4: User Accounts & Networking",
     bookRef: "Windows CLI Basics (p. 56-60)",
     icon: "🌐",
     exercise: {
-      question: "Which utility is used to query DNS mappings and find the IP address of a domain name?",
-      options: [
-        "ping",
-        "ipconfig",
-        "nslookup",
-        "tracert"
-      ],
-      correctAnswer: "nslookup",
-      hint: "Use nslookup followed by a domain name, e.g. nslookup nextsem.online."
+      english: {
+        question: "Which utility is used to query DNS mappings and find the IP address of a domain name?",
+        options: [
+          "ping",
+          "ipconfig",
+          "nslookup",
+          "tracert"
+        ],
+        correctAnswer: "nslookup",
+        hint: "Use nslookup followed by a domain name, e.g. nslookup nextsem.online."
+      },
+      hinglish: {
+        question: "Kaunsa network tool domain name ke IP address ki mapping (DNS lookup) check karta hai?",
+        options: [
+          "ping",
+          "ipconfig",
+          "nslookup",
+          "tracert"
+        ],
+        correctAnswer: "nslookup",
+        hint: "Website server IP queries resolve karne ke liye 'nslookup' use kiya jata hai."
+      },
+      hindi: {
+        question: "कौन सी उपयोगिता (utility) डीएनएस मैपिंग की जांच करने और डोमेन नाम का आईपी पता खोजने के लिए उपयोग की जाती है?",
+        options: [
+          "ping",
+          "ipconfig",
+          "nslookup",
+          "tracert"
+        ],
+        correctAnswer: "nslookup",
+        hint: "डोमेन नाम के आईपी पते का पता लगाने के लिए 'nslookup' का उपयोग करें।"
+      }
     },
     english: {
       kid: "### 🌐 Networking Commands\nLet's test how your computer talks to the internet:\n\n* `ipconfig`: Displays your computer's IP address.\n* `ping [website]`: Sends packet signals to see if a website is online.\n* `tracert [website]`: Shows the steps your packet takes to reach a website.",
@@ -400,21 +707,46 @@ export const cliLessons: Lesson[] = [
   },
   {
     id: 13,
-    slug: "cli-ch12-remote",
+    slug: "remote-access-ssh-telnet-rdp-setup",
+    originalChapterId: "cli-ch12-remote",
     title: "Remote Access",
     unit: "Unit 4: User Accounts & Networking",
     bookRef: "Windows CLI Basics (p. 61-65)",
     icon: "📶",
     exercise: {
-      question: "Which port does the standard remote access protocol SSH run on by default?",
-      options: [
-        "21",
-        "22",
-        "23",
-        "80"
-      ],
-      correctAnswer: "22",
-      hint: "SSH runs on port 22, Telnet runs on port 23, and HTTP runs on port 80."
+      english: {
+        question: "Which port does the standard remote access protocol SSH run on by default?",
+        options: [
+          "21",
+          "22",
+          "23",
+          "80"
+        ],
+        correctAnswer: "22",
+        hint: "SSH runs on port 22, Telnet runs on port 23, and HTTP runs on port 80."
+      },
+      hinglish: {
+        question: "Default roop se standard remote access protocol SSH kis port par chalta hai?",
+        options: [
+          "21",
+          "22",
+          "23",
+          "80"
+        ],
+        correctAnswer: "22",
+        hint: "SSH port 22 use karta hai, jabki telnet port 23 aur HTTP port 80 use karta hai."
+      },
+      hindi: {
+        question: "मानक रिमोट एक्सेस प्रोटोकॉल एसएसएच (SSH) डिफ़ॉल्ट रूप से किस पोर्ट पर चलता है?",
+        options: [
+          "21",
+          "22",
+          "23",
+          "80"
+        ],
+        correctAnswer: "22",
+        hint: "एसएसएच पोर्ट 22 का उपयोग करता है, जबकि टेलनेट पोर्ट 23 का उपयोग करता है।"
+      }
     },
     english: {
       kid: "### 📶 Connecting to Remote Servers\nHow do you control a computer in another building? You login remotely:\n\n* **SSH**: A secure encrypted text connection.\n* **Telnet**: An older unencrypted text connection.\n* **RDP**: Full graphical screen remote control.",
@@ -431,21 +763,46 @@ export const cliLessons: Lesson[] = [
   },
   {
     id: 14,
-    slug: "cli-ch13-batch",
+    slug: "learn-windows-batch-files-scripting-basics",
+    originalChapterId: "cli-ch13-batch",
     title: "Batch Files",
     unit: "Unit 5: Automation & Task Scheduling",
     bookRef: "Windows CLI Basics (p. 66-70)",
     icon: "📄",
     exercise: {
-      question: "What file extension is used to identify executable Windows Batch Scripts?",
-      options: [
-        ".txt",
-        ".bat",
-        ".sh",
-        ".exe"
-      ],
-      correctAnswer: ".bat",
-      hint: "Windows Batch script files end with either '.bat' or '.cmd'."
+      english: {
+        question: "What file extension is used to identify executable Windows Batch Scripts?",
+        options: [
+          ".txt",
+          ".bat",
+          ".sh",
+          ".exe"
+        ],
+        correctAnswer: ".bat",
+        hint: "Windows Batch script files end with either '.bat' or '.cmd'."
+      },
+      hinglish: {
+        question: "Windows Batch Scripts (automation scripts) ka standard file extension kya hota hai?",
+        options: [
+          ".txt",
+          ".bat",
+          ".sh",
+          ".exe"
+        ],
+        correctAnswer: ".bat",
+        hint: "Windows command script files '.bat' ya '.cmd' format me save hoti hain."
+      },
+      hindi: {
+        question: "विंडोज बैच स्क्रिप्ट को निष्पादित करने के लिए किस फ़ाइल एक्सटेंशन का उपयोग किया जाता है?",
+        options: [
+          ".txt",
+          ".bat",
+          ".sh",
+          ".exe"
+        ],
+        correctAnswer: ".bat",
+        hint: "बैच फाइलें विंडोज में '.bat' या '.cmd' एक्सटेंशन के साथ समाप्त होती हैं।"
+      }
     },
     english: {
       kid: "### 📄 Coding Scripts to Run Tasks\nInstead of typing commands one-by-one, you can save a list of commands inside a text file ending with `.bat`. When you open it, Windows executes all commands automatically!\n\n* `echo echo Welcome > script.bat`: Creates a simple batch file!",
@@ -462,21 +819,46 @@ export const cliLessons: Lesson[] = [
   },
   {
     id: 15,
-    slug: "cli-ch14-tasks",
+    slug: "windows-task-management-taskkill-schtasks",
+    originalChapterId: "cli-ch14-tasks",
     title: "Task Management",
     unit: "Unit 5: Automation & Task Scheduling",
     bookRef: "Windows CLI Basics (p. 71-75)",
     icon: "⚙️",
     exercise: {
-      question: "Which command kills a running system process by specifying its Process ID (PID)?",
-      options: [
-        "tasklist",
-        "taskkill",
-        "schtasks",
-        "shutdown"
-      ],
-      correctAnswer: "taskkill",
-      hint: "Use taskkill /pid <PID> or taskkill /im <image_name.exe>."
+      english: {
+        question: "Which command kills a running system process by specifying its Process ID (PID)?",
+        options: [
+          "tasklist",
+          "taskkill",
+          "schtasks",
+          "shutdown"
+        ],
+        correctAnswer: "taskkill",
+        hint: "Use taskkill /pid <PID> or taskkill /im <image_name.exe>."
+      },
+      hinglish: {
+        question: "Process ID (PID) dekar active system process ko force stop/kill karne ke liye kaunsi command chalti hai?",
+        options: [
+          "tasklist",
+          "taskkill",
+          "schtasks",
+          "shutdown"
+        ],
+        correctAnswer: "taskkill",
+        hint: "Process band karne ke liye 'taskkill /pid <number>' command use hoti hai."
+      },
+      hindi: {
+        question: "प्रोसेस आईडी (PID) निर्दिष्ट करके चल रही सिस्टम प्रक्रिया (process) को समाप्त करने के लिए किस कमांड का उपयोग किया जाता है?",
+        options: [
+          "tasklist",
+          "taskkill",
+          "schtasks",
+          "shutdown"
+        ],
+        correctAnswer: "taskkill",
+        hint: "प्रक्रिया समाप्त करने के लिए 'taskkill' का उपयोग किया जाता है।"
+      }
     },
     english: {
       kid: "### ⚙️ Managing Running Apps\nIf an app freezes, you don't need Task Manager. You can rule it with text commands:\n\n* `tasklist`: Shows all running apps and their Process IDs (PID).\n* `taskkill /im notepad.exe`: Closes the frozen Notepad instantly!",
@@ -484,7 +866,7 @@ export const cliLessons: Lesson[] = [
     },
     hinglish: {
       kid: "### ⚙️ Running Apps ko Control Karein\nAgar koi app freeze ho jaye, toh use terminal se close kar sakte hain:\n\n* `tasklist`: Chal rahe saare applications ki details aur unka PID number dekhne ke liye.\n* `taskkill /f /im chrome.exe`: Chrome process ko forcefully end karne ke liye.",
-      pro: "### ⚙️ Process Auditing & Cron Triggers\nActive system processes check karne ke liye `tasklist` runtime inspect karti hai. Process terminate karne ke liye `taskkill` PID flags handle karti hai, aur periodic scheduler triggers `schtasks` daemon configure karte hain."
+      pro: "⚙️ Process Auditing & Cron Triggers\nActive system processes check karne ke liye `tasklist` runtime inspect karti hai. Process terminate karne ke liye `taskkill` PID flags handle karti hai, aur periodic scheduler triggers `schtasks` daemon configure karte hain."
     },
     hindi: {
       kid: "### ⚙️ रनिंग ऐप्स और टास्क मैनेजमेंट\nयदि कोई ऐप हैंग (फ्रीज) हो जाए, तो आप उसे कमांड लाइन से बंद कर सकते हैं:\n\n* `tasklist`: चल रहे सभी ऐप्स और उनकी प्रोसेस आईडी (PID) दिखाता है।\n* `taskkill`: हैंग हुए ऐप को तुरंत बंद कर देता है।",

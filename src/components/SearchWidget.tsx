@@ -665,7 +665,7 @@ const SearchWidget = () => {
     <>
       {/* YouTube Android App-style Fullscreen Search Modal */}
       {isOpen && (
-        <div className="fixed inset-0 bg-[#060c18] text-white z-[999] flex flex-col animate-in fade-in zoom-in-95 duration-200">
+        <div className="fixed inset-0 bg-background text-white z-[999] flex flex-col animate-in fade-in zoom-in-95 duration-200">
           
           {/* Top Search Bar */}
           <div className="flex items-center gap-2 p-3 bg-slate-950/80 border-b border-slate-850/50 sticky top-0 z-50">
