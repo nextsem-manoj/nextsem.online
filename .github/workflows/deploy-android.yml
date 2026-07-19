@@ -35,9 +35,9 @@ jobs:
 
       - name: Write Play Store service account JSON
         env:
-          PLAY_STORE_JSON_KEY: ${{ secrets.PLAY_STORE_JSON_KEY }}
+          PLAY_STORE_SECRET: ${{ secrets.PLAY_STORE_JSON_KEY }}
         run: |
-          echo "$PLAY_STORE_JSON_KEY" > ${{ env.PLAY_STORE_JSON_KEY }}
+          echo "$PLAY_STORE_SECRET" > "$PLAY_STORE_JSON_KEY"
 
       - name: Install Ruby bundler & Fastlane
         run: |
