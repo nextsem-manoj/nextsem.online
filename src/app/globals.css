@@ -14,6 +14,18 @@
   --font-mono: var(--font-geist-mono);
   --font-serif: var(--font-lora);
   --font-outfit: var(--font-outfit);
+
+  --color-slate-50: var(--slate-50);
+  --color-slate-100: var(--slate-100);
+  --color-slate-200: var(--slate-200);
+  --color-slate-300: var(--slate-300);
+  --color-slate-400: var(--slate-400);
+  --color-slate-500: var(--slate-500);
+  --color-slate-600: var(--slate-600);
+  --color-slate-700: var(--slate-700);
+  --color-slate-800: var(--slate-800);
+  --color-slate-900: var(--slate-900);
+  --color-slate-950: var(--slate-950);
 }
 
 html,
@@ -26,8 +38,10 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-inter), sans-serif;
-  /* Push content above the flush bottom nav on iPhones */
-  padding-bottom: env(safe-area-inset-bottom);
+  /* Apply 2% padding on everything across the entire project on every page */
+  padding: 2%;
+  padding-bottom: calc(2% + env(safe-area-inset-bottom));
+  box-sizing: border-box;
 }
 
 
@@ -135,74 +149,147 @@ body {
 
 /* ── DEFAULT / DARK THEME (Root) ── */
 :root {
-  --background:         #060c18;
-  --foreground:         #ffffff;
-  --theme-bg:           #060c18;
-  --theme-surface:      #0f172a;
-  --theme-card:         #0f172a;
-  --theme-text:         #ffffff;
-  --theme-text-muted:   #94a3b8;
-  --theme-text-subtle:  #475569;
-  --theme-border:       rgba(255, 255, 255, 0.08);
-  --theme-btn-bg:       #ffffff;
-  --theme-btn-text:     #0f172a;
-  --theme-btn-blue-bg:  #3b82f6;
-  --theme-accent:       #10b981;
-  --dot-color:          rgba(28, 27, 79, 0.4);
+  --background:         #1e303f;
+  --foreground:         #fbfbfb;
+  --theme-bg:           #1e303f;
+  --theme-surface:      #121d27;
+  --theme-card:         #1c2d3b;
+  --theme-text:         #fbfbfb;
+  --theme-text-muted:   #99a7a7;
+  --theme-text-subtle:  #7f7034;
+  --theme-border:       rgba(193, 166, 72, 0.15);
+  --theme-btn-bg:       #c1a648;
+  --theme-btn-text:     #1e303f;
+  --theme-btn-blue-bg:  #7f7034;
+  --theme-accent:       #c1a648;
+  --dot-color:          rgba(193, 166, 72, 0.1);
+
+  --slate-50:           #fbfbfb;
+  --slate-100:          #fbfbfb;
+  --slate-200:          #c1a648;
+  --slate-300:          #fbfbfb;
+  --slate-400:          #99a7a7;
+  --slate-500:          #99a7a7;
+  --slate-600:          #99a7a7;
+  --slate-700:          #7f7034;
+  --slate-800:          #2a4153;
+  --slate-900:          #1e303f;
+  --slate-950:          #121d27;
 }
 
 /* ── LIGHT THEME (html.light) ── */
 html.light {
-  --background:         #f8fafc;
-  --foreground:         #0f172a;
-  --theme-bg:           #f8fafc;
-  --theme-surface:      #ffffff;
-  --theme-card:         #ffffff;
-  --theme-text:         #0f172a;
-  --theme-text-muted:   #64748b;
-  --theme-text-subtle:  #94a3b8;
-  --theme-border:       #e2e8f0;
-  --theme-btn-bg:       #0f172a;
-  --theme-btn-text:     #ffffff;
-  --theme-btn-blue-bg:  #2563eb;
-  --theme-accent:       #2563eb;
-  --dot-color:          rgba(148, 163, 184, 0.25);
+  --background:         #fbfbfb;
+  --foreground:         #1e303f;
+  --theme-bg:           #fbfbfb;
+  --theme-surface:      #fbfbfb;
+  --theme-card:         #fbfbfb;
+  --theme-text:         #1e303f;
+  --theme-text-muted:   #7f7034;
+  --theme-text-subtle:  #99a7a7;
+  --theme-border:       rgba(30, 48, 63, 0.15);
+  --theme-btn-bg:       #c1a648;
+  --theme-btn-text:     #1e303f;
+  --theme-btn-blue-bg:  #7f7034;
+  --theme-accent:       #c1a648;
+  --dot-color:          rgba(30, 48, 63, 0.1);
+
+  --slate-50:           #1e303f;
+  --slate-100:          #1e303f;
+  --slate-200:          #c1a648;
+  --slate-300:          #1e303f;
+  --slate-350:          #1e303f;
+  --slate-400:          #7f7034;
+  --slate-450:          #7f7034;
+  --slate-500:          #99a7a7;
+  --slate-600:          #99a7a7;
+  --slate-700:          #99a7a7;
+  --slate-800:          #c1a648;
+  --slate-900:          #fbfbfb;
+  --slate-950:          #fbfbfb;
 }
 
 /* ── DARK THEME (html.dark) ── */
 html.dark {
-  --background:         #060c18;
-  --foreground:         #ffffff;
-  --theme-bg:           #060c18;
-  --theme-surface:      #0f172a;
-  --theme-card:         #0f172a;
-  --theme-text:         #ffffff;
-  --theme-text-muted:   #94a3b8;
-  --theme-text-subtle:  #475569;
-  --theme-border:       rgba(255, 255, 255, 0.08);
-  --theme-btn-bg:       #ffffff;
-  --theme-btn-text:     #0f172a;
-  --theme-btn-blue-bg:  #3b82f6;
-  --theme-accent:       #10b981;
-  --dot-color:          rgba(28, 27, 79, 0.4);
+  --background:         #1e303f;
+  --foreground:         #fbfbfb;
+  --theme-bg:           #1e303f;
+  --theme-surface:      #121d27;
+  --theme-card:         #1c2d3b;
+  --theme-text:         #fbfbfb;
+  --theme-text-muted:   #99a7a7;
+  --theme-text-subtle:  #7f7034;
+  --theme-border:       rgba(193, 166, 72, 0.15);
+  --theme-btn-bg:       #c1a648;
+  --theme-btn-text:     #1e303f;
+  --theme-btn-blue-bg:  #7f7034;
+  --theme-accent:       #c1a648;
+  --dot-color:          rgba(193, 166, 72, 0.1);
+
+  --slate-50:           #fbfbfb;
+  --slate-100:          #fbfbfb;
+  --slate-200:          #c1a648;
+  --slate-300:          #fbfbfb;
+  --slate-350:          #cbd5e1;
+  --slate-400:          #99a7a7;
+  --slate-450:          #94a3b8;
+  --slate-500:          #99a7a7;
+  --slate-600:          #99a7a7;
+  --slate-700:          #7f7034;
+  --slate-800:          #2a4153;
+  --slate-900:          #1e303f;
+  --slate-950:          #121d27;
 }
 
 /* ── NIGHT LIGHT THEME (html.night-light) ── */
 html.night-light {
-  --background:         #fbf0d9;
-  --foreground:         #433422;
-  --theme-bg:           #fbf0d9;
-  --theme-surface:      #f5e8cd;
-  --theme-card:         #f5e8cd;
-  --theme-text:         #433422;
-  --theme-text-muted:   #705845;
-  --theme-text-subtle:  #8c7355;
-  --theme-border:       rgba(140, 98, 57, 0.25);
-  --theme-btn-bg:       #433422;
-  --theme-btn-text:     #fbf0d9;
-  --theme-btn-blue-bg:  #b45309;
-  --theme-accent:       #d97706;
-  --dot-color:          rgba(140, 98, 57, 0.25);
+  --background:         #7f7034;
+  --foreground:         #fbfbfb;
+  --theme-bg:           #7f7034;
+  --theme-surface:      #7f7034;
+  --theme-card:         #7f7034;
+  --theme-text:         #fbfbfb;
+  --theme-text-muted:   #99a7a7;
+  --theme-text-subtle:  #1e303f;
+  --theme-border:       rgba(251, 251, 251, 0.2);
+  --theme-btn-bg:       #1e303f;
+  --theme-btn-text:     #fbfbfb;
+  --theme-btn-blue-bg:  #1e303f;
+  --theme-accent:       #c1a648;
+  --dot-color:          rgba(251, 251, 251, 0.1);
+
+  --slate-50:           #fbfbfb;
+  --slate-100:          #fbfbfb;
+  --slate-200:          #c1a648;
+  --slate-300:          #fbfbfb;
+  --slate-350:          #fbfbfb;
+  --slate-400:          #99a7a7;
+  --slate-450:          #99a7a7;
+  --slate-500:          #99a7a7;
+  --slate-600:          #99a7a7;
+  --slate-700:          #1e303f;
+  --slate-800:          #1e303f;
+  --slate-900:          #7f7034;
+  --slate-950:          #7f7034;
+}
+
+/* Golden Theme Overrides for Hardcoded Green Colors */
+:root, html.dark {
+  .bg-\[\#04AA6D\], .bg-\[\#04aa6d\] {
+    background-color: #c1a648 !important;
+  }
+  .hover\:bg-\[\#039861\]:hover, .hover\:bg-emerald-600:hover {
+    background-color: #7f7034 !important;
+  }
+  .text-\[\#04AA6D\], .text-\[\#04aa6d\] {
+    color: #c1a648 !important;
+  }
+  .border-\[\#04AA6D\], .border-\[\#04aa6d\] {
+    border-color: #c1a648 !important;
+  }
+  .border-l-\[\#04aa6d\] {
+    border-left-color: #c1a648 !important;
+  }
 }
 
 
@@ -487,4 +574,39 @@ html.night-light,
 .animate-shake {
   animation: shake 0.4s ease-in-out;
 }
+
+
+/* Viewport fit layout container to prevent scroll-hijacking */
+.viewport-fit {
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Print mode utility to extract clean lesson layout */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #print-section, #print-section * {
+    visibility: visible;
+  }
+  #print-section {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background: white !important;
+    color: black !important;
+    padding: 1.5rem !important;
+  }
+  /* Force dark text and light background for paper readability */
+  .dark #print-section {
+    background: white !important;
+    color: black !important;
+  }
+}
+
 

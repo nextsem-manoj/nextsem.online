@@ -1,12 +1,14 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight, BookOpen, Check } from "lucide-react";
+import { ChevronLeft, ChevronRight, BookOpen, Check, FileText, Sparkles, Loader2 } from "lucide-react";
 import PracticeAssignment from "./PracticeAssignment";
 import MarkCompleteButton from "./MarkCompleteButton";
 import ChapterTips from "./ChapterTips";
 import BookPagination from "./BookPagination";
 import AdSenseBanner from "./AdSenseBanner";
+import { AdMob } from "@capacitor-community/admob";
+
 
 interface PaginatedSectionsProps {
   slides: React.ReactNode[];
@@ -22,6 +24,70 @@ export default function PaginatedSections({
   instructions,
 }: PaginatedSectionsProps) {
   const [activeSlide, setActiveSlide] = useState(0);
+  const [isDownloading, setIsDownloading] = useState(false);
+  const [downloadStatus, setDownloadStatus] = useState("");
+
+  const handlePdfDownload = async () => {
+    const isNative = typeof window !== 'undefined' &&
+      (window as any).Capacitor?.isNativePlatform();
+
+    if (isNative) {
+      setIsDownloading(true);
+      setDownloadStatus("Preparing Ad...");
+      try {
+        // Prepare Rewarded Video Ad
+        await AdMob.prepareRewardVideoAd({
+          adId: 'ca-app-pub-3940256099942544/5224354917', // Google Test Rewarded Ad ID
+          isTesting: true
+        });
+
+        // Setup event listener for reward
+        let rewardEarned = false;
+        const rewardListener = await AdMob.addListener('rewardedVideoReward' as any, () => {
+          rewardEarned = true;
+        });
+
+        const closeListener = await AdMob.addListener('rewardedVideoClosed' as any, () => {
+          // Clean up listeners
+          rewardListener.remove();
+          closeListener.remove();
+          
+          setIsDownloading(false);
+          if (rewardEarned) {
+            triggerPdfPrint();
+          } else {
+            alert("You must watch the full sponsored ad to unlock the PDF download!");
+          }
+        });
+
+        // Show Ad
+        await AdMob.showRewardVideoAd();
+      } catch (e) {
+        console.error("AdMob Rewarded Ad failed:", e);
+        setIsDownloading(false);
+        // Fallback: if ad fails to load/show, let them download anyway
+        triggerPdfPrint();
+      }
+    } else {
+      // Web simulation
+      setIsDownloading(true);
+      setDownloadStatus("Loading Ad...");
+      setTimeout(() => {
+        setDownloadStatus("Watching Ad (2s)...");
+        setTimeout(() => {
+          setIsDownloading(false);
+          triggerPdfPrint();
+        }, 2000);
+      }, 1000);
+    }
+  };
+
+  const triggerPdfPrint = () => {
+    if (typeof window !== 'undefined') {
+      window.print();
+    }
+  };
+
 
   // Scroll to top of the reading container when slide changes
   useEffect(() => {
@@ -108,6 +174,31 @@ export default function PaginatedSections({
 
       </div>
 
+      {/* Rewarded Ad PDF Download Option */}
+      <div className="w-full flex justify-center pt-2">
+        <button
+          onClick={handlePdfDownload}
+          disabled={isDownloading}
+          className="flex items-center gap-2 px-5 py-3 rounded-2xl font-black text-xs bg-slate-900 border border-slate-850 hover:border-indigo-500/50 hover:bg-slate-850 text-indigo-400 hover:text-white transition-all shadow-md active:scale-95 disabled:opacity-50 cursor-pointer"
+        >
+          {isDownloading ? (
+            <>
+              <Loader2 size={14} className="animate-spin text-indigo-400" />
+              <span>{downloadStatus}</span>
+            </>
+          ) : (
+            <>
+              <FileText size={14} />
+              <span>Download Lesson PDF</span>
+              <span className="flex items-center gap-0.5 px-1.5 py-0.5 rounded-md bg-indigo-500/20 text-indigo-300 text-[8px] font-black tracking-wider uppercase animate-pulse">
+                <Sparkles size={8} /> Watch Ad
+              </span>
+            </>
+          )}
+        </button>
+      </div>
+
+
       <AdSenseBanner />
 
       {/* Gamification widgets loaded once they finish all slides */}
@@ -128,6 +219,23 @@ export default function PaginatedSections({
           <BookPagination />
         </div>
       )}
+
+      {/* Hidden print container containing all slides of the current lesson */}
+      <div id="print-section" className="hidden prose prose-slate dark:prose-invert max-w-none text-left">
+        <div className="mb-6 border-b pb-4">
+          <h1 className="text-3xl font-black text-slate-900">Nextsem Academy</h1>
+          <p className="text-xs text-slate-500 uppercase tracking-widest font-bold mt-1">Lesson: {chapterId}</p>
+        </div>
+        {slides.map((slide, idx) => (
+          <div key={idx} className="mb-10 pb-10 border-b border-slate-100 last:border-0 last:pb-0 last:mb-0 break-after-page">
+            <span className="block text-[9px] text-slate-400 font-mono uppercase mb-4">Slide {idx + 1} / {slides.length}</span>
+            <div className="text-slate-800">
+              {slide}
+            </div>
+          </div>
+        ))}
+      </div>
+
     </div>
   );
 }
