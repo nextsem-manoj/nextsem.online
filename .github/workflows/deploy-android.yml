@@ -41,8 +41,10 @@ jobs:
 
       - name: Install Ruby bundler & Fastlane
         run: |
-          sudo gem install bundler
-          cd mobile/android && bundle install
+          gem install bundler
+          cd mobile/android
+          bundle config set path 'vendor/bundle'
+          bundle install
 
       - name: Build release AAB
         run: |
