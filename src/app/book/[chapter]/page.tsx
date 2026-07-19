@@ -35,6 +35,8 @@ import MatchingQuiz from '@/components/MatchingQuiz';
 import MultipleChoiceQuiz from '@/components/MultipleChoiceQuiz';
 import ClientRedirect from '@/components/ClientRedirect';
 import { getChapterUrl } from '@/lib/htmlLessonsHelper';
+import { cliLessons } from '@/data/cliLessonsData';
+import CliLessonClient from '@/components/CliLessonClient';
 
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -128,6 +130,12 @@ export default async function ChapterPage({
   // if (simulator) {
   //   return <InteractiveChapterSimulator simulator={simulator} chapterId={chapter} />;
   // }
+
+  // Check if we have a CLI lesson for this chapter
+  const cliLesson = cliLessons.find((l) => l.slug === chapter);
+  if (cliLesson) {
+    return <CliLessonClient lesson={cliLesson} />;
+  }
 
   const filePath = path.join(process.cwd(), 'src/content', `${chapter}.mdx`);
 
