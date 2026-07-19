@@ -106,15 +106,28 @@ server: {
 - [ ] Update banner showing v18 changes on Home page
 - [ ] `gradlew bundleRelease` → verify size < 10MB
 - [ ] Upload to Internal Testing → Promote to Closed → Promote to Production
+/learn for ver 18 release sav it in ver18.md following suggestiosn 
+1. update logo of app using new colour scheme as in our currebt oriject 
+2. reward video does not return pdf 
+3.if pdf is returned there is no content do add current lesson inside the pdf 
+4.404 error page not found come randomly add an option to recheck on error page and an option to go back to last lesson 
+5.there is a delay on clicking the buttona and opening of link 
+6.theme option i think just keep two themes only dark default and light on request but theme toggling does not do the purpose
+i find on light theme the text is not visible background is not shifted please make sure backround and text should be updated as per theme 
+7.complete cli lessons with 100 lessons target 
+7.complete css lessons with 100 lessons target 
+7.complete js lessons with 100 lessons target 
+7.complete React lessons with 100 lessons target 
+7.complete node.js lessons with 100 lessons target 
+7.complete React Native lessons with 100 lessons target 
+7.complete sql lessons with 100 lessons target 
+8.complete python lessons with 100 lessons target 
+9.complete bootstrap lessons with 100 lessons target 
+8.next.js lessons with 100 lessons target 
+10. complete typescript lessons with 100 lessons target 
+11. complete mongodb lessons with 100 lessons target 
+12. complete mern stack lessons with 100 lessons target.
+13. complete DSA with 100 lessons target.  
+14. complete git and github with 100 lessons target.
+15. complete devops with 100 lessons target.  
 
----
-
-## 🐛 User-Reported Bugs (Fix in v18)
-
-> Issues reported after v17 (2.2.4) Beta — must fix before v18 ships to Production
-
-- [ ] **1. Logo update** — Redesign app icon using project color scheme (dark bg + blue/emerald gradients matching globals.css)
-- [ ] **2. Rewarded ad PDF bug** — Wrong AdMob v8 event names used. Fix: `rewardedVideoReward` → `onRewardedVideoAdReward` and `rewardedVideoClosed` → `onRewardedVideoAdDismissed`
-- [ ] **3. PDF has no content** — `window.print()` prints UI shell only. Fix: use `#print-section` hidden div (already exists in PaginatedSections) + proper `@media print` CSS to show only lesson content
-- [ ] **4. Random 404 errors** — App loads from `nextsem.online` (server.url). When route fails, 404 appears. Fix: update `not-found.tsx` with Retry button + "Go back to last lesson" (using localStorage last-visited)
-- [ ] **5. Button tap delay** — Android WebView 300ms click delay. Fix: add `touch-action: manipulation` to globals.css on buttons/links + `cursor: pointer` globally
