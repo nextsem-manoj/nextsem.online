@@ -106,3 +106,15 @@ server: {
 - [ ] Update banner showing v18 changes on Home page
 - [ ] `gradlew bundleRelease` → verify size < 10MB
 - [ ] Upload to Internal Testing → Promote to Closed → Promote to Production
+
+---
+
+## 🐛 User-Reported Bugs (Fix in v18)
+
+> Issues reported after v17 (2.2.4) Beta — must fix before v18 ships to Production
+
+- [ ] **1. Logo update** — Redesign app icon using project color scheme (dark bg + blue/emerald gradients matching globals.css)
+- [ ] **2. Rewarded ad PDF bug** — Wrong AdMob v8 event names used. Fix: `rewardedVideoReward` → `onRewardedVideoAdReward` and `rewardedVideoClosed` → `onRewardedVideoAdDismissed`
+- [ ] **3. PDF has no content** — `window.print()` prints UI shell only. Fix: use `#print-section` hidden div (already exists in PaginatedSections) + proper `@media print` CSS to show only lesson content
+- [ ] **4. Random 404 errors** — App loads from `nextsem.online` (server.url). When route fails, 404 appears. Fix: update `not-found.tsx` with Retry button + "Go back to last lesson" (using localStorage last-visited)
+- [ ] **5. Button tap delay** — Android WebView 300ms click delay. Fix: add `touch-action: manipulation` to globals.css on buttons/links + `cursor: pointer` globally
