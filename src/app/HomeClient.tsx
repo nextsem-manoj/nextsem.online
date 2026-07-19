@@ -10,6 +10,7 @@ import { coursePhases } from '@/data/courseData';
 import searchIndex from '@/data/searchIndex.json';
 import { getChapterSimulator } from '@/data/chapterSimulators';
 import { ThemeToggle } from '@/components/ThemeToggle';
+import FullStackRoadmap from '@/components/FullStackRoadmap';
 import { 
   Layers, Cpu, Code, Palette, Cloud, Briefcase, 
   Rocket, BookOpen, ChevronRight, Play, CheckCircle, 
@@ -1365,6 +1366,11 @@ export default function HomeClient() {
 
         </div>
       </section>
+
+      {/* ── FULL STACK ROADMAP ── */}
+      <div className="bg-gradient-to-b from-[#060d1a] to-[#0a1120]">
+        <FullStackRoadmap />
+      </div>
 
       {/* ── FOOTER (W3Schools style columned) ── */}
       <footer className="bg-[#1f2029] text-white border-t border-slate-850/80 transition-colors mt-auto">

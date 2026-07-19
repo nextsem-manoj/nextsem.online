@@ -39,10 +39,32 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL("https://nextsem.online"),
   title: {
-    default: "Nextsem Academy",
+    default: "Nextsem Academy — India's #1 Free Multilingual Full Stack Learning Platform",
     template: "%s | Nextsem Academy",
   },
-  description: "Start your journey to become a job-ready developer. BCA, B.Tech, M.Tech & more technical courses.",
+  description: "Learn Full Stack Web Development for FREE in Hindi, Hinglish & English. HTML, CSS, JavaScript, React, Node.js, Next.js, Python, DSA, SQL, MongoDB & more — with interactive lessons, MCQ quizzes, and Kid + Pro mode. India's #1 multilingual developer learning platform.",
+  keywords: [
+    "full stack web development course free",
+    "learn html css javascript in hindi",
+    "react js course hindi",
+    "node js tutorial hindi hinglish",
+    "free coding course india",
+    "nextsem academy",
+    "bca b.tech computer science notes",
+    "mern stack tutorial hindi",
+    "next.js course free",
+    "dsa course hindi free",
+    "web development course for beginners india",
+    "multilingual coding platform india",
+    "python tutorial hindi free",
+    "mongodb tutorial hindi",
+    "typescript course free hindi",
+    "devops docker course hindi",
+    "sql database tutorial hindi",
+    "git github tutorial hindi free",
+    "system design course hindi",
+    "windows cmd cli tutorial hindi",
+  ],
   manifest: "/manifest.json",
   icons: {
     icon: [
@@ -56,19 +78,38 @@ export const metadata: Metadata = {
     ],
   },
   openGraph: {
-    title: "Nextsem Academy",
-    description: "Interactive technical courses for BCA, B.Tech, M.Tech & more.",
+    title: "Nextsem Academy — India's #1 Free Multilingual Full Stack Platform",
+    description: "Learn Full Stack Web Development FREE in Hindi, Hinglish & English. HTML, CSS, JS, React, Node.js, Next.js, Python, DSA, SQL, MongoDB & more — interactive lessons with MCQ quizzes.",
     url: "https://nextsem.online",
     siteName: "Nextsem Academy",
-    images: [{ url: "/og-image.png", width: 512, height: 512 }],
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Nextsem Academy — Free Full Stack Web Dev in Hindi" }],
     type: "website",
+    locale: "en_IN",
   },
   twitter: {
     card: "summary_large_image",
     site: "@nextsem",
+    title: "Nextsem Academy — Free Full Stack Course in Hindi & English",
+    description: "India's #1 multilingual coding platform. Learn HTML, React, Node.js, Python, DSA & more for FREE!",
+    images: ["/og-image.png"],
   },
   verification: {
     google: "FjEmb6Ud3RTb754EJVil2PWI7iZoNiNs-C--fAatkzo",
+  },
+  alternates: {
+    canonical: "https://nextsem.online",
+  },
+  category: "education",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
 
