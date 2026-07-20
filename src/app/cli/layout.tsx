@@ -148,123 +148,125 @@ function CliLayoutContent({ children }: { children: React.ReactNode }) {
         <BookSidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
 
         <main className="flex-1 p-0 md:p-6 w-full flex flex-col relative">
-          {/* Header Bar matching target design */}
-          <div
-            className={`w-full flex items-center gap-3 px-4 py-3 border-b border-x-0 md:border-x rounded-t-none md:rounded-t-2xl z-20 shrink-0 transition-all sticky top-0 ${headerThemeClass}`}
-          >
-            <button
-              type="button"
-              onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="p-1 hover:bg-slate-800/20 dark:hover:bg-slate-800/80 rounded-lg transition-all text-slate-650 dark:text-slate-400 shrink-0 cursor-pointer"
-              title="Toggle Curriculum Sidebar"
-            >
-              <Menu size={22} className="stroke-[2.5]" />
-            </button>
-            <Link
-              href="/"
-              className="p-1 hover:bg-slate-100 dark:hover:bg-slate-800/80 rounded-full transition-all text-slate-650 dark:text-slate-400 shrink-0"
-              title="Close and Go Back to Course Menu"
-            >
-              <X size={22} className="stroke-[2.5]" />
-            </Link>
-
-            <div className="flex-1 min-w-0 text-left">
-              <span className="block text-[10px] font-black uppercase tracking-wider text-[#c1a648]">
-                {currentPhase?.title || "Windows Command Line"}
-              </span>
-              <h1 className="text-xs md:text-sm font-black truncate mt-0.5">
-                {currentChapter?.title || "Reading Lesson"}
-              </h1>
-            </div>
-
-            {/* Desktop Navigation Controls */}
-            <div className="hidden md:flex items-center gap-1 border-r border-slate-200 dark:border-slate-850 pr-2 mr-1">
-              {prevHref ? (
-                <Link
-                  href={prevHref}
-                  className="px-2.5 py-1.5 hover:bg-slate-200/50 dark:hover:bg-slate-800/80 rounded-lg transition-all text-slate-650 dark:text-slate-400 flex items-center gap-0.5 text-xs font-bold"
-                  title={`Previous: ${prevChapter?.title}`}
-                >
-                  <ChevronLeft size={16} />
-                  <span>Prev</span>
-                </Link>
-              ) : (
-                <div className="px-2.5 py-1.5 opacity-30 text-slate-400 flex items-center gap-0.5 text-xs font-bold cursor-not-allowed">
-                  <ChevronLeft size={16} />
-                  <span>Prev</span>
-                </div>
-              )}
-              {nextHref ? (
-                <Link
-                  href={nextHref}
-                  className="px-2.5 py-1.5 hover:bg-slate-200/50 dark:hover:bg-slate-800/80 rounded-lg transition-all text-slate-650 dark:text-slate-400 flex items-center gap-0.5 text-xs font-bold"
-                  title={`Next: ${nextChapter?.title}`}
-                >
-                  <span>Next</span>
-                  <ChevronRight size={16} />
-                </Link>
-              ) : (
-                <div className="px-2.5 py-1.5 opacity-30 text-slate-400 flex items-center gap-0.5 text-xs font-bold cursor-not-allowed">
-                  <span>Next</span>
-                  <ChevronRight size={16} />
-                </div>
-              )}
-            </div>
-
-            {/* Desktop Profile / Sign In */}
-            <div className="hidden md:flex items-center gap-2 border-l border-slate-250/20 dark:border-slate-800/40 pl-2 ml-1">
-              {currentUser ? (
-                <Link
-                  href="/profile"
-                  className="flex items-center gap-1.5 hover:bg-slate-200/50 dark:hover:bg-slate-800/80 px-2 py-1 rounded-lg transition-all text-[11px] font-bold text-slate-700 dark:text-slate-350"
-                  title="Profile Dashboard"
-                >
-                  {currentUser.avatar &&
-                  (currentUser.avatar.startsWith("http") ||
-                    currentUser.avatar.startsWith("/")) ? (
-                    <img
-                      src={currentUser.avatar}
-                      alt=""
-                      className="w-5 h-5 rounded-full object-cover border border-[#c1a648]/20 shrink-0"
-                    />
-                  ) : currentUser.photo ? (
-                    <img
-                      src={currentUser.photo}
-                      alt=""
-                      className="w-5 h-5 rounded-full object-cover border border-[#c1a648]/20 shrink-0"
-                    />
-                  ) : (
-                    <div className="w-5 h-5 rounded-full bg-blue-600 text-white flex items-center justify-center font-black text-[9px] shrink-0">
-                      {currentUser.avatar ||
-                        currentUser.name.charAt(0).toUpperCase()}
-                    </div>
-                  )}
-                  <span className="max-w-[70px] truncate">
-                    {currentUser.name.split(" ")[0]}
-                  </span>
-                </Link>
-              ) : (
-                <button
-                  onClick={handleSignIn}
-                  className="flex items-center gap-1 hover:bg-slate-250/50 dark:hover:bg-slate-800/80 px-2 py-1 rounded-lg transition-all text-[11px] font-bold text-[#c1a648] shrink-0 cursor-pointer"
-                  title="Sign In with Google"
-                >
-                  <LogIn size={14} className="shrink-0" />
-                  <span>Sign In</span>
-                </button>
-              )}
-            </div>
-          </div>
-
-          {/* Glassmorphic Scroll Progress Bar */}
-          <div className="w-full h-2.5 bg-slate-200/10 dark:bg-slate-950/40 backdrop-blur-md sticky top-[46px] z-30 overflow-hidden shrink-0 border-x-0 md:border-x border-slate-250/5 flex items-center justify-center">
+          {/* Sticky Header & Tied Progress Bar Container */}
+          <div className="sticky top-0 z-40 shrink-0 shadow-sm">
             <div
-              className="absolute left-0 top-0 bottom-0 bg-gradient-to-r from-[#e4ca67] via-[#c1a648] to-[#967b26] rounded-r-full shadow-[0_0_8px_rgba(193,166,72,0.4)] transition-all duration-75"
-              style={{ width: `${scrollPercent}%` }}
-            />
-            <span className="relative z-10 text-[7px] font-black uppercase tracking-wider text-slate-800 dark:text-slate-200 pointer-events-none mix-blend-difference leading-none">
-              {Math.round(scrollPercent)}% Read
-            </span>
+              className={`w-full flex items-center gap-3 px-4 py-3 border-b border-x-0 md:border-x rounded-t-none md:rounded-t-2xl transition-all ${headerThemeClass}`}
+            >
+              <button
+                type="button"
+                onClick={() => setSidebarOpen(!sidebarOpen)}
+                className="p-1 hover:bg-slate-800/20 dark:hover:bg-slate-800/80 rounded-lg transition-all text-slate-650 dark:text-slate-400 shrink-0 cursor-pointer"
+                title="Toggle Curriculum Sidebar"
+              >
+                <Menu size={22} className="stroke-[2.5]" />
+              </button>
+              <Link
+                href="/"
+                className="p-1 hover:bg-slate-100 dark:hover:bg-slate-800/80 rounded-full transition-all text-slate-650 dark:text-slate-400 shrink-0"
+                title="Close and Go Back to Course Menu"
+              >
+                <X size={22} className="stroke-[2.5]" />
+              </Link>
+
+              <div className="flex-1 min-w-0 text-left">
+                <span className="block text-[10px] font-black uppercase tracking-wider text-[#c1a648]">
+                  {currentPhase?.title || "Windows Command Line"}
+                </span>
+                <h1 className="text-xs md:text-sm font-black truncate mt-0.5">
+                  {currentChapter?.title || "Reading Lesson"}
+                </h1>
+              </div>
+
+              {/* Desktop Navigation Controls */}
+              <div className="hidden md:flex items-center gap-1 border-r border-slate-200 dark:border-slate-850 pr-2 mr-1">
+                {prevHref ? (
+                  <Link
+                    href={prevHref}
+                    className="px-2.5 py-1.5 hover:bg-slate-200/50 dark:hover:bg-slate-800/80 rounded-lg transition-all text-slate-650 dark:text-slate-400 flex items-center gap-0.5 text-xs font-bold"
+                    title={`Previous: ${prevChapter?.title}`}
+                  >
+                    <ChevronLeft size={16} />
+                    <span>Prev</span>
+                  </Link>
+                ) : (
+                  <div className="px-2.5 py-1.5 opacity-30 text-slate-400 flex items-center gap-0.5 text-xs font-bold cursor-not-allowed">
+                    <ChevronLeft size={16} />
+                    <span>Prev</span>
+                  </div>
+                )}
+                {nextHref ? (
+                  <Link
+                    href={nextHref}
+                    className="px-2.5 py-1.5 hover:bg-slate-200/50 dark:hover:bg-slate-800/80 rounded-lg transition-all text-slate-650 dark:text-slate-400 flex items-center gap-0.5 text-xs font-bold"
+                    title={`Next: ${nextChapter?.title}`}
+                  >
+                    <span>Next</span>
+                    <ChevronRight size={16} />
+                  </Link>
+                ) : (
+                  <div className="px-2.5 py-1.5 opacity-30 text-slate-400 flex items-center gap-0.5 text-xs font-bold cursor-not-allowed">
+                    <span>Next</span>
+                    <ChevronRight size={16} />
+                  </div>
+                )}
+              </div>
+
+              {/* Desktop Profile / Sign In */}
+              <div className="hidden md:flex items-center gap-2 border-l border-slate-250/20 dark:border-slate-800/40 pl-2 ml-1">
+                {currentUser ? (
+                  <Link
+                    href="/profile"
+                    className="flex items-center gap-1.5 hover:bg-slate-200/50 dark:hover:bg-slate-800/80 px-2 py-1 rounded-lg transition-all text-[11px] font-bold text-slate-700 dark:text-slate-350"
+                    title="Profile Dashboard"
+                  >
+                    {currentUser.avatar &&
+                    (currentUser.avatar.startsWith("http") ||
+                      currentUser.avatar.startsWith("/")) ? (
+                      <img
+                        src={currentUser.avatar}
+                        alt=""
+                        className="w-5 h-5 rounded-full object-cover border border-[#c1a648]/20 shrink-0"
+                      />
+                    ) : currentUser.photo ? (
+                      <img
+                        src={currentUser.photo}
+                        alt=""
+                        className="w-5 h-5 rounded-full object-cover border border-[#c1a648]/20 shrink-0"
+                      />
+                    ) : (
+                      <div className="w-5 h-5 rounded-full bg-blue-600 text-white flex items-center justify-center font-black text-[9px] shrink-0">
+                        {currentUser.avatar ||
+                          currentUser.name.charAt(0).toUpperCase()}
+                      </div>
+                    )}
+                    <span className="max-w-[70px] truncate">
+                      {currentUser.name.split(" ")[0]}
+                    </span>
+                  </Link>
+                ) : (
+                  <button
+                    onClick={handleSignIn}
+                    className="flex items-center gap-1 hover:bg-slate-250/50 dark:hover:bg-slate-800/80 px-2 py-1 rounded-lg transition-all text-[11px] font-bold text-[#c1a648] shrink-0 cursor-pointer"
+                    title="Sign In with Google"
+                  >
+                    <LogIn size={14} className="shrink-0" />
+                    <span>Sign In</span>
+                  </button>
+                )}
+              </div>
+            </div>
+
+            {/* Tied Glassmorphic Scroll Progress Bar */}
+            <div className="w-full h-2.5 bg-slate-200/10 dark:bg-slate-950/40 backdrop-blur-md overflow-hidden shrink-0 border-x-0 md:border-x border-b border-slate-250/10 flex items-center justify-center relative">
+              <div
+                className="absolute left-0 top-0 bottom-0 bg-gradient-to-r from-[#e4ca67] via-[#c1a648] to-[#967b26] rounded-r-full shadow-[0_0_8px_rgba(193,166,72,0.4)] transition-all duration-75"
+                style={{ width: `${scrollPercent}%` }}
+              />
+              <span className="relative z-10 text-[7px] font-black uppercase tracking-wider text-slate-800 dark:text-slate-200 pointer-events-none mix-blend-difference leading-none">
+                {Math.round(scrollPercent)}% Read
+              </span>
+            </div>
           </div>
 
           {/* Main Reading Container */}
