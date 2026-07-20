@@ -46,10 +46,10 @@ export const htmlLessons: Lesson[] = [
       english: {
         question: "What is the physical reality of the internet?",
         options: [
-          "A magical cloud in the sky",
-          "A global network of physical cables, routers, and data centers",
+          "A software package installed on Windows",
           "A satellite-only beam that doesn't use wires",
-          "A software package installed on Windows"
+          "A global network of physical cables, routers, and data centers",
+          "A magical cloud in the sky",
         ],
         correctAnswer: "A global network of physical cables, routers, and data centers",
         hint: "Remember, the internet is not magical or invisible. It relies on thousands of miles of cables running under the oceans!"
@@ -57,10 +57,10 @@ export const htmlLessons: Lesson[] = [
       hinglish: {
         question: "Internet ki physical reality kya hai?",
         options: [
-          "Ek jadui baadal jo hawa mein hai",
-          "Dunia bhar mein failye physical cables, routers aur data centers ka network",
           "Sirf satellite se chalne wali beam jo wires use nahi karti",
-          "Windows par install hua ek software package"
+          "Ek jadui baadal jo hawa mein hai",
+          "Windows par install hua ek software package",
+          "Dunia bhar mein failye physical cables, routers aur data centers ka network",
         ],
         correctAnswer: "Dunia bhar mein failye physical cables, routers aur data centers ka network",
         hint: "Yaad raho, internet koi jaadu nahi hai. Yeh samudron ke neeche bikhre hazaaron miles ke cables par nirbhar karta hai!"
@@ -69,8 +69,8 @@ export const htmlLessons: Lesson[] = [
         question: "इंटरनेट की वास्तविकता क्या है?",
         options: [
           "आकाश में एक जादुई बादल",
-          "भौतिक केबलों, राउटरों और डेटा केंद्रों का एक वैश्विक नेटवर्क",
           "एक सैटेलाइट बीम जो तारों का उपयोग नहीं करती",
+          "भौतिक केबलों, राउटरों और डेटा केंद्रों का एक वैश्विक नेटवर्क",
           "🪟 Windows पर इंस्टॉल किया गया एक सॉफ्टवेयर पैकेज"
         ],
         correctAnswer: "भौतिक केबलों, राउटरों और डेटा केंद्रों का एक वैश्विक नेटवर्क",
@@ -139,10 +139,10 @@ export const htmlLessons: Lesson[] = [
       english: {
         question: "What is the primary job of a DNS server?",
         options: [
+          "To encrypt local hard drive databases",
+          "To speed up browser keyboard typing",
           "To host website styling sheets",
           "To translate easy-to-read domains (like nextsem.online) into IP addresses",
-          "To encrypt local hard drive databases",
-          "To speed up browser keyboard typing"
         ],
         correctAnswer: "To translate easy-to-read domains (like nextsem.online) into IP addresses",
         hint: "DNS acts like the contact list on your phone. It maps names to numbers!"
@@ -150,9 +150,9 @@ export const htmlLessons: Lesson[] = [
       hinglish: {
         question: "DNS server ka kaam kya hai?",
         options: [
+          "Local hard drive encrypt karna",
           "Website ki styling sheets host karna",
           "Domain names (jaise nextsem.online) ko IP address mein translate karna",
-          "Local hard drive encrypt karna",
           "Browser ki typing speed badhaana"
         ],
         correctAnswer: "Domain names (jaise nextsem.online) ko IP address mein translate karna",
@@ -161,10 +161,10 @@ export const htmlLessons: Lesson[] = [
       hindi: {
         question: "DNS सर्वर का मुख्य काम क्या है?",
         options: [
-          "वेबसाइट की स्टाइलिंग होस्ट करना",
           "डोमेन नामों (जैसे nextsem.online) को IP एड्रेस में बदलना",
           "लोकल हार्ड ड्राइव एन्क्रिप्ट करना",
-          "ब्राउज़र की टाइपिंग गति बढ़ाना"
+          "ब्राउज़र की टाइपिंग गति बढ़ाना",
+          "वेबसाइट की स्टाइलिंग होस्ट करना",
         ],
         correctAnswer: "डोमेन नामों (जैसे nextsem.online) को IP एड्रेस में बदलना",
         hint: "DNS आपके फोन की कॉन्टैक्ट लिस्ट की तरह काम करता है। यह नाम को नंबर से जोड़ता है!"
@@ -270,10 +270,10 @@ export const htmlLessons: Lesson[] = [
     exercise: {
       question: "Which HTTP verb/method is used to retrieve data from a server?",
       options: [
-        "POST",
+        "PUT",
         "GET",
         "DELETE",
-        "PUT"
+        "POST",
       ],
       correctAnswer: "GET",
       hint: "When you want to 'get' a webpage, you use the GET method!"
@@ -300,8 +300,8 @@ export const htmlLessons: Lesson[] = [
     exercise: {
       question: "Which HTTP status code represents a successful page retrieval?",
       options: [
-        "404 Not Found",
         "200 OK",
+        "404 Not Found",
         "500 Internal Server Error",
         "301 Moved Permanently"
       ],
@@ -330,10 +330,10 @@ export const htmlLessons: Lesson[] = [
     exercise: {
       question: "In the URL https://nextsem.online/html?user=amit, what does '?user=amit' represent?",
       options: [
-        "The Hostname",
+        "The Directory Path",
         "The Protocol Scheme",
+        "The Hostname",
         "The Query Parameters",
-        "The Directory Path"
       ],
       correctAnswer: "The Query Parameters",
       hint: "Query parameters start with a question mark (?) and pass extra search values to the page."
@@ -360,10 +360,10 @@ export const htmlLessons: Lesson[] = [
     exercise: {
       question: "What does DOM stand for in web engineering?",
       options: [
-        "Document Object Model",
-        "Directory Output Manager",
         "Data Object Map",
-        "Digital Outlook Machine"
+        "Document Object Model",
+        "Digital Outlook Machine",
+        "Directory Output Manager",
       ],
       correctAnswer: "Document Object Model",
       hint: "It represents the page structure as a tree of objects. It starts with 'Document'!"
@@ -390,10 +390,10 @@ export const htmlLessons: Lesson[] = [
     exercise: {
       question: "Which panel in Chrome DevTools allows you to inspect and modify live HTML elements?",
       options: [
-        "Console panel",
         "Elements panel",
         "Network panel",
-        "Application panel"
+        "Application panel",
+        "Console panel",
       ],
       correctAnswer: "Elements panel",
       hint: "It is named after the components of HTML, which are called elements!"
@@ -452,8 +452,8 @@ export const htmlLessons: Lesson[] = [
       options: [
         "lang",
         "charset",
+        "href",
         "locale",
-        "href"
       ],
       correctAnswer: "lang",
       hint: "It is short for language, like lang=\"en\" or lang=\"hi\"!"
@@ -480,10 +480,10 @@ export const htmlLessons: Lesson[] = [
     exercise: {
       question: "Which type of content belongs inside the <head> element?",
       options: [
-        "Metadata, page titles, character encodings, and CSS link sheets",
-        "Visible paragraph texts and heading structures",
         "Interactive button widgets and input form fields",
-        "Image and native video players visible to users"
+        "Metadata, page titles, character encodings, and CSS link sheets",
+        "Image and native video players visible to users",
+        "Visible paragraph texts and heading structures",
       ],
       correctAnswer: "Metadata, page titles, character encodings, and CSS link sheets",
       hint: "The head element contains invisible configurations and settings, NOT visible contents."
@@ -510,10 +510,10 @@ export const htmlLessons: Lesson[] = [
     exercise: {
       question: "Which tag defines the text that appears on the browser's tab bar?",
       options: [
-        "<title>",
-        "<h1>",
         "<meta name=\"title\">",
-        "<header>"
+        "<title>",
+        "<header>",
+        "<h1>",
       ],
       correctAnswer: "<title>",
       hint: "It is placed inside the <head> block and defines the tab text!"
@@ -540,10 +540,10 @@ export const htmlLessons: Lesson[] = [
     exercise: {
       question: "Which meta attribute sets the character encoding scheme for standard HTML5 documents?",
       options: [
-        "charset",
-        "content",
         "http-equiv",
-        "encoding"
+        "encoding",
+        "content",
+        "charset",
       ],
       correctAnswer: "charset",
       hint: "It is a meta tag attribute written as <meta charset=\"...\">"
@@ -570,10 +570,10 @@ export const htmlLessons: Lesson[] = [
     exercise: {
       question: "Which viewport setting prevents layout scale shifts and ensures mobile screens render the site at 100% zoom initially?",
       options: [
+        "maximum-scale=2.0",
+        "width=device-width",
         "initial-scale=1.0",
         "user-scalable=no",
-        "width=device-width",
-        "maximum-scale=2.0"
       ],
       correctAnswer: "initial-scale=1.0",
       hint: "It sets the initial scale/zoom parameter, which should be 1.0 (100%)."
@@ -600,10 +600,10 @@ export const htmlLessons: Lesson[] = [
     exercise: {
       question: "Which relationship attribute value (rel) is used to associate a favicon file with an HTML page?",
       options: [
-        "icon",
+        "logo",
         "stylesheet",
         "favicon",
-        "logo"
+        "icon",
       ],
       correctAnswer: "icon",
       hint: "It is written as <link rel=\"icon\" href=\"...\">."
@@ -630,10 +630,10 @@ export const htmlLessons: Lesson[] = [
     exercise: {
       question: "Which tag is used to connect an external stylesheet (.css) file to your HTML file?",
       options: [
-        "<link>",
         "<style>",
+        "<css>",
         "<a>",
-        "<css>"
+        "<link>",
       ],
       correctAnswer: "<link>",
       hint: "It is an empty element that creates a relationship link between documents!"
@@ -660,10 +660,10 @@ export const htmlLessons: Lesson[] = [
     exercise: {
       question: "Which tag is used to write CSS rules directly inside your HTML file?",
       options: [
-        "<style>",
+        "<link>",
         "<css>",
+        "<style>",
         "<script>",
-        "<link>"
       ],
       correctAnswer: "<style>",
       hint: "It is written as <style> h1 { color: red; } </style> inside the head."
@@ -690,9 +690,9 @@ export const htmlLessons: Lesson[] = [
     exercise: {
       question: "Which tag is used to embed client-side JavaScript code in HTML?",
       options: [
-        "<script>",
-        "<javascript>",
         "<js>",
+        "<javascript>",
+        "<script>",
         "<code>"
       ],
       correctAnswer: "<script>",
@@ -722,9 +722,9 @@ export const htmlLessons: Lesson[] = [
       question: "Which HTML tag acts as the visible stage containing all text, buttons, and images?",
       options: [
         "<body>",
-        "<head>",
         "<html>",
-        "<main>"
+        "<main>",
+        "<head>",
       ],
       correctAnswer: "<body>",
       hint: "It holds everything that is shown directly on the browser screen!"
@@ -751,10 +751,10 @@ export const htmlLessons: Lesson[] = [
     exercise: {
       question: "What is the recommended SEO limit for <h1> tags on a single page?",
       options: [
-        "Exactly 1",
+        "None",
         "Unlimited",
         "Up to 6",
-        "None"
+        "Exactly 1",
       ],
       correctAnswer: "Exactly 1",
       hint: "Having only one main title helps Google understand the absolute focus of your page!"
@@ -781,10 +781,10 @@ export const htmlLessons: Lesson[] = [
     exercise: {
       question: "By default, how does the browser display consecutive <p> tags?",
       options: [
-        "Stacked vertically with vertical margins",
         "Side-by-side on the same line",
         "Inside a single block container",
-        "Italicized"
+        "Italicized",
+        "Stacked vertically with vertical margins",
       ],
       correctAnswer: "Stacked vertically with vertical margins",
       hint: "The browser automatically adds some empty vertical spacing to separate block paragraphs."
@@ -811,10 +811,10 @@ export const htmlLessons: Lesson[] = [
     exercise: {
       question: "Is the <br /> tag a self-closing empty element?",
       options: [
+        "Only on mobile devices",
         "Yes, it does not need a closing tag",
         "No, it requires </br>",
         "No, it must contain a text body",
-        "Only on mobile devices"
       ],
       correctAnswer: "Yes, it does not need a closing tag",
       hint: "It is an empty tag used to snap text to the next line immediately."
@@ -841,10 +841,10 @@ export const htmlLessons: Lesson[] = [
     exercise: {
       question: "What is the primary semantic purpose of the <hr /> tag in HTML5?",
       options: [
+        "To load background styles",
         "To mark a thematic shift or transition between topics",
         "To make text bold",
         "To draw borders around layout cards",
-        "To load background styles"
       ],
       correctAnswer: "To mark a thematic shift or transition between topics",
       hint: "It represents a thematic break, drawing a straight horizontal line by default."
@@ -872,8 +872,8 @@ export const htmlLessons: Lesson[] = [
       question: "By default, what type of element layout is a <div>?",
       options: [
         "Block-level container",
-        "Inline text highlighted block",
         "Self-closing divider line",
+        "Inline text highlighted block",
         "Form input element"
       ],
       correctAnswer: "Block-level container",
@@ -902,9 +902,9 @@ export const htmlLessons: Lesson[] = [
       question: "Unlike <div>, what is the default rendering type of a <span> container?",
       options: [
         "Inline-level",
-        "Block-level",
         "Self-closing empty element",
-        "Italic text block"
+        "Italic text block",
+        "Block-level",
       ],
       correctAnswer: "Inline-level",
       hint: "It wraps words inline on the same line without breaking to a new line!"
@@ -932,9 +932,9 @@ export const htmlLessons: Lesson[] = [
       question: "Which attribute is used inside <blockquote> to specify the official URL of the quoted source?",
       options: [
         "cite",
-        "href",
         "src",
-        "source"
+        "source",
+        "href",
       ],
       correctAnswer: "cite",
       hint: "The cite attribute contains the URL source of the quote, although it is invisible by default."
@@ -961,10 +961,10 @@ export const htmlLessons: Lesson[] = [
     exercise: {
       question: "What does the browser automatically generate around text wrapped in a <q> tag?",
       options: [
+        "A thin border outline",
         "Quotation marks",
-        "Italicized font styles",
         "Bullet markers",
-        "A thin border outline"
+        "Italicized font styles",
       ],
       correctAnswer: "Quotation marks",
       hint: "It automatically generates pretty quotation marks appropriate for the browser language!"

@@ -801,10 +801,10 @@ export default function HomeClient() {
       {/* ── CORE LANGUAGE SECTIONS (W3Schools band layouts) ── */}
       
       {/* 1. Windows Commands CLI Band */}
-      <section id="cli-section" className="bg-[#1e303f] border-b border-[#c1a648]/20 text-[#c1a648] py-16 px-4 md:px-8">
+      <section id="cli-section" className="bg-[#1e303f] dark:bg-[#111c26] border-b border-[#c1a648]/20 text-[#FFF4A3] py-16 px-4 md:px-8">
         <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
           <div className="text-left space-y-4">
-            <span className="text-[10px] font-black uppercase bg-[#c1a648]/10 border border-[#c1a648]/20 px-3 py-1 rounded-full text-[#c1a648]">
+            <span className="text-[10px] font-black uppercase bg-[#c1a648]/20 border border-[#c1a648]/30 px-3 py-1 rounded-full text-[#FFF4A3]">
               Module 1: Terminal Operations
             </span>
             <h2 className="text-3xl md:text-4xl font-black uppercase text-white font-mono flex items-center gap-3">
@@ -820,13 +820,13 @@ export default function HomeClient() {
               </svg>
               <span>Windows CLI</span>
             </h2>
-            <p className="text-slate-400 text-sm md:text-base max-w-lg leading-relaxed">
+            <p className="text-slate-300 text-sm md:text-base max-w-lg leading-relaxed font-medium">
               The ultimate starting point. Command your operating system, automate backups, and control folders directly via typed text shell utilities.
             </p>
             <div className="flex flex-wrap gap-3 pt-4">
               <Link 
                 href="/cli"
-                className="px-5 py-2.5 bg-[#c1a648] hover:bg-[#7f7034] text-[#1e303f] rounded-lg text-xs font-black uppercase tracking-wider transition-all cursor-pointer font-mono no-underline inline-flex items-center justify-center"
+                className="px-5 py-2.5 bg-[#c1a648] hover:bg-[#a38b3a] text-slate-950 rounded-lg text-xs font-black uppercase tracking-wider transition-all cursor-pointer font-mono no-underline inline-flex items-center justify-center shadow-lg"
               >
                 Learn Windows Command Line
               </Link>
@@ -841,7 +841,7 @@ export default function HomeClient() {
                 <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/60" />
                 <div className="w-2.5 h-2.5 rounded-full bg-[#c1a648]/80" />
               </div>
-              <span className="text-[10px] text-slate-500 font-bold uppercase">Command Prompt (cmd.exe)</span>
+              <span className="text-[10px] text-slate-400 font-bold uppercase">Command Prompt (cmd.exe)</span>
               <span className="w-4" />
             </div>
             <div className="p-4 space-y-2 max-h-[220px] overflow-y-auto">
@@ -861,13 +861,13 @@ export default function HomeClient() {
       <section id="html-section" className="bg-[#D9EEE1] text-slate-900 py-16 px-4 md:px-8 transition-colors">
         <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
           <div className="text-left space-y-4">
-            <span className="text-[10px] font-black uppercase bg-[#04AA6D]/10 border border-[#04AA6D]/20 px-3 py-1 rounded-full text-[#04AA6D]">
+            <span className="text-[10px] font-black uppercase bg-[#04AA6D]/20 border border-[#04AA6D]/30 px-3 py-1 rounded-full text-[#036c45]">
               Module 3: Structures
             </span>
-            <h2 className="text-3xl md:text-4xl font-black uppercase text-slate-900 tracking-tight">
+            <h2 className="text-3xl md:text-4xl font-black uppercase text-slate-950 tracking-tight">
               HTML5 Web markup
             </h2>
-            <p className="text-slate-700 text-sm md:text-base max-w-lg leading-relaxed font-medium">
+            <p className="text-slate-800 text-sm md:text-base max-w-lg leading-relaxed font-semibold">
               The structural skeleton of the web. Master semantic page flows, navigation elements, forms, layouts, and Google search engine index tags.
             </p>
             <div className="flex flex-wrap gap-3 pt-4">
@@ -880,7 +880,7 @@ export default function HomeClient() {
               </Link>
               <Link 
                 href="/playground"
-                className="px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-lg text-xs font-black uppercase tracking-wider transition-all cursor-pointer shadow-md shadow-slate-900/10 flex items-center gap-1.5"
+                className="px-5 py-2.5 bg-slate-950 hover:bg-slate-900 text-white rounded-lg text-xs font-black uppercase tracking-wider transition-all cursor-pointer shadow-md shadow-slate-900/10 flex items-center gap-1.5"
               >
                 <Code size={14} className="stroke-[2.5]" />
                 <span>Try HTML Sandbox</span>
@@ -902,7 +902,6 @@ export default function HomeClient() {
               <div><span className="text-teal-400">&lt;html&gt;</span></div>
               <div><span className="text-teal-400">  &lt;head&gt;</span></div>
               <div><span className="text-teal-400">    &lt;title&gt;</span><span className="text-yellow-200">Nextsem Academy</span><span className="text-teal-400">&lt;/title&gt;</span></div>
-              <div><span className="text-teal-400">  &lt;/head&gt;</span></div>
               <div><span className="text-teal-400">  &lt;body&gt;</span></div>
               <div><span className="text-teal-400">    &lt;h1&gt;</span><span className="text-white font-bold">Welcome to Nextsem</span><span className="text-teal-400">&lt;/h1&gt;</span></div>
               <div><span className="text-teal-400">    &lt;p&gt;</span><span className="text-slate-300">Learn to build beautiful websites.</span><span className="text-teal-400">&lt;/p&gt;</span></div>
@@ -914,7 +913,7 @@ export default function HomeClient() {
       </section>
 
       {/* 3. CSS Band */}
-      <section id="css-section" className="bg-[#FFF4A3] text-slate-900 py-16 px-4 md:px-8 transition-colors">
+      <section id="css-section" className="bg-[#FFF4A3] text-slate-950 py-16 px-4 md:px-8 transition-colors">
         <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
           
           {/* Mock Code Box */}
@@ -940,25 +939,25 @@ export default function HomeClient() {
           </div>
 
           <div className="text-left space-y-4 order-1 lg:order-2">
-            <span className="text-[10px] font-black uppercase bg-[#282A35]/10 border border-[#282A35]/20 px-3 py-1 rounded-full text-slate-800">
+            <span className="text-[10px] font-black uppercase bg-slate-900/10 border border-slate-900/20 px-3 py-1 rounded-full text-slate-950 font-bold">
               Module 4: Stylesheets
             </span>
-            <h2 className="text-3xl md:text-4xl font-black uppercase text-slate-900 tracking-tight">
+            <h2 className="text-3xl md:text-4xl font-black uppercase text-slate-950 tracking-tight">
               CSS3 Responsive Layouts
             </h2>
-            <p className="text-slate-700 text-sm md:text-base max-w-lg leading-relaxed font-medium">
+            <p className="text-slate-900 text-sm md:text-base max-w-lg leading-relaxed font-semibold">
               Inject styling, positioning, and variables. Create premium responsive grid-panels, flexbox headers, dark switches, and smooth keyframe micro-animations.
             </p>
             <div className="flex flex-wrap gap-3 pt-4">
               <button 
                 onClick={() => handleLaunchChapter('p2-1-selectors')}
-                className="px-5 py-2.5 bg-[#282A35] hover:bg-slate-800 text-white rounded-lg text-xs font-black uppercase tracking-wider transition-all cursor-pointer"
+                className="px-5 py-2.5 bg-slate-950 hover:bg-slate-900 text-white rounded-lg text-xs font-black uppercase tracking-wider transition-all cursor-pointer shadow-lg"
               >
                 Learn CSS
               </button>
               <Link 
                 href="/playground"
-                className="px-5 py-2.5 border border-slate-900 hover:bg-slate-900 hover:text-white rounded-lg text-xs font-black uppercase tracking-wider transition-all"
+                className="px-5 py-2.5 border-2 border-slate-950 text-slate-950 font-black hover:bg-slate-950 hover:text-white rounded-lg text-xs uppercase tracking-wider transition-all"
               >
                 CSS Reference
               </Link>

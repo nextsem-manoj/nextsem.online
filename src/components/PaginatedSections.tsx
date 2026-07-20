@@ -105,24 +105,26 @@ export default function PaginatedSections({
   return (
     <div className="animate-in fade-in duration-500 space-y-6 pb-4">
       {/* Slide Deck Container */}
-      <div className="w-full bg-[#0a1120]/75 backdrop-blur-xl border border-slate-850 rounded-[2rem] shadow-2xl overflow-hidden transition-all duration-300">
+      <div className="w-full bg-[#0a1120]/75 backdrop-blur-xl border border-slate-850 rounded-[2rem] shadow-2xl transition-all duration-300">
         
-        {/* Card Header: Progress Bar */}
-        <div className="relative w-full h-1.5 bg-slate-900/40">
-          <div 
-            className="absolute left-0 top-0 bottom-0 bg-gradient-to-r from-blue-500 to-emerald-400 transition-all duration-300 shadow-[0_0_8px_rgba(52,211,153,0.3)]"
-            style={{ width: `${progressPercent}%` }}
-          />
-        </div>
-
-        {/* Card Info Bar */}
-        <div className="px-6 pt-4 pb-2 flex items-center justify-between border-b border-slate-800/40 text-slate-400 text-xs font-bold">
-          <div className="flex items-center gap-1.5 text-blue-400">
-            <BookOpen size={14} />
-            <span>LESSON SLIDES</span>
+        {/* Card Header: Progress Bar — sticky at top */}
+        <div className="sticky top-0 z-10 rounded-t-[2rem] overflow-hidden bg-[#0a1120]/95 backdrop-blur-xl">
+          <div className="relative w-full h-1.5 bg-slate-900/40">
+            <div 
+              className="absolute left-0 top-0 bottom-0 bg-gradient-to-r from-blue-500 to-emerald-400 transition-all duration-300 shadow-[0_0_8px_rgba(52,211,153,0.3)]"
+              style={{ width: `${progressPercent}%` }}
+            />
           </div>
-          <div className="bg-slate-800/60 px-3 py-1 rounded-full text-slate-300 font-mono">
-            {activeSlide + 1} / {slides.length}
+
+          {/* Card Info Bar */}
+          <div className="px-6 pt-4 pb-2 flex items-center justify-between border-b border-slate-800/40 text-slate-400 text-xs font-bold">
+            <div className="flex items-center gap-1.5 text-blue-400">
+              <BookOpen size={14} />
+              <span>LESSON SLIDES</span>
+            </div>
+            <div className="bg-slate-800/60 px-3 py-1 rounded-full text-slate-300 font-mono">
+              {activeSlide + 1} / {slides.length}
+            </div>
           </div>
         </div>
 

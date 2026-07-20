@@ -221,3 +221,4 @@ server: {
 | **🏆 TOTAL** | **42 subjects** | **~3,510 lessons** |
 
 > **Nextsem Academy Goal**: Become the #1 free multilingual Full Stack Web Dev platform in India 🇮🇳
+create a automation to automatically complete lessons as per above plan and inform me after every 10 lesons.

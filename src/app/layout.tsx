@@ -201,7 +201,7 @@ export default function RootLayout({
 
         <ThemeProvider
           attribute="class"
-          themes={["light", "dark", "night-light"]}
+          themes={["light", "dark"]}
           defaultTheme="dark"
           enableSystem={false}
           disableTransitionOnChange

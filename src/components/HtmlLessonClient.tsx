@@ -410,8 +410,59 @@ export default function HtmlLessonClient({ lesson }: HtmlLessonClientProps) {
             {currentExercise.question}
           </h4>
 
-          {/* Multiple Choice Options */}
-          <div className="grid grid-cols-1 gap-2.5">
+          {/* Interactive Fill-in-the-Blanks Visualizer */}
+          <div className="p-3.5 bg-slate-900/90 border border-indigo-500/20 rounded-xl font-mono text-xs text-slate-300 space-y-2">
+            <div className="flex items-center justify-between text-[10px] font-black text-indigo-400 uppercase tracking-wider">
+              <span>✍️ Fill in the Blank</span>
+              <span>Tap a Pill Below</span>
+            </div>
+            <div className="flex items-center gap-2 flex-wrap leading-relaxed">
+              <span className="text-slate-400">Target Answer:</span>
+              <span className={`px-3 py-1 rounded-full font-bold transition-all border text-xs ${
+                selectedOption 
+                  ? isCorrect 
+                    ? "bg-emerald-500/20 text-emerald-300 border-emerald-500/40 shadow-[0_0_10px_rgba(52,211,153,0.3)]" 
+                    : "bg-rose-500/20 text-rose-300 border-rose-500/40 shadow-[0_0_10px_rgba(244,63,94,0.3)]"
+                  : "bg-amber-500/10 text-amber-400 border-amber-500/30 animate-pulse"
+              }`}>
+                {selectedOption ? selectedOption : " [ _ _ _ _ ] "}
+              </span>
+            </div>
+          </div>
+
+          {/* 4 Pill Buttons for Quick Choice */}
+          <div className="space-y-1.5 pt-1">
+            <span className="text-[10px] font-black uppercase tracking-wider text-slate-400 block">Choose Pill Answer:</span>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+              {currentExercise.options.slice(0, 4).map((option, idx) => {
+                const isSelected = selectedOption === option;
+                let pillStyle = "bg-slate-900 border-slate-800 text-slate-300 hover:bg-slate-850 hover:border-indigo-500/50 hover:text-white";
+                
+                if (isSelected) {
+                  if (isCorrect) {
+                    pillStyle = "bg-emerald-500 text-slate-950 border-emerald-400 font-black ring-2 ring-emerald-400/40 shadow-lg shadow-emerald-500/20";
+                  } else {
+                    pillStyle = "bg-rose-500 text-white border-rose-400 font-black ring-2 ring-rose-400/40 shadow-lg shadow-rose-500/20";
+                  }
+                }
+
+                return (
+                  <button
+                    key={idx}
+                    onClick={() => handleOptionSelect(option)}
+                    disabled={isLessonDone}
+                    className={`px-3 py-2.5 rounded-xl border text-xs font-mono font-bold transition-all cursor-pointer text-center truncate active:scale-95 ${pillStyle}`}
+                    title={option}
+                  >
+                    💊 {option}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Multiple Choice Detailed List */}
+          <div className="grid grid-cols-1 gap-2.5 pt-2">
             {currentExercise.options.map((option, idx) => {
               const isSelected = selectedOption === option;
               let btnStyle = "bg-slate-950/50 border-slate-850 text-slate-350 hover:bg-slate-900 hover:text-white";
