@@ -74,6 +74,14 @@ export default function GlobalNavigationWidget() {
           href: "/playground",
           desc: "Live HTML, CSS, and JS editor console",
           icon: <Play size={14} className="text-purple-400" />,
+        },
+        {
+          name: "PDF to Markdown",
+          href: "/pdf-to-markdown",
+          desc: "Convert uploaded PDF notes into .md files",
+          icon: <FileSpreadsheet size={14} className="text-[#c1a648]" />,
+          badge: "NEW",
+          badgeColor: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"
         }
       ]
     },
