@@ -6,7 +6,7 @@ import Script from "next/script";
 import { 
   FileText, Upload, Copy, Download, Check, Sparkles, 
   ArrowLeft, RefreshCw, Eye, Code, FileCode, AlertCircle, 
-  BookOpen, Layers, Zap, FileCheck, Image as ImageIcon, CheckSquare
+  BookOpen, Layers, Zap, FileCheck, Image as ImageIcon, SplitSquareVertical, Columns
 } from "lucide-react";
 import AdSenseBanner from "./AdSenseBanner";
 
@@ -28,6 +28,9 @@ export default function PdfToMarkdownConverter() {
   const [markdown, setMarkdown] = useState<string>("");
   const [copied, setCopied] = useState(false);
   
+  // Layout Mode: "single" | "split"
+  const [layoutMode, setLayoutMode] = useState<"single" | "split">("split");
+
   // Options
   const [includePageImages, setIncludePageImages] = useState<boolean>(true);
 
@@ -38,6 +41,7 @@ export default function PdfToMarkdownConverter() {
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const canvasSplitRef = useRef<HTMLCanvasElement>(null);
   const pdfRef = useRef<any>(null);
 
   useEffect(() => {
@@ -59,12 +63,12 @@ export default function PdfToMarkdownConverter() {
   };
 
   // Render PDF Page onto Canvas for the PDF Viewer Tab
-  const renderPdfCanvas = async (pageNum: number) => {
-    if (!pdfRef.current || !canvasRef.current) return;
+  const renderPdfCanvas = async (pageNum: number, targetCanvas: HTMLCanvasElement | null) => {
+    if (!pdfRef.current || !targetCanvas) return;
     try {
       const page = await pdfRef.current.getPage(pageNum);
-      const viewport = page.getViewport({ scale: 1.3 });
-      const canvas = canvasRef.current;
+      const viewport = page.getViewport({ scale: 1.2 });
+      const canvas = targetCanvas;
       const context = canvas.getContext("2d");
 
       if (context) {
@@ -78,10 +82,14 @@ export default function PdfToMarkdownConverter() {
   };
 
   useEffect(() => {
-    if (activeOutputTab === "pdf" && pdfRef.current) {
-      renderPdfCanvas(selectedPdfPage);
+    if (pdfRef.current) {
+      if (layoutMode === "single" && activeOutputTab === "pdf") {
+        renderPdfCanvas(selectedPdfPage, canvasRef.current);
+      } else if (layoutMode === "split") {
+        renderPdfCanvas(selectedPdfPage, canvasSplitRef.current);
+      }
     }
-  }, [activeOutputTab, selectedPdfPage]);
+  }, [activeOutputTab, selectedPdfPage, layoutMode]);
 
   // High-Precision Extraction, Image Snapshot & OCR Algorithm
   const processPdfFile = async (pdfFile: File) => {
@@ -178,7 +186,7 @@ export default function PdfToMarkdownConverter() {
       }
 
       setMarkdown(fullMarkdown.trim());
-      setActiveOutputTab("doc"); // Switch to Converted Doc Viewer tab
+      setActiveOutputTab("doc");
     } catch (err: any) {
       console.error("PDF Parsing Error:", err);
       alert("Error parsing PDF: " + (err.message || "Failed to extract text. Make sure file is a valid PDF document."));
@@ -219,49 +227,41 @@ export default function PdfToMarkdownConverter() {
 
     for (const yKey of sortedYKeys) {
       const lineItems = lineMap.get(yKey)!;
-      // Sort line items horizontally (left to right)
       lineItems.sort((a, b) => a.x - b.x);
 
       const lineText = lineItems.map(i => i.text).join(" ").trim();
       if (!lineText) continue;
 
-      // Filter out footer page numbers
       if (/^\d+$/.test(lineText) && lineText.length <= 3) continue;
 
       const avgFontSize = lineItems.reduce((acc, i) => acc + i.fontSize, 0) / lineItems.length;
       const isLineBold = lineItems.some(i => i.isBold);
 
-      // Large Font -> H1 or H2 Heading
       if (avgFontSize >= 18 || (avgFontSize >= 15 && isLineBold)) {
         result.push(`## ${lineText}`);
         continue;
       }
 
-      // Medium Font / Bold -> H3 Sub-heading
       if (avgFontSize >= 14 || (avgFontSize >= 12 && isLineBold && lineText.length < 60)) {
         result.push(`### ${lineText}`);
         continue;
       }
 
-      // Bullet List detection
       if (/^[\bullet\-\*•]\s+/.test(lineText)) {
         result.push(`* ${lineText.replace(/^[\bullet\-\*•]\s+/, "")}`);
         continue;
       }
 
-      // Numbered List detection
       if (/^\d+[\.\)]\s+/.test(lineText)) {
         result.push(lineText);
         continue;
       }
 
-      // Code blocks detection
       if (/^(function|const|let|var|class|import|export|<!DOCTYPE|<html|<div|cmd>|C:\\)/i.test(lineText)) {
         result.push(`\`\`\`\n${lineText}\n\`\`\``);
         continue;
       }
 
-      // Format bold lead terms e.g. "Note:", "Important:"
       let formattedLine = lineText.replace(/^(Note|Important|Warning|Tip|Definition)\:/i, "**$1:**");
       result.push(formattedLine);
     }
@@ -331,7 +331,7 @@ export default function PdfToMarkdownConverter() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground py-8 px-4 md:px-8 max-w-[1400px] mx-auto">
+    <div className="min-h-screen bg-background text-foreground py-8 px-4 md:px-8 max-w-[1600px] mx-auto text-left">
       {/* External Scripts */}
       <Script 
         src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" 
@@ -351,14 +351,14 @@ export default function PdfToMarkdownConverter() {
           <div>
             <div className="flex items-center gap-2 flex-wrap">
               <span className="text-[9px] font-black uppercase tracking-wider text-emerald-400 bg-emerald-950/60 border border-emerald-500/20 px-2.5 py-0.5 rounded-full flex items-center gap-1">
-                <Sparkles size={9} /> High-Precision OCR &amp; Diagram Preservation Engine
+                <Columns size={10} /> Side-by-Side Dual Pane PDF &amp; Markdown Studio
               </span>
             </div>
             <h1 className="text-xl md:text-2xl font-black text-white mt-1">
-              PDF to Markdown (.md) Converter Studio
+              PDF to Markdown (.md) Converter &amp; Side-by-Side Studio
             </h1>
             <p className="text-xs text-slate-400 font-medium">
-              Upload PDF textbooks or notes. Extracts structured text &amp; preserves exact page diagrams and figures as images.
+              Upload PDF textbooks or notes. Compare the original PDF side-by-side with its converted Markdown output.
             </p>
           </div>
         </div>
@@ -383,13 +383,35 @@ export default function PdfToMarkdownConverter() {
           />
           <span className="flex items-center gap-1.5">
             <ImageIcon size={14} className="text-indigo-400" />
-            <span>Include Exact Page Diagram/Image Snapshots (Keep 100% Visual Consistency)</span>
+            <span>Include Exact Page Diagram/Image Snapshots (100% Visual Consistency)</span>
           </span>
         </label>
 
-        <span className="text-[10px] text-slate-400 font-mono">
-          Engine: PDF.js + Tesseract OCR 5.0
-        </span>
+        {/* Layout Mode Selector Toggle */}
+        <div className="flex items-center gap-1 bg-slate-900 p-1 rounded-xl border border-slate-800">
+          <button
+            onClick={() => setLayoutMode("split")}
+            className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+              layoutMode === "split"
+                ? "bg-indigo-600 text-white font-black shadow-md shadow-indigo-600/20"
+                : "text-slate-400 hover:text-white"
+            }`}
+          >
+            <Columns size={13} />
+            <span>↔️ Side-by-Side Split View</span>
+          </button>
+          <button
+            onClick={() => setLayoutMode("single")}
+            className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+              layoutMode === "single"
+                ? "bg-indigo-600 text-white font-black shadow-md shadow-indigo-600/20"
+                : "text-slate-400 hover:text-white"
+            }`}
+          >
+            <Layers size={13} />
+            <span>Tabbed View</span>
+          </button>
+        </div>
       </div>
 
       {/* File Upload Dropzone */}
@@ -439,62 +461,26 @@ export default function PdfToMarkdownConverter() {
         </div>
       </div>
 
-      {/* Output Window Workspace */}
+      {/* Output Workspace */}
       {markdown && (
         <div className="space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-500">
-          {/* Output Window Header & 3 View Tabs */}
-          <div className="bg-slate-900/80 border border-slate-800 p-3 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-3 backdrop-blur-xl">
-            {/* 3 Main Output View Tabs */}
-            <div className="flex items-center gap-1 bg-slate-950 p-1 rounded-xl border border-slate-800/60 w-full md:w-auto">
-              <button
-                onClick={() => setActiveOutputTab("pdf")}
-                className={`flex-1 md:flex-none flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                  activeOutputTab === "pdf"
-                    ? "bg-indigo-600 text-white shadow-md shadow-indigo-600/20 font-black"
-                    : "text-slate-400 hover:text-white"
-                }`}
-              >
-                <FileText size={14} />
-                <span>📄 Uploaded PDF Viewer</span>
-              </button>
+          {/* Action Header */}
+          <div className="bg-slate-900/80 border border-slate-800 p-3 rounded-2xl flex items-center justify-between gap-3 backdrop-blur-xl flex-wrap">
+            <span className="text-xs font-bold text-slate-200">
+              DOCUMENT: <span className="text-indigo-400 font-mono">{file?.name}</span>
+            </span>
 
-              <button
-                onClick={() => setActiveOutputTab("doc")}
-                className={`flex-1 md:flex-none flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                  activeOutputTab === "doc"
-                    ? "bg-emerald-600 text-white shadow-md shadow-emerald-600/20 font-black"
-                    : "text-slate-400 hover:text-white"
-                }`}
-              >
-                <Eye size={14} />
-                <span>👁️ Converted Doc Viewer</span>
-              </button>
-
-              <button
-                onClick={() => setActiveOutputTab("md")}
-                className={`flex-1 md:flex-none flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                  activeOutputTab === "md"
-                    ? "bg-purple-600 text-white shadow-md shadow-purple-600/20 font-black"
-                    : "text-slate-400 hover:text-white"
-                }`}
-              >
-                <Code size={14} />
-                <span>📝 .md File Viewer</span>
-              </button>
-            </div>
-
-            {/* Action Buttons */}
-            <div className="flex items-center gap-2 w-full md:w-auto justify-end">
+            <div className="flex items-center gap-2">
               <button
                 onClick={handleCopyMarkdown}
-                className="flex-1 md:flex-none flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-750 text-slate-200 text-xs font-bold border border-slate-700 transition-all cursor-pointer active:scale-95"
+                className="flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-750 text-slate-200 text-xs font-bold border border-slate-700 transition-all cursor-pointer active:scale-95"
               >
                 {copied ? <Check size={14} className="text-emerald-400" /> : <Copy size={14} />}
                 <span>{copied ? "Copied!" : "Copy .md"}</span>
               </button>
               <button
                 onClick={handleDownloadMarkdown}
-                className="flex-1 md:flex-none flex items-center justify-center gap-1.5 px-5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-black transition-all cursor-pointer active:scale-95 shadow-lg shadow-emerald-500/20"
+                className="flex items-center justify-center gap-1.5 px-5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-black transition-all cursor-pointer active:scale-95 shadow-lg shadow-emerald-500/20"
               >
                 <Download size={14} />
                 <span>Download .md File</span>
@@ -502,104 +488,204 @@ export default function PdfToMarkdownConverter() {
             </div>
           </div>
 
-          {/* TAB 1: Uploaded PDF Viewer */}
-          {activeOutputTab === "pdf" && (
-            <div className="bg-slate-950 border border-slate-800 rounded-3xl p-4 md:p-6 text-left shadow-2xl space-y-4">
-              {/* PDF Page Selector Toolbar */}
-              <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-                <span className="text-xs font-bold text-slate-300">
-                  Document: <span className="text-indigo-400 font-mono">{file?.name}</span>
-                </span>
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={() => setSelectedPdfPage(p => Math.max(1, p - 1))}
-                    disabled={selectedPdfPage <= 1}
-                    className="px-3 py-1 bg-slate-900 border border-slate-800 rounded-lg text-xs font-bold text-slate-300 disabled:opacity-30 cursor-pointer"
-                  >
-                    Prev Page
-                  </button>
-                  <span className="text-xs font-mono text-slate-400 font-bold">
-                    Page {selectedPdfPage} of {totalPdfPages}
+          {/* SIDE-BY-SIDE SPLIT VIEW */}
+          {layoutMode === "split" ? (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+              {/* LEFT PANE: PDF Viewer Canvas */}
+              <div className="bg-slate-950 border border-slate-800 rounded-3xl p-4 md:p-6 text-left shadow-2xl space-y-4 sticky top-4">
+                <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+                  <span className="text-xs font-black text-white flex items-center gap-1.5">
+                    <FileText size={16} className="text-indigo-400" />
+                    <span>📄 Original Uploaded PDF</span>
                   </span>
-                  <button
-                    onClick={() => setSelectedPdfPage(p => Math.min(totalPdfPages, p + 1))}
-                    disabled={selectedPdfPage >= totalPdfPages}
-                    className="px-3 py-1 bg-slate-900 border border-slate-800 rounded-lg text-xs font-bold text-slate-300 disabled:opacity-30 cursor-pointer"
-                  >
-                    Next Page
-                  </button>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => setSelectedPdfPage(p => Math.max(1, p - 1))}
+                      disabled={selectedPdfPage <= 1}
+                      className="px-2.5 py-1 bg-slate-900 border border-slate-800 rounded-lg text-xs font-bold text-slate-300 disabled:opacity-30 cursor-pointer"
+                    >
+                      Prev
+                    </button>
+                    <span className="text-xs font-mono text-slate-300 font-bold">
+                      Page {selectedPdfPage} / {totalPdfPages}
+                    </span>
+                    <button
+                      onClick={() => setSelectedPdfPage(p => Math.min(totalPdfPages, p + 1))}
+                      disabled={selectedPdfPage >= totalPdfPages}
+                      className="px-2.5 py-1 bg-slate-900 border border-slate-800 rounded-lg text-xs font-bold text-slate-300 disabled:opacity-30 cursor-pointer"
+                    >
+                      Next
+                    </button>
+                  </div>
+                </div>
+
+                <div className="flex justify-center overflow-x-auto p-2 bg-slate-900/50 rounded-2xl border border-slate-850 max-h-[750px] overflow-y-auto custom-scrollbar">
+                  <canvas ref={canvasSplitRef} className="rounded-xl shadow-2xl border border-slate-800 max-w-full" />
                 </div>
               </div>
 
-              {/* Rendered PDF Canvas Display */}
-              <div className="flex justify-center overflow-x-auto p-4 bg-slate-900/50 rounded-2xl border border-slate-850">
-                <canvas ref={canvasRef} className="rounded-xl shadow-2xl border border-slate-800 max-w-full" />
+              {/* RIGHT PANE: Converted Markdown / Doc Output */}
+              <div className="bg-slate-950/80 border border-slate-800 rounded-3xl p-4 md:p-6 backdrop-blur-xl text-left shadow-2xl space-y-4">
+                <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+                  <div className="flex items-center gap-1 bg-slate-900 p-1 rounded-xl border border-slate-800">
+                    <button
+                      onClick={() => setActiveOutputTab("doc")}
+                      className={`px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                        activeOutputTab === "doc"
+                          ? "bg-emerald-600 text-white font-black"
+                          : "text-slate-400 hover:text-white"
+                      }`}
+                    >
+                      👁️ Converted Doc
+                    </button>
+                    <button
+                      onClick={() => setActiveOutputTab("md")}
+                      className={`px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                        activeOutputTab === "md"
+                          ? "bg-purple-600 text-white font-black"
+                          : "text-slate-400 hover:text-white"
+                      }`}
+                    >
+                      📝 Raw .md
+                    </button>
+                  </div>
+
+                  <span className="text-[10px] font-mono text-emerald-400 bg-emerald-950/60 border border-emerald-500/20 px-2 py-0.5 rounded-full">
+                    Synchronized Output
+                  </span>
+                </div>
+
+                {activeOutputTab === "doc" ? (
+                  <div className="max-h-[750px] overflow-y-auto p-4 bg-slate-950/40 rounded-2xl border border-slate-850 custom-scrollbar">
+                    <article className="prose prose-invert prose-blue max-w-none text-xs md:text-sm leading-relaxed">
+                      {markdown.split("\n\n").map((paragraph, idx) => {
+                        const trimmed = paragraph.trim();
+                        if (!trimmed) return null;
+
+                        if (trimmed.startsWith("# ")) {
+                          return <h1 key={idx} className="text-xl font-black text-white border-b border-slate-800 pb-2 mb-3">{trimmed.replace("# ", "")}</h1>;
+                        }
+                        if (trimmed.startsWith("## ")) {
+                          return <h2 key={idx} className="text-base font-bold text-indigo-400 mt-5 mb-2">{trimmed.replace("## ", "")}</h2>;
+                        }
+                        if (trimmed.startsWith("### ")) {
+                          return <h3 key={idx} className="text-xs font-bold text-emerald-400 mt-3 mb-1.5">{trimmed.replace("### ", "")}</h3>;
+                        }
+                        if (trimmed.startsWith("![") && trimmed.includes("](data:image")) {
+                          const match = trimmed.match(/!\[(.*?)\]\((data:image\/.*)\)/);
+                          if (match) {
+                            return (
+                              <div key={idx} className="my-4 p-2 bg-slate-900/80 border border-slate-800 rounded-xl text-center space-y-1">
+                                <span className="text-[9px] font-mono text-slate-400 uppercase font-bold block">{match[1]}</span>
+                                <img src={match[2]} alt={match[1]} className="rounded-lg mx-auto max-h-[500px] border border-slate-800 shadow-lg" />
+                              </div>
+                            );
+                          }
+                        }
+                        if (trimmed.startsWith("* ") || trimmed.startsWith("- ")) {
+                          return (
+                            <li key={idx} className="ml-4 list-disc text-slate-300 my-1">
+                              {trimmed.replace(/^[\*\-]\s+/, "")}
+                            </li>
+                          );
+                        }
+
+                        return <p key={idx} className="text-slate-300 leading-relaxed my-2 font-medium">{trimmed}</p>;
+                      })}
+                    </article>
+                  </div>
+                ) : (
+                  <textarea
+                    value={markdown}
+                    onChange={(e) => setMarkdown(e.target.value)}
+                    className="w-full h-[750px] bg-transparent text-emerald-400 font-mono text-xs focus:outline-none resize-none leading-relaxed font-semibold custom-scrollbar p-2"
+                  />
+                )}
               </div>
             </div>
-          )}
+          ) : (
+            /* TABBED VIEW MODE */
+            <div className="space-y-4">
+              <div className="flex items-center gap-1 bg-slate-950 p-1 rounded-xl border border-slate-800/60 w-full md:w-auto">
+                <button
+                  onClick={() => setActiveOutputTab("pdf")}
+                  className={`flex-1 md:flex-none flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                    activeOutputTab === "pdf"
+                      ? "bg-indigo-600 text-white shadow-md shadow-indigo-600/20 font-black"
+                      : "text-slate-400 hover:text-white"
+                  }`}
+                >
+                  <FileText size={14} />
+                  <span>📄 Uploaded PDF Viewer</span>
+                </button>
 
-          {/* TAB 2: Converted Doc Viewer */}
-          {activeOutputTab === "doc" && (
-            <div className="bg-slate-950/60 border border-slate-800/80 rounded-3xl p-6 md:p-10 backdrop-blur-xl text-left shadow-2xl overflow-x-auto">
-              <article className="prose prose-invert prose-blue max-w-none text-sm md:text-base leading-relaxed">
-                {markdown.split("\n\n").map((paragraph, idx) => {
-                  const trimmed = paragraph.trim();
-                  if (!trimmed) return null;
+                <button
+                  onClick={() => setActiveOutputTab("doc")}
+                  className={`flex-1 md:flex-none flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                    activeOutputTab === "doc"
+                      ? "bg-emerald-600 text-white shadow-md shadow-emerald-600/20 font-black"
+                      : "text-slate-400 hover:text-white"
+                  }`}
+                >
+                  <Eye size={14} />
+                  <span>👁️ Converted Doc Viewer</span>
+                </button>
 
-                  if (trimmed.startsWith("# ")) {
-                    return <h1 key={idx} className="text-2xl md:text-3xl font-black text-white border-b border-slate-800 pb-2 mb-4">{trimmed.replace("# ", "")}</h1>;
-                  }
-                  if (trimmed.startsWith("## ")) {
-                    return <h2 key={idx} className="text-lg md:text-xl font-bold text-indigo-400 mt-6 mb-3 flex items-center gap-2">{trimmed.replace("## ", "")}</h2>;
-                  }
-                  if (trimmed.startsWith("### ")) {
-                    return <h3 key={idx} className="text-base font-bold text-emerald-400 mt-4 mb-2">{trimmed.replace("### ", "")}</h3>;
-                  }
-                  if (trimmed.startsWith("> ")) {
-                    return (
-                      <blockquote key={idx} className="border-l-4 border-indigo-500 bg-indigo-950/20 p-3 rounded-r-xl my-4 text-slate-300 font-medium">
-                        {trimmed.replace("> ", "")}
-                      </blockquote>
-                    );
-                  }
-                  if (trimmed.startsWith("![") && trimmed.includes("](data:image")) {
-                    const match = trimmed.match(/!\[(.*?)\]\((data:image\/.*)\)/);
-                    if (match) {
-                      return (
-                        <div key={idx} className="my-6 p-3 bg-slate-900/80 border border-slate-800 rounded-2xl text-center space-y-2">
-                          <span className="text-[10px] font-mono text-slate-400 uppercase font-bold block">{match[1]}</span>
-                          <img src={match[2]} alt={match[1]} className="rounded-xl mx-auto max-h-[700px] border border-slate-800 shadow-xl" />
-                        </div>
-                      );
-                    }
-                  }
-                  if (trimmed.startsWith("* ") || trimmed.startsWith("- ")) {
-                    return (
-                      <li key={idx} className="ml-5 list-disc text-slate-300 my-1">
-                        {trimmed.replace(/^[\*\-]\s+/, "")}
-                      </li>
-                    );
-                  }
-
-                  return <p key={idx} className="text-slate-350 leading-relaxed my-2.5 font-medium">{trimmed}</p>;
-                })}
-              </article>
-            </div>
-          )}
-
-          {/* TAB 3: .md File Viewer */}
-          {activeOutputTab === "md" && (
-            <div className="bg-slate-950 border border-slate-800 rounded-3xl p-4 md:p-6 text-left shadow-2xl relative">
-              <div className="flex items-center justify-between mb-3 text-[10px] font-mono text-slate-400 border-b border-slate-850 pb-2">
-                <span>FILE: {file ? file.name.replace(/\.pdf$/i, ".md") : "notes.md"}</span>
-                <span>GITHUB FLAVORED MARKDOWN</span>
+                <button
+                  onClick={() => setActiveOutputTab("md")}
+                  className={`flex-1 md:flex-none flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                    activeOutputTab === "md"
+                      ? "bg-purple-600 text-white shadow-md shadow-purple-600/20 font-black"
+                      : "text-slate-400 hover:text-white"
+                  }`}
+                >
+                  <Code size={14} />
+                  <span>📝 .md File Viewer</span>
+                </button>
               </div>
-              <textarea
-                value={markdown}
-                onChange={(e) => setMarkdown(e.target.value)}
-                className="w-full h-[600px] bg-transparent text-emerald-400 font-mono text-xs md:text-sm focus:outline-none resize-y leading-relaxed font-semibold custom-scrollbar"
-                placeholder="Markdown text output..."
-              />
+
+              {activeOutputTab === "pdf" && (
+                <div className="bg-slate-950 border border-slate-800 rounded-3xl p-4 md:p-6 text-left shadow-2xl space-y-4">
+                  <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+                    <span className="text-xs font-mono text-slate-400">Page {selectedPdfPage} of {totalPdfPages}</span>
+                    <div className="flex items-center gap-2">
+                      <button onClick={() => setSelectedPdfPage(p => Math.max(1, p - 1))} disabled={selectedPdfPage <= 1} className="px-3 py-1 bg-slate-900 border border-slate-800 rounded-lg text-xs font-bold text-slate-300 disabled:opacity-30">Prev</button>
+                      <button onClick={() => setSelectedPdfPage(p => Math.min(totalPdfPages, p + 1))} disabled={selectedPdfPage >= totalPdfPages} className="px-3 py-1 bg-slate-900 border border-slate-800 rounded-lg text-xs font-bold text-slate-300 disabled:opacity-30">Next</button>
+                    </div>
+                  </div>
+                  <div className="flex justify-center overflow-x-auto p-4 bg-slate-900/50 rounded-2xl border border-slate-850">
+                    <canvas ref={canvasRef} className="rounded-xl shadow-2xl border border-slate-800 max-w-full" />
+                  </div>
+                </div>
+              )}
+
+              {activeOutputTab === "doc" && (
+                <div className="bg-slate-950/60 border border-slate-800/80 rounded-3xl p-6 md:p-10 backdrop-blur-xl text-left shadow-2xl overflow-x-auto">
+                  <article className="prose prose-invert prose-blue max-w-none text-sm md:text-base leading-relaxed">
+                    {markdown.split("\n\n").map((paragraph, idx) => {
+                      const trimmed = paragraph.trim();
+                      if (!trimmed) return null;
+
+                      if (trimmed.startsWith("# ")) return <h1 key={idx} className="text-2xl md:text-3xl font-black text-white border-b border-slate-800 pb-2 mb-4">{trimmed.replace("# ", "")}</h1>;
+                      if (trimmed.startsWith("## ")) return <h2 key={idx} className="text-lg md:text-xl font-bold text-indigo-400 mt-6 mb-3">{trimmed.replace("## ", "")}</h2>;
+                      if (trimmed.startsWith("### ")) return <h3 key={idx} className="text-base font-bold text-emerald-400 mt-4 mb-2">{trimmed.replace("### ", "")}</h3>;
+                      if (trimmed.startsWith("![")) {
+                        const match = trimmed.match(/!\[(.*?)\]\((data:image\/.*)\)/);
+                        if (match) return <div key={idx} className="my-6 p-3 bg-slate-900/80 border border-slate-800 rounded-2xl text-center"><img src={match[2]} alt={match[1]} className="rounded-xl mx-auto max-h-[700px]" /></div>;
+                      }
+                      return <p key={idx} className="text-slate-350 leading-relaxed my-2.5 font-medium">{trimmed}</p>;
+                    })}
+                  </article>
+                </div>
+              )}
+
+              {activeOutputTab === "md" && (
+                <textarea
+                  value={markdown}
+                  onChange={(e) => setMarkdown(e.target.value)}
+                  className="w-full h-[600px] bg-slate-950 border border-slate-800 rounded-3xl p-6 text-emerald-400 font-mono text-xs md:text-sm focus:outline-none resize-y"
+                />
+              )}
             </div>
           )}
         </div>
