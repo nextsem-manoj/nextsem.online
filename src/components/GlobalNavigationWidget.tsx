@@ -82,6 +82,14 @@ export default function GlobalNavigationWidget() {
           icon: <FileSpreadsheet size={14} className="text-[#c1a648]" />,
           badge: "NEW",
           badgeColor: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"
+        },
+        {
+          name: "Gemini AI Studio",
+          href: "/gemini-ai",
+          desc: "Run user prompts with Google Gemini AI",
+          icon: <Sparkles size={14} className="text-indigo-400" />,
+          badge: "AI",
+          badgeColor: "bg-indigo-500/10 text-indigo-400 border-indigo-500/20"
         }
       ]
     },
