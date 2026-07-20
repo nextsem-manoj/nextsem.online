@@ -31,6 +31,7 @@ const outfit = Outfit({
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
+  minimumScale: 0.5,
   maximumScale: 5,
   userScalable: true,
 };
