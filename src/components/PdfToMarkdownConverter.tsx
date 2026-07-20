@@ -6,7 +6,7 @@ import Script from "next/script";
 import { 
   FileText, Upload, Copy, Download, Check, Sparkles, 
   ArrowLeft, RefreshCw, Eye, Code, FileCode, AlertCircle, 
-  BookOpen, Layers, Zap, FileCheck, ZoomIn, ZoomOut
+  BookOpen, Layers, Zap, FileCheck, Image as ImageIcon, CheckSquare
 } from "lucide-react";
 import AdSenseBanner from "./AdSenseBanner";
 
@@ -28,6 +28,9 @@ export default function PdfToMarkdownConverter() {
   const [markdown, setMarkdown] = useState<string>("");
   const [copied, setCopied] = useState(false);
   
+  // Options
+  const [includePageImages, setIncludePageImages] = useState<boolean>(true);
+
   // Output Window View Tabs: "pdf" | "doc" | "md"
   const [activeOutputTab, setActiveOutputTab] = useState<"pdf" | "doc" | "md">("doc");
   const [selectedPdfPage, setSelectedPdfPage] = useState<number>(1);
@@ -80,7 +83,7 @@ export default function PdfToMarkdownConverter() {
     }
   }, [activeOutputTab, selectedPdfPage]);
 
-  // High-Precision Extraction & OCR Algorithm
+  // High-Precision Extraction, Image Snapshot & OCR Algorithm
   const processPdfFile = async (pdfFile: File) => {
     if (!window.pdfjsLib) {
       alert("PDF processing engine is loading. Please try again in 3 seconds.");
@@ -105,14 +108,32 @@ export default function PdfToMarkdownConverter() {
       setSelectedPdfPage(1);
 
       let fullMarkdown = `# ${pdfFile.name.replace(/\.pdf$/i, "")}\n\n`;
-      fullMarkdown += `> Extracted with **High-Precision OCR** (${pdf.numPages} pages)\n\n---\n\n`;
+      fullMarkdown += `> Extracted with **High-Precision Layout & Diagram Preservation** (${pdf.numPages} pages)\n\n---\n\n`;
 
       for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
-        setProgressText(`Analyzing page ${pageNum} of ${pdf.numPages} with OCR precision...`);
+        setProgressText(`Analyzing page ${pageNum} of ${pdf.numPages} (preserving text & diagrams)...`);
         const page = await pdf.getPage(pageNum);
         const textContent = await page.getTextContent();
         
         let pageLines: { text: string; fontSize: number; isBold: boolean; x: number; y: number }[] = [];
+
+        // Render page image snapshot to preserve diagrams/figures 100% as-is
+        let pageImgDataUrl = "";
+        if (includePageImages) {
+          try {
+            const viewport = page.getViewport({ scale: 1.5 });
+            const offCanvas = document.createElement("canvas");
+            offCanvas.width = viewport.width;
+            offCanvas.height = viewport.height;
+            const ctx = offCanvas.getContext("2d");
+            if (ctx) {
+              await page.render({ canvasContext: ctx, viewport }).promise;
+              pageImgDataUrl = offCanvas.toDataURL("image/png");
+            }
+          } catch (imgErr) {
+            console.warn("Page image capture notice:", imgErr);
+          }
+        }
 
         // Track text items with exact X, Y coordinates & font metrics
         for (const item of textContent.items) {
@@ -134,16 +155,8 @@ export default function PdfToMarkdownConverter() {
         if (pageLines.length < 5 && window.Tesseract) {
           setProgressText(`Running Tesseract OCR engine on scanned page ${pageNum}...`);
           try {
-            // Render page to offscreen canvas to perform OCR
-            const viewport = page.getViewport({ scale: 2.0 });
-            const offCanvas = document.createElement("canvas");
-            offCanvas.width = viewport.width;
-            offCanvas.height = viewport.height;
-            const ctx = offCanvas.getContext("2d");
-            if (ctx) {
-              await page.render({ canvasContext: ctx, viewport }).promise;
-              const imgData = offCanvas.toDataURL("image/png");
-              const ocrResult = await window.Tesseract.recognize(imgData, "eng");
+            if (pageImgDataUrl) {
+              const ocrResult = await window.Tesseract.recognize(pageImgDataUrl, "eng");
               pageMarkdown = formatRawTextToMarkdown(ocrResult.data.text, pageNum);
             }
           } catch (ocrErr) {
@@ -154,6 +167,11 @@ export default function PdfToMarkdownConverter() {
         if (!pageMarkdown) {
           // Group lines by Y coordinates
           pageMarkdown = formatStructuredLinesToMarkdown(pageLines, pageNum);
+        }
+
+        // Append embedded page image snapshot if enabled
+        if (pageImgDataUrl) {
+          pageMarkdown += `\n\n![Page ${pageNum} Exact Image & Diagram Snapshot](${pageImgDataUrl})\n`;
         }
 
         fullMarkdown += pageMarkdown + "\n\n---\n\n";
@@ -175,7 +193,7 @@ export default function PdfToMarkdownConverter() {
     items: { text: string; fontSize: number; isBold: boolean; x: number; y: number }[],
     pageNum: number
   ): string => {
-    if (items.length === 0) return `### 📄 Page ${pageNum}\n\n*(No text detected on this page)*`;
+    if (items.length === 0) return `### 📄 Page ${pageNum}\n\n*(Visual diagram / figure content)*`;
 
     // Group items by Y coordinate (within 4px tolerance)
     const lineMap: Map<number, typeof items> = new Map();
@@ -333,14 +351,14 @@ export default function PdfToMarkdownConverter() {
           <div>
             <div className="flex items-center gap-2 flex-wrap">
               <span className="text-[9px] font-black uppercase tracking-wider text-emerald-400 bg-emerald-950/60 border border-emerald-500/20 px-2.5 py-0.5 rounded-full flex items-center gap-1">
-                <Sparkles size={9} /> High-Precision OCR &amp; Document Parser
+                <Sparkles size={9} /> High-Precision OCR &amp; Diagram Preservation Engine
               </span>
             </div>
             <h1 className="text-xl md:text-2xl font-black text-white mt-1">
               PDF to Markdown (.md) Converter Studio
             </h1>
             <p className="text-xs text-slate-400 font-medium">
-              Upload PDF textbooks or scanned notes. Extract structured headings, code blocks, tables, and convert them to `.md` format.
+              Upload PDF textbooks or notes. Extracts structured text &amp; preserves exact page diagrams and figures as images.
             </p>
           </div>
         </div>
@@ -352,6 +370,26 @@ export default function PdfToMarkdownConverter() {
           <ArrowLeft size={14} />
           <span>Dashboard</span>
         </Link>
+      </div>
+
+      {/* Conversion Settings Panel */}
+      <div className="bg-slate-950/80 border border-slate-850 p-4 rounded-2xl mb-6 flex flex-wrap items-center justify-between gap-4">
+        <label className="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-200">
+          <input 
+            type="checkbox"
+            checked={includePageImages}
+            onChange={(e) => setIncludePageImages(e.target.checked)}
+            className="w-4 h-4 rounded border-slate-700 text-indigo-600 focus:ring-indigo-500 bg-slate-900"
+          />
+          <span className="flex items-center gap-1.5">
+            <ImageIcon size={14} className="text-indigo-400" />
+            <span>Include Exact Page Diagram/Image Snapshots (Keep 100% Visual Consistency)</span>
+          </span>
+        </label>
+
+        <span className="text-[10px] text-slate-400 font-mono">
+          Engine: PDF.js + Tesseract OCR 5.0
+        </span>
       </div>
 
       {/* File Upload Dropzone */}
@@ -523,6 +561,17 @@ export default function PdfToMarkdownConverter() {
                         {trimmed.replace("> ", "")}
                       </blockquote>
                     );
+                  }
+                  if (trimmed.startsWith("![") && trimmed.includes("](data:image")) {
+                    const match = trimmed.match(/!\[(.*?)\]\((data:image\/.*)\)/);
+                    if (match) {
+                      return (
+                        <div key={idx} className="my-6 p-3 bg-slate-900/80 border border-slate-800 rounded-2xl text-center space-y-2">
+                          <span className="text-[10px] font-mono text-slate-400 uppercase font-bold block">{match[1]}</span>
+                          <img src={match[2]} alt={match[1]} className="rounded-xl mx-auto max-h-[700px] border border-slate-800 shadow-xl" />
+                        </div>
+                      );
+                    }
                   }
                   if (trimmed.startsWith("* ") || trimmed.startsWith("- ")) {
                     return (
