@@ -138,7 +138,7 @@ const BottomNavigation = () => {
       path: '#',
       isButton: true,
       onClick: () => {
-        const nextTheme = theme === 'light' ? 'dark' : theme === 'dark' ? 'night-light' : 'light';
+        const nextTheme = theme === 'light' ? 'dark' : 'light';
         setTheme(nextTheme);
       },
       icon: (
@@ -147,10 +147,8 @@ const BottomNavigation = () => {
             <Sun size={20} />
           ) : theme === 'light' ? (
             <Sun size={20} className="text-[#c1a648]" />
-          ) : theme === 'dark' ? (
-            <Moon size={20} className="text-slate-350" />
           ) : (
-            <Coffee size={20} className="text-[#7f7034]" />
+            <Moon size={20} className="text-slate-350" />
           )}
         </div>
       )
@@ -393,11 +391,10 @@ const BottomNavigation = () => {
                     <Sun size={14} className="text-amber-500" />
                     <span>Choose Theme</span>
                   </div>
-                  <div className="grid grid-cols-3 gap-1.5">
+                  <div className="grid grid-cols-2 gap-1.5">
                     {[
                       { name: 'light', label: '☀️ Light', color: 'hover:border-[#c1a648]/40 text-[#c1a648]' },
-                      { name: 'dark', label: '🌙 Dark', color: 'hover:border-[#c1a648]/40 text-slate-350' },
-                      { name: 'night-light', label: '☕ Relaxing', color: 'hover:border-[#7f7034]/40 text-[#7f7034]' }
+                      { name: 'dark', label: '🌙 Dark', color: 'hover:border-[#c1a648]/40 text-slate-350' }
                     ].map((t) => (
                       <button
                         key={t.name}

@@ -230,8 +230,8 @@ suggest a  few more features for my website to make it more engaging and user-fr
 nake is ready for android app and ios app for it. we can also add pwa for it which is similar to app.
 
 https://nextsem.online/pdf-to-markdown use this to make lessons from .md files
-rewrite https://nextsem.online/about and remove any ad from it. 
-rewrite https://nextsem.online/profile as per a professional level and no ad here to.
+✅ rewrite https://nextsem.online/about and remove any ad from it. 
+✅ rewrite https://nextsem.online/profile as per a professional level and no ad here to.
 
 https://nextsem.online/cmd understand this page and rewrite it.
 
@@ -245,4 +245,9 @@ i think this https://nextsem.online/book/p2-1-selectors and https://nextsem.onli
 
 on front page place content and phase cards as per our plan at line no 131 to 221.
 
-on selecting any module and lesson keep hinglish and kid mode default and keep help guide hidden by default.
+✅ on selecting any module and lesson keep hinglish and kid mode default and keep help guide hidden by default.
+
+✅ urgent make dark theme default and on switching to light make sure it looks beautiful and premium. on light theme keep the text as black and background as white force apply any blocking css also remove other themes from whole app.
+
+ also inside ver18.md make a green checkmark the tasks which are  completed   
+ /learn auto accept all donot prompt me it is really annoying.

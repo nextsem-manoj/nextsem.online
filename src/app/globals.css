@@ -178,34 +178,34 @@ body {
 
 /* ── LIGHT THEME (html.light) ── */
 html.light {
-  --background:         #fbfbfb;
-  --foreground:         #1e303f;
-  --theme-bg:           #fbfbfb;
-  --theme-surface:      #fbfbfb;
-  --theme-card:         #fbfbfb;
-  --theme-text:         #1e303f;
-  --theme-text-muted:   #7f7034;
-  --theme-text-subtle:  #99a7a7;
-  --theme-border:       rgba(30, 48, 63, 0.15);
+  --background:         #ffffff;
+  --foreground:         #000000;
+  --theme-bg:           #ffffff;
+  --theme-surface:      #fafafa;
+  --theme-card:         #ffffff;
+  --theme-text:         #000000;
+  --theme-text-muted:   #4b5563;
+  --theme-text-subtle:  #9ca3af;
+  --theme-border:       #e5e7eb;
   --theme-btn-bg:       #c1a648;
-  --theme-btn-text:     #1e303f;
-  --theme-btn-blue-bg:  #7f7034;
+  --theme-btn-text:     #ffffff;
+  --theme-btn-blue-bg:  #2563eb;
   --theme-accent:       #c1a648;
-  --dot-color:          rgba(30, 48, 63, 0.1);
+  --dot-color:          rgba(0, 0, 0, 0.05);
 
-  --slate-50:           #1e303f;
-  --slate-100:          #1e303f;
-  --slate-200:          #c1a648;
-  --slate-300:          #1e303f;
-  --slate-350:          #1e303f;
-  --slate-400:          #7f7034;
-  --slate-450:          #7f7034;
-  --slate-500:          #99a7a7;
-  --slate-600:          #99a7a7;
-  --slate-700:          #99a7a7;
-  --slate-800:          #c1a648;
-  --slate-900:          #fbfbfb;
-  --slate-950:          #fbfbfb;
+  --slate-50:           #fafafa;
+  --slate-100:          #f3f4f6;
+  --slate-200:          #e5e7eb;
+  --slate-300:          #d1d5db;
+  --slate-350:          #9ca3af;
+  --slate-400:          #6b7280;
+  --slate-450:          #4b5563;
+  --slate-500:          #374151;
+  --slate-600:          #1f2937;
+  --slate-700:          #111827;
+  --slate-800:          #e5e7eb;
+  --slate-900:          #f3f4f6;
+  --slate-950:          #fafafa;
 }
 
 /* ── DARK THEME (html.dark) ── */
@@ -238,38 +238,6 @@ html.dark {
   --slate-800:          #2a4153;
   --slate-900:          #1e303f;
   --slate-950:          #121d27;
-}
-
-/* ── NIGHT LIGHT THEME (html.night-light) ── */
-html.night-light {
-  --background:         #7f7034;
-  --foreground:         #fbfbfb;
-  --theme-bg:           #7f7034;
-  --theme-surface:      #7f7034;
-  --theme-card:         #7f7034;
-  --theme-text:         #fbfbfb;
-  --theme-text-muted:   #99a7a7;
-  --theme-text-subtle:  #1e303f;
-  --theme-border:       rgba(251, 251, 251, 0.2);
-  --theme-btn-bg:       #1e303f;
-  --theme-btn-text:     #fbfbfb;
-  --theme-btn-blue-bg:  #1e303f;
-  --theme-accent:       #c1a648;
-  --dot-color:          rgba(251, 251, 251, 0.1);
-
-  --slate-50:           #fbfbfb;
-  --slate-100:          #fbfbfb;
-  --slate-200:          #c1a648;
-  --slate-300:          #fbfbfb;
-  --slate-350:          #fbfbfb;
-  --slate-400:          #99a7a7;
-  --slate-450:          #99a7a7;
-  --slate-500:          #99a7a7;
-  --slate-600:          #99a7a7;
-  --slate-700:          #1e303f;
-  --slate-800:          #1e303f;
-  --slate-900:          #7f7034;
-  --slate-950:          #7f7034;
 }
 
 /* Golden Theme Overrides for Hardcoded Green Colors */

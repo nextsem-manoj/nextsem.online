@@ -121,13 +121,11 @@ export default function AdSenseBanner() {
     return null;
   }
 
-  // Decide active visual mode: 'light', 'dark', or 'sepia'
-  let visualMode: 'light' | 'dark' | 'sepia' = 'dark';
+  // Decide active visual mode: 'light' or 'dark'
+  let visualMode: 'light' | 'dark' = 'dark';
 
   if (mounted) {
-    if (theme === 'night-light') {
-      visualMode = 'sepia';
-    } else if (theme === 'light') {
+    if (theme === 'light') {
       visualMode = 'light';
     } else {
       visualMode = 'dark';
@@ -139,10 +137,7 @@ export default function AdSenseBanner() {
   let containerClass = "";
   let labelClass = "absolute top-1 right-2 text-[6px] font-black uppercase tracking-widest";
 
-  if (visualMode === 'sepia') {
-    containerClass = "my-2 flex flex-col items-center justify-center w-full overflow-hidden bg-[#ecdcb9]/80 border border-[#d2c29e] rounded-xl p-2 relative select-none";
-    labelClass += " text-[#5b4636]/60";
-  } else if (visualMode === 'dark') {
+  if (visualMode === 'dark') {
     containerClass = isInBook
       ? "my-2 flex flex-col items-center justify-center w-full overflow-hidden bg-[#0c1328]/60 border border-slate-800/80 rounded-xl p-2 relative select-none"
       : "my-8 flex flex-col items-center justify-center w-full overflow-hidden bg-[#0c1328]/60 border border-slate-800/80 rounded-2xl p-4 min-h-[120px] relative select-none";

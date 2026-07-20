@@ -489,10 +489,28 @@ const InteractivePre = ({
 
   const renderActionButtons = () => (
     <div className="flex items-center gap-1.5 shrink-0">
+      {/* Open in Playground Button */}
+      {!isTerminal && (
+        <button
+          onClick={() => {
+            if (typeof window !== "undefined") {
+              localStorage.setItem("nextsem_playground_html", htmlCode);
+              localStorage.setItem("nextsem_playground_css", cssCode);
+              localStorage.setItem("nextsem_playground_js", jsCode);
+              window.open("/playground", "_blank");
+            }
+          }}
+          className="flex items-center gap-1.5 px-2 py-1.5 rounded-lg text-[10px] md:text-xs font-black bg-slate-800/90 hover:bg-slate-750 text-slate-250 border border-slate-700/50 shadow-sm transition-all active:scale-95 whitespace-nowrap cursor-pointer"
+          title="Open this code in full-page interactive playground"
+        >
+          <FileCode size={11} /> Playground ↗
+        </button>
+      )}
+
       {/* Edit / View Code Toggle Button */}
       <button
         onClick={() => setIsEditing(!isEditing)}
-        className="flex items-center gap-1.5 px-2 py-1.5 rounded-lg text-[10px] md:text-xs font-black bg-slate-800/90 hover:bg-slate-700/90 text-slate-200 border border-slate-700/50 shadow-sm transition-all active:scale-95 whitespace-nowrap"
+        className="flex items-center gap-1.5 px-2 py-1.5 rounded-lg text-[10px] md:text-xs font-black bg-slate-800/90 hover:bg-slate-700/90 text-slate-200 border border-slate-700/50 shadow-sm transition-all active:scale-95 whitespace-nowrap cursor-pointer"
         title={isEditing ? "View rendered code format" : "Edit this code snippet"}
       >
         {isEditing ? (
@@ -510,7 +528,7 @@ const InteractivePre = ({
       {hasCodeChanged() && (
         <button
           onClick={handleReset}
-          className="flex items-center justify-center p-1.5 rounded-lg text-xs font-black bg-slate-800/90 hover:bg-slate-700/90 text-slate-200 border border-slate-700/50 shadow-sm transition-all active:scale-95"
+          className="flex items-center justify-center p-1.5 rounded-lg text-xs font-black bg-slate-800/90 hover:bg-slate-700/90 text-slate-200 border border-slate-700/50 shadow-sm transition-all active:scale-95 cursor-pointer"
           title="Reset code to original version"
         >
           <RotateCcw size={11} />
@@ -521,7 +539,7 @@ const InteractivePre = ({
       {isRunnable && (
         <button
           onClick={toggleRun}
-          className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[10px] md:text-xs font-black shadow-sm transition-all active:scale-95 whitespace-nowrap ${
+          className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[10px] md:text-xs font-black shadow-sm transition-all active:scale-95 whitespace-nowrap cursor-pointer ${
             isRunning
               ? "bg-rose-500 hover:bg-rose-400 text-white"
               : "bg-blue-600 hover:bg-blue-500 dark:bg-blue-500 dark:hover:bg-blue-400 text-white"

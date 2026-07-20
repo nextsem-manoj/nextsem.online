@@ -413,6 +413,10 @@ export default function HomeClient() {
                       <span>🪟</span>
                       <span>CMD Simulator</span>
                     </Link>
+                    <Link href="/simulator" target="_blank" onClick={() => setExercisesDropdownOpen(false)} className="flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-[#04AA6D] text-xs font-bold transition-all">
+                      <span>🖥️</span>
+                      <span>Windows 11 Simulator</span>
+                    </Link>
                     <Link href="/git" target="_blank" onClick={() => setExercisesDropdownOpen(false)} className="flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-[#04AA6D] text-xs font-bold transition-all">
                       <span>🌿</span>
                       <span>Git Simulator</span>
@@ -645,6 +649,14 @@ export default function HomeClient() {
                   <span>Windows CMD Simulator</span>
                 </Link>
                 <Link 
+                  href="/simulator" 
+                  target="_blank" 
+                  className="flex items-center gap-2.5 p-2 bg-slate-100/50 dark:bg-slate-900/50 hover:bg-[#04AA6D]/10 dark:hover:bg-[#04AA6D]/20 hover:text-[#04AA6D] border border-slate-200/40 dark:border-slate-800/40 rounded-xl transition-all"
+                >
+                  <span>🖥️</span>
+                  <span>Windows 11 Simulator</span>
+                </Link>
+                <Link 
                   href="/git" 
                   target="_blank" 
                   className="flex items-center gap-2.5 p-2 bg-slate-100/50 dark:bg-slate-900/50 hover:bg-[#04AA6D]/10 dark:hover:bg-[#04AA6D]/20 hover:text-[#04AA6D] border border-slate-200/40 dark:border-slate-800/40 rounded-xl transition-all"
@@ -763,7 +775,7 @@ export default function HomeClient() {
           </div>
 
           <p className="text-xs font-bold text-slate-350 mt-4 uppercase">
-            Not sure where to begin? Try our <button onClick={() => handleScrollToId('cli-section')} className="text-[#FFF4A3] hover:underline cursor-pointer">CLI Tutorial</button> or <button onClick={() => handleScrollToId('html-section')} className="text-[#FFF4A3] hover:underline cursor-pointer">HTML Course</button>
+            Not sure where to begin? Try our <button onClick={() => handleScrollToId('cli-section')} className="text-[#FFF4A3] hover:underline cursor-pointer">CLI Tutorial</button>, <Link href="/simulator" className="text-[#FFF4A3] hover:underline cursor-pointer">Windows 11 Simulator</Link> or <button onClick={() => handleScrollToId('html-section')} className="text-[#FFF4A3] hover:underline cursor-pointer">HTML Course</button>
           </p>
 
           {/* Quick bands links */}
@@ -829,6 +841,18 @@ export default function HomeClient() {
                 className="px-5 py-2.5 bg-[#c1a648] hover:bg-[#a38b3a] text-slate-950 rounded-lg text-xs font-black uppercase tracking-wider transition-all cursor-pointer font-mono no-underline inline-flex items-center justify-center shadow-lg"
               >
                 Learn Windows Command Line
+              </Link>
+              <Link 
+                href="/cmd"
+                className="px-5 py-2.5 bg-slate-900 border border-slate-750 hover:bg-slate-800 text-white rounded-lg text-xs font-black uppercase tracking-wider transition-all cursor-pointer font-mono no-underline inline-flex items-center justify-center shadow-lg"
+              >
+                Launch CMD Simulator
+              </Link>
+              <Link 
+                href="/simulator"
+                className="px-5 py-2.5 bg-slate-900 border border-slate-750 hover:bg-slate-800 text-white rounded-lg text-xs font-black uppercase tracking-wider transition-all cursor-pointer font-mono no-underline inline-flex items-center justify-center shadow-lg"
+              >
+                Launch Win 11 Simulator
               </Link>
             </div>
           </div>

@@ -12,7 +12,6 @@ import {
 import { auth, signInWithGoogle, db } from "../../lib/firebase";
 import { signOut, onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import AdSenseBanner from "../../components/AdSenseBanner";
 import { ThemeToggle } from "../../components/ThemeToggle";
 
 interface HistoryLine {
@@ -2287,14 +2286,6 @@ export default function CmdClient() {
               </button>
             </div>
 
-            {/* AD SLOT 1 */}
-            <div className="my-6 p-4 bg-slate-950/20 border border-slate-900 rounded-2xl flex flex-col items-center justify-center min-h-[90px] text-center select-none relative overflow-hidden">
-              <span className="text-[7px] text-slate-600 font-bold uppercase tracking-widest absolute top-2 right-3">Sponsored Ad Slot</span>
-              <div className="w-full flex justify-center">
-                <AdSenseBanner />
-              </div>
-            </div>
-
             {/* Benefits & Must-Have Knowledge Section */}
             <section className="bg-[#0d1225]/45 border border-slate-800/80 rounded-3xl p-6 backdrop-blur-md mb-8 shadow-xl">
               <h2 className="text-lg font-black text-white uppercase tracking-tight mb-4 flex items-center gap-2">
@@ -2386,14 +2377,6 @@ export default function CmdClient() {
               </button>
             </div>
 
-            {/* AD SLOT 2 */}
-            <div className="my-4 p-4 bg-slate-950/20 border border-slate-900 rounded-2xl flex flex-col items-center justify-center min-h-[90px] text-center select-none relative overflow-hidden">
-              <span className="text-[7px] text-slate-600 font-bold uppercase tracking-widest absolute top-2 right-3">Sponsored Ad Slot</span>
-              <div className="w-full flex justify-center">
-                <AdSenseBanner />
-              </div>
-            </div>
-
             {/* Bottom Navigation */}
             <div className="flex justify-between items-center mt-8 border-t border-slate-800/40 pt-4">
               <button 
@@ -2438,14 +2421,14 @@ export default function CmdClient() {
           <div 
             ref={consoleBufferRef}
             onClick={focusInput}
-            className="flex-1 p-5 overflow-y-auto font-mono text-xs select-text scrollbar-thin cursor-text bg-[#030303]"
-            style={{ color: "#39FF14" }}
+            className="flex-1 p-5 overflow-y-auto font-mono text-xs select-text scrollbar-thin cursor-text transition-colors duration-200"
+            style={{ backgroundColor: themeColors.bg, color: themeColors.text }}
           >
             <div className="space-y-1">
               {history.map((line, idx) => {
                 let colorClass = "";
                 if (line.type === "error") colorClass = "text-rose-500 font-bold";
-                if (line.type === "system") colorClass = "text-[#39FF14] font-bold";
+                if (line.type === "system") colorClass = "text-emerald-500 font-bold";
                 return (
                   <div key={idx} className={`whitespace-pre-wrap leading-relaxed ${colorClass}`}>
                     {line.text}
@@ -2745,10 +2728,6 @@ export default function CmdClient() {
                 </div>
               </div>
 
-            </div>
-
-            <div className="mt-4">
-              <AdSenseBanner />
             </div>
           </div>
 

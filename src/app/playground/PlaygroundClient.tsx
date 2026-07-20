@@ -115,16 +115,42 @@ export default function PlaygroundClient() {
     return "dark";
   });
   const [activeTab, setActiveTab] = useState<"html" | "css" | "js">("html");
-  const [editorMode, setEditorMode] = useState<"builder" | "editor">("builder"); // Builder vs Manual Code
+  const [editorMode, setEditorMode] = useState<"builder" | "editor">(() => {
+    if (typeof window !== "undefined") {
+      const hasSavedCode = localStorage.getItem("nextsem_playground_html") || 
+                           localStorage.getItem("nextsem_playground_css") || 
+                           localStorage.getItem("nextsem_playground_js");
+      if (hasSavedCode) return "editor";
+    }
+    return "builder";
+  }); // Builder vs Manual Code
   const [viewMode, setViewMode] = useState<"editor" | "preview">("editor"); // Mobile tab view
   const [deviceMode, setDeviceMode] = useState<"desktop" | "tablet" | "mobile">("desktop");
   
   const [sidebarTab, setSidebarTab] = useState<"palette" | "properties">("palette");
   const [previewType, setPreviewType] = useState<"design" | "browser">("design");
   
-  const [htmlCode, setHtmlCode] = useState(TEMPLATES.basic.html);
-  const [cssCode, setCssCode] = useState(TEMPLATES.basic.css);
-  const [jsCode, setJsCode] = useState(TEMPLATES.basic.js);
+  const [htmlCode, setHtmlCode] = useState(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("nextsem_playground_html");
+      if (saved) return saved;
+    }
+    return TEMPLATES.basic.html;
+  });
+  const [cssCode, setCssCode] = useState(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("nextsem_playground_css");
+      if (saved) return saved;
+    }
+    return TEMPLATES.basic.css;
+  });
+  const [jsCode, setJsCode] = useState(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("nextsem_playground_js");
+      if (saved) return saved;
+    }
+    return TEMPLATES.basic.js;
+  });
   
   const [logs, setLogs] = useState<LogEntry[]>([]);
   const [iframeSrcDoc, setIframeSrcDoc] = useState("");

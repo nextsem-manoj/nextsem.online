@@ -28,14 +28,12 @@ function BookLayoutContent({
   const { theme, setTheme } = useTheme();
   const cycleTheme = () => {
     if (theme === 'light') setTheme('dark');
-    else if (theme === 'dark') setTheme('night-light');
     else setTheme('light');
   };
   const renderThemeIcon = () => {
     if (!mounted) return <div className="w-5 h-5 shrink-0" />;
     if (theme === 'light') return <Sun size={18} className="text-[#c1a648] shrink-0" />;
-    if (theme === 'dark') return <Moon size={18} className="text-slate-350 shrink-0" />;
-    return <Coffee size={18} className="text-[#7f7034] shrink-0" />;
+    return <Moon size={18} className="text-slate-350 shrink-0" />;
   };
   const [fontSize, setFontSize] = useState<"sm" | "base" | "lg" | "xl">("lg");
   const [mounted, setMounted] = useState(false);

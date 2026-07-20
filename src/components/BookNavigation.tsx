@@ -36,7 +36,7 @@ function NavigationContent({
   }, []);
 
   const cycleTheme = () => {
-    const nextTheme = theme === 'light' ? 'dark' : theme === 'dark' ? 'night-light' : 'light';
+    const nextTheme = theme === 'light' ? 'dark' : 'light';
     setTheme(nextTheme);
   };
 
