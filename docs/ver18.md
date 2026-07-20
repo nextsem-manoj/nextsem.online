@@ -232,3 +232,17 @@ nake is ready for android app and ios app for it. we can also add pwa for it whi
 https://nextsem.online/pdf-to-markdown use this to make lessons from .md files
 rewrite https://nextsem.online/about and remove any ad from it. 
 rewrite https://nextsem.online/profile as per a professional level and no ad here to.
+
+https://nextsem.online/cmd understand this page and rewrite it.
+
+we made this beautiiful winodws 11 simulatr at https://nextsem.online/simulator place at at some nice palce on our app and website 
+
+integrate this https://nextsem.online/playground in our app and website  and also with the html lessons, css lessons, and js lessons 
+
+i am confused about these lessons https://nextsem.online/book/p0-setup and https://nextsem.online/book/p1-html . make them more engaging and user-friendly and is it integrated to our # 📚 Full Stack Web Developer — Complete Curriculum Roadmap.
+
+i think this https://nextsem.online/book/p2-1-selectors and https://nextsem.online/book/p2-2-text-formatting and etc are lessons on css make them more engaging and user-friendly and make it look like html current lessons 
+
+on front page place content and phase cards as per our plan at line no 131 to 221.
+
+on selecting any module and lesson keep hinglish and kid mode default and keep help guide hidden by default.
