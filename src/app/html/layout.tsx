@@ -145,7 +145,7 @@ function HtmlLayoutContent({ children }: { children: React.ReactNode }) {
 
         <main className="flex-1 p-0 md:p-6 w-full flex flex-col relative">
           {/* Sticky Header & Tied Progress Bar Container */}
-          <div className="sticky top-0 z-40 shrink-0 shadow-sm">
+          <div className="sticky top-0 z-50 shrink-0 shadow-md bg-background w-full">
             <div
               className={`w-full flex items-center gap-3 px-4 py-3 border-b border-x-0 md:border-x rounded-t-none md:rounded-t-2xl transition-all ${headerThemeClass}`}
             >
