@@ -1,12 +1,13 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { 
-  Sparkles, Send, Bot, User, Copy, Check, Key, 
-  Trash2, RefreshCw, ArrowLeft, Code, Lightbulb, Zap, HelpCircle, Settings
+  Sparkles, Send, Bot, Copy, Check, Key, 
+  Trash2, RefreshCw, ArrowLeft, Code, Zap, HelpCircle, BookOpen, ExternalLink, ShieldCheck
 } from "lucide-react";
 import { askGemini } from "@/lib/gemini";
+import { queryOfflineAi } from "@/lib/offlineAiEngine";
 import AdSenseBanner from "./AdSenseBanner";
 
 interface PromptHistoryItem {
@@ -15,13 +16,15 @@ interface PromptHistoryItem {
   prompt: string;
   response: string;
   persona: string;
+  sourceUrl?: string;
+  sourceTitle?: string;
 }
 
 const SAMPLE_PROMPTS = [
   {
     title: "Explain React Hooks",
     persona: "Web Dev Tutor",
-    prompt: "Explain useState and useEffect hooks in React with simple real-world analogies and short code snippets."
+    prompt: "Explain useState and useEffect hooks in React with simple real-world analogies and code snippets."
   },
   {
     title: "Debug JavaScript Code",
@@ -31,29 +34,30 @@ const SAMPLE_PROMPTS = [
   {
     title: "CSS Flexbox vs Grid",
     persona: "Web Dev Tutor",
-    prompt: "When should I use CSS Flexbox instead of CSS Grid? Give 3 clear use cases for each."
+    prompt: "When should I use CSS Flexbox instead of CSS Grid? Give clear use cases."
   },
   {
     title: "Explain Von Neumann Architecture",
     persona: "BCA Exam Tutor",
-    prompt: "Explain the Von Neumann Architecture (CPU, ALU, Control Unit, Bus, Memory) in simple terms with a diagram."
+    prompt: "Explain the Von Neumann Architecture (CPU, ALU, Control Unit, Bus, Memory) in simple terms."
   },
   {
-    title: "Create Quiz MCQs",
-    persona: "Quiz Creator",
-    prompt: "Generate 3 multiple-choice quiz questions on HTML5 semantic elements with options A, B, C, D and explanations."
+    title: "Command Prompt Basics",
+    persona: "Terminal & CLI Expert",
+    prompt: "How to use mkdir, cd, dir, and echo commands in Windows Command Prompt?"
   }
 ];
 
 const PERSONAS = [
   { id: "Web Dev Tutor", name: "💻 Web Dev Tutor", instruction: "You are a friendly, expert Web Development Tutor for Nextsem Academy. Explain concepts clearly using code snippets, bullet points, and simple examples." },
-  { id: "Code Debugger", name: "🐛 Code Debugger", instruction: "You are a precise Code Debugger. Identify bugs, explain the root cause, and provide corrected, clean code snippets." },
+  { id: "Terminal & CLI Expert", name: "🖥️ Terminal & CLI Expert", instruction: "You are a Windows Command Prompt & Terminal operations expert. Explain CLI commands with clear examples." },
   { id: "BCA Exam Tutor", name: "🎓 BCA Exam Tutor", instruction: "You are a university Computer Science & BCA exam tutor. Provide structured, high-scoring exam answers with bullet points and key definitions." },
-  { id: "General AI", name: "🤖 General AI Assistant", instruction: "You are a helpful, versatile AI assistant powered by Gemini. Answer user questions concisely and accurately." }
+  { id: "Offline Knowledge Engine", name: "⚡ Offline Nextsem Engine (100% Free)", instruction: "Fast offline curriculum search engine across 3,500+ lessons without any API key." }
 ];
 
 export default function GeminiAiPlayground() {
   const [apiKey, setApiKey] = useState<string>("");
+  const [useOnlineGemini, setUseOnlineGemini] = useState<boolean>(false);
   const [showKeyInput, setShowKeyInput] = useState<boolean>(false);
   const [promptInput, setPromptInput] = useState<string>("");
   const [selectedPersona, setSelectedPersona] = useState<string>("Web Dev Tutor");
@@ -61,7 +65,8 @@ export default function GeminiAiPlayground() {
   
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
   const [currentResponse, setCurrentResponse] = useState<string>("");
-  const [activePrompt, setActivePrompt] = useState<string>("");
+  const [currentSourceUrl, setCurrentSourceUrl] = useState<string | undefined>(undefined);
+  const [currentSourceTitle, setCurrentSourceTitle] = useState<string | undefined>(undefined);
   const [history, setHistory] = useState<PromptHistoryItem[]>([]);
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
@@ -70,7 +75,7 @@ export default function GeminiAiPlayground() {
     if (typeof window !== "undefined") {
       const savedKey = localStorage.getItem("nextsem_gemini_api_key") || "";
       setApiKey(savedKey);
-      if (!savedKey) setShowKeyInput(true);
+      if (savedKey) setUseOnlineGemini(true);
 
       const savedHistory = localStorage.getItem("nextsem_gemini_history");
       if (savedHistory) {
@@ -92,40 +97,57 @@ export default function GeminiAiPlayground() {
     if (e) e.preventDefault();
     if (!promptInput.trim() || isGenerating) return;
 
-    if (!apiKey.trim()) {
-      setShowKeyInput(true);
-      alert("Please enter a Gemini API Key to run prompts.");
-      return;
-    }
-
     const promptText = promptInput.trim();
-    setActivePrompt(promptText);
     setIsGenerating(true);
     setCurrentResponse("");
+    setCurrentSourceUrl(undefined);
+    setCurrentSourceTitle(undefined);
 
     const personaObj = PERSONAS.find(p => p.id === selectedPersona) || PERSONAS[0];
 
     try {
-      const result = await askGemini(promptText, apiKey, personaObj.instruction, selectedModel);
-      setCurrentResponse(result);
+      let resultText = "";
+      let sourceUrl: string | undefined = undefined;
+      let sourceTitle: string | undefined = undefined;
+
+      if (useOnlineGemini && apiKey.trim()) {
+        // Run via online Gemini API
+        resultText = await askGemini(promptText, apiKey, personaObj.instruction, selectedModel);
+      } else {
+        // Run 100% Offline using Nextsem Knowledge Engine (Zero API Key needed!)
+        const offlineResult = queryOfflineAi(promptText, selectedPersona);
+        resultText = offlineResult.markdown;
+        sourceUrl = offlineResult.sourceLessonUrl;
+        sourceTitle = offlineResult.sourceLessonTitle;
+      }
+
+      setCurrentResponse(resultText);
+      setCurrentSourceUrl(sourceUrl);
+      setCurrentSourceTitle(sourceTitle);
 
       // Save to prompt history
       const newItem: PromptHistoryItem = {
         id: Date.now().toString(),
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         prompt: promptText,
-        response: result,
-        persona: selectedPersona
+        response: resultText,
+        persona: selectedPersona,
+        sourceUrl,
+        sourceTitle
       };
 
-      const updatedHistory = [newItem, ...history.slice(0, 19)]; // Keep last 20
+      const updatedHistory = [newItem, ...history.slice(0, 19)];
       setHistory(updatedHistory);
       if (typeof window !== "undefined") {
         localStorage.setItem("nextsem_gemini_history", JSON.stringify(updatedHistory));
       }
     } catch (err: any) {
-      console.error("Gemini Generation Error:", err);
-      setCurrentResponse(`❌ Error generating response: ${err.message || "Failed to call Gemini API."}`);
+      console.error("AI Generation Error:", err);
+      // Fallback to offline engine if online API fails
+      const offlineFallback = queryOfflineAi(promptText, selectedPersona);
+      setCurrentResponse(`⚠️ Online API Notice: ${err.message}\n\nFalling back to Nextsem Offline Engine:\n\n${offlineFallback.markdown}`);
+      setCurrentSourceUrl(offlineFallback.sourceLessonUrl);
+      setCurrentSourceTitle(offlineFallback.sourceLessonTitle);
     } finally {
       setIsGenerating(false);
     }
@@ -155,16 +177,21 @@ export default function GeminiAiPlayground() {
             <Sparkles size={24} />
           </div>
           <div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 flex-wrap">
               <span className="text-[9px] font-black uppercase tracking-wider text-emerald-400 bg-emerald-950/60 border border-emerald-500/20 px-2.5 py-0.5 rounded-full flex items-center gap-1">
-                <Zap size={9} /> Gemini 1.5 &amp; 2.0 Flash
+                <ShieldCheck size={10} /> 100% Offline Capable (No API Key Required)
               </span>
+              {useOnlineGemini && (
+                <span className="text-[9px] font-black uppercase tracking-wider text-indigo-400 bg-indigo-950/60 border border-indigo-500/20 px-2.5 py-0.5 rounded-full flex items-center gap-1">
+                  <Zap size={9} /> Gemini Online Mode
+                </span>
+              )}
             </div>
             <h1 className="text-xl md:text-2xl font-black text-white mt-1">
-              Gemini AI Prompt Studio
+              AI Prompt Studio &amp; Knowledge Engine
             </h1>
             <p className="text-xs text-slate-400 font-medium">
-              Ask questions, debug code, generate tutorial explanations, and get instant answers powered by Google Gemini AI.
+              Ask questions, generate explanations, debug code, and search 3,500+ Nextsem lessons offline.
             </p>
           </div>
         </div>
@@ -174,10 +201,10 @@ export default function GeminiAiPlayground() {
           <button
             onClick={() => setShowKeyInput(!showKeyInput)}
             className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white text-xs font-bold transition-all cursor-pointer"
-            title="Configure Gemini API Key"
+            title="Configure optional online Gemini API Key"
           >
-            <Key size={14} className={apiKey ? "text-emerald-400" : "text-amber-400 animate-pulse"} />
-            <span>{apiKey ? "API Key Configured" : "Add API Key"}</span>
+            <Key size={14} className={apiKey ? "text-emerald-400" : "text-slate-400"} />
+            <span>{apiKey ? "Gemini Key Configured" : "Optional Gemini Key"}</span>
           </button>
 
           <Link
@@ -190,42 +217,45 @@ export default function GeminiAiPlayground() {
         </div>
       </div>
 
-      {/* API Key Modal / Settings Panel */}
+      {/* Optional Gemini API Key Settings Panel */}
       {showKeyInput && (
         <div className="mb-6 p-5 bg-slate-900/90 border border-indigo-500/30 rounded-2xl backdrop-blur-xl animate-in fade-in slide-in-from-top-4 duration-300">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
               <Key size={16} className="text-indigo-400" />
-              <span className="text-xs font-black uppercase tracking-wider text-white">Gemini API Key Configuration</span>
+              <span className="text-xs font-black uppercase tracking-wider text-white">Optional Gemini API Key (Online Mode)</span>
             </div>
-            <span className="text-[10px] text-slate-400 font-medium">Saved safely in local browser storage</span>
+            <span className="text-[10px] text-emerald-400 font-bold">Offline engine works great without key!</span>
           </div>
 
           <div className="flex flex-col sm:flex-row gap-3">
             <input 
               type="password"
-              placeholder="Paste your Gemini API Key (e.g. AIzaSy...)"
+              placeholder="Paste optional Gemini API Key (e.g. AIzaSy...)"
               value={apiKey}
-              onChange={(e) => saveApiKey(e.target.value)}
+              onChange={(e) => {
+                saveApiKey(e.target.value);
+                setUseOnlineGemini(!!e.target.value.trim());
+              }}
               className="flex-1 px-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-xs text-white focus:outline-none focus:border-indigo-500 font-mono"
             />
             <button
-              onClick={() => setShowKeyInput(false)}
+              onClick={() => {
+                setShowKeyInput(false);
+                setUseOnlineGemini(!!apiKey.trim());
+              }}
               className="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-black text-xs uppercase tracking-wider transition-all cursor-pointer"
             >
-              Save &amp; Continue
+              Save &amp; Enable Online Mode
             </button>
           </div>
-          <p className="text-[10px] text-slate-400 mt-2 font-medium">
-            💡 Don't have a key? Get a free API key at <a href="https://aistudio.google.com/" target="_blank" rel="noreferrer" className="text-indigo-400 hover:underline">Google AI Studio</a>.
-          </p>
         </div>
       )}
 
       {/* Sample Prompt Chips */}
       <div className="mb-6 space-y-2">
         <span className="text-[10px] font-black uppercase tracking-wider text-slate-400 block">
-          💡 Try Sample Prompts:
+          💡 Try Sample Prompts (Instant Offline Results):
         </span>
         <div className="flex flex-wrap gap-2">
           {SAMPLE_PROMPTS.map((sample, idx) => (
@@ -249,7 +279,7 @@ export default function GeminiAiPlayground() {
         <div className="lg:col-span-2 space-y-6">
           {/* Form Controls */}
           <form onSubmit={handleGenerate} className="bg-slate-950 border border-slate-850 p-5 rounded-3xl space-y-4 shadow-xl backdrop-blur-xl">
-            {/* Persona & Model Selectors */}
+            {/* Engine & Mode Switcher */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
                 <label className="text-[10px] font-black uppercase tracking-wider text-slate-400 block mb-1.5">
@@ -268,17 +298,34 @@ export default function GeminiAiPlayground() {
 
               <div>
                 <label className="text-[10px] font-black uppercase tracking-wider text-slate-400 block mb-1.5">
-                  Model Engine
+                  Execution Engine
                 </label>
-                <select
-                  value={selectedModel}
-                  onChange={(e) => setSelectedModel(e.target.value)}
-                  className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-xl text-xs font-bold text-slate-200 focus:outline-none focus:border-indigo-500 font-mono"
-                >
-                  <option value="gemini-1.5-flash">Gemini 1.5 Flash (Fast)</option>
-                  <option value="gemini-1.5-pro">Gemini 1.5 Pro (Advanced)</option>
-                  <option value="gemini-2.0-flash">Gemini 2.0 Flash (Next Gen)</option>
-                </select>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setUseOnlineGemini(false)}
+                    className={`flex-1 py-2 px-3 rounded-xl border text-xs font-bold transition-all cursor-pointer ${
+                      !useOnlineGemini
+                        ? "bg-emerald-500/20 text-emerald-300 border-emerald-500/40 font-black"
+                        : "bg-slate-900 text-slate-400 border-slate-800"
+                    }`}
+                  >
+                    ⚡ Offline Engine (Free)
+                  </button>
+                  {apiKey && (
+                    <button
+                      type="button"
+                      onClick={() => setUseOnlineGemini(true)}
+                      className={`flex-1 py-2 px-3 rounded-xl border text-xs font-bold transition-all cursor-pointer ${
+                        useOnlineGemini
+                          ? "bg-indigo-500/20 text-indigo-300 border-indigo-500/40 font-black"
+                          : "bg-slate-900 text-slate-400 border-slate-800"
+                      }`}
+                    >
+                      🤖 Gemini Online
+                    </button>
+                  )}
+                </div>
               </div>
             </div>
 
@@ -290,7 +337,7 @@ export default function GeminiAiPlayground() {
               <textarea
                 value={promptInput}
                 onChange={(e) => setPromptInput(e.target.value)}
-                placeholder="Ask Gemini AI anything (e.g. Explain how async/await works in JavaScript with code example)..."
+                placeholder="Ask anything (e.g. Explain how flexbox works, von neumann architecture, mkdir command, or Doctypes)..."
                 rows={4}
                 className="w-full p-4 bg-slate-900/60 border border-slate-800 focus:border-indigo-500/60 rounded-2xl text-xs md:text-sm text-white focus:outline-none leading-relaxed font-medium placeholder-slate-500"
               />
@@ -306,12 +353,12 @@ export default function GeminiAiPlayground() {
                 {isGenerating ? (
                   <>
                     <RefreshCw size={16} className="animate-spin" />
-                    <span>Asking Gemini...</span>
+                    <span>Searching Knowledge Base...</span>
                   </>
                 ) : (
                   <>
                     <Send size={16} />
-                    <span>Run Gemini AI Prompt</span>
+                    <span>Run Prompt (Instant Result)</span>
                   </>
                 )}
               </button>
@@ -321,31 +368,44 @@ export default function GeminiAiPlayground() {
           {/* AI Response Display Card */}
           {(isGenerating || currentResponse) && (
             <div className="bg-slate-950/80 border border-slate-800/80 rounded-3xl p-6 md:p-8 backdrop-blur-xl shadow-2xl space-y-4 animate-in fade-in duration-300">
-              <div className="flex items-center justify-between border-b border-slate-800/60 pb-3">
+              <div className="flex items-center justify-between border-b border-slate-800/60 pb-3 flex-wrap gap-2">
                 <div className="flex items-center gap-2">
                   <Bot size={18} className="text-indigo-400" />
-                  <span className="text-xs font-black uppercase tracking-wider text-white">Gemini Response</span>
-                  <span className="text-[9px] font-mono text-slate-500 px-2 py-0.5 rounded-full bg-slate-900 border border-slate-800">
-                    {selectedPersona}
+                  <span className="text-xs font-black uppercase tracking-wider text-white">Prompt Output</span>
+                  <span className="text-[9px] font-mono text-emerald-400 px-2 py-0.5 rounded-full bg-emerald-950/60 border border-emerald-500/20">
+                    {useOnlineGemini ? "Gemini Online" : "100% Offline Engine"}
                   </span>
                 </div>
 
-                {currentResponse && (
-                  <button
-                    onClick={() => handleCopyText(currentResponse, "current")}
-                    className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-slate-400 hover:text-white px-3 py-1 rounded-lg bg-slate-900 border border-slate-800 transition-colors cursor-pointer"
-                  >
-                    {copiedId === "current" ? <Check size={12} className="text-emerald-400" /> : <Copy size={12} />}
-                    <span>{copiedId === "current" ? "Copied" : "Copy"}</span>
-                  </button>
-                )}
+                <div className="flex items-center gap-2">
+                  {currentSourceUrl && (
+                    <Link
+                      href={currentSourceUrl}
+                      className="flex items-center gap-1 text-[10px] font-black uppercase text-indigo-400 hover:text-indigo-300 bg-indigo-950/40 border border-indigo-500/30 px-3 py-1 rounded-lg transition-all"
+                    >
+                      <BookOpen size={12} />
+                      <span>Open Full Lesson: {currentSourceTitle}</span>
+                      <ExternalLink size={10} />
+                    </Link>
+                  )}
+
+                  {currentResponse && (
+                    <button
+                      onClick={() => handleCopyText(currentResponse, "current")}
+                      className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-slate-400 hover:text-white px-3 py-1 rounded-lg bg-slate-900 border border-slate-800 transition-colors cursor-pointer"
+                    >
+                      {copiedId === "current" ? <Check size={12} className="text-emerald-400" /> : <Copy size={12} />}
+                      <span>{copiedId === "current" ? "Copied" : "Copy Result"}</span>
+                    </button>
+                  )}
+                </div>
               </div>
 
               {isGenerating ? (
                 <div className="py-8 flex flex-col items-center justify-center space-y-3">
-                  <div className="w-10 h-10 border-4 border-t-indigo-500 border-slate-800 rounded-full animate-spin" />
+                  <div className="w-10 h-10 border-4 border-t-emerald-500 border-slate-800 rounded-full animate-spin" />
                   <span className="text-xs text-slate-400 font-semibold animate-pulse">
-                    Gemini AI is processing your prompt...
+                    Synthesizing offline knowledge base explanation...
                   </span>
                 </div>
               ) : (
@@ -388,7 +448,7 @@ export default function GeminiAiPlayground() {
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <h3 className="text-xs font-black uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
-              <span>Recent Prompt History</span>
+              <span>Recent Prompt Runs</span>
               <span className="text-[10px] text-slate-500 font-mono">({history.length})</span>
             </h3>
             {history.length > 0 && (
@@ -407,7 +467,7 @@ export default function GeminiAiPlayground() {
             {history.length === 0 ? (
               <div className="py-12 text-center text-slate-500 space-y-2">
                 <HelpCircle size={24} className="mx-auto opacity-40" />
-                <p className="text-xs font-medium">No previous prompts yet.</p>
+                <p className="text-xs font-medium">No prompt runs yet.</p>
                 <p className="text-[10px]">Your run history will automatically appear here!</p>
               </div>
             ) : (
@@ -431,6 +491,8 @@ export default function GeminiAiPlayground() {
                         setPromptInput(item.prompt);
                         setSelectedPersona(item.persona);
                         setCurrentResponse(item.response);
+                        setCurrentSourceUrl(item.sourceUrl);
+                        setCurrentSourceTitle(item.sourceTitle);
                       }}
                       className="text-[10px] font-bold text-slate-400 hover:text-white transition-colors cursor-pointer"
                     >
