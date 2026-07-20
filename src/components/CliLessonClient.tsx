@@ -23,8 +23,8 @@ export default function CliLessonClient({ lesson }: CliLessonClientProps) {
   const { completedChapters, markCompleted } = useProgress();
 
   const [mounted, setMounted] = useState(false);
-  const [selectedLang, setSelectedLang] = useState<"english" | "hinglish" | "hindi">("english");
-  const [selectedLevel, setSelectedLevel] = useState<"kid" | "pro">("pro");
+  const [selectedLang, setSelectedLang] = useState<"english" | "hinglish" | "hindi">("hinglish");
+  const [selectedLevel, setSelectedLevel] = useState<"kid" | "pro">("kid");
   const [showTutorTip, setShowTutorTip] = useState(false);
   
   // Exercise States
@@ -50,7 +50,7 @@ export default function CliLessonClient({ lesson }: CliLessonClientProps) {
       if (savedLevel) setSelectedLevel(savedLevel);
 
       const hideTip = localStorage.getItem("nextsem_cli_hide_tip") === "true";
-      setShowTutorTip(!hideTip);
+      setShowTutorTip(false); // Help guide hidden by default
       setMounted(true);
     }
   }, []);
