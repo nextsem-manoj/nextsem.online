@@ -235,9 +235,9 @@ https://nextsem.online/pdf-to-markdown use this to make lessons from .md files
 
 https://nextsem.online/cmd understand this page and rewrite it.
 
-we made this beautiiful winodws 11 simulatr at https://nextsem.online/simulator place at at some nice palce on our app and website 
+✅ we made this beautiiful winodws 11 simulatr at https://nextsem.online/simulator place at at some nice palce on our app and website 
 
-integrate this https://nextsem.online/playground in our app and website  and also with the html lessons, css lessons, and js lessons 
+✅ integrate this https://nextsem.online/playground in our app and website  and also with the html lessons, css lessons, and js lessons 
 
 i am confused about these lessons https://nextsem.online/book/p0-setup and https://nextsem.online/book/p1-html . make them more engaging and user-friendly and is it integrated to our # 📚 Full Stack Web Developer — Complete Curriculum Roadmap.
 
