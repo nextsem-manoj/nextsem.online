@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Play, Pause, RefreshCw, Eye, Sparkles, Monitor, Smartphone, Terminal, Code2, Layers, Cpu, Globe } from "lucide-react";
+import { Play, Pause, RefreshCw, Eye, Sparkles, Monitor, Smartphone, Terminal, Code2, Layers, Cpu, Globe, Lightbulb, ArrowRight, CheckCircle2 } from "lucide-react";
 
 interface TopicAnimationWidgetProps {
   lessonId: number;
@@ -13,13 +13,14 @@ export default function TopicAnimationWidget({ lessonId, lessonTitle, type }: To
   const [isPlaying, setIsPlaying] = useState(true);
   const [step, setStep] = useState(0);
   const [viewportMode, setViewportMode] = useState<"desktop" | "mobile">("mobile");
+  const [activeTab, setActiveTab] = useState<"analogy" | "code">("analogy");
 
   // Auto-advance animation steps
   useEffect(() => {
     if (!isPlaying) return;
     const interval = setInterval(() => {
       setStep((prev) => (prev + 1) % 4);
-    }, 2400);
+    }, 2500);
     return () => clearInterval(interval);
   }, [isPlaying]);
 
@@ -29,8 +30,66 @@ export default function TopicAnimationWidget({ lessonId, lessonTitle, type }: To
   const isViewportTopic = lowerTitle.includes("viewport") || lowerTitle.includes("mobile") || lowerTitle.includes("meta");
   const isClippedCliTopic = type === "cli" || lowerTitle.includes("cmd") || lowerTitle.includes("command") || lowerTitle.includes("terminal");
   const isFormTopic = lowerTitle.includes("form") || lowerTitle.includes("input") || lowerTitle.includes("button");
-  const isMediaTopic = lowerTitle.includes("image") || lowerTitle.includes("video") || lowerTitle.includes("media");
-  const isTableTopic = lowerTitle.includes("table") || lowerTitle.includes("list");
+  const isInternetTopic = lowerTitle.includes("internet") || lowerTitle.includes("server") || lowerTitle.includes("client") || lowerTitle.includes("dns");
+
+  // Everyday Real-Life Analogy Metadata
+  const getRealLifeAnalogy = () => {
+    if (isViewportTopic) {
+      return {
+        title: "👓 Real-Life Analogy: The Reading Glasses Effect",
+        story: "Imagine reading a massive newspaper page through a tiny keyhole! Without the Viewport tag, mobile phones display a giant desktop screen shrunk down so small you have to zoom in constantly.",
+        solution: "Adding initial-scale=1.0 & width=device-width is like putting on custom Prescription Glasses — it automatically fits every sentence to your screen!",
+        icon: "📱",
+        step1: "📰 Desktop Layout (1024px wide)",
+        step2: "🔍 Shrunk onto tiny mobile screen without Viewport",
+        step3: "👓 Viewport Tag applied ➔ 100% Fit & Auto-Scaled!"
+      };
+    }
+    if (isClippedCliTopic) {
+      return {
+        title: "📂 Real-Life Analogy: Physical Office Filing Cabinet",
+        story: "Imagine an office file cabinet filled with paper folders. Running terminal commands is like managing files with your hands!",
+        solution: "mkdir = placing a new folder in cabinet, cd = opening that folder, dir = spreading paper files across your desk to read them!",
+        icon: "📁",
+        step1: "📥 mkdir Project ➔ New folder created in cabinet",
+        step2: "🚪 cd Project ➔ Stepping inside folder",
+        step3: "📄 dir ➔ Spreading all paperwork across desk"
+      };
+    }
+    if (isFormTopic) {
+      return {
+        title: "📝 Real-Life Analogy: Bank Deposit Slip",
+        story: "Filling out an HTML form is just like filling a Bank Deposit Slip at a cash counter!",
+        solution: "<input> = writing your name & amount, <select> = choosing savings/checking, <button type='submit'> = handing slip to teller!",
+        icon: "✍️",
+        step1: "📝 Fill Name & Amount in fields (<input>)",
+        step2: "🔘 Select Account Type (<select>)",
+        step3: "🚀 Tap Submit ➔ Slip sent to Bank Teller (Server)"
+      };
+    }
+    if (isInternetTopic) {
+      return {
+        title: "🍕 Real-Life Analogy: Zomato / Swiggy Food Delivery",
+        story: "Understanding how the Internet works is just like ordering a pizza online!",
+        solution: "Your Browser (Client) places order (HTTP Request) ➔ Delivery Highway (Router) ➔ Kitchen (Server) bakes pizza & sends it to your doorstep (HTTP Response)!",
+        icon: "🛵",
+        step1: "📱 Client (You): Tap 'Order Pizza' (Request)",
+        step2: "🛵 Internet Highway (Routers): Transport data",
+        step3: "🍕 Server (Kitchen): Sends website data back (Response)"
+      };
+    }
+    return {
+      title: "🏗️ Real-Life Analogy: Building a House",
+      story: "HTML is like building the brick and cement skeleton of a modern house!",
+      solution: "HTML = Brick Wall Skeleton, CSS = Paint & Interior Decor, JavaScript = Light Switches & Electrical Wiring!",
+      icon: "🏡",
+      step1: "🧱 HTML: Raw Brick & Pillar Skeleton",
+      step2: "🎨 CSS: Wall Colors & Furniture Styling",
+      step3: "⚡ JS: Interactive Light Switches"
+    };
+  };
+
+  const analogy = getRealLifeAnalogy();
 
   return (
     <div className="my-6 bg-slate-950 border border-slate-800/80 rounded-2xl overflow-hidden shadow-2xl text-left select-none animate-in fade-in duration-500">
@@ -39,14 +98,33 @@ export default function TopicAnimationWidget({ lessonId, lessonTitle, type }: To
         <div className="flex items-center gap-2 min-w-0">
           <div className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping shrink-0" />
           <span className="text-[10px] font-black uppercase tracking-wider text-emerald-400 bg-emerald-950/60 border border-emerald-500/20 px-2 py-0.5 rounded-md shrink-0">
-            🎬 VISUAL DEMO GIF
+            🎬 REAL-LIFE VISUAL DEMO
           </span>
           <h4 className="text-xs font-bold text-slate-200 truncate">
-            {lessonTitle}: Self-Explanatory Animation
+            {lessonTitle}: Visual Analogy & Live Simulation
           </h4>
         </div>
 
         <div className="flex items-center gap-2 shrink-0">
+          <div className="flex items-center bg-slate-950 border border-slate-800 rounded-lg p-0.5 text-[10px] font-bold">
+            <button
+              onClick={() => setActiveTab("analogy")}
+              className={`px-2 py-1 rounded-md transition-all cursor-pointer ${
+                activeTab === "analogy" ? "bg-amber-500 text-slate-950" : "text-slate-400 hover:text-white"
+              }`}
+            >
+              💡 Real-Life Story
+            </button>
+            <button
+              onClick={() => setActiveTab("code")}
+              className={`px-2 py-1 rounded-md transition-all cursor-pointer ${
+                activeTab === "code" ? "bg-emerald-500 text-slate-950" : "text-slate-400 hover:text-white"
+              }`}
+            >
+              💻 Live Code Demo
+            </button>
+          </div>
+
           <button
             onClick={() => setIsPlaying(!isPlaying)}
             className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 transition-all cursor-pointer text-xs flex items-center gap-1 font-bold"
@@ -55,13 +133,43 @@ export default function TopicAnimationWidget({ lessonId, lessonTitle, type }: To
             {isPlaying ? <Pause size={12} /> : <Play size={12} />}
             <span className="hidden sm:inline text-[10px]">{isPlaying ? "Pause" : "Play"}</span>
           </button>
-          <button
-            onClick={() => setStep((prev) => (prev + 1) % 4)}
-            className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 transition-all cursor-pointer text-xs"
-            title="Next Step"
-          >
-            <RefreshCw size={12} className={isPlaying ? "animate-spin" : ""} />
-          </button>
+        </div>
+      </div>
+
+      {/* Real-Life Analogy Banner Card */}
+      <div className="bg-gradient-to-r from-amber-950/30 via-slate-900/60 to-emerald-950/30 p-4 border-b border-slate-800/80 flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
+        <div className="flex items-start gap-3">
+          <span className="text-2xl p-2 bg-amber-500/10 border border-amber-500/30 rounded-xl shrink-0">
+            {analogy.icon}
+          </span>
+          <div>
+            <h5 className="text-xs font-black text-amber-300 uppercase tracking-wider flex items-center gap-1">
+              <Lightbulb size={13} className="text-amber-400" />
+              {analogy.title}
+            </h5>
+            <p className="text-xs text-slate-300 font-semibold leading-relaxed mt-1">
+              {analogy.story}
+            </p>
+            <span className="text-[11px] text-emerald-400 font-bold block mt-1">
+              ✨ <span className="underline">Code Equivalent</span>: {analogy.solution}
+            </span>
+          </div>
+        </div>
+
+        {/* Step Indicator Badges */}
+        <div className="flex items-center gap-1.5 shrink-0 self-end md:self-auto bg-slate-950/80 p-2 rounded-xl border border-slate-800">
+          <span className="text-[9px] font-black uppercase tracking-wider text-slate-400 mr-1">Looping Step:</span>
+          {[0, 1, 2].map((s) => (
+            <button
+              key={s}
+              onClick={() => setStep(s)}
+              className={`px-2 py-0.5 rounded text-[10px] font-bold transition-all cursor-pointer ${
+                step === s ? "bg-amber-500 text-slate-950 scale-105" : "bg-slate-800 text-slate-400"
+              }`}
+            >
+              {s === 0 ? "1. Real-Life" : s === 1 ? "2. Code Input" : "3. Visual Render"}
+            </button>
+          ))}
         </div>
       </div>
 
@@ -82,7 +190,7 @@ export default function TopicAnimationWidget({ lessonId, lessonTitle, type }: To
                     viewportMode === "desktop" ? "bg-amber-500 text-slate-950" : "bg-slate-800 text-slate-400"
                   }`}
                 >
-                  <Monitor size={12} /> Without Viewport (Small Unscaled)
+                  <Monitor size={12} /> Without Viewport (Tiny Keyhole View)
                 </button>
                 <button
                   onClick={() => setViewportMode("mobile")}
@@ -90,7 +198,7 @@ export default function TopicAnimationWidget({ lessonId, lessonTitle, type }: To
                     viewportMode === "mobile" ? "bg-emerald-500 text-slate-950" : "bg-slate-800 text-slate-400"
                   }`}
                 >
-                  <Smartphone size={12} /> With Viewport (Responsive Auto-Scale)
+                  <Smartphone size={12} /> With Viewport (Glasses On 👓 Auto-Fit)
                 </button>
               </div>
             </div>
@@ -101,7 +209,7 @@ export default function TopicAnimationWidget({ lessonId, lessonTitle, type }: To
               <div className={`border-2 rounded-2xl p-4 transition-all duration-500 ${viewportMode === "desktop" ? "border-amber-500 bg-amber-950/20" : "border-slate-800 bg-slate-900/40"}`}>
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-[10px] font-black text-amber-400 uppercase">❌ Without Meta Viewport</span>
-                  <span className="text-[9px] font-mono text-slate-400">Width: Fixed 1024px (Tiny Text)</span>
+                  <span className="text-[9px] font-mono text-slate-400">Fixed 1024px Desktop Layout</span>
                 </div>
                 <div className="bg-slate-950 p-3 rounded-xl border border-amber-500/30 h-44 flex flex-col justify-center items-center overflow-hidden relative">
                   <div className="transform scale-[0.45] origin-top text-center w-[400px] space-y-2 pointer-events-none opacity-60">
