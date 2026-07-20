@@ -11,6 +11,7 @@ import searchIndex from '../../data/searchIndex.json';
 import AdSenseBanner from '@/components/AdSenseBanner';
 import { usePWA } from '../../hooks/usePWA';
 import { Download } from 'lucide-react';
+import { getChapterUrl } from '../../lib/htmlLessonsHelper';
 
 
 interface UserProfile {
@@ -306,7 +307,7 @@ export default function ProfileClient() {
                   return (
                     <Link
                       key={chapter.id}
-                      href={`/book/${chapter.id}`}
+                      href={getChapterUrl(chapter.id)}
                       className={`p-4 bg-slate-900/20 hover:bg-slate-900/60 border rounded-2xl flex items-center justify-between gap-4 transition-all duration-300 group ${
                         isDone 
                           ? "border-emerald-500/30 shadow-[0_0_12px_rgba(16,185,129,0.05)]" 

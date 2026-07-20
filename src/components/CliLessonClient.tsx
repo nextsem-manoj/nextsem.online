@@ -570,7 +570,7 @@ export default function CliLessonClient({ lesson }: CliLessonClientProps) {
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-slate-850 pt-6">
         {prevLesson ? (
           <Link
-            href={`/book/${prevLesson.slug}`}
+            href={`/cli/${prevLesson.slug}`}
             className="flex items-center gap-2 px-4 py-2.5 bg-slate-900 border border-slate-800 hover:border-indigo-500/30 text-slate-400 hover:text-white rounded-xl text-[11px] font-black uppercase tracking-wider transition-all w-full sm:w-auto justify-center"
           >
             <ChevronLeft size={14} />
@@ -583,7 +583,7 @@ export default function CliLessonClient({ lesson }: CliLessonClientProps) {
         {nextLesson ? (
           isNextUnlocked ? (
             <Link
-              href={`/book/${nextLesson.slug}`}
+              href={`/cli/${nextLesson.slug}`}
               className="flex items-center gap-2 px-5 py-2.5 bg-[#c1a648] hover:bg-[#7f7034] text-[#1e303f] hover:text-white rounded-xl text-[11px] font-black uppercase tracking-wider transition-all w-full sm:w-auto justify-center shadow-lg shadow-[#c1a648]/10"
             >
               <span>Next: {nextLesson.title}</span>
