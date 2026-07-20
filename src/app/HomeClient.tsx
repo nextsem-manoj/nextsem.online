@@ -214,7 +214,7 @@ export default function HomeClient() {
   const nextActive = getNextUncompletedChapter();
 
   const handleLaunchChapter = (path: string) => {
-    let url = `/book/${path}`;
+    let url = path.startsWith("cli/") || path.startsWith("html/") ? `/${path}` : `/book/${path}`;
     if (path === "cmd") {
       url = "/cmd";
     } else if (path === "p0-4-git") {
