@@ -11,6 +11,8 @@ import { cliLessons } from "../data/cliLessonsData";
 import AdSenseBanner from "./AdSenseBanner";
 import { useProgress } from "../context/ProgressContext";
 import { AdMob } from "@capacitor-community/admob";
+import { triggerCelebration } from "../lib/celebration";
+import TopicAnimationWidget from "./TopicAnimationWidget";
 
 interface CliLessonClientProps {
   lesson: any; // Using any to avoid type issues with imported Lesson structures
@@ -122,7 +124,7 @@ export default function CliLessonClient({ lesson }: CliLessonClientProps) {
   // Check if next lesson is unlocked
   const isNextUnlocked = isLessonDone;
 
-  const handleOptionSelect = (option: string) => {
+  const handleOptionSelect = (option: string, e?: React.MouseEvent) => {
     if (isLessonDone) return; // Prevent change after completion
     setSelectedOption(option);
     const correct = option === currentExercise.correctAnswer;
@@ -130,6 +132,7 @@ export default function CliLessonClient({ lesson }: CliLessonClientProps) {
     setShowFeedback(true);
 
     if (correct) {
+      triggerCelebration(e);
       if (typeof window !== "undefined") {
         localStorage.setItem(isLessonCompletedKey, "true");
         setIsLessonDone(true);
@@ -396,6 +399,9 @@ export default function CliLessonClient({ lesson }: CliLessonClientProps) {
         <article className="prose prose-invert max-w-none text-left">
           {renderContentText(currentContent)}
         </article>
+
+        {/* Visual Demonstration Topic Animation GIF Card */}
+        <TopicAnimationWidget lessonId={lesson.id} lessonTitle={lesson.title} type="cli" />
       </div>
 
       {/* Gamified Exercise Box */}
@@ -445,24 +451,26 @@ export default function CliLessonClient({ lesson }: CliLessonClientProps) {
               {currentExercise.options.slice(0, 4).map((option: string, idx: number) => {
                 const isSelected = selectedOption === option;
                 let pillStyle = "bg-slate-900 border-slate-800 text-slate-300 hover:bg-slate-850 hover:border-indigo-500/50 hover:text-white";
-                
+                let label = `💊 ${option}`;
+
                 if (isSelected) {
                   if (isCorrect) {
-                    pillStyle = "bg-emerald-500 text-slate-950 border-emerald-400 font-black ring-2 ring-emerald-400/40 shadow-lg shadow-emerald-500/20";
+                    pillStyle = "bg-emerald-500 text-slate-950 border-emerald-400 font-black ring-4 ring-emerald-400/40 shadow-xl shadow-emerald-500/30 scale-105 animate-bounce";
+                    label = `🎉 ${option} ✨`;
                   } else {
-                    pillStyle = "bg-rose-500 text-white border-rose-400 font-black ring-2 ring-rose-400/40 shadow-lg shadow-rose-500/20";
+                    pillStyle = "bg-rose-600 text-white border-rose-400 font-black ring-4 ring-rose-400/40 shadow-xl shadow-rose-500/30 animate-pulse";
+                    label = `❌ Try Again! 🔄`;
                   }
                 }
 
                 return (
                   <button
                     key={idx}
-                    onClick={() => handleOptionSelect(option)}
-                    disabled={isLessonDone}
+                    onClick={(e) => handleOptionSelect(option, e)}
                     className={`px-3 py-2.5 rounded-xl border text-xs font-mono font-bold transition-all cursor-pointer text-center truncate active:scale-95 ${pillStyle}`}
                     title={option}
                   >
-                    💊 {option}
+                    {label}
                   </button>
                 );
               })}
@@ -474,24 +482,27 @@ export default function CliLessonClient({ lesson }: CliLessonClientProps) {
             {currentExercise.options.map((option: string, idx: number) => {
               const isSelected = selectedOption === option;
               let btnStyle = "bg-slate-950/50 border-slate-850 text-slate-350 hover:bg-slate-900 hover:text-white";
-              
+              let statusText = null;
+
               if (isSelected) {
                 if (isCorrect) {
-                  btnStyle = "bg-emerald-950/80 border-emerald-500 text-emerald-300 font-bold shadow-[0_0_8px_rgba(52,211,153,0.2)]";
+                  btnStyle = "bg-emerald-950/90 border-emerald-400 text-emerald-300 font-bold shadow-[0_0_15px_rgba(52,211,153,0.3)] ring-2 ring-emerald-400/40 scale-[1.01]";
+                  statusText = <span className="float-right text-xs font-black text-emerald-400 animate-pulse">🎉 Correct! ✨</span>;
                 } else {
-                  btnStyle = "bg-rose-950/80 border-rose-500 text-rose-300 font-bold shadow-[0_0_8px_rgba(239,68,68,0.2)]";
+                  btnStyle = "bg-rose-950/90 border-rose-400 text-rose-300 font-bold shadow-[0_0_15px_rgba(239,68,68,0.3)] ring-2 ring-rose-400/40";
+                  statusText = <span className="float-right text-xs font-black text-rose-400">❌ Try Again! 🔄</span>;
                 }
               }
 
               return (
                 <button
                   key={idx}
-                  onClick={() => handleOptionSelect(option)}
-                  disabled={isLessonDone}
+                  onClick={(e) => handleOptionSelect(option, e)}
                   className={`w-full text-left px-4 py-3 rounded-xl border text-xs md:text-sm transition-all duration-200 leading-relaxed cursor-pointer ${btnStyle}`}
                 >
                   <span className="font-mono text-slate-500 mr-2">{String.fromCharCode(65 + idx)}.</span>
                   {option}
+                  {statusText}
                 </button>
               );
             })}
