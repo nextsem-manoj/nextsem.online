@@ -319,8 +319,8 @@ export default function HomeClient() {
                 {tutorialsDropdownOpen && (
                   <div className="absolute top-full left-0 mt-2 bg-white/95 dark:bg-[#0f172a]/95 backdrop-blur-md border border-slate-200 dark:border-slate-800/80 rounded-2xl shadow-2xl p-4 grid grid-cols-2 gap-4 w-[420px] z-50 text-left animate-in fade-in slide-in-from-top-2 duration-150">
                     <div>
-                      <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest block mb-2 px-1">
-                        🖥️ Systems & Basics
+                      <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 block mb-2 px-1">
+                        Systems & Basics
                       </span>
                       <div className="flex flex-col gap-1 text-xs">
                         <button 
@@ -347,8 +347,8 @@ export default function HomeClient() {
                       </div>
                     </div>
                     <div>
-                      <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest block mb-2 px-1">
-                        🚀 Web Development
+                      <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 block mb-2 px-1">
+                        Web Development
                       </span>
                       <div className="flex flex-col gap-1 text-xs">
                         <button 
@@ -406,8 +406,8 @@ export default function HomeClient() {
 
                 {exercisesDropdownOpen && (
                   <div className="absolute top-full left-0 mt-2 bg-white/95 dark:bg-[#0f172a]/95 backdrop-blur-md border border-slate-200 dark:border-slate-800/80 rounded-2xl shadow-2xl p-3 flex flex-col gap-1.5 w-[240px] z-50 text-left animate-in fade-in slide-in-from-top-2 duration-150">
-                    <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest block px-2 mb-1.5">
-                      🛠️ Interactive Tools
+                    <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 block px-2 mb-1.5">
+                      Interactive Tools
                     </span>
                     <Link href="/cmd" target="_blank" onClick={() => setExercisesDropdownOpen(false)} className="flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-[#04AA6D] text-xs font-bold transition-all">
                       <span>🪟</span>

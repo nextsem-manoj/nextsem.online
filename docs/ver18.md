@@ -222,3 +222,13 @@ server: {
 
 > **Nextsem Academy Goal**: Become the #1 free multilingual Full Stack Web Dev platform in India 🇮🇳
 create a automation to automatically complete lessons as per above plan and inform me after every 10 lesons.
+
+also in each lesson below  add a self explanatory gif of the relvent topic for easy learning but it shold be easy to understand and related to real life
+![alt text](image.png) ![alt text](image-1.png) pdf does not contain anything after reward ad is plaayed 
+
+suggest a  few more features for my website to make it more engaging and user-friendly.
+nake is ready for android app and ios app for it. we can also add pwa for it which is similar to app.
+
+https://nextsem.online/pdf-to-markdown use this to make lessons from .md files
+rewrite https://nextsem.online/about and remove any ad from it. 
+rewrite https://nextsem.online/profile as per a professional level and no ad here to.

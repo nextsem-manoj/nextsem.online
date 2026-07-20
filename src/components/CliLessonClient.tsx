@@ -404,17 +404,17 @@ export default function CliLessonClient({ lesson }: CliLessonClientProps) {
         <TopicAnimationWidget lessonId={lesson.id} lessonTitle={lesson.title} type="cli" />
       </div>
 
-      {/* Gamified Exercise Box */}
-      <div className="bg-slate-950 border border-slate-800/60 rounded-2xl overflow-hidden shadow-2xl text-left">
-        <div className="bg-slate-900/60 px-5 py-3 border-b border-slate-850 flex items-center justify-between">
+      {/* Practice Question */}
+      <div className="bg-slate-950 border border-slate-800/60 rounded-2xl overflow-hidden shadow-lg text-left">
+        <div className="bg-slate-900/40 px-5 py-3 border-b border-slate-800 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <HelpCircle size={16} className="text-indigo-400" />
-            <span className="text-xs font-black uppercase tracking-wider text-slate-200">Interactive Lesson Check</span>
+            <HelpCircle size={15} className="text-slate-400" />
+            <span className="text-sm font-semibold text-slate-300">Practice Question</span>
           </div>
           {isLessonDone && (
-            <span className="text-[9px] font-black uppercase tracking-wider text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded-full border border-emerald-500/20 flex items-center gap-1 animate-pulse">
-              <Sparkles size={9} />
-              <span>+10 XP Earned</span>
+            <span className="text-xs font-medium text-emerald-400 flex items-center gap-1">
+              <CheckCircle2 size={13} />
+              <span>Completed</span>
             </span>
           )}
         </div>
@@ -424,42 +424,33 @@ export default function CliLessonClient({ lesson }: CliLessonClientProps) {
             {currentExercise.question}
           </h4>
 
-          {/* Interactive Fill-in-the-Blanks Visualizer */}
-          <div className="p-3.5 bg-slate-900/90 border border-indigo-500/20 rounded-xl font-mono text-xs text-slate-300 space-y-2">
-            <div className="flex items-center justify-between text-[10px] font-black text-indigo-400 uppercase tracking-wider">
-              <span>✍️ Fill in the Blank</span>
-              <span>Tap a Pill Below</span>
-            </div>
-            <div className="flex items-center gap-2 flex-wrap leading-relaxed">
-              <span className="text-slate-400">Target Command Pill:</span>
-              <span className={`px-3 py-1 rounded-full font-bold transition-all border text-xs ${
-                selectedOption 
-                  ? isCorrect 
-                    ? "bg-emerald-500/20 text-emerald-300 border-emerald-500/40 shadow-[0_0_10px_rgba(52,211,153,0.3)]" 
-                    : "bg-rose-500/20 text-rose-300 border-rose-500/40 shadow-[0_0_10px_rgba(244,63,94,0.3)]"
-                  : "bg-amber-500/10 text-amber-400 border-amber-500/30 animate-pulse"
-              }`}>
-                {selectedOption ? selectedOption : " [ _ _ _ _ ] "}
-              </span>
-            </div>
+          {/* Fill-in-the-blank preview */}
+          <div className="p-3 bg-slate-900/60 border border-slate-800 rounded-lg font-mono text-xs text-slate-300 flex items-center gap-2 flex-wrap">
+            <span className="text-slate-500">Your answer:</span>
+            <span className={`px-2.5 py-0.5 rounded font-medium border text-xs transition-all ${
+              selectedOption 
+                ? isCorrect 
+                  ? "bg-emerald-950 text-emerald-300 border-emerald-700" 
+                  : "bg-rose-950 text-rose-300 border-rose-800"
+                : "text-slate-500 border-slate-700 border-dashed"
+            }`}>
+              {selectedOption || "—"}
+            </span>
           </div>
 
-          {/* 4 Pill Buttons for Quick Choice */}
+          {/* Quick-pick buttons */}
           <div className="space-y-1.5 pt-1">
-            <span className="text-[10px] font-black uppercase tracking-wider text-slate-400 block">Choose Pill Answer:</span>
+            <span className="text-xs font-medium text-slate-500 block">Pick an answer:</span>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
               {currentExercise.options.slice(0, 4).map((option: string, idx: number) => {
                 const isSelected = selectedOption === option;
-                let pillStyle = "bg-slate-900 border-slate-800 text-slate-300 hover:bg-slate-850 hover:border-indigo-500/50 hover:text-white";
-                let label = `💊 ${option}`;
+                let pillStyle = "bg-slate-900 border-slate-800 text-slate-300 hover:border-slate-600 hover:text-white";
 
                 if (isSelected) {
                   if (isCorrect) {
-                    pillStyle = "bg-emerald-500 text-slate-950 border-emerald-400 font-black ring-4 ring-emerald-400/40 shadow-xl shadow-emerald-500/30 scale-105 animate-bounce";
-                    label = `🎉 ${option} ✨`;
+                    pillStyle = "bg-emerald-600 text-white border-emerald-500 font-semibold";
                   } else {
-                    pillStyle = "bg-rose-600 text-white border-rose-400 font-black ring-4 ring-rose-400/40 shadow-xl shadow-rose-500/30 animate-pulse";
-                    label = `❌ Try Again! 🔄`;
+                    pillStyle = "bg-rose-700 text-white border-rose-600 font-semibold";
                   }
                 }
 
@@ -467,10 +458,10 @@ export default function CliLessonClient({ lesson }: CliLessonClientProps) {
                   <button
                     key={idx}
                     onClick={(e) => handleOptionSelect(option, e)}
-                    className={`px-3 py-2.5 rounded-xl border text-xs font-mono font-bold transition-all cursor-pointer text-center truncate active:scale-95 ${pillStyle}`}
+                    className={`px-3 py-2 rounded-lg border text-xs font-mono transition-all cursor-pointer text-center truncate active:scale-95 ${pillStyle}`}
                     title={option}
                   >
-                    {label}
+                    {isSelected && isCorrect ? `✓ ${option}` : isSelected ? `✗ Try again` : option}
                   </button>
                 );
               })}
@@ -478,19 +469,19 @@ export default function CliLessonClient({ lesson }: CliLessonClientProps) {
           </div>
 
           {/* Multiple Choice Detailed List */}
-          <div className="grid grid-cols-1 gap-2.5 pt-2">
+          <div className="grid grid-cols-1 gap-2 pt-2">
             {currentExercise.options.map((option: string, idx: number) => {
               const isSelected = selectedOption === option;
-              let btnStyle = "bg-slate-950/50 border-slate-850 text-slate-350 hover:bg-slate-900 hover:text-white";
-              let statusText = null;
+              let btnStyle = "bg-slate-950 border-slate-800 text-slate-400 hover:bg-slate-900 hover:text-slate-200 hover:border-slate-700";
+              let badge = null;
 
               if (isSelected) {
                 if (isCorrect) {
-                  btnStyle = "bg-emerald-950/90 border-emerald-400 text-emerald-300 font-bold shadow-[0_0_15px_rgba(52,211,153,0.3)] ring-2 ring-emerald-400/40 scale-[1.01]";
-                  statusText = <span className="float-right text-xs font-black text-emerald-400 animate-pulse">🎉 Correct! ✨</span>;
+                  btnStyle = "bg-emerald-950 border-emerald-700 text-emerald-200";
+                  badge = <span className="float-right text-xs font-medium text-emerald-400">✓ Correct</span>;
                 } else {
-                  btnStyle = "bg-rose-950/90 border-rose-400 text-rose-300 font-bold shadow-[0_0_15px_rgba(239,68,68,0.3)] ring-2 ring-rose-400/40";
-                  statusText = <span className="float-right text-xs font-black text-rose-400">❌ Try Again! 🔄</span>;
+                  btnStyle = "bg-rose-950 border-rose-800 text-rose-300";
+                  badge = <span className="float-right text-xs font-medium text-rose-400">Try again</span>;
                 }
               }
 
@@ -498,51 +489,46 @@ export default function CliLessonClient({ lesson }: CliLessonClientProps) {
                 <button
                   key={idx}
                   onClick={(e) => handleOptionSelect(option, e)}
-                  className={`w-full text-left px-4 py-3 rounded-xl border text-xs md:text-sm transition-all duration-200 leading-relaxed cursor-pointer ${btnStyle}`}
+                  className={`w-full text-left px-4 py-3 rounded-xl border text-sm transition-all duration-150 leading-relaxed cursor-pointer ${btnStyle}`}
                 >
-                  <span className="font-mono text-slate-500 mr-2">{String.fromCharCode(65 + idx)}.</span>
+                  <span className="text-slate-600 mr-2">{String.fromCharCode(65 + idx)}.</span>
                   {option}
-                  {statusText}
+                  {badge}
                 </button>
               );
             })}
           </div>
 
-          {/* Feedback Messages */}
+          {/* Feedback */}
           {showFeedback && (
-            <div className={`p-4 rounded-xl border flex gap-3 items-start animate-in fade-in duration-300 ${
+            <div className={`p-3.5 rounded-xl border flex gap-3 items-start ${
               isCorrect 
-                ? "bg-emerald-950/40 border-emerald-500/30 text-emerald-300"
-                : "bg-rose-950/40 border-rose-500/30 text-rose-300"
+                ? "bg-emerald-950/30 border-emerald-800 text-emerald-300"
+                : "bg-slate-900 border-slate-700 text-slate-300"
             }`}>
               {isCorrect ? (
                 <>
-                  <CheckCircle2 size={18} className="shrink-0 mt-0.5 text-emerald-400" />
+                  <CheckCircle2 size={16} className="shrink-0 mt-0.5 text-emerald-400" />
                   <div>
-                    <span className="text-xs font-black uppercase block tracking-wider text-emerald-400">Correct Answer!</span>
-                    <p className="text-xs text-slate-300 font-semibold leading-relaxed mt-0.5">
-                      Awesome job! You have unlocked the next lesson. Keep up the streak!
-                    </p>
+                    <p className="text-sm font-semibold text-emerald-300">That's correct!</p>
+                    <p className="text-xs text-slate-400 mt-0.5">Next lesson is now unlocked.</p>
                   </div>
                 </>
               ) : (
                 <>
-                  <AlertCircle size={18} className="shrink-0 mt-0.5 text-rose-400" />
+                  <AlertCircle size={16} className="shrink-0 mt-0.5 text-slate-400" />
                   <div className="flex-1">
-                    <span className="text-xs font-black uppercase block tracking-wider text-rose-400">Incorrect Answer</span>
-                    <p className="text-xs text-slate-300 font-semibold leading-relaxed mt-0.5">
-                      That is not quite right. Try again, or click below to check the hint.
-                    </p>
+                    <p className="text-sm font-semibold text-slate-200">Not quite — try another option.</p>
                     {showHint ? (
-                      <div className="mt-2 text-[11px] bg-slate-950/40 p-2.5 rounded-lg border border-slate-800 text-slate-400 leading-relaxed font-medium">
-                        💡 **Hint**: {currentExercise.hint}
-                      </div>
+                      <p className="mt-1.5 text-xs text-slate-400 leading-relaxed">
+                        Hint: {currentExercise.hint}
+                      </p>
                     ) : (
                       <button
                         onClick={() => setShowHint(true)}
-                        className="mt-2 text-[10px] font-black uppercase tracking-wider text-indigo-400 hover:text-indigo-300 cursor-pointer"
+                        className="mt-1.5 text-xs text-indigo-400 hover:text-indigo-300 cursor-pointer underline underline-offset-2"
                       >
-                        Show Hint
+                        Show hint
                       </button>
                     )}
                   </div>
