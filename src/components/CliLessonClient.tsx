@@ -38,7 +38,8 @@ export default function CliLessonClient({ lesson }: CliLessonClientProps) {
   const [downloadStatus, setDownloadStatus] = useState("");
 
   // User States
-  const [userEmail, setUserEmail] = useState<string>("anonymous");
+  // defaults to "guest" so progress auto-saves without login
+  const [userEmail, setUserEmail] = useState<string>("guest");
 
   // Sync preferences on mount
   useEffect(() => {

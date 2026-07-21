@@ -12,6 +12,7 @@ import AdSenseBanner from "./AdSenseBanner";
 import { useProgress } from "../context/ProgressContext";
 import { triggerCelebration } from "../lib/celebration";
 import TopicAnimationWidget from "./TopicAnimationWidget";
+import HtmlTagTooltip from "./HtmlTagTooltip";
 
 interface HtmlLessonClientProps {
   lesson: Lesson;
@@ -32,8 +33,9 @@ export default function HtmlLessonClient({ lesson }: HtmlLessonClientProps) {
   const [isCorrect, setIsCorrect] = useState(false);
   const [showHint, setShowHint] = useState(false);
 
-  // User States
-  const [userEmail, setUserEmail] = useState<string>("anonymous");
+  // User States — defaults to "guest" so progress auto-saves without login
+  // After AdSense approval this will merge with Google Sign In profile
+  const [userEmail, setUserEmail] = useState<string>("guest");
 
   // Sync preferences on mount
   useEffect(() => {
@@ -44,7 +46,6 @@ export default function HtmlLessonClient({ lesson }: HtmlLessonClientProps) {
       const savedLevel = localStorage.getItem("nextsem_html_level") as "kid" | "pro" | null;
       if (savedLevel) setSelectedLevel(savedLevel);
 
-      const hideTip = localStorage.getItem("nextsem_html_hide_tip") === "true";
       setShowTutorTip(false); // Help guide hidden by default
       setMounted(true);
     }
@@ -71,6 +72,7 @@ export default function HtmlLessonClient({ lesson }: HtmlLessonClientProps) {
     }
   };
 
+  // Sync user email from localStorage (if signed in), otherwise stays "guest"
   useEffect(() => {
     if (typeof window !== "undefined") {
       const saved = localStorage.getItem("nextsem_user");
@@ -84,10 +86,21 @@ export default function HtmlLessonClient({ lesson }: HtmlLessonClientProps) {
           console.error(e);
         }
       }
+      // Also listen for sign-in/sign-out events
+      const handleAuth = () => {
+        const u = localStorage.getItem("nextsem_user");
+        if (u) {
+          try { setUserEmail(JSON.parse(u)?.email || "guest"); } catch { setUserEmail("guest"); }
+        } else {
+          setUserEmail("guest");
+        }
+      };
+      window.addEventListener("nextsem_auth_changed", handleAuth);
+      return () => window.removeEventListener("nextsem_auth_changed", handleAuth);
     }
   }, []);
 
-  // Check if current lesson is completed
+  // Check if current lesson is completed — works for both guest and signed-in users
   const isLessonCompletedKey = `nextsem_html_completed_${userEmail}_${lesson.id}`;
   const [isLessonDone, setIsLessonDone] = useState(false);
 
@@ -181,6 +194,26 @@ export default function HtmlLessonClient({ lesson }: HtmlLessonClientProps) {
     }
   };
 
+  // ── Inline backtick `code` tokeniser — wraps tokens in HtmlTagTooltip
+  const renderInlineCode = (text: string): React.ReactNode[] => {
+    const parts = text.split(/(`[^`]+`)/);
+    return parts.map((part, i) => {
+      if (part.startsWith('`') && part.endsWith('`')) {
+        const token = part.slice(1, -1);
+        return <HtmlTagTooltip key={i} code={token} lang={selectedLang} />;
+      }
+      // Also auto-detect bare HTML tags like <div>, <p> etc in plain text
+      const tagRegex = /(<\/?[a-zA-Z][a-zA-Z0-9]*\s*\/?>)/g;
+      const subParts = part.split(tagRegex);
+      return subParts.map((sub, j) => {
+        if (tagRegex.test(sub) || (sub.startsWith('<') && sub.endsWith('>'))) {
+          return <HtmlTagTooltip key={`${i}-${j}`} code={sub.trim()} lang={selectedLang} />;
+        }
+        return <React.Fragment key={`${i}-${j}`}>{sub}</React.Fragment>;
+      });
+    });
+  };
+
   // Basic Markdown-to-JSX parser
   const renderContentText = (text: string) => {
     if (!text) return null;
@@ -228,21 +261,24 @@ export default function HtmlLessonClient({ lesson }: HtmlLessonClientProps) {
         );
       }
 
-      // Normal paragraph
-      // Highlight bold markups **text**
+      // Normal paragraph — inline code + bold + auto tag tooltip
       const boldRegex = /\*\*(.*?)\*\*/g;
-      if (boldRegex.test(trimmed)) {
+      if (boldRegex.test(trimmed) || trimmed.includes('`') || trimmed.includes('<')) {
         const parts = trimmed.split(boldRegex);
         return (
           <p key={idx} className="text-xs md:text-sm text-slate-350 leading-relaxed my-2.5 font-medium">
-            {parts.map((part, pIdx) => pIdx % 2 === 1 ? <strong key={pIdx} className="text-[#c1a648] font-black">{part}</strong> : part)}
+            {parts.map((part, pIdx) =>
+              pIdx % 2 === 1
+                ? <strong key={pIdx} className="text-[#c1a648] font-black">{part}</strong>
+                : <React.Fragment key={pIdx}>{renderInlineCode(part)}</React.Fragment>
+            )}
           </p>
         );
       }
 
       return (
         <p key={idx} className="text-xs md:text-sm text-slate-350 leading-relaxed my-2.5 font-medium">
-          {trimmed}
+          {renderInlineCode(trimmed)}
         </p>
       );
     });
@@ -393,7 +429,7 @@ export default function HtmlLessonClient({ lesson }: HtmlLessonClientProps) {
         </article>
 
         {/* Visual Demonstration Topic Animation GIF Card */}
-        <TopicAnimationWidget lessonId={lesson.id} lessonTitle={lesson.title} type="html" />
+        <TopicAnimationWidget lessonId={lesson.id} lessonTitle={lesson.title} type="html" lang={selectedLang} />
       </div>
 
       {/* Practice Question */}
@@ -411,87 +447,71 @@ export default function HtmlLessonClient({ lesson }: HtmlLessonClientProps) {
           )}
         </div>
 
-        <div className="p-5 md:p-6 space-y-4">
+        <div className="p-5 md:p-6 space-y-5">
+          {/* Question */}
           <h4 className="text-sm font-bold text-slate-100 leading-snug">
             {currentExercise.question}
           </h4>
 
-          {/* Fill-in-the-blank preview */}
-          <div className="p-3 bg-slate-900/60 border border-slate-800 rounded-lg font-mono text-xs text-slate-300 flex items-center gap-2 flex-wrap">
-            <span className="text-slate-500">Your answer:</span>
-            <span className={`px-2.5 py-0.5 rounded font-medium border text-xs transition-all ${
-              selectedOption 
-                ? isCorrect 
-                  ? "bg-emerald-950 text-emerald-300 border-emerald-700" 
-                  : "bg-rose-950 text-rose-300 border-rose-800"
-                : "text-slate-500 border-slate-700 border-dashed"
-            }`}>
-              {selectedOption || "—"}
-            </span>
+          {/* Simulation: Fill-in-the-blank terminal style */}
+          <div className="bg-[#0b0f1d] border border-slate-800 rounded-xl overflow-hidden">
+            {/* Terminal header bar */}
+            <div className="flex items-center gap-1.5 px-4 py-2 bg-slate-900 border-b border-slate-800">
+              <span className="w-2.5 h-2.5 rounded-full bg-rose-500/70" />
+              <span className="w-2.5 h-2.5 rounded-full bg-amber-500/70" />
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/70" />
+              <span className="ml-2 text-[10px] text-slate-500 font-mono font-bold uppercase tracking-wider">answer.simulate</span>
+            </div>
+            {/* Answer blank slot */}
+            <div className="px-5 py-4 font-mono text-xs text-slate-300 flex items-center gap-2 flex-wrap min-h-[52px]">
+              <span className="text-[#c1a648] font-black select-none">&gt;</span>
+              <span className="text-slate-500">Answer:</span>
+              <span className={`px-3 py-1 rounded-lg font-bold border text-xs transition-all min-w-[60px] text-center ${
+                selectedOption
+                  ? isCorrect
+                    ? "bg-emerald-950 text-emerald-300 border-emerald-700"
+                    : "bg-rose-950 text-rose-300 border-rose-800"
+                  : "text-slate-600 border-slate-700 border-dashed"
+              }`}>
+                {selectedOption || "___"}
+              </span>
+              {selectedOption && (
+                <span className={`text-lg ${isCorrect ? "text-emerald-400" : "text-rose-400"}`}>
+                  {isCorrect ? "✓" : "✗"}
+                </span>
+              )}
+            </div>
           </div>
 
-          {/* Quick-pick buttons */}
-          <div className="space-y-1.5 pt-1">
-            <span className="text-xs font-medium text-slate-500 block">Pick an answer:</span>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-              {currentExercise.options.slice(0, 4).map((option, idx) => {
+          {/* Clickable word chips — simulation style */}
+          <div className="space-y-2">
+            <span className="text-[10px] font-black uppercase tracking-wider text-slate-500 block">
+              🎯 {selectedLang === "hindi" ? "सही उत्तर चुनो:" : selectedLang === "hinglish" ? "Sahi answer choose karo:" : "Select the correct answer:"}
+            </span>
+            <div className="flex flex-wrap gap-2">
+              {currentExercise.options.map((option, idx) => {
                 const isSelected = selectedOption === option;
-                let pillStyle = "bg-slate-900 border-slate-800 text-slate-300 hover:border-slate-600 hover:text-white";
-
+                let chipStyle = "bg-slate-900 border-slate-700 text-slate-300 hover:border-[#c1a648]/50 hover:text-white hover:bg-slate-800";
                 if (isSelected) {
-                  if (isCorrect) {
-                    pillStyle = "bg-emerald-600 text-white border-emerald-500 font-semibold";
-                  } else {
-                    pillStyle = "bg-rose-700 text-white border-rose-600 font-semibold";
-                  }
+                  chipStyle = isCorrect
+                    ? "bg-emerald-900/60 border-emerald-500 text-emerald-200 shadow-[0_0_12px_rgba(52,211,153,0.3)]"
+                    : "bg-rose-900/60 border-rose-500 text-rose-200 animate-pulse";
                 }
-
                 return (
                   <button
                     key={idx}
                     onClick={(e) => handleOptionSelect(option, e)}
-                    className={`px-3 py-2 rounded-lg border text-xs font-mono transition-all cursor-pointer text-center truncate active:scale-95 ${pillStyle}`}
-                    title={option}
+                    disabled={isLessonDone}
+                    className={`px-4 py-2 rounded-lg border font-mono text-xs font-bold transition-all cursor-pointer active:scale-95 ${chipStyle} ${isLessonDone ? "opacity-60 cursor-not-allowed" : ""}`}
                   >
-                    {isSelected && isCorrect ? `✓ ${option}` : isSelected ? `✗ Try again` : option}
+                    {isSelected && isCorrect ? `✓ ${option}` : isSelected ? `✗ ${option}` : option}
                   </button>
                 );
               })}
             </div>
           </div>
 
-          {/* Multiple Choice Detailed List */}
-          <div className="grid grid-cols-1 gap-2 pt-2">
-            {currentExercise.options.map((option, idx) => {
-              const isSelected = selectedOption === option;
-              let btnStyle = "bg-slate-950 border-slate-800 text-slate-400 hover:bg-slate-900 hover:text-slate-200 hover:border-slate-700";
-              let badge = null;
 
-              if (isSelected) {
-                if (isCorrect) {
-                  btnStyle = "bg-emerald-950 border-emerald-700 text-emerald-200";
-                  badge = <span className="float-right text-xs font-medium text-emerald-400">✓ Correct</span>;
-                } else {
-                  btnStyle = "bg-rose-950 border-rose-800 text-rose-300";
-                  badge = <span className="float-right text-xs font-medium text-rose-400">Try again</span>;
-                }
-              }
-
-              return (
-                <button
-                  key={idx}
-                  onClick={(e) => handleOptionSelect(option, e)}
-                  className={`w-full text-left px-4 py-3 rounded-xl border text-sm transition-all duration-150 leading-relaxed cursor-pointer ${btnStyle}`}
-                >
-                  <span className="text-slate-600 mr-2">{String.fromCharCode(65 + idx)}.</span>
-                  {option}
-                  {badge}
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Feedback */}
           {showFeedback && (
             <div className={`p-3.5 rounded-xl border flex gap-3 items-start ${
               isCorrect 

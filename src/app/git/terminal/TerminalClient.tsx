@@ -511,32 +511,32 @@ export default function TerminalClient() {
 
   // Active theme visual styles
   const isLight = theme === "light";
-  const bgClass = isLight ? "bg-[#f3f4f6]" : "bg-[#05060f]";
-  const textClass = isLight ? "text-slate-900" : "text-slate-100";
-  const cardBgClass = isLight ? "bg-white border-slate-200" : "bg-[#0b0c16] border-slate-850";
-  const headerTextClass = isLight ? "text-slate-800" : "text-white";
-  const subtextClass = isLight ? "text-slate-600" : "text-slate-400";
-  const terminalBarBgClass = isLight ? "bg-slate-250 border-slate-300 text-slate-800" : "bg-[#090b14]/90 border-slate-800/70 text-white";
-  const terminalScreenBgClass = isLight ? "bg-white border-slate-300 text-slate-900" : "bg-[#05060f] border-slate-800/70 text-slate-100";
-  const pathPrefixColor = isLight ? "text-indigo-650" : "text-indigo-400";
-  const optionPillsClass = isLight ? "bg-slate-100 border-slate-200 text-slate-700 hover:bg-slate-200 hover:text-indigo-650" : "bg-slate-900/80 border-slate-800 text-slate-300 hover:bg-indigo-650 hover:text-white";
-  const actionRowBgClass = isLight ? "border-slate-200" : "border-slate-900";
-  const actionBtnClass = isLight ? "bg-slate-100 border-slate-300 text-slate-600 hover:text-slate-900" : "bg-slate-900 border-slate-800 text-slate-400 hover:text-white";
-  const rightSidebarBgClass = isLight ? "bg-slate-50 border-l border-slate-200" : "bg-[#070b19]/35 border-l border-slate-800/80";
+  const bgClass = "bg-[#05060f]";
+  const textClass = "text-slate-100";
+  const cardBgClass = "bg-[#0b0c16] border border-slate-850";
+  const headerTextClass = "text-white";
+  const subtextClass = "text-slate-400";
+  const terminalBarBgClass = "bg-[#090b14]/90 border border-slate-800/70 text-white";
+  const terminalScreenBgClass = "bg-[#05060f] border border-slate-800/70 text-slate-100";
+  const pathPrefixColor = "text-indigo-400";
+  const optionPillsClass = "bg-slate-900/80 border border-slate-800 text-slate-300 hover:bg-indigo-650 hover:text-white";
+  const actionRowBgClass = "border-slate-900";
+  const actionBtnClass = "bg-slate-900 border border-slate-800 text-slate-400 hover:text-white";
+  const rightSidebarBgClass = "bg-[#070b19]/35 border-l border-slate-800/80";
 
   return (
     <div className={`flex flex-col ${bgClass} ${textClass} h-screen overflow-hidden select-none`}>
       
       {/* ── W3SCHOOLS-STYLE TOP NAVIGATION BAR ── */}
-      <header className={`w-full py-2 px-4 border-b flex items-center justify-between shrink-0 select-none z-30 ${isLight ? 'bg-slate-200 border-slate-350 text-slate-800' : 'bg-[#090b14]/90 border-slate-800/70 text-white'}`}>
+      <header className="w-full py-2 px-4 border-b border-slate-800/70 flex items-center justify-between shrink-0 select-none z-30 bg-[#090b14]/90 text-white">
         <div className="flex items-center gap-2 relative">
-          <Link href="/" className={`p-2 hover:bg-slate-500/20 rounded transition-colors ${isLight ? 'text-slate-650 hover:text-slate-900' : 'text-slate-300 hover:text-white'}`} title="Go to Home Page">
+          <Link href="/" className="p-2 hover:bg-slate-500/20 rounded transition-colors text-slate-300 hover:text-white" title="Go to Home Page">
             <Home size={18} />
           </Link>
           
           <button 
             onClick={() => setIsMenuOpen(!isMenuOpen)} 
-            className={`p-2 hover:bg-slate-500/20 rounded cursor-pointer transition-colors ${isMenuOpen ? 'bg-slate-500/20 text-[#39FF14]' : isLight ? 'text-slate-650 hover:text-slate-900' : 'text-slate-300 hover:text-white'}`} 
+            className={`p-2 hover:bg-slate-500/20 rounded cursor-pointer transition-colors ${isMenuOpen ? 'bg-slate-500/20 text-[#39FF14]' : 'text-slate-300 hover:text-white'}`} 
             title="Lessons Menu"
           >
             <Menu size={18} />
@@ -544,7 +544,7 @@ export default function TerminalClient() {
           
           <button 
             onClick={handleSave} 
-            className={`p-2 hover:bg-slate-500/20 rounded cursor-pointer transition-colors ${isLight ? 'text-slate-650 hover:text-slate-900' : 'text-slate-300 hover:text-white'}`} 
+            className="p-2 hover:bg-slate-500/20 rounded cursor-pointer transition-colors text-slate-300 hover:text-white" 
             title="Save Progress"
           >
             <Save size={18} />
@@ -552,19 +552,13 @@ export default function TerminalClient() {
           
           <button 
             onClick={handleReset} 
-            className={`p-2 hover:bg-slate-500/20 rounded cursor-pointer transition-colors ${isLight ? 'text-slate-650 hover:text-slate-900' : 'text-slate-300 hover:text-white'}`} 
+            className="p-2 hover:bg-slate-500/20 rounded cursor-pointer transition-colors text-slate-300 hover:text-white" 
             title="Reset Current Step"
           >
             <RotateCw size={18} />
           </button>
           
-          <button 
-            onClick={() => setTheme(isLight ? "dark" : "light")} 
-            className={`p-2 hover:bg-slate-500/20 rounded cursor-pointer transition-colors ${isLight ? 'text-slate-650 hover:text-slate-900' : 'text-slate-300 hover:text-white'}`} 
-            title="Toggle Contrast Mode"
-          >
-            {isLight ? <Moon size={18} /> : <Sun size={18} />}
-          </button>
+          {/* Toggle Contrast button removed */}
 
           <button 
             onClick={() => handleCommandRun(sandboxInput || activeStep.expectedCommand)}

@@ -7,6 +7,7 @@ interface TopicAnimationWidgetProps {
   lessonId: number;
   lessonTitle: string;
   type: "html" | "cli";
+  lang?: "english" | "hinglish" | "hindi";
 }
 
 /* ─── Tiny inline CSS for keyframe animations ─── */
@@ -28,7 +29,7 @@ const animCSS = `
 @keyframes rain { from{transform:translateY(-20px);opacity:0} to{transform:translateY(60px);opacity:0} }
 `;
 
-export default function TopicAnimationWidget({ lessonId, lessonTitle, type }: TopicAnimationWidgetProps) {
+export default function TopicAnimationWidget({ lessonId, lessonTitle, type, lang = "english" }: TopicAnimationWidgetProps) {
   const [step, setStep] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
 
@@ -73,21 +74,98 @@ export default function TopicAnimationWidget({ lessonId, lessonTitle, type }: To
     return <SceneHtmlStructure step={step} />;
   };
 
+  // ─── Multilingual analogy map ───
+  type AnalogyKey = "internet" | "clientSrv" | "viewport" | "htmlStruct" | "links" | "image" | "list" | "table" | "form" | "semantics" | "directory" | "copy" | "cli" | "default";
+
+  const analogyData: Record<AnalogyKey, Record<"english" | "hinglish" | "hindi", { icon: string; title: string; text: string }>> = {
+    internet: {
+      english:  { icon: "🌊", title: "Like Undersea Cables!", text: "The internet is millions of physical cables running under oceans connecting every country — like a postal system but for data packets!" },
+      hinglish: { icon: "🌊", title: "Samundar ke andar cables!", text: "Internet matlab duniya bhar mein bikhe cables — jaise ek global daak-ghar jo data packets deliver karta hai ek country se doosri country!" },
+      hindi:    { icon: "🌊", title: "समुद्री केबलों की तरह!", text: "इंटरनेट लाखों केबलों का जाल है जो महासागरों के नीचे बिछी हैं — ठीक डाक तंत्र की तरह, बस यहाँ डेटा पैकेट आते-जाते हैं!" },
+    },
+    clientSrv: {
+      english:  { icon: "🍕", title: "Like Ordering Pizza Online!", text: "You (Client) tap 'Order Pizza' → Your request travels via routers (Highway) → Domino's server (Kitchen) bakes & sends it back to your door!" },
+      hinglish: { icon: "🍕", title: "Jaise Pizza order karna!", text: "Aap (Client) ne 'Order Pizza' click kiya → request highway jaise routers se travel karta hai → Domino's ka server (kitchen) pizza bana ke wapas bhejta hai!" },
+      hindi:    { icon: "🍕", title: "पिज्जा ऑर्डर जैसा!", text: "आप (Client) ने 'Order Pizza' click किया → आपका request routers (highway) से travel करता है → Domino's का server (kitchen) pizza बनाकर वापस भेजता है!" },
+    },
+    viewport: {
+      english:  { icon: "👓", title: "Like Reading Glasses!", text: "Without viewport, a website is like reading a newspaper through a keyhole — tiny! The viewport tag makes content auto-fit every screen perfectly." },
+      hinglish: { icon: "👓", title: "Chasme jaisi cheez!", text: "Viewport tag ke bina website keyhole se newspaper padhne jaisi lagti hai — bahut choti! Viewport tag lagane se content screen ke hisaab se perfectly fit ho jaata hai." },
+      hindi:    { icon: "👓", title: "चश्मे जैसा!", text: "Viewport tag के बिना website एक छोटी-सी चाभी के छेद से अखबार पढ़ने जैसी लगती है! Viewport tag लगाने से content हर screen पर सही fit हो जाता है।" },
+    },
+    htmlStruct: {
+      english:  { icon: "🏗️", title: "Like Building a House!", text: "DOCTYPE = Building Permit · <html> = The Entire Plot · <head> = Hidden Wiring inside Walls · <body> = The Visible Rooms!" },
+      hinglish: { icon: "🏗️", title: "Ghar banane jaisa!", text: "DOCTYPE = Naksha pass · <html> = Poora plot · <head> = Deewaaron ke andar hidden wiring · <body> = Dikhne wale kamre!" },
+      hindi:    { icon: "🏗️", title: "घर बनाने जैसा!", text: "DOCTYPE = नक्शा पास · <html> = पूरा प्लॉट · <head> = दीवारों की छिपी तारें · <body> = दिखने वाले कमरे!" },
+    },
+    links: {
+      english:  { icon: "🚪", title: "Like Doors in a Building!", text: "An <a href> tag is like a door with a sign on it. Clicking the door teleports you to a new room (webpage) — the href is the room address!" },
+      hinglish: { icon: "🚪", title: "Darwaze jaisi cheez!", text: "<a href> tag ek darwaze jaisa hai jis par sign hota hai. Darwaze pe click karo to naye room (webpage) mein chale jaate ho!" },
+      hindi:    { icon: "🚪", title: "दरवाज़े की तरह!", text: "<a href> tag एक दरवाज़े जैसा है जिस पर साइनबोर्ड लगा है। उस पर click करो और आप नए कमरे (webpage) में पहुँच जाते हो!" },
+    },
+    image: {
+      english:  { icon: "🖼️", title: "Like Hanging a Photo Frame!", text: "The <img src> tag is like telling the wall 'hang this photo here'. The src is the photo's storage address, and alt is the label written behind it." },
+      hinglish: { icon: "🖼️", title: "Photo frame latkane jaisa!", text: "<img src> tag matlab deewar se bol rahe ho 'yahan photo lagao'. Src woh address hai jahan photo stored hai, aur alt us photo ka description hai." },
+      hindi:    { icon: "🖼️", title: "फोटो फ्रेम लगाने जैसा!", text: "<img src> tag यानी दीवार से कह रहे हो 'यहाँ फोटो लगाओ'। src फोटो का पता है और alt उस फोटो के पीछे लिखा विवरण।" },
+    },
+    list: {
+      english:  { icon: "📋", title: "Like a Grocery Shopping List!", text: "<ul> = unordered sticky note with bullet dots. <ol> = ordered numbered recipe. Browsers render each <li> on its own line!" },
+      hinglish: { icon: "📋", title: "Kiraane ki list jaisi!", text: "<ul> = bullet dots wali list — jaise grocery chit. <ol> = numbered recipe steps. Browser har <li> ko alag line pe dikhata hai!" },
+      hindi:    { icon: "📋", title: "किराने की सूची जैसी!", text: "<ul> = गोलियों वाली सूची — किराने की चिट की तरह। <ol> = क्रमांकित recipe steps। Browser हर <li> को अलग लाइन पर दिखाता है!" },
+    },
+    table: {
+      english:  { icon: "📊", title: "Like an Excel Spreadsheet!", text: "<table> = Excel workbook · <tr> = Row of cells · <td> = One cell/box · <th> = Column heading." },
+      hinglish: { icon: "📊", title: "Excel spreadsheet jaisa!", text: "<table> = Excel file · <tr> = ek row · <td> = ek cell/box · <th> = column ka heading. Jaise data rows aur columns mein organize karte hain!" },
+      hindi:    { icon: "📊", title: "Excel Spreadsheet जैसा!", text: "<table> = Excel file · <tr> = एक row · <td> = एक cell/box · <th> = column का शीर्षक। ठीक उसी तरह जैसे Excel में data organize होता है!" },
+    },
+    form: {
+      english:  { icon: "📝", title: "Like a Bank Deposit Slip!", text: "<input> = Fill account number · <select> = Choose account type · <button type='submit'> = Hand the slip to the bank teller!" },
+      hinglish: { icon: "📝", title: "Bank deposit slip jaisa!", text: "<input> = account number bharo · <select> = account type chuno · <button type='submit'> = slip bank teller ko do!" },
+      hindi:    { icon: "📝", title: "बैंक डिपॉजिट स्लिप जैसा!", text: "<input> = खाता नंबर भरो · <select> = खाते का प्रकार चुनो · <button type='submit'> = स्लिप बैंक कर्मचारी को दो!" },
+    },
+    semantics: {
+      english:  { icon: "📰", title: "Like a Newspaper Layout!", text: "<header> = Masthead at top · <nav> = Contents page · <main> = Main article section · <footer> = Small print at bottom. Google reads these!" },
+      hinglish: { icon: "📰", title: "Akhbaar layout jaisa!", text: "<header> = title at top · <nav> = contents page · <main> = main article · <footer> = bottom footer. Google yahi padhkar aapki website rank karta hai!" },
+      hindi:    { icon: "📰", title: "अखबार के layout जैसा!", text: "<header> = ऊपर शीर्षक · <nav> = सामग्री सूची · <main> = मुख्य लेख · <footer> = नीचे का पादलेख। Google इन्हें पढ़कर आपकी website को rank करता है!" },
+    },
+    directory: {
+      english:  { icon: "📂", title: "Like an Office Filing Cabinet!", text: "mkdir = Creating a new folder · cd = Stepping inside it · dir = Spreading all paperwork on your desk to read filenames!" },
+      hinglish: { icon: "📂", title: "Office filing cabinet jaisa!", text: "mkdir = naya folder banana · cd = us folder mein ghusna · dir = sab files desk pe phailana aur padna!" },
+      hindi:    { icon: "📂", title: "ऑफिस फाइल कैबिनेट जैसा!", text: "mkdir = नया फोल्डर बनाना · cd = उसमें जाना · dir = सब फाइलें मेज़ पर फैलाकर देखना!" },
+    },
+    copy: {
+      english:  { icon: "🗂️", title: "Like Photocopying Documents!", text: "copy = Xerox copy to a new folder · move = physically moving the paper · del = shredding the document!" },
+      hinglish: { icon: "🗂️", title: "Photocopy karne jaisa!", text: "copy = kisi document ki Xerox alag folder mein banana · move = physically paper utha ke doosri jagah rakhna · del = shredder mein daal dena!" },
+      hindi:    { icon: "🗂️", title: "Photocopy करने जैसा!", text: "copy = दस्तावेज़ की Xerox दूसरे फोल्डर में बनाना · move = कागज़ उठाकर दूसरी जगह रखना · del = shredder में डालना!" },
+    },
+    cli: {
+      english:  { icon: "🎮", title: "Like a Keyboard-Only Video Game!", text: "The terminal is a text-only game where you type commands instead of clicking buttons. Each command instantly changes the game world!" },
+      hinglish: { icon: "🎮", title: "Keyboard-only video game jaisa!", text: "Terminal ek text-only game hai jahan mouse nahi, sirf keyboard se commands type karo — har command se game ka world change ho jaata hai!" },
+      hindi:    { icon: "🎮", title: "Keyboard-only वीडियो गेम जैसा!", text: "Terminal एक text-only game है जहाँ mouse नहीं चलता, बस keyboard से commands type करो — हर command से game की दुनिया बदल जाती है!" },
+    },
+    default: {
+      english:  { icon: "💡", title: "Real-Life Connection!", text: "Every HTML concept maps to something you already know in real life. Code is just a language to describe familiar things to a computer!" },
+      hinglish: { icon: "💡", title: "Real-life se connection!", text: "HTML ka har concept real life mein kisi cheez se milta hai. Code bas computer se baat karne ki bhasha hai — jo aap jaante ho, wahi describe karo!" },
+      hindi:    { icon: "💡", title: "वास्तविक जीवन से जोड़!", text: "HTML का हर concept real life में किसी चीज़ से मिलता है। Code बस computer से बात करने की भाषा है!" },
+    },
+  };
+
   const getAnalogy = (): { icon: string; title: string; text: string } => {
-    if (isInternet)   return { icon: "🌊", title: "Like Undersea Cables!", text: "The internet is millions of physical cables running under oceans connecting every country — like a postal system but for data packets!" };
-    if (isClientSrv)  return { icon: "🍕", title: "Like Ordering Pizza Online!", text: "You (Client) tap 'Order Pizza' → Your request travels via routers (Highway) → Domino's server (Kitchen) bakes & sends it back to your door!" };
-    if (isViewport)   return { icon: "👓", title: "Like Reading Glasses!", text: "Without viewport, a website is like reading a newspaper through a keyhole — tiny! Adding the viewport tag is like wearing glasses that auto-fit every word perfectly to your screen." };
-    if (isHtmlStruct) return { icon: "🏗️", title: "Like Building a House!", text: "DOCTYPE = Building Permit · <html> = The Entire Plot · <head> = Hidden Wiring inside Walls · <body> = The Visible Rooms!" };
-    if (isLinks)      return { icon: "🚪", title: "Like Doors in a Building!", text: "An <a href> tag is like a door with a sign on it. Clicking the door teleports you to a new room (webpage) — the href is the room address!" };
-    if (isImage)      return { icon: "🖼️", title: "Like Hanging a Photo Frame!", text: "The <img src> tag is like telling the wall 'hang this photo here'. The src is the photo's storage address, and alt is the label written behind it." };
-    if (isList)       return { icon: "📋", title: "Like a Grocery Shopping List!", text: "<ul> = Unordered list = sticky note with bullet dots. <ol> = Ordered steps = numbered recipe instructions. Browsers render each <li> on its own line!" };
-    if (isTable)      return { icon: "📊", title: "Like an Excel Spreadsheet!", text: "<table> = Excel workbook · <tr> = Row of cells · <td> = One cell/box · <th> = Column heading. Tables organize data in rows and columns just like spreadsheets!" };
-    if (isForm)       return { icon: "📝", title: "Like a Bank Deposit Slip!", text: "<input> = Fill account number · <select> = Choose account type · <button type='submit'> = Hand the slip to the bank teller who processes it!" };
-    if (isSemantics)  return { icon: "📰", title: "Like a Newspaper Layout!", text: "<header> = Masthead at top · <nav> = Contents page · <main> = Main article section · <footer> = Small print at bottom. Google reads these labels to rank your page!" };
-    if (isDirectory)  return { icon: "📂", title: "Like an Office Filing Cabinet!", text: "mkdir = Creating a new physical folder in a drawer · cd = Stepping inside that drawer · dir = Spreading all paperwork on your desk to read filenames!" };
-    if (isCopy)       return { icon: "🗂️", title: "Like Photocopying Documents!", text: "copy = Making a Xerox copy of a document in a new folder · move = Physically picking up the paper and placing it in another drawer · del = Shredding the document!" };
-    if (isCli)        return { icon: "🎮", title: "Like a Keyboard-Only Video Game!", text: "The terminal is a text-only game where you type commands instead of clicking buttons. Each command instantly changes the game world — no mouse needed!" };
-    return { icon: "💡", title: "Real-Life Connection!", text: "Every HTML concept maps to something you already know in real life. Code is just a language to describe familiar things to a computer!" };
+    const l = (lang ?? "english") as "english" | "hinglish" | "hindi";
+    if (isInternet)   return analogyData.internet[l];
+    if (isClientSrv)  return analogyData.clientSrv[l];
+    if (isViewport)   return analogyData.viewport[l];
+    if (isHtmlStruct) return analogyData.htmlStruct[l];
+    if (isLinks)      return analogyData.links[l];
+    if (isImage)      return analogyData.image[l];
+    if (isList)       return analogyData.list[l];
+    if (isTable)      return analogyData.table[l];
+    if (isForm)       return analogyData.form[l];
+    if (isSemantics)  return analogyData.semantics[l];
+    if (isDirectory)  return analogyData.directory[l];
+    if (isCopy)       return analogyData.copy[l];
+    if (isCli)        return analogyData.cli[l];
+    return analogyData.default[l];
   };
 
   const analogy = getAnalogy();

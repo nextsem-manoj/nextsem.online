@@ -323,6 +323,14 @@ export default function HomeClient() {
                         Systems & Basics
                       </span>
                       <div className="flex flex-col gap-1 text-xs">
+                        <Link 
+                          href="/msword" 
+                          onClick={() => setTutorialsDropdownOpen(false)} 
+                          className="flex items-center gap-2 p-2 hover:bg-slate-100 dark:hover:bg-slate-800/60 rounded-xl hover:text-[#04AA6D] transition-all text-left font-bold"
+                        >
+                          <span>📄</span>
+                          <span className="truncate">MS Word 365 (Career)</span>
+                        </Link>
                         <button 
                           onClick={() => { handleScrollToId('cli-section'); setTutorialsDropdownOpen(false); }} 
                           className="flex items-center gap-2 p-2 hover:bg-slate-100 dark:hover:bg-slate-800/60 rounded-xl hover:text-[#04AA6D] transition-all text-left font-bold"
@@ -433,6 +441,10 @@ export default function HomeClient() {
                       <span>🎓</span>
                       <span>BCA Semester Hub</span>
                     </Link>
+                    <Link href="/jobs" onClick={() => setExercisesDropdownOpen(false)} className="flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-blue-400 text-xs font-bold transition-all">
+                      <span>💼</span>
+                      <span>BCA/MCA/B.Tech Jobs</span>
+                    </Link>
                     <button onClick={() => { handleScrollToId('exercises-section'); setExercisesDropdownOpen(false); }} className="flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-[#04AA6D] text-xs font-bold transition-all text-left">
                       <span>🏆</span>
                       <span>Course Quizzes</span>
@@ -442,6 +454,10 @@ export default function HomeClient() {
               </div>
 
               <button onClick={() => handleScrollToId('certificate-section')} className="px-3 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white transition-all cursor-pointer">Certificates</button>
+              <Link href="/jobs" className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white transition-all cursor-pointer">
+                <Briefcase size={14} className="text-blue-400" />
+                <span>Jobs Portal</span>
+              </Link>
               <Link href="/playground" className="px-3 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white transition-all">Playground</Link>
               <Link href="/ncert" className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white transition-all cursor-pointer">
                 <BookOpen size={14} className="text-[#04AA6D]" />
@@ -511,8 +527,7 @@ export default function HomeClient() {
               )}
             </div>
 
-            {/* Theme Toggle Button */}
-            <ThemeToggle />
+            {/* Theme Toggle Button removed */}
 
             {/* Streak & XP (if logged in) */}
             {currentUser && (
@@ -703,7 +718,7 @@ export default function HomeClient() {
       </header>
 
       {/* ── HERO SEARCH AREA (W3Schools Style) ── */}
-      <section className="bg-[#282A35] text-white py-16 px-4 text-center relative">
+      <section className="bg-theme-bg text-theme-text py-16 px-4 text-center relative border-b border-theme-border">
         {/* Background decorations */}
         <div className="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none bg-[radial-gradient(#04AA6D_1px,transparent_1px)] [background-size:16px_16px]" />
         
@@ -711,19 +726,19 @@ export default function HomeClient() {
           <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tight leading-tight">
             Learn to Code
           </h2>
-          <p className="text-[#FFF4A3] text-sm md:text-base font-extrabold uppercase mt-2 tracking-wider">
+          <p className="text-theme-accent text-sm md:text-base font-extrabold uppercase mt-2 tracking-wider">
             Start your journey to become a job-ready developer.
           </p>
 
           {/* Hero Big Search Box */}
           <div ref={heroSearchRef} className="mt-8 max-w-[560px] mx-auto relative">
-            <form onSubmit={handleHeroSearchSubmit} className="flex shadow-2xl rounded-full overflow-hidden bg-white">
+            <form onSubmit={handleHeroSearchSubmit} className="flex shadow-2xl rounded-full overflow-hidden bg-theme-surface border border-theme-border">
               <input 
                 type="text"
                 placeholder="Search our tutorials, e.g. HTML"
                 value={heroSearchQuery}
                 onChange={(e) => setHeroSearchQuery(e.target.value)}
-                className="flex-1 px-6 py-4 text-slate-900 text-sm md:text-base focus:outline-none placeholder-slate-455 font-medium"
+                className="flex-1 px-6 py-4 bg-transparent text-theme-text text-sm md:text-base focus:outline-none placeholder-slate-400 font-medium"
               />
               <button type="submit" className="bg-[#04AA6D] hover:bg-[#039861] text-white px-6 md:px-8 transition-colors flex items-center justify-center cursor-pointer">
                 <Search size={20} />
@@ -774,14 +789,15 @@ export default function HomeClient() {
             )}
           </div>
 
-          <p className="text-xs font-bold text-slate-350 mt-4 uppercase">
-            Not sure where to begin? Try our <button onClick={() => handleScrollToId('cli-section')} className="text-[#FFF4A3] hover:underline cursor-pointer">CLI Tutorial</button>, <Link href="/simulator" className="text-[#FFF4A3] hover:underline cursor-pointer">Windows 11 Simulator</Link> or <button onClick={() => handleScrollToId('html-section')} className="text-[#FFF4A3] hover:underline cursor-pointer">HTML Course</button>
+          <p className="text-xs font-bold text-slate-400 mt-4 uppercase">
+            Not sure where to begin? Try <Link href="/msword" className="text-theme-accent hover:underline cursor-pointer">MS Word 365</Link>, <button onClick={() => handleScrollToId('cli-section')} className="text-theme-accent hover:underline cursor-pointer">CLI Tutorial</button>, <Link href="/simulator" className="text-theme-accent hover:underline cursor-pointer">Windows 11 Simulator</Link> or <button onClick={() => handleScrollToId('html-section')} className="text-theme-accent hover:underline cursor-pointer">HTML Course</button>
           </p>
 
           {/* Quick bands links */}
           <div className="flex flex-wrap justify-center gap-2 mt-8 max-w-xl mx-auto">
-            {['CLI', 'Git', 'HTML', 'CSS', 'JavaScript', 'React', 'Backend'].map((tech) => {
+            {['MS Word', 'CLI', 'Git', 'HTML', 'CSS', 'JavaScript', 'React', 'Backend'].map((tech) => {
               const ids: Record<string, string> = {
+                'MS Word': 'msword-section',
                 'CLI': 'cli-section',
                 'HTML': 'html-section',
                 'CSS': 'css-section',
@@ -795,11 +811,13 @@ export default function HomeClient() {
                   onClick={() => {
                     if (tech === 'Git') {
                       handleLaunchChapter('p0-4-git');
+                    } else if (tech === 'MS Word') {
+                      router.push('/msword');
                     } else {
                       handleScrollToId(ids[tech] || '');
                     }
                   }}
-                  className="px-4 py-1.5 rounded-full text-xs font-black uppercase border border-slate-600 hover:border-[#04AA6D] hover:text-[#04AA6D] bg-slate-950/20 transition-all cursor-pointer"
+                  className="px-4 py-1.5 rounded-full text-xs font-black uppercase border border-theme-border hover:border-theme-accent hover:text-theme-accent bg-theme-surface/50 text-theme-text transition-all cursor-pointer"
                 >
                   {tech}
                 </button>
@@ -810,16 +828,72 @@ export default function HomeClient() {
         </div>
       </section>
 
-      {/* ── CORE LANGUAGE SECTIONS (W3Schools band layouts) ── */}
-      
-      {/* 1. Windows Commands CLI Band */}
-      <section id="cli-section" className="bg-[#1e303f] dark:bg-[#111c26] border-b border-[#c1a648]/20 text-[#FFF4A3] py-16 px-4 md:px-8">
+      {/* ── CORE CURRICULUM PHASES (Image 11 Card Pattern) ── */}
+
+      {/* Phase 0: MS Word 365 Band */}
+      <section id="msword-section" className="bg-gradient-to-br from-blue-950/40 via-slate-950 to-indigo-950/30 border-b border-theme-border text-theme-text py-16 px-4 md:px-8">
         <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
           <div className="text-left space-y-4">
-            <span className="text-[10px] font-black uppercase bg-[#c1a648]/20 border border-[#c1a648]/30 px-3 py-1 rounded-full text-[#FFF4A3]">
-              Module 1: Terminal Operations
+            <span className="text-[10px] font-black uppercase bg-blue-500/20 border border-blue-500/30 px-3 py-1 rounded-full text-blue-400">
+              Phase 0: Office & Career Productivity
             </span>
-            <h2 className="text-3xl md:text-4xl font-black uppercase text-white font-mono flex items-center gap-3">
+            <h2 className="text-3xl md:text-4xl font-black uppercase text-theme-text font-mono flex items-center gap-3">
+              <span className="text-2xl">📄</span>
+              <span>MS Word 365</span>
+            </h2>
+            <p className="text-theme-text/80 text-sm md:text-base max-w-lg leading-relaxed font-medium">
+              Essential career skills for job seekers &amp; developers. Master professional document formatting, resume design, mail merge, and AI writing with Microsoft Copilot.
+            </p>
+            <div className="flex flex-wrap gap-3 pt-4">
+              <Link 
+                href="/msword"
+                className="px-5 py-2.5 bg-[#c1a648] hover:bg-[#a38b3a] text-slate-950 rounded-lg text-xs font-black uppercase tracking-wider transition-all cursor-pointer font-mono no-underline inline-flex items-center justify-center shadow-lg"
+              >
+                Learn MS Word 365
+              </Link>
+              <Link 
+                href="/msword/what-is-ms-word-career-basics"
+                className="px-5 py-2.5 bg-theme-surface hover:bg-theme-card text-theme-text border border-theme-border rounded-lg text-xs font-black uppercase tracking-wider transition-all cursor-pointer font-mono no-underline inline-flex items-center justify-center shadow-lg"
+              >
+                Start Lesson 1 (Free)
+              </Link>
+            </div>
+          </div>
+          
+          {/* Mock Document Window */}
+          <div className="bg-[#0b0f19] border border-blue-500/30 rounded-xl overflow-hidden shadow-2xl max-w-md lg:max-w-full mx-auto w-full font-sans text-xs text-left">
+            <div className="bg-[#151b2e] px-4 py-2 flex items-center justify-between border-b border-blue-500/20 select-none">
+              <div className="flex items-center gap-1.5">
+                <div className="w-2.5 h-2.5 rounded-full bg-red-500/60" />
+                <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/60" />
+                <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/60" />
+              </div>
+              <span className="text-[10px] text-blue-300 font-bold uppercase font-mono">Word_Document.docx — Microsoft 365</span>
+              <span className="text-[9px] bg-blue-600/30 text-blue-300 px-1.5 py-0.5 rounded font-mono">AutoSave ON</span>
+            </div>
+            <div className="p-5 space-y-3 bg-[#0d1322]/90 max-h-[220px] overflow-y-auto">
+              <div className="text-[10px] text-blue-400 font-black uppercase tracking-widest">Office Ready — Career Skills</div>
+              <div className="text-base font-black text-white">How to Write a Professional Project Proposal</div>
+              <p className="text-xs text-slate-300 leading-relaxed">
+                In this lesson, learn how to format executive summaries, apply branded heading styles, and insert automated tables of contents.
+              </p>
+              <div className="p-2.5 bg-violet-950/40 border border-violet-700/30 rounded-lg text-[11px] text-violet-200 flex items-center gap-2">
+                <span>🤖</span>
+                <span><strong>Copilot Tip:</strong> Press Ctrl+Draft to let AI write your first draft instantly!</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      {/* 1. Windows Commands CLI Band (Phase 1) */}
+      <section id="cli-section" className="bg-theme-bg border-b border-theme-border text-theme-text py-16 px-4 md:px-8">
+        <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+          <div className="text-left space-y-4">
+            <span className="text-[10px] font-black uppercase bg-[#c1a648]/20 border border-[#c1a648]/30 px-3 py-1 rounded-full text-theme-accent">
+              Phase 1: Terminal Operations
+            </span>
+            <h2 className="text-3xl md:text-4xl font-black uppercase text-theme-text font-mono flex items-center gap-3">
               <span>&gt;_</span>
               <svg viewBox="0 0 24 24" className="w-8 h-8 inline-block shrink-0" aria-hidden="true">
                 <defs>
@@ -832,7 +906,7 @@ export default function HomeClient() {
               </svg>
               <span>Windows CLI</span>
             </h2>
-            <p className="text-slate-300 text-sm md:text-base max-w-lg leading-relaxed font-medium">
+            <p className="text-theme-text/80 text-sm md:text-base max-w-lg leading-relaxed font-medium">
               The ultimate starting point. Command your operating system, automate backups, and control folders directly via typed text shell utilities.
             </p>
             <div className="flex flex-wrap gap-3 pt-4">
@@ -844,13 +918,13 @@ export default function HomeClient() {
               </Link>
               <Link 
                 href="/cmd"
-                className="px-5 py-2.5 bg-slate-900 border border-slate-750 hover:bg-slate-800 text-white rounded-lg text-xs font-black uppercase tracking-wider transition-all cursor-pointer font-mono no-underline inline-flex items-center justify-center shadow-lg"
+                className="px-5 py-2.5 bg-theme-surface hover:bg-theme-card text-theme-text border border-theme-border rounded-lg text-xs font-black uppercase tracking-wider transition-all cursor-pointer font-mono no-underline inline-flex items-center justify-center shadow-lg"
               >
                 Launch CMD Simulator
               </Link>
               <Link 
                 href="/simulator"
-                className="px-5 py-2.5 bg-slate-900 border border-slate-750 hover:bg-slate-800 text-white rounded-lg text-xs font-black uppercase tracking-wider transition-all cursor-pointer font-mono no-underline inline-flex items-center justify-center shadow-lg"
+                className="px-5 py-2.5 bg-theme-surface hover:bg-theme-card text-theme-text border border-theme-border rounded-lg text-xs font-black uppercase tracking-wider transition-all cursor-pointer font-mono no-underline inline-flex items-center justify-center shadow-lg"
               >
                 Launch Win 11 Simulator
               </Link>
@@ -886,7 +960,7 @@ export default function HomeClient() {
         <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
           <div className="text-left space-y-4">
             <span className="text-[10px] font-black uppercase bg-[#04AA6D]/20 border border-[#04AA6D]/30 px-3 py-1 rounded-full text-[#036c45]">
-              Module 3: Structures
+              Phase 1: Web Markup
             </span>
             <h2 className="text-3xl md:text-4xl font-black uppercase text-slate-950 tracking-tight">
               HTML5 Web markup
@@ -904,7 +978,7 @@ export default function HomeClient() {
               </Link>
               <Link 
                 href="/playground"
-                className="px-5 py-2.5 bg-slate-950 hover:bg-slate-900 text-white rounded-lg text-xs font-black uppercase tracking-wider transition-all cursor-pointer shadow-md shadow-slate-900/10 flex items-center gap-1.5"
+                className="px-5 py-2.5 bg-gray-900 hover:bg-gray-800 text-white rounded-lg text-xs font-black uppercase tracking-wider transition-all cursor-pointer shadow-md shadow-gray-900/10 flex items-center gap-1.5"
               >
                 <Code size={14} className="stroke-[2.5]" />
                 <span>Try HTML Sandbox</span>
@@ -964,7 +1038,7 @@ export default function HomeClient() {
 
           <div className="text-left space-y-4 order-1 lg:order-2">
             <span className="text-[10px] font-black uppercase bg-slate-900/10 border border-slate-900/20 px-3 py-1 rounded-full text-slate-950 font-bold">
-              Module 4: Stylesheets
+              Phase 2: Stylesheets &amp; Layouts
             </span>
             <h2 className="text-3xl md:text-4xl font-black uppercase text-slate-950 tracking-tight">
               CSS3 Responsive Layouts
@@ -975,13 +1049,13 @@ export default function HomeClient() {
             <div className="flex flex-wrap gap-3 pt-4">
               <button 
                 onClick={() => handleLaunchChapter('p2-1-selectors')}
-                className="px-5 py-2.5 bg-slate-950 hover:bg-slate-900 text-white rounded-lg text-xs font-black uppercase tracking-wider transition-all cursor-pointer shadow-lg"
+                className="px-5 py-2.5 bg-gray-900 hover:bg-gray-800 text-white rounded-lg text-xs font-black uppercase tracking-wider transition-all cursor-pointer shadow-lg"
               >
                 Learn CSS
               </button>
               <Link 
                 href="/playground"
-                className="px-5 py-2.5 border-2 border-slate-950 text-slate-950 font-black hover:bg-slate-950 hover:text-white rounded-lg text-xs uppercase tracking-wider transition-all"
+                className="px-5 py-2.5 border-2 border-slate-900 text-slate-950 font-black hover:bg-slate-900 hover:text-white rounded-lg text-xs font-black uppercase tracking-wider transition-all cursor-pointer shadow-sm"
               >
                 CSS Reference
               </Link>
@@ -991,17 +1065,17 @@ export default function HomeClient() {
         </div>
       </section>
 
-      {/* 4. JavaScript Band */}
-      <section id="js-section" className="bg-[#282A35] text-white py-16 px-4 md:px-8">
+      {/* 4. JavaScript Band (Phase 3) */}
+      <section id="js-section" className="bg-theme-bg border-b border-theme-border text-theme-text py-16 px-4 md:px-8">
         <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
           <div className="text-left space-y-4">
-            <span className="text-[10px] font-black uppercase bg-emerald-400/10 border border-emerald-400/20 px-3 py-1 rounded-full text-[#04AA6D]">
-              Module 5: Scripting
+            <span className="text-[10px] font-black uppercase bg-emerald-400/10 border border-emerald-400/20 px-3 py-1 rounded-full text-theme-accent">
+              Phase 3: Scripting &amp; Logic
             </span>
-            <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tight">
+            <h2 className="text-3xl md:text-4xl font-black uppercase text-theme-text tracking-tight">
               JavaScript Logic
             </h2>
-            <p className="text-slate-350 text-sm md:text-base max-w-lg leading-relaxed">
+            <p className="text-theme-text/80 text-sm md:text-base max-w-lg leading-relaxed">
               Program logic, arrays, and event handlers. Manipulate DOM hierarchies dynamically and store database state vectors into local storage buffers.
             </p>
             <div className="flex flex-wrap gap-3 pt-4">
@@ -1013,7 +1087,7 @@ export default function HomeClient() {
               </button>
               <Link 
                 href="/playground"
-                className="px-5 py-2.5 border border-slate-400 hover:bg-slate-800 hover:text-white rounded-lg text-xs font-black uppercase tracking-wider transition-all"
+                className="px-5 py-2.5 bg-theme-surface hover:bg-theme-card text-theme-text border border-theme-border rounded-lg text-xs font-black uppercase tracking-wider transition-all cursor-pointer inline-flex items-center justify-center"
               >
                 JS Playground
               </Link>
@@ -1062,7 +1136,7 @@ export default function HomeClient() {
             </div>
             <button 
               onClick={() => handleLaunchChapter('p4-1-jsx')} 
-              className="mt-6 px-4 py-2.5 bg-[#282A35] hover:bg-slate-800 text-white dark:bg-white dark:hover:bg-slate-200 dark:text-slate-950 rounded-lg text-xs font-black uppercase tracking-wider transition-all self-start cursor-pointer"
+              className="mt-6 px-4 py-2.5 bg-gray-900 hover:bg-gray-800 text-white dark:bg-white dark:hover:bg-gray-100 dark:text-gray-900 rounded-lg text-xs font-black uppercase tracking-wider transition-all self-start cursor-pointer"
             >
               Start React
             </button>
@@ -1084,7 +1158,7 @@ export default function HomeClient() {
             </div>
             <button 
               onClick={() => handleLaunchChapter('p5-1-node')} 
-              className="mt-6 px-4 py-2.5 bg-[#282A35] hover:bg-slate-800 text-white dark:bg-white dark:hover:bg-slate-200 dark:text-slate-950 rounded-lg text-xs font-black uppercase tracking-wider transition-all self-start cursor-pointer"
+              className="mt-6 px-4 py-2.5 bg-gray-900 hover:bg-gray-800 text-white dark:bg-white dark:hover:bg-gray-100 dark:text-gray-900 rounded-lg text-xs font-black uppercase tracking-wider transition-all self-start cursor-pointer"
             >
               Start Backend
             </button>
@@ -1167,7 +1241,7 @@ export default function HomeClient() {
                       onClick={() => setActiveModuleIdx(idx)}
                       className={`px-4 py-2 rounded-full text-xs font-black uppercase whitespace-nowrap transition-all border cursor-pointer ${
                         isActive 
-                          ? "bg-slate-900 border-slate-900 text-white dark:bg-white dark:border-white dark:text-slate-950 font-black shadow-md"
+                          ? "bg-gray-900 border-gray-900 text-white dark:bg-white dark:border-white dark:text-slate-950 font-black shadow-md"
                           : "bg-white border-slate-200 text-slate-600 hover:border-slate-400 dark:bg-slate-900 dark:border-slate-800 dark:text-slate-400 dark:hover:border-slate-700"
                       }`}
                     >

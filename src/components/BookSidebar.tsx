@@ -66,7 +66,7 @@ const BookSidebar = ({ isOpen, setIsOpen }: BookSidebarProps) => {
 
   // HTML modules state and progress tracking
   const [completedHtmlLessons, setCompletedHtmlLessons] = useState<Set<number>>(new Set());
-  const [userEmail, setUserEmail] = useState<string>("anonymous");
+  const [userEmail, setUserEmail] = useState<string>("guest");
   const [expandedModules, setExpandedModules] = useState<Set<number>>(new Set());
 
   const htmlModules = [
@@ -88,7 +88,7 @@ const BookSidebar = ({ isOpen, setIsOpen }: BookSidebarProps) => {
   useEffect(() => {
     if (typeof window !== "undefined") {
       const saved = localStorage.getItem("nextsem_user");
-      let email = "anonymous";
+      let email = "guest";
       if (saved) {
         try {
           const userObj = JSON.parse(saved);

@@ -112,24 +112,7 @@ function NavigationContent({
           <span className="text-[9px] font-black uppercase tracking-wider">Menu</span>
         </button>
 
-        {/* Theme Switch Button */}
-        <button
-          onClick={cycleTheme}
-          className={`flex flex-col items-center justify-center flex-1 py-1.5 rounded-xl transition-all ${buttonHoverClass}`}
-          aria-label="Toggle Visual Theme"
-          title="Toggle Theme"
-        >
-          {!mounted ? (
-            <Sun size={18} className="mb-0.5" />
-          ) : theme === 'light' ? (
-            <Sun size={18} className="mb-0.5 text-[#c1a648]" />
-          ) : theme === 'dark' ? (
-            <Moon size={18} className="mb-0.5 text-slate-350" />
-          ) : (
-            <Coffee size={18} className="mb-0.5 text-[#7f7034]" />
-          )}
-          <span className="text-[9px] font-black uppercase tracking-wider">Theme</span>
-        </button>
+        {/* Theme Switch Button removed */}
 
         {/* Profile / Sign In Button beside Menu */}
         {currentUser ? (

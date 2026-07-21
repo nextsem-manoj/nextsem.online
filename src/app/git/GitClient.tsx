@@ -595,10 +595,7 @@ export default function GitClient() {
 
       {/* Footer Area */}
       <div className="flex flex-col gap-4 border-t border-slate-800/60 pt-4 shrink-0">
-        <div className="flex items-center justify-between">
-          <span className="text-[10px] font-black uppercase text-slate-400 tracking-wider">Appearance</span>
-          <ThemeToggle />
-        </div>
+        {/* Theme toggle removed */}
         
         {user ? (
           <div className="flex flex-col gap-3 bg-slate-950/20 border border-slate-850/50 rounded-xl p-3">
@@ -696,34 +693,34 @@ export default function GitClient() {
             <div className="space-y-6">
               
               {/* Active Lesson details card */}
-              <div className="bg-[#070914] border border-slate-850 rounded-2xl p-6 md:p-8 space-y-6 animate-in fade-in duration-200">
+              <div className="bg-theme-surface border border-theme-border rounded-2xl p-6 md:p-8 space-y-6 animate-in fade-in duration-200">
                 <div className="space-y-3.5 text-left">
                   <div className="flex items-center gap-2">
-                    <span className={`text-[9px] font-black uppercase px-2.5 py-0.5 rounded border bg-indigo-500/10 border-indigo-500/20 text-indigo-400`}>
+                    <span className="text-[9px] font-black uppercase px-2.5 py-0.5 rounded border bg-indigo-500/10 border-indigo-500/20 text-indigo-400">
                       Lesson {activeStepIdx + 1} of 40
                     </span>
                     {activeStepIdx < stepIdx && <CheckCircle2 size={12} className="text-emerald-400" />}
                   </div>
 
-                  <h2 className="text-xl md:text-2xl font-bold text-white tracking-tight">
+                  <h2 className="text-xl md:text-2xl font-bold text-theme-text tracking-tight">
                     {activeStep.title}
                   </h2>
                   
-                  <p className="text-[15px] text-slate-350 leading-[1.5] font-normal">
+                  <p className="text-[15px] text-theme-text/80 leading-[1.5] font-normal">
                     {activeStep.instruction}
                   </p>
                 </div>
 
                 {/* Code syntax reference block */}
                 <div className="space-y-2 text-left">
-                  <span className="text-[9px] font-black uppercase text-slate-500 tracking-wider block">Syntax Reference</span>
-                  <div className="w-full bg-slate-950/80 border border-slate-900 rounded-xl p-4 font-mono text-xs md:text-sm text-indigo-400 select-all overflow-x-auto whitespace-nowrap">
+                  <span className="text-[9px] font-black uppercase text-theme-text-muted tracking-wider block">Syntax Reference</span>
+                  <div className="w-full bg-theme-bg border border-theme-border rounded-xl p-4 font-mono text-xs md:text-sm text-theme-accent select-all overflow-x-auto whitespace-nowrap">
                     {activeStep.expectedCommand}
                   </div>
                 </div>
 
                 {/* Try it redirect launcher */}
-                <div className="pt-4 border-t border-slate-850/60 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div className="pt-4 border-t border-theme-border flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                   <button 
                     onClick={() => openTerminalWindow(activeStepIdx + 1)}
                     className="px-6 py-2.5 bg-[#39FF14] hover:bg-[#2ebd10] text-[#07070c] font-black uppercase tracking-widest rounded-xl text-[10px] flex items-center justify-center gap-1.5 cursor-pointer hover:scale-[1.02] active:scale-[0.98] transition-all shadow-md"
@@ -736,7 +733,7 @@ export default function GitClient() {
                     {activeStepIdx > 0 && (
                       <button
                         onClick={() => setActiveStepIdx(activeStepIdx - 1)}
-                        className="px-4 py-2 border border-slate-800 hover:bg-slate-900 rounded-xl text-[10px] font-black uppercase text-slate-400 hover:text-white transition-colors cursor-pointer"
+                        className="px-4 py-2 border border-theme-border hover:bg-theme-surface rounded-xl text-[10px] font-black uppercase text-theme-text/80 hover:text-theme-text transition-colors cursor-pointer"
                       >
                         Prev Lesson
                       </button>
@@ -755,9 +752,9 @@ export default function GitClient() {
               </div>
 
               {/* Tips banner card */}
-              <div className="bg-[#0b0c16] border border-slate-850 p-6 rounded-2xl text-left space-y-2 select-text">
+              <div className="bg-theme-surface border border-theme-border p-6 rounded-2xl text-left space-y-2 select-text">
                 <span className="text-[8px] font-black text-indigo-400 uppercase tracking-widest block">Pro Version Control Tip</span>
-                <p className="text-xs text-slate-400 leading-normal font-medium">
+                <p className="text-xs text-theme-text/80 leading-normal font-medium">
                   Complete each command practice session inside the standalone terminal simulator tab. Once you run the command successfully, your progress status synchronizes globally, unlocking subsequent lessons and certification tasks automatically.
                 </p>
               </div>
@@ -765,21 +762,21 @@ export default function GitClient() {
             </div>
           ) : (
             /* Interactive practice quiz panel */
-            <div className="bg-[#070914] border border-slate-850 rounded-2xl p-6 md:p-8 space-y-6 text-left animate-in zoom-in-95 duration-200">
+            <div className="bg-theme-surface border border-theme-border rounded-2xl p-6 md:p-8 space-y-6 text-left animate-in zoom-in-95 duration-200">
               
               {!quizFinished ? (
                 <div className="space-y-6">
-                  <div className="flex items-center justify-between border-b border-slate-850 pb-4">
+                  <div className="flex items-center justify-between border-b border-theme-border pb-4">
                     <div>
                       <span className="text-[8px] font-black uppercase tracking-widest text-emerald-400 block">Git Assessment</span>
-                      <h2 className="text-base font-bold text-white uppercase tracking-tight">Question {quizStep + 1} of {GIT_QUIZ_QUESTIONS.length}</h2>
+                      <h2 className="text-base font-bold text-theme-text uppercase tracking-tight">Question {quizStep + 1} of {GIT_QUIZ_QUESTIONS.length}</h2>
                     </div>
-                    <span className="text-[9px] font-black uppercase text-slate-400 bg-slate-900 border border-slate-800 px-2 py-0.5 rounded">
+                    <span className="text-[9px] font-black uppercase text-theme-text/80 bg-theme-surface border border-theme-border px-2 py-0.5 rounded">
                       Score: {quizScore}
                     </span>
                   </div>
 
-                  <p className="text-[15px] font-normal leading-[1.5] text-slate-100 font-sans">
+                  <p className="text-[15px] font-normal leading-[1.5] text-theme-text font-sans">
                     {GIT_QUIZ_QUESTIONS[quizStep].q}
                   </p>
 
@@ -797,8 +794,8 @@ export default function GitClient() {
                                 ? "bg-emerald-500/10 border-emerald-500/30 text-emerald-400"
                                 : isSelected
                                 ? "bg-rose-500/10 border-rose-500/30 text-rose-400"
-                                : "bg-slate-950 border-slate-900 text-slate-500 opacity-60"
-                              : "bg-slate-950 border-slate-900 hover:border-slate-800 text-slate-300 hover:text-white"
+                                : "bg-theme-surface border-theme-border text-theme-text/40 opacity-60"
+                              : "bg-theme-surface border-theme-border hover:border-theme-accent text-theme-text"
                           }`}
                         >
                           <span>{opt}</span>
@@ -809,9 +806,9 @@ export default function GitClient() {
                   </div>
 
                   {quizAnswered && (
-                    <div className="p-4 bg-slate-950/60 border border-slate-900 rounded-xl space-y-2 animate-in slide-in-from-top-2 duration-150">
-                      <span className="text-[9px] font-black text-indigo-400 uppercase tracking-widest block">Explanation</span>
-                      <p className="text-xs text-slate-400 leading-normal font-medium font-sans">
+                    <div className="p-4 bg-theme-bg border border-theme-border rounded-xl space-y-2 animate-in slide-in-from-top-2 duration-150">
+                      <span className="text-[9px] font-black text-indigo-450 dark:text-indigo-400 uppercase tracking-widest block">Explanation</span>
+                      <p className="text-xs text-theme-text/80 leading-normal font-medium font-sans">
                         {GIT_QUIZ_QUESTIONS[quizStep].exp}
                       </p>
                       
@@ -834,20 +831,20 @@ export default function GitClient() {
                   </div>
 
                   <div className="space-y-2">
-                    <h2 className="text-2xl font-bold text-white tracking-tight uppercase">Quiz Finished!</h2>
-                    <p className="text-sm text-slate-400 leading-relaxed font-sans max-w-sm mx-auto">
+                    <h2 className="text-2xl font-bold text-theme-text tracking-tight uppercase">Quiz Finished!</h2>
+                    <p className="text-sm text-theme-text/70 leading-relaxed font-sans max-w-sm mx-auto">
                       Congratulations on completing the Git Version Control practice assessment quiz!
                     </p>
                   </div>
 
-                  <div className="p-4 bg-slate-950 border border-slate-900 rounded-2xl max-w-xs mx-auto flex items-center justify-between">
-                    <span className="text-xs font-black uppercase text-slate-400 tracking-wider">Final Score:</span>
+                  <div className="p-4 bg-theme-bg border border-theme-border rounded-2xl max-w-xs mx-auto flex items-center justify-between">
+                    <span className="text-xs font-black uppercase text-theme-text/80 tracking-wider">Final Score:</span>
                     <span className="text-base font-black text-[#39FF14] font-mono">{quizScore} / {GIT_QUIZ_QUESTIONS.length}</span>
                   </div>
 
                   <button
                     onClick={handleQuizReset}
-                    className="px-6 py-2.5 bg-slate-900 border border-slate-800 hover:bg-slate-850 hover:text-white rounded-xl text-[10px] font-black uppercase tracking-wider text-slate-300 transition-colors cursor-pointer inline-flex items-center gap-1.5"
+                    className="px-6 py-2.5 bg-theme-surface border border-theme-border hover:bg-theme-card text-theme-text rounded-xl text-[10px] font-black uppercase tracking-wider transition-colors cursor-pointer inline-flex items-center gap-1.5"
                   >
                     <RefreshCw size={11} />
                     <span>Restart Assessment</span>

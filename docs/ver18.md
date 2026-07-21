@@ -207,10 +207,11 @@ server: {
 
 ---
 
-### 📊 Total Curriculum Overview
+### 📊 Total Curriculum Overview *(Updated — see Phase 0 section above for full table)*
 
 | Phase | Subjects | Total Lessons |
 |---|---|---|
+| **Phase 0 — Office & Career** | 6 subjects | ~240 lessons |
 | Phase 1 — Foundation | 5 subjects | ~500 lessons |
 | Phase 2 — Frontend | 8 subjects | ~800 lessons |
 | Phase 3 — Backend | 9 subjects | ~730 lessons |
@@ -218,9 +219,10 @@ server: {
 | Phase 5 — Full Stack | 3 subjects | ~250 lessons |
 | Phase 6 — DevOps | 7 subjects | ~530 lessons |
 | Phase 7 — CS + Advanced | 6 subjects | ~400 lessons |
-| **🏆 TOTAL** | **42 subjects** | **~3,510 lessons** |
+| **🏆 TOTAL** | **48 subjects** | **~3,750 lessons** |
 
 > **Nextsem Academy Goal**: Become the #1 free multilingual Full Stack Web Dev platform in India 🇮🇳
+
 create a automation to automatically complete lessons as per above plan and inform me after every 10 lesons.
 
 also in each lesson below  add a self explanatory gif of the relvent topic for easy learning but it shold be easy to understand and related to real life
@@ -230,24 +232,46 @@ suggest a  few more features for my website to make it more engaging and user-fr
 nake is ready for android app and ios app for it. we can also add pwa for it which is similar to app.
 
 https://nextsem.online/pdf-to-markdown use this to make lessons from .md files
-✅ rewrite https://nextsem.online/about and remove any ad from it. 
+ rewrite https://nextsem.online/about and remove any ad from it  no this is not professional remove ads from here and rewrite it professionally 
 ✅ rewrite https://nextsem.online/profile as per a professional level and no ad here to.
 
-https://nextsem.online/cmd understand this page and rewrite it.
+✅ https://nextsem.online/cmd understand this page and rewrite it.
 
 ✅ we made this beautiiful winodws 11 simulatr at https://nextsem.online/simulator place at at some nice palce on our app and website 
 
 ✅ integrate this https://nextsem.online/playground in our app and website  and also with the html lessons, css lessons, and js lessons 
 
-i am confused about these lessons https://nextsem.online/book/p0-setup and https://nextsem.online/book/p1-html . make them more engaging and user-friendly and is it integrated to our # 📚 Full Stack Web Developer — Complete Curriculum Roadmap.
+✅ i am confused about these lessons https://nextsem.online/book/p0-setup and https://nextsem.online/book/p1-html . make them more engaging and user-friendly and is it integrated to our # 📚 Full Stack Web Developer — Complete Curriculum Roadmap.
 
-i think this https://nextsem.online/book/p2-1-selectors and https://nextsem.online/book/p2-2-text-formatting and etc are lessons on css make them more engaging and user-friendly and make it look like html current lessons 
+✅ i think this https://nextsem.online/book/p2-1-selectors and https://nextsem.online/book/p2-2-text-formatting and etc are lessons on css make them more engaging and user-friendly and make it look like html current lessons 
 
-on front page place content and phase cards as per our plan at line no 131 to 221.
+✅ on front page place content and phase cards as per our plan at line no 131 to 221.
 
 ✅ on selecting any module and lesson keep hinglish and kid mode default and keep help guide hidden by default.
 
 ✅ urgent make dark theme default and on switching to light make sure it looks beautiful and premium. on light theme keep the text as black and background as white force apply any blocking css also remove other themes from whole app.
 
- also inside ver18.md make a green checkmark the tasks which are  completed   
- /learn auto accept all donot prompt me it is really annoying.
+✅ also inside ver18.md make a green checkmark the tasks which are  completed   
+✅ auto accept all donot prompt me it is really annoying.
+
+✅ ![alt text](image-2.png) why on light theme it looks so ugly urgently correct it it may harm on production site.![ also this too](image-3.png)
+
+✅ (image-4.png)let me read what you do in background each and every step do not hide it 
+ 
+✅ for now remove theme switch option from everywhere we will test it later on staged site and then implement here. recheck  this it should look good and is it implemented and deployed on production.
+
+✅ keep default theme dark.
+✅ ![do not ask me everytime to accpet all it is annoying automate it please ](image-5.png)
+
+✅ ![what is this and solve it](image-6.png)
+✅ do not deploy on staging for now.
+✅ apne app deploy na karein na production pe na staging pe.
+✅ ![Visual Demo ko language selected k anusar show karo abhi sirf english m hi hai](image-8.png)
+✅ ![isme Mcaq k options remove kardo aur uski jagah simulation based question pucho](image-9.png)
+autos save users progress withou any login required for now and after adsense approval we will integrate it with google sign in on overall app.
+ MCQ simulation-based question Removed the two redundant A/B/C/D list cards from the practice question section isi jagah simulation based question prepare kardo aur sabhi lessons pe aply kardo overall app pe.
+ ✅ ![jaise google help hota hai ? pe click aur hover krne pe us context ka usage samjh aa jaye](image-10.png)
+ 
+✅ on front page ![on front page update lessons card like this in image as per our plan i.e. different phases and lessons in that order with similiar design pattern as in the scrreenshot atached](image-11.png)
+✅ thoda contrast lane k liye layout theme design overall same rakho bss thod distinction rakho user seo crawler k liye easy ho distinguish krna alag alag lesson k beech m.
+✅ BCA, MCA & B.Tech Jobs Portal at `/jobs` — curated tech jobs, internships, off-campus drives, qualification filters, search, and Google Jobs schema (`docs/jobs.md`).

@@ -5,7 +5,7 @@ import Link from "next/link";
 import {
   CheckCircle2, Clock, Lock, ChevronDown, ChevronUp,
   Globe, Terminal, Palette, Code2, Server, Database,
-  Layers, Rocket, Wrench, Brain, BookOpen, Sparkles
+  Layers, Rocket, Wrench, Brain, BookOpen, Sparkles, Briefcase
 } from "lucide-react";
 
 // ─── Curriculum Data ────────────────────────────────────────────────────────
@@ -29,6 +29,21 @@ interface Phase {
 }
 
 const CURRICULUM: Phase[] = [
+  {
+    id: "career",
+    icon: <Briefcase size={18} />,
+    title: "Phase 0 — Office & Career Productivity",
+    color: "from-blue-600 to-indigo-500",
+    glow: "shadow-blue-500/20",
+    subjects: [
+      { id: "msword", name: "MS Word 365 (Career Skills)", lessons: 60, covered: 8, link: "/msword", priority: "high" },
+      { id: "msexcel", name: "MS Excel 365 (Formulas & Data)", lessons: 60, covered: 0, priority: "high" },
+      { id: "ppt", name: "MS PowerPoint 365", lessons: 40, covered: 0, priority: "medium" },
+      { id: "gworkspace", name: "Google Workspace (Docs, Sheets)", lessons: 40, covered: 0, priority: "medium" },
+      { id: "email", name: "Professional Email Writing", lessons: 20, covered: 0, priority: "high" },
+      { id: "resume-skills", name: "Resume & LinkedIn Building", lessons: 20, covered: 0, priority: "critical" },
+    ],
+  },
   {
     id: "foundation",
     icon: <Globe size={18} />,
@@ -289,7 +304,7 @@ export default function FullStackRoadmap() {
           </span>
         </h2>
         <p className="mt-3 text-slate-400 text-sm max-w-xl mx-auto leading-relaxed">
-          42 subjects · ~3,510 lessons · Hindi + Hinglish + English · Kid &amp; Pro mode
+          48 subjects · ~3,750 lessons · Hindi + Hinglish + English · Kid &amp; Pro mode
         </p>
 
         {/* Global progress bar */}

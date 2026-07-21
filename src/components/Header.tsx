@@ -33,8 +33,6 @@ const Header = () => {
         <div className="hidden md:block">
           <FontSizeControlPill />
         </div>
-        
-        <ThemeToggle />
       </div>
 
     </header>

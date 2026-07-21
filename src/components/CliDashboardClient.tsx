@@ -13,14 +13,14 @@ import AdSenseBanner from "./AdSenseBanner";
 export default function CliDashboardClient() {
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
-  const [userEmail, setUserEmail] = useState<string>("anonymous");
+  const [userEmail, setUserEmail] = useState<string>("guest");
   const [completedLessons, setCompletedLessons] = useState<Set<number>>(new Set());
 
-  // Load progress on mount
+  // Load progress on mount — works without login (guest user)
   useEffect(() => {
     if (typeof window !== "undefined") {
       const saved = localStorage.getItem("nextsem_user");
-      let email = "anonymous";
+      let email = "guest";
       if (saved) {
         try {
           const userObj = JSON.parse(saved);

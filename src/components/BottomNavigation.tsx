@@ -133,26 +133,7 @@ const BottomNavigation = () => {
         </svg>
       )
     },
-    {
-      label: 'Theme',
-      path: '#',
-      isButton: true,
-      onClick: () => {
-        const nextTheme = theme === 'light' ? 'dark' : 'light';
-        setTheme(nextTheme);
-      },
-      icon: (
-        <div className="shrink-0">
-          {!mounted ? (
-            <Sun size={20} />
-          ) : theme === 'light' ? (
-            <Sun size={20} className="text-[#c1a648]" />
-          ) : (
-            <Moon size={20} className="text-slate-350" />
-          )}
-        </div>
-      )
-    },
+
 
     {
       label: 'Menu',
@@ -385,33 +366,7 @@ const BottomNavigation = () => {
                   </div>
                 </div>
 
-                {/* Theme Selector Grid */}
-                <div className="p-3 bg-slate-50 dark:bg-slate-900/40 rounded-2xl border border-gray-100 dark:border-slate-900 mt-2">
-                  <div className="flex items-center gap-2 text-slate-800 dark:text-slate-300 font-black text-[10px] uppercase tracking-wider mb-2">
-                    <Sun size={14} className="text-amber-500" />
-                    <span>Choose Theme</span>
-                  </div>
-                  <div className="grid grid-cols-2 gap-1.5">
-                    {[
-                      { name: 'light', label: '☀️ Light', color: 'hover:border-[#c1a648]/40 text-[#c1a648]' },
-                      { name: 'dark', label: '🌙 Dark', color: 'hover:border-[#c1a648]/40 text-slate-350' }
-                    ].map((t) => (
-                      <button
-                        key={t.name}
-                        onClick={() => {
-                          setTheme(t.name);
-                        }}
-                        className={`flex items-center justify-center p-2.5 rounded-xl bg-white dark:bg-slate-950 border transition-all active:scale-95 cursor-pointer text-xs font-extrabold ${
-                          theme === t.name 
-                            ? 'border-amber-500 bg-amber-500/5' 
-                            : 'border-gray-200/50 dark:border-slate-900 hover:bg-slate-100 dark:hover:bg-slate-900'
-                        } ${t.color}`}
-                      >
-                        {t.label}
-                      </button>
-                    ))}
-                  </div>
-                </div>
+
               </div>
 
               {/* SECTION: 🛠️ UTILITIES */}

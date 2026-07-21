@@ -154,12 +154,8 @@ export default function RootLayout({
             __html: `
               (function() {
                 try {
-                  var stored = localStorage.getItem('theme');
-                  if (stored) {
-                    document.documentElement.classList.add(stored);
-                  } else {
-                    document.documentElement.classList.add('dark');
-                  }
+                  document.documentElement.classList.add('dark');
+                  localStorage.setItem('theme', 'dark');
                 } catch (e) {}
               })();
               window.addEventListener('error', function(e) {
@@ -202,8 +198,9 @@ export default function RootLayout({
 
         <ThemeProvider
           attribute="class"
-          themes={["light", "dark"]}
+          themes={["dark"]}
           defaultTheme="dark"
+          forcedTheme="dark"
           enableSystem={false}
           disableTransitionOnChange
         >

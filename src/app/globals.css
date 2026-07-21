@@ -26,6 +26,13 @@
   --color-slate-800: var(--slate-800);
   --color-slate-900: var(--slate-900);
   --color-slate-950: var(--slate-950);
+
+  --color-theme-bg: var(--theme-bg);
+  --color-theme-surface: var(--theme-surface);
+  --color-theme-card: var(--theme-card);
+  --color-theme-text: var(--theme-text);
+  --color-theme-text-muted: var(--theme-text-muted);
+  --color-theme-border: var(--theme-border);
 }
 
 html,
