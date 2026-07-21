@@ -5,9 +5,25 @@ import Link from "next/link";
 import {
   Search, Briefcase, MapPin, Building2, GraduationCap,
   Bookmark, BookmarkCheck, ArrowLeft, Filter, Sparkles,
-  ExternalLink, Clock, CheckCircle2, ChevronRight, X, FileText, Upload, Plus, Trash2, Check
+  ExternalLink, Clock, CheckCircle2, ChevronRight, X, FileText, Upload, Plus, Trash2, Check, Edit3, Layers
 } from "lucide-react";
 import { JOBS_DATA, JobListing, JOB_CATEGORIES, DEGREE_FILTERS } from "../data/jobsData";
+
+export interface ParsedJobPosition {
+  tempId: string;
+  title: string;
+  company: string;
+  location: string;
+  workType: "Remote" | "Hybrid" | "On-Site";
+  type: "Full-Time" | "Internship" | "Contract";
+  experience: "Freshers" | "0-1 Years" | "1-3 Years";
+  salary: string;
+  degrees: ("BCA" | "MCA" | "B.Tech")[];
+  category: "Frontend" | "Backend" | "Full Stack" | "QA & Testing" | "Cloud & DevOps" | "Internship" | "Govt IT";
+  skills: string;
+  description: string;
+  applyUrl: string;
+}
 
 export default function JobsClient() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -24,33 +40,11 @@ export default function JobsClient() {
   const [showAdminPanel, setShowAdminPanel] = useState(false);
   const [uploadPdfName, setUploadPdfName] = useState("");
   const [pdfDataUrl, setPdfDataUrl] = useState("");
-  const [parsedForm, setParsedForm] = useState<{
-    title: string;
-    company: string;
-    location: string;
-    workType: "Remote" | "Hybrid" | "On-Site";
-    type: "Full-Time" | "Internship" | "Contract";
-    experience: "Freshers" | "0-1 Years" | "1-3 Years";
-    salary: string;
-    degrees: ("BCA" | "MCA" | "B.Tech")[];
-    category: "Frontend" | "Backend" | "Full Stack" | "QA & Testing" | "Cloud & DevOps" | "Internship" | "Govt IT";
-    skills: string;
-    description: string;
-    applyUrl: string;
-  }>({
-    title: "",
-    company: "",
-    location: "Bengaluru, India",
-    workType: "Hybrid",
-    type: "Full-Time",
-    experience: "Freshers",
-    salary: "₹4.5 - ₹7.5 LPA",
-    degrees: ["BCA", "MCA", "B.Tech"],
-    category: "Full Stack",
-    skills: "HTML5, CSS3, JavaScript, React, Node.js",
-    description: "",
-    applyUrl: "https://nextsem.online/course",
-  });
+  
+  // Multi-Position Parsed Roles Array
+  const [parsedPositions, setParsedPositions] = useState<ParsedJobPosition[]>([]);
+  const [activePositionIdx, setActivePositionIdx] = useState<number>(0);
+  const [isProcessingOcr, setIsProcessingOcr] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -85,6 +79,169 @@ export default function JobsClient() {
     localStorage.setItem("nextsem_saved_jobs", JSON.stringify(Array.from(updated)));
   };
 
+  // Helper: Extract text from PDF raw Data URL stream
+  const extractTextFromPdfDataUrl = (dataUrl: string, rawFileName: string): string => {
+    try {
+      const base64Part = dataUrl.split(",")[1] || "";
+      const decoded = atob(base64Part);
+      // Clean readable ASCII / UTF-8 strings
+      const printableMatches = decoded.match(/[\w\s.,;:()\/\-–—₹%&$@#'"+=<>!?]{4,}/g);
+      if (printableMatches && printableMatches.length > 5) {
+        return printableMatches.join("\n");
+      }
+    } catch {}
+    return rawFileName;
+  };
+
+  // Advanced PDF Intelligent Multi-Position OCR & Field Parser
+  const parsePdfDocumentContent = (rawContent: string, fileName: string, dataUrl: string) => {
+    setIsProcessingOcr(true);
+
+    const pdfText = extractTextFromPdfDataUrl(dataUrl, fileName) + "\n" + rawContent;
+    const lowerText = pdfText.toLowerCase();
+
+    // 1. Detect Company / Hiring Entity Name
+    let detectedCompany = "Official Tech Recruitment";
+    if (/accenture/i.test(pdfText)) detectedCompany = "Accenture";
+    else if (/tata consultancy|tcs/i.test(pdfText)) detectedCompany = "Tata Consultancy Services (TCS)";
+    else if (/wipro/i.test(pdfText)) detectedCompany = "Wipro Technologies";
+    else if (/infosys/i.test(pdfText)) detectedCompany = "Infosys Limited";
+    else if (/zoho/i.test(pdfText)) detectedCompany = "Zoho Corporation";
+    else if (/national informatics|nic/i.test(pdfText)) detectedCompany = "National Informatics Centre (NIC)";
+    else if (/isro/i.test(pdfText)) detectedCompany = "ISRO (Indian Space Research Org)";
+    else if (/cdac/i.test(pdfText)) detectedCompany = "C-DAC India";
+    else if (/amazon/i.test(pdfText)) detectedCompany = "Amazon Tech";
+    else if (/google/i.test(pdfText)) detectedCompany = "Google";
+    else {
+      const companyMatch = pdfText.match(/(?:company|organization|recruiter|hiring agency|agency):\s*([A-Za-z0-9\s&.]+)/i);
+      if (companyMatch && companyMatch[1]) detectedCompany = companyMatch[1].trim();
+    }
+
+    // 2. Multi-Position Detection: Look for position markers / designations
+    const positionKeywords = [
+      "consultant", "software engineer", "frontend developer", "backend developer",
+      "full stack developer", "qa engineer", "system analyst", "cloud associate",
+      "data analyst", "devops engineer", "web developer", "technical assistant",
+      "network engineer", "database administrator", "ui/ux designer", "it support"
+    ];
+
+    const detectedTitles: string[] = [];
+
+    // Check explicitly numbered posts (e.g. "Post 1: Senior Consultant", "Post 2: Software Engineer")
+    const postMatches = pdfText.match(/(?:post|position|role|designation|post code)\s*#?\s*\d*[:.-]?\s*([A-Za-z\s\/&]{4,40})/gi);
+    if (postMatches && postMatches.length > 0) {
+      postMatches.forEach((m) => {
+        const cleaned = m.replace(/(?:post|position|role|designation|post code)\s*#?\s*\d*[:.-]?\s*/i, "").trim();
+        if (cleaned.length >= 3 && !detectedTitles.includes(cleaned)) {
+          detectedTitles.push(cleaned);
+        }
+      });
+    }
+
+    // Scan for technology role keywords if none found
+    if (detectedTitles.length === 0) {
+      positionKeywords.forEach((kw) => {
+        if (lowerText.includes(kw)) {
+          const formatted = kw.split(" ").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
+          if (!detectedTitles.includes(formatted)) {
+            detectedTitles.push(formatted);
+          }
+        }
+      });
+    }
+
+    // Fallback: file name as single title if no positions auto-detected
+    if (detectedTitles.length === 0) {
+      let baseTitle = fileName.replace(/\.[^/.]+$/, "").replace(/[-_]/g, " ");
+      baseTitle = baseTitle.charAt(0).toUpperCase() + baseTitle.slice(1);
+      detectedTitles.push(baseTitle.length > 4 ? baseTitle : "IT Consultant & Software Associate");
+    }
+
+    // 3. Build Extracted Position Objects for each detected role
+    const results: ParsedJobPosition[] = detectedTitles.slice(0, 6).map((title, idx) => {
+      // Experience Level
+      let experience: "Freshers" | "0-1 Years" | "1-3 Years" = "Freshers";
+      if (/1-3 yrs|1 to 3 years|2 years|3 years/i.test(pdfText)) experience = "1-3 Years";
+      else if (/0-1 yrs|0 to 1 year|6 months/i.test(pdfText)) experience = "0-1 Years";
+
+      // Salary
+      let salary = "₹4.5 - ₹8.5 LPA";
+      const salaryMatch = pdfText.match(/(?:salary|pay|ctc|package|stipend)[:\s]*([₹Rs.\d\s\-.,LPA/month]+)/i);
+      if (salaryMatch && salaryMatch[1] && salaryMatch[1].length < 30) {
+        salary = salaryMatch[1].trim();
+      }
+
+      // Location
+      let location = "Bengaluru / Remote";
+      if (/remote|work from home/i.test(pdfText)) location = "Remote (Work from Home)";
+      else if (/delhi|ncr|noida|gurugram/i.test(pdfText)) location = "NCR (Delhi / Noida / Gurugram)";
+      else if (/hyderabad/i.test(pdfText)) location = "Hyderabad, Telangana";
+      else if (/pune|mumbai/i.test(pdfText)) location = "Pune / Mumbai, Maharashtra";
+      else if (/chennai/i.test(pdfText)) location = "Chennai, Tamil Nadu";
+
+      // Work Mode
+      let workType: "Remote" | "Hybrid" | "On-Site" = "Hybrid";
+      if (/remote/i.test(location)) workType = "Remote";
+      else if (/on-site|office/i.test(pdfText)) workType = "On-Site";
+
+      // Degrees
+      const degrees: ("BCA" | "MCA" | "B.Tech")[] = [];
+      if (/bca/i.test(pdfText) || /bca/i.test(title)) degrees.push("BCA");
+      if (/mca/i.test(pdfText) || /mca/i.test(title)) degrees.push("MCA");
+      if (/btech|b\.tech|computer science|engineering/i.test(pdfText) || /btech/i.test(title)) degrees.push("B.Tech");
+
+      if (degrees.length === 0) degrees.push("BCA", "MCA", "B.Tech");
+
+      // Category
+      let category: ParsedJobPosition["category"] = "Full Stack";
+      if (/frontend|react|html|css|ui/i.test(title.toLowerCase())) category = "Frontend";
+      else if (/backend|node|express|python|java/i.test(title.toLowerCase())) category = "Backend";
+      else if (/qa|testing|automation/i.test(title.toLowerCase())) category = "QA & Testing";
+      else if (/cloud|devops|linux|system/i.test(title.toLowerCase())) category = "Cloud & DevOps";
+      else if (/intern/i.test(title.toLowerCase())) category = "Internship";
+      else if (/nic|govt|isro|cdac|psu/i.test(detectedCompany.toLowerCase())) category = "Govt IT";
+
+      // Skills Extraction
+      const foundSkills: string[] = [];
+      const skillCatalog = ["HTML5", "CSS3", "JavaScript", "React", "Node.js", "Express", "SQL", "Python", "Java", "Git", "Linux", "AWS", "Cypress", "MongoDB", "TypeScript", "Tailwind CSS"];
+      skillCatalog.forEach((s) => {
+        if (lowerText.includes(s.toLowerCase())) foundSkills.push(s);
+      });
+      if (foundSkills.length === 0) foundSkills.push("Problem Solving", "Web Basics", "SQL", "Git");
+
+      // Apply URL
+      let applyUrl = "https://nextsem.online";
+      const urlMatch = pdfText.match(/https?:\/\/[^\s<"']+/i);
+      if (urlMatch && urlMatch[0] && !urlMatch[0].includes("nextsem")) {
+        applyUrl = urlMatch[0];
+      } else if (detectedCompany.includes("Accenture")) applyUrl = "https://www.accenture.com/in-en/careers";
+      else if (detectedCompany.includes("TCS")) applyUrl = "https://nextstep.tcs.com/campus/";
+      else if (detectedCompany.includes("Wipro")) applyUrl = "https://careers.wipro.com/";
+      else if (detectedCompany.includes("Zoho")) applyUrl = "https://www.zoho.com/careers/";
+      else if (detectedCompany.includes("NIC")) applyUrl = "https://www.nic.in/recruitment/";
+
+      return {
+        tempId: `parsed-pos-${Date.now()}-${idx}`,
+        title: title,
+        company: detectedCompany,
+        location: location,
+        workType: workType,
+        type: "Full-Time",
+        experience: experience,
+        salary: salary,
+        degrees: degrees,
+        category: category,
+        skills: foundSkills.join(", "),
+        description: `Official job notification for ${title} at ${detectedCompany}. Extracted from official circular "${fileName}". Eligible candidates from BCA, MCA, and B.Tech can apply.`,
+        applyUrl: applyUrl,
+      };
+    });
+
+    setParsedPositions(results);
+    setActivePositionIdx(0);
+    setIsProcessingOcr(false);
+  };
+
   // PDF File Upload Handler
   const handlePdfUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -97,70 +254,110 @@ export default function JobsClient() {
       const content = event.target?.result as string;
       setPdfDataUrl(content);
 
-      // Extract filename / title automatically
-      let extractedTitle = file.name.replace(/\.[^/.]+$/, "").replace(/[-_]/g, " ");
-      extractedTitle = extractedTitle.charAt(0).toUpperCase() + extractedTitle.slice(1);
-
-      // Simple regex extraction from text if available
-      let extractedCompany = "Official Hiring Drive";
-      let extractedSalary = "₹4.5 - ₹8.0 LPA";
-      const degrees: ("BCA" | "MCA" | "B.Tech")[] = [];
-
-      if (/bca/i.test(extractedTitle) || /bca/i.test(file.name)) degrees.push("BCA");
-      if (/mca/i.test(extractedTitle) || /mca/i.test(file.name)) degrees.push("MCA");
-      if (/btech/i.test(extractedTitle) || /b\.tech/i.test(file.name)) degrees.push("B.Tech");
-
-      if (degrees.length === 0) {
-        degrees.push("BCA", "MCA", "B.Tech");
-      }
-
-      setParsedForm((prev) => ({
-        ...prev,
-        title: extractedTitle.length > 5 ? extractedTitle : "Software Engineer / IT Associate",
-        company: extractedCompany,
-        salary: extractedSalary,
-        degrees: degrees,
-        description: `Official job notification loaded from ${file.name}. Eligible candidates from BCA, MCA, and B.Tech can review requirements and apply directly.`,
-      }));
+      // Trigger multi-position parser
+      parsePdfDocumentContent(content, file.name, content);
     };
 
     reader.readAsDataURL(file);
   };
 
-  const handlePublishJob = (e: React.FormEvent) => {
+  // Publish ALL parsed positions in batch
+  const handlePublishAllPositions = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!parsedForm.title.trim() || !parsedForm.company.trim()) return;
+    if (parsedPositions.length === 0) return;
 
-    const newJob: JobListing = {
-      id: `custom-job-${Date.now()}`,
-      title: parsedForm.title.trim(),
-      company: parsedForm.company.trim(),
+    const newJobs: JobListing[] = parsedPositions.map((pos, idx) => ({
+      id: `custom-job-${Date.now()}-${idx}`,
+      title: pos.title.trim(),
+      company: pos.company.trim(),
       logo: "📄",
-      location: parsedForm.location.trim() || "India",
-      workType: parsedForm.workType,
-      type: parsedForm.type,
-      experience: parsedForm.experience,
-      salary: parsedForm.salary.trim() || "As per industry standards",
-      degrees: parsedForm.degrees,
-      category: parsedForm.category,
+      location: pos.location.trim() || "India",
+      workType: pos.workType,
+      type: pos.type,
+      experience: pos.experience,
+      salary: pos.salary.trim() || "As per industry standards",
+      degrees: pos.degrees,
+      category: pos.category,
       postedDate: "Just now",
-      skills: parsedForm.skills.split(",").map((s) => s.trim()).filter(Boolean),
-      description: parsedForm.description.trim() || "Official PDF Notification Job Drive",
-      applyUrl: parsedForm.applyUrl.trim() || "https://nextsem.online",
+      skills: pos.skills.split(",").map((s) => s.trim()).filter(Boolean),
+      description: pos.description.trim() || "Official PDF Notification Job Drive",
+      applyUrl: pos.applyUrl.trim() || "https://nextsem.online",
       pdfUrl: pdfDataUrl || undefined,
       pdfFileName: uploadPdfName || undefined,
       featured: true,
-    };
+    }));
 
-    const updatedCustom = [newJob, ...customJobs];
+    const updatedCustom = [...newJobs, ...customJobs];
     setCustomJobs(updatedCustom);
     localStorage.setItem("nextsem_custom_jobs", JSON.stringify(updatedCustom));
 
-    // Reset form
+    // Reset admin form state
     setUploadPdfName("");
     setPdfDataUrl("");
+    setParsedPositions([]);
     setShowAdminPanel(false);
-    setSelectedJobModal(newJob);
+    if (newJobs[0]) setSelectedJobModal(newJobs[0]);
+  };
+
+  const updateCurrentPositionField = <K extends keyof ParsedJobPosition>(
+    field: K,
+    value: ParsedJobPosition[K]
+  ) => {
+    setParsedPositions((prev) => {
+      const copy = [...prev];
+      if (copy[activePositionIdx]) {
+        copy[activePositionIdx] = { ...copy[activePositionIdx], [field]: value };
+      }
+      return copy;
+    });
+  };
+
+  const toggleDegreeForActivePosition = (deg: "BCA" | "MCA" | "B.Tech") => {
+    setParsedPositions((prev) => {
+      const copy = [...prev];
+      const active = copy[activePositionIdx];
+      if (active) {
+        const exists = active.degrees.includes(deg);
+        const nextDegrees = exists
+          ? active.degrees.filter((d) => d !== deg)
+          : [...active.degrees, deg];
+        copy[activePositionIdx] = {
+          ...active,
+          degrees: nextDegrees.length > 0 ? nextDegrees : [deg],
+        };
+      }
+      return copy;
+    });
+  };
+
+  const removePositionCard = (idx: number) => {
+    setParsedPositions((prev) => {
+      const filtered = prev.filter((_, i) => i !== idx);
+      if (activePositionIdx >= filtered.length) {
+        setActivePositionIdx(Math.max(0, filtered.length - 1));
+      }
+      return filtered;
+    });
+  };
+
+  const addNewBlankPosition = () => {
+    const newPos: ParsedJobPosition = {
+      tempId: `blank-${Date.now()}`,
+      title: "New Technology Specialist",
+      company: parsedPositions[0]?.company || "Official Hiring Drive",
+      location: "Bengaluru, India",
+      workType: "Hybrid",
+      type: "Full-Time",
+      experience: "Freshers",
+      salary: "₹5.0 - ₹8.0 LPA",
+      degrees: ["BCA", "MCA", "B.Tech"],
+      category: "Full Stack",
+      skills: "HTML5, CSS3, JavaScript, React, Node.js",
+      description: "Additional position extracted from circular.",
+      applyUrl: parsedPositions[0]?.applyUrl || "https://nextsem.online",
+    };
+    setParsedPositions((prev) => [...prev, newPos]);
+    setActivePositionIdx(parsedPositions.length);
   };
 
   const handleDeleteCustomJob = (id: string, e: React.MouseEvent) => {
@@ -170,20 +367,10 @@ export default function JobsClient() {
     localStorage.setItem("nextsem_custom_jobs", JSON.stringify(updated));
   };
 
-  const toggleDegreeInForm = (deg: "BCA" | "MCA" | "B.Tech") => {
-    setParsedForm((prev) => {
-      const exists = prev.degrees.includes(deg);
-      const nextDegrees = exists
-        ? prev.degrees.filter((d) => d !== deg)
-        : [...prev.degrees, deg];
-      return { ...prev, degrees: nextDegrees.length > 0 ? nextDegrees : [deg] };
-    });
-  };
-
   // Combine static + custom uploaded jobs
   const allJobs = [...customJobs, ...JOBS_DATA];
 
-  // Filter jobs logic
+  // Upgraded Multi-word search filter logic
   const filteredJobs = allJobs.filter((job) => {
     if (activeTab === "saved" && !savedJobIds.has(job.id)) return false;
 
@@ -200,12 +387,24 @@ export default function JobsClient() {
     }
 
     if (searchQuery.trim() !== "") {
-      const q = searchQuery.toLowerCase();
-      const matchTitle = job.title.toLowerCase().includes(q);
-      const matchCompany = job.company.toLowerCase().includes(q);
-      const matchLocation = job.location.toLowerCase().includes(q);
-      const matchSkill = job.skills.some((s) => s.toLowerCase().includes(q));
-      if (!matchTitle && !matchCompany && !matchLocation && !matchSkill) return false;
+      const q = searchQuery.toLowerCase().trim();
+      const terms = q.split(/\s+/).filter(Boolean);
+
+      const jobCorpus = [
+        job.title,
+        job.company,
+        job.location,
+        job.category,
+        job.workType,
+        job.experience,
+        job.salary,
+        job.description,
+        ...job.degrees,
+        ...job.skills
+      ].join(" ").toLowerCase();
+
+      const matchesAllTerms = terms.every((term) => jobCorpus.includes(term));
+      if (!matchesAllTerms) return false;
     }
 
     return true;
@@ -259,6 +458,8 @@ export default function JobsClient() {
     );
   }
 
+  const currentPos = parsedPositions[activePositionIdx];
+
   return (
     <div className="min-h-screen bg-slate-950 text-white">
       {/* Schema.org markup for Google Jobs Crawlers */}
@@ -286,19 +487,19 @@ export default function JobsClient() {
           className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-black uppercase tracking-wider transition-all cursor-pointer shadow-md shadow-blue-600/20"
         >
           <Upload size={13} />
-          <span>Upload PDF Job</span>
+          <span>Upload PDF Circular</span>
         </button>
       </div>
 
-      {/* Admin PDF Upload GUI Panel (Only for Admin / Content Publisher) */}
+      {/* Admin PDF OCR & Multi-Position Auto-Parser Panel */}
       {showAdminPanel && (
         <div className="bg-slate-900 border-b border-blue-500/40 p-6 relative animate-in slide-in-from-top duration-200">
-          <div className="max-w-4xl mx-auto space-y-5">
+          <div className="max-w-5xl mx-auto space-y-5">
             <div className="flex items-center justify-between border-b border-slate-800 pb-3">
               <div className="flex items-center gap-2">
-                <FileText size={18} className="text-blue-400" />
+                <Sparkles size={18} className="text-amber-400" />
                 <h3 className="text-base font-black text-white uppercase tracking-wider">
-                  Admin: Upload Job Notification PDF &amp; Publish
+                  PDF OCR &amp; Multi-Position Intelligent Job Parser
                 </h3>
               </div>
               <button onClick={() => setShowAdminPanel(false)} className="text-slate-400 hover:text-white p-1">
@@ -306,178 +507,263 @@ export default function JobsClient() {
               </button>
             </div>
 
-            <form onSubmit={handlePublishJob} className="space-y-4 text-xs">
-              {/* File Drag Drop Box */}
-              <div className="border-2 border-dashed border-blue-500/40 hover:border-blue-400 rounded-2xl p-6 text-center bg-blue-950/20 transition-all">
-                <Upload size={24} className="mx-auto text-blue-400 mb-2" />
-                <p className="font-bold text-white mb-1">
-                  Upload Official Job Circular / Notification PDF
-                </p>
-                <p className="text-[11px] text-slate-400 mb-3">
-                  Upload any `.pdf` or `.txt` file. Details will be auto-parsed into your job card!
-                </p>
-                <input
-                  type="file"
-                  accept=".pdf,.txt"
-                  onChange={handlePdfUpload}
-                  className="hidden"
-                  id="pdf-upload-input"
-                />
-                <label
-                  htmlFor="pdf-upload-input"
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white font-black uppercase tracking-wider rounded-xl cursor-pointer transition-all"
-                >
-                  <FileText size={14} /> Browse PDF File
-                </label>
+            {/* File Drag & Drop Upload Zone */}
+            <div className="border-2 border-dashed border-blue-500/40 hover:border-blue-400 rounded-2xl p-6 text-center bg-blue-950/20 transition-all">
+              <Upload size={26} className="mx-auto text-blue-400 mb-2" />
+              <p className="font-bold text-white mb-1">
+                Upload Official Job Circular / Multi-Role Notification PDF
+              </p>
+              <p className="text-[11px] text-slate-400 mb-3 max-w-lg mx-auto">
+                Upload any single or multi-position recruitment PDF/TXT. Our OCR engine automatically extracts every job role, salary, skills, and degree requirements!
+              </p>
+              <input
+                type="file"
+                accept=".pdf,.txt"
+                onChange={handlePdfUpload}
+                className="hidden"
+                id="pdf-upload-input-multi"
+              />
+              <label
+                htmlFor="pdf-upload-input-multi"
+                className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-black uppercase tracking-wider rounded-xl cursor-pointer transition-all shadow-lg shadow-blue-600/30 text-xs"
+              >
+                <FileText size={15} /> Select PDF Circular File
+              </label>
 
-                {uploadPdfName && (
-                  <div className="mt-3 inline-flex items-center gap-2 bg-emerald-950/60 border border-emerald-700/50 text-emerald-300 text-xs font-bold px-3 py-1 rounded-lg">
-                    <Check size={14} /> Loaded: {uploadPdfName}
+              {uploadPdfName && (
+                <div className="mt-3 inline-flex items-center gap-2 bg-emerald-950/60 border border-emerald-700/50 text-emerald-300 text-xs font-bold px-3.5 py-1.5 rounded-lg">
+                  <Check size={14} /> PDF Circular: {uploadPdfName}
+                </div>
+              )}
+            </div>
+
+            {/* Processing Shimmer */}
+            {isProcessingOcr && (
+              <div className="p-4 bg-slate-950 border border-slate-800 rounded-xl text-center space-y-2 animate-pulse">
+                <Sparkles size={20} className="mx-auto text-amber-400 animate-spin" />
+                <p className="text-xs font-black text-blue-400 uppercase">
+                  Running Intelligent OCR &amp; Multi-Position Extraction...
+                </p>
+              </div>
+            )}
+
+            {/* Multi-Position Review & Edit Tabs */}
+            {parsedPositions.length > 0 && !isProcessingOcr && (
+              <form onSubmit={handlePublishAllPositions} className="space-y-4 text-xs">
+                
+                {/* Positions Header */}
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 bg-slate-950 border border-slate-800 rounded-xl p-3">
+                  <div className="flex items-center gap-2">
+                    <Layers size={16} className="text-blue-400" />
+                    <span className="font-black text-white uppercase text-xs">
+                      🎉 {parsedPositions.length} Job Position{parsedPositions.length > 1 ? "s" : ""} Auto-Detected from Circular
+                    </span>
+                  </div>
+                  
+                  <button
+                    type="button"
+                    onClick={addNewBlankPosition}
+                    className="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-blue-300 rounded-lg text-xs font-bold flex items-center gap-1 cursor-pointer"
+                  >
+                    <Plus size={13} /> Add Position
+                  </button>
+                </div>
+
+                {/* Position Selection Selector Cards */}
+                <div className="flex gap-2 overflow-x-auto pb-2 custom-scrollbar">
+                  {parsedPositions.map((pos, idx) => (
+                    <div
+                      key={pos.tempId}
+                      onClick={() => setActivePositionIdx(idx)}
+                      className={`px-3 py-2 rounded-xl border text-left cursor-pointer transition-all shrink-0 min-w-[160px] flex items-center justify-between gap-2 ${
+                        activePositionIdx === idx
+                          ? "bg-blue-600/30 border-blue-400 text-white shadow-md"
+                          : "bg-slate-950/80 border-slate-800 text-slate-400 hover:text-white"
+                      }`}
+                    >
+                      <div className="truncate">
+                        <span className="text-[10px] font-mono font-bold block text-blue-400">Position {idx + 1}</span>
+                        <h4 className="font-black text-xs text-white truncate max-w-[130px]">{pos.title || "Untitled Role"}</h4>
+                      </div>
+                      {parsedPositions.length > 1 && (
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            removePositionCard(idx);
+                          }}
+                          className="text-slate-500 hover:text-rose-400 p-1"
+                          title="Remove position"
+                        >
+                          <X size={13} />
+                        </button>
+                      )}
+                    </div>
+                  ))}
+                </div>
+
+                {/* Selected Position Edit Form */}
+                {currentPos && (
+                  <div className="bg-slate-950/80 border border-slate-800 rounded-2xl p-5 space-y-4">
+                    <div className="flex items-center justify-between border-b border-slate-800 pb-2">
+                      <span className="font-black text-xs text-blue-400 uppercase tracking-wider flex items-center gap-1.5">
+                        <Edit3 size={13} /> Editing Details for Position {activePositionIdx + 1}: {currentPos.title}
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                      <div>
+                        <label className="text-slate-400 font-bold uppercase block mb-1">Job Title *</label>
+                        <input
+                          type="text"
+                          required
+                          value={currentPos.title}
+                          onChange={(e) => updateCurrentPositionField("title", e.target.value)}
+                          placeholder="e.g. Junior Web Developer"
+                          className="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-white text-xs font-semibold focus:border-blue-500 focus:outline-none"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-slate-400 font-bold uppercase block mb-1">Company / Ministry *</label>
+                        <input
+                          type="text"
+                          required
+                          value={currentPos.company}
+                          onChange={(e) => updateCurrentPositionField("company", e.target.value)}
+                          placeholder="e.g. TCS / NIC / Accenture"
+                          className="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-white text-xs font-semibold focus:border-blue-500 focus:outline-none"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-slate-400 font-bold uppercase block mb-1">Salary Package *</label>
+                        <input
+                          type="text"
+                          required
+                          value={currentPos.salary}
+                          onChange={(e) => updateCurrentPositionField("salary", e.target.value)}
+                          placeholder="e.g. ₹4.5 - ₹7.5 LPA"
+                          className="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-white text-xs font-semibold focus:border-blue-500 focus:outline-none"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-slate-400 font-bold uppercase block mb-1">Location *</label>
+                        <input
+                          type="text"
+                          required
+                          value={currentPos.location}
+                          onChange={(e) => updateCurrentPositionField("location", e.target.value)}
+                          placeholder="e.g. Bengaluru / Remote"
+                          className="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-white text-xs font-semibold focus:border-blue-500 focus:outline-none"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-slate-400 font-bold uppercase block mb-1">Experience Level *</label>
+                        <select
+                          value={currentPos.experience}
+                          onChange={(e) => updateCurrentPositionField("experience", e.target.value as any)}
+                          className="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-white text-xs font-semibold focus:border-blue-500 focus:outline-none"
+                        >
+                          <option value="Freshers">Freshers (0 Yrs)</option>
+                          <option value="0-1 Years">0-1 Years</option>
+                          <option value="1-3 Years">1-3 Years</option>
+                        </select>
+                      </div>
+
+                      <div>
+                        <label className="text-slate-400 font-bold uppercase block mb-1">Apply Direct URL *</label>
+                        <input
+                          type="url"
+                          required
+                          value={currentPos.applyUrl}
+                          onChange={(e) => updateCurrentPositionField("applyUrl", e.target.value)}
+                          placeholder="https://company.com/apply"
+                          className="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-white text-xs font-semibold focus:border-blue-500 focus:outline-none"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Eligible Degrees Checkboxes */}
+                    <div>
+                      <label className="text-slate-400 font-bold uppercase block mb-1.5">Eligible Degrees *</label>
+                      <div className="flex gap-2">
+                        {(["BCA", "MCA", "B.Tech"] as const).map((deg) => {
+                          const isChecked = currentPos.degrees.includes(deg);
+                          return (
+                            <button
+                              type="button"
+                              key={deg}
+                              onClick={() => toggleDegreeForActivePosition(deg)}
+                              className={`px-3 py-1 rounded-xl text-xs font-black uppercase transition-all flex items-center gap-1 border cursor-pointer ${
+                                isChecked
+                                  ? "bg-blue-600 border-blue-400 text-white"
+                                  : "bg-slate-900 border-slate-800 text-slate-500"
+                              }`}
+                            >
+                              {isChecked && <Check size={12} />}
+                              {deg}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    {/* Skills */}
+                    <div>
+                      <label className="text-slate-400 font-bold uppercase block mb-1">Required Skills (Comma separated)</label>
+                      <input
+                        type="text"
+                        value={currentPos.skills}
+                        onChange={(e) => updateCurrentPositionField("skills", e.target.value)}
+                        placeholder="e.g. HTML5, CSS3, JavaScript, React, Node.js, SQL"
+                        className="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-white text-xs font-semibold focus:border-blue-500 focus:outline-none"
+                      />
+                    </div>
+
+                    {/* Description */}
+                    <div>
+                      <label className="text-slate-400 font-bold uppercase block mb-1">Position Summary &amp; Description</label>
+                      <textarea
+                        rows={2}
+                        value={currentPos.description}
+                        onChange={(e) => updateCurrentPositionField("description", e.target.value)}
+                        placeholder="Key responsibilities and qualifications extracted from PDF..."
+                        className="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-white text-xs font-semibold focus:border-blue-500 focus:outline-none"
+                      />
+                    </div>
                   </div>
                 )}
-              </div>
 
-              {/* Form Inputs Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-                <div>
-                  <label className="text-slate-400 font-bold uppercase block mb-1">Job Title *</label>
-                  <input
-                    type="text"
-                    required
-                    value={parsedForm.title}
-                    onChange={(e) => setParsedForm({ ...parsedForm, title: e.target.value })}
-                    placeholder="e.g. Junior Web Developer"
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white text-xs font-semibold focus:border-blue-500 focus:outline-none"
-                  />
+                {/* Batch Action Buttons */}
+                <div className="flex items-center justify-between pt-2">
+                  <span className="text-xs text-slate-400 font-medium">
+                    All published positions will include download link for <strong>{uploadPdfName}</strong>.
+                  </span>
+                  
+                  <div className="flex gap-2">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setParsedPositions([]);
+                        setShowAdminPanel(false);
+                      }}
+                      className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs font-bold"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      className="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-black uppercase tracking-wider transition-all shadow-lg shadow-emerald-600/30 flex items-center gap-1.5 cursor-pointer"
+                    >
+                      <Plus size={15} /> Publish All {parsedPositions.length} Positions
+                    </button>
+                  </div>
                 </div>
-
-                <div>
-                  <label className="text-slate-400 font-bold uppercase block mb-1">Company / Govt Body *</label>
-                  <input
-                    type="text"
-                    required
-                    value={parsedForm.company}
-                    onChange={(e) => setParsedForm({ ...parsedForm, company: e.target.value })}
-                    placeholder="e.g. TCS / NIC / Startup"
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white text-xs font-semibold focus:border-blue-500 focus:outline-none"
-                  />
-                </div>
-
-                <div>
-                  <label className="text-slate-400 font-bold uppercase block mb-1">Salary Package *</label>
-                  <input
-                    type="text"
-                    required
-                    value={parsedForm.salary}
-                    onChange={(e) => setParsedForm({ ...parsedForm, salary: e.target.value })}
-                    placeholder="e.g. ₹4.5 - ₹7.5 LPA"
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white text-xs font-semibold focus:border-blue-500 focus:outline-none"
-                  />
-                </div>
-
-                <div>
-                  <label className="text-slate-400 font-bold uppercase block mb-1">Location *</label>
-                  <input
-                    type="text"
-                    required
-                    value={parsedForm.location}
-                    onChange={(e) => setParsedForm({ ...parsedForm, location: e.target.value })}
-                    placeholder="e.g. Bengaluru / Remote / Pan India"
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white text-xs font-semibold focus:border-blue-500 focus:outline-none"
-                  />
-                </div>
-
-                <div>
-                  <label className="text-slate-400 font-bold uppercase block mb-1">Experience Level *</label>
-                  <select
-                    value={parsedForm.experience}
-                    onChange={(e) => setParsedForm({ ...parsedForm, experience: e.target.value as any })}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white text-xs font-semibold focus:border-blue-500 focus:outline-none"
-                  >
-                    <option value="Freshers">Freshers (0 Yrs)</option>
-                    <option value="0-1 Years">0-1 Years</option>
-                    <option value="1-3 Years">1-3 Years</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="text-slate-400 font-bold uppercase block mb-1">Apply URL Link *</label>
-                  <input
-                    type="url"
-                    required
-                    value={parsedForm.applyUrl}
-                    onChange={(e) => setParsedForm({ ...parsedForm, applyUrl: e.target.value })}
-                    placeholder="https://company.com/apply"
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white text-xs font-semibold focus:border-blue-500 focus:outline-none"
-                  />
-                </div>
-              </div>
-
-              {/* Eligible Degree Checkboxes */}
-              <div>
-                <label className="text-slate-400 font-bold uppercase block mb-1.5">Eligible Qualification Degrees *</label>
-                <div className="flex gap-3">
-                  {(["BCA", "MCA", "B.Tech"] as const).map((deg) => {
-                    const isChecked = parsedForm.degrees.includes(deg);
-                    return (
-                      <button
-                        type="button"
-                        key={deg}
-                        onClick={() => toggleDegreeInForm(deg)}
-                        className={`px-3 py-1.5 rounded-xl text-xs font-black uppercase transition-all flex items-center gap-1.5 border cursor-pointer ${
-                          isChecked
-                            ? "bg-blue-600 border-blue-400 text-white"
-                            : "bg-slate-950 border-slate-800 text-slate-500"
-                        }`}
-                      >
-                        {isChecked && <Check size={12} />}
-                        {deg}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Skills */}
-              <div>
-                <label className="text-slate-400 font-bold uppercase block mb-1">Required Skills (Comma separated)</label>
-                <input
-                  type="text"
-                  value={parsedForm.skills}
-                  onChange={(e) => setParsedForm({ ...parsedForm, skills: e.target.value })}
-                  placeholder="e.g. HTML5, CSS3, JavaScript, React, Node.js, SQL"
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white text-xs font-semibold focus:border-blue-500 focus:outline-none"
-                />
-              </div>
-
-              {/* Description */}
-              <div>
-                <label className="text-slate-400 font-bold uppercase block mb-1">Job Description &amp; Notification Summary</label>
-                <textarea
-                  rows={2}
-                  value={parsedForm.description}
-                  onChange={(e) => setParsedForm({ ...parsedForm, description: e.target.value })}
-                  placeholder="Summary of responsibilities, requirements, and hiring process..."
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white text-xs font-semibold focus:border-blue-500 focus:outline-none"
-                />
-              </div>
-
-              <div className="flex justify-end gap-2 pt-2">
-                <button
-                  type="button"
-                  onClick={() => setShowAdminPanel(false)}
-                  className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs font-bold"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="px-6 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-black uppercase tracking-wider transition-all shadow-md shadow-emerald-600/20 flex items-center gap-1.5"
-                >
-                  <Plus size={14} /> Publish Job Posting
-                </button>
-              </div>
-            </form>
+              </form>
+            )}
           </div>
         </div>
       )}

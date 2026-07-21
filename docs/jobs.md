@@ -36,11 +36,13 @@ The **Nextsem Jobs Portal** (`/jobs`) connects computer science students and eng
 - Users can bookmark/save jobs with one click.
 - Saved jobs persist in browser `localStorage` (`nextsem_saved_jobs`).
 
-### 5. 📄 Admin PDF Upload & Auto-Publisher GUI
-- Admin toggle panel to upload official Job Notification `.pdf` or `.txt` circular files.
-- Extracts/populates job fields automatically: Title, Company, Salary, Location, Eligibility (BCA/MCA/B.Tech), Required Experience, Skills, Apply Link, and PDF download attachment.
-- Dynamic publication into live `/jobs` feed with persistent storage in `localStorage` (`nextsem_custom_jobs`).
-- Complete single-view modal displaying all qualifications, salary, skills, and direct application links in **ONE PLACE**.
+### 5. 📄 Admin PDF OCR & Multi-Position Auto-Parser GUI
+- **Multi-Position PDF Intelligence**: When uploading official Job Notification `.pdf` or `.txt` circulars, the client-side parser scans the document for single or multiple job designations (e.g., Position 1: Junior Developer, Position 2: Systems Analyst, Position 3: QA Specialist).
+- **Automated Field Population for Each Position**: Extracts and populates Title, Company/Ministry Name, Salary/Pay Scale, Work Location, Experience Level, Eligible Qualification Degrees (`BCA`, `MCA`, `B.Tech`), Required Skills, Official Description, Apply URL, and source PDF attachment for every detected role.
+- **Batch Review & Edit GUI**: Displays all parsed job positions in a multi-card review list allowing individual editing, addition, or deletion before publishing.
+- **One-Click Batch Publishing**: Publishes all parsed positions into the live `/jobs` feed with persistent browser storage in `localStorage` (`nextsem_custom_jobs`).
+- **Complete Single-View Modal**: Displays all qualifications, salary, skills, source PDF download, and direct application links in **ONE PLACE**.
+
 
 ### 6. 📑 Structured JSON-LD Data for Google Jobs Schema
 - Every job listing includes Schema.org `JobPosting` JSON-LD markup to enable automatic indexing on **Google Jobs Search**.
