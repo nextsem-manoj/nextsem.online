@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ChevronLeft, ChevronRight, CheckCircle2, ArrowLeft, X, Sparkles } from "lucide-react";
+import { ChevronLeft, ChevronRight, CheckCircle2, ArrowLeft, X, Sparkles, Bookmark } from "lucide-react";
 import { mswordLessons, MsWordLesson } from "../data/mswordLessonsData";
 import AdSenseBanner from "./AdSenseBanner";
 
@@ -31,6 +31,41 @@ export default function MsWordLessonClient({ lesson }: Props) {
   const currentIndex = mswordLessons.findIndex(l => l.id === lesson.id);
   const prevLesson = currentIndex > 0 ? mswordLessons[currentIndex - 1] : null;
   const nextLesson = currentIndex < mswordLessons.length - 1 ? mswordLessons[currentIndex + 1] : null;
+
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [showFsHint, setShowFsHint] = useState(false);
+  const lessonContainerRef = useRef<HTMLDivElement>(null);
+
+  const enterFullscreen = useCallback(async () => {
+    const el = lessonContainerRef.current || document.documentElement;
+    try {
+      if (el.requestFullscreen) await el.requestFullscreen();
+      else if ((el as any).webkitRequestFullscreen) await (el as any).webkitRequestFullscreen();
+      setIsFullscreen(true);
+      setShowFsHint(true);
+      setTimeout(() => setShowFsHint(false), 2500);
+    } catch (_) {}
+  }, []);
+
+  const exitFullscreen = useCallback(async () => {
+    try {
+      if (document.fullscreenElement) await document.exitFullscreen();
+    } catch (_) {}
+    setIsFullscreen(false);
+  }, []);
+
+  useEffect(() => {
+    const onFsChange = () => setIsFullscreen(!!document.fullscreenElement);
+    document.addEventListener("fullscreenchange", onFsChange);
+    return () => document.removeEventListener("fullscreenchange", onFsChange);
+  }, []);
+
+  useEffect(() => {
+    if (mounted) {
+      const t = setTimeout(() => enterFullscreen(), 600);
+      return () => clearTimeout(t);
+    }
+  }, [mounted, enterFullscreen]);
 
   useEffect(() => {
     setMounted(true);
@@ -213,6 +248,7 @@ export default function MsWordLessonClient({ lesson }: Props) {
       {/* JSON-LD for SEO Crawlers */}
       <script
         type="application/ld+json"
+        suppressHydrationWarning
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
@@ -235,20 +271,33 @@ export default function MsWordLessonClient({ lesson }: Props) {
       <div className="max-w-3xl mx-auto px-4 py-6 space-y-6">
         <AdSenseBanner />
 
-        {/* Lesson header */}
-        <div className="border-b border-blue-900/40 pb-4">
-          <div className="flex items-center gap-2 flex-wrap mb-1.5">
-            <span className="text-[9px] font-black uppercase tracking-wider text-blue-300 bg-blue-950/60 border border-blue-800/60 px-2 py-0.5 rounded-md">
-              Phase 0 · {lesson.unit}
-            </span>
-            <span className="text-[9px] font-black uppercase tracking-wider text-amber-300 bg-amber-950/60 border border-amber-800/60 px-2 py-0.5 rounded-md">
-              Career Skills
-            </span>
+        {/* Nextsem Academy Exact Header (Image 69 & 92 Pattern) */}
+        <div className="space-y-4 pb-4 border-b border-slate-800/60 pt-2">
+          {/* Title Row with Bookmark Icon */}
+          <div className="flex items-center justify-between gap-4">
+            <h1 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
+              MS Word {lesson.title.replace(/^(Lesson\s+\d+:|Learn MS Word|Introduction to|What is|How)\s*/i, '').trim()}
+            </h1>
+
+            <button
+              onClick={() => {
+                const saved = JSON.parse(localStorage.getItem("nextsem_msword_bookmarks") || "[]");
+                let updated;
+                if (saved.includes(lesson.id)) {
+                  updated = saved.filter((id: number) => id !== lesson.id);
+                } else {
+                  updated = [...saved, lesson.id];
+                }
+                localStorage.setItem("nextsem_msword_bookmarks", JSON.stringify(updated));
+                setIsCompleted(!isCompleted);
+              }}
+              className="p-2 rounded-lg border border-slate-800 bg-slate-900/60 hover:text-white text-slate-400 transition-all cursor-pointer shrink-0"
+              title="Bookmark Lesson"
+            >
+              <Bookmark size={22} className="stroke-[2.5]" />
+            </button>
           </div>
-          <h1 className="text-lg md:text-2xl font-black text-white mt-1">
-            Lesson {lesson.id}: {lesson.title}
-          </h1>
-          <p className="text-[10px] text-slate-400 mt-0.5">{lesson.bookRef}</p>
+
         </div>
 
         {/* Language & Level tabs */}
@@ -261,7 +310,7 @@ export default function MsWordLessonClient({ lesson }: Props) {
                 onClick={() => handleLangChange(lang)}
                 className={`flex-1 text-[10px] font-black uppercase tracking-wider py-1.5 px-2 rounded-lg transition-all cursor-pointer ${
                   selectedLang === lang
-                    ? "bg-blue-600 text-white"
+                    ? "bg-[#04AA6D] text-white font-extrabold"
                     : "text-slate-500 hover:text-white"
                 }`}
               >
@@ -278,7 +327,7 @@ export default function MsWordLessonClient({ lesson }: Props) {
                 onClick={() => handleLevelChange(level)}
                 className={`flex-1 text-[10px] font-black uppercase tracking-wider py-1.5 px-3 rounded-lg transition-all cursor-pointer ${
                   selectedLevel === level
-                    ? "bg-indigo-600 text-white"
+                    ? "bg-[#04AA6D] text-white font-extrabold"
                     : "text-slate-500 hover:text-white"
                 }`}
               >
@@ -381,44 +430,7 @@ export default function MsWordLessonClient({ lesson }: Props) {
           </div>
         </div>
 
-        {/* Nav buttons */}
-        <div className="flex items-center justify-between gap-3 pt-2">
-          {prevLesson ? (
-            <Link
-              href={`/msword/${prevLesson.slug}`}
-              className="flex items-center gap-2 text-xs font-black text-slate-400 hover:text-white bg-slate-900 border border-slate-800 hover:border-slate-600 px-4 py-2.5 rounded-xl transition-all"
-            >
-              <ChevronLeft size={14} />
-              <span className="hidden sm:block">Prev: {prevLesson.title}</span>
-              <span className="sm:hidden">Prev</span>
-            </Link>
-          ) : (
-            <Link
-              href="/msword"
-              className="flex items-center gap-2 text-xs font-black text-slate-400 hover:text-white bg-slate-900 border border-slate-800 px-4 py-2.5 rounded-xl transition-all"
-            >
-              <ArrowLeft size={14} /> Dashboard
-            </Link>
-          )}
 
-          {nextLesson ? (
-            <Link
-              href={`/msword/${nextLesson.slug}`}
-              className="flex items-center gap-2 text-xs font-black text-white bg-blue-600 hover:bg-blue-500 px-4 py-2.5 rounded-xl transition-all"
-            >
-              <span className="hidden sm:block">Next: {nextLesson.title}</span>
-              <span className="sm:hidden">Next</span>
-              <ChevronRight size={14} />
-            </Link>
-          ) : (
-            <Link
-              href="/msword"
-              className="flex items-center gap-2 text-xs font-black text-white bg-emerald-600 hover:bg-emerald-500 px-4 py-2.5 rounded-xl transition-all"
-            >
-              <CheckCircle2 size={14} /> Module Complete!
-            </Link>
-          )}
-        </div>
 
         <AdSenseBanner />
       </div>

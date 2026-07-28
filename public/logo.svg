@@ -8,7 +8,7 @@
       </feMerge>
     </filter>
   </defs>
-  <rect width="512" height="512" rx="112" fill="#1e303f" stroke="#c1a648" stroke-width="16" stroke-opacity="0.35"/>
+  <rect width="512" height="512" rx="112" fill="#09101f" stroke="#04AA6D" stroke-width="18" stroke-opacity="0.5"/>
   <text 
     x="50%" 
     y="46%" 
@@ -17,7 +17,7 @@
     font-family="system-ui, -apple-system, sans-serif" 
     font-weight="900" 
     font-size="220" 
-    fill="#c1a648" 
+    fill="#04AA6D" 
     filter="url(#neon-glow)"
     letter-spacing="-10"
   >NS</text>
@@ -29,7 +29,7 @@
     font-family="system-ui, -apple-system, sans-serif" 
     font-weight="800" 
     font-size="64" 
-    fill="#fbfbfb"
+    fill="#ffffff"
     letter-spacing="-1"
   >NextSem</text>
 </svg>

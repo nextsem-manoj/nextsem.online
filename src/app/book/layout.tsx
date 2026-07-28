@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useState, useEffect, useRef, Suspense } from "react";
+import React, { useState, useEffect, useRef, useCallback, Suspense } from "react";
 import { useTheme } from "next-themes";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight, Sun, Moon, Coffee, LogIn, X, Menu } from "lucide-react";
+import { ChevronLeft, ChevronRight, Sun, Moon, Coffee, LogIn, X, Menu, Bookmark } from "lucide-react";
 import BookSidebar from "@/components/BookSidebar";
 import BookNavigation from "@/components/BookNavigation";
 import BookRightSidebar from "@/components/BookRightSidebar";
@@ -12,6 +12,7 @@ import searchIndex from "@/data/searchIndex.json";
 import { coursePhases } from "@/data/courseData";
 import { getChapterSimulator } from "@/data/chapterSimulators";
 import { signInWithGoogle } from "@/lib/firebase";
+import NsSubjectNavBar from "@/components/NsSubjectNavBar";
 
 interface UserProfile {
   name: string;
@@ -37,11 +38,16 @@ function BookLayoutContent({
   };
   const [fontSize, setFontSize] = useState<"sm" | "base" | "lg" | "xl">("lg");
   const [mounted, setMounted] = useState(false);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false); // Default CLOSED — mobile-first; desktop opens on mount
+  const [sidebarWidth, setSidebarWidth] = useState(256);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const lessonContainerRef = useRef<HTMLDivElement>(null);
   const [scrollPercent, setScrollPercent] = useState(0);
 
   const [currentUser, setCurrentUser] = useState<UserProfile | null>(null);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [showFsHint, setShowFsHint] = useState(false);
   useEffect(() => {
     const checkAuth = () => {
       const saved = localStorage.getItem('nextsem_user');
@@ -162,119 +168,79 @@ function BookLayoutContent({
 
 
 
+  const effectiveSidebarWidth = sidebarCollapsed ? 52 : sidebarWidth;
+
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    const checkMobile = () => {
+      const mobile = window.innerWidth < 768;
+      setIsMobile(mobile);
+      setSidebarOpen(!mobile);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  const enterFullscreen = useCallback(async () => {
+    const el = lessonContainerRef.current || document.documentElement;
+    try {
+      if (el.requestFullscreen) await el.requestFullscreen();
+      else if ((el as any).webkitRequestFullscreen) await (el as any).webkitRequestFullscreen();
+      setIsFullscreen(true);
+      setShowFsHint(true);
+      setTimeout(() => setShowFsHint(false), 2500);
+    } catch (_) {}
+  }, []);
+
+  const exitFullscreen = useCallback(async () => {
+    try {
+      if (document.fullscreenElement) await document.exitFullscreen();
+    } catch (_) {}
+    setIsFullscreen(false);
+  }, []);
+
+  useEffect(() => {
+    const onFsChange = () => setIsFullscreen(!!document.fullscreenElement);
+    document.addEventListener('fullscreenchange', onFsChange);
+    return () => document.removeEventListener('fullscreenchange', onFsChange);
+  }, []);
+
+  useEffect(() => {
+    const isLesson = pathname?.includes('/book/');
+    if (isLesson && mounted) {
+      const t = setTimeout(() => enterFullscreen(), 600);
+      return () => clearTimeout(t);
+    }
+  }, [pathname, mounted, enterFullscreen]);
+
   return (
-    <div className="min-h-screen flex flex-col bg-background text-foreground font-sans selection:bg-[#c1a648]/30 transition-colors duration-300">
-      <div className="flex-1 flex flex-col md:flex-row w-full max-w-[1800px] mx-auto pb-14 md:pb-0">
-        <BookSidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
+    <div ref={lessonContainerRef} className="min-h-screen flex flex-col bg-[#060c18] text-foreground font-sans selection:bg-[#c1a648]/30 transition-colors duration-300">
+      {isFullscreen && showFsHint && (
+        <div className="fixed top-4 left-1/2 -translate-x-1/2 z-[9999] bg-black/80 text-white text-xs px-4 py-2 rounded-full backdrop-blur-md pointer-events-none shadow-lg">
+          📖 Tap anywhere to exit fullscreen
+        </div>
+      )}
+      {!isFullscreen && (
+        <NsSubjectNavBar currentUser={currentUser} onSignIn={handleSignIn} />
+      )}
+      <div
+        className="flex-1 flex flex-col md:flex-row w-full min-w-0 bg-[#060c18]"
+        style={mounted && !isMobile ? { paddingLeft: `calc(5vw + ${effectiveSidebarWidth}px)`, paddingRight: '5vw' } : undefined}
+        onClick={isFullscreen ? exitFullscreen : undefined}
+      >
+        <BookSidebar
+          isOpen={sidebarOpen}
+          setIsOpen={setSidebarOpen}
+          sidebarWidth={sidebarWidth}
+          onWidthChange={setSidebarWidth}
+          isCollapsed={sidebarCollapsed}
+          onCollapsedChange={setSidebarCollapsed}
+        />
 
-        <main className="flex-1 p-0 md:p-6 w-full flex flex-col relative">
-          
-          {/* Sticky Header & Tied Progress Bar Container */}
-          <div className="sticky top-0 z-50 shrink-0 shadow-md bg-background w-full">
-            <div className={`w-full flex items-center gap-3 px-4 py-3 border-b border-x-0 md:border-x rounded-t-none md:rounded-t-2xl transition-all ${headerThemeClass}`}>
-              <button
-                type="button"
-                onClick={() => setSidebarOpen(!sidebarOpen)}
-                className="p-1 hover:bg-slate-800/20 dark:hover:bg-slate-800/80 rounded-lg transition-all text-slate-650 dark:text-slate-400 shrink-0 cursor-pointer"
-                title="Toggle Curriculum Sidebar"
-              >
-                <Menu size={22} className="stroke-[2.5]" />
-              </button>
-              <Link 
-                href="/" 
-                className="p-1 hover:bg-slate-100 dark:hover:bg-slate-800/80 rounded-full transition-all text-slate-650 dark:text-slate-400 shrink-0"
-                title="Close and Go Back to Course Menu"
-              >
-                <X size={22} className="stroke-[2.5]" />
-              </Link>
-              
-              <div className="flex-1 min-w-0 text-left">
-                <span className="block text-[10px] font-black uppercase tracking-wider text-[#c1a648]">
-                  {currentPhase?.title || "Web Development"}
-                </span>
-                <h1 className="text-xs md:text-sm font-black truncate mt-0.5">
-                  {currentChapter?.title || "Reading Lesson"}
-                </h1>
-              </div>
-
-              {/* Desktop Navigation Controls */}
-              <div className="hidden md:flex items-center gap-1 border-r border-slate-200 dark:border-slate-850 pr-2 mr-1">
-                {prevHref ? (
-                  <Link
-                    href={prevHref}
-                    className="px-2.5 py-1.5 hover:bg-slate-200/50 dark:hover:bg-slate-800/80 rounded-lg transition-all text-slate-650 dark:text-slate-400 flex items-center gap-0.5 text-xs font-bold"
-                    title={`Previous: ${prevChapter?.title}`}
-                  >
-                    <ChevronLeft size={16} />
-                    <span>Prev</span>
-                  </Link>
-                ) : (
-                  <div className="px-2.5 py-1.5 opacity-30 text-slate-400 flex items-center gap-0.5 text-xs font-bold cursor-not-allowed">
-                    <ChevronLeft size={16} />
-                    <span>Prev</span>
-                  </div>
-                )}
-                {nextHref ? (
-                  <Link
-                    href={nextHref}
-                    className="px-2.5 py-1.5 hover:bg-slate-200/50 dark:hover:bg-slate-800/80 rounded-lg transition-all text-slate-650 dark:text-slate-400 flex items-center gap-0.5 text-xs font-bold"
-                    title={`Next: ${nextChapter?.title}`}
-                  >
-                    <span>Next</span>
-                    <ChevronRight size={16} />
-                  </Link>
-                ) : (
-                  <div className="px-2.5 py-1.5 opacity-30 text-slate-400 flex items-center gap-0.5 text-xs font-bold cursor-not-allowed">
-                    <span>Next</span>
-                    <ChevronRight size={16} />
-                  </div>
-                )}
-              </div>
-
-              {/* Desktop Profile / Sign In */}
-              <div className="hidden md:flex items-center gap-2 border-l border-slate-250/20 dark:border-slate-800/40 pl-2 ml-1">
-                {currentUser ? (
-                  <Link
-                    href="/profile"
-                    className="flex items-center gap-1.5 hover:bg-slate-200/50 dark:hover:bg-slate-800/80 px-2 py-1 rounded-lg transition-all text-[11px] font-bold text-slate-700 dark:text-slate-350"
-                    title="Profile Dashboard"
-                  >
-                    {currentUser.avatar && (currentUser.avatar.startsWith("http") || currentUser.avatar.startsWith("/")) ? (
-                      <img src={currentUser.avatar} alt="" className="w-5 h-5 rounded-full object-cover border border-[#c1a648]/20 shrink-0" />
-                    ) : currentUser.photo ? (
-                      <img src={currentUser.photo} alt="" className="w-5 h-5 rounded-full object-cover border border-[#c1a648]/20 shrink-0" />
-                    ) : (
-                      <div className="w-5 h-5 rounded-full bg-blue-600 text-white flex items-center justify-center font-black text-[9px] shrink-0">
-                        {currentUser.avatar || currentUser.name.charAt(0).toUpperCase()}
-                      </div>
-                    )}
-                    <span className="max-w-[70px] truncate">{currentUser.name.split(" ")[0]}</span>
-                  </Link>
-                ) : (
-                  <button
-                    onClick={handleSignIn}
-                    className="flex items-center gap-1 hover:bg-slate-250/50 dark:hover:bg-slate-800/80 px-2 py-1 rounded-lg transition-all text-[11px] font-bold text-[#c1a648] shrink-0 cursor-pointer"
-                    title="Sign In with Google"
-                  >
-                    <LogIn size={14} className="shrink-0" />
-                    <span>Sign In</span>
-                  </button>
-                )}
-              </div>
-            </div>
-
-            {/* Tied Glassmorphic Scroll Progress Bar */}
-            <div className="w-full h-2.5 bg-slate-200/10 dark:bg-slate-950/40 backdrop-blur-md overflow-hidden shrink-0 border-x-0 md:border-x border-b border-slate-250/10 flex items-center justify-center relative">
-              <div 
-                className="absolute left-0 top-0 bottom-0 bg-gradient-to-r from-[#e4ca67] via-[#c1a648] to-[#967b26] rounded-r-full shadow-[0_0_8px_rgba(193,166,72,0.4)] transition-all duration-75"
-                style={{ width: `${scrollPercent}%` }}
-              />
-              <span className="relative z-10 text-[7px] font-black uppercase tracking-wider text-slate-800 dark:text-slate-200 pointer-events-none mix-blend-difference leading-none">
-                {Math.round(scrollPercent)}% Read
-              </span>
-            </div>
-          </div>
-
+        <main className="flex-1 p-3 md:p-6 w-full flex flex-col relative min-w-0 bg-[#060c18]">
           {/* Main Reading Container */}
           {(() => {
             const hasSim = !!getChapterSimulator(currentChapterId);
@@ -284,10 +250,40 @@ function BookLayoutContent({
                 className={
                   hasSim
                     ? "flex-1 relative z-10 flex flex-col min-h-0 overflow-hidden"
-                    : `flex-1 px-4 py-5 md:px-8 md:py-8 border-x-0 md:border-x rounded-b-none md:rounded-b-2xl relative z-10 transition-all duration-300 ${themeClass} ${fontSizeClass}`
+                    : "flex-1 px-2 py-3 md:px-6 md:py-6 relative z-10 transition-all duration-300"
                 }
               >
                 <div className={hasSim ? "w-full h-full flex flex-col min-h-0" : "max-w-5xl mx-auto w-full"}>
+                  {/* Clean Title Row with Lesson Name & Bookmark Icon (Image 108 + 109) */}
+                  <div className="flex items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-800/40 text-left">
+                    <h1 className="text-xl md:text-3xl font-black text-white tracking-tight truncate">
+                      {currentChapter?.title || "Reading Lesson"}
+                    </h1>
+
+                    <button
+                      onClick={() => {
+                        try {
+                          const key = "nextsem_book_bookmarks";
+                          const saved = JSON.parse(localStorage.getItem(key) || "[]");
+                          let updated;
+                          if (saved.includes(currentChapterId)) {
+                            updated = saved.filter((id: string) => id !== currentChapterId);
+                          } else {
+                            updated = [...saved, currentChapterId];
+                          }
+                          localStorage.setItem(key, JSON.stringify(updated));
+                          window.dispatchEvent(new Event("bookmark_changed"));
+                        } catch (e) {
+                          console.error(e);
+                        }
+                      }}
+                      className="p-2.5 rounded-xl border border-slate-800 bg-slate-900/60 text-slate-400 hover:text-white transition-all cursor-pointer shrink-0"
+                      title="Bookmark Lesson"
+                    >
+                      <Bookmark size={20} className="stroke-[2.5]" />
+                    </button>
+                  </div>
+
                   {children}
                 </div>
               </div>
@@ -301,10 +297,6 @@ function BookLayoutContent({
           currentChapterTitle={currentChapter?.title || "Reading Lesson"}
         />
       </div>
-      <BookNavigation 
-        sidebarOpen={sidebarOpen} 
-        setSidebarOpen={setSidebarOpen}
-      />
     </div>
   );
 }

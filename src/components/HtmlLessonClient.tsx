@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { 
   ChevronLeft, ChevronRight, BookOpen, Code, 
-  HelpCircle, CheckCircle2, AlertCircle, Sparkles, Lock, ArrowLeft, X
+  HelpCircle, CheckCircle2, AlertCircle, Sparkles, Lock, ArrowLeft, X, Bookmark, Download
 } from "lucide-react";
 import { htmlLessons, Lesson } from "../data/htmlLessonsData";
 import AdSenseBanner from "./AdSenseBanner";
@@ -13,6 +13,10 @@ import { useProgress } from "../context/ProgressContext";
 import { triggerCelebration } from "../lib/celebration";
 import TopicAnimationWidget from "./TopicAnimationWidget";
 import HtmlTagTooltip from "./HtmlTagTooltip";
+import { AdMob } from "@capacitor-community/admob";
+import { Capacitor } from "@capacitor/core";
+import { showRewardedAd } from "@/lib/admobHelper";
+import { generateAndDownloadLessonPdf } from "../lib/pdfHelper";
 
 interface HtmlLessonClientProps {
   lesson: Lesson;
@@ -37,6 +41,8 @@ export default function HtmlLessonClient({ lesson }: HtmlLessonClientProps) {
   // After AdSense approval this will merge with Google Sign In profile
   const [userEmail, setUserEmail] = useState<string>("guest");
 
+  const [isBookmarked, setIsBookmarked] = useState<boolean>(false);
+
   // Sync preferences on mount
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -46,10 +52,64 @@ export default function HtmlLessonClient({ lesson }: HtmlLessonClientProps) {
       const savedLevel = localStorage.getItem("nextsem_html_level") as "kid" | "pro" | null;
       if (savedLevel) setSelectedLevel(savedLevel);
 
+      try {
+        const savedBookmarks: number[] = JSON.parse(localStorage.getItem("nextsem_html_bookmarks") || "[]");
+        setIsBookmarked(savedBookmarks.includes(lesson.id));
+      } catch (e) {
+        console.error(e);
+      }
+
       setShowTutorTip(false); // Help guide hidden by default
       setMounted(true);
     }
-  }, []);
+  }, [lesson.id]);
+
+  const toggleBookmark = () => {
+    try {
+      const savedBookmarks: number[] = JSON.parse(localStorage.getItem("nextsem_html_bookmarks") || "[]");
+      let updated: number[];
+      if (savedBookmarks.includes(lesson.id)) {
+        updated = savedBookmarks.filter(id => id !== lesson.id);
+        setIsBookmarked(false);
+      } else {
+        updated = [...savedBookmarks, lesson.id];
+        setIsBookmarked(true);
+      }
+      localStorage.setItem("nextsem_html_bookmarks", JSON.stringify(updated));
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const handleDownloadPdf = async () => {
+    const currentContentText = lesson[selectedLang][selectedLevel];
+
+    if (Capacitor.isNativePlatform()) {
+      const adSuccess = await showRewardedAd(() => {
+        generateAndDownloadLessonPdf({
+          title: lesson.title,
+          courseName: "HTML Web Dev",
+          content: currentContentText,
+          unit: lesson.unit
+        });
+      });
+      if (!adSuccess) {
+        generateAndDownloadLessonPdf({
+          title: lesson.title,
+          courseName: "HTML Web Dev",
+          content: currentContentText,
+          unit: lesson.unit
+        });
+      }
+    } else {
+      generateAndDownloadLessonPdf({
+        title: lesson.title,
+        courseName: "HTML Web Dev",
+        content: currentContentText,
+        unit: lesson.unit
+      });
+    }
+  };
 
   const handleLangChange = (lang: "english" | "hinglish" | "hindi") => {
     setSelectedLang(lang);
@@ -214,26 +274,33 @@ export default function HtmlLessonClient({ lesson }: HtmlLessonClientProps) {
     });
   };
 
-  // Basic Markdown-to-JSX parser
+  // Basic Markdown-to-JSX parser with Nextsem Academy Typography font sizing
   const renderContentText = (text: string) => {
     if (!text) return null;
     const lines = text.split("\n");
     return lines.map((line, idx) => {
       const trimmed = line.trim();
-      if (!trimmed) return <div key={idx} className="h-2" />;
+      if (!trimmed) return <div key={idx} className="h-3" />;
+
+      if (trimmed.startsWith("## ")) {
+        return (
+          <h2 key={idx} className="text-xl md:text-2xl font-extrabold text-white mt-8 mb-4 border-b border-slate-800/60 pb-2 tracking-tight">
+            {trimmed.replace(/^##\s*/, "").replace(/^[#\s]+/, "").trim()}
+          </h2>
+        );
+      }
 
       if (trimmed.startsWith("###")) {
         return (
-          <h3 key={idx} className="text-md md:text-lg font-black text-slate-100 mt-6 mb-3 flex items-center gap-2 border-b border-slate-800/40 pb-1">
-            <span className="text-[#c1a648]">#</span>
-            {trimmed.replace("###", "").trim()}
+          <h3 key={idx} className="text-lg md:text-xl font-bold text-[#c1a648] mt-6 mb-3 tracking-tight">
+            {trimmed.replace(/^###\s*/, "").replace(/^[#\s]+/, "").trim()}
           </h3>
         );
       }
 
       if (trimmed.startsWith("* ")) {
         return (
-          <li key={idx} className="ml-5 list-disc text-xs md:text-sm text-slate-300 my-1.5 leading-relaxed">
+          <li key={idx} className="ml-6 list-disc text-sm md:text-base text-slate-300 my-2 leading-relaxed">
             {trimmed.replace("* ", "").replace(/\*\*(.*?)\*\*/g, "$1").trim()}
           </li>
         );
@@ -241,23 +308,49 @@ export default function HtmlLessonClient({ lesson }: HtmlLessonClientProps) {
 
       if (trimmed.startsWith("1. ") || trimmed.startsWith("2. ") || trimmed.startsWith("3. ")) {
         return (
-          <li key={idx} className="ml-5 list-decimal text-xs md:text-sm text-slate-300 my-1.5 leading-relaxed">
+          <li key={idx} className="ml-6 list-decimal text-sm md:text-base text-slate-300 my-2 leading-relaxed">
             {trimmed.replace(/^\d+\.\s*/, "").replace(/\*\*(.*?)\*\*/g, "$1").trim()}
           </li>
         );
       }
 
-      if (trimmed.startsWith("```")) {
-        // Simple code block detector (only catches inline/starts)
-        return null; // The main text filter handles multi-line codes separately
-      }
-
-      // Detect raw code snippets blocks
-      if (trimmed.startsWith("Host:") || trimmed.startsWith("GET ") || trimmed.startsWith("HTTP/1.1 ") || trimmed.startsWith("<!DOCTYPE html>")) {
+      // Detect raw code snippets blocks and render Nextsem Academy Example Card (Matching Image 85)
+      if (
+        trimmed.startsWith("Host:") ||
+        trimmed.startsWith("GET ") ||
+        trimmed.startsWith("HTTP/1.1 ") ||
+        trimmed.startsWith("<!DOCTYPE html>") ||
+        trimmed.startsWith("```")
+      ) {
+        const cleanCode = trimmed.replace(/^```[a-z]*\n?/, "").replace(/\n?```$/, "");
         return (
-          <pre key={idx} className="bg-slate-950/80 p-3 rounded-lg border border-slate-800/50 font-mono text-[10px] md:text-xs text-[#c1a648] overflow-x-auto my-3 leading-relaxed">
-            {trimmed}
-          </pre>
+          <div key={idx} className="my-6 p-5 md:p-6 bg-[#1d2a35] border border-slate-700/60 rounded-xl space-y-4 shadow-xl text-left">
+            <h3 className="text-xl font-extrabold text-white tracking-tight">Example</h3>
+            <div className="bg-[#15202b] p-4 md:p-5 rounded-lg border-l-4 border-[#04AA6D] font-mono text-sm overflow-x-auto leading-relaxed shadow-inner">
+              {cleanCode.split('\n').map((codeLine, cIdx) => {
+                // Split into tags and inner text content
+                const tagRegex = /(<\/?[a-zA-Z0-9!\s="-]+>)/g;
+                const tokens = codeLine.split(tagRegex);
+                return (
+                  <div key={cIdx}>
+                    {tokens.map((tok, tIdx) => {
+                      if (tok.startsWith('<') && tok.endsWith('>')) {
+                        return <span key={tIdx} className="text-[#f25f5c] font-semibold">{tok}</span>;
+                      }
+                      return <span key={tIdx} className="text-white font-medium">{tok}</span>;
+                    })}
+                  </div>
+                );
+              })}
+            </div>
+            <Link
+              href={`/htmldemo?code=${encodeURIComponent(cleanCode)}`}
+              target="_blank"
+              className="inline-flex items-center gap-1.5 px-5 py-2.5 bg-[#04AA6D] hover:bg-[#039861] text-white font-extrabold text-sm rounded-md transition-all shadow-md cursor-pointer"
+            >
+              <span>Try it Yourself »</span>
+            </Link>
+          </div>
         );
       }
 
@@ -266,10 +359,10 @@ export default function HtmlLessonClient({ lesson }: HtmlLessonClientProps) {
       if (boldRegex.test(trimmed) || trimmed.includes('`') || trimmed.includes('<')) {
         const parts = trimmed.split(boldRegex);
         return (
-          <p key={idx} className="text-xs md:text-sm text-slate-350 leading-relaxed my-2.5 font-medium">
+          <p key={idx} className="text-sm md:text-base text-slate-300 leading-relaxed my-3 font-normal">
             {parts.map((part, pIdx) =>
               pIdx % 2 === 1
-                ? <strong key={pIdx} className="text-[#c1a648] font-black">{part}</strong>
+                ? <strong key={pIdx} className="text-white font-bold">{part}</strong>
                 : <React.Fragment key={pIdx}>{renderInlineCode(part)}</React.Fragment>
             )}
           </p>
@@ -277,7 +370,7 @@ export default function HtmlLessonClient({ lesson }: HtmlLessonClientProps) {
       }
 
       return (
-        <p key={idx} className="text-xs md:text-sm text-slate-350 leading-relaxed my-2.5 font-medium">
+        <p key={idx} className="text-sm md:text-base text-slate-300 leading-relaxed my-3 font-normal">
           {renderInlineCode(trimmed)}
         </p>
       );
@@ -301,106 +394,45 @@ export default function HtmlLessonClient({ lesson }: HtmlLessonClientProps) {
       {/* Top Banner Ad */}
       <AdSenseBanner />
 
-      {/* Lesson Navigation Header */}
-      <div className="flex items-center justify-between border-b border-slate-800/50 pb-4">
-        <div>
-          <span className="text-[9px] font-black uppercase tracking-wider text-slate-400 bg-slate-900 border border-slate-850 px-2 py-0.5 rounded-md">
-            {lesson.unit}
-          </span>
-          <h2 className="text-lg md:text-xl font-black text-foreground mt-1">
-            Lesson {lesson.id}: {lesson.title}
-          </h2>
-          <span className="text-[10px] text-slate-500 font-bold block mt-0.5">
-            Reference: {lesson.bookRef}
-          </span>
-        </div>
+      {/* Nextsem Academy Exact Header (Image 69 Pattern) */}
+      <div className="space-y-4 pb-4 border-b border-slate-800/60 pt-2">
+        {/* Title Row with Bookmark Icon */}
+        <div className="flex items-center justify-between gap-4">
+          <h1 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
+            {
+              lesson.id === 1 ? "HTML Introduction" :
+              `HTML ${
+                lesson.title
+                  .replace(/^(Lesson\s+\d+:|Learn HTML5?|Introduction to|What is|How)\s*/i, '')
+                  .replace(/\s*-\s*Free Web Development.*$/i, '')
+                  .replace(/\s*-\s*Comprehensive Guide.*$/i, '')
+                  .trim()
+              }`
+            }
+          </h1>
 
-        {/* Home Back Shortcut & Tutor Guide Toggle */}
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => setShowTutorTip(!showTutorTip)}
-            className={`flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-lg border transition-all cursor-pointer ${
-              showTutorTip
-                ? "bg-indigo-950/60 border-indigo-500/40 text-indigo-400"
-                : "bg-slate-900/60 border-slate-800 text-slate-450 hover:text-white"
-            }`}
-            title="Toggle tutor instructions"
-          >
-            <span>💡 Help Guide</span>
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={handleDownloadPdf}
+              className="p-2 rounded-lg border border-amber-500/40 bg-amber-950/30 text-amber-400 hover:text-amber-300 transition-all cursor-pointer shrink-0 flex items-center gap-1.5 shadow-md"
+              title="Download Lesson PDF (Rewarded Ad)"
+            >
+              <Download size={20} className="stroke-[2.5]" />
+              <span className="hidden sm:inline text-xs font-bold">PDF</span>
+            </button>
 
-          <Link 
-            href="/" 
-            className="flex items-center gap-1 text-[10px] font-bold text-slate-400 hover:text-white uppercase tracking-wider bg-slate-900/60 border border-slate-800 hover:border-indigo-500/30 px-3 py-1.5 rounded-lg transition-all"
-          >
-            <ArrowLeft size={12} />
-            <span>Dashboard</span>
-          </Link>
-        </div>
-      </div>
-
-      {/* Tutor Help Guide Overlay */}
-      {showTutorTip && (
-        <div className="p-4 bg-indigo-950/20 border border-indigo-500/20 rounded-xl flex gap-3 relative animate-in fade-in slide-in-from-top-4 duration-300">
-          <span className="text-xl shrink-0 mt-0.5">💡</span>
-          <div className="text-left pr-6">
-            <span className="text-[10px] font-black text-indigo-400 uppercase tracking-wider block">Interactive Lesson Guide</span>
-            <p className="text-xs text-slate-350 font-semibold leading-relaxed mt-0.5">
-              **First visit?** Toggle learning languages (Hindi/Hinglish/English) or switch **Complexity Levels** (Kid Mode vs. Professional Mode) in the tabs below. Your selections persist automatically across all 100 lessons!
-            </p>
+            <button
+              onClick={toggleBookmark}
+              className={`p-2 rounded-lg border transition-all cursor-pointer shrink-0 flex items-center gap-1.5 ${
+                isBookmarked
+                  ? "bg-emerald-950/40 border-emerald-500/40 text-[#04AA6D]"
+                  : "bg-slate-900/60 border-slate-800 text-slate-400 hover:text-white"
+              }`}
+              title={isBookmarked ? "Remove Bookmark" : "Save Bookmark"}
+            >
+              <Bookmark size={22} className={`stroke-[2.5] ${isBookmarked ? "fill-[#04AA6D] text-[#04AA6D]" : ""}`} />
+            </button>
           </div>
-          <button 
-            onClick={dismissTutorTip}
-            className="absolute top-2.5 right-2.5 text-slate-500 hover:text-slate-300 cursor-pointer p-0.5"
-            title="Dismiss guide"
-          >
-            <X size={14} className="stroke-[2.5]" />
-          </button>
-        </div>
-      )}
-
-      {/* Interactive Tabs Menu */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-slate-950/40 border border-slate-850 p-2.5 rounded-2xl backdrop-blur-xl">
-        {/* Language Tabs */}
-        <div className="flex items-center gap-1.5 bg-slate-900/50 p-1 rounded-xl border border-slate-800/30">
-          <span className="text-[9px] font-black uppercase text-slate-500 tracking-wider pl-2 pr-1 hidden sm:inline">🌐 Lang:</span>
-          {(["english", "hinglish", "hindi"] as const).map((lang) => {
-            const labelMap = { english: "🇬🇧 English", hinglish: "🗣️ Hinglish", hindi: "🕉️ Hindi" };
-            return (
-              <button
-                key={lang}
-                onClick={() => handleLangChange(lang)}
-                className={`flex-1 py-1.5 text-[11px] font-black uppercase tracking-wider rounded-lg transition-all cursor-pointer ${
-                  selectedLang === lang
-                    ? "bg-[#c1a648] text-[#1e303f] shadow-sm font-black"
-                    : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/40"
-                }`}
-              >
-                {labelMap[lang]}
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Level Switcher */}
-        <div className="flex items-center gap-1.5 bg-slate-900/50 p-1 rounded-xl border border-slate-800/30">
-          <span className="text-[9px] font-black uppercase text-slate-500 tracking-wider pl-2 pr-1 hidden sm:inline">🧠 Level:</span>
-          {(["kid", "pro"] as const).map((level) => {
-            const labelMap = { kid: "🧒 Kid Mode (6th)", pro: "💻 Professional" };
-            return (
-              <button
-                key={level}
-                onClick={() => handleLevelChange(level)}
-                className={`flex-1 py-1.5 text-[11px] font-black uppercase tracking-wider rounded-lg transition-all cursor-pointer ${
-                  selectedLevel === level
-                    ? "bg-[#7f7034] text-white shadow-sm font-black"
-                    : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/40"
-                }`}
-              >
-                {labelMap[level]}
-              </button>
-            );
-          })}
         </div>
       </div>
 
@@ -432,160 +464,69 @@ export default function HtmlLessonClient({ lesson }: HtmlLessonClientProps) {
         <TopicAnimationWidget lessonId={lesson.id} lessonTitle={lesson.title} type="html" lang={selectedLang} />
       </div>
 
-      {/* Practice Question */}
-      <div className="bg-slate-950 border border-slate-800/60 rounded-2xl overflow-hidden shadow-lg text-left">
-        <div className="bg-slate-900/40 px-5 py-3 border-b border-slate-800 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <HelpCircle size={15} className="text-slate-400" />
-            <span className="text-sm font-semibold text-slate-300">Practice Question</span>
+      {/* Nextsem Academy HTML Quiz Reminder Card (Replaces inline question block - Image 86) */}
+      <div className="my-8 p-5 md:p-6 bg-[#1d2a35] border border-slate-700/60 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xl text-left">
+        <div className="flex items-center gap-3.5">
+          <div className="w-11 h-11 rounded-xl bg-[#04AA6D]/20 text-[#04AA6D] flex items-center justify-center font-black text-xl shrink-0 border border-[#04AA6D]/30 shadow-inner">
+            📝
           </div>
-          {isLessonDone && (
-            <span className="text-xs font-medium text-emerald-400 flex items-center gap-1">
-              <CheckCircle2 size={13} />
-              <span>Completed</span>
-            </span>
-          )}
+          <div>
+            <h4 className="text-base font-extrabold text-white">Test Your HTML Knowledge!</h4>
+            <p className="text-xs text-slate-300 mt-0.5 leading-relaxed">
+              Take the comprehensive HTML Quiz to test your understanding of HTML elements, tags, and page structure.
+            </p>
+          </div>
         </div>
-
-        <div className="p-5 md:p-6 space-y-5">
-          {/* Question */}
-          <h4 className="text-sm font-bold text-slate-100 leading-snug">
-            {currentExercise.question}
-          </h4>
-
-          {/* Simulation: Fill-in-the-blank terminal style */}
-          <div className="bg-[#0b0f1d] border border-slate-800 rounded-xl overflow-hidden">
-            {/* Terminal header bar */}
-            <div className="flex items-center gap-1.5 px-4 py-2 bg-slate-900 border-b border-slate-800">
-              <span className="w-2.5 h-2.5 rounded-full bg-rose-500/70" />
-              <span className="w-2.5 h-2.5 rounded-full bg-amber-500/70" />
-              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/70" />
-              <span className="ml-2 text-[10px] text-slate-500 font-mono font-bold uppercase tracking-wider">answer.simulate</span>
-            </div>
-            {/* Answer blank slot */}
-            <div className="px-5 py-4 font-mono text-xs text-slate-300 flex items-center gap-2 flex-wrap min-h-[52px]">
-              <span className="text-[#c1a648] font-black select-none">&gt;</span>
-              <span className="text-slate-500">Answer:</span>
-              <span className={`px-3 py-1 rounded-lg font-bold border text-xs transition-all min-w-[60px] text-center ${
-                selectedOption
-                  ? isCorrect
-                    ? "bg-emerald-950 text-emerald-300 border-emerald-700"
-                    : "bg-rose-950 text-rose-300 border-rose-800"
-                  : "text-slate-600 border-slate-700 border-dashed"
-              }`}>
-                {selectedOption || "___"}
-              </span>
-              {selectedOption && (
-                <span className={`text-lg ${isCorrect ? "text-emerald-400" : "text-rose-400"}`}>
-                  {isCorrect ? "✓" : "✗"}
-                </span>
-              )}
-            </div>
-          </div>
-
-          {/* Clickable word chips — simulation style */}
-          <div className="space-y-2">
-            <span className="text-[10px] font-black uppercase tracking-wider text-slate-500 block">
-              🎯 {selectedLang === "hindi" ? "सही उत्तर चुनो:" : selectedLang === "hinglish" ? "Sahi answer choose karo:" : "Select the correct answer:"}
-            </span>
-            <div className="flex flex-wrap gap-2">
-              {currentExercise.options.map((option, idx) => {
-                const isSelected = selectedOption === option;
-                let chipStyle = "bg-slate-900 border-slate-700 text-slate-300 hover:border-[#c1a648]/50 hover:text-white hover:bg-slate-800";
-                if (isSelected) {
-                  chipStyle = isCorrect
-                    ? "bg-emerald-900/60 border-emerald-500 text-emerald-200 shadow-[0_0_12px_rgba(52,211,153,0.3)]"
-                    : "bg-rose-900/60 border-rose-500 text-rose-200 animate-pulse";
-                }
-                return (
-                  <button
-                    key={idx}
-                    onClick={(e) => handleOptionSelect(option, e)}
-                    disabled={isLessonDone}
-                    className={`px-4 py-2 rounded-lg border font-mono text-xs font-bold transition-all cursor-pointer active:scale-95 ${chipStyle} ${isLessonDone ? "opacity-60 cursor-not-allowed" : ""}`}
-                  >
-                    {isSelected && isCorrect ? `✓ ${option}` : isSelected ? `✗ ${option}` : option}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-
-
-          {showFeedback && (
-            <div className={`p-3.5 rounded-xl border flex gap-3 items-start ${
-              isCorrect 
-                ? "bg-emerald-950/30 border-emerald-800 text-emerald-300"
-                : "bg-slate-900 border-slate-700 text-slate-300"
-            }`}>
-              {isCorrect ? (
-                <>
-                  <CheckCircle2 size={16} className="shrink-0 mt-0.5 text-emerald-400" />
-                  <div>
-                    <p className="text-sm font-semibold text-emerald-300">That's correct!</p>
-                    <p className="text-xs text-slate-400 mt-0.5">Next lesson is now unlocked.</p>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <AlertCircle size={16} className="shrink-0 mt-0.5 text-slate-400" />
-                  <div className="flex-1">
-                    <p className="text-sm font-semibold text-slate-200">Not quite — try another option.</p>
-                    {showHint ? (
-                      <p className="mt-1.5 text-xs text-slate-400 leading-relaxed">
-                        Hint: {currentExercise.hint}
-                      </p>
-                    ) : (
-                      <button
-                        onClick={() => setShowHint(true)}
-                        className="mt-1.5 text-xs text-indigo-400 hover:text-indigo-300 cursor-pointer underline underline-offset-2"
-                      >
-                        Show hint
-                      </button>
-                    )}
-                  </div>
-                </>
-              )}
-            </div>
-          )}
-        </div>
+        <Link
+          href="/html/quiz"
+          className="px-5 py-2.5 bg-[#04AA6D] hover:bg-[#039861] text-white font-extrabold text-xs rounded-xl shadow-md transition-all whitespace-nowrap cursor-pointer shrink-0 flex items-center gap-1.5"
+        >
+          <span>Start HTML Quiz »</span>
+        </Link>
       </div>
 
-      {/* Lesson Foot Pagination */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-slate-850 pt-6">
+      {/* Bottom Nextsem Academy Style Navigation Row — visible on desktop; mobile uses bottom 5-tab bar */}
+      <div className="hidden md:flex items-center justify-between gap-4 border-t border-slate-800/60 pt-6 mt-8">
         {prevLesson ? (
           <Link
-            href={`/html/${prevLesson.slug}`}
-            className="flex items-center gap-2 px-4 py-2.5 bg-slate-900 border border-slate-800 hover:border-indigo-500/30 text-slate-400 hover:text-white rounded-xl text-[11px] font-black uppercase tracking-wider transition-all w-full sm:w-auto justify-center"
+            href={prevLesson.id === 1 ? "/html" : `/html/${prevLesson.slug}`}
+            className="px-5 py-2.5 bg-[#04AA6D] hover:bg-[#039861] text-white rounded-lg text-xs font-black uppercase tracking-wider transition-all flex items-center gap-1.5 shadow-md shadow-[#04AA6D]/20 cursor-pointer"
           >
-            <ChevronLeft size={14} />
-            <span>Prev: {prevLesson.title}</span>
+            <ChevronLeft size={16} className="stroke-[3]" />
+            <span>Previous</span>
           </Link>
         ) : (
-          <div className="opacity-0 hidden sm:block" />
+          <div className="px-5 py-2.5 bg-slate-900/50 text-slate-600 rounded-lg text-xs font-black uppercase tracking-wider flex items-center gap-1.5 border border-slate-850 cursor-not-allowed">
+            <ChevronLeft size={16} />
+            <span>Previous</span>
+          </div>
+        )}
+
+        {/* Center Track Progress Sign In Button / Badge */}
+        {userEmail === "guest" ? (
+          <button
+            onClick={() => {
+              window.dispatchEvent(new CustomEvent("nextsem_open_auth"));
+            }}
+            className="hidden sm:flex items-center gap-2 px-4 py-2 bg-slate-900/80 hover:bg-slate-800 border border-slate-700/60 text-slate-300 hover:text-white rounded-lg text-xs font-bold transition-all cursor-pointer"
+          >
+            <span>Sign in to track progress</span>
+          </button>
+        ) : (
+          <span className="hidden sm:inline text-xs font-bold text-emerald-400 bg-emerald-950/40 border border-emerald-500/20 px-3 py-1.5 rounded-lg">
+            ✓ Progress Auto-Saved
+          </span>
         )}
 
         {nextLesson ? (
-          isNextUnlocked ? (
-            <Link
-              href={`/html/${nextLesson.slug}`}
-              className="flex items-center gap-2 px-5 py-2.5 bg-[#c1a648] hover:bg-[#7f7034] text-[#1e303f] hover:text-white rounded-xl text-[11px] font-black uppercase tracking-wider transition-all w-full sm:w-auto justify-center shadow-lg shadow-[#c1a648]/10"
-            >
-              <span>Next: {nextLesson.title}</span>
-              <ChevronRight size={14} />
-            </Link>
-          ) : (
-            <button
-              onClick={() => alert("Please solve the check assignment correctly to unlock the next lesson!")}
-              className="flex items-center gap-2 px-5 py-2.5 bg-slate-800 border border-slate-700 text-slate-500 rounded-xl text-[11px] font-black uppercase tracking-wider w-full sm:w-auto justify-center cursor-not-allowed opacity-60"
-            >
-              <span>Next: {nextLesson.title}</span>
-              <Lock size={12} className="stroke-[2.5]" />
-            </button>
-          )
-        ) : (
-          <div className="opacity-0 hidden sm:block" />
-        )}
+          <Link
+            href={`/html/${nextLesson.slug}`}
+            className="px-5 py-2.5 bg-[#04AA6D] hover:bg-[#039861] text-white rounded-lg text-xs font-black uppercase tracking-wider transition-all flex items-center gap-1.5 shadow-md shadow-[#04AA6D]/20 cursor-pointer"
+          >
+            <span>Next</span>
+            <ChevronRight size={16} className="stroke-[3]" />
+          </Link>
+        ) : null}
       </div>
 
       {/* Bottom Ad Banner */}

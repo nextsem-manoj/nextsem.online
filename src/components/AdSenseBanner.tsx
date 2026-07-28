@@ -4,7 +4,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 import { useTheme } from "next-themes";
 import { Capacitor } from '@capacitor/core';
-import { AdMob, BannerAdSize, BannerAdPosition } from '@capacitor-community/admob';
+import { hideBannerAd, showBannerAd } from '@/lib/admobHelper';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const AmpAd = 'amp-ad' as any;
@@ -46,39 +46,26 @@ export default function AdSenseBanner() {
     window.addEventListener('readerSettingsChanged', onSettingsChange);
 
     if (native) {
-      if (isInBook) {
-        try {
-          AdMob.hideBanner();
-          document.body.style.paddingTop = '0px';
-        } catch (e) { }
+      const isLesson = pathname.startsWith('/html') || pathname.startsWith('/cli') || pathname.startsWith('/git') || pathname.startsWith('/book') || pathname.startsWith('/msword');
+      const isFullscreenNow = typeof document !== 'undefined' && !!document.fullscreenElement;
+
+      if (!isLesson || isFullscreenNow) {
+        hideBannerAd();
         return;
       }
 
-      // Mobile app container: Initialize and display AdMob native banner
-      const showAdMobBanner = async () => {
-        try {
-          await AdMob.initialize({});
-          await AdMob.showBanner({
-            adId: 'ca-app-pub-4242865347895866/1125281920', // Production AdMob Banner Ad ID from AdMob Console
-            adSize: BannerAdSize.BANNER,
-            position: BannerAdPosition.TOP_CENTER,
-            margin: 0,
-            isTesting: false
-          });
-          // Push the web content layout down to merge the ad cleanly without hiding headers/content
-          document.body.style.paddingTop = '50px';
-        } catch (err) {
-          console.error('AdMob Initialization failed:', err);
+      showBannerAd();
+
+      const onFsChange = () => {
+        if (document.fullscreenElement) {
+          hideBannerAd();
         }
       };
-
-      showAdMobBanner();
+      document.addEventListener('fullscreenchange', onFsChange);
 
       return () => {
-        try {
-          AdMob.hideBanner();
-          document.body.style.paddingTop = '0px';
-        } catch (e) { }
+        hideBannerAd();
+        document.removeEventListener('fullscreenchange', onFsChange);
         window.removeEventListener('readerSettingsChanged', onSettingsChange);
       };
     } else {

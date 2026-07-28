@@ -78,8 +78,104 @@ export const htmlLessons: Lesson[] = [
       }
     },
     english: {
-      kid: "### 📮 The Internet is a Giant Road of Cables!\nImagine the internet is like a massive highway system, but instead of cars, it carries **letters and packets of data**. Many people think the internet is a magic cloud, but it is actually a real-world network of copper wires and glass cables running underground and under oceans! \n\n* **Your Device**: Your phone or computer is like a house on this highway.\n* **The Data**: Photos, games, and website files are divided into tiny envelopes called **packets** to travel fast.\n\n✏️ **Fun Analogy**: Sending a message online is like sending lego blocks in separate envelopes. They fly down the wire and snap back together when they arrive at your friend's computer!",
-      pro: "### 📡 Global Network Infrastructure & IP Routing\nFrom a systems engineering perspective, the Internet is a globally connected **decentralized network of autonomous systems (AS)** communicating via TCP/IP protocols. Data is split into IP packets and routed dynamically through physical fiber-optic lines and network switches.\n\n* **Backbone Providers**: Tier 1 ISPs own the high-speed fiber cables laying under international waters.\n* **Packet Switching**: Routers inspect the destination IP header of each packet to decide the next hop (shortest path) without establishing a dedicated channel.\n\n💻 **Professional Tip**: Check your network path using the traceroute command in ⊞ Windows CMD: `tracert nextsem.online`."
+      kid: `HTML is the standard markup language for creating Web pages.
+
+## What is HTML?
+* **HTML** stands for Hyper Text Markup Language
+* **HTML** is the standard markup language for creating Web pages
+* **HTML** describes the structure of a Web page
+* **HTML** consists of a series of elements
+* **HTML** elements tell the browser how to display the content
+* **HTML** elements label pieces of content such as "this is a heading", "this is a paragraph", "this is a link", etc.
+
+## A Simple HTML Document
+<!DOCTYPE html>
+<html>
+<head>
+<title>Nextsem Academy</title>
+</head>
+<body>
+
+<h1>
+  <img src="/icon.svg" width="32" height="32" alt="Nextsem Logo">
+  Welcome to Nextsem
+</h1>
+<p>Learn web development step-by-step with interactive coding examples.</p>
+
+<footer>
+  <p>© 2026 Nextsem Academy. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
+
+## Example Explained
+* The \`<!DOCTYPE html>\` declaration defines that this document is an HTML5 document
+* The \`<html>\` element is the root element of an HTML page
+* The \`<head>\` element contains meta information about the HTML page
+* The \`<title>\` element specifies a title for the HTML page (which is shown in the browser's title bar or in the page's tab)
+* The \`<body>\` element defines the document's body, and is a container for all the visible contents, such as headings, paragraphs, images, hyperlinks, tables, lists, etc.
+* The \`<h1>\` element defines a large heading
+* The \`<p>\` element defines a paragraph
+
+## What is an HTML Element?
+An HTML element is defined by a start tag, some content, and an end tag:
+\`<tagname>\` Content goes here... \`</tagname>\`
+
+The HTML element is everything from the start tag to the end tag:
+\`<h1>\`My First Heading\`</h1>\`
+\`<p>\`My first paragraph.\`<p>\`
+
+Note: Some HTML elements have no content (like the \`<br>\` element). These elements are called empty elements. Empty elements do not have an end tag!`,
+      pro: `HTML is the standard markup language for creating Web pages.
+
+## What is HTML?
+* **HTML** stands for Hyper Text Markup Language
+* **HTML** is the standard markup language for creating Web pages
+* **HTML** describes the structure of a Web page
+* **HTML** consists of a series of elements
+* **HTML** elements tell the browser how to display the content
+* **HTML** elements label pieces of content such as "this is a heading", "this is a paragraph", "this is a link", etc.
+
+## A Simple HTML Document
+<!DOCTYPE html>
+<html>
+<head>
+<title>Nextsem Academy</title>
+</head>
+<body>
+
+<h1>
+  <img src="/icon.svg" width="32" height="32" alt="Nextsem Logo">
+  Welcome to Nextsem
+</h1>
+<p>Learn web development step-by-step with interactive coding examples.</p>
+
+<footer>
+  <p>© 2026 Nextsem Academy. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
+
+## Example Explained
+* The \`<!DOCTYPE html>\` declaration defines that this document is an HTML5 document
+* The \`<html>\` element is the root element of an HTML page
+* The \`<head>\` element contains meta information about the HTML page
+* The \`<title>\` element specifies a title for the HTML page (which is shown in the browser's title bar or in the page's tab)
+* The \`<body>\` element defines the document's body, and is a container for all the visible contents, such as headings, paragraphs, images, hyperlinks, tables, lists, etc.
+* The \`<h1>\` element defines a large heading
+* The \`<p>\` element defines a paragraph
+
+## What is an HTML Element?
+An HTML element is defined by a start tag, some content, and an end tag:
+\`<tagname>\` Content goes here... \`</tagname>\`
+
+The HTML element is everything from the start tag to the end tag:
+\`<h1>\`My First Heading\`</h1>\`
+\`<p>\`My first paragraph.\`<p>\`
+
+Note: Some HTML elements have no content (like the \`<br>\` element). These elements are called empty elements. Empty elements do not have an end tag!`
     },
     hinglish: {
       kid: "### 📮 Internet Ek Bada Cables Ka Highway Hai!\nLog sochte hain ki internet hawa me chalne waala koi jaadu hai, par sach ye hai ki internet **bade-bade taaro (cables) ka ek network** hai jo zameen ke niche aur samundar ke andar bichha hua hai!\n\n* **Aapka Computer**: Ye highway par bana ek ghar hai.\n* **Data Packets**: Aapki photos aur web pages chhote-chhote packets me toot kar in taaro ke zariye bhaagte hain.\n\n⚡ **Analogy**: Jaise postman chitthiyo ko alag-alag ghar bhejta hai, waise hi routers in data packets ko sahi address par deliver karte hain!",
@@ -93,172 +189,186 @@ export const htmlLessons: Lesson[] = [
   {
     id: 2,
     slug: "free-web-development-lessons-client-server-model",
-    title: "Client vs. Server Model",
+    title: "Web Architecture: Client-Server, DNS, IP Addresses & TCP Handshake",
     unit: "Unit 1: Web Fundamentals & Client-Server Architecture",
-    bookRef: "Duckett Chapter 1 (p. 6-10)",
+    bookRef: "Duckett Chapter 1 (p. 6-10) & Freeman Chapter 2 (p. 25-35)",
     exercise: {
       english: {
-        question: "Which role is played by your web browser (like Chrome or Safari)?",
-        options: ["The Server", "The Client", "The Router", "The DNS Resolver"],
-        correctAnswer: "The Client",
-        hint: "Your browser requests pages from websites. The requester is always the Client!"
-      },
-      hinglish: {
-        question: "Aapka web browser (jaise Chrome ya Safari) kaun sa role play karta hai?",
-        options: ["Server", "Client", "Router", "DNS Resolver"],
-        correctAnswer: "Client",
-        hint: "Aapka browser websites se pages maangta hai. Jo maangta hai woh hamesha Client hota hai!"
-      },
-      hindi: {
-        question: "आपका वेब ब्राउज़र (जैसे Chrome या Safari) कौन सी भूमिका निभाता है?",
-        options: ["सर्वर", "क्लाइंट", "राउटर", "DNS रिज़ॉल्वर"],
-        correctAnswer: "क्लाइंट",
-        hint: "आपका ब्राउज़र वेबसाइटों से पेज मांगता है। जो मांगता है वह हमेशा क्लाइंट होता है!"
-      }
-    },
-    english: {
-      kid: "### 🧒 Client & Server: The Story of a Customer and a Librarian!\nIn the web world, computers have two main roles:\n1. **The Client (You)**: This is your computer or phone. When you open Chrome, you are the customer asking, *'Can I have a page?'*\n2. **The Server (The website computer)**: This is a giant computer far away that acts like a librarian. It sits waiting for requests, finds the file you want, and sends it back to you.\n\n* **Analogy**: The Client is a hungry kid looking at a menu; the Server is the chef cooking the meal!",
-      pro: "### 💻 Client-Server Architecture & Server Daemons\nThe client-server model is a distributed application structure that partitions tasks between resource providers (servers) and service requesters (clients).\n\n* **Client Role**: Initiates HTTP/HTTPS connections, parses document markups (HTML, CSS, JS), and handles user input events.\n* **Server Role**: Listens on dedicated ports (e.g., 80 for HTTP, 443 for HTTPS) running server programs (like Nginx or Apache) to process inbound requests and execute backend logic."
-    },
-    hinglish: {
-      kid: "### 🧒 Client aur Server ki Kahani!\nWeb programming me computers do kaam karte hain:\n1. **Client (Aap)**: Aapka web browser (Chrome, Safari). Ye server ko request bhejta hai ki mujhe website dikhao.\n2. **Server (Website ka database)**: Ek powerful computer jo saari files store karke rakhta hai aur request aane par unhe return karta hai.\n\n* **Short Analogy**: Aap client hain aur server ek hotel ka waiter hai jo aapki request par food (web page) lata hai!",
-      pro: "### 💻 Request-Response Cycle & Port Bindings\nSystem design me client aur server isolated nodes hote hain jo TCP channels ke through interact karte hain.\n\n* **Client**: HTTP payload headers form karta hai aur runtime render trees calculate karta hai.\n* **Server**: Web service application ports status code payload structures resolve karti hai, request validate karti hai, aur responsive content serve karti hai."
-    },
-    hindi: {
-      kid: "### 🧒 क्लाइंट और सर्वर: ग्राहक और दुकानदार की कहानी!\nवेब की दुनिया में, कंप्यूटर दो मुख्य भूमिकाएं निभाते हैं:\n1. **क्लाइंट (आप)**: आपका फोन या कंप्यूटर। जब आप कोई वेबसाइट खोलते हैं, तो आप ग्राहक हैं जो कहते हैं, *'मुझे वह पेज चाहिए।'*\n2. **सर्वर (दुकानदार)**: यह बहुत दूर स्थित एक कंप्यूटर है जो एक दुकानदार की तरह काम करता है। यह आपकी रिक्वेस्ट का इंतजार करता है, और मांगी गई फाइलें आपको भेज देता है।",
-      pro: "### 💻 क्लाइंट-सर्वर आर्किटेक्चर और सर्वर डेमन्स\nक्लाइंट-सर्वर मॉडल एक वितरित आर्किटेक्चर (Distributed Architecture) है जहां क्लाइंट अनुरोध (Requests) शुरू करता है और सर्वर प्रतिक्रिया (Response) प्रदान करता है।\n\n* **क्लाइंट**: यह एचटीटीपी (HTTP) रिक्वेस्ट जेनरेट करता है और रिस्पॉन्स मिलने पर उसे स्क्रीन पर रेंडर करता है।\n* **सर्वर**: यह पोर्ट 80 या 443 पर आने वाले कनेक्शनों को सुनता है और अनुरोधित फाइलों को सुरक्षित तरीके से सर्व करता है।"
-    }
-  },
-  {
-    id: 3,
-    slug: "how-dns-lookup-works-step-by-step",
-    title: "Understanding DNS Lookup",
-    unit: "Unit 1: Web Fundamentals & Client-Server Architecture",
-    bookRef: "Freeman Chapter 2 (p. 25-28)",
-    exercise: {
-      english: {
-        question: "What is the primary job of a DNS server?",
+        question: "Which components are involved in establishing a complete Web connection sequence?",
         options: [
-          "To encrypt local hard drive databases",
-          "To speed up browser keyboard typing",
-          "To host website styling sheets",
-          "To translate easy-to-read domains (like nextsem.online) into IP addresses",
+          "Client-Server request/response, DNS domain resolution, IP addressing, and TCP 3-way handshake",
+          "Only local file reading without network interfaces",
+          "Only CSS styling sheets without server communication",
+          "Only graphic design software rendering"
         ],
-        correctAnswer: "To translate easy-to-read domains (like nextsem.online) into IP addresses",
-        hint: "DNS acts like the contact list on your phone. It maps names to numbers!"
+        correctAnswer: "Client-Server request/response, DNS domain resolution, IP addressing, and TCP 3-way handshake",
+        hint: "A web connection relies on 4 fundamental steps: finding the server (DNS), getting its address (IP), connecting (TCP Handshake), and requesting the page (Client-Server)."
       },
       hinglish: {
-        question: "DNS server ka kaam kya hai?",
+        question: "Web connection establish karne mein kaun se main steps involve hote hain?",
         options: [
-          "Local hard drive encrypt karna",
-          "Website ki styling sheets host karna",
-          "Domain names (jaise nextsem.online) ko IP address mein translate karna",
-          "Browser ki typing speed badhaana"
+          "Client-Server request/response, DNS domain resolution, IP addressing, aur TCP 3-way handshake",
+          "Sirf local file reading bina network ke",
+          "Sirf CSS styling sheets bina server communication ke",
+          "Sirf graphic design software rendering"
         ],
-        correctAnswer: "Domain names (jaise nextsem.online) ko IP address mein translate karna",
-        hint: "DNS phone ki contact list ki tarah kaam karta hai. Yeh naam ko number se map karta hai!"
+        correctAnswer: "Client-Server request/response, DNS domain resolution, IP addressing, aur TCP 3-way handshake",
+        hint: "Web connection 4 main steps par chalta hai: DNS resolution, IP addressing, TCP Handshake, aur Client-Server communication."
       },
       hindi: {
-        question: "DNS सर्वर का मुख्य काम क्या है?",
+        question: "वेब कनेक्शन स्थापित करने में कौन से मुख्य चरण शामिल हैं?",
         options: [
-          "डोमेन नामों (जैसे nextsem.online) को IP एड्रेस में बदलना",
-          "लोकल हार्ड ड्राइव एन्क्रिप्ट करना",
-          "ब्राउज़र की टाइपिंग गति बढ़ाना",
-          "वेबसाइट की स्टाइलिंग होस्ट करना",
+          "क्लाइंट-सर्वर अनुरोध/प्रतिक्रिया, DNS डोमेन रिज़ॉल्यूशन, IP एड्रेसिंग, और TCP 3-वे हैंडशेक",
+          "बिना नेटवर्क के केवल लोकल फाइल रीडिंग",
+          "बिना सर्वर कम्युनिकेशन के केवल CSS स्टाइलिंग",
+          "केवल ग्राफिक्स डिजाइन सॉफ्टवेयर रेंडरिंग"
         ],
-        correctAnswer: "डोमेन नामों (जैसे nextsem.online) को IP एड्रेस में बदलना",
-        hint: "DNS आपके फोन की कॉन्टैक्ट लिस्ट की तरह काम करता है। यह नाम को नंबर से जोड़ता है!"
+        correctAnswer: "क्लाइंट-सर्वर अनुरोध/प्रतिक्रिया, DNS डोमेन रिज़ॉल्यूशन, IP एड्रेसिंग, और TCP 3-वे हैंडशेक",
+        hint: "वेब कनेक्शन 4 मुख्य चरणों पर निर्भर करता है: DNS, IP एड्रेस, TCP हैंडशेक और क्लाइंट-सर्वर रिस्पांस!"
       }
     },
     english: {
-      kid: "### 📞 DNS: The Phonebook of the Web!\nComputers don't understand words like `nextsem.online`. They only understand numbers called IP addresses. \n\n* **DNS (Domain Name System)** acts like the contacts list on your phone. \n* When you type `nextsem.online`, your browser quickly calls the DNS operator and asks: *'What is the number for nextsem.online?'* \n* The operator replies: *'It is 192.168.29.170!'* Your browser then dials that number instantly!\n\n✨ **Result**: You type letters, but computers talk in numbers, thanks to DNS!",
-      pro: "### 🌐 Hierarchical DNS Resolution & Resolvers\nThe Domain Name System (DNS) is a hierarchical, distributed database for computers connected to the Internet. The lookup process follows a specific hierarchy:\n\n1. **Local DNS Cache**: Browser checks internal cache.\n2. **Recursive Resolver**: Queried by the client (usually provided by the ISP).\n3. **Root Servers**: Direct the resolver to the correct Top-Level Domain (TLD) server (e.g., `.online`).\n4. **TLD Nameservers**: Direct to the Authoritative Nameserver.\n5. **Authoritative Nameserver**: Returns the matching IP Record (`A Record`)."
+      kid: `### 🌐 Web Architecture: How the Web Works (All-in-One Guide)
+
+Web communications rely on four essential pillars working together seamlessly:
+
+---
+
+### 1. 🧒 Client vs. Server Model
+* **The Client (You)**: This is your web browser (Chrome, Safari, Edge). It acts like a customer ordering food at a restaurant: *"Can I please have the HTML page?"*
+* **The Server (The Host)**: This is a powerful remote computer storing website files. It acts like the chef: it receives your request, finds the files, and sends them back to your screen.
+
+---
+
+### 2. 📞 DNS (Domain Name System): The Web's Phonebook
+* Computers don't understand words like \`nextsem.online\`; they only understand numeric **IP addresses** (like \`192.168.29.170\`).
+* **DNS** acts as the contacts phonebook of the internet. When you type a domain name, the DNS resolver looks up the name and retrieves the matching IP address in milliseconds!
+
+---
+
+### 3. 🏠 IP Addresses (IPv4 vs. IPv6)
+* Every connected device needs a unique address so data packets reach the right destination.
+* **IPv4**: The classic 32-bit format using 4 numbers separated by dots (e.g., \`192.168.1.1\`).
+* **IPv6**: The 128-bit hexadecimal format (e.g., \`2001:0db8:85a3::8a2e:0370:7334\`) created to provide trillions of new addresses.
+
+---
+
+### 4. 🤝 The TCP 3-Way Handshake
+Before sending data, your browser and server perform a 3-step handshake to establish a reliable connection:
+1. **SYN (Hello)**: Client asks *"Can we connect?"*
+2. **SYN-ACK (Hello Back)**: Server replies *"Yes! I hear you, can you hear me?"*
+3. **ACK (Confirm)**: Client confirms *"Yes! Connection established, let's transfer data!"*`,
+
+      pro: `### 🌐 Complete Web Communication & Infrastructure Stack
+
+A comprehensive analysis of Web Architecture covering Client-Server Roles, DNS Lookup Hierarchy, IP Protocols, and TCP Socket Management.
+
+---
+
+### 1. Client-Server Architecture & Execution
+* **Client Side**: Executes HTTP user agent requests, processes DOM trees, CSSOM stylesheets, and JavaScript runtime engines.
+* **Server Side**: Listens on inbound transport ports (e.g., Port 80 for HTTP, 443 for HTTPS), executes backend daemons (Nginx/Apache), and returns HTTP payloads.
+
+---
+
+### 2. Hierarchical DNS Resolution Query Flow
+1. **Browser Cache & OS Host File**: Checks local memory records.
+2. **Recursive Resolver**: Queries Root Nameservers (\`.\`).
+3. **Top-Level Domain (TLD) Servers**: Resolves TLD extensions (e.g., \`.online\`).
+4. **Authoritative Nameservers**: Returns exact \`A\` / \`AAAA\` record IP bindings.
+
+---
+
+### 3. IP Protocols: IPv4 Subnetting vs. IPv6 Datagrams
+* **IPv4**: 32-bit address space supporting $2^{32}$ (4.29 billion) addresses in dotted-decimal notation (\`172.217.16.14\`).
+* **IPv6**: 128-bit address space supporting $2^{128}$ ($3.4 \\times 10^{38}$) unique addresses in colon-separated hexadecimal blocks.
+
+---
+
+### 4. TCP 3-Way Handshake & Socket Management
+1. **SYN**: Client sends sequence number $A$ with \`SYN\` flag.
+2. **SYN-ACK**: Server acknowledges $A+1$, generates sequence number $B$, sets \`SYN-ACK\` flags.
+3. **ACK**: Client acknowledges $B+1$, sets \`ACK\` flag, moving state to \`ESTABLISHED\`.`
     },
     hinglish: {
-      kid: "### 📞 DNS Kaise Kaam Karta Hai? (Contacts List Analogy)\nComputers ko `nextsem.online` jaise words samajh nahi aate, unhe sirf numbers samajh aate hain.\n\n* **DNS (Domain Name System)** internet ki contact book hai.\n* Jab aap site name type karte hain, toh browser sabse pehle DNS server se puchhta hai: *'nextsem.online ka number kya hai?'*\n* DNS reply karta hai: *'Iska IP address 192.168.29.170 hai!'* aur browser us number se connect ho jata hai.",
-      pro: "### 🌐 Domain Resolution Hierarchy\nDNS resolution query processing strictly distributed systems concept hai:\n\n* **Recursive Resolver**: Client requests catch karta hai aur external servers traverse karta hai.\n* **Root Servers ('.')**: Resolvers ko correct TLD server addresses batate hain.\n* **Authoritative Server**: Final DNS zone file contain karta hai jahan mapping actual IP record register hota hai."
+      kid: `### 🌐 Web Architecture: Internet Kaise Kaam Karta Hai? (Full Guide)
+
+Internet par ek web page open hone ke peeche 4 main steps hote hain:
+
+---
+
+### 1. 🧒 Client vs. Server
+* **Client (Aap)**: Aapka web browser (Chrome, Safari). Ye server ko request bhejta hai ki *"Mujhe website dikhao"*.
+* **Server (Website Computer)**: Ek powerful remote computer jo saari website files store karta hai aur request aane par unhe aapke screen par bhejta hai.
+
+---
+
+### 2. 📞 DNS: Internet Ka Phonebook
+* Computers ko \`nextsem.online\` jaise naam samajh nahi aate, unhe sirf numbers (IP addresses) samajh aate hain.
+* **DNS** phonebook ki tarah \`nextsem.online\` ko IP address (jaise \`192.168.29.170\`) mein translate kar deta hai.
+
+---
+
+### 3. 🏠 IP Address: Aapka Network Address
+* **IPv4**: Purana 32-bit format (jaise \`192.168.1.1\`).
+* **IPv6**: Naya 128-bit lamba format (jaise \`2001:0db8...\`) kyunki dunia mein devices badhne se IPv4 addresses khatam ho rahe hain.
+
+---
+
+### 4. 🤝 TCP 3-Way Handshake
+Data bhejne se pehle computer aur server 3-step handshake karte hain:
+1. **SYN**: Client bolta hai *"Connection banana hai?"*
+2. **SYN-ACK**: Server bolta hai *"Haan main ready hoon!"*
+3. **ACK**: Client bolta hai *"Okay, data bhejna shuru karo!"*`,
+
+      pro: `### 🌐 System Architecture & Transport Layers
+
+Network layer se le kar application layer tak web communication flow:
+
+1. **Client-Server Flow**: HTTP requests/responses isolated sockets ke zariye execute hote hain.
+2. **DNS Resolution**: Recursive resolver root aur TLD servers se query pass karke final \`A Record\` IP return karta hai.
+3. **IP Layer**: IPv4 (32-bit) vs IPv6 (128-bit) routing protocols packets ko destination address tak route karte hain.
+4. **TCP Handshake**: SYN ➔ SYN-ACK ➔ ACK sequence ke dwara socket streams active hoti hain.`
     },
     hindi: {
-      kid: "### 📞 DNS: इंटरनेट की फोनबुक!\nकंप्यूटर `nextsem.online` जैसे शब्दों को नहीं समझते हैं। वे केवल संख्याओं को समझते हैं जिन्हें आईपी एड्रेस कहा जाता है।\n\n* **DNS (डोमेन नाम प्रणाली)** आपके फोन की कॉन्टैक्ट लिस्ट की तरह काम करता है।\n* जब आप ब्राउज़र में नाम टाइप करते हैं, तो कंप्यूटर डीएनएस ऑपरेटर से पूछता है: *'इसका नंबर क्या है?'*\n* डीएनएस जवाब देता है: *'यह 192.168.29.170 है!'* और आपका ब्राउज़र उस नंबर पर कॉल कर देता है।",
-      pro: "### 🌐 पदानुक्रमित डोमेन नाम रिज़ॉल्यूशन (DNS Hierarchy)\nडीएनएस (DNS Lookup) एक पदानुक्रमित (Hierarchical) डेटाबेस प्रणाली है जो डोमेन नामों को आईपी पते (IP Address) में अनुवादित करती है:\n\n1. **लोकल कैशे**: ब्राउज़र स्थानीय होस्ट फ़ाइल और रैम (RAM) की जांच करता है।\n2. **रिकर्सिव रिसॉल्वर**: यह इंटरनेट सेवा प्रदाता (ISP) द्वारा प्रबंधित होता है जो रूट सर्वर से संपर्क करता है।\n3. **TLD सर्वर**: यह `.online` या `.com` जैसे विशिष्ट क्षेत्रों के सर्वर का पता देता है।\n4. **अथॉरिटेटिव सर्वर**: यह अंतिम डीएनएस रिकॉर्ड (A Record) लौटाता है।"
-    }
-  },
-  {
-    id: 4,
-    slug: "ipv4-vs-ipv6-address-types-tutorial",
-    title: "IP Addresses Explained",
-    unit: "Unit 1: Web Fundamentals & Client-Server Architecture",
-    bookRef: "Freeman Chapter 2 (p. 29-32)",
-    exercise: {
-      english: {
-        question: "Which address below is an example of an IPv4 address?",
-        options: ["192.168.1.1", "2001:db8:3333:4444:5555:6666:7777:8888", "nextsem.online", "C:\\Users\\Student"],
-        correctAnswer: "192.168.1.1",
-        hint: "IPv4 is written in four numbers separated by dots!"
-      },
-      hinglish: {
-        question: "Neeche diye mein se IPv4 address ka example kaun sa hai?",
-        options: ["192.168.1.1", "2001:db8:3333:4444:5555:6666:7777:8888", "nextsem.online", "C:\\Users\\Student"],
-        correctAnswer: "192.168.1.1",
-        hint: "IPv4 mein chaar numbers hote hain jo dots se alag hote hain!"
-      },
-      hindi: {
-        question: "नीचे दिए गए में से IPv4 एड्रेस का उदाहरण कौन सा है?",
-        options: ["192.168.1.1", "2001:db8:3333:4444:5555:6666:7777:8888", "nextsem.online", "C:\\Users\\Student"],
-        correctAnswer: "192.168.1.1",
-        hint: "IPv4 में चार नंबर होते हैं जो डॉट्स से अलग होते हैं!"
-      }
-    },
-    english: {
-      kid: "### 🏠 Your Website Has a Mailing Address!\nJust like your house needs a mailing address for letters, every computer connected to the internet needs a unique number called an **IP Address**.\n\n* **IPv4**: The classic format, like `192.168.1.1`. It uses 4 numbers separated by dots. \n* **IPv6**: The new, super-sized format like `2001:0db8:85a3...`. It uses letters and numbers because the world ran out of IPv4 numbers!",
-      pro: "### 🛰️ IP Protocols: IPv4 Subnetting vs. IPv6 Datagrams\nAn IP (Internet Protocol) address is a numerical label assigned to each device participating in a computer network.\n\n* **IPv4**: A 32-bit address space permitting $2^{32}$ (approx. 4.29 billion) unique addresses. It uses dotted-decimal notation (e.g., `172.217.16.14`).\n* **IPv6**: A 128-bit address space permitting $2^{128}$ (approx. $3.4 \\times 10^{38}$) unique addresses, formatted in hexadecimal blocks separated by colons. This supports trillions of connected IoT devices."
-    },
-    hinglish: {
-      kid: "### 🏠 IP Address: Ghar Ka Address!\nJaise har post office ko aapka address chahiye hota hai, waise hi internet par har device ka ek unique address hota hai jise hum **IP Address** kehte hain.\n\n* **IPv4**: Puraana chhota address format, jaise `192.168.1.1`.\n* **IPv6**: Naya lamba alphanumeric format (letter + number) kyunki devices badhne se IPv4 addresses khatam ho gaye hain!",
-      pro: "### 🛰️ Differentiating IPv4 Subnet Masks and IPv6 Spaces\nNetwork routing processes me IP addressing parameters logical layer manage karte hain:\n\n* **IPv4**: 32-bits ka hota hai jo 4 octets me divide rehta hai.\n* **IPv6**: 128-bits ka hexadecimal system hai jo network topology layout efficiency aur auto-configuration enhance karta hai."
-    },
-    hindi: {
-      kid: "### 🏠 आईपी एड्रेस: आपके कंप्यूटर का घर का पता!\nजैसे पोस्टमैन को आपके घर तक पत्र पहुंचाने के लिए एक पते की आवश्यकता होती है, वैसे ही इंटरनेट पर हर कंप्यूटर का एक विशिष्ट नंबर होता है जिसे **आईपी एड्रेस** कहते हैं।\n\n* **IPv4**: क्लासिक फॉर्मेट, जैसे `192.168.1.1`।\n* **IPv6**: नया और बहुत बड़ा फॉर्मेट क्योंकि दुनिया में कंप्यूटरों की संख्या बहुत अधिक हो गई है और पुराने पते खत्म हो चुके हैं।",
-      pro: "### 🛰️ आईपी प्रोटोकॉल: IPv4 बनाम IPv6 एड्रेसिंग\nइंटरनेट प्रोटोकॉल (IP) नेटवर्क पर प्रत्येक डिवाइस का एक तार्किक पहचानकर्ता है:\n\n* **IPv4**: यह 32-बिट का पता होता है जो चार दशमलव संख्याओं (उदा. `192.168.1.1`) के रूप में लिखा जाता है।\n* **IPv6**: यह 128-बिट का पता होता है जो हेक्साडेसिमल (Hexadecimal) और कोलन (:) का उपयोग करता है, जिससे खरबों नई डिवाइसों को जोड़ा जा सकता है।"
-    }
-  },
-  {
-    id: 5,
-    slug: "tcp-ip-3-way-handshake-process",
-    title: "TCP/IP 3-Way Handshake",
-    unit: "Unit 1: Web Fundamentals & Client-Server Architecture",
-    bookRef: "Freeman Chapter 2 (p. 33-35)",
-    exercise: {
-      english: {
-        question: "Select the correct sequence of flags exchanged during a TCP connection handshake.",
-        options: ["SYN -> SYN-ACK -> ACK", "GET -> POST -> RESPOND", "SYN -> ACK -> FIN", "HELLO -> BYE -> OK"],
-        correctAnswer: "SYN -> SYN-ACK -> ACK",
-        hint: "Remember the sequence: Synchronize (SYN), Synchronize-Acknowledge (SYN-ACK), Acknowledge (ACK)."
-      },
-      hinglish: {
-        question: "TCP connection handshake mein flags ka sahi sequence kya hai?",
-        options: ["SYN -> SYN-ACK -> ACK", "GET -> POST -> RESPOND", "SYN -> ACK -> FIN", "HELLO -> BYE -> OK"],
-        correctAnswer: "SYN -> SYN-ACK -> ACK",
-        hint: "Yaad rakho sequence: Synchronize (SYN), Synchronize-Acknowledge (SYN-ACK), Acknowledge (ACK)."
-      },
-      hindi: {
-        question: "TCP कनेक्शन हैंडशेक में flags का सही क्रम क्या है?",
-        options: ["SYN -> SYN-ACK -> ACK", "GET -> POST -> RESPOND", "SYN -> ACK -> FIN", "HELLO -> BYE -> OK"],
-        correctAnswer: "SYN -> SYN-ACK -> ACK",
-        hint: "क्रम याद रखें: Synchronize (SYN), Synchronize-Acknowledge (SYN-ACK), Acknowledge (ACK)."
-      }
-    },
-    english: {
-      kid: "### 🤝 The 3-Step Handshake: Saying Hello!\nBefore your computer sends website data, it does a polite handshaking routine with the server:\n1. **SYN (Hello)**: You say: *'Hey, can we talk?'*\n2. **SYN-ACK (Hello Back)**: The server says: *'Yes, I hear you! Can you hear me?'*\n3. **ACK (Confirm)**: You say: *'Yes, I can hear you! Let's start!'*\n\n🤝 Now, the connection is active, and the data can flow safely!",
-      pro: "### 📑 TCP Connection Establishment Handshake\nTransmission Control Protocol (TCP) is connection-oriented, requiring a 3-way handshake to establish socket streams before transferring payload:\n\n1. **SYN (Synchronize)**: Client sends a packet with a random sequence number $A$ and the `SYN` flag set.\n2. **SYN-ACK**: Server increments sequence $A$, generates its own sequence number $B$, sets both `SYN` and `ACK` flags, and responds.\n3. **ACK (Acknowledge)**: Client increments sequence $B$, sets the `ACK` flag, and completes connection."
-    },
-    hinglish: {
-      kid: "### 🤝 TCP Handshake: Dosti Ka Haath Badhana!\nWebsite load hone se pehle aapka computer server se ek 3-step agreement karta hai:\n1. **SYN (Hello)**: Aap bolte hain: *'Connection banana hai?'*\n2. **SYN-ACK (Hello Response)**: Server kehta hai: *'Haan main ready hoon! Kya aap ready ho?'*\n3. **ACK (Final Confirmation)**: Aap bolte hain: *'Haan main ready hoon, data bhejo!'*",
-      pro: "### 📑 TCP 3-Way Handshake Sequence Analysis\nTCP connection flow integrity check socket management layers par functional control lagata hai:\n\n* **Step 1 (SYN)**: Client synchronization flag active karke connection session open karta hai.\n* **Step 2 (SYN-ACK)**: Server confirm karke acknowledgment register update karta hai.\n* **Step 3 (ACK)**: Client final approval signals transmit karke transfer stream activate karta hai."
-    },
-    hindi: {
-      kid: "### 🤝 टीसीपी 3-वे हैंडशेक: हैलो कहना!\nडेटा भेजने से पहले, आपका कंप्यूटर और सर्वर आपस में एक व्यवस्थित समझौता करते हैं:\n1. **SYN (हैलो)**: आपका कंप्यूटर कहता है: *'क्या हम बात कर सकते हैं?'*\n2. **SYN-ACK (जवाब)**: सर्वर कहता है: *'हाँ, मैं तैयार हूँ! क्या आप तैयार हैं?'*\n3. **ACK (पुष्टि)**: आपका कंप्यूटर कहता है: *'हाँ, चलिए डेटा ट्रांसफर शुरू करते हैं!'*",
-      pro: "### 📑 टीसीपी कनेक्शन स्थापना हैंडशेक\nट्रांसमिशन कंट्रोल प्रोटोकॉल (TCP) कनेक्शन-उन्मुख है, जो डेटा ट्रांसफर से पहले विश्वसनीयता सुनिश्चित करने के लिए 3-वे हैंडशेक का उपयोग करता है:\n\n1. **SYN (तुल्यकालन)**: क्लाइंट `SYN` फ्लैग के साथ एक यादृच्छिक अनुक्रम संख्या (Sequence Number) भेजता है।\n2. **SYN-ACK**: सर्वर इस नंबर को स्वीकार (Acknowledge) करता है और अपनी ओर से `SYN` फ्लैग भेजता है।\n3. **ACK (स्वीकृति)**: क्लाइंट पुष्टि करता है, जिससे सॉकेट कनेक्शन खुल जाता है।"
+      kid: `### 🌐 वेब आर्किटेक्चर: इंटरनेट कैसे काम करता है? (संपूर्ण गाइड)
+
+वेबसाइट खोलने के पीछे 4 मुख्य चरण काम करते हैं:
+
+---
+
+### 1. 🧒 क्लाइंट और सर्वर मॉडल
+* **क्लाइंट (आप)**: आपका वेब ब्राउज़र (Chrome, Safari)। यह सर्वर से अनुरोध करता है: *"मुझे पेज दिखाएं।"*
+* **सर्वर**: एक शक्तिशाली कंप्यूटर जो वेबसाइट फाइलों को सुरक्षित रखता है और आपके मांगने पर उन्हें भेजता है।
+
+---
+
+### 2. 📞 DNS: इंटरनेट की फोनबुक
+* कंप्यूटर \`nextsem.online\` जैसे नामों को नहीं समझते; वे केवल आईपी नंबर समझते हैं।
+* **DNS** डोमेन नाम को सही आईपी एड्रेस (\`192.168.29.170\`) में अनुवादित करता है।
+
+---
+
+### 3. 🏠 आईपी एड्रेस (IPv4 बनाम IPv6)
+* **IPv4**: 32-बिट का पता (उदा. \`192.168.1.1\`)।
+* **IPv6**: 128-बिट का नया बड़ा पता, जो खरबों नई डिवाइसों को जोड़ सकता है।
+
+---
+
+### 4. 🤝 टीसीपी 3-वे हैंडशेक
+डेटा ट्रांसफर से पहले 3-स्टेप समझौता होता है:
+1. **SYN (हैलो)**: क्लाइंट पूछता है *"क्या हम जुड़ सकते हैं?"*
+2. **SYN-ACK**: सर्वर जवाब देता है *"हाँ, मैं तैयार हूँ!"*
+3. **ACK**: क्लाइंट पुष्टि करता है *"चाहिए, डेटा भेजें!"*`,
+
+      pro: `### 🌐 पूर्ण वेब संचार एवं नेटवर्क इन्फ्रास्ट्रक्चर
+
+वेब आर्किटेक्चर के 4 प्रमुख घटक: क्लाइंट-सर्वर मॉडल, डीएनएस रिज़ॉल्यूशन, आईपी प्रोटोकॉल और टीसीपी सॉकेट प्रबंधन।
+
+1. **क्लाइंट-सर्वर सिस्टम**: क्लाइंट एचटीटीपी अनुरोध भेजता है, और सर्वर पोर्ट 80/443 पर रिस्पॉन्स लौटाता है।
+2. **डीएनएस पदानुक्रम**: ब्राउज़र कैशे से लेकर अथॉरिटेटिव सर्वर तक ए-रिकॉर्ड (A Record) रिज़ॉल्यूशन।
+3. **आईपी एड्रेसिंग**: 32-बिट IPv4 और 128-बिट IPv6 पैकेट राउटिंग।
+4. **टीसीपी हैंडशेक**: SYN ➔ SYN-ACK ➔ ACK अनुक्रम द्वारा विश्वसनीय सॉकेट स्ट्रीम की स्थापना।`
     }
   },
   {

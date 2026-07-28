@@ -15,7 +15,7 @@ import {
   Layers, Cpu, Code, Palette, Cloud, Briefcase, 
   Rocket, BookOpen, ChevronRight, Play, CheckCircle, 
   Zap, LogIn, LogOut, Terminal, Star, Search, Menu, X, 
-  ChevronDown, Award, ExternalLink, RefreshCw 
+  ChevronDown, Award, ExternalLink, RefreshCw, Sparkles 
 } from 'lucide-react';
 
 interface UserProfile {
@@ -24,81 +24,6 @@ interface UserProfile {
   avatar: string;
   photo?: string;
 }
-
-const REAL_LIFE_EXAMPLES: Record<string, string> = {
-  // Module 1 (CLI)
-  "cli-ch1-basics": "Querying operating system specifications & clearing screen history",
-  "cli-ch2-drives": "Scanning system partition volumes & drawing folder structure trees",
-  "cli-ch3-prompt": "Color-coding your workstation backdrop and configuring prompt titles",
-  "cli-ch4-directories": "Building and deleting nested client-project storage folders",
-  "cli-ch5-attributes": "Locking credential settings configuration files from modifications",
-  "cli-ch6-redirection": "Saving application error logs into external output txt files",
-  "cli-ch7-operations": "Batch-duplicating critical source code backups to local archives",
-  "cli-ch8-networking": "Flushing local DNS resolver caches to load newly pointed domains",
-  "cli-ch9-disk": "Cleaning and formatting storage hard-drives",
-  "cli-ch10-shares": "Mounting shared network folders from teammate host servers",
-  "cli-ch11-users": "Configuring access accounts and permissions groups for developers",
-  "cli-ch12-remote": "SSH connecting to headless Linux application servers",
-  "cli-ch13-batch": "Coding an automated double-click server deployment script",
-  "cli-ch14-tasks": "Auditing CPU load and force-closing unresponsive editor tasks",
-
-  // Module 2 (P0 Intro to Coding)
-  "p0-setup": "Understanding Full Stack Developer tech stacks and daily schedules",
-  "p0-1-setup": "Installing runtime engines and developer browsers",
-  "p0-3-vscode": "Optimizing shortcuts, auto-completion, and editor formatting",
-  "p0-4-git": "Backing up local codebase history revisions onto GitHub repositories",
-  "p0-5-devtools": "Inspecting HTML elements, CSS layouts, and response times on live sites",
-
-  // Module 3 (P1 HTML)
-  "p1-1-intro-and-text": "Coding a text-only, semantic developer resume web page",
-  "p1-2-links-and-media": "Connecting online portfolios and embedding screenshot assets",
-  "p1-3-lists-and-tables": "Coding structured pricing checkouts and product features lists",
-  "p1-4-forms-and-inputs": "Building custom signup forms with type validation constraints",
-  "p1-5-semantics-and-seo": "Optimizing keywords and search index tags to rank on Google",
-  "p1-6-html5-tags": "Organizing layouts into standard semantic blocks (headers, articles)",
-
-  // Module 4 (P2 CSS)
-  "p2-1-selectors": "Styling interactive state dropdown menus and button link highlights",
-  "p2-2-colors": "Styling glassmorphic card details with neon gradients",
-  "p2-3-box-model": "Securing box sizes, paddings, and borders to prevent grid spill",
-  "p2-4-positions": "Building sticky navbars that lock to the page top on scrolling",
-  "p2-5-flexbox": "Aligning user cards into rows and centering them horizontally",
-  "p2-6-grid": "Coding a responsive, multi-row analytics dashboard layout",
-  "p2-7-animations": "Coding pulsating micro-interactions on purchase CTA buttons",
-  "p2-8-variables": "Implementing a theme switcher dynamically using CSS root tokens",
-
-  // Module 5 (P3 JS)
-  "p3-1-basics": "Programming basic sales-tax calculation models",
-  "p3-2-conditions": "Validating passwords and form inputs programmatically",
-  "p3-3-arrays": "Adding and removing items inside a digital shopping cart array",
-  "p3-4-advanced-arrays": "Filtering and mapping cheap items out of a product inventory list",
-  "p3-5-objects": "Structuring user accounts records with email, XP points, and active flags",
-  "p3-6-dom": "Appending shopping cart item elements to the page dynamically",
-  "p3-7-events": "Coding click listeners to toggle collapsible FAQ accordion tabs",
-
-  // Module 6 (P4 React)
-  "p4-1-jsx": "Templating dynamic product cards using inline JS variables",
-  "p4-2-components": "Reusing card components across multiple project routes",
-  "p4-3-state": "Coding a live, reactive click-counter scoring system",
-  "p4-4-lifecycle": "Fetching cryptocurrency price details from a live public API",
-  "p4-5-forms": "Developing self-validating sign-in forms with state updates",
-  "p4-6-context": "Syncing dark mode values across deeply nested components",
-
-  // Module 7 (P5 Backend)
-  "p5-1-node": "Executing backend scripts and custom file managers from CLI",
-  "p5-2-express": "Setting up a backend API server responding on port 5000",
-  "p5-3-rest": "Coding CRUD backend endpoints to register user entries",
-  "p5-4-mongodb": "Connecting server APIs to cloud databases to store hashed accounts",
-  "p5-5-deploy": "Deploying the complete application to static staging hosting",
-
-  // Module 8 (P6 Capstone)
-  "p6-1-portfolio": "Deploying a static, custom resume page showing your course certificates",
-  "p6-2-saas": "Deploying a fully connected task management SaaS app with databases",
-
-  // Module 9 (P7 Placement)
-  "p7-1-interview": "Passing mock frontend assessments on CSS and JS loops",
-  "p7-2-resume": "Highlighting Git capabilities to bypass automatic parser filters"
-};
 
 const moduleIcons: Record<string, React.ReactNode> = {
   "CLI": <Terminal size={18} className="text-emerald-400" />,
@@ -120,7 +45,6 @@ export default function HomeClient() {
   // Navigation states
   const [tutorialsDropdownOpen, setTutorialsDropdownOpen] = useState(false);
   const [exercisesDropdownOpen, setExercisesDropdownOpen] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
   interface SearchItem {
     id: string;
@@ -194,25 +118,6 @@ export default function HomeClient() {
     }
   };
 
-  // Find dynamic "Continue Learning" active chapter
-  const getNextUncompletedChapter = () => {
-    const allChapters: { id: string; title: string; phase: string }[] = [];
-    coursePhases.forEach(phase => {
-      phase.topics.forEach(t => {
-        allChapters.push({
-          id: t.path,
-          title: t.label,
-          phase: phase.id
-        });
-      });
-    });
-
-    const next = allChapters.find(c => !completedChapters[c.id]);
-    return next || allChapters[0];
-  };
-
-  const nextActive = getNextUncompletedChapter();
-
   const handleLaunchChapter = (path: string) => {
     let url = path.startsWith("cli/") || path.startsWith("html/") ? `/${path}` : `/book/${path}`;
     if (path === "cmd") {
@@ -272,12 +177,6 @@ export default function HomeClient() {
     }
   };
 
-  // Statistics
-  const totalChaptersCount = coursePhases.reduce((acc, phase) => acc + phase.topics.length, 0);
-  const completedChaptersCount = Object.keys(completedChapters).filter(k => completedChapters[k]).length;
-  const overallPercent = totalChaptersCount > 0 ? Math.round((completedChaptersCount / totalChaptersCount) * 100) : 0;
-  const currentModule = coursePhases[activeModuleIdx] || coursePhases[0];
-
   const handleScrollToId = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
@@ -288,7 +187,7 @@ export default function HomeClient() {
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white flex flex-col font-sans selection:bg-[#c1a648]/30 transition-colors duration-200">
       
-      {/* ── TOP NAVIGATION BAR (W3Schools Style) ── */}
+      {/* ── TOP NAVIGATION BAR (Nextsem Academy Style) ── */}
       <header className="sticky top-0 z-50 bg-white dark:bg-[#0b0f19] border-b border-slate-200 dark:border-slate-800 shadow-sm transition-colors duration-200">
         <div className="max-w-[1400px] mx-auto px-4 md:px-6 h-[54px] flex items-center justify-between">
           
@@ -323,21 +222,6 @@ export default function HomeClient() {
                         Systems & Basics
                       </span>
                       <div className="flex flex-col gap-1 text-xs">
-                        <Link 
-                          href="/msword" 
-                          onClick={() => setTutorialsDropdownOpen(false)} 
-                          className="flex items-center gap-2 p-2 hover:bg-slate-100 dark:hover:bg-slate-800/60 rounded-xl hover:text-[#04AA6D] transition-all text-left font-bold"
-                        >
-                          <span>📄</span>
-                          <span className="truncate">MS Word 365 (Career)</span>
-                        </Link>
-                        <button 
-                          onClick={() => { handleScrollToId('cli-section'); setTutorialsDropdownOpen(false); }} 
-                          className="flex items-center gap-2 p-2 hover:bg-slate-100 dark:hover:bg-slate-800/60 rounded-xl hover:text-[#04AA6D] transition-all text-left font-bold"
-                        >
-                          <span>🪟</span>
-                          <span className="truncate">Windows Commands (CLI)</span>
-                        </button>
                         <button 
                           onClick={() => { handleScrollToId('setup-section'); setTutorialsDropdownOpen(false); }} 
                           className="flex items-center gap-2 p-2 hover:bg-slate-100 dark:hover:bg-slate-800/60 rounded-xl hover:text-[#04AA6D] transition-all text-left font-bold"
@@ -453,7 +337,10 @@ export default function HomeClient() {
                 )}
               </div>
 
-              <button onClick={() => handleScrollToId('certificate-section')} className="px-3 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white transition-all cursor-pointer">Certificates</button>
+              <Link href="/curriculum" className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white transition-all cursor-pointer">
+                <Rocket size={14} className="text-[#04AA6D]" />
+                <span>Curriculum</span>
+              </Link>
               <Link href="/jobs" className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white transition-all cursor-pointer">
                 <Briefcase size={14} className="text-blue-400" />
                 <span>Jobs Portal</span>
@@ -576,384 +463,222 @@ export default function HomeClient() {
               )}
             </div>
 
-            {/* Mobile menu trigger */}
-            <button 
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg text-slate-600 dark:text-slate-400 md:hidden cursor-pointer"
-            >
-              {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
-            </button>
-
           </div>
         </div>
-
-        {/* Mobile Dropdown Menu */}
-        {mobileMenuOpen && (
-          <div className="md:hidden border-t border-slate-200 dark:border-slate-800 bg-[#fafafa]/98 dark:bg-[#0b0f19]/98 backdrop-blur-md px-5 py-4 flex flex-col gap-4 text-left font-bold text-slate-800 dark:text-slate-200 animate-in slide-in-from-top-4 duration-200 shadow-2xl rounded-b-2xl">
-            
-            {/* Tutorials Section */}
-            <div>
-              <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest block mb-2 px-1">
-                📚 Tutorials
-              </span>
-              <div className="grid grid-cols-2 gap-2 text-xs font-semibold">
-                <button 
-                  onClick={() => { handleScrollToId('cli-section'); setMobileMenuOpen(false); }} 
-                  className="flex items-center gap-1.5 p-2 bg-slate-100/50 dark:bg-slate-900/50 hover:bg-[#04AA6D]/10 dark:hover:bg-[#04AA6D]/20 hover:text-[#04AA6D] border border-slate-200/40 dark:border-slate-800/40 rounded-xl transition-all text-left"
-                >
-                  <span>🪟</span>
-                  <span className="truncate">CLI (CMD)</span>
-                </button>
-                <button 
-                  onClick={() => { handleScrollToId('setup-section'); setMobileMenuOpen(false); }} 
-                  className="flex items-center gap-1.5 p-2 bg-slate-100/50 dark:bg-slate-900/50 hover:bg-[#04AA6D]/10 dark:hover:bg-[#04AA6D]/20 hover:text-[#04AA6D] border border-slate-200/40 dark:border-slate-800/40 rounded-xl transition-all text-left"
-                >
-                  <span>⚙️</span>
-                  <span className="truncate">Software Setup</span>
-                </button>
-                <button 
-                  onClick={() => { handleScrollToId('html-section'); setMobileMenuOpen(false); }} 
-                  className="flex items-center gap-1.5 p-2 bg-slate-100/50 dark:bg-slate-900/50 hover:bg-[#04AA6D]/10 dark:hover:bg-[#04AA6D]/20 hover:text-[#04AA6D] border border-slate-200/40 dark:border-slate-800/40 rounded-xl transition-all text-left"
-                >
-                  <span>📝</span>
-                  <span className="truncate">HTML Web Pages</span>
-                </button>
-                <button 
-                  onClick={() => { handleScrollToId('css-section'); setMobileMenuOpen(false); }} 
-                  className="flex items-center gap-1.5 p-2 bg-slate-100/50 dark:bg-slate-900/50 hover:bg-[#04AA6D]/10 dark:hover:bg-[#04AA6D]/20 hover:text-[#04AA6D] border border-slate-200/40 dark:border-slate-800/40 rounded-xl transition-all text-left"
-                >
-                  <span>🎨</span>
-                  <span className="truncate">CSS Layouts</span>
-                </button>
-                <button 
-                  onClick={() => { handleScrollToId('js-section'); setMobileMenuOpen(false); }} 
-                  className="flex items-center gap-1.5 p-2 bg-slate-100/50 dark:bg-slate-900/50 hover:bg-[#04AA6D]/10 dark:hover:bg-[#04AA6D]/20 hover:text-[#04AA6D] border border-slate-200/40 dark:border-slate-800/40 rounded-xl transition-all text-left"
-                >
-                  <span>⚡</span>
-                  <span className="truncate">JS Logic</span>
-                </button>
-                <button 
-                  onClick={() => { handleScrollToId('react-section'); setMobileMenuOpen(false); }} 
-                  className="flex items-center gap-1.5 p-2 bg-slate-100/50 dark:bg-slate-900/50 hover:bg-[#04AA6D]/10 dark:hover:bg-[#04AA6D]/20 hover:text-[#04AA6D] border border-slate-200/40 dark:border-slate-800/40 rounded-xl transition-all text-left"
-                >
-                  <span>⚛️</span>
-                  <span className="truncate">React UI</span>
-                </button>
-                <button 
-                  onClick={() => { handleScrollToId('backend-section'); setMobileMenuOpen(false); }} 
-                  className="flex items-center gap-1.5 p-2 bg-slate-100/50 dark:bg-slate-900/50 hover:bg-[#04AA6D]/10 dark:hover:bg-[#04AA6D]/20 hover:text-[#04AA6D] border border-slate-200/40 dark:border-slate-800/40 rounded-xl transition-all text-left col-span-2"
-                >
-                  <span>🔌</span>
-                  <span className="truncate">Backend Server Development</span>
-                </button>
-              </div>
-            </div>
-
-            {/* Exercises & Tools Section */}
-            <div>
-              <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest block mb-2 px-1">
-                🛠️ Exercises & Tools
-              </span>
-              <div className="flex flex-col gap-1.5 text-xs font-semibold">
-                <Link 
-                  href="/cmd" 
-                  target="_blank" 
-                  className="flex items-center gap-2.5 p-2 bg-slate-100/50 dark:bg-slate-900/50 hover:bg-[#04AA6D]/10 dark:hover:bg-[#04AA6D]/20 hover:text-[#04AA6D] border border-slate-200/40 dark:border-slate-800/40 rounded-xl transition-all"
-                >
-                  <span>🪟</span>
-                  <span>Windows CMD Simulator</span>
-                </Link>
-                <Link 
-                  href="/simulator" 
-                  target="_blank" 
-                  className="flex items-center gap-2.5 p-2 bg-slate-100/50 dark:bg-slate-900/50 hover:bg-[#04AA6D]/10 dark:hover:bg-[#04AA6D]/20 hover:text-[#04AA6D] border border-slate-200/40 dark:border-slate-800/40 rounded-xl transition-all"
-                >
-                  <span>🖥️</span>
-                  <span>Windows 11 Simulator</span>
-                </Link>
-                <Link 
-                  href="/git" 
-                  target="_blank" 
-                  className="flex items-center gap-2.5 p-2 bg-slate-100/50 dark:bg-slate-900/50 hover:bg-[#04AA6D]/10 dark:hover:bg-[#04AA6D]/20 hover:text-[#04AA6D] border border-slate-200/40 dark:border-slate-800/40 rounded-xl transition-all"
-                >
-                  <span>🌿</span>
-                  <span>Git Version Control Simulator</span>
-                </Link>
-                <Link 
-                  href="/playground" 
-                  className="flex items-center gap-2.5 p-2 bg-slate-100/50 dark:bg-slate-900/50 hover:bg-[#04AA6D]/10 dark:hover:bg-[#04AA6D]/20 hover:text-[#04AA6D] border border-slate-200/40 dark:border-slate-800/40 rounded-xl transition-all"
-                >
-                  <span>💻</span>
-                  <span>Interactive Code Sandbox</span>
-                </Link>
-                <Link 
-                  href="/ncert" 
-                  onClick={() => setMobileMenuOpen(false)} 
-                  className="flex items-center gap-2.5 p-2 bg-slate-100/50 dark:bg-slate-900/50 hover:bg-[#04AA6D]/10 dark:hover:bg-[#04AA6D]/20 hover:text-[#04AA6D] border border-slate-200/40 dark:border-slate-800/40 rounded-xl transition-all"
-                >
-                  <span>📚</span>
-                  <span>NCERT Study Hub Companion</span>
-                </Link>
-                <Link 
-                  href="/bca" 
-                  onClick={() => setMobileMenuOpen(false)} 
-                  className="flex items-center gap-2.5 p-2 bg-slate-100/50 dark:bg-slate-900/50 hover:bg-[#04AA6D]/10 dark:hover:bg-[#04AA6D]/20 hover:text-[#04AA6D] border border-slate-200/40 dark:border-slate-800/40 rounded-xl transition-all"
-                >
-                  <span>🎓</span>
-                  <span>BCA Semester Hub</span>
-                </Link>
-              </div>
-            </div>
-
-            {/* Certificates Footer Link */}
-            <button 
-              onClick={() => { handleScrollToId('certificate-section'); setMobileMenuOpen(false); }} 
-              className="flex items-center justify-center gap-2 p-2.5 bg-gradient-to-r from-amber-500/20 to-yellow-500/20 hover:from-amber-500/30 hover:to-yellow-500/30 text-amber-600 dark:text-amber-400 border border-amber-500/30 rounded-xl text-xs font-black uppercase tracking-wider transition-all"
-            >
-              <span>🏅</span>
-              <span>Claim Course Certificates</span>
-            </button>
-          </div>
-        )}
       </header>
 
-      {/* ── HERO SEARCH AREA (W3Schools Style) ── */}
-      <section className="bg-theme-bg text-theme-text py-16 px-4 text-center relative border-b border-theme-border">
+      {/* ── HERO SEARCH AREA (Nextsem Academy Style) ── */}
+      <section className="bg-theme-bg text-theme-text py-8 sm:py-16 px-4 sm:px-6 text-center relative border-b border-theme-border">
         {/* Background decorations */}
         <div className="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none bg-[radial-gradient(#04AA6D_1px,transparent_1px)] [background-size:16px_16px]" />
         
         <div className="max-w-[800px] mx-auto relative z-10">
-          <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tight leading-tight">
+          <h2 className="text-3xl sm:text-5xl md:text-6xl font-black uppercase tracking-tight leading-tight text-white">
             Learn to Code
           </h2>
-          <p className="text-theme-accent text-sm md:text-base font-extrabold uppercase mt-2 tracking-wider">
-            Start your journey to become a job-ready developer.
+          <p className="text-slate-300 text-xs sm:text-base font-extrabold uppercase mt-2 tracking-wider">
+            Free tutorials, examples and references.
+          </p>
+          <p className="text-[#FFF4A3] text-xs sm:text-base font-black uppercase mt-1 tracking-wide">
+            No sign-up needed, just start learning.
           </p>
 
-          {/* Hero Big Search Box */}
-          <div ref={heroSearchRef} className="mt-8 max-w-[560px] mx-auto relative">
-            <form onSubmit={handleHeroSearchSubmit} className="flex shadow-2xl rounded-full overflow-hidden bg-theme-surface border border-theme-border">
-              <input 
-                type="text"
-                placeholder="Search our tutorials, e.g. HTML"
-                value={heroSearchQuery}
-                onChange={(e) => setHeroSearchQuery(e.target.value)}
-                className="flex-1 px-6 py-4 bg-transparent text-theme-text text-sm md:text-base focus:outline-none placeholder-slate-400 font-medium"
-              />
-              <button type="submit" className="bg-[#04AA6D] hover:bg-[#039861] text-white px-6 md:px-8 transition-colors flex items-center justify-center cursor-pointer">
-                <Search size={20} />
-              </button>
-            </form>
+          {/* ── FULL STACK WEB DEVELOPER CAREER ROADMAP (Replaces image-88) ── */}
+          <div className="mt-12 max-w-5xl mx-auto text-left space-y-6">
+            <div className="text-center space-y-2">
+              <span className="px-3.5 py-1 rounded-full bg-[#04AA6D]/15 text-[#04AA6D] border border-[#04AA6D]/30 text-[10px] font-black uppercase tracking-widest inline-flex items-center gap-1.5">
+                <Sparkles size={12} />
+                <span>Complete Career Path</span>
+              </span>
+              <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
+                Full Stack Web Developer Roadmap
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-300 max-w-2xl mx-auto leading-relaxed">
+                Follow our structured, step-by-step career path to master modern web development — from basic HTML tags to full-stack software engineering.
+              </p>
+            </div>
 
-            {/* Hero Search Results Dropdown */}
-            {(heroSearchResults.length > 0 || heroSearchQuery.trim()) && (
-              <div className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl max-h-[400px] overflow-y-auto z-40 text-left p-3 animate-in fade-in duration-200">
-                {heroSearchResults.length > 0 && (
-                  <>
-                    <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest block mb-2 px-2">Matching Tutorials</span>
-                    {heroSearchResults.map((result) => (
-                      <button
-                        key={result.id}
-                        onClick={() => {
-                          handleLaunchChapter(result.id);
-                          setHeroSearchQuery('');
-                        }}
-                        className="w-full p-2.5 hover:bg-slate-100 dark:hover:bg-slate-800/60 rounded-xl text-left transition-colors flex items-start gap-3 border-b border-slate-100 dark:border-slate-900 last:border-b-0"
-                      >
-                        <span className="text-lg mt-0.5">{result.icon || '📄'}</span>
-                        <div>
-                          <div className="text-sm font-bold text-slate-800 dark:text-white">{result.title}</div>
-                          <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 truncate max-w-[420px]">{result.duration || '5 min read'} • {result.phase || 'Course Chapter'}</div>
-                        </div>
-                      </button>
-                    ))}
-                  </>
-                )}
-
-                {heroSearchQuery.trim() && (
-                  <div className="pt-2 border-t border-slate-100 dark:border-slate-800 mt-2">
-                    <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest block mb-2 px-2">Google Web Search</span>
-                    <button
-                      onClick={() => {
-                        window.open(`https://www.google.com/search?q=${encodeURIComponent(heroSearchQuery.trim())}`, '_blank', 'noopener,noreferrer');
-                        setHeroSearchQuery('');
-                      }}
-                      className="w-full p-2.5 hover:bg-blue-50 dark:hover:bg-blue-950/20 rounded-xl text-left transition-colors flex items-center gap-3 text-blue-600 dark:text-blue-400 font-bold text-xs"
-                    >
-                      <Search size={14} className="text-blue-500 shrink-0" />
-                      <span>Search &ldquo;{heroSearchQuery}&rdquo; on Google Search</span>
-                    </button>
+            {/* Roadmap Grid Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-4">
+              
+              {/* Stage 1: Frontend Fundamentals */}
+              <div className="p-6 bg-[#16222f] border border-slate-700/60 rounded-2xl shadow-xl hover:border-[#04AA6D]/60 transition-all duration-300 group relative overflow-hidden flex flex-col justify-between">
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <span className="w-8 h-8 rounded-xl bg-[#04AA6D]/20 text-[#04AA6D] font-black text-xs flex items-center justify-center border border-[#04AA6D]/40">
+                      01
+                    </span>
+                    <span className="text-[10px] font-extrabold uppercase tracking-wider text-emerald-400 bg-emerald-950/60 border border-emerald-800 px-2.5 py-1 rounded-md">
+                      Step 1 • Foundation
+                    </span>
                   </div>
-                )}
+                  <div>
+                    <h3 className="text-lg font-extrabold text-white group-hover:text-[#04AA6D] transition-colors">
+                      Frontend Web Fundamentals
+                    </h3>
+                    <p className="text-xs text-slate-300 mt-1 leading-relaxed">
+                      Master document structuring with HTML5, visual styling with CSS, and interactive logic with JavaScript.
+                    </p>
+                  </div>
+                  <div className="flex flex-wrap gap-1.5 pt-1">
+                    <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-xs font-mono font-bold text-slate-300">HTML5</span>
+                    <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-xs font-mono font-bold text-slate-300">CSS3</span>
+                    <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-xs font-mono font-bold text-slate-300">JavaScript ES6+</span>
+                  </div>
+                </div>
+                <div className="pt-6 mt-4 border-t border-slate-800/80 flex items-center justify-between gap-3">
+                  <Link
+                    href="/html"
+                    className="px-4 py-2 bg-[#04AA6D] hover:bg-[#039861] text-white font-extrabold text-xs rounded-xl shadow-md transition-all flex items-center gap-1.5 cursor-pointer"
+                  >
+                    <span>Start HTML Tutorials »</span>
+                  </Link>
+                  <Link
+                    href="/html/quiz"
+                    className="text-xs font-bold text-slate-400 hover:text-white transition-colors"
+                  >
+                    Take HTML Quiz ➔
+                  </Link>
+                </div>
               </div>
-            )}
+
+              {/* Stage 2: Command Line & Version Control */}
+              <div className="p-6 bg-[#16222f] border border-slate-700/60 rounded-2xl shadow-xl hover:border-indigo-500/60 transition-all duration-300 group relative overflow-hidden flex flex-col justify-between">
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <span className="w-8 h-8 rounded-xl bg-indigo-500/20 text-indigo-400 font-black text-xs flex items-center justify-center border border-indigo-500/40">
+                      02
+                    </span>
+                    <span className="text-[10px] font-extrabold uppercase tracking-wider text-indigo-400 bg-indigo-950/60 border border-indigo-800 px-2.5 py-1 rounded-md">
+                      Step 2 • Workflows
+                    </span>
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-extrabold text-white group-hover:text-indigo-400 transition-colors">
+                      Command Line & Git Version Control
+                    </h3>
+                    <p className="text-xs text-slate-300 mt-1 leading-relaxed">
+                      Learn terminal commands in Windows Command Prompt and track project code versions using Git & GitHub.
+                    </p>
+                  </div>
+                  <div className="flex flex-wrap gap-1.5 pt-1">
+                    <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-xs font-mono font-bold text-slate-300">Windows CMD</span>
+                    <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-xs font-mono font-bold text-slate-300">Git Basics</span>
+                    <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-xs font-mono font-bold text-slate-300">GitHub Repos</span>
+                  </div>
+                </div>
+                <div className="pt-6 mt-4 border-t border-slate-800/80 flex items-center justify-between gap-3">
+                  <Link
+                    href="/cli"
+                    className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold text-xs rounded-xl shadow-md transition-all flex items-center gap-1.5 cursor-pointer"
+                  >
+                    <span>Learn Windows CMD »</span>
+                  </Link>
+                  <Link
+                    href="/git/terminal"
+                    className="text-xs font-bold text-slate-400 hover:text-white transition-colors"
+                  >
+                    Git Terminal ➔
+                  </Link>
+                </div>
+              </div>
+
+              {/* Stage 3: Modern UI & Frameworks */}
+              <div className="p-6 bg-[#16222f] border border-slate-700/60 rounded-2xl shadow-xl hover:border-sky-500/60 transition-all duration-300 group relative overflow-hidden flex flex-col justify-between">
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <span className="w-8 h-8 rounded-xl bg-sky-500/20 text-sky-400 font-black text-xs flex items-center justify-center border border-sky-500/40">
+                      03
+                    </span>
+                    <span className="text-[10px] font-extrabold uppercase tracking-wider text-sky-400 bg-sky-950/60 border border-sky-800 px-2.5 py-1 rounded-md">
+                      Step 3 • Frameworks
+                    </span>
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-extrabold text-white group-hover:text-sky-400 transition-colors">
+                      React.js, Next.js & UI Frameworks
+                    </h3>
+                    <p className="text-xs text-slate-300 mt-1 leading-relaxed">
+                      Build reactive user interfaces, component architectures, client-side state management, and full-stack Next.js applications.
+                    </p>
+                  </div>
+                  <div className="flex flex-wrap gap-1.5 pt-1">
+                    <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-xs font-mono font-bold text-slate-300">React.js</span>
+                    <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-xs font-mono font-bold text-slate-300">Next.js App Router</span>
+                    <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-xs font-mono font-bold text-slate-300">Tailwind CSS</span>
+                  </div>
+                </div>
+                <div className="pt-6 mt-4 border-t border-slate-800/80 flex items-center justify-between gap-3">
+                  <Link
+                    href="/playground"
+                    className="px-4 py-2 bg-sky-600 hover:bg-sky-500 text-white font-extrabold text-xs rounded-xl shadow-md transition-all flex items-center gap-1.5 cursor-pointer"
+                  >
+                    <span>Open Code Playground »</span>
+                  </Link>
+                  <Link
+                    href="/course/projects"
+                    className="text-xs font-bold text-slate-400 hover:text-white transition-colors"
+                  >
+                    Build Real Projects ➔
+                  </Link>
+                </div>
+              </div>
+
+              {/* Stage 4: Computer Science & Full Stack Integration */}
+              <div className="p-6 bg-[#16222f] border border-slate-700/60 rounded-2xl shadow-xl hover:border-amber-500/60 transition-all duration-300 group relative overflow-hidden flex flex-col justify-between">
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <span className="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-400 font-black text-xs flex items-center justify-center border border-amber-500/40">
+                      04
+                    </span>
+                    <span className="text-[10px] font-extrabold uppercase tracking-wider text-amber-400 bg-amber-950/60 border border-amber-800 px-2.5 py-1 rounded-md">
+                      Step 4 • CS Mastery
+                    </span>
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-extrabold text-white group-hover:text-amber-400 transition-colors">
+                      Backend Systems & Computer Science (BCA)
+                    </h3>
+                    <p className="text-xs text-slate-300 mt-1 leading-relaxed">
+                      Understand computer hardware basics, operating systems, data structures, and university degree fundamentals.
+                    </p>
+                  </div>
+                  <div className="flex flex-wrap gap-1.5 pt-1">
+                    <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-xs font-mono font-bold text-slate-300">BCA Degree Hub</span>
+                    <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-xs font-mono font-bold text-slate-300">PC Hardware</span>
+                    <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-xs font-mono font-bold text-slate-300">NCERT Tech</span>
+                  </div>
+                </div>
+                <div className="pt-6 mt-4 border-t border-slate-800/80 flex items-center justify-between gap-3">
+                  <Link
+                    href="/bca"
+                    className="px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white font-extrabold text-xs rounded-xl shadow-md transition-all flex items-center gap-1.5 cursor-pointer"
+                  >
+                    <span>Explore BCA Hub »</span>
+                  </Link>
+                  <Link
+                    href="/course"
+                    className="text-xs font-bold text-slate-400 hover:text-white transition-colors"
+                  >
+                    View Full Curriculum ➔
+                  </Link>
+                </div>
+              </div>
+
+            </div>
           </div>
 
-          <p className="text-xs font-bold text-slate-400 mt-4 uppercase">
-            Not sure where to begin? Try <Link href="/msword" className="text-theme-accent hover:underline cursor-pointer">MS Word 365</Link>, <button onClick={() => handleScrollToId('cli-section')} className="text-theme-accent hover:underline cursor-pointer">CLI Tutorial</button>, <Link href="/simulator" className="text-theme-accent hover:underline cursor-pointer">Windows 11 Simulator</Link> or <button onClick={() => handleScrollToId('html-section')} className="text-theme-accent hover:underline cursor-pointer">HTML Course</button>
-          </p>
 
-          {/* Quick bands links */}
-          <div className="flex flex-wrap justify-center gap-2 mt-8 max-w-xl mx-auto">
-            {['MS Word', 'CLI', 'Git', 'HTML', 'CSS', 'JavaScript', 'React', 'Backend'].map((tech) => {
-              const ids: Record<string, string> = {
-                'MS Word': 'msword-section',
-                'CLI': 'cli-section',
-                'HTML': 'html-section',
-                'CSS': 'css-section',
-                'JavaScript': 'js-section',
-                'React': 'react-section',
-                'Backend': 'backend-section'
-              };
-              return (
-                <button
-                  key={tech}
-                  onClick={() => {
-                    if (tech === 'Git') {
-                      handleLaunchChapter('p0-4-git');
-                    } else if (tech === 'MS Word') {
-                      router.push('/msword');
-                    } else {
-                      handleScrollToId(ids[tech] || '');
-                    }
-                  }}
-                  className="px-4 py-1.5 rounded-full text-xs font-black uppercase border border-theme-border hover:border-theme-accent hover:text-theme-accent bg-theme-surface/50 text-theme-text transition-all cursor-pointer"
-                >
-                  {tech}
-                </button>
-              );
-            })}
-          </div>
+
+
 
         </div>
       </section>
 
       {/* ── CORE CURRICULUM PHASES (Image 11 Card Pattern) ── */}
 
-      {/* Phase 0: MS Word 365 Band */}
-      <section id="msword-section" className="bg-gradient-to-br from-blue-950/40 via-slate-950 to-indigo-950/30 border-b border-theme-border text-theme-text py-16 px-4 md:px-8">
-        <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-          <div className="text-left space-y-4">
-            <span className="text-[10px] font-black uppercase bg-blue-500/20 border border-blue-500/30 px-3 py-1 rounded-full text-blue-400">
-              Phase 0: Office & Career Productivity
-            </span>
-            <h2 className="text-3xl md:text-4xl font-black uppercase text-theme-text font-mono flex items-center gap-3">
-              <span className="text-2xl">📄</span>
-              <span>MS Word 365</span>
-            </h2>
-            <p className="text-theme-text/80 text-sm md:text-base max-w-lg leading-relaxed font-medium">
-              Essential career skills for job seekers &amp; developers. Master professional document formatting, resume design, mail merge, and AI writing with Microsoft Copilot.
-            </p>
-            <div className="flex flex-wrap gap-3 pt-4">
-              <Link 
-                href="/msword"
-                className="px-5 py-2.5 bg-[#c1a648] hover:bg-[#a38b3a] text-slate-950 rounded-lg text-xs font-black uppercase tracking-wider transition-all cursor-pointer font-mono no-underline inline-flex items-center justify-center shadow-lg"
-              >
-                Learn MS Word 365
-              </Link>
-              <Link 
-                href="/msword/what-is-ms-word-career-basics"
-                className="px-5 py-2.5 bg-theme-surface hover:bg-theme-card text-theme-text border border-theme-border rounded-lg text-xs font-black uppercase tracking-wider transition-all cursor-pointer font-mono no-underline inline-flex items-center justify-center shadow-lg"
-              >
-                Start Lesson 1 (Free)
-              </Link>
-            </div>
-          </div>
-          
-          {/* Mock Document Window */}
-          <div className="bg-[#0b0f19] border border-blue-500/30 rounded-xl overflow-hidden shadow-2xl max-w-md lg:max-w-full mx-auto w-full font-sans text-xs text-left">
-            <div className="bg-[#151b2e] px-4 py-2 flex items-center justify-between border-b border-blue-500/20 select-none">
-              <div className="flex items-center gap-1.5">
-                <div className="w-2.5 h-2.5 rounded-full bg-red-500/60" />
-                <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/60" />
-                <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/60" />
-              </div>
-              <span className="text-[10px] text-blue-300 font-bold uppercase font-mono">Word_Document.docx — Microsoft 365</span>
-              <span className="text-[9px] bg-blue-600/30 text-blue-300 px-1.5 py-0.5 rounded font-mono">AutoSave ON</span>
-            </div>
-            <div className="p-5 space-y-3 bg-[#0d1322]/90 max-h-[220px] overflow-y-auto">
-              <div className="text-[10px] text-blue-400 font-black uppercase tracking-widest">Office Ready — Career Skills</div>
-              <div className="text-base font-black text-white">How to Write a Professional Project Proposal</div>
-              <p className="text-xs text-slate-300 leading-relaxed">
-                In this lesson, learn how to format executive summaries, apply branded heading styles, and insert automated tables of contents.
-              </p>
-              <div className="p-2.5 bg-violet-950/40 border border-violet-700/30 rounded-lg text-[11px] text-violet-200 flex items-center gap-2">
-                <span>🤖</span>
-                <span><strong>Copilot Tip:</strong> Press Ctrl+Draft to let AI write your first draft instantly!</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
       
-      {/* 1. Windows Commands CLI Band (Phase 1) */}
-      <section id="cli-section" className="bg-theme-bg border-b border-theme-border text-theme-text py-16 px-4 md:px-8">
-        <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-          <div className="text-left space-y-4">
-            <span className="text-[10px] font-black uppercase bg-[#c1a648]/20 border border-[#c1a648]/30 px-3 py-1 rounded-full text-theme-accent">
-              Phase 1: Terminal Operations
-            </span>
-            <h2 className="text-3xl md:text-4xl font-black uppercase text-theme-text font-mono flex items-center gap-3">
-              <span>&gt;_</span>
-              <svg viewBox="0 0 24 24" className="w-8 h-8 inline-block shrink-0" aria-hidden="true">
-                <defs>
-                  <linearGradient id="win11-blue" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#00adef" />
-                    <stop offset="100%" stopColor="#0078d4" />
-                  </linearGradient>
-                </defs>
-                <path fill="url(#win11-blue)" d="M0 0h11.5v11.5H0zM12.5 0H24v11.5H12.5zM0 12.5h11.5V24H0zM12.5 12.5H24V24H12.5z" />
-              </svg>
-              <span>Windows CLI</span>
-            </h2>
-            <p className="text-theme-text/80 text-sm md:text-base max-w-lg leading-relaxed font-medium">
-              The ultimate starting point. Command your operating system, automate backups, and control folders directly via typed text shell utilities.
-            </p>
-            <div className="flex flex-wrap gap-3 pt-4">
-              <Link 
-                href="/cli"
-                className="px-5 py-2.5 bg-[#c1a648] hover:bg-[#a38b3a] text-slate-950 rounded-lg text-xs font-black uppercase tracking-wider transition-all cursor-pointer font-mono no-underline inline-flex items-center justify-center shadow-lg"
-              >
-                Learn Windows Command Line
-              </Link>
-              <Link 
-                href="/cmd"
-                className="px-5 py-2.5 bg-theme-surface hover:bg-theme-card text-theme-text border border-theme-border rounded-lg text-xs font-black uppercase tracking-wider transition-all cursor-pointer font-mono no-underline inline-flex items-center justify-center shadow-lg"
-              >
-                Launch CMD Simulator
-              </Link>
-              <Link 
-                href="/simulator"
-                className="px-5 py-2.5 bg-theme-surface hover:bg-theme-card text-theme-text border border-theme-border rounded-lg text-xs font-black uppercase tracking-wider transition-all cursor-pointer font-mono no-underline inline-flex items-center justify-center shadow-lg"
-              >
-                Launch Win 11 Simulator
-              </Link>
-            </div>
-          </div>
-          
-          {/* Mock Console */}
-          <div className="bg-[#0c0c0c] border border-[#c1a648]/30 rounded-xl overflow-hidden shadow-2xl max-w-md lg:max-w-full mx-auto w-full font-mono text-xs text-left">
-            <div className="bg-[#1f1f1f] px-4 py-2 flex items-center justify-between border-b border-[#c1a648]/10 select-none">
-              <div className="flex items-center gap-1.5">
-                <div className="w-2.5 h-2.5 rounded-full bg-red-500/60" />
-                <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/60" />
-                <div className="w-2.5 h-2.5 rounded-full bg-[#c1a648]/80" />
-              </div>
-              <span className="text-[10px] text-slate-400 font-bold uppercase">Command Prompt (cmd.exe)</span>
-              <span className="w-4" />
-            </div>
-            <div className="p-4 space-y-2 max-h-[220px] overflow-y-auto">
-              <div className="text-slate-400">Microsoft Windows [Version 10.0.22621.1702]</div>
-              <div className="text-slate-400">(c) Microsoft Corporation. All rights reserved.</div>
-              <div className="pt-2">C:\Users\Student&gt; <span className="text-white font-bold">ver</span></div>
-              <div className="text-slate-400">Microsoft Windows [Version 10.0.22621.1702]</div>
-              <div>C:\Users\Student&gt; <span className="text-white font-bold">mkdir Nextsem</span></div>
-              <div>C:\Users\Student&gt; <span className="text-white font-bold">cd Nextsem</span></div>
-              <div>C:\Users\Student\Nextsem&gt; <span className="text-white font-bold">_</span></div>
-            </div>
-          </div>
-        </div>
-      </section>
+
 
       {/* 2. HTML Band */}
       <section id="html-section" className="bg-[#D9EEE1] text-slate-900 py-16 px-4 md:px-8 transition-colors">
@@ -1167,309 +892,7 @@ export default function HomeClient() {
         </div>
       </section>
 
-      {/* ── MY LEARNING & DASHBOARD SECTION ── */}
-      <section className="py-16 px-4 md:px-6 max-w-[1200px] mx-auto text-left">
-        <div className="border-b border-slate-200 dark:border-slate-800 pb-6 mb-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-          <div>
-            <span className="text-[10px] font-black text-[#04AA6D] uppercase tracking-widest block">Active Progress Dashboard</span>
-            <h2 className="text-2xl md:text-3xl font-black text-slate-800 dark:text-white uppercase mt-1 tracking-tight">
-              My Learning Pathway
-            </h2>
-          </div>
-          
-          {!currentUser && (
-            <button 
-              onClick={handleSignIn}
-              className="flex items-center gap-2 bg-[#04AA6D] hover:bg-[#039861] text-white px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all cursor-pointer shadow-lg shadow-[#04AA6D]/15"
-            >
-              <LogIn size={14} />
-              <span>Sign In with Google</span>
-            </button>
-          )}
-        </div>
-
-        {currentUser ? (
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            
-            {/* Left: Active card */}
-            <div className="lg:col-span-5 bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800/80 p-6 rounded-2xl shadow-sm text-left relative overflow-hidden flex flex-col justify-between min-h-[220px]">
-              <div className="absolute top-0 right-0 w-40 h-full bg-gradient-to-l from-emerald-500/5 to-transparent blur-2xl pointer-events-none" />
-              
-              <div>
-                <span className="text-[9px] font-black uppercase text-[#04AA6D] bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 rounded-full">
-                  Active lesson
-                </span>
-                <h3 className="text-lg font-black text-slate-800 dark:text-white mt-4 uppercase tracking-tight leading-snug">
-                  {nextActive.title}
-                </h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 font-medium leading-relaxed italic">
-                  💡 {REAL_LIFE_EXAMPLES[nextActive.id] || "Building standard responsive elements for full-stack deployment"}
-                </p>
-              </div>
-
-              <div className="mt-6">
-                <div className="flex justify-between items-center text-[9px] font-black text-slate-400 uppercase tracking-wider mb-2">
-                  <span>Course Pathway Completed</span>
-                  <span>{overallPercent}%</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="flex-1 bg-slate-100 dark:bg-slate-900 h-2 rounded-full overflow-hidden border border-slate-200 dark:border-white/5">
-                    <div 
-                      className="bg-gradient-to-r from-[#04AA6D] to-[#39FF14] h-full rounded-full transition-all duration-500" 
-                      style={{ width: `${overallPercent}%` }}
-                    />
-                  </div>
-                  <button 
-                    onClick={() => handleLaunchChapter(nextActive.id)}
-                    className="p-2 bg-[#04AA6D] hover:bg-[#039861] text-white rounded-lg cursor-pointer transition-transform active:scale-95 shadow-md shadow-[#04AA6D]/20 shrink-0"
-                    title="Launch Lesson"
-                  >
-                    <Play size={14} fill="white" />
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            {/* Right: Modules syllabus navigator */}
-            <div className="lg:col-span-7 space-y-4">
-              <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-thin max-w-full">
-                {coursePhases.map((phase, idx) => {
-                  const isActive = idx === activeModuleIdx;
-                  return (
-                    <button
-                      key={phase.id}
-                      onClick={() => setActiveModuleIdx(idx)}
-                      className={`px-4 py-2 rounded-full text-xs font-black uppercase whitespace-nowrap transition-all border cursor-pointer ${
-                        isActive 
-                          ? "bg-gray-900 border-gray-900 text-white dark:bg-white dark:border-white dark:text-slate-950 font-black shadow-md"
-                          : "bg-white border-slate-200 text-slate-600 hover:border-slate-400 dark:bg-slate-900 dark:border-slate-800 dark:text-slate-400 dark:hover:border-slate-700"
-                      }`}
-                    >
-                      {phase.id}
-                    </button>
-                  );
-                })}
-              </div>
-
-              {/* Chapters list box */}
-              <div className="bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800/80 rounded-2xl p-5 text-left flex flex-col gap-3">
-                <div className="flex justify-between items-center border-b border-slate-100 dark:border-slate-800/60 pb-3">
-                  <h4 className="text-sm font-black text-slate-800 dark:text-white uppercase">{currentModule.title}</h4>
-                  <span className="text-[10px] text-slate-400 font-bold uppercase">{currentModule.topics.length} Lessons</span>
-                </div>
-
-                <div className="flex flex-col gap-2.5 max-h-[300px] overflow-y-auto pr-1">
-                  {currentModule.topics.map((topic, idx) => {
-                    const isCompleted = !!completedChapters[topic.path];
-                    const isCurrent = !isCompleted && (idx === 0 || !!completedChapters[currentModule.topics[idx - 1]?.path]);
-                    
-                    return (
-                      <div
-                        key={topic.path}
-                        className={`p-3 rounded-xl border flex items-center justify-between gap-4 transition-all text-xs ${
-                          isCurrent
-                            ? "bg-emerald-500/5 border-emerald-500/20 text-slate-800 dark:text-white"
-                            : isCompleted
-                            ? "bg-slate-50/50 border-slate-200/60 text-slate-400 dark:bg-slate-950/10 dark:border-slate-900/50 dark:text-slate-500"
-                            : "bg-transparent border-slate-200/40 text-slate-500 dark:border-slate-800/40"
-                        }`}
-                      >
-                        <div className="flex items-center gap-2.5 min-w-0 flex-1">
-                          <div className="shrink-0">
-                            {isCompleted ? (
-                              <CheckCircle size={14} className="text-emerald-500" />
-                            ) : isCurrent ? (
-                              <div className="w-3.5 h-3.5 rounded-full border border-[#04AA6D] flex items-center justify-center">
-                                <div className="w-1.5 h-1.5 rounded-full bg-[#04AA6D] animate-ping" />
-                              </div>
-                            ) : (
-                              <div className="w-3.5 h-3.5 rounded-full border border-slate-300 dark:border-slate-800" />
-                            )}
-                          </div>
-                          <span className={`font-bold truncate ${isCurrent ? 'text-slate-800 dark:text-white font-extrabold' : ''}`}>{topic.label}</span>
-                        </div>
-
-                        <button 
-                          onClick={() => handleLaunchChapter(topic.path)}
-                          className={`px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider transition-all cursor-pointer ${
-                            isCurrent 
-                              ? "bg-[#04AA6D] hover:bg-[#039861] text-white" 
-                              : "bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-slate-300"
-                          }`}
-                        >
-                          {isCompleted ? 'Review' : 'Start'}
-                        </button>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-
-            </div>
-
-          </div>
-        ) : (
-          /* Guest Timeline Show */
-          <div className="bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 md:p-8 text-center space-y-6">
-            <h3 className="text-lg font-black text-slate-800 dark:text-white uppercase">Syllabus Overview (9 Structured Modules)</h3>
-            
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {coursePhases.map((phase, idx) => (
-                <div key={phase.id} className="p-4 rounded-xl border border-slate-100 dark:border-slate-800/80 bg-slate-50/50 dark:bg-slate-900/30 text-left flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-slate-200 dark:bg-slate-800 flex items-center justify-center font-bold text-xs shrink-0">
-                    {phase.id}
-                  </div>
-                  <div>
-                    <span className="text-[9px] font-bold text-slate-400 block uppercase">Module 0{idx + 1}</span>
-                    <span className="text-xs font-black text-slate-800 dark:text-white uppercase block mt-0.5 tracking-tight leading-snug">{phase.title}</span>
-                    <span className="text-[10px] text-slate-500 font-semibold block mt-1">⏳ {phase.duration} • {phase.topics.length} chapters</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="pt-4 border-t border-slate-100 dark:border-slate-800/60 max-w-md mx-auto">
-              <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
-                Log in using Google Authentication to track your chapter completions, build customized sandbox portfolios, and receive your developer certificates.
-              </p>
-              <button 
-                onClick={handleSignIn}
-                className="mt-4 px-6 py-3 bg-[#04AA6D] hover:bg-[#039861] text-white rounded-xl text-xs font-black uppercase tracking-wider transition-all cursor-pointer shadow-lg shadow-[#04AA6D]/20 w-full"
-              >
-                Sign In & Start Free Pathway
-              </button>
-            </div>
-          </div>
-        )}
-      </section>
-
-      {/* ── EXERCISES & QUIZZES SECTION ── */}
-      <section id="exercises-section" className="bg-slate-100 dark:bg-[#0c1222] py-16 px-4 border-y border-slate-200 dark:border-slate-800 transition-colors">
-        <div className="max-w-[1200px] mx-auto text-center space-y-8">
-          <div>
-            <span className="text-[10px] font-black text-[#04AA6D] uppercase tracking-widest block">Self-Assessment Drills</span>
-            <h2 className="text-3xl font-black text-slate-800 dark:text-white uppercase tracking-tight mt-1">
-              Interactive Exercises
-            </h2>
-            <p className="text-slate-500 dark:text-slate-400 text-xs md:text-sm font-medium mt-1">
-              Reinforce coding muscle-memory. Solve multiple-choice questions, match parameters, and complete interactive assignments.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 text-left">
-            {[
-              { title: "CLI Drills", desc: "Execute filesystem commands, network checks, and attributes.", link: "cli-ch1-basics", icon: "💻" },
-              { title: "Git Simulator", desc: "Initialize repos, stage changes, commit logs, and merge branches.", link: "p0-4-git", icon: "🌿" },
-              { title: "HTML Quizzes", desc: "Identify tags, form structures, and SEO anchor keywords.", link: "p1-1-intro-and-text", icon: "📝" },
-              { title: "CSS selectors", desc: "Select parameters, declare grids, and configure variables.", link: "p2-1-selectors", icon: "🎨" },
-              { title: "JS arrays", desc: "Map lists, loop states, and trigger DOM click handlers.", link: "p3-1-basics", icon: "⚡" }
-            ].map((item, idx) => (
-              <div 
-                key={idx}
-                className="bg-white dark:bg-[#0f172a] p-5 rounded-2xl border border-slate-200 dark:border-slate-800/80 shadow-sm flex flex-col justify-between min-h-[160px] hover:-translate-y-1 transition-transform cursor-pointer"
-                onClick={() => handleLaunchChapter(item.link)}
-              >
-                <div className="space-y-2">
-                  <span className="text-2xl">{item.icon}</span>
-                  <h4 className="text-sm font-black text-slate-800 dark:text-white uppercase tracking-tight">{item.title}</h4>
-                  <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed font-medium">{item.desc}</p>
-                </div>
-                <span className="text-[10px] font-black text-[#04AA6D] uppercase tracking-widest flex items-center gap-0.5 mt-4 hover:underline">
-                  <span>Start Drill</span>
-                  <ChevronRight size={10} />
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── CERTIFICATES & BADGES SECTION ── */}
-      <section id="certificate-section" className="py-16 px-4 max-w-[1200px] mx-auto text-left">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          
-          <div className="space-y-4">
-            <span className="text-[10px] font-black text-[#04AA6D] uppercase tracking-widest block">Official Credentials</span>
-            <h2 className="text-3xl md:text-4xl font-black text-slate-800 dark:text-white uppercase tracking-tight leading-tight">
-              Get Certified in Web Dev
-            </h2>
-            <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed font-medium">
-              Complete all 9 structured modules, pass the final capstone project checkoffs, and earn your verified **Nextsem Academy Developer Certification** to showcase to hiring managers.
-            </p>
-
-            <ul className="space-y-2.5 text-xs text-slate-500 dark:text-slate-400 font-bold uppercase">
-              <li className="flex items-center gap-2">
-                <CheckCircle size={14} className="text-[#04AA6D]" />
-                <span>100% Free Verified Certificate</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <CheckCircle size={14} className="text-[#04AA6D]" />
-                <span>Shareable Link on LinkedIn & Resume</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <CheckCircle size={14} className="text-[#04AA6D]" />
-                <span>Verified student serial credential code</span>
-              </li>
-            </ul>
-
-            <div className="pt-4">
-              <button 
-                onClick={() => handleScrollToId('certificate-section')}
-                className="px-5 py-3 bg-[#04AA6D] hover:bg-[#039861] text-white rounded-xl text-xs font-black uppercase tracking-wider transition-all cursor-pointer shadow-lg shadow-[#04AA6D]/20"
-              >
-                Earn Your Certificate
-              </button>
-            </div>
-          </div>
-
-          {/* Certificate mock container */}
-          <div className="relative p-6 md:p-8 bg-[#1f2029] text-white border-4 border-slate-700 rounded-2xl shadow-2xl flex flex-col justify-between items-center text-center font-serif min-h-[300px] select-none">
-            {/* Corner decorations */}
-            <div className="absolute top-2 left-2 border-t-2 border-l-2 border-slate-600 w-6 h-6" />
-            <div className="absolute top-2 right-2 border-t-2 border-r-2 border-slate-600 w-6 h-6" />
-            <div className="absolute bottom-2 left-2 border-b-2 border-l-2 border-slate-600 w-6 h-6" />
-            <div className="absolute bottom-2 right-2 border-b-2 border-r-2 border-slate-600 w-6 h-6" />
-
-            <div className="space-y-1 mt-4">
-              <span className="font-sans text-[10px] tracking-widest text-[#FFF4A3] font-black uppercase block">Certificate of Completion</span>
-              <h3 className="text-xl md:text-2xl font-black tracking-tight text-white uppercase font-sans">Nextsem Academy</h3>
-            </div>
-
-            <div className="my-6">
-              <p className="text-[10px] text-slate-400 font-sans uppercase font-bold tracking-wider">This verifies that student</p>
-              <h4 className="text-lg md:text-xl font-bold text-white italic underline underline-offset-4 decoration-[#04AA6D] font-serif py-2">
-                {currentUser ? currentUser.name : "Your Name Here"}
-              </h4>
-              <p className="text-[10px] text-slate-400 max-w-sm font-sans font-medium leading-relaxed mt-1">
-                has successfully completed all requirements and quizzes for the course pathway in **Full Stack Web Development (Modules 1-9)**.
-              </p>
-            </div>
-
-            <div className="w-full flex justify-between items-end border-t border-slate-800/80 pt-4 mt-2 font-sans">
-              <div className="text-left">
-                <span className="text-[8px] text-slate-500 uppercase block font-bold">Issued on</span>
-                <span className="text-[9px] text-slate-350 font-bold block">{new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
-              </div>
-              <div className="w-8 h-8 rounded-full bg-[#04AA6D]/20 flex items-center justify-center text-[#04AA6D] border border-[#04AA6D]/40">
-                <Award size={16} />
-              </div>
-              <div className="text-right">
-                <span className="text-[8px] text-slate-500 uppercase block font-bold">Credential Serial</span>
-                <span className="text-[9px] text-[#FFF4A3] font-mono block">NS-FST-424286</span>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-      </section>
-
-      {/* ── FULL STACK ROADMAP ── */}
-      <div className="bg-gradient-to-b from-[#060d1a] to-[#0a1120]">
-        <FullStackRoadmap />
-      </div>
-
-      {/* ── FOOTER (W3Schools style columned) ── */}
+      {/* ── FOOTER (Nextsem Academy style columned) ── */}
       <footer className="bg-[#1f2029] text-white border-t border-slate-850/80 transition-colors mt-auto">
         
         {/* Quick courses band */}
@@ -1502,6 +925,7 @@ export default function HomeClient() {
               <li><button onClick={() => handleScrollToId('react-section')} className="hover:text-white">React Tutorial</button></li>
               <li><button onClick={() => handleScrollToId('backend-section')} className="hover:text-white">Node.js Backend</button></li>
               <li><button onClick={() => handleScrollToId('cli-section')} className="hover:text-white">Windows Commands (CLI)</button></li>
+              <li><Link href="/curriculum" className="hover:text-white text-emerald-400 font-bold">🚀 Full Dev Curriculum</Link></li>
             </ul>
           </div>
 
@@ -1540,7 +964,7 @@ export default function HomeClient() {
 
         </div>
 
-        {/* Disclaimer / W3Schools style */}
+        {/* Disclaimer / Nextsem Academy style */}
         <div className="bg-[#1b1c24] text-[10px] text-slate-500 font-medium py-6 px-4 border-t border-slate-800/40">
           <div className="max-w-[1000px] mx-auto text-center space-y-3 leading-relaxed">
             <p>

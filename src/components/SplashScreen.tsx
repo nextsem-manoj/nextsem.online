@@ -1,6 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { showAppOpenAd } from "../lib/admobHelper";
+import { Capacitor } from '@capacitor/core';
+
 
 // Animation phases:
 // 0 → N and S pop in as standalone letters
@@ -70,11 +73,18 @@ export default function SplashScreen() {
       [300,  () => setPhase(1)], // expand to NextSem
       [1100, () => setPhase(2)], // condense to NS logo box
       [2200, () => setPhase(3)], // start fade out
-      [3000, () => setGone(true)], // unmount
+      [3000, () => {
+        setGone(true);
+        // Fire App Open Ad on native after splash animation completes
+        if (Capacitor.isNativePlatform()) {
+          showAppOpenAd().catch(() => { /* silent fail — no fill is fine */ });
+        }
+      }],
     ] as [number, () => void][];
     const timers = timings.map(([ms, fn]) => setTimeout(fn, ms));
     return () => timers.forEach(clearTimeout);
   }, [gone]);
+
 
   if (gone) return null;
 

@@ -8,6 +8,7 @@ import ChapterTips from "./ChapterTips";
 import BookPagination from "./BookPagination";
 import AdSenseBanner from "./AdSenseBanner";
 import { AdMob } from "@capacitor-community/admob";
+import { generateAndDownloadLessonPdf } from '../lib/pdfHelper';
 
 
 interface PaginatedSectionsProps {
@@ -84,7 +85,13 @@ export default function PaginatedSections({
 
   const triggerPdfPrint = () => {
     if (typeof window !== 'undefined') {
-      window.print();
+      const container = document.querySelector("article") || document.querySelector("main") || document.body;
+      const lessonText = container ? container.innerText : "Lesson content loaded.";
+      generateAndDownloadLessonPdf({
+        title: `Lesson ${chapterId}`,
+        courseName: "Textbook Lesson Guide",
+        content: lessonText
+      });
     }
   };
 

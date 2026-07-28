@@ -119,7 +119,6 @@ import Script from "next/script";
 import { ThemeProvider } from "../components/ThemeProvider";
 import { ProgressProvider } from "../context/ProgressContext";
 import BottomNavigation from "../components/BottomNavigation";
-import InstallBanner from "../components/InstallBanner";
 import AndroidBackButtonHandler from "../components/AndroidBackButtonHandler";
 import CookieBanner from "../components/CookieBanner";
 
@@ -150,6 +149,7 @@ export default function RootLayout({
       <head>
         {/* Anti-Crash Stylesheet recovery & Theme Auto-Initializer script */}
         <script
+          suppressHydrationWarning
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
@@ -213,7 +213,6 @@ export default function RootLayout({
             <UpdateBanner />
             {children}
             <CookieBanner />
-            <InstallBanner />
             <AndroidBackButtonHandler />
             <TranslateWidget />
             <SearchWidget />

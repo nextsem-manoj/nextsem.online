@@ -75,11 +75,8 @@ export default function HtmlDashboardClient() {
     }
   }
 
-  // Check if a specific lesson is unlocked
-  const isLessonUnlocked = (lessonId: number) => {
-    if (lessonId === 1) return true;
-    return completedLessons.has(lessonId - 1);
-  };
+  // All lessons are unlocked for free browsing
+  const isLessonUnlocked = (lessonId: number) => true;
 
   if (!mounted) {
     return (
@@ -128,7 +125,7 @@ export default function HtmlDashboardClient() {
         <div className="z-10 shrink-0 w-full md:w-auto">
           <button
             onClick={() => router.push(`/html/${nextLesson.slug}`)}
-            className="w-full md:w-auto flex items-center justify-center gap-2.5 px-8 py-4 bg-[#c1a648] hover:bg-[#7f7034] text-[#1e303f] hover:text-white font-black text-xs uppercase tracking-wider rounded-2xl shadow-lg shadow-[#c1a648]/20 hover:shadow-[#c1a648]/30 transition-all border border-[#c1a648]/25 group cursor-pointer"
+            className="w-full md:w-auto flex items-center justify-center gap-2.5 px-8 py-4 bg-[#04AA6D] hover:bg-[#039861] text-white font-extrabold text-xs uppercase tracking-wider rounded-2xl shadow-lg shadow-[#04AA6D]/20 hover:shadow-[#04AA6D]/30 transition-all border border-[#04AA6D]/30 group cursor-pointer"
           >
             <Play size={14} className="fill-current" />
             <span>{completedCount > 0 ? "Resume Learning" : "Start Learning"}</span>

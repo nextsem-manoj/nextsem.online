@@ -527,7 +527,7 @@ export default function TerminalClient() {
   return (
     <div className={`flex flex-col ${bgClass} ${textClass} h-screen overflow-hidden select-none`}>
       
-      {/* ── W3SCHOOLS-STYLE TOP NAVIGATION BAR ── */}
+      {/* ── NEXTSEM ACADEMY-STYLE TOP NAVIGATION BAR ── */}
       <header className="w-full py-2 px-4 border-b border-slate-800/70 flex items-center justify-between shrink-0 select-none z-30 bg-[#090b14]/90 text-white">
         <div className="flex items-center gap-2 relative">
           <Link href="/" className="p-2 hover:bg-slate-500/20 rounded transition-colors text-slate-300 hover:text-white" title="Go to Home Page">

@@ -502,16 +502,7 @@ export default function CourseClient() {
     }
   ];
 
-  if (!mounted || !currentUser) {
-    return (
-      <div className="fixed inset-0 bg-slate-950 text-white flex items-center justify-center">
-        <div className="flex flex-col items-center gap-3">
-          <div className="w-8 h-8 border-4 border-[#39FF14] border-t-transparent rounded-full animate-spin"></div>
-          <span className="text-xs font-black uppercase tracking-wider text-[#39FF14]">Synchronizing Session...</span>
-        </div>
-      </div>
-    );
-  }
+  if (!mounted) return null;
 
   const activeModule = modules[activeCardIdx];
 

@@ -634,60 +634,24 @@ export default function GitClient() {
   );
 
   return (
-    <div className="flex bg-[#060813] text-slate-100 font-sans min-h-screen relative selection:bg-[#c1a648]/30 selection:text-white">
-      
-      {/* ── DESKTOP LEFT DOCKED SIDEBAR ── */}
-      <aside className="hidden lg:flex w-72 flex-col border-r border-slate-800/80 bg-[#070b19]/35 backdrop-blur-md p-6 h-screen sticky top-0 shrink-0 z-25">
-        {renderSidebarContent()}
-      </aside>
+    <div className="flex flex-col min-h-[calc(100vh-92px)] bg-[#060813] text-slate-100 font-sans relative selection:bg-[#c1a648]/30">
 
-      {/* ── MOBILE DRAWER OVERLAY SIDEBAR ── */}
-      <div 
-        className={`fixed inset-0 bg-black/60 z-40 lg:hidden transition-opacity duration-300 ${
-          isMobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-        }`}
-        onClick={() => setIsMobileMenuOpen(false)}
-      />
-      <aside 
-        className={`fixed inset-y-0 left-0 w-72 bg-[#070b19]/95 backdrop-blur-xl border-r border-slate-800/85 z-50 p-6 flex flex-col justify-between transform transition-transform duration-300 lg:hidden ${
-          isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
-      >
-        {renderSidebarContent()}
-      </aside>
-
-      {/* ── MAIN WORKSPACE CONTAINER ── */}
-      <div className="flex-1 flex flex-col min-h-screen overflow-x-hidden">
-        
-        {/* Header Ribbon / Navigation */}
-        <header className="w-full px-6 py-4 bg-[#090d22]/20 border-b border-slate-850/60 sticky top-0 z-30 backdrop-blur-md flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            {/* Hamburger menu trigger */}
-            <button 
-              onClick={() => setIsMobileMenuOpen(true)}
-              className="p-2 hover:bg-slate-900 border border-slate-800 rounded-xl text-slate-400 hover:text-white transition-colors cursor-pointer lg:hidden"
-            >
-              <Menu size={16} />
-            </button>
-            <button 
-              onClick={() => window.history.back()}
-              className="p-2 hover:bg-slate-900 border border-slate-800 rounded-xl text-slate-400 hover:text-white transition-colors cursor-pointer hidden lg:block"
-            >
-              <ArrowLeft size={16} />
-            </button>
-            <div>
-              <span className="text-[8px] font-black uppercase tracking-widest text-indigo-400 block">Version Control</span>
-              <h1 className="text-sm font-black text-white uppercase tracking-tight">🐙 Git reference textbook</h1>
-            </div>
+      {/* Header bar */}
+      <header className="w-full px-4 md:px-6 py-3 bg-[#090d22]/30 border-b border-slate-800/60 sticky top-[92px] z-20 backdrop-blur-md flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          {/* Mobile hamburger removed — handled by layout */}
+          <div>
+            <span className="text-[8px] font-black uppercase tracking-widest text-indigo-400 block">Version Control</span>
+            <h1 className="text-sm font-black text-white uppercase tracking-tight">🐙 Git Reference Textbook</h1>
           </div>
+        </div>
+        <span className="text-[9px] font-black uppercase tracking-widest text-[#39FF14] bg-[#39FF14]/10 border border-[#39FF14]/20 px-3 py-1 rounded-full">
+          Completed: {stepIdx}/40 Steps
+        </span>
+      </header>
 
-          <span className="text-[9px] font-black uppercase tracking-widest text-[#39FF14] bg-[#39FF14]/10 border border-[#39FF14]/20 px-3 py-1 rounded-full">
-            Completed: {stepIdx}/40 Steps
-          </span>
-        </header>
-
-        {/* Content Container */}
-        <div className="max-w-3xl w-full mx-auto px-6 py-8 space-y-8 flex-1" style={{ fontFamily: 'Verdana, sans-serif' }}>
+      {/* Content Container */}
+      <div className="max-w-3xl w-full mx-auto px-4 md:px-6 py-8 space-y-8 flex-1" style={{ fontFamily: 'Verdana, sans-serif' }}>
           
           {view === "lesson" ? (
             <div className="space-y-6">
@@ -854,7 +818,6 @@ export default function GitClient() {
             </div>
           )}
 
-        </div>
       </div>
     </div>
   );

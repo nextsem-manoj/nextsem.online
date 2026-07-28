@@ -1,21 +1,23 @@
 import React from "react";
 import { Metadata } from "next";
-import HtmlDashboardClient from "@/components/HtmlDashboardClient";
+import { htmlLessons } from "@/data/htmlLessonsData";
+import HtmlLessonClient from "@/components/HtmlLessonClient";
 
 export const metadata: Metadata = {
-  title: "HTML5 Free Lessons Dashboard & Study Path | NextSem",
-  description: "Explore our interactive HTML5 developer syllabus. Track your progress, unlock 100 lessons, and resume your coding journey on client-server concepts, tags, and semantic structures.",
+  title: "HTML5 Tutorial & Free Web Developer Lessons | NextSem",
+  description: "Learn HTML5 step-by-step with free tutorials, interactive exercises, and developer certification tracks.",
   alternates: {
     canonical: "/html"
   },
   openGraph: {
-    title: "HTML5 Free Lessons Dashboard & Study Path | NextSem",
-    description: "Explore our interactive HTML5 developer syllabus. Track your progress, unlock 100 lessons, and resume your coding journey on client-server concepts, tags, and semantic structures.",
+    title: "HTML5 Tutorial & Free Web Developer Lessons | NextSem",
+    description: "Learn HTML5 step-by-step with free tutorials, interactive exercises, and developer certification tracks.",
     url: "https://nextsem.online/html",
     type: "website"
   }
 };
 
 export default function HtmlRootPage() {
-  return <HtmlDashboardClient />;
+  const lessonOne = htmlLessons[0];
+  return <HtmlLessonClient lesson={lessonOne} />;
 }

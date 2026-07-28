@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import React, { Suspense } from 'react';
 import HtmlDemoClient from './HtmlDemoClient';
 
 export const metadata: Metadata = {
@@ -13,5 +14,15 @@ export const metadata: Metadata = {
 };
 
 export default function HtmlDemoPage() {
-  return <HtmlDemoClient />;
+  return (
+    <Suspense
+      fallback={
+        <div className="h-screen bg-[#0e1726] text-white flex items-center justify-center text-sm font-mono">
+          Loading TryIt Editor...
+        </div>
+      }
+    >
+      <HtmlDemoClient />
+    </Suspense>
+  );
 }
