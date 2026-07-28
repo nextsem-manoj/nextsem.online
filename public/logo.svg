@@ -1,32 +1,38 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
   <defs>
-    <filter id="neon-glow" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="15" result="blur" />
+    <filter id="gold-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
       <feMerge>
         <feMergeNode in="blur" />
         <feMergeNode in="SourceGraphic" />
       </feMerge>
     </filter>
   </defs>
-  <rect width="512" height="512" rx="112" fill="#09101f" stroke="#04AA6D" stroke-width="18" stroke-opacity="0.5"/>
+  <!-- Dark Container with Emerald Green Border -->
+  <rect width="512" height="512" rx="100" fill="#09101f"/>
+  <rect x="12" y="12" width="488" height="488" rx="88" fill="none" stroke="#04AA6D" stroke-width="14" stroke-opacity="0.8"/>
+  
+  <!-- Golden NS Logo Text -->
   <text 
     x="50%" 
-    y="46%" 
+    y="44%" 
     dominant-baseline="middle" 
     text-anchor="middle" 
-    font-family="system-ui, -apple-system, sans-serif" 
+    font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" 
     font-weight="900" 
-    font-size="220" 
-    fill="#04AA6D" 
-    filter="url(#neon-glow)"
-    letter-spacing="-10"
+    font-size="210" 
+    fill="#F59E0B" 
+    filter="url(#gold-glow)"
+    letter-spacing="-6"
   >NS</text>
+  
+  <!-- White NextSem Subtitle Text -->
   <text 
     x="50%" 
-    y="80%" 
+    y="78%" 
     dominant-baseline="middle" 
     text-anchor="middle" 
-    font-family="system-ui, -apple-system, sans-serif" 
+    font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" 
     font-weight="800" 
     font-size="64" 
     fill="#ffffff"
