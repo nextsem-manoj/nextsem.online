@@ -41,7 +41,7 @@ export default function LessonScreenshotWidget({ screenshots, items, subjectTitl
               <span>🪟 Windows 11 Practical Step-by-Step Walkthrough</span>
             </h3>
             <p className="text-[11px] text-slate-400 font-medium">
-              Real screenshots captured by Manoj Sir — Follow each step vertically below
+              Real screenshots captured by Nextsem — Follow each step vertically below
             </p>
           </div>
         </div>

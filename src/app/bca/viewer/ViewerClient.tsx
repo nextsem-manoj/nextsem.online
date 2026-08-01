@@ -3,8 +3,13 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { ArrowLeft, BookOpen, Sparkles, Send, CheckCircle2, PenTool, Highlighter, Eraser, Trash2, Undo2, Star, X } from 'lucide-react';
+import { 
+  ArrowLeft, BookOpen, Sparkles, Send, CheckCircle2, PenTool, 
+  Highlighter, Eraser, Trash2, Undo2, Star, X, ExternalLink, 
+  FileText, Download, Loader2, RefreshCw, AlertTriangle
+} from 'lucide-react';
 import { useProgress } from '@/context/ProgressContext';
+import { Capacitor } from '@capacitor/core';
 
 interface Message {
   id: string;
@@ -61,22 +66,73 @@ export default function TextbookViewer() {
 
   const fileUrl = searchParams.get('file') || '';
   const fileTitle = searchParams.get('title') || 'Textbook Unit';
+  const pageParam = searchParams.get('page');
+
+  // Compute canonical absolute PDF URL
+  const absolutePdfUrl = fileUrl.startsWith('http')
+    ? fileUrl
+    : `https://nextsem.online${fileUrl.startsWith('/') ? '' : '/'}${fileUrl}`;
+
+  const isPdfFile = fileUrl.toLowerCase().endsWith('.pdf') || fileUrl.includes('/BCA_NEW_Books/');
+  const googleDocsUrl = `https://docs.google.com/gview?embedded=true&url=${encodeURIComponent(absolutePdfUrl)}`;
+
+  // Default to direct PDF in-app viewer (false = direct native viewer, true = google docs)
+  const [useGoogleDocs, setUseGoogleDocs] = useState<boolean>(false);
+  const [showLaunchModal, setShowLaunchModal] = useState<boolean>(false);
+  const [isOpeningNative, setIsOpeningNative] = useState<boolean>(false);
+
+  // PDF Loading & Fallback states
+  const [iframeLoaded, setIframeLoaded] = useState<boolean>(false);
+  const [iframeTimedOut, setIframeTimedOut] = useState<boolean>(false);
+  const [autoDownloaded, setAutoDownloaded] = useState<boolean>(false);
+
+  let iframeSrc = useGoogleDocs && isPdfFile ? googleDocsUrl : fileUrl;
+  if (fileUrl && pageParam && !fileUrl.includes('#page=') && !useGoogleDocs) {
+    iframeSrc = `${fileUrl}#page=${pageParam}`;
+  }
+
+  // Trigger browser file download automatically
+  const triggerAutoDownload = useCallback((url: string, filename?: string) => {
+    try {
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename || 'IGNOU_BCA_Lesson_Notes.pdf';
+      a.target = '_blank';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    } catch (e) {
+      window.open(url, '_blank');
+    }
+  }, []);
+
+  // Timer: If PDF iframe fails to load or times out after 3.5s, trigger auto-download & show banner
+  useEffect(() => {
+    let timer: NodeJS.Timeout | null = null;
+    if (fileUrl && isPdfFile && !iframeLoaded) {
+      timer = setTimeout(() => {
+        if (!iframeLoaded) {
+          setIframeTimedOut(true);
+          if (!autoDownloaded) {
+            setAutoDownloaded(true);
+            triggerAutoDownload(fileUrl, `${fileTitle}.pdf`);
+          }
+        }
+      }, 3500);
+    }
+    return () => {
+      if (timer) clearTimeout(timer);
+    };
+  }, [fileUrl, isPdfFile, iframeLoaded, autoDownloaded, fileTitle, triggerAutoDownload]);
 
   // Redirection for custom visual textbook notes pages
   useEffect(() => {
-    if (fileUrl.toLowerCase().includes('introduction to accounting.pdf') || fileUrl.toLowerCase().includes('accounting-chapter-1')) {
-      router.replace('/ncert/notes/accounting-chapter-1');
-    } else if (fileUrl.toLowerCase().includes('theory base of accounting.pdf') || fileUrl.toLowerCase().includes('accounting-chapter-2')) {
-      router.replace('/ncert/notes/accounting-chapter-2');
-    } else if (fileUrl.toLowerCase().includes('current electricity.pdf') || fileUrl.toLowerCase().includes('physics-chapter-3')) {
-      router.replace('/ncert/notes/physics-chapter-3');
-    } else if (fileUrl.toLowerCase().includes('unit 5.pdf') || fileUrl.toLowerCase().includes('unit-5')) {
+    if (fileUrl.toLowerCase().includes('unit 5.pdf') || fileUrl.toLowerCase().includes('unit-5')) {
       router.replace('/bca/notes/bcs-011-unit-5');
     }
   }, [fileUrl, router]);
 
   // Construct context key for reading progress
-  // Extract relative path from file url
   const relativePath = fileUrl.replace('/BCA_NEW_Books/', '');
   const progressKey = `bca_unit:${relativePath}`;
   const isCompleted = !!completedChapters[progressKey];
@@ -90,14 +146,6 @@ export default function TextbookViewer() {
   const [tool, setTool] = useState<'pen' | 'highlighter' | 'eraser'>('pen');
   const [drawColor, setDrawColor] = useState<string>('#39FF14'); // Glowing green
   const [drawSize, setDrawSize] = useState<number>(3);
-  
-  // AI Buddy states
-  const [chatOpen, setChatOpen] = useState(false);
-  const [chatInput, setChatInput] = useState("");
-  const [messages, setMessages] = useState<Message[]>([
-    { id: '1', sender: 'ai', text: "Hello! I am your BCA Study Buddy. Highlight any text in the textbook, or ask me questions about CPU registers, logic gates, or Von Neumann architecture!" }
-  ]);
-  const [isAiTyping, setIsAiTyping] = useState(false);
 
   // Canvas drawing ref variables
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -162,7 +210,6 @@ export default function TextbookViewer() {
       ctx.stroke();
     });
 
-    // Reset composite operation
     ctx.globalCompositeOperation = 'source-over';
   }, []);
 
@@ -196,20 +243,14 @@ export default function TextbookViewer() {
 
     if (isCompleted) {
       markIncomplete(progressKey);
-      
-      // Deduct XP (-10 XP)
       const newPoints = Math.max(0, points - 10);
       setPoints(newPoints);
       localStorage.setItem(`nextsem_bca_points_${email}`, newPoints.toString());
     } else {
       markCompleted(progressKey);
-      
-      // Add XP (+10 XP)
       const newPoints = points + 10;
       setPoints(newPoints);
       localStorage.setItem(`nextsem_bca_points_${email}`, newPoints.toString());
-
-      // Trigger Confetti Celebration (ProgressContext will automatically trigger its confetti if integrated, but let's confirm XP is set)
       playSound('success');
     }
   };
@@ -223,7 +264,7 @@ export default function TextbookViewer() {
       osc.connect(gain);
       gain.connect(audioCtx.destination);
       osc.type = "sine";
-      osc.frequency.setValueAtTime(type === 'success' ? 587.33 : 150, audioCtx.currentTime); // D5
+      osc.frequency.setValueAtTime(type === 'success' ? 587.33 : 150, audioCtx.currentTime);
       gain.gain.setValueAtTime(0.02, audioCtx.currentTime);
       osc.start();
       osc.stop(audioCtx.currentTime + 0.15);
@@ -260,18 +301,10 @@ export default function TextbookViewer() {
     if (!coords) return;
 
     drawingRef.current = true;
-    
     const size = tool === 'highlighter' ? 12 : tool === 'eraser' ? 20 : drawSize;
-    const color = tool === 'highlighter' ? `${drawColor}60` : drawColor; // Semi-transparent for highlight
+    const color = tool === 'highlighter' ? `${drawColor}60` : drawColor;
 
-    const newPt: Point = {
-      x: coords.x,
-      y: coords.y,
-      mode: tool,
-      color,
-      size
-    };
-
+    const newPt: Point = { x: coords.x, y: coords.y, mode: tool, color, size };
     currentPathRef.current = [newPt];
     pathsRef.current.push(currentPathRef.current);
     redrawCanvas();
@@ -287,14 +320,7 @@ export default function TextbookViewer() {
     const size = tool === 'highlighter' ? 12 : tool === 'eraser' ? 20 : drawSize;
     const color = tool === 'highlighter' ? `${drawColor}60` : drawColor;
 
-    const newPt: Point = {
-      x: coords.x,
-      y: coords.y,
-      mode: tool,
-      color,
-      size
-    };
-
+    const newPt: Point = { x: coords.x, y: coords.y, mode: tool, color, size };
     currentPathRef.current.push(newPt);
     redrawCanvas();
   };
@@ -302,7 +328,6 @@ export default function TextbookViewer() {
   const handleEndDraw = () => {
     if (!drawingRef.current) return;
     drawingRef.current = false;
-    // Save to local storage
     localStorage.setItem(`bca_drawings:${relativePath}`, JSON.stringify(pathsRef.current));
   };
 
@@ -320,62 +345,23 @@ export default function TextbookViewer() {
     }
   };
 
-  // AI Chat Bot triggers
-  const handleAiSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const input = chatInput.trim();
-    if (!input) return;
-
-    const userMsg: Message = { id: Date.now().toString(), sender: 'user', text: input };
-    setMessages(prev => [...prev, userMsg]);
-    setChatInput("");
-    setIsAiTyping(true);
-
-    setTimeout(() => {
-      const normalized = input.toLowerCase();
-      let replyText = "I parsed your question, but that concept is outside the current Block 1 hardware syllabus context. Try asking about 'CPU registers', 'logic gates', or 'Von Neumann'!";
-      
-      // Dictionary check
-      for (const key of Object.keys(AI_RESPONSES)) {
-        if (normalized.includes(key)) {
-          const entry = AI_RESPONSES[key];
-          replyText = `### ${entry.title}\n\n${entry.summary}`;
-          if (entry.code) {
-            replyText += `\n\n\`\`\`javascript\n${entry.code}\n\`\`\``;
-          }
-          break;
-        }
-      }
-
-      // Quiz request check
-      if (normalized.includes("quiz") || normalized.includes("question") || normalized.includes("test me")) {
-        const topics = Object.values(AI_RESPONSES);
-        const randomTopic = topics[Math.floor(Math.random() * topics.length)];
-        replyText = `**Quick AI Quiz Prompt:**\nBased on your curriculum, can you explain the main functionality of **${randomTopic.title}**?\n\n*Draft your answer below, then check if it matches my detailed breakdown!*`;
-      }
-
-      setMessages(prev => [...prev, { id: (Date.now() + 1).toString(), sender: 'ai', text: replyText }]);
-      setIsAiTyping(false);
-    }, 1500);
-  };
-
   if (!mounted) {
     return (
-      <div className="w-full h-screen bg-slate-950 flex items-center justify-center">
+      <div className="w-full h-screen bg-[#060c18] flex items-center justify-center">
         <div className="w-10 h-10 border-4 border-t-emerald-500 border-slate-800 rounded-full animate-spin" />
       </div>
     );
   }
 
   return (
-    <div className="w-full h-screen bg-slate-950 text-white flex flex-col justify-between font-sans selection:bg-[#c1a648]/30 overflow-hidden relative">
+    <div className="w-full h-screen bg-[#060c18] text-white flex flex-col justify-between font-sans selection:bg-[#c1a648]/30 overflow-hidden relative">
       
       {/* Header bar */}
-      <header className="h-16 border-b border-slate-850/50 bg-[#0a0a0f] flex items-center justify-between px-4 md:px-6 shrink-0 z-30">
+      <header className="h-16 border-b border-slate-800/80 bg-[#060c18]/95 flex items-center justify-between px-3 md:px-6 shrink-0 z-30 shadow-md">
         <div className="flex items-center gap-3 min-w-0">
           <button 
             onClick={() => router.back()} 
-            className="flex items-center gap-1 text-slate-400 hover:text-white font-bold text-xs uppercase tracking-wider transition-colors shrink-0"
+            className="flex items-center gap-1 text-slate-400 hover:text-white font-bold text-xs uppercase tracking-wider transition-colors shrink-0 p-1.5 rounded-lg hover:bg-slate-900"
           >
             <ArrowLeft size={16} />
             <span className="hidden sm:inline">Back</span>
@@ -384,15 +370,65 @@ export default function TextbookViewer() {
           <div className="h-5 w-px bg-slate-800 hidden sm:block shrink-0" />
           
           <div className="min-w-0 text-left">
-            <span className="text-[8px] text-slate-550 font-black uppercase tracking-widest block">Textbook Reader</span>
-            <h1 className="text-sm font-black text-white truncate leading-tight pr-4">
-              {fileTitle}
+            <span className="text-[8px] text-amber-400 font-black uppercase tracking-widest block">Textbook Reader</span>
+            <h1 className="text-xs sm:text-sm font-black text-white truncate leading-tight pr-2">
+              {fileTitle} {pageParam ? `(Page ${pageParam})` : ''}
             </h1>
           </div>
         </div>
 
         {/* Toolbar Controls */}
-        <div className="flex items-center gap-3 shrink-0">
+        <div className="flex items-center gap-2 shrink-0">
+
+          {/* Mode Switcher Pill */}
+          <div className="hidden sm:flex items-center bg-slate-900 p-0.5 rounded-xl border border-slate-800 text-[10px]">
+            <button
+              onClick={() => {
+                setUseGoogleDocs(false);
+                setIframeLoaded(false);
+                setIframeTimedOut(false);
+              }}
+              className={`px-2.5 py-1 rounded-lg font-bold transition-all cursor-pointer ${
+                !useGoogleDocs ? "bg-cyan-600 text-white shadow-sm" : "text-slate-400 hover:text-white"
+              }`}
+              title="View PDF directly in browser"
+            >
+              📄 Direct
+            </button>
+            <button
+              onClick={() => {
+                setUseGoogleDocs(true);
+                setIframeLoaded(false);
+                setIframeTimedOut(false);
+              }}
+              className={`px-2.5 py-1 rounded-lg font-bold transition-all cursor-pointer ${
+                useGoogleDocs ? "bg-cyan-600 text-white shadow-sm" : "text-slate-400 hover:text-white"
+              }`}
+              title="View PDF via Google Docs"
+            >
+              🌐 Google View
+            </button>
+          </div>
+
+          {/* Download PDF Button */}
+          <button
+            onClick={() => triggerAutoDownload(fileUrl, `${fileTitle}.pdf`)}
+            className="px-3 py-1.5 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/40 text-emerald-300 text-[10px] font-black uppercase tracking-wider flex items-center gap-1.5 transition-all cursor-pointer shadow-sm active:scale-95"
+            title="Download PDF to device"
+          >
+            <Download size={13} />
+            <span className="hidden md:inline">Download PDF</span>
+          </button>
+
+          {/* Open in New Tab / External */}
+          <button
+            onClick={() => window.open(fileUrl, '_blank')}
+            className="p-1.5 sm:px-3 sm:py-1.5 rounded-xl bg-amber-400/20 hover:bg-amber-400/30 border border-amber-400/40 text-amber-300 text-[10px] font-black uppercase tracking-wider flex items-center gap-1.5 transition-all cursor-pointer shadow-sm"
+            title="Open PDF directly in new browser tab"
+          >
+            <ExternalLink size={13} />
+            <span className="hidden lg:inline">New Tab</span>
+          </button>
           
           {/* Toggle Pen Canvas */}
           <button
@@ -404,7 +440,7 @@ export default function TextbookViewer() {
             }`}
           >
             <PenTool size={12} />
-            <span className="hidden sm:inline">Digital Pen</span>
+            <span className="hidden sm:inline">Pen</span>
           </button>
 
           {/* Mark Complete */}
@@ -417,11 +453,11 @@ export default function TextbookViewer() {
             }`}
           >
             <CheckCircle2 size={12} />
-            <span>{isCompleted ? 'Completed ✓' : 'Mark Read'}</span>
+            <span className="hidden xs:inline">{isCompleted ? 'Completed ✓' : 'Mark Read'}</span>
           </button>
 
           {/* XP Badge */}
-          <div className="hidden md:flex items-center gap-1.5 bg-emerald-950/40 border border-emerald-550/20 px-3 py-1.5 rounded-full shrink-0">
+          <div className="hidden lg:flex items-center gap-1.5 bg-emerald-950/40 border border-emerald-550/20 px-3 py-1.5 rounded-full shrink-0">
             <Star size={12} className="fill-amber-400 text-amber-400 animate-pulse" />
             <span className="text-[9px] font-black uppercase tracking-wider text-emerald-300">
               {points} XP
@@ -430,11 +466,65 @@ export default function TextbookViewer() {
         </div>
       </header>
 
-      {/* Main Core: Viewer + Sidebar */}
-      <div className="flex-1 flex overflow-hidden relative">
+      {/* 🚀 NATIVE PDF LAUNCHER MODAL (Dark Mode #060c18) */}
+      {showLaunchModal && (
+        <div className="fixed inset-0 bg-[#060c18]/95 backdrop-blur-md z-[10000] flex items-center justify-center p-4 animate-in fade-in duration-200">
+          <div className="max-w-sm w-full bg-[#0c1328] border-2 border-emerald-500/40 rounded-3xl p-6 shadow-2xl text-center space-y-4">
+            <div className="w-16 h-16 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center mx-auto text-emerald-400">
+              {isOpeningNative ? (
+                <Loader2 size={32} className="animate-spin text-cyan-400" />
+              ) : (
+                <FileText size={32} className="text-amber-400" />
+              )}
+            </div>
+
+            <div className="space-y-1.5">
+              <h3 className="text-base font-extrabold text-white">
+                Launch Official IGNOU BCA PDF
+              </h3>
+              <p className="text-xs text-slate-300">
+                {fileTitle}
+              </p>
+              <p className="text-[11px] text-emerald-400 font-medium">
+                {Capacitor.isNativePlatform() ? "Opening in Native App File Reader..." : "Opening in new high-speed tab..."}
+              </p>
+            </div>
+
+            <div className="space-y-2 pt-2">
+              <button
+                onClick={() => {
+                  setIsOpeningNative(true);
+                  setTimeout(() => {
+                    triggerAutoDownload(fileUrl, `${fileTitle}.pdf`);
+                    setIsOpeningNative(false);
+                    setShowLaunchModal(false);
+                  }, 400);
+                }}
+                className="w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-slate-950 font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20 active:scale-95 transition-all cursor-pointer"
+              >
+                <Download size={14} />
+                <span>Open / Download PDF</span>
+              </button>
+
+              <button
+                onClick={() => {
+                  setShowLaunchModal(false);
+                  router.back();
+                }}
+                className="w-full py-2.5 px-4 rounded-2xl bg-slate-900 hover:bg-slate-850 border border-slate-800 text-slate-400 hover:text-white font-bold text-xs transition-all cursor-pointer"
+              >
+                Cancel / Return to Lesson
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Main Core: Viewer Container */}
+      <div className="flex-1 flex overflow-hidden relative bg-[#060c18]">
         
-        {/* Left/Center Stage: PDF container */}
-        <div className="flex-1 h-full bg-[#121217]/25 relative flex flex-col justify-center items-center">
+        {/* PDF Container */}
+        <div className="flex-1 h-full bg-[#060c18] relative flex flex-col justify-center items-center">
           
           {/* Drawing Floating Toolbar */}
           {isDrawOpen && (
@@ -503,24 +593,66 @@ export default function TextbookViewer() {
             </div>
           )}
 
-          {/* PDF Frame */}
-          <div className="w-full h-full relative flex items-center justify-center">
-            {fileUrl ? (
-              <iframe
-                src={fileUrl}
-                className="w-full h-full border-none bg-slate-900"
-                title="PDF Textbook Reader"
-              />
+          {/* Interactive Banner: Auto-Download Notification & Quick Action Controls */}
+          {iframeTimedOut && (
+            <div className="w-full bg-[#0c1328] border-b border-amber-500/40 p-3 px-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs z-30 shadow-lg animate-in slide-in-from-top duration-300">
+              <div className="flex items-center gap-2.5 text-amber-300 font-medium">
+                <AlertTriangle size={18} className="text-amber-400 shrink-0 animate-bounce" />
+                <span>
+                  <strong>PDF Auto-Downloaded!</strong> If in-app preview is taking time, tap below to open or download directly.
+                </span>
+              </div>
+
+              <div className="flex items-center gap-2 shrink-0 flex-wrap">
+                <button
+                  onClick={() => triggerAutoDownload(fileUrl, `${fileTitle}.pdf`)}
+                  className="px-3 py-1.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-[11px] uppercase tracking-wider flex items-center gap-1 shadow-md active:scale-95 cursor-pointer"
+                >
+                  <Download size={13} />
+                  <span>Download Again</span>
+                </button>
+                <button
+                  onClick={() => window.open(fileUrl, '_blank')}
+                  className="px-3 py-1.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-[11px] uppercase tracking-wider flex items-center gap-1 shadow-md cursor-pointer"
+                >
+                  <ExternalLink size={13} />
+                  <span>Open in New Tab</span>
+                </button>
+                <button
+                  onClick={() => {
+                    setUseGoogleDocs(!useGoogleDocs);
+                    setIframeLoaded(false);
+                    setIframeTimedOut(false);
+                  }}
+                  className="px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-700 text-slate-300 hover:text-white font-bold text-[11px] cursor-pointer"
+                >
+                  <RefreshCw size={12} />
+                  <span>{useGoogleDocs ? "Try Direct View" : "Try Google Docs View"}</span>
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* PDF Frame with Native `<object>` and `<iframe>` Fallback */}
+          <div className="w-full h-full relative flex items-center justify-center bg-[#060c18]">
+            {iframeSrc ? (
+              <object
+                data={iframeSrc}
+                type="application/pdf"
+                className="w-full h-full border-none bg-[#060c18]"
+                onLoad={() => setIframeLoaded(true)}
+              >
+                <iframe
+                  src={iframeSrc}
+                  className="w-full h-full border-none bg-[#060c18]"
+                  title="PDF Textbook Reader"
+                  onLoad={() => setIframeLoaded(true)}
+                />
+              </object>
             ) : (
               <div className="text-center p-6 text-slate-500">
                 <BookOpen size={48} className="mx-auto mb-3 animate-bounce" />
                 <p className="text-xs">No PDF textbook source configured for this page.</p>
-                <p className="text-[11px] text-slate-400 mt-2">
-                  You can download official study volumes directly from the{" "}
-                  <a href="https://egyankosh.ac.in/handle/123456789/106391" target="_blank" rel="noopener noreferrer" className="text-indigo-400 hover:text-indigo-300 underline font-bold">
-                    IGNOU eGyanKosh repository
-                  </a>.
-                </p>
               </div>
             )}
 
@@ -540,79 +672,6 @@ export default function TextbookViewer() {
             )}
           </div>
         </div>
-
-        {/* Right Collapsible Sidebar: AI Study Buddy */}
-        <aside className={`w-80 border-l border-slate-850/50 bg-[#09090d] flex flex-col justify-between shrink-0 transition-all duration-200 z-20 ${
-          chatOpen ? 'translate-x-0' : 'translate-x-full hidden lg:flex lg:translate-x-0'
-        }`}>
-          {/* Sidebar Header */}
-          <div className="h-12 border-b border-slate-850/40 bg-[#0b0b10] px-4 flex items-center justify-between shrink-0">
-            <span className="text-[10px] text-indigo-400 font-black uppercase tracking-widest flex items-center gap-1.5">
-              <Sparkles size={13} className="text-indigo-400" />
-              AI Study Buddy
-            </span>
-            <button
-              onClick={() => setChatOpen(false)}
-              className="lg:hidden p-1.5 hover:bg-slate-900 rounded-lg text-slate-400 hover:text-white"
-            >
-              <X size={15} />
-            </button>
-          </div>
-
-          {/* Chat Messages */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-4 text-xs select-all">
-            {messages.map(msg => (
-              <div key={msg.id} className={`flex flex-col ${msg.sender === 'user' ? 'items-end' : 'items-start'}`}>
-                <span className="text-[8px] text-slate-550 font-black uppercase tracking-wider mb-1">
-                  {msg.sender === 'user' ? 'You' : 'Semmy AI'}
-                </span>
-                
-                <div className={`p-3 rounded-2xl max-w-[85%] text-left whitespace-pre-wrap leading-relaxed select-text ${
-                  msg.sender === 'user'
-                    ? 'bg-indigo-650 text-white rounded-tr-none'
-                    : 'bg-[#121217] border border-white/5 text-slate-350 rounded-tl-none font-medium'
-                }`}>
-                  {msg.text}
-                </div>
-              </div>
-            ))}
-
-            {isAiTyping && (
-              <div className="flex flex-col items-start animate-pulse">
-                <span className="text-[8px] text-slate-550 font-black uppercase tracking-wider mb-1">Semmy AI</span>
-                <div className="bg-[#121217] border border-white/5 text-slate-550 px-3 py-2.5 rounded-2xl rounded-tl-none text-[10px] font-bold">
-                  Formulating explanation...
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* Chat Input panel */}
-          <form onSubmit={handleAiSubmit} className="p-3 border-t border-slate-850/40 bg-[#09090d] flex gap-2 shrink-0">
-            <input
-              type="text"
-              value={chatInput}
-              onChange={(e) => setChatInput(e.target.value)}
-              placeholder="Ask about registers, gates..."
-              className="flex-1 bg-black border border-slate-850 focus:border-indigo-500 outline-none rounded-xl text-xs text-white px-3 py-2 caret-indigo-400 select-text"
-            />
-            <button
-              type="submit"
-              className="p-2 bg-indigo-650 hover:bg-indigo-600 border border-indigo-600 text-white rounded-xl transition-all cursor-pointer shrink-0"
-            >
-              <Send size={13} />
-            </button>
-          </form>
-        </aside>
-
-        {/* Mobile floating trigger for AI Chat */}
-        <button
-          onClick={() => setChatOpen(!chatOpen)}
-          className="lg:hidden absolute bottom-4 right-4 z-40 w-12 h-12 bg-indigo-650 border border-indigo-500 rounded-full flex items-center justify-center text-white shadow-2xl hover:scale-105 active:scale-95 transition-transform"
-        >
-          <Sparkles size={18} />
-        </button>
-
       </div>
     </div>
   );

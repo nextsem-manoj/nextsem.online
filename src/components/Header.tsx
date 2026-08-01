@@ -11,9 +11,10 @@ const Header = () => {
       {/* Left Section: Logo + Title in a horizontal row */}
       <div className="flex flex-row items-center gap-3 sm:gap-4">
         {/* Title Link */}
-        <Link href="/" className="flex flex-row items-center gap-2.5 hover:opacity-80 transition-opacity">
+        <Link href="/" className="flex flex-row items-center gap-2 hover:opacity-80 transition-opacity">
           <img src="/logo.svg" alt="Nextsem Logo" className="w-7 h-7 rounded-lg border border-emerald-500/20" />
           <span className="font-black text-lg bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">NextSem</span>
+          <span className="text-[10px] bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 px-1.5 py-0.5 rounded-md font-black">v29</span>
         </Link>
         
         {/* Title */}

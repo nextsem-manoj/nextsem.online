@@ -3,10 +3,24 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { ArrowLeft, Star, BookOpen, GraduationCap, Trophy, Sparkles } from 'lucide-react';
+import { 
+  ArrowLeft, 
+  Star, 
+  BookOpen, 
+  GraduationCap, 
+  Trophy, 
+  Sparkles, 
+  ChevronDown, 
+  ChevronUp, 
+  FileText, 
+  Play, 
+  CheckCircle2, 
+  HelpCircle 
+} from 'lucide-react';
 import { useProgress } from '@/context/ProgressContext';
 import { bcaSemesters } from '@/data/bcaCoursesData';
 import AdSenseBanner from '@/components/AdSenseBanner';
+import BcaHeaderNav from '@/components/bca/BcaHeaderNav';
 
 export default function BcaDashboard() {
   const router = useRouter();
@@ -16,10 +30,26 @@ export default function BcaDashboard() {
   const [userEmail, setUserEmail] = useState<string>("guest");
   const [points, setPoints] = useState(0);
 
+  // Open accordion semesters state (Semester 1 open by default!)
+  const [openSemesters, setOpenSemesters] = useState<Record<number, boolean>>({
+    1: true,
+    2: false,
+    3: false,
+    4: false,
+    5: false,
+    6: false
+  });
+
+  const toggleSemester = (semId: number) => {
+    setOpenSemesters((prev) => ({
+      ...prev,
+      [semId]: !prev[semId]
+    }));
+  };
+
   useEffect(() => {
     setMounted(true);
 
-    // Get active user email
     const savedUser = localStorage.getItem('nextsem_user');
     let email = "guest";
     if (savedUser) {
@@ -30,14 +60,12 @@ export default function BcaDashboard() {
     }
     setUserEmail(email);
 
-    // Load BCA points
     const savedPoints = localStorage.getItem(`nextsem_bca_points_${email}`);
     if (savedPoints) {
       setPoints(parseInt(savedPoints) || 0);
     }
   }, []);
 
-  // Helpers to calculate progress
   const getSemesterProgress = (semId: number) => {
     const sem = bcaSemesters.find(s => s.id === semId);
     if (!sem) return { read: 0, total: 0, pct: 0 };
@@ -91,7 +119,7 @@ export default function BcaDashboard() {
 
   if (!mounted) {
     return (
-      <div className="w-full h-screen bg-slate-950 flex items-center justify-center">
+      <div className="w-full h-screen bg-[#060c18] flex items-center justify-center">
         <div className="w-10 h-10 border-4 border-t-emerald-500 border-slate-800 rounded-full animate-spin" />
       </div>
     );
@@ -100,134 +128,155 @@ export default function BcaDashboard() {
   const overall = getOverallProgress();
 
   return (
-    <div className="w-full min-h-screen bg-slate-950 text-white flex flex-col justify-between font-sans selection:bg-[#c1a648]/30 relative">
-      {/* Background radial glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 rounded-full bg-emerald-900/10 blur-[120px] pointer-events-none" />
+    <div className="w-full min-h-screen bg-[#060c18] text-white flex flex-col justify-between font-sans selection:bg-[#c1a648]/30 relative">
+      {/* Ambient background glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 rounded-full bg-emerald-950/20 blur-[120px] pointer-events-none" />
 
-      {/* Header bar */}
-      <header className="h-16 border-b border-slate-850/50 bg-slate-950/80 backdrop-blur-md sticky top-0 z-40 flex items-center justify-between px-4 md:px-8 shrink-0">
-        <Link 
-          href="/" 
-          className="flex items-center gap-2 text-slate-400 hover:text-white font-bold text-sm transition-all"
-        >
-          <ArrowLeft size={16} />
-          <span>Back to Hub</span>
-        </Link>
+      {/* ── Top Header Bar with Subject Switcher Dropdown (Matching image-20.png) ── */}
+      <BcaHeaderNav
+        currentSubjectCode="BCS-111"
+        currentSubjectName="Computer Basics & PC Software"
+        points={points}
+      />
 
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2 bg-emerald-950/40 border border-emerald-550/20 px-4 py-1.5 rounded-full">
-            <Star size={14} className="fill-amber-400 text-amber-400" />
-            <span className="text-[10px] font-black uppercase tracking-wider text-emerald-300">
-              {points} BCA XP
-            </span>
-          </div>
-        </div>
-      </header>
-
-      {/* Main Container */}
-      <main className="flex-1 w-full max-w-5xl mx-auto px-4 md:px-8 py-8">
+      {/* Main Content Container */}
+      <main className="flex-1 w-full max-w-4xl mx-auto px-4 sm:px-6 py-6 space-y-8">
         
-        {/* Banner Section */}
-        <section className="text-center md:text-left md:flex md:items-center md:justify-between gap-6 mb-12">
-          <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-black uppercase tracking-widest mb-3">
-              <GraduationCap size={12} />
-              IGNOU BCA Revised Syllabus
+        {/* Hero Section */}
+        <section className="p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-[#0c1328] via-[#090f20] to-[#060c18] border border-cyan-500/30 shadow-2xl space-y-4 text-center sm:text-left sm:flex sm:items-center sm:justify-between gap-6">
+          <div className="space-y-2">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[10px] font-black uppercase tracking-widest">
+              <GraduationCap size={14} />
+              <span>IGNOU BCA Revised Curriculum</span>
             </div>
-            <h1 className="text-3xl md:text-5xl font-black tracking-tight leading-none mb-3">
-              BCA Study <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-indigo-400">Companion</span>
+            <h1 className="text-2xl sm:text-4xl font-black text-white tracking-tight">
+              IGNOU BCA <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-emerald-300 to-amber-300">Learning Hub</span>
             </h1>
-            <p className="text-slate-400 text-sm max-w-xl leading-relaxed">
-              Access structured textbook units, interactive micro-architecture simulators, and progress trackers. Pick up exactly where you left off. 
-              You can also refer to the official syllabus materials on the <a href="https://egyankosh.ac.in/handle/123456789/106391" target="_blank" rel="noopener noreferrer" className="text-indigo-400 hover:text-indigo-300 font-bold underline">eGyanKosh IGNOU Portal</a>.
+            <p className="text-slate-300 text-xs sm:text-sm leading-relaxed max-w-xl font-medium">
+              Click any subject below to jump directly into Unit 1 lessons. Complete 100% PDF notes, interactive converters, and practice quizzes.
             </p>
-            <div className="mt-4 flex items-center gap-3 flex-wrap">
-              <Link
-                href="/bca/semmy-ai"
-                className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-indigo-600 to-violet-700 hover:from-indigo-500 hover:to-violet-600 border border-indigo-500/40 text-white font-black text-[11px] uppercase tracking-widest rounded-2xl transition-all shadow-lg shadow-indigo-900/40 hover:-translate-y-0.5"
-              >
-                <Sparkles size={13} />
-                Train Semmy AI
-              </Link>
-              <span className="text-[10px] text-slate-600 font-medium">Your AI study companion — teach it new concepts!</span>
-            </div>
           </div>
 
-          {/* Quick stats panel */}
-          <div className="mt-6 md:mt-0 bg-[#121217]/95 border border-white/5 rounded-3xl p-6 shadow-2xl flex flex-col items-center justify-center shrink-0 w-full md:w-64">
-            <span className="text-[10px] text-slate-500 font-black uppercase tracking-widest block mb-1">Total Progress</span>
-            <div className="text-3xl font-black text-[#39D353]">{overall.pct}%</div>
-            <span className="text-[10px] text-slate-400 mt-1 font-bold">{overall.read} of {overall.total} units read</span>
-            <div className="w-full h-1.5 bg-slate-800 rounded-full mt-3 overflow-hidden">
-              <div className="h-full bg-emerald-400 rounded-full" style={{ width: `${overall.pct}%` }} />
-            </div>
+          {/* Quick Progress Badge */}
+          <div className="mt-4 sm:mt-0 p-4 rounded-2xl bg-slate-950/80 border border-slate-800 flex flex-col items-center justify-center shrink-0 w-full sm:w-48 text-center shadow-inner">
+            <span className="text-[10px] text-slate-400 font-black uppercase tracking-widest">Course Progress</span>
+            <span className="text-2xl font-black text-emerald-400 mt-1">{overall.pct}%</span>
+            <span className="text-[10px] text-slate-400 font-bold mt-0.5">{overall.read} / {overall.total} Units</span>
           </div>
         </section>
 
-        <div className="mb-6">
+        <div>
           <AdSenseBanner />
         </div>
 
-        {/* Semesters Grid */}
-        <section className="mb-10">
-          <h2 className="text-lg font-black text-white uppercase tracking-wider mb-6 flex items-center gap-2">
-            <Trophy size={18} className="text-amber-400" />
-            Select Semester
-          </h2>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* ── SEMESTERS ACCORDION (Mobile & Desktop Optimized) ── */}
+        <section className="space-y-4">
+          <div className="flex items-center justify-between">
+            <h2 className="text-base sm:text-lg font-black text-cyan-300 uppercase tracking-wider flex items-center gap-2">
+              <Trophy size={18} className="text-amber-400" />
+              <span>Semesters & Subjects List</span>
+            </h2>
+            <span className="text-[10px] font-bold text-slate-400">Tap to expand subjects</span>
+          </div>
+
+          <div className="space-y-4">
             {bcaSemesters.map((sem) => {
               const semProg = getSemesterProgress(sem.id);
-              const isCompleted = semProg.pct === 100;
-              
-              // Colors based on semesters to match high-end dark look
-              const colors = [
-                "from-emerald-500/20 to-teal-500/10 hover:border-emerald-500/30",
-                "from-blue-500/20 to-indigo-500/10 hover:border-blue-500/30",
-                "from-purple-500/20 to-pink-500/10 hover:border-purple-500/30",
-                "from-orange-500/20 to-amber-500/10 hover:border-orange-500/30",
-                "from-cyan-500/20 to-blue-500/10 hover:border-cyan-500/30",
-                "from-pink-500/20 to-rose-500/10 hover:border-pink-500/30"
-              ];
-              const borderStyles = colors[(sem.id - 1) % colors.length];
+              const isOpen = !!openSemesters[sem.id];
 
               return (
                 <div
                   key={sem.id}
-                  onClick={() => router.push(`/bca/${sem.id}`)}
-                  className={`bg-gradient-to-br ${borderStyles} border border-white/5 rounded-[28px] p-6 cursor-pointer hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group shadow-lg min-h-[160px]`}
+                  className="rounded-3xl bg-gradient-to-br from-[#0c1328] via-[#090f20] to-[#060c18] border border-slate-800 shadow-xl overflow-hidden transition-all duration-300"
                 >
-                  <div className="text-left">
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="text-3xl font-black text-white/20 select-none group-hover:text-white/40 transition-colors">
+                  {/* Accordion Header Bar */}
+                  <div
+                    onClick={() => toggleSemester(sem.id)}
+                    className="p-5 sm:p-6 flex items-center justify-between cursor-pointer hover:bg-slate-900/60 transition-colors select-none"
+                  >
+                    <div className="flex items-center gap-3 sm:gap-4 min-w-0">
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-300 font-black text-sm sm:text-base flex items-center justify-center shrink-0">
                         0{sem.id}
-                      </span>
-                      {isCompleted && (
-                        <span className="text-[9px] font-black text-[#39FF14] bg-[#39FF14]/10 border border-[#39FF14]/20 px-2 py-0.5 rounded">
-                          ✓ Complete
-                        </span>
-                      )}
+                      </div>
+
+                      <div className="min-w-0 text-left">
+                        <div className="flex items-center gap-2">
+                          <h3 className="text-base sm:text-lg font-black text-white truncate">
+                            {sem.name}
+                          </h3>
+                          {semProg.pct === 100 && (
+                            <span className="text-[9px] font-black text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.5 rounded">
+                              ✓ Done
+                            </span>
+                          )}
+                        </div>
+                        <p className="text-[10px] sm:text-xs text-slate-400 font-bold mt-0.5 truncate">
+                          {sem.subjects.length} Subjects · {semProg.total} Unit Files
+                        </p>
+                      </div>
                     </div>
-                    <h3 className="text-lg font-black text-white leading-tight group-hover:text-emerald-300 transition-colors">
-                      {sem.name}
-                    </h3>
-                    <p className="text-[11px] text-slate-500 font-bold mt-1">
-                      {sem.subjects.length} subjects · {semProg.total} unit files
-                    </p>
+
+                    <div className="flex items-center gap-3 shrink-0">
+                      <div className="text-right hidden sm:block">
+                        <span className="text-xs font-black text-emerald-400">{semProg.pct}%</span>
+                        <span className="text-[10px] text-slate-500 block">Progress</span>
+                      </div>
+                      <div className="p-2 rounded-xl bg-slate-900 border border-slate-800 text-cyan-400">
+                        {isOpen ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
+                      </div>
+                    </div>
                   </div>
 
-                  <div className="mt-4">
-                    <div className="flex items-center justify-between text-[10px] font-black text-slate-400 mb-1.5">
-                      <span>Progress</span>
-                      <span>{semProg.pct}%</span>
+                  {/* Accordion Expanded Body (Subjects List) */}
+                  {isOpen && (
+                    <div className="p-5 sm:p-6 pt-0 border-t border-slate-800/80 bg-slate-950/60 space-y-3 animate-in fade-in duration-200">
+                      <div className="text-[11px] font-bold text-slate-400 mb-2">
+                        Subjects in {sem.name}:
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        {sem.subjects.map((sub) => {
+                          const isComputerBasics = sub.code === "BCS-111" || sub.code === "BCS-011";
+                          // First Active Lesson URL for BCS-111, or subject overview for others
+                          const targetUrl = isComputerBasics
+                            ? "/bca/semester-1/bcs-011-computer-basics/unit-1-introduction-to-computer-systems"
+                            : `/bca/${sem.id}/${sub.code.toLowerCase()}`;
+
+                          return (
+                            <div
+                              key={sub.code}
+                              onClick={() => router.push(targetUrl)}
+                              className="p-4 rounded-2xl bg-[#0c1328] hover:bg-[#101b38] border border-cyan-500/30 hover:border-cyan-400 cursor-pointer transition-all duration-200 shadow-md group flex items-center justify-between"
+                            >
+                              <div className="flex items-center gap-3 min-w-0">
+                                <div className="w-9 h-9 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 flex items-center justify-center text-sm font-black shrink-0">
+                                  {sub.isLab ? '🧪' : '📘'}
+                                </div>
+
+                                <div className="min-w-0 text-left">
+                                  <div className="flex items-center gap-1.5">
+                                    <span className="text-[10px] font-black uppercase text-amber-400">
+                                      {sub.code}
+                                    </span>
+                                    {isComputerBasics && (
+                                      <span className="text-[9px] font-black uppercase px-1.5 py-0.2 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 rounded">
+                                        Active Lesson 1
+                                      </span>
+                                    )}
+                                  </div>
+                                  <h4 className="text-xs sm:text-sm font-extrabold text-white truncate leading-snug mt-0.5 group-hover:text-cyan-300 transition-colors">
+                                    {sub.name}
+                                  </h4>
+                                </div>
+                              </div>
+
+                              <Play size={14} className="text-cyan-400 group-hover:translate-x-1 transition-transform shrink-0" />
+                            </div>
+                          );
+                        })}
+                      </div>
                     </div>
-                    <div className="w-full h-1 bg-slate-800 rounded-full overflow-hidden">
-                      <div 
-                        className="h-full bg-emerald-400 rounded-full transition-all duration-500" 
-                        style={{ width: `${semProg.pct}%` }} 
-                      />
-                    </div>
-                  </div>
+                  )}
                 </div>
               );
             })}
@@ -235,17 +284,9 @@ export default function BcaDashboard() {
         </section>
       </main>
 
-      <footer className="w-full py-6 text-center text-[10px] text-slate-600 border-t border-white/5 select-none mt-auto flex flex-col items-center justify-center gap-2">
+      {/* Footer */}
+      <footer className="w-full py-6 text-center text-[10px] text-slate-500 border-t border-slate-800/80 mt-auto space-y-2">
         <div>© 2026 Nextsem Academy · IGNOU BCA Revised Syllabus Companion</div>
-        <div className="flex flex-wrap justify-center gap-3 text-slate-500 font-bold uppercase tracking-wider text-[9px]">
-          <Link href="/about" className="hover:text-white transition-colors">About Us</Link>
-          <span>·</span>
-          <Link href="/contact" className="hover:text-white transition-colors">Contact</Link>
-          <span>·</span>
-          <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
-          <span>·</span>
-          <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
-        </div>
       </footer>
     </div>
   );

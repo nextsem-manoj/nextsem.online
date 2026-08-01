@@ -7,12 +7,13 @@ import { ArrowLeft, Star, GraduationCap } from 'lucide-react';
 import { useProgress } from '@/context/ProgressContext';
 import { bcaSemesters } from '@/data/bcaCoursesData';
 import AdSenseBanner from '@/components/AdSenseBanner';
+import DuduBubuWipWidget from '@/components/bca/DuduBubuWipWidget';
 
 export default function SemesterSubjectsDashboard({ semester }: { semester: string }) {
   const router = useRouter();
   const { completedChapters } = useProgress();
 
-  const semesterId = parseInt(semester, 10);
+  const semesterId = parseInt(semester.replace(/^semester-/, ""), 10) || 1;
   const currentSemester = bcaSemesters.find(s => s.id === semesterId);
 
   const [mounted, setMounted] = useState(false);
@@ -158,6 +159,15 @@ export default function SemesterSubjectsDashboard({ semester }: { semester: stri
           <AdSenseBanner />
         </div>
 
+        {/* Show Dudu & Bubu Work-In-Progress for upcoming Semesters 2-5 */}
+        {semesterId > 1 && (
+          <DuduBubuWipWidget
+            title={`Arre Arre! Yahan tak to aa gaye 🐾 (${currentSemester.name})`}
+            subtitle="par yahan se aage ka content Dudu aur Bubu milkar bana rahe hain! Thoda wait karo 🐻❤️🐻"
+            returnUrl="/bca/semester-1"
+          />
+        )}
+
         {/* Subjects List */}
         <section className="space-y-4 mb-10">
           {currentSemester.subjects.map((sub) => {
@@ -173,7 +183,7 @@ export default function SemesterSubjectsDashboard({ semester }: { semester: stri
             return (
               <div
                 key={sub.code}
-                onClick={() => router.push(`/bca/${semesterId}/${sub.code}`)}
+                onClick={() => router.push(`/bca/${semesterId}/${sub.code.toLowerCase()}`)}
                 className="bg-[#111116]/80 hover:bg-[#14141d] border border-white/5 hover:border-emerald-500/20 rounded-3xl p-5 flex items-center justify-between cursor-pointer transition-all duration-200 shadow-md group"
               >
                 <div className="flex items-center gap-4 min-w-0">

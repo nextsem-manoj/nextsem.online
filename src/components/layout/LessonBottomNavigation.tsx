@@ -2,19 +2,24 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { 
   ChevronLeft, ChevronRight, LayoutGrid, BookOpen, 
-  User, Menu, X, LogIn, LogOut, Sliders, Type, Languages, Sparkles, Code, GraduationCap
+  User, Menu, X, LogIn, LogOut, Sliders, Type, Languages, Sparkles, Code, GraduationCap, CheckCircle2
 } from "lucide-react";
 import { mswordLessons } from "@/data/mswordLessonsData";
 import { cliLessons } from "@/data/cliLessonsData";
 import { htmlLessons } from "@/data/htmlLessonsData";
 import { gitLessons } from "@/data/gitLessonsData";
+import { unit1Lessons } from "@/data/unit1LessonsData";
+import { bcaLessons } from "@/data/bcaLessonsData";
+import { bcaSemesters } from "@/data/bcaCoursesData";
 import searchIndex from "@/data/searchIndex.json";
-import { ncertSubjects } from "@/data/ncertCoursesData";
 import { getChapterIdFromPath, getChapterUrl } from "@/lib/htmlLessonsHelper";
 import { auth } from "@/lib/firebase";
 import { signOut } from "firebase/auth";
+import { Capacitor } from "@capacitor/core";
+import { showBannerAd, hideBannerAd } from "@/lib/admobHelper";
 
 interface LessonBottomNavigationProps {
   pathname: string;
@@ -31,12 +36,14 @@ interface UserObj {
 }
 
 export default function LessonBottomNavigation({ pathname }: LessonBottomNavigationProps) {
+  const router = useRouter();
   const [currentUser, setCurrentUser] = useState<UserObj | null>(null);
   const [selectedLang, setSelectedLang] = useState<Lang>("hinglish");
   const [selectedLevel, setSelectedLevel] = useState<Level>("kid");
   const [fontSize, setFontSize] = useState<number>(14);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const [toolsOpen, setToolsOpen] = useState<boolean>(false);
+  const [subjectDrawerOpen, setSubjectDrawerOpen] = useState<boolean>(false);
   const [completedChapters, setCompletedChapters] = useState<Record<string, boolean>>({});
 
   // 5-Tab Navigation Bar (Prev/Home/Tools/Menu/Next):
@@ -44,12 +51,12 @@ export default function LessonBottomNavigation({ pathname }: LessonBottomNavigat
   const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const handleFs = () => setIsFullscreen(!!document.fullscreenElement);
-      document.addEventListener("fullscreenchange", handleFs);
-      return () => document.removeEventListener("fullscreenchange", handleFs);
+    if (Capacitor.isNativePlatform() && pathname !== "/") {
+      showBannerAd();
+    } else if (Capacitor.isNativePlatform() && pathname === "/") {
+      hideBannerAd();
     }
-  }, []);
+  }, [pathname]);
 
   if (isFullscreen) return null;
 
@@ -151,6 +158,9 @@ export default function LessonBottomNavigation({ pathname }: LessonBottomNavigat
   let progressText = "";
   let activeLessonsList: { id: number; slug: string; title: string }[] = [];
   let currentSlug = "";
+  let currentLessonDisplay = "";
+  let currentUnitDisplay = "";
+  let currentBlockDisplay = "";
 
   // 1. MS Word Lessons (/msword/<slug>)
   if (pathname.startsWith("/msword")) {
@@ -224,23 +234,6 @@ export default function LessonBottomNavigation({ pathname }: LessonBottomNavigat
       nextHref = `/git/${gitLessons[0].slug}`;
     }
   } 
-  // 5. NCERT Notes (/ncert/notes/<key>)
-  else if (pathname.startsWith("/ncert/notes/")) {
-    const noteKey = pathname.replace("/ncert/notes/", "").split("/")[0].split("?")[0];
-    const allUnits = ncertSubjects.flatMap((s) => s.blocks.flatMap((b) => b.units));
-    const idx = allUnits.findIndex((u) => u.noteKey === noteKey);
-    dashboardHref = "/ncert";
-    courseTitle = "NCERT Hub";
-
-    if (idx !== -1) {
-      progressText = `Unit ${idx + 1} of ${allUnits.length}`;
-      prevHref = idx > 0 ? `/ncert/notes/${allUnits[idx - 1].noteKey}` : "/ncert";
-      nextHref = idx < allUnits.length - 1 ? `/ncert/notes/${allUnits[idx + 1].noteKey}` : "/ncert";
-    } else {
-      prevHref = "/ncert";
-      nextHref = "/ncert";
-    }
-  }
   // 6. Textbook Book Chapters (/book/<id> or /<subject>/book/<id>)
   else if (pathname.includes("/book/")) {
     const chapterId = getChapterIdFromPath(pathname);
@@ -257,7 +250,61 @@ export default function LessonBottomNavigation({ pathname }: LessonBottomNavigat
       nextHref = "/course";
     }
   }
-  // 7. General Fallback
+  // 7. BCA Unit 1 50 Micro-Lessons (/bca/semester-1/.../unit-1/lessons/<lessonId>)
+  else if (pathname.includes("/unit-1/lessons/")) {
+    const lessonId = pathname.split("/unit-1/lessons/")[1]?.split("?")[0]?.replace(/\/$/, "") || "";
+    const idx = unit1Lessons.findIndex((l) => l.id === lessonId);
+    dashboardHref = "/bca/semester-1/bcs-011-computer-basics/unit-1/lessons";
+    courseTitle = "BCS-111 Unit 1";
+    activeLessonsList = unit1Lessons.map(l => ({ id: l.lessonNumber, slug: `unit-1/lessons/${l.id}`, title: `#${l.lessonNumber} ${l.title}` }));
+
+    if (idx !== -1) {
+      const activeL = unit1Lessons[idx];
+      currentSlug = `unit-1/lessons/${activeL.id}`;
+      progressText = `Lesson ${idx + 1} of 50`;
+      currentLessonDisplay = `Lesson #${activeL.lessonNumber}: ${activeL.title}`;
+      currentUnitDisplay = "Unit 1: Computer their Origin and Applications";
+      currentBlockDisplay = "Block 1: Basics of Computer Hardware (BCS-111)";
+      prevHref = idx > 0 ? `/bca/semester-1/bcs-011-computer-basics/unit-1/lessons/${unit1Lessons[idx - 1].id}` : "/bca/semester-1/bcs-011-computer-basics/unit-1/lessons";
+      nextHref = idx < unit1Lessons.length - 1 ? `/bca/semester-1/bcs-011-computer-basics/unit-1/lessons/${unit1Lessons[idx + 1].id}` : "/bca/semester-1/bcs-011-computer-basics/unit-1/lessons";
+    } else {
+      prevHref = "/bca/semester-1/bcs-011-computer-basics/unit-1/lessons";
+      nextHref = `/bca/semester-1/bcs-011-computer-basics/unit-1/lessons/${unit1Lessons[0].id}`;
+    }
+  }
+  // 8. General BCA Subject Unit Lessons (/bca/semester-1/<subjectSlug>/<lessonSlug>)
+  else if (pathname.includes("/bca/semester-")) {
+    const segs = pathname.replace(/^\/bca\//, "").split("/");
+    const semSeg = segs[0] || "semester-1";
+    const subSeg = segs[1] || "bcs-011-computer-basics";
+    const lesSeg = segs[2] || "";
+
+    const subjectLessons = bcaLessons
+      .filter(l => l.subjectSlug.toLowerCase() === subSeg.toLowerCase() || l.subjectCode.toLowerCase() === subSeg.toLowerCase())
+      .sort((a, b) => a.unitNumber - b.unitNumber);
+
+    const idx = subjectLessons.findIndex(l => l.slug.toLowerCase() === lesSeg.toLowerCase() || l.id.toLowerCase() === lesSeg.toLowerCase());
+
+    dashboardHref = `/bca/${semSeg}/${subSeg}`;
+    courseTitle = subSeg.toUpperCase();
+    activeLessonsList = subjectLessons.map(l => ({ id: l.unitNumber, slug: `${subSeg}/${l.slug}`, title: `Unit ${l.unitNumber}: ${l.title}` }));
+
+    if (idx !== -1) {
+      const activeL = subjectLessons[idx];
+      currentSlug = `${subSeg}/${activeL.slug}`;
+      progressText = `Unit ${activeL.unitNumber} of ${subjectLessons.length}`;
+      const titleHasUnit = activeL.title.toLowerCase().includes(`unit ${activeL.unitNumber}`) || activeL.title.toLowerCase().startsWith("unit ");
+      currentLessonDisplay = titleHasUnit ? activeL.title : `Unit ${activeL.unitNumber}: ${activeL.title}`;
+      currentUnitDisplay = `Unit ${activeL.unitNumber} (${activeL.subjectCode})`;
+      currentBlockDisplay = `${activeL.subjectCode} — ${activeL.subjectSlug.toUpperCase()}`;
+      prevHref = idx > 0 ? `/bca/${semSeg}/${subSeg}/${subjectLessons[idx - 1].slug}` : `/bca/${semSeg}/${subSeg}`;
+      nextHref = idx < subjectLessons.length - 1 ? `/bca/${semSeg}/${subSeg}/${subjectLessons[idx + 1].slug}` : `/bca/${semSeg}/${subSeg}`;
+    } else {
+      prevHref = `/bca/${semSeg}/${subSeg}`;
+      nextHref = subjectLessons.length > 0 ? `/bca/${semSeg}/${subSeg}/${subjectLessons[0].slug}` : `/bca/${semSeg}`;
+    }
+  }
+  // 9. General Fallback
   else {
     dashboardHref = "/";
     courseTitle = "Lessons";
@@ -523,35 +570,204 @@ export default function LessonBottomNavigation({ pathname }: LessonBottomNavigat
 
 
 
+      {/* ── SLIDE-UP SUBJECT & UNIT SWITCHER DRAWER (Integrating BcaHeaderNav Dropdown) ── */}
+      {subjectDrawerOpen && (
+        <>
+          <div 
+            className="fixed inset-0 bg-slate-950/70 backdrop-blur-md z-40 transition-opacity animate-in fade-in duration-200"
+            onClick={() => setSubjectDrawerOpen(false)}
+          />
+          
+          <div 
+            className="fixed bottom-0 left-0 right-0 max-w-lg mx-auto bg-[#090d22]/95 backdrop-blur-2xl border-t border-x border-cyan-500/40 rounded-t-[32px] p-5 pb-24 z-50 animate-in slide-in-from-bottom duration-300 select-none shadow-[0_-12px_40px_rgba(0,0,0,0.8)] text-slate-100"
+            style={{ paddingBottom: 'calc(5.5rem + env(safe-area-inset-bottom))' }}
+          >
+            <div className="w-12 h-1 bg-slate-700/60 rounded-full mx-auto mb-4" />
+
+            <div className="flex flex-col items-center text-center mb-4 pb-3 border-b border-slate-800/80 relative">
+              <div className="flex items-center justify-center gap-2 mb-1">
+                <BookOpen size={18} className="text-cyan-400" />
+                <h3 className="font-extrabold text-sm uppercase tracking-wider text-cyan-300 text-center">
+                  Switch Subject or Unit
+                </h3>
+              </div>
+              <p className="text-xs text-slate-400 text-center font-medium">
+                Official IGNOU BCA 1st Semester Curriculum Sequence
+              </p>
+              <button 
+                onClick={() => setSubjectDrawerOpen(false)}
+                className="absolute right-0 top-0 p-1.5 rounded-full bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white transition-colors cursor-pointer"
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            <div className="space-y-4 max-h-[60vh] overflow-y-auto pr-1 custom-scrollbar text-center">
+              {/* 1. SABSE UPAR: 50 Micro-Lessons Fast Switcher Grid */}
+              <div className="space-y-2 pb-2">
+                <div className="flex items-center justify-between px-1">
+                  <span className="text-[10px] font-black uppercase tracking-wider text-cyan-400">
+                    BCS-111 Unit 1 Micro-Lessons (50)
+                  </span>
+                  <Link
+                    href="/bca/semester-1/bcs-011-computer-basics/unit-1/lessons"
+                    onClick={() => setSubjectDrawerOpen(false)}
+                    className="text-[10px] font-bold text-amber-400 hover:underline"
+                  >
+                    View All Hub
+                  </Link>
+                </div>
+
+                <div className="grid grid-cols-5 gap-1.5 p-2.5 bg-[#060b1e]/90 rounded-2xl border border-cyan-500/30 shadow-inner">
+                  {unit1Lessons.map((l) => {
+                    const isCurrentLesson = pathname.includes(`/lessons/${l.id}`) || (l.lessonNumber === 1 && (pathname.endsWith('/unit-1') || pathname.endsWith('/unit-1/lessons')));
+
+                    return (
+                      <button
+                        key={l.id}
+                        onClick={() => {
+                          setSubjectDrawerOpen(false);
+                          router.push(`/bca/semester-1/bcs-011-computer-basics/unit-1/lessons/${l.id}`);
+                        }}
+                        className={`p-2 rounded-xl text-[11px] font-black text-center transition-all cursor-pointer ${
+                          isCurrentLesson
+                            ? "bg-gradient-to-r from-emerald-500 to-cyan-500 text-white border-2 border-amber-400 shadow-lg shadow-cyan-500/30 scale-105"
+                            : "bg-slate-900/90 hover:bg-cyan-600 hover:text-white border border-slate-800 text-slate-300"
+                        }`}
+                        title={`#${l.lessonNumber}: ${l.title}`}
+                      >
+                        #{l.lessonNumber}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* 2. Active Reading Position Card: Current Lesson -> Unit -> Block */}
+              <div className="p-4 rounded-2xl bg-gradient-to-br from-cyan-950/80 via-slate-900 to-amber-950/60 border border-cyan-500/40 text-center space-y-1.5 shadow-xl">
+                <div className="text-[10px] font-black uppercase tracking-widest text-amber-400">
+                  📍 Active Reading Position
+                </div>
+
+                {/* Current Lesson (Top) */}
+                <div className="text-sm sm:text-base font-black text-cyan-200">
+                  {currentLessonDisplay || "Lesson #1: What is a Computer?"}
+                </div>
+
+                {/* Current Unit (Middle) */}
+                <div className="text-xs font-bold text-slate-300 flex items-center justify-center gap-1.5">
+                  <BookOpen size={13} className="text-cyan-400 shrink-0" />
+                  <span>{currentUnitDisplay || "Unit 1: Computer their Origin and Applications"}</span>
+                </div>
+
+                {/* Current Block (Bottom) */}
+                <div className="text-[11px] font-semibold text-slate-400 flex items-center justify-center gap-1.5">
+                  <span>📦 {currentBlockDisplay || "Block 1: Basics of Computer Hardware (BCS-111)"}</span>
+                </div>
+              </div>
+
+              {/* 3. Official IGNOU PDF Subject Order */}
+              <div className="space-y-2.5 pt-2 border-t border-slate-800/80">
+                <div className="text-[11px] font-black uppercase tracking-widest text-amber-400 text-center">
+                  📚 Official IGNOU PDF Subject Order
+                </div>
+                
+                {bcaSemesters[0]?.subjects.map((sub) => {
+                  const targetUrl = (sub.code === "BCS-111" || sub.code === "BCS-011")
+                    ? "/bca/semester-1/bcs-011-computer-basics/unit-1-introduction-to-computer-systems"
+                    : `/bca/1/${sub.code.toLowerCase()}`;
+
+                  const isCurrent = pathname.includes(sub.code.toLowerCase()) || (sub.code === "BCS-111" && pathname.includes("bcs-011"));
+
+                  return (
+                    <div key={sub.code} className="space-y-1.5">
+                      <button
+                        onClick={() => {
+                          setSubjectDrawerOpen(false);
+                          router.push(targetUrl);
+                        }}
+                        className={`w-full text-center p-3 rounded-2xl border transition-all flex items-center justify-between gap-3 group cursor-pointer ${
+                          isCurrent
+                            ? "bg-cyan-500/20 border-cyan-400 text-cyan-200 shadow-md"
+                            : "bg-slate-900/90 hover:bg-slate-800 border-slate-800 hover:border-cyan-500/40 text-slate-200"
+                        }`}
+                      >
+                        <div className="flex items-center gap-2.5 min-w-0 mx-auto">
+                          <span className="px-2.5 py-0.5 rounded-md bg-amber-500/20 text-amber-300 text-[10px] font-black border border-amber-500/30 shrink-0">
+                            {sub.code}
+                          </span>
+                          <span className="text-xs font-bold truncate group-hover:text-white">
+                            {sub.name}
+                          </span>
+                        </div>
+                        {isCurrent && <CheckCircle2 size={15} className="text-cyan-400 shrink-0" />}
+                      </button>
+
+                      {/* Display Units for this Subject */}
+                      <div className="grid grid-cols-1 gap-1 pl-2 pr-2">
+                        {sub.blocks.map((block) => (
+                          <div key={block.name} className="space-y-1 my-1">
+                            <div className="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider text-center">
+                              {block.name}
+                            </div>
+                            {block.units.map((unit, uIdx) => (
+                              <button
+                                key={unit.fileName}
+                                onClick={() => {
+                                  setSubjectDrawerOpen(false);
+                                  const unitSlug = unit.displayName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+                                  router.push(`/bca/semester-1/${sub.code.toLowerCase()}/unit-${uIdx + 1}-${unitSlug}`);
+                                }}
+                                className="w-full py-1.5 px-3 rounded-xl bg-slate-950/60 hover:bg-slate-900 border border-slate-850 text-[11px] font-medium text-slate-300 hover:text-cyan-300 text-center transition-all cursor-pointer truncate"
+                              >
+                                Unit {uIdx + 1}: {unit.displayName}
+                              </button>
+                            ))}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Semester Switcher Tabs */}
+              <div className="space-y-2 pt-3 border-t border-slate-800/80">
+                <div className="text-[10px] font-black uppercase tracking-wider text-slate-400 text-center">
+                  IGNOU BCA Semesters (1 to 6)
+                </div>
+                <div className="grid grid-cols-3 gap-2">
+                  {[1, 2, 3, 4, 5, 6].map((semNum) => (
+                    <Link
+                      key={semNum}
+                      href={`/bca/semester-${semNum}`}
+                      onClick={() => setSubjectDrawerOpen(false)}
+                      className="p-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-center text-xs font-extrabold text-slate-300 hover:text-white transition-all"
+                    >
+                      Semester {semNum}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </>
+      )}
+
       {/* ── FULL-WIDTH PINNED EDGE-TO-EDGE TAB BAR ── */}
       <nav 
-        className={`fixed left-0 right-0 bottom-0 w-full z-[999] md:hidden select-none bg-[#090d22]/95 backdrop-blur-2xl border-t border-slate-800/80 shadow-[0_-8px_25px_rgba(0,0,0,0.5)] text-slate-200 transition-transform duration-300 ${
+        className={`fixed left-0 right-0 bottom-0 w-full z-[999] select-none bg-[#090d22]/95 backdrop-blur-2xl border-t border-slate-800/80 shadow-[0_-8px_25px_rgba(0,0,0,0.5)] text-slate-200 transition-transform duration-300 ${
           navVisible ? 'translate-y-0' : 'translate-y-full'
         }`}
         style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
       >
-        <div className="px-2 py-1 flex items-center justify-around w-full max-w-lg mx-auto">
+        <div className="px-2 py-1.5 flex items-center justify-around w-full max-w-xl mx-auto">
           
-          {/* TAB 1: PREV */}
-          {prevHref ? (
-            <Link
-              href={prevHref}
-              className="relative flex flex-col items-center justify-center py-1 px-2.5 rounded-xl transition-all duration-200 active:scale-90 text-amber-400 hover:text-amber-300 font-bold"
-            >
-              <ChevronLeft size={18} className="stroke-[2.5] text-amber-400" />
-              <span className="text-[10px] font-bold tracking-tight mt-0.5">Prev</span>
-            </Link>
-          ) : (
-            <div className="relative flex flex-col items-center justify-center py-1 px-2.5 rounded-xl opacity-30 text-slate-500 cursor-not-allowed">
-              <ChevronLeft size={18} className="stroke-[1.5]" />
-              <span className="text-[10px] font-bold tracking-tight mt-0.5">Prev</span>
-            </div>
-          )}
-
-          {/* TAB 2: HOME */}
+          {/* TAB 1: HOME */}
           <Link
             href="/"
-            className="relative flex flex-col items-center justify-center py-1 px-2.5 rounded-xl transition-all duration-200 active:scale-90 text-slate-300 hover:text-white"
+            className="relative flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all duration-200 active:scale-90 text-slate-300 hover:text-white"
           >
             <div className="w-5 h-5 rounded bg-[#09101f] border border-[#04AA6D]/40 flex items-center justify-center text-[#04AA6D] font-black text-[9px] shadow-xs">
               NS
@@ -559,59 +775,81 @@ export default function LessonBottomNavigation({ pathname }: LessonBottomNavigat
             <span className="text-[10px] font-bold tracking-tight mt-0.5">Home</span>
           </Link>
 
-          {/* TAB 3: TOOLS (Language, Kid/Pro, Font Size) */}
-          <button
-            onClick={() => {
-              setToolsOpen(!toolsOpen);
-              setMenuOpen(false);
-            }}
-            className={`relative flex flex-col items-center justify-center py-1 px-2.5 rounded-xl transition-all duration-200 active:scale-90 cursor-pointer ${
-              toolsOpen 
-                ? 'text-amber-400 bg-amber-500/10 border border-amber-500/20' 
-                : 'text-slate-300 hover:text-white'
-            }`}
-          >
-            <Sliders size={18} className={toolsOpen ? "stroke-[2.5]" : "stroke-[1.75]"} />
-            <span className="text-[10px] font-bold tracking-tight mt-0.5">Tools</span>
-            {toolsOpen && (
-              <span className="absolute -top-0.5 w-1.5 h-1.5 bg-amber-400 rounded-full" />
-            )}
-          </button>
+          {/* TAB 2: PREV */}
+          {prevHref ? (
+            <Link
+              href={prevHref}
+              className="relative flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all duration-200 active:scale-90 text-amber-400 hover:text-amber-300 font-bold"
+            >
+              <ChevronLeft size={18} className="stroke-[2.5] text-amber-400" />
+              <span className="text-[10px] font-bold tracking-tight mt-0.5">Prev</span>
+            </Link>
+          ) : (
+            <div className="relative flex flex-col items-center justify-center py-1 px-3 rounded-xl opacity-30 text-slate-500 cursor-not-allowed">
+              <ChevronLeft size={18} className="stroke-[1.5]" />
+              <span className="text-[10px] font-bold tracking-tight mt-0.5">Prev</span>
+            </div>
+          )}
 
-          {/* TAB 4: MENU */}
+          {/* TAB 3: UNIT / SUBJECT SWITCHER (Integrated BcaHeaderNav Dropdown) */}
           <button
             onClick={() => {
-              setMenuOpen(!menuOpen);
+              setSubjectDrawerOpen(!subjectDrawerOpen);
+              setMenuOpen(false);
               setToolsOpen(false);
             }}
-            className={`relative flex flex-col items-center justify-center py-1 px-2.5 rounded-xl transition-all duration-200 active:scale-90 cursor-pointer ${
-              menuOpen 
-                ? 'text-[#04AA6D] bg-[#04AA6D]/10 border border-[#04AA6D]/20' 
-                : 'text-slate-300 hover:text-white'
+            className={`relative flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all duration-200 active:scale-90 cursor-pointer ${
+              subjectDrawerOpen 
+                ? 'text-cyan-300 bg-cyan-500/20 border border-cyan-500/30 font-bold' 
+                : 'text-cyan-400 hover:text-cyan-200 font-bold'
             }`}
           >
-            <Menu size={18} className={menuOpen ? "stroke-[2.5]" : "stroke-[1.75]"} />
-            <span className="text-[10px] font-bold tracking-tight mt-0.5">Menu</span>
-            {menuOpen && (
-              <span className="absolute -top-0.5 w-1.5 h-1.5 bg-[#04AA6D] rounded-full" />
+            <BookOpen size={18} className="stroke-[2] text-cyan-400" />
+            <span className="text-[10px] font-bold tracking-tight mt-0.5">Unit ▾</span>
+            {subjectDrawerOpen && (
+              <span className="absolute -top-0.5 w-1.5 h-1.5 bg-cyan-400 rounded-full" />
             )}
           </button>
 
-          {/* TAB 5: NEXT */}
+          {/* TAB 4: NEXT */}
           {nextHref ? (
             <Link
               href={nextHref}
-              className="relative flex flex-col items-center justify-center py-1 px-2.5 rounded-xl transition-all duration-200 active:scale-90 text-amber-400 hover:text-amber-300 font-bold"
+              className="relative flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all duration-200 active:scale-90 text-amber-400 hover:text-amber-300 font-bold"
             >
               <ChevronRight size={18} className="stroke-[2.5] text-amber-400" />
               <span className="text-[10px] font-black tracking-tight mt-0.5">Next</span>
             </Link>
           ) : (
-            <div className="relative flex flex-col items-center justify-center py-1 px-2.5 rounded-xl opacity-30 text-slate-500 cursor-not-allowed">
+            <div className="relative flex flex-col items-center justify-center py-1 px-3 rounded-xl opacity-30 text-slate-500 cursor-not-allowed">
               <ChevronRight size={18} className="stroke-[1.5]" />
               <span className="text-[10px] font-black tracking-tight mt-0.5">Next</span>
             </div>
           )}
+
+          {/* TAB 5: USER ACCOUNT / MENU */}
+          <button
+            onClick={() => {
+              setMenuOpen(!menuOpen);
+              setToolsOpen(false);
+              setSubjectDrawerOpen(false);
+            }}
+            className={`relative flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all duration-200 active:scale-90 cursor-pointer ${
+              menuOpen 
+                ? 'text-amber-400 bg-amber-500/10 border border-amber-500/20 font-bold' 
+                : 'text-slate-300 hover:text-white'
+            }`}
+          >
+            {currentUser?.photo ? (
+              <img src={currentUser.photo} alt="" className="w-5 h-5 rounded-full object-cover border border-amber-400" />
+            ) : (
+              <User size={18} className={menuOpen ? "stroke-[2.5]" : "stroke-[1.75]"} />
+            )}
+            <span className="text-[10px] font-bold tracking-tight mt-0.5">Account</span>
+            {menuOpen && (
+              <span className="absolute -top-0.5 w-1.5 h-1.5 bg-amber-400 rounded-full" />
+            )}
+          </button>
 
         </div>
       </nav>

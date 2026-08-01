@@ -46,10 +46,15 @@ export default function AdSenseBanner() {
     window.addEventListener('readerSettingsChanged', onSettingsChange);
 
     if (native) {
-      const isLesson = pathname.startsWith('/html') || pathname.startsWith('/cli') || pathname.startsWith('/git') || pathname.startsWith('/book') || pathname.startsWith('/msword');
+      const isHomeScreen = pathname === '/';
+      const isLesson = !isHomeScreen && (
+        pathname.startsWith('/html') || pathname.startsWith('/cli') ||
+        pathname.startsWith('/git') || pathname.startsWith('/book') ||
+        pathname.startsWith('/msword') || pathname.startsWith('/bca')
+      );
       const isFullscreenNow = typeof document !== 'undefined' && !!document.fullscreenElement;
 
-      if (!isLesson || isFullscreenNow) {
+      if (!isLesson || isFullscreenNow || isHomeScreen) {
         hideBannerAd();
         return;
       }

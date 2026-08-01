@@ -7,13 +7,47 @@
       "target": "production",
       "public": "out",
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-      "cleanUrls": true
+      "cleanUrls": true,
+      "trailingSlash": true,
+      "rewrites": [
+        { "source": "/bca/1/BCS-111/**", "destination": "/bca/1/bcs-111/index.html" },
+        { "source": "/bca/1/BCS-111", "destination": "/bca/1/bcs-111/index.html" },
+        { "source": "/bca/1/BCS-011/**", "destination": "/bca/1/bcs-011/index.html" },
+        { "source": "/bca/1/BCS-011", "destination": "/bca/1/bcs-011/index.html" },
+        { "source": "/bca/1/BCS-012/**", "destination": "/bca/1/bcs-012/index.html" },
+        { "source": "/bca/1/BCS-012", "destination": "/bca/1/bcs-012/index.html" },
+        { "source": "/bca/1/BCSL-013/**", "destination": "/bca/1/bcsl-013/index.html" },
+        { "source": "/bca/1/BCSL-013", "destination": "/bca/1/bcsl-013/index.html" },
+        { "source": "/bca/1/BEGLA-136/**", "destination": "/bca/1/begla-136/index.html" },
+        { "source": "/bca/1/BEGLA-136", "destination": "/bca/1/begla-136/index.html" },
+        { "source": "/bca/1/BEVAE-181/**", "destination": "/bca/1/bevae-181/index.html" },
+        { "source": "/bca/1/BEVAE-181", "destination": "/bca/1/bevae-181/index.html" },
+        { "source": "/bca/semester-1/BCS-111/**", "destination": "/bca/1/bcs-111/index.html" },
+        { "source": "/bca/semester-1/BCS-111", "destination": "/bca/1/bcs-111/index.html" },
+        { "source": "/bca/semester-1/BCS-011/**", "destination": "/bca/1/bcs-011/index.html" },
+        { "source": "/bca/semester-1/BCS-011", "destination": "/bca/1/bcs-011/index.html" }
+      ]
     },
     {
       "target": "staging",
       "public": "out",
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-      "cleanUrls": true
+      "cleanUrls": true,
+      "trailingSlash": true,
+      "rewrites": [
+        { "source": "/bca/1/BCS-111/**", "destination": "/bca/1/bcs-111/index.html" },
+        { "source": "/bca/1/BCS-111", "destination": "/bca/1/bcs-111/index.html" },
+        { "source": "/bca/1/BCS-011/**", "destination": "/bca/1/bcs-011/index.html" },
+        { "source": "/bca/1/BCS-011", "destination": "/bca/1/bcs-011/index.html" },
+        { "source": "/bca/1/BCS-012/**", "destination": "/bca/1/bcs-012/index.html" },
+        { "source": "/bca/1/BCS-012", "destination": "/bca/1/bcs-012/index.html" },
+        { "source": "/bca/1/BCSL-013/**", "destination": "/bca/1/bcsl-013/index.html" },
+        { "source": "/bca/1/BCSL-013", "destination": "/bca/1/bcsl-013/index.html" },
+        { "source": "/bca/1/BEGLA-136/**", "destination": "/bca/1/begla-136/index.html" },
+        { "source": "/bca/1/BEGLA-136", "destination": "/bca/1/begla-136/index.html" },
+        { "source": "/bca/1/BEVAE-181/**", "destination": "/bca/1/bevae-181/index.html" },
+        { "source": "/bca/1/BEVAE-181", "destination": "/bca/1/bevae-181/index.html" }
+      ]
     }
   ]
 }

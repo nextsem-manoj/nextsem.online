@@ -8,7 +8,13 @@ export function generateStaticParams() {
     { semester: "3" },
     { semester: "4" },
     { semester: "5" },
-    { semester: "6" }
+    { semester: "6" },
+    { semester: "semester-1" },
+    { semester: "semester-2" },
+    { semester: "semester-3" },
+    { semester: "semester-4" },
+    { semester: "semester-5" },
+    { semester: "semester-6" }
   ];
 }
 

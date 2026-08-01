@@ -27,14 +27,10 @@ interface NavCategory {
 export default function GlobalNavigationWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const [isNcertDomain, setIsNcertDomain] = useState(false);
   const pathname = usePathname();
 
   useEffect(() => {
     setMounted(true);
-    if (typeof window !== 'undefined' && window.location.hostname.startsWith('ncert.')) {
-      setIsNcertDomain(true);
-    }
   }, []);
 
   // Close drawer automatically on navigation changes
@@ -169,47 +165,7 @@ export default function GlobalNavigationWidget() {
     }
   ];
 
-  // NCERT School categories (Subdomain site: ncert.nextsem.online)
-  const ncertSubdomainCategories: NavCategory[] = [
-    {
-      title: "🏛️ NCERT School Hub",
-      color: "text-purple-400 border-purple-500/20 bg-purple-500/5",
-      links: [
-        {
-          name: "NCERT Home Hub",
-          href: "/",
-          desc: "Class 6th - 12th Textbook & Notes Portal",
-          icon: <Library size={14} className="text-indigo-400" />
-        },
-        {
-          name: "History Notes",
-          href: "/history",
-          desc: "Class 12 Themes in Indian History chapters",
-          icon: <Landmark size={14} className="text-rose-400" />
-        },
-        {
-          name: "Civics Notes",
-          href: "/civics",
-          desc: "Bilingual democratic politics lectures",
-          icon: <Compass size={14} className="text-purple-400" />
-        },
-        {
-          name: "Economics Notes",
-          href: "/economics",
-          desc: "Statistics & economic development lessons",
-          icon: <LineChart size={14} className="text-amber-400" />
-        },
-        {
-          name: "PDF Reader Viewer",
-          href: "/ncert/pdf",
-          desc: "Read & download NCERT textbook PDFs",
-          icon: <BookOpen size={14} className="text-blue-400" />
-        }
-      ]
-    }
-  ];
-
-  const activeCategories = isNcertDomain ? ncertSubdomainCategories : webDevCategories;
+  const activeCategories = webDevCategories;
 
   return (
     <>
@@ -238,7 +194,7 @@ export default function GlobalNavigationWidget() {
                 <div>
                   <h2 className="text-sm font-black uppercase tracking-widest text-white leading-none">Nextsem</h2>
                   <p className="text-[9px] font-extrabold uppercase text-emerald-400 mt-1 tracking-wider">
-                    {isNcertDomain ? "NCERT Navigator" : "Web Dev Navigator"}
+                    Web Dev Navigator
                   </p>
                 </div>
               </Link>
@@ -267,7 +223,7 @@ export default function GlobalNavigationWidget() {
                 <div className="text-left">
                   <span className="block text-slate-200 group-hover:text-emerald-400 transition-colors">Welcome Dashboard</span>
                   <span className="block text-[8px] text-slate-500 mt-0.5">
-                    {isNcertDomain ? "NCERT School Platform" : "Web Development Academy"}
+                    Web Development Academy
                   </span>
                 </div>
               </Link>

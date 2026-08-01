@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { Terminal, CheckCircle, HelpCircle, RefreshCcw, X, Play, ArrowRight, Sun, Moon, Home, Menu, Save, RotateCw } from "lucide-react";
 import { useTheme } from "next-themes";
 import Link from "next/link";
@@ -343,6 +343,7 @@ const GIT_SIMULATOR_STEPS: StepType[] = [
 ];
 
 export default function TerminalClient() {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const stepParam = searchParams.get("step") || "1";
   const { theme, setTheme } = useTheme();
@@ -467,7 +468,7 @@ export default function TerminalClient() {
       // Automatically move to the next command after a brief 2-second delay
       setTimeout(() => {
         if (activeStepIdx < GIT_SIMULATOR_STEPS.length - 1) {
-          window.location.href = `/git/terminal?step=${nextStepNum}`;
+          router.push(`/git/terminal?step=${nextStepNum}`);
         } else {
           alert("Outstanding! You have completed all 40 Git textbook steps!");
           window.close();
@@ -481,7 +482,7 @@ export default function TerminalClient() {
   const handleNextStep = () => {
     if (activeStepIdx < GIT_SIMULATOR_STEPS.length - 1) {
       const nextStepNum = activeStepIdx + 2;
-      window.location.href = `/git/terminal?step=${nextStepNum}`;
+      router.push(`/git/terminal?step=${nextStepNum}`);
     } else {
       window.close();
     }
@@ -583,7 +584,7 @@ export default function TerminalClient() {
                     disabled={isLocked}
                     onClick={() => {
                       setIsMenuOpen(false);
-                      window.location.href = `/git/terminal?step=${idx + 1}`;
+                      router.push(`/git/terminal?step=${idx + 1}`);
                     }}
                     className={`w-full text-left px-3 py-1.5 rounded-lg text-[11px] font-bold transition-all flex items-center justify-between border border-transparent ${
                       isActive 

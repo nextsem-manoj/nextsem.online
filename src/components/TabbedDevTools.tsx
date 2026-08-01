@@ -60,7 +60,7 @@ export default function TabbedDevTools() {
         type: "group",
         data: {
           title: "User Profile details (Grouped)",
-          items: ["Name: Manoj Kumar", "Status: Certified", "XP: 3,200", "Gems: 45"]
+          items: ["Name: Nextsem", "Status: Certified", "XP: 3,200", "Gems: 45"]
         }
       };
     } else if (cmd === "time") {

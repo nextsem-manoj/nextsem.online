@@ -13,6 +13,7 @@ import { useProgress } from "../context/ProgressContext";
 import { triggerCelebration } from "../lib/celebration";
 import TopicAnimationWidget from "./TopicAnimationWidget";
 import HtmlTagTooltip from "./HtmlTagTooltip";
+import TaskBasedCodingLab from "./TaskBasedCodingLab";
 import { AdMob } from "@capacitor-community/admob";
 import { Capacitor } from "@capacitor/core";
 import { showRewardedAd } from "@/lib/admobHelper";
@@ -462,6 +463,37 @@ export default function HtmlLessonClient({ lesson }: HtmlLessonClientProps) {
 
         {/* Visual Demonstration Topic Animation GIF Card */}
         <TopicAnimationWidget lessonId={lesson.id} lessonTitle={lesson.title} type="html" lang={selectedLang} />
+
+        {/* Task-Based Coding Lab Section */}
+        <TaskBasedCodingLab
+          labId={`html-lab-${lesson.id}`}
+          labTitle={`Task-Based Coding Lab: Practice ${lesson.title}`}
+          language="html"
+          initialCode={`<!-- Practice Task Code -->\n<div class="card">\n  <h1>HTML Coding Lab</h1>\n  <p>Practice writing clean semantic HTML code step-by-step.</p>\n</div>`}
+          tasks={[
+            {
+              id: "task-1",
+              title: "Create a container <div> element",
+              instruction: "Wrap your content inside a <div> tag with a class attribute.",
+              hint: "Use <div class=\"card\">...</div>",
+              validatorKeywords: ["<div", "</div>"]
+            },
+            {
+              id: "task-2",
+              title: "Add a main heading <h1>",
+              instruction: "Include a main header <h1> element inside your container.",
+              hint: "Use <h1>My Title</h1> syntax.",
+              validatorKeywords: ["<h1>", "</h1>"]
+            },
+            {
+              id: "task-3",
+              title: "Add a descriptive paragraph <p>",
+              instruction: "Add a paragraph <p> explaining your project details.",
+              hint: "Use <p>Description goes here...</p>",
+              validatorKeywords: ["<p>", "</p>"]
+            }
+          ]}
+        />
       </div>
 
       {/* Nextsem Academy HTML Quiz Reminder Card (Replaces inline question block - Image 86) */}

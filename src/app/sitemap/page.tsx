@@ -14,7 +14,7 @@ import { htmlLessons } from '@/data/htmlLessonsData';
 interface SitemapLink {
   title: string;
   url: string;
-  category: 'core' | 'bca' | 'ncert' | 'book';
+  category: 'core' | 'bca' | 'book';
   description: string;
   icon: React.ReactNode;
   tag?: string;
@@ -100,26 +100,6 @@ export default function UserSitemap() {
     return list;
   }, []);
 
-  // 3. Compile NCERT School Routes
-  const ncertRoutes: SitemapLink[] = [
-    { title: "NCERT Portal Home", url: "/ncert", category: "ncert", description: "Central syllabus hub for NCERT board class subjects revision.", icon: <Layers size={16} /> },
-    { title: "Civics Portal", url: "/civics", category: "ncert", description: "Class Civics textbook notes, paginated visual guides, and quizzes.", icon: <BookOpen size={16} /> },
-    { title: "Economics Portal", url: "/economics", category: "ncert", description: "Class Economics textbook notes, visual graphs, and dynamic summaries.", icon: <BookOpen size={16} /> },
-    { title: "History Portal", url: "/history", category: "ncert", description: "Class History chapters revision guides detailing historic world timelines.", icon: <BookOpen size={16} /> },
-    // Static NCERT Notes Chapters
-    { title: "Accounting Chapter 1: Introduction to Accounting", url: "/ncert/notes/accounting-chapter-1", category: "ncert", description: "Revision notes covering basic accounting equations, variables, and records.", icon: <Sparkles size={16} />, tag: "Revision Notes" },
-    { title: "Accounting Chapter 2: Theory Base of Accounting", url: "/ncert/notes/accounting-chapter-2", category: "ncert", description: "Visual revision notes describing accounting principles, standards, and systems.", icon: <Sparkles size={16} />, tag: "Revision Notes" },
-    { title: "Accounting Chapter 3: Recording of Transactions", url: "/ncert/notes/accounting-chapter-3", category: "ncert", description: "Visual revision notes describing ledgers, debit-credit entries, and accounts.", icon: <Sparkles size={16} />, tag: "Revision Notes" },
-    { title: "Economics Chapter 1: Development", url: "/ncert/notes/economics-11-chapter-1", category: "ncert", description: "Interactive notes covering growth metrics, GDP indices, and human development indicators.", icon: <Sparkles size={16} />, tag: "Revision Notes" },
-    { title: "Economics Chapter 2: Sectors of Indian Economy", url: "/ncert/notes/economics-11-chapter-2", category: "ncert", description: "Interactive notes detailing Primary, Secondary, and Tertiary sectors of India.", icon: <Sparkles size={16} />, tag: "Revision Notes" },
-    { title: "Economics Chapter 3: Money & Credit", url: "/ncert/notes/economics-11-chapter-3", category: "ncert", description: "Interactive notes detailing banking structures, currencies, and formal/informal loans.", icon: <Sparkles size={16} />, tag: "Revision Notes" },
-    { title: "History Chapter 10: Colonialism and Countryside", url: "/ncert/notes/history-12-chapter-10", category: "ncert", description: "Interactive notes detailing land revenue systems and peasant struggles in colonial India.", icon: <Sparkles size={16} />, tag: "Revision Notes" },
-    { title: "History Chapter 11: Rebels and the Raj", url: "/ncert/notes/history-12-chapter-11", category: "ncert", description: "Interactive notes covering the Sepoy Mutiny of 1857 and revolutionary battles.", icon: <Sparkles size={16} />, tag: "Revision Notes" },
-    { title: "History Chapter 13: Mahatma Gandhi & Nationalist Movement", url: "/ncert/notes/history-12-chapter-13", category: "ncert", description: "Interactive notes covering Salt March, Non-cooperation movement, and freedom fights.", icon: <Sparkles size={16} />, tag: "Revision Notes" },
-    { title: "History Chapter 15: Framing the Constitution", url: "/ncert/notes/history-12-chapter-15", category: "ncert", description: "Interactive notes covering debates in the constituent assembly and rights distribution.", icon: <Sparkles size={16} />, tag: "Revision Notes" },
-    { title: "Physics Chapter 3: Current Electricity", url: "/ncert/notes/physics-chapter-3", category: "ncert", description: "Interactive physics notes covering Ohm's law, resistance, resistors, and circuitry.", icon: <Sparkles size={16} />, tag: "Revision Notes" }
-  ];
-
   // 4. Compile Book Chapter Dynamic Routes
   const bookRoutes: SitemapLink[] = useMemo(() => {
     // 4.1 Filter and map standard chapters (excluding HTML ones)
@@ -149,7 +129,7 @@ export default function UserSitemap() {
 
   // 5. Combine and Filter all routes
   const allRoutes = useMemo(() => {
-    return [...coreRoutes, ...bcaRoutes, ...ncertRoutes, ...bookRoutes];
+    return [...coreRoutes, ...bcaRoutes, ...bookRoutes];
   }, [bcaRoutes, bookRoutes]);
 
   const filteredRoutes = useMemo(() => {
@@ -238,7 +218,6 @@ export default function UserSitemap() {
               { id: 'all', label: 'All pages', count: allRoutes.length },
               { id: 'core', label: 'Core & Simulators', count: coreRoutes.length },
               { id: 'bca', label: 'BCA Course', count: bcaRoutes.length },
-              { id: 'ncert', label: 'NCERT Hub', count: ncertRoutes.length },
               { id: 'book', label: 'Book Chapters', count: bookRoutes.length }
             ].map(tab => (
               <button

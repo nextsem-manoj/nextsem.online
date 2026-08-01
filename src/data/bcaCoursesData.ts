@@ -33,6 +33,98 @@ export const bcaSemesters: BcaSemester[] = [
     "name": "1st Semester",
     "subjects": [
       {
+        "code": "BCS-111",
+        "name": "Computer Basics and PC Software",
+        "isLab": false,
+        "path": "1st Semester/BCS-111 Computer Basics and PC Software",
+        "blocks": [
+          {
+            "name": "Block 1 Basics of Computer Hardware",
+            "path": "1st Semester/BCS-111 Computer Basics and PC Software/Block 1 Basics of Computer Hardware",
+            "units": [
+              {
+                "fileName": "Unit-1.pdf",
+                "displayName": "Computer their Origin and Applications",
+                "isInteractive": true,
+                "defaultTab": "home"
+              },
+              {
+                "fileName": "Unit-2.pdf",
+                "displayName": "Functioning of a Computer",
+                "isInteractive": true,
+                "defaultTab": "functioning"
+              },
+              {
+                "fileName": "Unit-3.pdf",
+                "displayName": "Memory System",
+                "isInteractive": false
+              },
+              {
+                "fileName": "Unit-4.pdf",
+                "displayName": "Input Output Devices",
+                "isInteractive": false
+              },
+              {
+                "fileName": "Unit-5.pdf",
+                "displayName": "My Personal Computer",
+                "isInteractive": false
+              }
+            ]
+          },
+          {
+            "name": "Block 2 Basics of Computer Software",
+            "path": "1st Semester/BCS-111 Computer Basics and PC Software/Block 2 Basics of Computer Software",
+            "units": [
+              {
+                "fileName": "Unit-1.pdf",
+                "displayName": "Software Evolution",
+                "isInteractive": true,
+                "defaultTab": "home"
+              },
+              {
+                "fileName": "Unit-2.pdf",
+                "displayName": "Operating System",
+                "isInteractive": true,
+                "defaultTab": "functioning"
+              },
+              {
+                "fileName": "Unit-3.pdf",
+                "displayName": "Concept in Programming Language",
+                "isInteractive": false
+              },
+              {
+                "fileName": "Unit-4.pdf",
+                "displayName": "Computer Applications",
+                "isInteractive": false
+              }
+            ]
+          },
+          {
+            "name": "Block 3 Internet Technologies",
+            "path": "1st Semester/BCS-111 Computer Basics and PC Software/Block 3 Internet Technologies",
+            "units": [
+              {
+                "fileName": "Unit-1.pdf",
+                "displayName": "Networking and Internet",
+                "isInteractive": true,
+                "defaultTab": "home"
+              },
+              {
+                "fileName": "Unit-2.pdf",
+                "displayName": "Web Applications-I",
+                "isInteractive": true,
+                "defaultTab": "functioning"
+              },
+              {
+                "fileName": "Unit-3.pdf",
+                "displayName": "Web Applications-II",
+                "isInteractive": false
+              }
+            ]
+          }
+        ]
+      },
+      {
         "code": "BCS-012",
         "name": "Mathematics",
         "isLab": false,
@@ -139,98 +231,6 @@ export const bcaSemesters: BcaSemester[] = [
                 "fileName": "Unit-1.pdf",
                 "displayName": "Vectors-I",
                 "isInteractive": false
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "code": "BCS-111",
-        "name": "Computer Basics and PC Software",
-        "isLab": false,
-        "path": "1st Semester/BCS-111 Computer Basics and PC Software",
-        "blocks": [
-          {
-            "name": "Block 1 Basics of Computer Hardware",
-            "path": "1st Semester/BCS-111 Computer Basics and PC Software/Block 1 Basics of Computer Hardware",
-            "units": [
-              {
-                "fileName": "Unit-5.pdf",
-                "displayName": "My Personal Computer",
-                "isInteractive": false
-              },
-              {
-                "fileName": "Unit-4.pdf",
-                "displayName": "Input Output Devices",
-                "isInteractive": false
-              },
-              {
-                "fileName": "Unit-3.pdf",
-                "displayName": "Memory System",
-                "isInteractive": false
-              },
-              {
-                "fileName": "Unit-2.pdf",
-                "displayName": "Functioning of a Computer",
-                "isInteractive": true,
-                "defaultTab": "functioning"
-              },
-              {
-                "fileName": "Unit-1.pdf",
-                "displayName": "Computer their Origin and Applications",
-                "isInteractive": true,
-                "defaultTab": "home"
-              }
-            ]
-          },
-          {
-            "name": "Block 2 Basics of Computer Software",
-            "path": "1st Semester/BCS-111 Computer Basics and PC Software/Block 2 Basics of Computer Software",
-            "units": [
-              {
-                "fileName": "Unit-4.pdf",
-                "displayName": "Computer Applications",
-                "isInteractive": false
-              },
-              {
-                "fileName": "Unit-3.pdf",
-                "displayName": "Concept in Programming Language",
-                "isInteractive": false
-              },
-              {
-                "fileName": "Unit-2.pdf",
-                "displayName": "Operating System",
-                "isInteractive": true,
-                "defaultTab": "functioning"
-              },
-              {
-                "fileName": "Unit-1.pdf",
-                "displayName": "Software Evolution",
-                "isInteractive": true,
-                "defaultTab": "home"
-              }
-            ]
-          },
-          {
-            "name": "Block 3 Internet Technologies",
-            "path": "1st Semester/BCS-111 Computer Basics and PC Software/Block 3 Internet Technologies",
-            "units": [
-              {
-                "fileName": "Unit-3.pdf",
-                "displayName": "Web Applications-II",
-                "isInteractive": false
-              },
-              {
-                "fileName": "Unit-2.pdf",
-                "displayName": "Web Applications-I",
-                "isInteractive": true,
-                "defaultTab": "functioning"
-              },
-              {
-                "fileName": "Unit-1.pdf",
-                "displayName": "Networking and Internet",
-                "isInteractive": true,
-                "defaultTab": "home"
               }
             ]
           }

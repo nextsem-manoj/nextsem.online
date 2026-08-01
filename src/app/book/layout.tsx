@@ -71,7 +71,7 @@ function BookLayoutContent({
   const handleSignIn = async () => {
     try {
       await signInWithGoogle();
-      window.location.href = '/';
+      window.dispatchEvent(new Event("nextsem_auth_changed"));
     } catch (err) {
       console.error("Sign-In Error: ", err);
     }

@@ -96,12 +96,6 @@ export const DEFAULT_CONCEPTS: SemmyKnowledgeBase = {
     code: "// Taught CMD commands:\n> dir               # List folder items\n> mkdir my_folder   # Create directory\n> cd my_folder      # Navigate inside\n> ipconfig          # View network configuration",
     tags: ["cmd", "command", "terminal", "windows", "cli"]
   },
-  "ncert": {
-    title: "NCERT Study Hub",
-    summary: "A dedicated study hub separate from university BCA pages containing prep guides. Currently features Class 11 Accountancy (accounting cycle, GAAP conventions, and GST structures) and Class 12 Physics (Ohm's law vector forms, drift velocity, and Kirchhoff's circuit rules) with interactive self-assessment test banks.",
-    code: "// NCERT course codes:\n- ACCT-11 (Class 11 Accountancy Part-1)\n- PHYS-12 (Class 12 Physics Part-1)\n// Access live notes guides under /ncert/notes",
-    tags: ["ncert", "accounting", "physics", "study", "prep"]
-  },
   "points": {
     title: "App Gamification System",
     summary: "Earn 🪙 points and XP by completing chapters and interactive lessons. Track your learning progress through streaks and lives. Complete MCQs and fill-in-the-blanks on study notes pages to increase your rank.",
@@ -115,16 +109,16 @@ export const DEFAULT_CONCEPTS: SemmyKnowledgeBase = {
     tags: ["semmy", "ai", "train", "chat", "widget"]
   },
   "accounting": {
-    title: "NCERT Class 11 Accountancy Financial Part-1",
+    title: "Class 11 Accountancy Financial Part-1",
     summary: "Covers the fundamental principles of accounting. Topics include the double-entry bookkeeping system (Luca Pacioli, 1494), qualitative characteristics of financial reports (relevance, reliability, comparability), and Indian Goods and Services Tax (GST, CGST, SGST, IGST) rules.",
     code: "// Accounting Identity Equation:\nAssets = Liabilities + Owner's Capital\n// GST rule:\nIntra-state sales -> CGST + SGST (50/50 split)\nInter-state sales -> IGST (100% Centre)",
-    tags: ["accounting", "finance", "gst", "class11", "ncert"]
+    tags: ["accounting", "finance", "gst", "class11"]
   },
   "physics": {
-    title: "NCERT Class 12 Physics Part-1 (Current Electricity)",
+    title: "Class 12 Physics Part-1 (Current Electricity)",
     summary: "Deals with the flow of electric charges. Topics cover electric current density (j = I/A), drift velocity (vd = -eEτ/m), conductivity (j = σE), cells in series and parallel, Wheatstone bridge balance conditions, and Kirchhoff's loop and junction laws.",
     code: "// Current Density Vector Form:\nj = σ * E\n// Kirchhoff junction rule:\nΣ I_inward = Σ I_outward  (Charge Conservation)\n// Kirchhoff loop rule:\nΣ ΔV = 0  (Energy Conservation)",
-    tags: ["physics", "electricity", "current", "class12", "ncert"]
+    tags: ["physics", "electricity", "current", "class12"]
   }
 };
 

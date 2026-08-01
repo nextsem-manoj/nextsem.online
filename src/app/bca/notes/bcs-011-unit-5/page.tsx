@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import { useProgress } from '@/context/ProgressContext';
 import AdSenseBanner from '@/components/AdSenseBanner';
+import BcaHeaderNav from '@/components/bca/BcaHeaderNav';
 
 interface PageLesson {
   pageNo: number;
@@ -690,38 +691,16 @@ export default function MyPersonalComputerVisualGuide() {
   };
 
   return (
-    <div className="w-full min-h-screen bg-slate-950 text-white flex flex-col justify-between font-sans selection:bg-[#c1a648]/30 relative">
+    <div className="w-full min-h-screen bg-[#060c18] text-white flex flex-col justify-between font-sans selection:bg-[#c1a648]/30 relative pb-20">
       {/* Background radial glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 rounded-full bg-emerald-955/15 blur-[120px] pointer-events-none" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 rounded-full bg-emerald-950/15 blur-[120px] pointer-events-none" />
 
-      {/* Header bar */}
-      <header className="h-16 border-b border-slate-850/50 bg-slate-950/80 backdrop-blur-md sticky top-0 z-40 flex items-center justify-between px-4 md:px-8 shrink-0">
-        <div className="flex items-center gap-3">
-          <button 
-            onClick={() => router.push('/bca/1/BCS-011')}
-            className="flex items-center gap-2 text-slate-400 hover:text-white font-bold text-xs uppercase tracking-wider transition-all"
-          >
-            <ArrowLeft size={16} />
-            <span className="hidden sm:inline">Back to BCS-011 Dashboard</span>
-          </button>
-        </div>
-
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2 bg-emerald-955/40 border border-emerald-555/20 px-4 py-1.5 rounded-full">
-            <Star size={14} className="fill-amber-400 text-amber-400" />
-            <span className="text-[10px] font-black uppercase tracking-wider text-emerald-300">
-              {points} BCA XP
-            </span>
-          </div>
-          
-          <button
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="p-2 bg-slate-900 border border-slate-800 hover:bg-slate-850 rounded-xl transition-all"
-          >
-            <Menu size={16} className="text-slate-350" />
-          </button>
-        </div>
-      </header>
+      {/* ── Top Header Bar with Subject Switcher Dropdown (Matching image-20.png) ── */}
+      <BcaHeaderNav
+        currentSubjectCode="BCS-111"
+        currentSubjectName="Computer Basics & PC Software"
+        points={points}
+      />
 
       {/* Main layout container */}
       <div className="flex-1 flex relative overflow-hidden">

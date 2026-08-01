@@ -353,7 +353,7 @@ export default function MobileHomeLayout() {
     {
       title: "BCA Semester 1: Computer Basics & PC Software",
       summary: "Unit 5 My PC, hardware components, and operating system notes.",
-      path: "/bca/1/BCS-011",
+      path: "/bca/1/bcs-011",
       tag: "IGNOU BCA",
       icon: "🎓"
     },
@@ -642,7 +642,6 @@ export default function MobileHomeLayout() {
                   { label: "🪟 Windows CMD Simulator", path: "/cmd" },
                   { label: "🌿 Git Version Control", path: "/git" },
                   { label: "💻 Code Sandbox Playground", path: "/playground" },
-                  { label: "📚 NCERT Study Hub", path: "/ncert" },
                   { label: "🎓 BCA Semester Hub", path: "/bca" },
                 ]
               },

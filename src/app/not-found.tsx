@@ -47,12 +47,12 @@ export default function NotFound() {
           </Link>
 
           <Link 
-            href="/ncert" 
+            href="/bca" 
             className="flex items-center justify-between p-3 bg-slate-900/40 hover:bg-indigo-600/10 border border-slate-850 hover:border-indigo-550/40 rounded-xl transition-all group"
           >
             <div className="flex items-center gap-2.5">
               <BookOpen size={16} className="text-slate-400 group-hover:text-indigo-400" />
-              <span className="text-xs font-bold text-slate-200 group-hover:text-white">Browse NCERT Hub</span>
+              <span className="text-xs font-bold text-slate-200 group-hover:text-white">Browse IGNOU BCA Hub</span>
             </div>
             <ArrowRight size={14} className="text-slate-600 group-hover:text-indigo-400 transition-transform group-hover:translate-x-0.5" />
           </Link>

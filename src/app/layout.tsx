@@ -112,6 +112,9 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+  other: {
+    "google-adsense-account": "ca-pub-4242865347895866",
+  },
 };
 
 
@@ -146,54 +149,30 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
-      <head>
+      <body className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${lora.variable} ${outfit.variable} min-h-full flex flex-col bg-background text-foreground transition-colors`}>
         {/* Anti-Crash Stylesheet recovery & Theme Auto-Initializer script */}
-        <script
-          suppressHydrationWarning
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                try {
-                  document.documentElement.classList.add('dark');
-                  localStorage.setItem('theme', 'dark');
-                } catch (e) {}
-              })();
-              window.addEventListener('error', function(e) {
-                var target = e.target;
-                if (target && target.tagName === 'LINK' && target.rel === 'stylesheet') {
-                  console.warn('CSS Chunk load failed. Force reloading client...');
-                  if ('caches' in window) {
-                    caches.keys().then(function(names) {
-                      names.forEach(function(name) { caches.delete(name); });
-                    }).then(function() {
-                      window.location.reload(true);
-                    });
-                  } else {
-                    window.location.reload(true);
-                  }
-                }
-              }, true);
-            `
-          }}
+        <Script
+          id="theme-anti-crash-initializer"
+          src="/theme-init.js"
+          strategy="beforeInteractive"
         />
 
         <Script
+          id="amp-ad-script"
           async
           src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"
           custom-element="amp-ad"
           strategy="afterInteractive"
         />
 
-        {/* Google AdSense Verification - must be a raw <script> tag so crawlers can find it */}
-        {/* eslint-disable-next-line @next/next/no-sync-scripts */}
-        <script
+        {/* Google AdSense Verification */}
+        <Script
+          id="adsense-verification"
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4242865347895866"
           crossOrigin="anonymous"
+          strategy="afterInteractive"
         />
-        <meta name="google-adsense-account" content="ca-pub-4242865347895866" />
-      </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${lora.variable} ${outfit.variable} min-h-full flex flex-col bg-background text-foreground transition-colors`}>
 
 
         <ThemeProvider

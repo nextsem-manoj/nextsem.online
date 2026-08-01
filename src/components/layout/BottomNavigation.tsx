@@ -90,8 +90,8 @@ const BottomNavigation = () => {
       pathname.startsWith('/cli') ||
       pathname.startsWith('/git') ||
       pathname.includes('/book/') ||
-      pathname.startsWith('/ncert/notes/') ||
-      pathname.startsWith('/bca/notes/')
+      pathname.startsWith('/bca/notes/') ||
+      (pathname.startsWith('/bca/semester-') && (pathname.includes('/unit-') || pathname.includes('/lessons/')))
     )
   );
 
@@ -113,31 +113,43 @@ const BottomNavigation = () => {
     window.dispatchEvent(new Event("open_google_auth"));
   };
 
-  const isNcertSubdomain = pathname?.startsWith('/ncert');
+  const isBcaSubdomain = pathname?.startsWith('/bca');
 
-  const navTabs = isNcertSubdomain ? [
+  // Dynamic BCA Semester Detection (Sem 1, Sem 2, Sem 3, etc.)
+  const semMatch = pathname?.match(/\/bca\/(?:semester-)?(\d+)/i);
+  const activeSemNum = semMatch ? semMatch[1] : "1";
+
+  const navTabs = isBcaSubdomain ? [
     {
       id: 'home',
       label: 'Home',
-      path: '/ncert',
+      path: '/',
       icon: Home,
-      isActive: pathname === '/ncert' && !menuOpen
+      isActive: pathname === '/' && !menuOpen
     },
     {
-      id: 'courses',
-      label: 'Courses',
-      path: '/ncert',
+      id: 'activeSem',
+      label: `Sem ${activeSemNum}`,
+      path: `/bca/semester-${activeSemNum}`,
       icon: BookOpen,
-      isActive: pathname?.startsWith('/ncert/notes') && !menuOpen
+      isActive: (pathname === `/bca/semester-${activeSemNum}` || pathname === `/bca/${activeSemNum}` || (activeSemNum === "1" && (pathname?.includes('/bcs-011') || pathname?.includes('/BCS-111')))) && !menuOpen
     },
     {
-      id: 'bookmarks',
-      label: 'Bookmarks',
-      path: '#',
+      id: 'bcahub',
+      label: 'BCA Hub',
+      path: '/bca',
       icon: GraduationCap,
-      isButton: true,
-      onClick: () => setMenuOpen(true),
-      isActive: false
+      isActive: pathname === '/bca' && !menuOpen
+    },
+    {
+      id: 'profile',
+      label: currentUser ? (currentUser.name?.split(' ')[0] || 'Profile') : 'Sign In',
+      path: currentUser ? '/profile' : '#',
+      isButton: !currentUser,
+      onClick: !currentUser ? handleSignIn : undefined,
+      icon: User,
+      photoUrl: currentUser?.photo || null,
+      isActive: pathname === '/profile' && !menuOpen
     },
     {
       id: 'menu',
@@ -288,56 +300,83 @@ const BottomNavigation = () => {
                 )}
               </div>
 
-              {/* Quick Navigation Links */}
-              <div className="grid grid-cols-2 gap-2.5">
-                {isNcertSubdomain ? (
+              {/* Quick Navigation Links — Location Context Aware */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                {isBcaSubdomain ? (
                   <>
+                    <div className="sm:col-span-2 text-[10px] font-black uppercase text-cyan-400 tracking-wider px-1">
+                      BCA Semester {activeSemNum} Subjects & Modules
+                    </div>
                     <Link
-                      href="/ncert/notes/maths-9-chapter-1"
+                      href="/bca/semester-1/bcs-011-computer-basics"
                       onClick={() => setMenuOpen(false)}
-                      className="flex items-center justify-between p-3 bg-slate-800/30 hover:bg-slate-800/60 border border-slate-700/40 rounded-xl transition-all group"
+                      className="flex items-center justify-between p-3 bg-slate-900/90 hover:bg-slate-800 border border-slate-800 rounded-xl transition-all group"
                     >
-                      <div className="flex items-center gap-2.5">
-                        <BookOpen size={16} className="text-blue-400" />
-                        <span className="text-xs font-semibold text-slate-200">Class 9 Maths</span>
+                      <div className="flex items-center gap-2.5 min-w-0">
+                        <BookOpen size={16} className="text-cyan-400 shrink-0" />
+                        <span className="text-xs font-bold text-slate-200 truncate">BCS-111 Computer Basics</span>
                       </div>
-                      <ChevronRight size={14} className="text-slate-500 group-hover:translate-x-0.5 transition-transform" />
+                      <ChevronRight size={14} className="text-slate-500 group-hover:translate-x-0.5 transition-transform shrink-0" />
                     </Link>
 
                     <Link
-                      href="/ncert/notes/accounting-chapter-1"
+                      href="/bca/semester-1/bcs-011-computer-basics/unit-1/lessons"
                       onClick={() => setMenuOpen(false)}
-                      className="flex items-center justify-between p-3 bg-slate-800/30 hover:bg-slate-800/60 border border-slate-700/40 rounded-xl transition-all group"
+                      className="flex items-center justify-between p-3 bg-gradient-to-r from-emerald-950/60 to-cyan-950/60 hover:from-emerald-900/60 hover:to-cyan-900/60 border border-cyan-500/30 rounded-xl transition-all group"
                     >
-                      <div className="flex items-center gap-2.5">
-                        <BookOpen size={16} className="text-amber-400" />
-                        <span className="text-xs font-semibold text-slate-200">Class 11 Accounting</span>
+                      <div className="flex items-center gap-2.5 min-w-0">
+                        <Sparkles size={16} className="text-amber-400 shrink-0" />
+                        <span className="text-xs font-black text-amber-300 truncate">50 Micro-Lessons Hub</span>
                       </div>
-                      <ChevronRight size={14} className="text-slate-500 group-hover:translate-x-0.5 transition-transform" />
+                      <ChevronRight size={14} className="text-amber-400 group-hover:translate-x-0.5 transition-transform shrink-0" />
                     </Link>
 
                     <Link
-                      href="/ncert/notes/history-12-chapter-5"
+                      href="/bca/semester-1/bcsl-013-software-lab"
                       onClick={() => setMenuOpen(false)}
-                      className="flex items-center justify-between p-3 bg-slate-800/30 hover:bg-slate-800/60 border border-slate-700/40 rounded-xl transition-all group"
+                      className="flex items-center justify-between p-3 bg-slate-900/90 hover:bg-slate-800 border border-slate-800 rounded-xl transition-all group"
                     >
-                      <div className="flex items-center gap-2.5">
-                        <BookOpen size={16} className="text-blue-400" />
-                        <span className="text-xs font-semibold text-slate-200">Class 12 History</span>
+                      <div className="flex items-center gap-2.5 min-w-0">
+                        <Code size={16} className="text-emerald-400 shrink-0" />
+                        <span className="text-xs font-bold text-slate-200 truncate">BCSL-013 Software Lab</span>
                       </div>
-                      <ChevronRight size={14} className="text-slate-500 group-hover:translate-x-0.5 transition-transform" />
+                      <ChevronRight size={14} className="text-slate-500 group-hover:translate-x-0.5 transition-transform shrink-0" />
                     </Link>
 
                     <Link
-                      href="/admin/pdf-converter"
+                      href="/bca/semester-1/bcs-012-basic-mathematics"
                       onClick={() => setMenuOpen(false)}
-                      className="flex items-center justify-between p-3 bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/30 rounded-xl transition-all group"
+                      className="flex items-center justify-between p-3 bg-slate-900/90 hover:bg-slate-800 border border-slate-800 rounded-xl transition-all group"
                     >
-                      <div className="flex items-center gap-2.5">
-                        <Sparkles size={16} className="text-amber-400" />
-                        <span className="text-xs font-semibold text-blue-300">Admin Converter</span>
+                      <div className="flex items-center gap-2.5 min-w-0">
+                        <BookOpen size={16} className="text-blue-400 shrink-0" />
+                        <span className="text-xs font-bold text-slate-200 truncate">BCS-012 Basic Mathematics</span>
                       </div>
-                      <ChevronRight size={14} className="text-blue-400 group-hover:translate-x-0.5 transition-transform" />
+                      <ChevronRight size={14} className="text-slate-500 group-hover:translate-x-0.5 transition-transform shrink-0" />
+                    </Link>
+
+                    <Link
+                      href="/bca/semester-1/begla-136-english"
+                      onClick={() => setMenuOpen(false)}
+                      className="flex items-center justify-between p-3 bg-slate-900/90 hover:bg-slate-800 border border-slate-800 rounded-xl transition-all group"
+                    >
+                      <div className="flex items-center gap-2.5 min-w-0">
+                        <BookOpen size={16} className="text-purple-400 shrink-0" />
+                        <span className="text-xs font-bold text-slate-200 truncate">BEGLA-136 Communication</span>
+                      </div>
+                      <ChevronRight size={14} className="text-slate-500 group-hover:translate-x-0.5 transition-transform shrink-0" />
+                    </Link>
+
+                    <Link
+                      href="/bca/semester-1/bevae-181-environmental-studies"
+                      onClick={() => setMenuOpen(false)}
+                      className="flex items-center justify-between p-3 bg-slate-900/90 hover:bg-slate-800 border border-slate-800 rounded-xl transition-all group"
+                    >
+                      <div className="flex items-center gap-2.5 min-w-0">
+                        <BookOpen size={16} className="text-emerald-400 shrink-0" />
+                        <span className="text-xs font-bold text-slate-200 truncate">BEVAE-181 Environment</span>
+                      </div>
+                      <ChevronRight size={14} className="text-slate-500 group-hover:translate-x-0.5 transition-transform shrink-0" />
                     </Link>
                   </>
                 ) : (
@@ -410,12 +449,12 @@ const BottomNavigation = () => {
 
       {/* Full-width Pinned Edge-to-Edge Bottom Navigation Bar (Visible on Mobile) */}
       <nav 
-        className={`fixed left-0 right-0 bottom-0 w-full z-[999] md:hidden select-none bg-slate-900/95 dark:bg-slate-950/95 backdrop-blur-2xl border-t border-slate-800/80 shadow-[0_-8px_25px_rgba(0,0,0,0.5)] transition-transform duration-300 ${
+        className={`fixed left-4 right-4 bottom-2 z-[999] md:hidden select-none bg-slate-900/95 dark:bg-slate-950/95 backdrop-blur-2xl border-2 border-emerald-500/50 rounded-3xl shadow-[0_8px_30px_rgba(4,170,109,0.3)] transition-transform duration-300 ${
           navVisible ? 'translate-y-0' : 'translate-y-full'
         }`}
-        style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
+        style={{ paddingBottom: 'calc(0.5rem + env(safe-area-inset-bottom))', paddingTop: '0.5rem' }}
       >
-        <div className="px-2 py-1.5 flex items-center justify-around w-full max-w-lg mx-auto">
+        <div className="px-3 py-1 flex items-center justify-around w-full max-w-lg mx-auto">
           {navTabs.map((tab) => {
             const Icon = tab.icon;
             const active = tab.isActive;

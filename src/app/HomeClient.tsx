@@ -317,10 +317,6 @@ export default function HomeClient() {
                       <span>💻</span>
                       <span>Code Sandbox</span>
                     </Link>
-                    <Link href="/ncert" onClick={() => setExercisesDropdownOpen(false)} className="flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-[#04AA6D] text-xs font-bold transition-all">
-                      <span>📚</span>
-                      <span>NCERT Study Hub</span>
-                    </Link>
                     <Link href="/bca" onClick={() => setExercisesDropdownOpen(false)} className="flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-[#04AA6D] text-xs font-bold transition-all">
                       <span>🎓</span>
                       <span>BCA Semester Hub</span>
@@ -346,10 +342,6 @@ export default function HomeClient() {
                 <span>Jobs Portal</span>
               </Link>
               <Link href="/playground" className="px-3 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white transition-all">Playground</Link>
-              <Link href="/ncert" className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white transition-all cursor-pointer">
-                <BookOpen size={14} className="text-[#04AA6D]" />
-                <span>NCERT Hub</span>
-              </Link>
               <Link href="/bca" className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white transition-all cursor-pointer">
                 <Layers size={14} className="text-indigo-500" />
                 <span>BCA Hub</span>
@@ -482,6 +474,18 @@ export default function HomeClient() {
           <p className="text-[#FFF4A3] text-xs sm:text-base font-black uppercase mt-1 tracking-wide">
             No sign-up needed, just start learning.
           </p>
+
+          {/* ── START IGNOU BCA FREE LESSONS BUTTON ── */}
+          <div className="mt-6 flex justify-center">
+            <Link
+              href="/bca/semester-1"
+              className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-2xl bg-[#0c1328] hover:bg-[#101b38] text-white font-extrabold text-sm sm:text-base border border-[#04AA6D]/50 hover:border-[#04AA6D] shadow-xl shadow-cyan-950/30 transition-all transform active:scale-95 cursor-pointer group"
+            >
+              <BookOpen size={18} className="text-[#c1a648] group-hover:scale-110 transition-transform" />
+              <span className="bg-gradient-to-r from-white via-cyan-200 to-emerald-300 bg-clip-text text-transparent">Start IGNOU BCA Free Lessons</span>
+              <ChevronRight size={18} className="text-[#04AA6D] group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
 
           {/* ── FULL STACK WEB DEVELOPER CAREER ROADMAP (Replaces image-88) ── */}
           <div className="mt-12 max-w-5xl mx-auto text-left space-y-6">
@@ -646,15 +650,14 @@ export default function HomeClient() {
                   <div className="flex flex-wrap gap-1.5 pt-1">
                     <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-xs font-mono font-bold text-slate-300">BCA Degree Hub</span>
                     <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-xs font-mono font-bold text-slate-300">PC Hardware</span>
-                    <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-xs font-mono font-bold text-slate-300">NCERT Tech</span>
                   </div>
                 </div>
                 <div className="pt-6 mt-4 border-t border-slate-800/80 flex items-center justify-between gap-3">
                   <Link
-                    href="/bca"
-                    className="px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white font-extrabold text-xs rounded-xl shadow-md transition-all flex items-center gap-1.5 cursor-pointer"
+                    href="/bca/semester-1"
+                    className="px-4 py-2 bg-gradient-to-r from-amber-600 to-cyan-600 hover:from-amber-500 hover:to-cyan-500 text-white font-extrabold text-xs rounded-xl shadow-md transition-all flex items-center gap-1.5 cursor-pointer"
                   >
-                    <span>Explore BCA Hub »</span>
+                    <span>Explore IGNOU BCA 1st Sem Hub »</span>
                   </Link>
                   <Link
                     href="/course"
@@ -935,7 +938,6 @@ export default function HomeClient() {
               <li><Link href="/cmd" target="_blank" className="hover:text-white">🪟 Windows CMD Simulator</Link></li>
               <li><Link href="/git" target="_blank" className="hover:text-white">🌿 Git Simulator</Link></li>
               <li><Link href="/playground" className="hover:text-white">💻 Code Sandbox Playground</Link></li>
-              <li><Link href="/ncert" className="hover:text-white">📚 NCERT Study Companion</Link></li>
               <li><Link href="/bca" className="hover:text-white">🎓 BCA Semester Hub</Link></li>
               <li><button onClick={() => handleLaunchChapter('p0-3-vscode')} className="hover:text-white">VS Code Editor Setup</button></li>
               <li><button onClick={() => handleLaunchChapter('p0-5-devtools')} className="hover:text-white">Chrome DevTools Console</button></li>

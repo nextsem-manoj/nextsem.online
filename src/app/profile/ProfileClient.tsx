@@ -7,6 +7,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import { useProgress } from '../../context/ProgressContext';
 import { CheckCircle2, Circle, ArrowLeft, LogOut, BookOpen, ArrowRight, Terminal, Download, User } from 'lucide-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import searchIndex from '../../data/searchIndex.json';
 import { usePWA } from '../../hooks/usePWA';
 import { getChapterUrl } from '../../lib/htmlLessonsHelper';
@@ -19,6 +20,7 @@ interface UserProfile {
 }
 
 export default function ProfileClient() {
+  const router = useRouter();
   const [user, setUser] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
   const { completedChapters, totalCompleted } = useProgress();
@@ -99,7 +101,7 @@ export default function ProfileClient() {
         localStorage.removeItem('nextsem_premium_badge');
         localStorage.removeItem('completed_chapters');
         window.dispatchEvent(new Event('nextsem_auth_changed'));
-        window.location.href = '/';
+        router.push('/');
       }
     } catch (err: unknown) {
       const error = err as { code?: string };

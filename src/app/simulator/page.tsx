@@ -9,6 +9,7 @@ import {
   getTotalXP,
   type DesktopSimulatorStep,
 } from "../../data/desktopSimulatorSteps";
+import { useRouter } from "next/navigation";
 import { Heart, Star, Lightbulb, CheckCircle2, AlertCircle, X, ChevronRight, Trophy, Search, ImageIcon } from "lucide-react";
 
 // ─── Wallpapers (Real Windows Era Wallpapers) ────────────────────────────────
@@ -269,6 +270,7 @@ function StartMenu({ onClose, onSearch, onLaunchApp }: { onClose: () => void; on
 
 // ─── Main Page ─────────────────────────────────────────────────────────────────
 export default function SimulatorPage() {
+  const router = useRouter();
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -337,7 +339,7 @@ export default function SimulatorPage() {
     const certified  = localStorage.getItem(certKey(userEmail));
     if (certified === "true") {
       // Already certified — send straight to main app
-      window.location.href = "/?active=0";
+      router.push("/?active=0");
       return;
     }
     if (savedIds) {
@@ -395,8 +397,8 @@ export default function SimulatorPage() {
   const handleSkipOnboarding = useCallback(() => {
     const email = userEmail || "guest";
     localStorage.setItem(certKey(email), "true");
-    window.location.href = "/?active=0";
-  }, [userEmail]);
+    router.push("/?active=0");
+  }, [userEmail, router]);
 
   // Save progress
   const saveProgress = useCallback((ids: string[], h: number) => {
@@ -424,7 +426,7 @@ export default function SimulatorPage() {
       if (isSimulatorComplete(next)) {
         setTimeout(() => {
           if (userEmail) localStorage.setItem(certKey(userEmail), "true");
-          window.location.href = "/?active=0";
+          router.push("/?active=0");
         }, 2000);
         return next;
       }
@@ -887,7 +889,7 @@ export default function SimulatorPage() {
           <div className="text-amber-400 font-black text-sm">Terminal Cadet Badge</div>
         </div>
         <button
-          onClick={() => { window.location.href = "/?active=0"; }}
+          onClick={() => { router.push("/?active=0"); }}
           className="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-white font-black rounded-2xl py-3 flex items-center justify-center gap-2 hover:opacity-90 transition-all"
         >
           🚀 Go to Main App <ChevronRight size={16} />

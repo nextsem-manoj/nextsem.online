@@ -211,7 +211,7 @@ export function downloadLessonPdf({
             <div class="chips-row">
               <span class="chip">LANGUAGE: <strong>${lang.toUpperCase()}</strong></span>
               <span class="chip">MODE: <strong>${level.toUpperCase()}</strong></span>
-              <span class="chip">INSTRUCTOR: <strong>MANOJ SIR (Lead Instructor)</strong></span>
+              <span class="chip">INSTRUCTOR: <strong>Nextsem (Lead Instructor)</strong></span>
               <span class="chip">VERIFIED: <strong>✔ OFFICIAL NOTES</strong></span>
             </div>
           </div>

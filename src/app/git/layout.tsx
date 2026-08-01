@@ -45,7 +45,7 @@ function GitLayoutContent({ children }: { children: React.ReactNode }) {
   const handleSignIn = async () => {
     try {
       await signInWithGoogle();
-      window.location.reload();
+      window.dispatchEvent(new Event("nextsem_auth_changed"));
     } catch (err) {
       console.error("Sign-In Error: ", err);
     }
