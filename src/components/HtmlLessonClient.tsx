@@ -468,24 +468,6 @@ export default function HtmlLessonClient({ lesson }: HtmlLessonClientProps) {
 
       {/* Main Content Area */}
       <div className="bg-slate-900/40 border border-slate-850 p-5 md:p-8 rounded-2xl shadow-xl backdrop-blur-xl relative overflow-hidden">
-        {/* Dynamic Mode Watermark */}
-        <div className="absolute top-2 right-4 text-[9px] font-black uppercase tracking-widest text-slate-700 pointer-events-none select-none">
-          {selectedLang} • {selectedLevel}
-        </div>
-
-        {/* Graphic Concept Visualizers (Batches 1-10 custom assets placeholder) */}
-        {selectedLevel === "kid" && (
-          <div className="mb-6 p-4 bg-emerald-950/20 border border-emerald-500/20 rounded-xl flex items-start gap-3">
-            <span className="text-2xl shrink-0">💡</span>
-            <div className="text-left">
-              <span className="text-[10px] font-black text-emerald-400 uppercase tracking-wider block">Simplified Analogy</span>
-              <p className="text-xs text-slate-300 font-semibold leading-relaxed mt-0.5">
-                We are using analogies here to make complex structures easy to visualize! Switch to **Professional** mode at the top once you understand the core idea.
-              </p>
-            </div>
-          </div>
-        )}
-
         <article className="prose prose-invert max-w-none text-left">
           {renderContentText(currentContent)}
         </article>
