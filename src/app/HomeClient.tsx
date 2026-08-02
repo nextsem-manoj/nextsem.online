@@ -475,17 +475,7 @@ export default function HomeClient() {
             No sign-up needed, just start learning.
           </p>
 
-          {/* ── START IGNOU BCA FREE LESSONS BUTTON ── */}
-          <div className="mt-6 flex justify-center">
-            <Link
-              href="/bca/semester-1"
-              className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-2xl bg-[#0c1328] hover:bg-[#101b38] text-white font-extrabold text-sm sm:text-base border border-[#04AA6D]/50 hover:border-[#04AA6D] shadow-xl shadow-cyan-950/30 transition-all transform active:scale-95 cursor-pointer group"
-            >
-              <BookOpen size={18} className="text-[#c1a648] group-hover:scale-110 transition-transform" />
-              <span className="bg-gradient-to-r from-white via-cyan-200 to-emerald-300 bg-clip-text text-transparent">Start IGNOU BCA Free Lessons</span>
-              <ChevronRight size={18} className="text-[#04AA6D] group-hover:translate-x-1 transition-transform" />
-            </Link>
-          </div>
+
 
           {/* ── FULL STACK WEB DEVELOPER CAREER ROADMAP (Replaces image-88) ── */}
           <div className="mt-12 max-w-5xl mx-auto text-left space-y-6">
