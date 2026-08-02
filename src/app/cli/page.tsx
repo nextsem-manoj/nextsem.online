@@ -1,21 +1,21 @@
-import React from "react";
-import { Metadata } from "next";
-import CliDashboardClient from "@/components/CliDashboardClient";
+import { cliLessons } from "@/data/cliLessonsData";
+import CliLessonClient from "@/components/CliLessonClient";
 
 export const metadata: Metadata = {
-  title: "Windows Command Line Free Lessons Dashboard & Study Path | NextSem",
-  description: "Explore our interactive Windows CLI developer syllabus. Track your progress, unlock 15 lessons, and resume your coding journey on command prompts, directory structures, and networking utilities.",
+  title: "Windows Command Line Free Lessons & Interactive CLI Tutorial | NextSem",
+  description: "Learn Windows Command Prompt (CMD) step-by-step with interactive exercises, terminal animations, and developer certification tracks.",
   alternates: {
     canonical: "/cli"
   },
   openGraph: {
-    title: "Windows Command Line Free Lessons Dashboard & Study Path | NextSem",
-    description: "Explore our interactive Windows CLI developer syllabus. Track your progress, unlock 15 lessons, and resume your coding journey on command prompts, directory structures, and networking utilities.",
+    title: "Windows Command Line Free Lessons & Interactive CLI Tutorial | NextSem",
+    description: "Learn Windows Command Prompt (CMD) step-by-step with interactive exercises, terminal animations, and developer certification tracks.",
     url: "https://nextsem.online/cli",
     type: "website"
   }
 };
 
 export default function CliRootPage() {
-  return <CliDashboardClient />;
+  const lessonOne = cliLessons[0];
+  return <CliLessonClient lesson={lessonOne} />;
 }
