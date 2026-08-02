@@ -8,26 +8,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://nextsem.online";
 
   // Base paths
-  const baseRoutes = ["", "/about", "/contact", "/playground", "/privacy", "/profile", "/terms", "/course", "/course/projects", "/cmd", "/html", "/bca/semester-1"].map((route) => ({
+  const baseRoutes = ["", "/about", "/contact", "/playground", "/privacy", "/profile", "/terms", "/course", "/course/projects", "/cmd", "/html"].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
     changeFrequency: "weekly" as const,
-    priority: route === "" ? 1.0 : route === "/bca/semester-1" ? 0.95 : 0.8,
-  }));
-
-  // BCA 1st Semester Subject routes
-  const bcaSubjectRoutes = [
-    "/bca/semester-1/bcs-011-computer-basics",
-    "/bca/semester-1/bcs-011-computer-basics/unit-1-introduction-to-computer-systems",
-    "/bca/semester-1/bcsl-013-pc-software-lab",
-    "/bca/semester-1/bcs-012-mathematics",
-    "/bca/semester-1/begla-136-english",
-    "/bca/semester-1/bevae-181-environmental-studies",
-  ].map((route) => ({
-    url: `${baseUrl}${route}`,
-    lastModified: new Date(),
-    changeFrequency: "weekly" as const,
-    priority: 0.9,
+    priority: route === "" ? 1.0 : 0.8,
   }));
 
   // Dynamic course chapter paths for other lessons (filter out HTML lessons)
@@ -48,5 +33,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.9,
   }));
 
-  return [...baseRoutes, ...bcaSubjectRoutes, ...courseRoutes, ...htmlLessonRoutes];
+  return [...baseRoutes, ...courseRoutes, ...htmlLessonRoutes];
 }

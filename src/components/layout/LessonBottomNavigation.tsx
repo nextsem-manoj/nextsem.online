@@ -11,9 +11,7 @@ import { mswordLessons } from "@/data/mswordLessonsData";
 import { cliLessons } from "@/data/cliLessonsData";
 import { htmlLessons } from "@/data/htmlLessonsData";
 import { gitLessons } from "@/data/gitLessonsData";
-import { unit1Lessons } from "@/data/unit1LessonsData";
-import { bcaLessons } from "@/data/bcaLessonsData";
-import { bcaSemesters } from "@/data/bcaCoursesData";
+
 import searchIndex from "@/data/searchIndex.json";
 import { getChapterIdFromPath, getChapterUrl } from "@/lib/htmlLessonsHelper";
 import { auth } from "@/lib/firebase";
@@ -250,61 +248,7 @@ export default function LessonBottomNavigation({ pathname }: LessonBottomNavigat
       nextHref = "/course";
     }
   }
-  // 7. BCA Unit 1 50 Micro-Lessons (/bca/semester-1/.../unit-1/lessons/<lessonId>)
-  else if (pathname.includes("/unit-1/lessons/")) {
-    const lessonId = pathname.split("/unit-1/lessons/")[1]?.split("?")[0]?.replace(/\/$/, "") || "";
-    const idx = unit1Lessons.findIndex((l) => l.id === lessonId);
-    dashboardHref = "/bca/semester-1/bcs-011-computer-basics/unit-1/lessons";
-    courseTitle = "BCS-111 Unit 1";
-    activeLessonsList = unit1Lessons.map(l => ({ id: l.lessonNumber, slug: `unit-1/lessons/${l.id}`, title: `#${l.lessonNumber} ${l.title}` }));
-
-    if (idx !== -1) {
-      const activeL = unit1Lessons[idx];
-      currentSlug = `unit-1/lessons/${activeL.id}`;
-      progressText = `Lesson ${idx + 1} of 50`;
-      currentLessonDisplay = `Lesson #${activeL.lessonNumber}: ${activeL.title}`;
-      currentUnitDisplay = "Unit 1: Computer their Origin and Applications";
-      currentBlockDisplay = "Block 1: Basics of Computer Hardware (BCS-111)";
-      prevHref = idx > 0 ? `/bca/semester-1/bcs-011-computer-basics/unit-1/lessons/${unit1Lessons[idx - 1].id}` : "/bca/semester-1/bcs-011-computer-basics/unit-1/lessons";
-      nextHref = idx < unit1Lessons.length - 1 ? `/bca/semester-1/bcs-011-computer-basics/unit-1/lessons/${unit1Lessons[idx + 1].id}` : "/bca/semester-1/bcs-011-computer-basics/unit-1/lessons";
-    } else {
-      prevHref = "/bca/semester-1/bcs-011-computer-basics/unit-1/lessons";
-      nextHref = `/bca/semester-1/bcs-011-computer-basics/unit-1/lessons/${unit1Lessons[0].id}`;
-    }
-  }
-  // 8. General BCA Subject Unit Lessons (/bca/semester-1/<subjectSlug>/<lessonSlug>)
-  else if (pathname.includes("/bca/semester-")) {
-    const segs = pathname.replace(/^\/bca\//, "").split("/");
-    const semSeg = segs[0] || "semester-1";
-    const subSeg = segs[1] || "bcs-011-computer-basics";
-    const lesSeg = segs[2] || "";
-
-    const subjectLessons = bcaLessons
-      .filter(l => l.subjectSlug.toLowerCase() === subSeg.toLowerCase() || l.subjectCode.toLowerCase() === subSeg.toLowerCase())
-      .sort((a, b) => a.unitNumber - b.unitNumber);
-
-    const idx = subjectLessons.findIndex(l => l.slug.toLowerCase() === lesSeg.toLowerCase() || l.id.toLowerCase() === lesSeg.toLowerCase());
-
-    dashboardHref = `/bca/${semSeg}/${subSeg}`;
-    courseTitle = subSeg.toUpperCase();
-    activeLessonsList = subjectLessons.map(l => ({ id: l.unitNumber, slug: `${subSeg}/${l.slug}`, title: `Unit ${l.unitNumber}: ${l.title}` }));
-
-    if (idx !== -1) {
-      const activeL = subjectLessons[idx];
-      currentSlug = `${subSeg}/${activeL.slug}`;
-      progressText = `Unit ${activeL.unitNumber} of ${subjectLessons.length}`;
-      const titleHasUnit = activeL.title.toLowerCase().includes(`unit ${activeL.unitNumber}`) || activeL.title.toLowerCase().startsWith("unit ");
-      currentLessonDisplay = titleHasUnit ? activeL.title : `Unit ${activeL.unitNumber}: ${activeL.title}`;
-      currentUnitDisplay = `Unit ${activeL.unitNumber} (${activeL.subjectCode})`;
-      currentBlockDisplay = `${activeL.subjectCode} — ${activeL.subjectSlug.toUpperCase()}`;
-      prevHref = idx > 0 ? `/bca/${semSeg}/${subSeg}/${subjectLessons[idx - 1].slug}` : `/bca/${semSeg}/${subSeg}`;
-      nextHref = idx < subjectLessons.length - 1 ? `/bca/${semSeg}/${subSeg}/${subjectLessons[idx + 1].slug}` : `/bca/${semSeg}/${subSeg}`;
-    } else {
-      prevHref = `/bca/${semSeg}/${subSeg}`;
-      nextHref = subjectLessons.length > 0 ? `/bca/${semSeg}/${subSeg}/${subjectLessons[0].slug}` : `/bca/${semSeg}`;
-    }
-  }
-  // 9. General Fallback
+  // 7. General Fallback
   else {
     dashboardHref = "/";
     courseTitle = "Lessons";
@@ -554,12 +498,12 @@ export default function LessonBottomNavigation({ pathname }: LessonBottomNavigat
                   <span>CMD Terminal</span>
                 </Link>
                 <Link
-                  href="/bca"
+                  href="/html"
                   onClick={() => setMenuOpen(false)}
                   className="flex items-center gap-2 p-2.5 bg-slate-900 hover:bg-slate-850 border border-slate-800 rounded-xl text-xs font-bold text-slate-200"
                 >
                   <GraduationCap size={15} className="text-amber-400" />
-                  <span>BCA Syllabus</span>
+                  <span>HTML Lessons</span>
                 </Link>
               </div>
 
@@ -603,153 +547,15 @@ export default function LessonBottomNavigation({ pathname }: LessonBottomNavigat
             </div>
 
             <div className="space-y-4 max-h-[60vh] overflow-y-auto pr-1 custom-scrollbar text-center">
-              {/* 1. SABSE UPAR: 50 Micro-Lessons Fast Switcher Grid */}
-              <div className="space-y-2 pb-2">
-                <div className="flex items-center justify-between px-1">
-                  <span className="text-[10px] font-black uppercase tracking-wider text-cyan-400">
-                    BCS-111 Unit 1 Micro-Lessons (50)
-                  </span>
-                  <Link
-                    href="/bca/semester-1/bcs-011-computer-basics/unit-1/lessons"
-                    onClick={() => setSubjectDrawerOpen(false)}
-                    className="text-[10px] font-bold text-amber-400 hover:underline"
-                  >
-                    View All Hub
-                  </Link>
-                </div>
-
-                <div className="grid grid-cols-5 gap-1.5 p-2.5 bg-[#060b1e]/90 rounded-2xl border border-cyan-500/30 shadow-inner">
-                  {unit1Lessons.map((l) => {
-                    const isCurrentLesson = pathname.includes(`/lessons/${l.id}`) || (l.lessonNumber === 1 && (pathname.endsWith('/unit-1') || pathname.endsWith('/unit-1/lessons')));
-
-                    return (
-                      <button
-                        key={l.id}
-                        onClick={() => {
-                          setSubjectDrawerOpen(false);
-                          router.push(`/bca/semester-1/bcs-011-computer-basics/unit-1/lessons/${l.id}`);
-                        }}
-                        className={`p-2 rounded-xl text-[11px] font-black text-center transition-all cursor-pointer ${
-                          isCurrentLesson
-                            ? "bg-gradient-to-r from-emerald-500 to-cyan-500 text-white border-2 border-amber-400 shadow-lg shadow-cyan-500/30 scale-105"
-                            : "bg-slate-900/90 hover:bg-cyan-600 hover:text-white border border-slate-800 text-slate-300"
-                        }`}
-                        title={`#${l.lessonNumber}: ${l.title}`}
-                      >
-                        #{l.lessonNumber}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* 2. Active Reading Position Card: Current Lesson -> Unit -> Block */}
+              {/* Active Reading Position Card */}
               <div className="p-4 rounded-2xl bg-gradient-to-br from-cyan-950/80 via-slate-900 to-amber-950/60 border border-cyan-500/40 text-center space-y-1.5 shadow-xl">
                 <div className="text-[10px] font-black uppercase tracking-widest text-amber-400">
-                  📍 Active Reading Position
+                  📍 Active Lesson Position
                 </div>
-
-                {/* Current Lesson (Top) */}
                 <div className="text-sm sm:text-base font-black text-cyan-200">
-                  {currentLessonDisplay || "Lesson #1: What is a Computer?"}
-                </div>
-
-                {/* Current Unit (Middle) */}
-                <div className="text-xs font-bold text-slate-300 flex items-center justify-center gap-1.5">
-                  <BookOpen size={13} className="text-cyan-400 shrink-0" />
-                  <span>{currentUnitDisplay || "Unit 1: Computer their Origin and Applications"}</span>
-                </div>
-
-                {/* Current Block (Bottom) */}
-                <div className="text-[11px] font-semibold text-slate-400 flex items-center justify-center gap-1.5">
-                  <span>📦 {currentBlockDisplay || "Block 1: Basics of Computer Hardware (BCS-111)"}</span>
+                  {currentLessonDisplay || courseTitle}
                 </div>
               </div>
-
-              {/* 3. Official IGNOU PDF Subject Order */}
-              <div className="space-y-2.5 pt-2 border-t border-slate-800/80">
-                <div className="text-[11px] font-black uppercase tracking-widest text-amber-400 text-center">
-                  📚 Official IGNOU PDF Subject Order
-                </div>
-                
-                {bcaSemesters[0]?.subjects.map((sub) => {
-                  const targetUrl = (sub.code === "BCS-111" || sub.code === "BCS-011")
-                    ? "/bca/semester-1/bcs-011-computer-basics/unit-1-introduction-to-computer-systems"
-                    : `/bca/1/${sub.code.toLowerCase()}`;
-
-                  const isCurrent = pathname.includes(sub.code.toLowerCase()) || (sub.code === "BCS-111" && pathname.includes("bcs-011"));
-
-                  return (
-                    <div key={sub.code} className="space-y-1.5">
-                      <button
-                        onClick={() => {
-                          setSubjectDrawerOpen(false);
-                          router.push(targetUrl);
-                        }}
-                        className={`w-full text-center p-3 rounded-2xl border transition-all flex items-center justify-between gap-3 group cursor-pointer ${
-                          isCurrent
-                            ? "bg-cyan-500/20 border-cyan-400 text-cyan-200 shadow-md"
-                            : "bg-slate-900/90 hover:bg-slate-800 border-slate-800 hover:border-cyan-500/40 text-slate-200"
-                        }`}
-                      >
-                        <div className="flex items-center gap-2.5 min-w-0 mx-auto">
-                          <span className="px-2.5 py-0.5 rounded-md bg-amber-500/20 text-amber-300 text-[10px] font-black border border-amber-500/30 shrink-0">
-                            {sub.code}
-                          </span>
-                          <span className="text-xs font-bold truncate group-hover:text-white">
-                            {sub.name}
-                          </span>
-                        </div>
-                        {isCurrent && <CheckCircle2 size={15} className="text-cyan-400 shrink-0" />}
-                      </button>
-
-                      {/* Display Units for this Subject */}
-                      <div className="grid grid-cols-1 gap-1 pl-2 pr-2">
-                        {sub.blocks.map((block) => (
-                          <div key={block.name} className="space-y-1 my-1">
-                            <div className="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider text-center">
-                              {block.name}
-                            </div>
-                            {block.units.map((unit, uIdx) => (
-                              <button
-                                key={unit.fileName}
-                                onClick={() => {
-                                  setSubjectDrawerOpen(false);
-                                  const unitSlug = unit.displayName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-                                  router.push(`/bca/semester-1/${sub.code.toLowerCase()}/unit-${uIdx + 1}-${unitSlug}`);
-                                }}
-                                className="w-full py-1.5 px-3 rounded-xl bg-slate-950/60 hover:bg-slate-900 border border-slate-850 text-[11px] font-medium text-slate-300 hover:text-cyan-300 text-center transition-all cursor-pointer truncate"
-                              >
-                                Unit {uIdx + 1}: {unit.displayName}
-                              </button>
-                            ))}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-
-              {/* Semester Switcher Tabs */}
-              <div className="space-y-2 pt-3 border-t border-slate-800/80">
-                <div className="text-[10px] font-black uppercase tracking-wider text-slate-400 text-center">
-                  IGNOU BCA Semesters (1 to 6)
-                </div>
-                <div className="grid grid-cols-3 gap-2">
-                  {[1, 2, 3, 4, 5, 6].map((semNum) => (
-                    <Link
-                      key={semNum}
-                      href={`/bca/semester-${semNum}`}
-                      onClick={() => setSubjectDrawerOpen(false)}
-                      className="p-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-center text-xs font-extrabold text-slate-300 hover:text-white transition-all"
-                    >
-                      Semester {semNum}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-
             </div>
           </div>
         </>

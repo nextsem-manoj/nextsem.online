@@ -102,17 +102,9 @@ export default function GlobalNavigationWidget() {
       ]
     },
     {
-      title: "📚 Web Dev & BCA Syllabus",
+      title: "📚 Web Development Syllabus",
       color: "text-amber-400 border-amber-500/20 bg-amber-500/5",
       links: [
-        {
-          name: "BCA Subject Hub",
-          href: "/bca",
-          desc: "IGNOU & standard university degree notes",
-          icon: <Layers size={14} className="text-amber-400" />,
-          badge: "Semester 1-6",
-          badgeColor: "bg-amber-500/10 text-amber-400 border-amber-500/20"
-        },
         {
           name: "HTML Tutorials",
           href: "/html",

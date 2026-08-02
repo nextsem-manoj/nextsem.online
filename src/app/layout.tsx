@@ -112,9 +112,6 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  other: {
-    "google-adsense-account": "ca-pub-4242865347895866",
-  },
 };
 
 
@@ -165,14 +162,7 @@ export default function RootLayout({
           strategy="afterInteractive"
         />
 
-        {/* Google AdSense Verification */}
-        <Script
-          id="adsense-verification"
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4242865347895866"
-          crossOrigin="anonymous"
-          strategy="afterInteractive"
-        />
+
 
 
         <ThemeProvider

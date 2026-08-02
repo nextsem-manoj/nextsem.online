@@ -7,14 +7,13 @@ import {
   GraduationCap, Compass, Layers, Home, Info, ShieldCheck, 
   Code, BookOpen, ChevronRight, Terminal, ArrowRight
 } from 'lucide-react';
-import { bcaSemesters } from '@/data/bcaCoursesData';
 import searchIndex from '@/data/searchIndex.json';
 import { htmlLessons } from '@/data/htmlLessonsData';
 
 interface SitemapLink {
   title: string;
   url: string;
-  category: 'core' | 'bca' | 'book';
+  category: 'core' | 'book';
   description: string;
   icon: React.ReactNode;
   tag?: string;
@@ -30,7 +29,6 @@ export default function UserSitemap() {
     { title: "Home Page", url: "/", category: "core", description: "NextSem Academy main landing page and platform features overview.", icon: <Home size={16} /> },
     { title: "About Us", url: "/about", category: "core", description: "Our mission, teaching methodology, and developer credentials.", icon: <Info size={16} /> },
     { title: "User Dashboard", url: "/profile", category: "core", description: "Personalized revision workspace tracking your XP, badges, and progress.", icon: <Star size={16} />, tag: "Personal" },
-    { title: "BCA Semester Revision", url: "/course", category: "core", description: "Central dashboard directory for IGNOU BCA degree courses.", icon: <GraduationCap size={16} /> },
     { title: "Windows Command Simulator", url: "/cmd", category: "core", description: "Learn Windows Command Prompt in an interactive simulated CMD console.", icon: <Terminal size={16} />, tag: "Simulator" },
     { title: "Operating System Desktop", url: "/simulator", category: "core", description: "Visual desktop sandbox featuring drag-and-drop file operations.", icon: <Monitor size={16} />, tag: "Simulator" },
     { title: "Interactive Sandbox", url: "/playground", category: "core", description: "Realtime coding editor and interactive logic components sandbox.", icon: <Code size={16} />, tag: "Interactive" },
@@ -39,66 +37,6 @@ export default function UserSitemap() {
     { title: "Privacy Policy", url: "/privacy", category: "core", description: "NextSem Academy terms of user data confidentiality and cookies policy.", icon: <ShieldCheck size={16} /> },
     { title: "Terms of Service", url: "/terms", category: "core", description: "Terms and conditions detailing student usage regulations.", icon: <Info size={16} /> }
   ];
-
-  // 2. Compile BCA Dynamic Routes
-  const bcaRoutes: SitemapLink[] = useMemo(() => {
-    const list: SitemapLink[] = [
-      { 
-        title: "BCA Hub Catalog", 
-        url: "/bca", 
-        category: "bca", 
-        description: "Central entry directory for all BCA online courses, files, and chatbot revision systems.", 
-        icon: <Layers size={16} /> 
-      },
-      { 
-        title: "Semmy AI Chatbot Assistant", 
-        url: "/bca/semmy-ai", 
-        category: "bca", 
-        description: "Our contextual AI agent designed to help answer IGNOU BCA questions instantly.", 
-        icon: <Sparkles size={16} />, 
-        tag: "AI Tutor" 
-      },
-      { 
-        title: "Textbook PDF Viewer Interface", 
-        url: "/bca/viewer", 
-        category: "bca", 
-        description: "Static PDF reading and progress tagging client for syllabus textbooks.", 
-        icon: <Book size={16} /> 
-      },
-      { 
-        title: "Unit 5: My Personal Computer (Visual Notes)", 
-        url: "/bca/notes/bcs-011-unit-5", 
-        category: "bca", 
-        description: "Deeply visual revision slides, interactive self-check MCQs, and fill-in-the-blank drills.", 
-        icon: <Sparkles size={16} />, 
-        tag: "Interactive Notes" 
-      }
-    ];
-
-    bcaSemesters.forEach((sem) => {
-      // Add Semester page
-      list.push({
-        title: `${sem.name} Dashboard`,
-        url: `/bca/${sem.id}`,
-        category: 'bca',
-        description: `Subject index and completion tracking for BCA Semester ${sem.id}.`,
-        icon: <GraduationCap size={16} />
-      });
-
-      // Add Subject pages
-      sem.subjects.forEach((subj) => {
-        list.push({
-          title: `[${subj.code}] ${subj.name}`,
-          url: `/bca/${sem.id}/${subj.code}`,
-          category: 'bca',
-          description: `Syllabus units catalog, reference files, and reading modules for ${subj.code}.`,
-          icon: <BookOpen size={16} />
-        });
-      });
-    });
-
-    return list;
-  }, []);
 
   // 4. Compile Book Chapter Dynamic Routes
   const bookRoutes: SitemapLink[] = useMemo(() => {
@@ -129,8 +67,8 @@ export default function UserSitemap() {
 
   // 5. Combine and Filter all routes
   const allRoutes = useMemo(() => {
-    return [...coreRoutes, ...bcaRoutes, ...bookRoutes];
-  }, [bcaRoutes, bookRoutes]);
+    return [...coreRoutes, ...bookRoutes];
+  }, [bookRoutes]);
 
   const filteredRoutes = useMemo(() => {
     return allRoutes.filter((route) => {
@@ -217,7 +155,6 @@ export default function UserSitemap() {
             {[
               { id: 'all', label: 'All pages', count: allRoutes.length },
               { id: 'core', label: 'Core & Simulators', count: coreRoutes.length },
-              { id: 'bca', label: 'BCA Course', count: bcaRoutes.length },
               { id: 'book', label: 'Book Chapters', count: bookRoutes.length }
             ].map(tab => (
               <button
