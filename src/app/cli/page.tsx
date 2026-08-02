@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { cliLessons } from "@/data/cliLessonsData";
 import CliLessonClient from "@/components/CliLessonClient";
 
