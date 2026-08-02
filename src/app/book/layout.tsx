@@ -184,30 +184,6 @@ function BookLayoutContent({
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  const enterFullscreen = useCallback(async () => {
-    const el = lessonContainerRef.current || document.documentElement;
-    try {
-      if (el.requestFullscreen) await el.requestFullscreen();
-      else if ((el as any).webkitRequestFullscreen) await (el as any).webkitRequestFullscreen();
-      setIsFullscreen(true);
-      setShowFsHint(true);
-      setTimeout(() => setShowFsHint(false), 2500);
-    } catch (_) {}
-  }, []);
-
-  const exitFullscreen = useCallback(async () => {
-    try {
-      if (document.fullscreenElement) await document.exitFullscreen();
-    } catch (_) {}
-    setIsFullscreen(false);
-  }, []);
-
-  useEffect(() => {
-    const onFsChange = () => setIsFullscreen(!!document.fullscreenElement);
-    document.addEventListener('fullscreenchange', onFsChange);
-    return () => document.removeEventListener('fullscreenchange', onFsChange);
-  }, []);
-
   return (
     <div ref={lessonContainerRef} className="min-h-screen flex flex-col bg-[#060c18] text-foreground font-sans selection:bg-[#c1a648]/30 transition-colors duration-300">
       <NsSubjectNavBar currentUser={currentUser} onSignIn={handleSignIn} onToggleSidebar={() => setSidebarOpen(prev => !prev)} />
