@@ -430,16 +430,8 @@ export default function HtmlLessonClient({ lesson }: HtmlLessonClientProps) {
           {lesson.title}
         </h1>
 
-        {/* Right: PDF + Save Options + Next Lesson */}
+        {/* Right: Save Options + Next Lesson */}
         <div className="flex items-center gap-2 shrink-0">
-          <button
-            onClick={handleDownloadPdf}
-            className="px-3 py-2 rounded-xl border border-amber-500/40 bg-amber-950/30 text-amber-400 hover:text-amber-300 transition-all cursor-pointer shrink-0 flex items-center gap-1.5 shadow-md"
-            title="Download Lesson PDF (Rewarded Ad)"
-          >
-            <Download size={18} className="stroke-[2.5]" />
-            <span className="hidden sm:inline text-xs font-bold">PDF</span>
-          </button>
 
           <button
             onClick={toggleBookmark}
