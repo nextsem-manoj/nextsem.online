@@ -18,6 +18,8 @@ import { AdMob } from "@capacitor-community/admob";
 import { Capacitor } from "@capacitor/core";
 import { showRewardedAd } from "@/lib/admobHelper";
 import { generateAndDownloadLessonPdf } from "../lib/pdfHelper";
+import { useGamification, HeartsHUD } from "@/context/GamificationContext";
+import RewardedHeartButton from "./RewardedHeartButton";
 
 interface HtmlLessonClientProps {
   lesson: Lesson;
@@ -26,6 +28,7 @@ interface HtmlLessonClientProps {
 export default function HtmlLessonClient({ lesson }: HtmlLessonClientProps) {
   const router = useRouter();
   const { completedChapters, markCompleted } = useProgress();
+  const { hearts, loseHeart, addPoints, addXp, recordActivity } = useGamification();
 
   const [mounted, setMounted] = useState(false);
   const [selectedLang, setSelectedLang] = useState<"english" | "hinglish" | "hindi">("hinglish");
@@ -226,6 +229,9 @@ export default function HtmlLessonClient({ lesson }: HtmlLessonClientProps) {
 
     if (correct) {
       triggerCelebration(e);
+      addPoints(10, "Correct Answer");
+      addXp(20);
+      recordActivity();
       if (typeof window !== "undefined") {
         localStorage.setItem(isLessonCompletedKey, "true");
         setIsLessonDone(true);
@@ -233,6 +239,9 @@ export default function HtmlLessonClient({ lesson }: HtmlLessonClientProps) {
         // Sync to global progress if this is the end of a unit
         checkAndSyncUnitProgress(lesson.id);
       }
+    } else {
+      // Wrong answer → lose a heart
+      if (hearts > 0) loseHeart();
     }
   };
 
@@ -413,6 +422,10 @@ export default function HtmlLessonClient({ lesson }: HtmlLessonClientProps) {
           </h1>
 
           <div className="flex items-center gap-2">
+            {/* Hearts HUD + Restore button */}
+            <HeartsHUD />
+            <RewardedHeartButton compact />
+
             <button
               onClick={handleDownloadPdf}
               className="p-2 rounded-lg border border-amber-500/40 bg-amber-950/30 text-amber-400 hover:text-amber-300 transition-all cursor-pointer shrink-0 flex items-center gap-1.5 shadow-md"

@@ -118,6 +118,7 @@ export const metadata: Metadata = {
 import Script from "next/script";
 import { ThemeProvider } from "../components/ThemeProvider";
 import { ProgressProvider } from "../context/ProgressContext";
+import { GamificationProvider } from "../context/GamificationContext";
 import BottomNavigation from "../components/BottomNavigation";
 import AndroidBackButtonHandler from "../components/AndroidBackButtonHandler";
 import CookieBanner from "../components/CookieBanner";
@@ -174,20 +175,22 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <ProgressProvider>
-            <FontScaleHydrator />
-            <OfflineGuard />
-            <SplashScreen />
+            <GamificationProvider>
+              <FontScaleHydrator />
+              <OfflineGuard />
+              <SplashScreen />
 
-            <RateAppPrompt />
-            <UpdateBanner />
-            {children}
-            <CookieBanner />
-            <AndroidBackButtonHandler />
-            <TranslateWidget />
-            <SearchWidget />
-            <GlobalNavigationWidget />
+              <RateAppPrompt />
+              <UpdateBanner />
+              {children}
+              <CookieBanner />
+              <AndroidBackButtonHandler />
+              <TranslateWidget />
+              <SearchWidget />
+              <GlobalNavigationWidget />
 
-            <BottomNavigation />
+              <BottomNavigation />
+            </GamificationProvider>
           </ProgressProvider>
         </ThemeProvider>
       </body>
