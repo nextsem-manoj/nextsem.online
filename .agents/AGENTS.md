@@ -22,11 +22,11 @@
   * **Day 10**: Build sandbox static portfolio subdomain publishing backend.
   * Keep track of this progress inside `docs/roadmap/task.md` in the workspace directory.
 
-- **Standard Lesson Template (PERMANENT RULE - ALL CURRENT AND FUTURE LESSONS)**: Every lesson created for this project (HTML, CLI, or any future subject) MUST follow this standard format:
-  1. **Language Tabs**: `english`, `hinglish`, `hindi` lesson body text — each with `kid` + `pro` complexity modes (6 content variants per lesson).
-  2. **Multilingual MCQ Exercise**: The `exercise` field MUST use `MultilingualExercise` format from `src/data/htmlLessonsData.ts` with `english`, `hinglish`, `hindi` keys, each containing `{ question, options, correctAnswer, hint }`. Never use the old single-language exercise format for new lessons.
+- **Single Stream Developer Lesson Template (PERMANENT RULE - ALL CURRENT AND FUTURE LESSONS)**: Every lesson created for this project (HTML, CLI, or any future subject) MUST follow this simplified, clean standard format:
+  1. **Single-Stream Clean Lesson Content**: Primary, high-quality, visual English developer content. Do NOT include or require multiple language variants (English/Hinglish/Hindi) or Kid vs Pro complexity mode toggles.
+  2. **Interactive MCQ Exercise**: Standard `{ question, options, correctAnswer, hint }` exercise block for knowledge checks.
   3. **Dashboard Back Link**: All lesson pages must include a header link back to their subject dashboard (e.g. `/html`, `/cli`).
-  4. **SEO Slugs**: All lesson URLs must be descriptive and SEO-optimized (e.g. `/cli/learn-windows-command-prompt-cmd-basics`). Never use opaque IDs like `/book/cli-ch1-basics`.
-  5. **AdMob/AdSense PDF Download**: Each lesson must include a "Download Lesson PDF" option gated behind a rewarded ad (AdMob on native, simulation on web).
-  6. **Data file**: HTML lessons use `src/data/htmlLessonsData.ts` (with `MultilingualExercise` interface). CLI lessons use `src/data/cliLessonsData.ts`. New subjects → create `src/data/<subject>LessonsData.ts` using the same interface.
-  7. **Client component pattern**: Use `const currentExercise = lesson.exercise[selectedLang] ?? lesson.exercise.english` for language-aware MCQ rendering in each lesson client component.
+  4. **SEO Slugs**: All lesson URLs must be descriptive and SEO-optimized (e.g. `/cli/learn-windows-command-prompt-cmd-basics`).
+  5. **AdMob/AdSense PDF Download**: Each lesson must include a "Download Lesson PDF" option.
+  6. **Beginner-Friendly Full Stack Web Developer Focus**: 100% focused on pure Full Stack Web Developer pathways (HTML, CSS, JavaScript, React, Node.js, Express, Databases, Git, 🪟 Windows CMD CLI, and Cloud Deployment).
+- **Exclusion of Non-Coding Office Software**: Do not include or feature MS Word, MS Excel, PowerPoint, Google Docs, email writing, professional email etiquette, or resume writing topics. Keep all content strictly focused on software engineering and web development.

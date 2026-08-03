@@ -12,23 +12,24 @@ import AdSenseBanner from "./AdSenseBanner";
 import { useProgress } from "../context/ProgressContext";
 import { triggerCelebration } from "../lib/celebration";
 import TopicAnimationWidget from "./TopicAnimationWidget";
-import HtmlTagTooltip from "./HtmlTagTooltip";
-import TaskBasedCodingLab from "./TaskBasedCodingLab";
 import { AdMob } from "@capacitor-community/admob";
 import { Capacitor } from "@capacitor/core";
 import { showRewardedAd } from "@/lib/admobHelper";
 import { generateAndDownloadLessonPdf } from "../lib/pdfHelper";
-import { useGamification, HeartsHUD } from "@/context/GamificationContext";
-import RewardedHeartButton from "./RewardedHeartButton";
 
 interface HtmlLessonClientProps {
   lesson: Lesson;
 }
 
+import { ensure50Sentences } from "@/lib/lessonEnricher";
+import CopyableCommand from "./CopyableCommand";
+import ShareButton from "./ShareButton";
+import { saveLastLesson } from "@/lib/userProgressSync";
+import { auth } from "@/lib/firebase";
+
 export default function HtmlLessonClient({ lesson }: HtmlLessonClientProps) {
   const router = useRouter();
   const { completedChapters, markCompleted } = useProgress();
-  const { hearts, loseHeart, addPoints, addXp, recordActivity } = useGamification();
 
   const [mounted, setMounted] = useState(false);
   const [selectedLang, setSelectedLang] = useState<"english" | "hinglish" | "hindi">("english");
@@ -68,6 +69,18 @@ export default function HtmlLessonClient({ lesson }: HtmlLessonClientProps) {
       setMounted(true);
     }
   }, [lesson.id]);
+
+  // Track last visited lesson for resume feature
+  useEffect(() => {
+    const userEmail = auth.currentUser?.email;
+    saveLastLesson(userEmail, {
+      slug: lesson.slug,
+      title: lesson.title,
+      subject: "html",
+      lessonNumber: lesson.id,
+      visitedAt: new Date().toISOString(),
+    });
+  }, [lesson.slug, lesson.title, lesson.id]);
 
   const toggleBookmark = () => {
     try {
@@ -199,8 +212,16 @@ export default function HtmlLessonClient({ lesson }: HtmlLessonClientProps) {
     if (typeof window !== "undefined") {
       const done = localStorage.getItem(isLessonCompletedKey) === "true";
       setIsLessonDone(done);
-      if (done) {
-        // Pre-fill answer if already completed
+
+      // Auto update progress when user navigates to lesson in order
+      if (lesson?.slug) {
+        markCompleted(lesson.slug);
+        localStorage.setItem(isLessonCompletedKey, "true");
+        setIsLessonDone(true);
+      }
+
+      if (done || lesson?.slug) {
+        // Pre-fill answer if completed
         setSelectedOption(currentExercise.correctAnswer);
         setIsCorrect(true);
         setShowFeedback(true);
@@ -230,9 +251,6 @@ export default function HtmlLessonClient({ lesson }: HtmlLessonClientProps) {
 
     if (correct) {
       triggerCelebration(e);
-      addPoints(10, "Correct Answer");
-      addXp(20);
-      recordActivity();
       if (typeof window !== "undefined") {
         localStorage.setItem(isLessonCompletedKey, "true");
         setIsLessonDone(true);
@@ -240,9 +258,6 @@ export default function HtmlLessonClient({ lesson }: HtmlLessonClientProps) {
         // Sync to global progress if this is the end of a unit
         checkAndSyncUnitProgress(lesson.id);
       }
-    } else {
-      // Wrong answer → lose a heart
-      if (hearts > 0) loseHeart();
     }
   };
 
@@ -265,20 +280,20 @@ export default function HtmlLessonClient({ lesson }: HtmlLessonClientProps) {
     }
   };
 
-  // ── Inline backtick `code` tokeniser — wraps tokens in HtmlTagTooltip
+  // ── Inline backtick `code` tokeniser — renders clean copyable code elements
   const renderInlineCode = (text: string): React.ReactNode[] => {
     const parts = text.split(/(`[^`]+`)/);
     return parts.map((part, i) => {
       if (part.startsWith('`') && part.endsWith('`')) {
         const token = part.slice(1, -1);
-        return <HtmlTagTooltip key={i} code={token} lang={selectedLang} />;
+        return <CopyableCommand key={i} command={token} inline={true} />;
       }
       // Also auto-detect bare HTML tags like <div>, <p> etc in plain text
       const tagRegex = /(<\/?[a-zA-Z][a-zA-Z0-9]*\s*\/?>)/g;
       const subParts = part.split(tagRegex);
       return subParts.map((sub, j) => {
         if (tagRegex.test(sub) || (sub.startsWith('<') && sub.endsWith('>'))) {
-          return <HtmlTagTooltip key={`${i}-${j}`} code={sub.trim()} lang={selectedLang} />;
+          return <CopyableCommand key={`${i}-${j}`} command={sub.trim()} inline={true} />;
         }
         return <React.Fragment key={`${i}-${j}`}>{sub}</React.Fragment>;
       });
@@ -303,7 +318,7 @@ export default function HtmlLessonClient({ lesson }: HtmlLessonClientProps) {
 
       if (trimmed.startsWith("###")) {
         return (
-          <h3 key={idx} className="text-lg md:text-xl font-bold text-[#c1a648] mt-6 mb-3 tracking-tight">
+          <h3 key={idx} className="text-xl sm:text-2xl font-bold text-white mt-6 mb-3 tracking-tight">
             {trimmed.replace(/^###\s*/, "").replace(/^[#\s]+/, "").trim()}
           </h3>
         );
@@ -336,7 +351,10 @@ export default function HtmlLessonClient({ lesson }: HtmlLessonClientProps) {
         const cleanCode = trimmed.replace(/^```[a-z]*\n?/, "").replace(/\n?```$/, "");
         return (
           <div key={idx} className="my-6 p-5 md:p-6 bg-[#1d2a35] border border-slate-700/60 rounded-xl space-y-4 shadow-xl text-left">
-            <h3 className="text-xl font-extrabold text-white tracking-tight">Example</h3>
+            <div className="flex items-center justify-between gap-3">
+              <h3 className="text-xl font-extrabold text-white tracking-tight">Example</h3>
+              <CopyableCommand command={cleanCode} inline={false} className="my-0" />
+            </div>
             <div className="bg-[#15202b] p-4 md:p-5 rounded-lg border-l-4 border-[#04AA6D] font-mono text-sm overflow-x-auto leading-relaxed shadow-inner">
               {cleanCode.split('\n').map((codeLine, cIdx) => {
                 // Split into tags and inner text content
@@ -388,7 +406,8 @@ export default function HtmlLessonClient({ lesson }: HtmlLessonClientProps) {
     });
   };
 
-  const currentContent = lesson[selectedLang][selectedLevel];
+  const rawContent = lesson[selectedLang][selectedLevel];
+  const currentContent = ensure50Sentences(rawContent, lesson.title, lesson.unit, selectedLang, selectedLevel);
 
   if (!mounted) {
     return (
@@ -440,10 +459,10 @@ export default function HtmlLessonClient({ lesson }: HtmlLessonClientProps) {
                 ? "bg-emerald-950/40 border-emerald-500/40 text-[#04AA6D]"
                 : "bg-slate-900/60 border-slate-800 text-slate-400 hover:text-white"
             }`}
-            title={isBookmarked ? "Remove Bookmark" : "Save Bookmark"}
+            title={isBookmarked ? "Remove Bookmark" : "Bookmark Lesson"}
           >
             <Bookmark size={18} className={`stroke-[2.5] ${isBookmarked ? "fill-[#04AA6D] text-[#04AA6D]" : ""}`} />
-            <span className="text-xs font-bold">{isBookmarked ? "Saved" : "Save"}</span>
+            <span className="text-xs font-bold">{isBookmarked ? "Bookmarked" : "Bookmark"}</span>
           </button>
 
           {nextLesson ? (
@@ -466,37 +485,6 @@ export default function HtmlLessonClient({ lesson }: HtmlLessonClientProps) {
 
         {/* Visual Demonstration Topic Animation GIF Card */}
         <TopicAnimationWidget lessonId={lesson.id} lessonTitle={lesson.title} type="html" lang={selectedLang} />
-
-        {/* Task-Based Coding Lab Section */}
-        <TaskBasedCodingLab
-          labId={`html-lab-${lesson.id}`}
-          labTitle={`Task-Based Coding Lab: Practice ${lesson.title}`}
-          language="html"
-          initialCode={`<!-- Practice Task Code -->\n<div class="card">\n  <h1>HTML Coding Lab</h1>\n  <p>Practice writing clean semantic HTML code step-by-step.</p>\n</div>`}
-          tasks={[
-            {
-              id: "task-1",
-              title: "Create a container <div> element",
-              instruction: "Wrap your content inside a <div> tag with a class attribute.",
-              hint: "Use <div class=\"card\">...</div>",
-              validatorKeywords: ["<div", "</div>"]
-            },
-            {
-              id: "task-2",
-              title: "Add a main heading <h1>",
-              instruction: "Include a main header <h1> element inside your container.",
-              hint: "Use <h1>My Title</h1> syntax.",
-              validatorKeywords: ["<h1>", "</h1>"]
-            },
-            {
-              id: "task-3",
-              title: "Add a descriptive paragraph <p>",
-              instruction: "Add a paragraph <p> explaining your project details.",
-              hint: "Use <p>Description goes here...</p>",
-              validatorKeywords: ["<p>", "</p>"]
-            }
-          ]}
-        />
       </div>
 
       {/* Nextsem Academy HTML Quiz Reminder Card (Replaces inline question block - Image 86) */}

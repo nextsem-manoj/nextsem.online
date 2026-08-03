@@ -1,22 +1,22 @@
 import type { Metadata } from 'next';
-import HomeClient from './HomeClient';
+import CurriculumClient from './curriculum/CurriculumClient';
 
 export const metadata: Metadata = {
-  title: "Nextsem Academy | Learn Web Development Free",
-  description: "Start your journey to become a job-ready frontend developer. Free structured courses in HTML, CSS, JavaScript, React, and Node.js for BCA, B.Tech, and M.Tech students.",
+  title: "Nextsem Academy | Complete Free Dev Curriculum",
+  description: "Master full stack web development from Windows CLI and HTML basics up to React, Node.js, and Cloud deployment — free interactive developer curriculum.",
   alternates: { canonical: "/" },
   openGraph: {
-    title: "Nextsem Academy | Learn Web Development Free",
-    description: "Free, structured web development courses for BCA, B.Tech, M.Tech students. Master HTML5, CSS3, JavaScript, React, and Node.js.",
+    title: "Nextsem Academy | Complete Free Dev Curriculum",
+    description: "Free developer curriculum for aspiring full stack engineers.",
     url: "https://nextsem.online",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nextsem Academy | Learn Web Development Free",
-    description: "Free structured web development courses for aspiring frontend engineers.",
+    title: "Nextsem Academy | Complete Free Dev Curriculum",
+    description: "Free structured web development curriculum.",
   },
 };
 
 export default function Home() {
-  return <HomeClient />;
+  return <CurriculumClient />;
 }

@@ -498,7 +498,7 @@ export default function MobileHomeLayout() {
                     <p className="text-slate-800 font-semibold mt-0.5">Git Branching &amp; GitHub Collaboration lesson is live!</p>
                   </Link>
                   <Link 
-                    href="/cmd" 
+                    href="/cli" 
                     onClick={() => setNotificationsOpen(false)} 
                     className="block p-2.5 bg-blue-50 hover:bg-blue-100 border border-blue-200 rounded-xl transition-all"
                   >
@@ -639,7 +639,7 @@ export default function MobileHomeLayout() {
                 title: "Courses & Simulators",
                 badge: "Tools",
                 items: [
-                  { label: "🪟 Windows CMD Simulator", path: "/cmd" },
+                  { label: "🪟 Windows CLI Module", path: "/cli" },
                   { label: "🌿 Git Version Control", path: "/git" },
                   { label: "💻 Code Sandbox Playground", path: "/playground" },
                   { label: "🎓 BCA Semester Hub", path: "/bca" },

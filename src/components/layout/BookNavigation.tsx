@@ -119,7 +119,7 @@ function NavigationContent({
             title="Profile Dashboard"
           >
             {currentUser.photo ? (
-              <img src={currentUser.photo} alt="" className="w-5 h-5 rounded-full object-cover border border-[#c1a648]/20 mb-0.5 shrink-0" />
+              <img src={currentUser.photo} alt="" className="w-5 h-5 rounded-full object-cover border border-[#04AA6D]/20 mb-0.5 shrink-0" />
             ) : (
               <div className="w-5 h-5 rounded-full bg-blue-600 text-white flex items-center justify-center font-black text-[9px] mb-0.5 shrink-0">
                 {currentUser.avatar}
@@ -133,8 +133,8 @@ function NavigationContent({
             className={`flex flex-col items-center justify-center flex-1 py-1.5 rounded-xl transition-all ${buttonHoverClass}`}
             title="Sign In"
           >
-            <LogIn size={18} className="mb-0.5 text-[#c1a648]" />
-            <span className="text-[9px] font-black uppercase tracking-wider text-[#c1a648]">Sign In</span>
+            <LogIn size={18} className="mb-0.5 text-[#04AA6D]" />
+            <span className="text-[9px] font-black uppercase tracking-wider text-[#04AA6D]">Sign In</span>
           </button>
         )}
 

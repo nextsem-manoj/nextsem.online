@@ -32,7 +32,7 @@ export function downloadLessonPdf({
       if (trimmed.startsWith("###")) {
         return `
           <div style="margin-top:26px; margin-bottom:12px; display:flex; align-items:center; gap:10px;">
-            <span style="display:inline-block; width:6px; height:22px; background:linear-gradient(180deg, #e4ca67, #c1a648); border-radius:3px;"></span>
+            <span style="display:inline-block; width:6px; height:22px; background:linear-gradient(180deg, #e4ca67, #04AA6D); border-radius:3px;"></span>
             <h3 class="section-title" style="font-size:18px; font-weight:900; margin:0; letter-spacing:-0.3px;">${trimmed.replace("###", "").trim()}</h3>
           </div>
         `;
@@ -40,7 +40,7 @@ export function downloadLessonPdf({
       if (trimmed.startsWith("* ")) {
         return `
           <div style="display:flex; align-items:flex-start; gap:8px; margin:6px 0 6px 12px;">
-            <span style="color:#c1a648; font-weight:bold; font-size:16px;">✦</span>
+            <span style="color:#04AA6D; font-weight:bold; font-size:16px;">✦</span>
             <div class="body-text" style="font-size:13.5px; line-height:1.65; font-weight:500;">
               ${trimmed.replace("* ", "").replace(/\*\*(.*?)\*\*/g, "<strong class='highlight-text'>$1</strong>")}
             </div>
@@ -110,8 +110,8 @@ export function downloadLessonPdf({
           /* Top Interactive Toolbar (Hidden in Print) */
           .toolbar { display: flex; align-items: center; justify-content: space-between; background: #0f172a; border-bottom: 2px solid #334155; padding: 12px 20px; font-size: 13px; font-weight: 700; color: #f8fafc; position: sticky; top: 0; z-index: 100; shadow: 0 4px 12px rgba(0,0,0,0.3); }
           .toolbar-btn { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 8px; border: 1px solid #475569; background: #1e293b; color: #f8fafc; font-size: 12px; font-weight: 800; cursor: pointer; transition: all 0.2s; }
-          .toolbar-btn:hover { background: #334155; border-color: #c1a648; }
-          .toolbar-btn.active { background: #c1a648; color: #090d16; border-color: #e4ca67; }
+          .toolbar-btn:hover { background: #334155; border-color: #04AA6D; }
+          .toolbar-btn.active { background: #04AA6D; color: #090d16; border-color: #e4ca67; }
           
           @media print {
             .no-print { display: none !important; }
@@ -119,17 +119,17 @@ export function downloadLessonPdf({
 
           /* ── DARK THEME (DEFAULT) ── */
           body.dark-mode { background: #090d16; color: #e2e8f0; }
-          body.dark-mode .brochure-header { border-bottom: 3px solid #c1a648; }
+          body.dark-mode .brochure-header { border-bottom: 3px solid #04AA6D; }
           body.dark-mode .brand-title { color: #f8fafc; }
           body.dark-mode .brand-subtitle { color: #e4ca67; }
-          body.dark-mode .hero-card { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); border: 2px solid #c1a648; box-shadow: 0 12px 30px rgba(0,0,0,0.4); }
+          body.dark-mode .hero-card { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); border: 2px solid #04AA6D; box-shadow: 0 12px 30px rgba(0,0,0,0.4); }
           body.dark-mode .lesson-title { color: #ffffff; }
           body.dark-mode .chip { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); color: #cbd5e1; }
           body.dark-mode .section-title { color: #e4ca67; }
           body.dark-mode .body-text { color: #cbd5e1; }
           body.dark-mode .highlight-text { color: #fef08a; background: rgba(193,166,72,0.25); padding: 1px 5px; border-radius: 4px; }
           body.dark-mode .step-num { background: #1e293b; color: #e4ca67; border: 1px solid #334155; }
-          body.dark-mode .code-card { background: #030712; border-left: 4px solid #c1a648; color: #e4ca67; border-top: 1px solid #1e293b; border-right: 1px solid #1e293b; border-bottom: 1px solid #1e293b; }
+          body.dark-mode .code-card { background: #030712; border-left: 4px solid #04AA6D; color: #e4ca67; border-top: 1px solid #1e293b; border-right: 1px solid #1e293b; border-bottom: 1px solid #1e293b; }
           body.dark-mode .quiz-card { background: linear-gradient(135deg, #042f2e 0%, #064e3b 100%); border: 2px solid #10b981; }
           body.dark-mode .quiz-question { color: #ecfdf5; }
           body.dark-mode .quiz-option { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #e2e8f0; }
@@ -163,7 +163,7 @@ export function downloadLessonPdf({
           .svg-logo { width: 44px; height: 44px; }
           .brand-title { font-size: 22px; font-weight: 900; letter-spacing: -0.5px; line-height: 1; }
           .brand-subtitle { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 3px; }
-          .doc-badge { background: linear-gradient(135deg, #e4ca67 0%, #c1a648 100%); color: #0f172a; padding: 6px 14px; border-radius: 20px; font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px; }
+          .doc-badge { background: linear-gradient(135deg, #e4ca67 0%, #04AA6D 100%); color: #0f172a; padding: 6px 14px; border-radius: 20px; font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px; }
 
           .hero-card { color: #ffffff; padding: 24px; border-radius: 16px; margin: 20px 0; position: relative; overflow: hidden; }
           .subject-chip { display: inline-block; background: rgba(193,166,72,0.25); color: #e4ca67; border: 1px solid rgba(193,166,72,0.4); font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px; padding: 4px 12px; border-radius: 20px; }
@@ -173,7 +173,7 @@ export function downloadLessonPdf({
           .content-box { font-size: 13.5px; line-height: 1.75; text-align: left; }
           .brochure-footer { margin-top: 40px; padding-top: 20px; display: flex; align-items: center; justify-content: space-between; font-size: 11px; }
           .footer-brand { display: flex; align-items: center; gap: 8px; font-weight: 800; }
-          .verify-link { color: #c1a648; font-weight: 900; text-decoration: none; border-bottom: 1.5px dashed #c1a648; }
+          .verify-link { color: #04AA6D; font-weight: 900; text-decoration: none; border-bottom: 1.5px dashed #04AA6D; }
         </style>
       </head>
       <body class="dark-mode">
@@ -183,7 +183,7 @@ export function downloadLessonPdf({
           <div style="display:flex; gap:8px;">
             <button id="btnDark" class="toolbar-btn active" onclick="setBrochureTheme('dark')">🌙 Dark Brochure</button>
             <button id="btnLight" class="toolbar-btn" onclick="setBrochureTheme('light')">☀️ Light (Ink Saver)</button>
-            <button class="toolbar-btn" style="background:#c1a648; color:#090d16;" onclick="window.print()">🖨️ Print / Save PDF</button>
+            <button class="toolbar-btn" style="background:#04AA6D; color:#090d16;" onclick="window.print()">🖨️ Print / Save PDF</button>
           </div>
         </div>
 
@@ -192,8 +192,8 @@ export function downloadLessonPdf({
           <div class="brochure-header">
             <div class="logo-container">
               <svg class="svg-logo" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-                <rect width="512" height="512" rx="112" fill="#1e303f" stroke="#c1a648" stroke-width="16" stroke-opacity="0.5"/>
-                <text x="50%" y="46%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-weight="900" font-size="220" fill="#c1a648" letter-spacing="-10">NS</text>
+                <rect width="512" height="512" rx="112" fill="#1e303f" stroke="#04AA6D" stroke-width="16" stroke-opacity="0.5"/>
+                <text x="50%" y="46%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-weight="900" font-size="220" fill="#04AA6D" letter-spacing="-10">NS</text>
                 <text x="50%" y="80%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-weight="800" font-size="64" fill="#fbfbfb" letter-spacing="-1">NextSem</text>
               </svg>
               <div>

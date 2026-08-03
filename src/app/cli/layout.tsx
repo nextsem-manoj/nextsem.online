@@ -166,11 +166,11 @@ function CliLayoutContent({ children }: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <div ref={lessonContainerRef} className="min-h-screen flex flex-col bg-[#060c18] text-foreground font-sans selection:bg-[#c1a648]/30 transition-colors duration-300">
+    <div ref={lessonContainerRef} className="min-h-screen flex flex-col bg-[#060c18] text-foreground font-sans selection:bg-[#04AA6D]/30 transition-colors duration-300">
       <NsSubjectNavBar currentUser={currentUser} onSignIn={handleSignIn} onToggleSidebar={() => setSidebarOpen(prev => !prev)} />
       <div
-        className="flex-1 flex flex-col md:flex-row w-full min-w-0 bg-[#060c18]"
-        style={mounted && !isMobile ? { paddingLeft: `calc(5vw + ${effectiveSidebarWidth}px)`, paddingRight: '5vw' } : undefined}
+        className="flex-1 flex flex-col md:flex-row w-full min-w-0 bg-[#17181c]"
+        style={mounted && !isMobile ? { paddingLeft: `${effectiveSidebarWidth}px` } : undefined}
       >
         <BookSidebar
           isOpen={sidebarOpen}
@@ -181,13 +181,13 @@ function CliLayoutContent({ children }: { children: React.ReactNode }) {
           onCollapsedChange={setSidebarCollapsed}
         />
 
-        <main className="flex-1 p-3 md:p-6 w-full flex flex-col relative min-w-0 bg-[#060c18]">
+        <main className="flex-1 p-2 md:p-4 w-full flex flex-col relative min-w-0 bg-[#060c18]">
           {/* Main Reading Container */}
           <div
             ref={scrollContainerRef}
-            className="flex-1 px-2 py-3 md:px-6 md:py-6 relative z-10 transition-all duration-300"
+            className="flex-1 px-1 py-2 md:px-4 md:py-4 relative z-10 transition-all duration-300"
           >
-            <div className="max-w-5xl mx-auto w-full">
+            <div className="w-full max-w-full">
               {children}
             </div>
           </div>

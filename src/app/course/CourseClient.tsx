@@ -66,7 +66,7 @@ export default function CourseClient() {
 
   const handleLaunchChapter = (path: string) => {
     if (path === "cmd") {
-      router.push("/cmd");
+      router.push("/cli");
     } else {
       setLoadingChapterPath(path);
       setLoadingStep(0);

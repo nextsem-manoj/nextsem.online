@@ -29,7 +29,6 @@ export default function UserSitemap() {
     { title: "Home Page", url: "/", category: "core", description: "NextSem Academy main landing page and platform features overview.", icon: <Home size={16} /> },
     { title: "About Us", url: "/about", category: "core", description: "Our mission, teaching methodology, and developer credentials.", icon: <Info size={16} /> },
     { title: "User Dashboard", url: "/profile", category: "core", description: "Personalized revision workspace tracking your XP, badges, and progress.", icon: <Star size={16} />, tag: "Personal" },
-    { title: "Windows Command Simulator", url: "/cmd", category: "core", description: "Learn Windows Command Prompt in an interactive simulated CMD console.", icon: <Terminal size={16} />, tag: "Simulator" },
     { title: "Operating System Desktop", url: "/simulator", category: "core", description: "Visual desktop sandbox featuring drag-and-drop file operations.", icon: <Monitor size={16} />, tag: "Simulator" },
     { title: "Interactive Sandbox", url: "/playground", category: "core", description: "Realtime coding editor and interactive logic components sandbox.", icon: <Code size={16} />, tag: "Interactive" },
     { title: "Git Basics Guide", url: "/git", category: "core", description: "Step-by-step documentation detailing Git repositories and branches.", icon: <BookOpen size={16} /> },
@@ -91,7 +90,7 @@ export default function UserSitemap() {
   }, [allRoutes, searchQuery, activeCategory]);
 
   return (
-    <div className="w-full min-h-screen bg-slate-950 text-white flex flex-col justify-between font-sans selection:bg-[#c1a648]/30 relative">
+    <div className="w-full min-h-screen bg-slate-950 text-white flex flex-col justify-between font-sans selection:bg-[#04AA6D]/30 relative">
       {/* Background radial glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[500px] rounded-full bg-emerald-955/10 blur-[130px] pointer-events-none" />
 

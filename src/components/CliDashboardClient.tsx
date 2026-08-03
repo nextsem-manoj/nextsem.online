@@ -15,6 +15,7 @@ export default function CliDashboardClient() {
   const [mounted, setMounted] = useState(false);
   const [userEmail, setUserEmail] = useState<string>("guest");
   const [completedLessons, setCompletedLessons] = useState<Set<number>>(new Set());
+  const [uploadedSlugs, setUploadedSlugs] = useState<Set<string>>(new Set());
 
   // Load progress on mount — works without login (guest user)
   useEffect(() => {
@@ -55,6 +56,16 @@ export default function CliDashboardClient() {
       });
       
       setCompletedLessons(completed);
+
+      // Load which lessons have screenshots uploaded (Firebase URL in localStorage)
+      const slugsWithScreenshots = new Set<string>();
+      cliLessons.forEach(lesson => {
+        const fbUrl = localStorage.getItem(`nextsem_screenshot_url_${lesson.slug}`);
+        const base64 = localStorage.getItem(`nextsem_screenshot_${lesson.slug}`);
+        if (fbUrl || base64) slugsWithScreenshots.add(lesson.slug);
+      });
+      setUploadedSlugs(slugsWithScreenshots);
+
       setMounted(true);
     }
   }, []);
@@ -65,11 +76,11 @@ export default function CliDashboardClient() {
 
   // Group lessons by units
   const modules = [
-    { id: 1, title: "Command Line Fundamentals", desc: "Understand CLI vs GUI, the history of MS-DOS, prompt parameters, and basic system diagnostics.", range: [1, 4] },
-    { id: 2, title: "File System & Directories", desc: "Master directory listings with dir, folder creation with mkdir, file attributes, and permissions.", range: [5, 7] },
-    { id: 3, title: "I/O Redirection & Disk Management", desc: "Use wildcards, redirect command outputs with pipes and operators, format file systems, and configure file shares.", range: [8, 10] },
-    { id: 4, title: "User Accounts & Networking", desc: "Manage Windows user security accounts, resolve host names, trace IP packets, and audit network ports.", range: [11, 13] },
-    { id: 5, title: "Automation & Task Scheduling", desc: "Write batch (.bat) script loops, handle variables, monitor tasks, and configure schtasks daemons.", range: [14, 15] }
+    { id: 1, title: "Command Line & Terminal Foundations", desc: "Understand CLI vs GUI, terminal setup, core CMD commands (ver, cls, help, title), and Windows file paths.", range: [1, 3] },
+    { id: 2, title: "Directory & File Operations", desc: "Master directory listings (dir), folder creation (mkdir), file duplication (copy, move, ren, del), wildcards (*), and output redirection (>).", range: [4, 6] },
+    { id: 3, title: "Environment & Process Management", desc: "Configure system PATH, set environment variables, audit running system tasks (tasklist), and force-kill stuck Node servers (taskkill).", range: [7, 8] },
+    { id: 4, title: "Networking & Security", desc: "Inspect local IP adapters (ipconfig), measure server latency (ping), resolve domain IPs (nslookup), and audit listening ports (netstat -ano).", range: [9, 9] },
+    { id: 5, title: "Web Developer Automation", desc: "Write reusable batch automation scripts (.bat), protect secret environment keys (attrib, icacls), and audit system health specs.", range: [10, 12] }
   ].map(mod => {
     const lessons = cliLessons.filter(l => l.id >= mod.range[0] && l.id <= mod.range[1]);
     const completedInMod = lessons.filter(l => completedLessons.has(l.id)).length;
@@ -104,12 +115,12 @@ export default function CliDashboardClient() {
       {/* Top Banner section */}
       <div className="relative rounded-3xl p-6 md:p-10 overflow-hidden border border-white/5 bg-gradient-to-br from-[#1c2d3b]/40 via-[#121d27]/55 to-slate-950 shadow-2xl mb-8 flex flex-col md:flex-row items-center justify-between gap-6">
         {/* Blur overlays for premium glass aesthetics */}
-        <div className="absolute -top-12 -left-12 w-64 h-64 bg-[#c1a648]/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -top-12 -left-12 w-64 h-64 bg-[#04AA6D]/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute -bottom-12 -right-12 w-64 h-64 bg-[#7f7034]/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="text-left space-y-3 z-10 flex-1">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#c1a648]/10 text-[#c1a648] text-[10px] font-black uppercase tracking-wider border border-[#c1a648]/20">
-            <Zap size={10} className="fill-[#c1a648]" />
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#04AA6D]/10 text-[#04AA6D] text-[10px] font-black uppercase tracking-wider border border-[#04AA6D]/20">
+            <Zap size={10} className="fill-[#04AA6D]" />
             <span>Interactive Course</span>
           </span>
           <h1 className="text-2xl md:text-4xl font-black tracking-tight leading-none bg-gradient-to-r from-white via-slate-100 to-slate-350 bg-clip-text text-transparent">
@@ -123,11 +134,11 @@ export default function CliDashboardClient() {
           <div className="pt-2">
             <div className="flex items-center justify-between text-xs font-bold text-slate-400 mb-1.5">
               <span>Course Progress</span>
-              <span className="text-[#c1a648]">{completedCount} / {totalLessons} Lessons ({progressPercent}%)</span>
+              <span className="text-[#04AA6D]">{completedCount} / {totalLessons} Lessons ({progressPercent}%)</span>
             </div>
             <div className="w-full h-2 rounded-full bg-slate-900 overflow-hidden border border-white/5">
               <div 
-                className="h-full bg-gradient-to-r from-[#e4ca67] via-[#c1a648] to-[#967b26] rounded-full transition-all duration-500"
+                className="h-full bg-gradient-to-r from-[#e4ca67] via-[#04AA6D] to-[#967b26] rounded-full transition-all duration-500"
                 style={{ width: `${progressPercent}%` }}
               />
             </div>
@@ -160,17 +171,60 @@ export default function CliDashboardClient() {
                   key={mod.id}
                   className="rounded-2xl border border-white/5 bg-[#0f172a]/20 hover:border-slate-800 transition-all p-5 flex flex-col md:flex-row md:items-center justify-between gap-4"
                 >
-                  <div className="space-y-1.5 flex-1">
+                  <div className="space-y-3 flex-1">
                     <div className="flex items-center gap-2">
-                      <span className="text-[9px] font-black uppercase text-[#c1a648] tracking-wider">Unit {mod.id}</span>
+                      <span className="text-[9px] font-black uppercase text-[#04AA6D] tracking-wider">Unit {mod.id}</span>
                       {allDone && (
                         <span className="inline-flex items-center gap-0.5 text-[8px] font-black uppercase bg-emerald-950/60 text-emerald-400 border border-emerald-500/20 px-1.5 py-0.5 rounded-full">
-                          <CheckCircle size={8} className="text-emerald-405" /> Completed
+                          <CheckCircle size={8} className="text-emerald-400" /> Completed
                         </span>
                       )}
                     </div>
-                    <h3 className="text-sm font-bold text-slate-100">{mod.title}</h3>
-                    <p className="text-[11px] text-slate-450 leading-relaxed font-medium">{mod.desc}</p>
+                    <h3 className="text-base font-extrabold text-white">{mod.title}</h3>
+                    <p className="text-xs text-slate-400 leading-relaxed font-medium">{mod.desc}</p>
+
+                    {/* Lesson Links under Unit */}
+                    <div className="pt-2 grid grid-cols-1 gap-2">
+                      {mod.lessons.map((lesson) => {
+                        const isCompleted = completedLessons.has(lesson.id);
+                        const hasScreenshot = uploadedSlugs.has(lesson.slug);
+                        const prevCompleted = lesson.id === 1 || completedLessons.has(lesson.id - 1);
+                        const isUnlocked = isCompleted || hasScreenshot || prevCompleted;
+
+                        return isUnlocked ? (
+                          <Link
+                            key={lesson.id}
+                            href={`/cli/${lesson.slug}`}
+                            className={`p-2.5 rounded-xl border flex items-center justify-between text-xs transition-all ${
+                              isCompleted
+                                ? "bg-emerald-950/30 border-emerald-500/40 text-slate-200 hover:border-emerald-500"
+                                : "bg-slate-900/80 border-slate-800 text-white hover:border-[#04AA6D]/60"
+                            }`}
+                          >
+                            <span className="font-bold truncate">
+                              Lesson {lesson.id}: {lesson.title}
+                            </span>
+                            <span className="shrink-0 ml-2">
+                              {isCompleted ? (
+                                <CheckCircle size={14} className="text-[#04AA6D]" />
+                              ) : (
+                                <span className="text-[10px] font-bold text-[#04AA6D] bg-[#04AA6D]/10 px-2 py-0.5 rounded border border-[#04AA6D]/30">Start</span>
+                              )}
+                            </span>
+                          </Link>
+                        ) : (
+                          <div
+                            key={lesson.id}
+                            className="p-2.5 rounded-xl border bg-slate-950/60 border-slate-900 text-slate-600 flex items-center justify-between text-xs cursor-not-allowed opacity-60"
+                          >
+                            <span className="font-medium truncate text-slate-500">
+                              Lesson {lesson.id}: {lesson.title}
+                            </span>
+                            <Lock size={12} className="text-slate-600 shrink-0 ml-2" />
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
 
                   {/* Module progress breakdown */}
@@ -180,7 +234,7 @@ export default function CliDashboardClient() {
                     </span>
                     <button
                       onClick={() => router.push(`/cli/${mod.lessons[0].slug}`)}
-                      className="inline-flex items-center gap-1 text-[10px] font-black uppercase text-[#c1a648] hover:text-[#7f7034] transition-colors cursor-pointer"
+                      className="inline-flex items-center gap-1 text-[10px] font-black uppercase text-[#04AA6D] hover:text-[#7f7034] transition-colors cursor-pointer"
                     >
                       <span>Explore</span>
                       <ChevronRight size={10} />
@@ -204,44 +258,52 @@ export default function CliDashboardClient() {
             <div className="max-h-[60vh] min-h-[300px] overflow-y-auto pr-1 space-y-1.5 scrollbar-thin">
               {cliLessons.map((lesson) => {
                 const isCompleted = completedLessons.has(lesson.id);
-                const isUnlocked = isLessonUnlocked(lesson.id);
+                const hasScreenshot = uploadedSlugs.has(lesson.slug);
+                const prevCompleted = lesson.id === 1 || completedLessons.has(lesson.id - 1);
+                const isUnlocked = isCompleted || hasScreenshot || prevCompleted;
 
                 return (
                   <div key={lesson.id} className="w-full">
                     {isUnlocked ? (
                       <Link
                         href={`/cli/${lesson.slug}`}
-                        className={`w-full p-3.5 rounded-xl border flex items-center justify-between gap-3 transition-all text-left ${
+                        className={`w-full p-3 rounded-xl border flex items-center justify-between gap-3 transition-all text-left ${
                           isCompleted
-                            ? "bg-emerald-950/10 border-emerald-500/25 hover:border-emerald-500/40 text-slate-300"
-                            : "bg-slate-900/40 border-slate-800 hover:border-[#c1a648]/40 text-slate-200"
+                            ? "bg-emerald-950/20 border-emerald-500/30 hover:border-emerald-500/50 text-slate-200"
+                            : "bg-slate-900/60 border-slate-800 hover:border-[#04AA6D]/50 text-white"
                         }`}
                       >
                         <div className="flex items-center gap-2.5 min-w-0">
-                          <span className="text-sm shrink-0">{lesson.icon}</span>
                           <div className="min-w-0">
-                            <span className="block text-[11px] font-bold truncate">
+                            <span className="block text-xs font-bold truncate">
                               {lesson.id}. {lesson.title}
+                            </span>
+                            <span className="text-[10px] text-slate-400 font-medium">
+                              {lesson.unit}
                             </span>
                           </div>
                         </div>
                         <div className="shrink-0">
                           {isCompleted ? (
-                            <CheckCircle size={14} className="text-emerald-500" />
+                            <CheckCircle size={15} className="text-[#04AA6D]" />
                           ) : (
-                            <Play size={10} className="fill-current text-[#c1a648]" />
+                            <Play size={11} className="fill-current text-[#04AA6D]" />
                           )}
                         </div>
                       </Link>
                     ) : (
-                      <div className="w-full p-3.5 rounded-xl border bg-slate-950/40 border-slate-900 text-slate-600 flex items-center justify-between gap-3 cursor-not-allowed select-none">
-                        <div className="flex items-center gap-2.5 min-w-0 opacity-40">
-                          <span className="text-sm shrink-0">{lesson.icon}</span>
-                          <span className="text-[11px] font-bold truncate">
-                            {lesson.id}. {lesson.title}
-                          </span>
+                      <div className="w-full p-3 rounded-xl border bg-slate-950/50 border-slate-900/80 text-slate-500 flex items-center justify-between gap-3 cursor-not-allowed select-none opacity-60">
+                        <div className="flex items-center gap-2.5 min-w-0">
+                          <div className="min-w-0">
+                            <span className="block text-xs font-bold truncate text-slate-400">
+                              {lesson.id}. {lesson.title}
+                            </span>
+                            <span className="text-[10px] text-slate-600 font-medium">
+                              Locked — Complete previous lesson to unlock
+                            </span>
+                          </div>
                         </div>
-                        <Lock size={12} className="opacity-40" />
+                        <Lock size={14} className="text-slate-500 shrink-0" />
                       </div>
                     )}
                   </div>

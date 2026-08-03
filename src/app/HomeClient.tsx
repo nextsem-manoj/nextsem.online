@@ -120,8 +120,8 @@ export default function HomeClient() {
 
   const handleLaunchChapter = (path: string) => {
     let url = path.startsWith("cli/") || path.startsWith("html/") ? `/${path}` : `/book/${path}`;
-    if (path === "cmd") {
-      url = "/cmd";
+    if (path === "cmd" || path === "cli") {
+      url = "/cli";
     } else if (path === "p0-4-git") {
       url = "/git";
     }
@@ -185,7 +185,7 @@ export default function HomeClient() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white flex flex-col font-sans selection:bg-[#c1a648]/30 transition-colors duration-200">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white flex flex-col font-sans selection:bg-[#04AA6D]/30 transition-colors duration-200">
       
       {/* ── TOP NAVIGATION BAR (Nextsem Academy Style) ── */}
       <header className="sticky top-0 z-50 bg-white dark:bg-[#0b0f19] border-b border-slate-200 dark:border-slate-800 shadow-sm transition-colors duration-200">
@@ -301,9 +301,9 @@ export default function HomeClient() {
                     <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 block px-2 mb-1.5">
                       Interactive Tools
                     </span>
-                    <Link href="/cmd" target="_blank" onClick={() => setExercisesDropdownOpen(false)} className="flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-[#04AA6D] text-xs font-bold transition-all">
+                    <Link href="/cli" onClick={() => setExercisesDropdownOpen(false)} className="flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-[#04AA6D] text-xs font-bold transition-all">
                       <span>🪟</span>
-                      <span>CMD Simulator</span>
+                      <span>Windows CLI</span>
                     </Link>
                     <Link href="/simulator" target="_blank" onClick={() => setExercisesDropdownOpen(false)} className="flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-[#04AA6D] text-xs font-bold transition-all">
                       <span>🖥️</span>
@@ -561,13 +561,21 @@ export default function HomeClient() {
                     <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-xs font-mono font-bold text-slate-300">GitHub Repos</span>
                   </div>
                 </div>
-                <div className="pt-6 mt-4 border-t border-slate-800/80 flex items-center justify-between gap-3">
-                  <Link
-                    href="/cli"
-                    className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold text-xs rounded-xl shadow-md transition-all flex items-center gap-1.5 cursor-pointer"
-                  >
-                    <span>Learn Windows CMD »</span>
-                  </Link>
+                <div className="pt-6 mt-4 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-3">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <Link
+                      href="/cli"
+                      className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold text-xs rounded-xl shadow-md transition-all flex items-center gap-1.5 cursor-pointer"
+                    >
+                      <span>Learn Windows CMD »</span>
+                    </Link>
+                    <Link
+                      href="/cli/most-useful-cmd-commands-in-windows"
+                      className="px-3.5 py-2 bg-[#04AA6D] hover:bg-[#039861] text-white font-extrabold text-xs rounded-xl shadow-md transition-all flex items-center gap-1.5 cursor-pointer"
+                    >
+                      <span>Essential CMD Commands 🔥</span>
+                    </Link>
+                  </div>
                   <Link
                     href="/git/terminal"
                     className="text-xs font-bold text-slate-400 hover:text-white transition-colors"
@@ -925,7 +933,7 @@ export default function HomeClient() {
           <div className="space-y-3">
             <h5 className="font-black uppercase text-white text-xs tracking-wider">Simulators & Tools</h5>
             <ul className="space-y-2 font-medium">
-              <li><Link href="/cmd" target="_blank" className="hover:text-white">🪟 Windows CMD Simulator</Link></li>
+              <li><Link href="/cli" className="hover:text-white">🪟 Windows CLI Module</Link></li>
               <li><Link href="/git" target="_blank" className="hover:text-white">🌿 Git Simulator</Link></li>
               <li><Link href="/playground" className="hover:text-white">💻 Code Sandbox Playground</Link></li>
               <li><Link href="/bca" className="hover:text-white">🎓 BCA Semester Hub</Link></li>

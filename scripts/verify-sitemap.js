@@ -24,7 +24,7 @@ try {
     'https://nextsem.online/',
     'https://nextsem.online/about',
     'https://nextsem.online/course',
-    'https://nextsem.online/cmd',
+    'https://nextsem.online/cli',
     'https://nextsem.online/profile'
   ];
 

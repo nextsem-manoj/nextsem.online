@@ -18,6 +18,7 @@ import { auth } from "@/lib/firebase";
 import { signOut } from "firebase/auth";
 import { Capacitor } from "@capacitor/core";
 import { showBannerAd, hideBannerAd } from "@/lib/admobHelper";
+import { useProgress } from "@/context/ProgressContext";
 
 interface LessonBottomNavigationProps {
   pathname: string;
@@ -35,6 +36,7 @@ interface UserObj {
 
 export default function LessonBottomNavigation({ pathname }: LessonBottomNavigationProps) {
   const router = useRouter();
+  const { markCompleted } = useProgress();
   const [currentUser, setCurrentUser] = useState<UserObj | null>(null);
   const [selectedLang, setSelectedLang] = useState<Lang>("hinglish");
   const [selectedLevel, setSelectedLevel] = useState<Level>("kid");
@@ -42,11 +44,31 @@ export default function LessonBottomNavigation({ pathname }: LessonBottomNavigat
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const [toolsOpen, setToolsOpen] = useState<boolean>(false);
   const [subjectDrawerOpen, setSubjectDrawerOpen] = useState<boolean>(false);
+  const [profileOverlayOpen, setProfileOverlayOpen] = useState<boolean>(false);
   const [completedChapters, setCompletedChapters] = useState<Record<string, boolean>>({});
 
   // 5-Tab Navigation Bar (Prev/Home/Tools/Menu/Next):
   const [navVisible] = useState<boolean>(true);
   const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
+  const [isAtBottom, setIsAtBottom] = useState<boolean>(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight;
+      const clientHeight = window.innerHeight || document.documentElement.clientHeight;
+
+      // Show bottom navigation bar when student is within 350px of bottom of lesson
+      const atBottom = scrollTop + clientHeight >= scrollHeight - 350;
+      if (atBottom) {
+        setIsAtBottom(true);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
     if (Capacitor.isNativePlatform() && pathname !== "/") {
@@ -65,12 +87,22 @@ export default function LessonBottomNavigation({ pathname }: LessonBottomNavigat
       if (savedLang) setSelectedLang(savedLang);
       if (savedLevel) setSelectedLevel(savedLevel);
 
-      try {
-        const done = JSON.parse(localStorage.getItem("nextsem_completed_chapters") || "{}");
-        setCompletedChapters(done);
-      } catch (e) {
-        console.error(e);
-      }
+      const checkProgress = () => {
+        try {
+          const uSaved = localStorage.getItem("nextsem_user");
+          let uEmail = "guest";
+          if (uSaved) { try { uEmail = JSON.parse(uSaved).email || "guest"; } catch (_) {} }
+          const done1 = JSON.parse(localStorage.getItem("nextsem_completed_chapters") || "{}");
+          const done2 = JSON.parse(localStorage.getItem(`nextsem-progress:${uEmail}`) || "{}");
+          const done3 = JSON.parse(localStorage.getItem("nextsem-progress") || "{}");
+          const merged = { ...done3, ...done2, ...done1 };
+          setCompletedChapters(merged);
+        } catch (e) {
+          console.error(e);
+        }
+      };
+      checkProgress();
+      window.addEventListener("nextsem_progress_changed", checkProgress);
 
       const checkAuth = () => {
         const saved = localStorage.getItem("nextsem_user");
@@ -97,6 +129,7 @@ export default function LessonBottomNavigation({ pathname }: LessonBottomNavigat
       window.addEventListener("nextsem_lesson_pref_changed", handlePrefChange);
       return () => {
         window.removeEventListener("nextsem_auth_changed", checkAuth);
+        window.removeEventListener("nextsem_progress_changed", checkProgress);
         window.removeEventListener("nextsem_lesson_pref_changed", handlePrefChange);
       };
     }
@@ -158,80 +191,76 @@ export default function LessonBottomNavigation({ pathname }: LessonBottomNavigat
   let currentSlug = "";
   let currentLessonDisplay = "";
   let currentUnitDisplay = "";
-  let currentBlockDisplay = "";
+  const totalCourseLessons = 170; // Total course lessons across CLI, HTML, CSS, JS, React, Node, Git
+  const cliCompletedCount = cliLessons.filter(l => completedChapters[l.slug] || completedChapters[l.id] || completedChapters[`cli_${l.id}`]).length;
+  const htmlCompletedCount = htmlLessons.filter(l => completedChapters[l.slug] || completedChapters[l.id] || completedChapters[`html_${l.id}`]).length;
+  const totalCompletedCount = Object.keys(completedChapters).filter(k => completedChapters[k] === true).length;
+  const overallPercent = Math.min(100, Math.round((totalCompletedCount / totalCourseLessons) * 100));
 
   // 1. MS Word Lessons (/msword/<slug>)
   if (pathname.startsWith("/msword")) {
     const raw = pathname.replace(/^\/msword\/?/, "").split("/")[0].split("?")[0].replace(/\/$/, "");
     const decoded = decodeURIComponent(raw);
-    const idx = mswordLessons.findIndex((l) => l.slug === raw || l.slug === decoded || l.id === Number(raw));
+    let idx = mswordLessons.findIndex((l) => l.slug === raw || l.slug === decoded || l.id === Number(raw));
+    if (idx === -1 && (!raw || raw === "/")) idx = 0;
     dashboardHref = "/msword";
     courseTitle = "MS Word 365";
     activeLessonsList = mswordLessons.map(l => ({ id: l.id, slug: l.slug, title: l.title }));
+    currentSlug = mswordLessons[idx]?.slug || "";
+    currentLessonDisplay = mswordLessons[idx]?.title || "";
 
-    if (idx !== -1) {
-      progressText = `Lesson ${idx + 1} of ${mswordLessons.length}`;
-      prevHref = idx > 0 ? `/msword/${mswordLessons[idx - 1].slug}` : "/msword";
-      nextHref = idx < mswordLessons.length - 1 ? `/msword/${mswordLessons[idx + 1].slug}` : "/msword";
-    } else {
-      prevHref = "/msword";
-      nextHref = `/msword/${mswordLessons[0].slug}`;
-    }
+    progressText = `Lesson ${idx + 1} of ${mswordLessons.length}`;
+    prevHref = idx > 0 ? `/msword/${mswordLessons[idx - 1].slug}` : null;
+    nextHref = idx < mswordLessons.length - 1 ? `/msword/${mswordLessons[idx + 1].slug}` : null;
   } 
   // 2. CLI Lessons (/cli/<slug>)
   else if (pathname.startsWith("/cli")) {
     const raw = pathname.replace(/^\/cli\/?/, "").split("/")[0].split("?")[0].replace(/\/$/, "");
     const decoded = decodeURIComponent(raw);
-    const idx = cliLessons.findIndex((l) => l.slug === raw || l.slug === decoded || l.id === Number(raw));
+    let idx = cliLessons.findIndex((l) => l.slug === raw || l.slug === decoded || l.id === Number(raw));
+    if (idx === -1 && (!raw || raw === "/")) idx = 0;
     dashboardHref = "/cli";
     courseTitle = "Windows CLI";
     activeLessonsList = cliLessons.map(l => ({ id: l.id, slug: l.slug, title: l.title }));
+    currentSlug = cliLessons[idx]?.slug || "";
+    currentLessonDisplay = cliLessons[idx]?.title || "";
 
-    if (idx !== -1) {
-      progressText = `Lesson ${idx + 1} of ${cliLessons.length}`;
-      prevHref = idx > 0 ? `/cli/${cliLessons[idx - 1].slug}` : "/cli";
-      nextHref = idx < cliLessons.length - 1 ? `/cli/${cliLessons[idx + 1].slug}` : "/cli";
-    } else {
-      prevHref = "/cli";
-      nextHref = `/cli/${cliLessons[0].slug}`;
-    }
+    progressText = `Lesson ${idx + 1} of ${cliLessons.length}`;
+    prevHref = idx > 0 ? `/cli/${cliLessons[idx - 1].slug}` : null;
+    nextHref = idx < cliLessons.length - 1 ? `/cli/${cliLessons[idx + 1].slug}` : null;
   } 
   // 3. HTML Lessons (/html/<slug>)
   else if (pathname.startsWith("/html")) {
     const raw = pathname.replace(/^\/html\/?/, "").split("/")[0].split("?")[0].replace(/\/$/, "");
     const decoded = decodeURIComponent(raw);
-    const idx = htmlLessons.findIndex((l) => l.slug === raw || l.slug === decoded || l.id === Number(raw));
+    let idx = htmlLessons.findIndex((l) => l.slug === raw || l.slug === decoded || l.id === Number(raw));
+    if (idx === -1 && (!raw || raw === "/")) idx = 0;
     dashboardHref = "/html";
     courseTitle = "HTML Web Dev";
     activeLessonsList = htmlLessons.map(l => ({ id: l.id, slug: l.slug, title: l.title }));
+    currentSlug = htmlLessons[idx]?.slug || "";
+    currentLessonDisplay = htmlLessons[idx]?.title || "";
 
-    if (idx !== -1) {
-      progressText = `Lesson ${idx + 1} of ${htmlLessons.length}`;
-      prevHref = idx > 0 ? `/html/${htmlLessons[idx - 1].slug}` : "/html";
-      nextHref = idx < htmlLessons.length - 1 ? `/html/${htmlLessons[idx + 1].slug}` : "/html";
-    } else {
-      prevHref = "/html";
-      nextHref = `/html/${htmlLessons[0].slug}`;
-    }
+    progressText = `Lesson ${idx + 1} of ${htmlLessons.length}`;
+    prevHref = idx > 0 ? `/html/${htmlLessons[idx - 1].slug}` : null;
+    nextHref = idx < htmlLessons.length - 1 ? `/html/${htmlLessons[idx + 1].slug}` : null;
   } 
   // 4. Git Lessons (/git/<slug>)
   else if (pathname.startsWith("/git")) {
     const raw = pathname.replace(/^\/git\/?/, "").split("/")[0].split("?")[0].replace(/\/$/, "");
     const decoded = decodeURIComponent(raw);
-    const idx = gitLessons.findIndex((l) => l.slug === raw || l.slug === decoded || l.id === Number(raw));
+    let idx = gitLessons.findIndex((l) => l.slug === raw || l.slug === decoded || l.id === Number(raw));
+    if (idx === -1 && (!raw || raw === "/")) idx = 0;
     dashboardHref = "/git";
     courseTitle = "Git & GitHub";
     activeLessonsList = gitLessons.map(l => ({ id: l.id, slug: l.slug, title: l.title }));
+    currentSlug = gitLessons[idx]?.slug || "";
+    currentLessonDisplay = gitLessons[idx]?.title || "";
 
-    if (idx !== -1) {
-      progressText = `Lesson ${idx + 1} of ${gitLessons.length}`;
-      prevHref = idx > 0 ? `/git/${gitLessons[idx - 1].slug}` : "/git";
-      nextHref = idx < gitLessons.length - 1 ? `/git/${gitLessons[idx + 1].slug}` : "/git";
-    } else {
-      prevHref = "/git";
-      nextHref = `/git/${gitLessons[0].slug}`;
-    }
-  } 
+    progressText = `Lesson ${idx + 1} of ${gitLessons.length}`;
+    prevHref = idx > 0 ? `/git/${gitLessons[idx - 1].slug}` : null;
+    nextHref = idx < gitLessons.length - 1 ? `/git/${gitLessons[idx + 1].slug}` : null;
+  }  
   // 6. Textbook Book Chapters (/book/<id> or /<subject>/book/<id>)
   else if (pathname.includes("/book/")) {
     const chapterId = getChapterIdFromPath(pathname);
@@ -490,12 +519,12 @@ export default function LessonBottomNavigation({ pathname }: LessonBottomNavigat
                   <span>My Profile</span>
                 </Link>
                 <Link
-                  href="/cmd"
+                  href="/cli"
                   onClick={() => setMenuOpen(false)}
                   className="flex items-center gap-2 p-2.5 bg-slate-900 hover:bg-slate-850 border border-slate-800 rounded-xl text-xs font-bold text-slate-200"
                 >
                   <Code size={15} className="text-blue-400" />
-                  <span>CMD Terminal</span>
+                  <span>Windows CLI</span>
                 </Link>
                 <Link
                   href="/html"
@@ -532,11 +561,11 @@ export default function LessonBottomNavigation({ pathname }: LessonBottomNavigat
               <div className="flex items-center justify-center gap-2 mb-1">
                 <BookOpen size={18} className="text-cyan-400" />
                 <h3 className="font-extrabold text-sm uppercase tracking-wider text-cyan-300 text-center">
-                  Switch Subject or Unit
+                  {courseTitle} Curriculum ({activeLessonsList.length || 0})
                 </h3>
               </div>
               <p className="text-xs text-slate-400 text-center font-medium">
-                Official IGNOU BCA 1st Semester Curriculum Sequence
+                {progressText || "Select a lesson to navigate"}
               </p>
               <button 
                 onClick={() => setSubjectDrawerOpen(false)}
@@ -546,15 +575,50 @@ export default function LessonBottomNavigation({ pathname }: LessonBottomNavigat
               </button>
             </div>
 
-            <div className="space-y-4 max-h-[60vh] overflow-y-auto pr-1 custom-scrollbar text-center">
+            <div className="space-y-3 max-h-[60vh] overflow-y-auto pr-1 custom-scrollbar">
               {/* Active Reading Position Card */}
-              <div className="p-4 rounded-2xl bg-gradient-to-br from-cyan-950/80 via-slate-900 to-amber-950/60 border border-cyan-500/40 text-center space-y-1.5 shadow-xl">
-                <div className="text-[10px] font-black uppercase tracking-widest text-amber-400">
-                  📍 Active Lesson Position
+              {currentLessonDisplay && (
+                <div className="p-3 rounded-2xl bg-gradient-to-br from-cyan-950/80 via-slate-900 to-amber-950/60 border border-cyan-500/40 text-center space-y-1 shadow-xl">
+                  <div className="text-[10px] font-black uppercase tracking-widest text-amber-400">
+                    📍 Active Lesson Position
+                  </div>
+                  <div className="text-xs sm:text-sm font-black text-cyan-200">
+                    {currentLessonDisplay.replace(/^(CLI\.\d+:|P\d+\.\d+:|Phase\s+\d+:)\s*/i, '').trim()}
+                  </div>
                 </div>
-                <div className="text-sm sm:text-base font-black text-cyan-200">
-                  {currentLessonDisplay || courseTitle}
-                </div>
+              )}
+
+              {/* Dynamic Lesson List */}
+              <div className="flex flex-col gap-1.5">
+                {activeLessonsList.map((item, idx) => {
+                  const targetHref = `${dashboardHref}/${item.slug}`;
+                  const isCurrent = pathname.endsWith(`/${item.slug}`) || pathname === targetHref;
+                  const isDone = completedChapters[item.slug] || completedChapters[item.id];
+                  return (
+                    <Link
+                      key={item.id || idx}
+                      href={targetHref}
+                      onClick={() => setSubjectDrawerOpen(false)}
+                      className={`flex items-center justify-between p-2.5 rounded-xl border text-xs font-semibold transition-all ${
+                        isCurrent
+                          ? 'bg-[#04AA6D]/20 border-[#04AA6D]/60 text-[#04AA6D] font-bold shadow-md'
+                          : 'bg-slate-900/60 border-slate-800/80 text-slate-300 hover:bg-slate-800/80 hover:text-white'
+                      }`}
+                    >
+                      <div className="flex items-center gap-2.5 min-w-0 flex-1 text-left">
+                        <span className={`w-5 h-5 rounded-full text-[10px] font-extrabold flex items-center justify-center shrink-0 ${
+                          isCurrent ? 'bg-[#04AA6D] text-white' : 'bg-slate-800 text-slate-400'
+                        }`}>
+                          {idx + 1}
+                        </span>
+                        <span className="truncate">{item.title.replace(/^(CLI\.\d+:|P\d+\.\d+:|Phase\s+\d+:)\s*/i, '').trim()}</span>
+                      </div>
+                      {isDone && (
+                        <CheckCircle2 size={14} className="text-[#04AA6D] shrink-0 ml-2" />
+                      )}
+                    </Link>
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -563,8 +627,10 @@ export default function LessonBottomNavigation({ pathname }: LessonBottomNavigat
 
       {/* ── FULL-WIDTH PINNED EDGE-TO-EDGE TAB BAR ── */}
       <nav 
-        className={`fixed left-0 right-0 bottom-0 w-full z-[999] select-none bg-[#090d22]/95 backdrop-blur-2xl border-t border-slate-800/80 shadow-[0_-8px_25px_rgba(0,0,0,0.5)] text-slate-200 transition-transform duration-300 ${
-          navVisible ? 'translate-y-0' : 'translate-y-full'
+        className={`fixed left-0 right-0 bottom-0 w-full z-[999] md:hidden select-none bg-[#090d22]/95 backdrop-blur-2xl border-t border-slate-800/80 shadow-[0_-8px_25px_rgba(0,0,0,0.5)] text-slate-200 transition-all duration-500 ${
+          (isAtBottom || subjectDrawerOpen || menuOpen || toolsOpen)
+            ? "translate-y-0 opacity-100"
+            : "translate-y-full opacity-0 pointer-events-none"
         }`}
         style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
       >
@@ -583,13 +649,13 @@ export default function LessonBottomNavigation({ pathname }: LessonBottomNavigat
 
           {/* TAB 2: PREV */}
           {prevHref ? (
-            <Link
-              href={prevHref}
-              className="relative flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all duration-200 active:scale-90 text-amber-400 hover:text-amber-300 font-bold"
+            <button
+              onClick={() => { window.location.href = prevHref!; }}
+              className="relative flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all duration-200 active:scale-90 text-[#04AA6D] hover:text-white font-bold cursor-pointer"
             >
-              <ChevronLeft size={18} className="stroke-[2.5] text-amber-400" />
+              <ChevronLeft size={18} className="stroke-[2.5] text-[#04AA6D]" />
               <span className="text-[10px] font-bold tracking-tight mt-0.5">Prev</span>
-            </Link>
+            </button>
           ) : (
             <div className="relative flex flex-col items-center justify-center py-1 px-3 rounded-xl opacity-30 text-slate-500 cursor-not-allowed">
               <ChevronLeft size={18} className="stroke-[1.5]" />
@@ -597,7 +663,7 @@ export default function LessonBottomNavigation({ pathname }: LessonBottomNavigat
             </div>
           )}
 
-          {/* TAB 3: UNIT / SUBJECT SWITCHER (Integrated BcaHeaderNav Dropdown) */}
+          {/* TAB 3: UNIT / SUBJECT SWITCHER */}
           <button
             onClick={() => {
               setSubjectDrawerOpen(!subjectDrawerOpen);
@@ -611,7 +677,9 @@ export default function LessonBottomNavigation({ pathname }: LessonBottomNavigat
             }`}
           >
             <BookOpen size={18} className="stroke-[2] text-cyan-400" />
-            <span className="text-[10px] font-bold tracking-tight mt-0.5">Unit ▾</span>
+            <span className="text-[10px] font-bold tracking-tight mt-0.5 truncate max-w-[80px]">
+              {courseTitle} ▾
+            </span>
             {subjectDrawerOpen && (
               <span className="absolute -top-0.5 w-1.5 h-1.5 bg-cyan-400 rounded-full" />
             )}
@@ -619,13 +687,16 @@ export default function LessonBottomNavigation({ pathname }: LessonBottomNavigat
 
           {/* TAB 4: NEXT */}
           {nextHref ? (
-            <Link
-              href={nextHref}
-              className="relative flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all duration-200 active:scale-90 text-amber-400 hover:text-amber-300 font-bold"
+            <button
+              onClick={() => {
+                if (currentSlug) markCompleted(currentSlug);
+                window.location.href = nextHref!;
+              }}
+              className="relative flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all duration-200 active:scale-90 text-[#04AA6D] hover:text-white font-bold cursor-pointer"
             >
-              <ChevronRight size={18} className="stroke-[2.5] text-amber-400" />
+              <ChevronRight size={18} className="stroke-[2.5] text-[#04AA6D]" />
               <span className="text-[10px] font-black tracking-tight mt-0.5">Next</span>
-            </Link>
+            </button>
           ) : (
             <div className="relative flex flex-col items-center justify-center py-1 px-3 rounded-xl opacity-30 text-slate-500 cursor-not-allowed">
               <ChevronRight size={18} className="stroke-[1.5]" />
@@ -633,32 +704,139 @@ export default function LessonBottomNavigation({ pathname }: LessonBottomNavigat
             </div>
           )}
 
-          {/* TAB 5: USER ACCOUNT / MENU */}
+          {/* TAB 5: ACCOUNT OVERLAY MODAL */}
           <button
             onClick={() => {
-              setMenuOpen(!menuOpen);
+              setProfileOverlayOpen(true);
+              setMenuOpen(false);
               setToolsOpen(false);
               setSubjectDrawerOpen(false);
             }}
             className={`relative flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all duration-200 active:scale-90 cursor-pointer ${
-              menuOpen 
-                ? 'text-amber-400 bg-amber-500/10 border border-amber-500/20 font-bold' 
+              profileOverlayOpen
+                ? 'text-[#04AA6D] bg-[#04AA6D]/10 border border-[#04AA6D]/30 font-bold'
                 : 'text-slate-300 hover:text-white'
             }`}
           >
             {currentUser?.photo ? (
-              <img src={currentUser.photo} alt="" className="w-5 h-5 rounded-full object-cover border border-amber-400" />
+              <img src={currentUser.photo} alt="" className="w-5 h-5 rounded-full object-cover border border-[#04AA6D]" />
             ) : (
-              <User size={18} className={menuOpen ? "stroke-[2.5]" : "stroke-[1.75]"} />
+              <User size={18} className={profileOverlayOpen ? "stroke-[2.5] text-[#04AA6D]" : "stroke-[1.75]"} />
             )}
             <span className="text-[10px] font-bold tracking-tight mt-0.5">Account</span>
-            {menuOpen && (
-              <span className="absolute -top-0.5 w-1.5 h-1.5 bg-amber-400 rounded-full" />
-            )}
           </button>
 
         </div>
       </nav>
+
+      {/* ── PROFILE OVERLAY MODAL (NON-DISTRACTING LESSON OVERLAY) ── */}
+      {profileOverlayOpen && (
+        <div
+          className="fixed inset-0 z-[10000] bg-black/85 backdrop-blur-md flex items-end sm:items-center justify-center p-0 sm:p-4 text-left transition-all duration-300"
+          onClick={() => setProfileOverlayOpen(false)}
+        >
+          <div
+            className="w-full max-w-lg bg-[#0b101d] border border-slate-800 rounded-t-3xl sm:rounded-3xl p-5 sm:p-6 space-y-5 shadow-2xl relative max-h-[90vh] overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close Button */}
+            <button
+              onClick={() => setProfileOverlayOpen(false)}
+              className="absolute top-4 right-4 p-1.5 rounded-full bg-slate-900 border border-slate-800 text-slate-400 hover:text-white transition-colors cursor-pointer"
+            >
+              <X size={18} />
+            </button>
+
+            {/* Header / User Card */}
+            <div className="flex items-center gap-3.5 pb-4 border-b border-slate-800/80">
+              {currentUser?.photo ? (
+                <img src={currentUser.photo} alt="" className="w-12 h-12 rounded-2xl object-cover border-2 border-[#04AA6D]" />
+              ) : (
+                <div className="w-12 h-12 rounded-2xl bg-[#04AA6D] text-slate-950 flex items-center justify-center font-black text-lg shadow-md">
+                  {currentUser?.avatar || currentUser?.name?.charAt(0) || "D"}
+                </div>
+              )}
+              <div>
+                <h3 className="text-lg font-extrabold text-white">
+                  {currentUser?.name || "Developer Profile"}
+                </h3>
+                <p className="text-xs text-slate-400 font-medium">
+                  {currentUser?.email || "Signed in locally"}
+                </p>
+              </div>
+            </div>
+
+            {/* Overall Learning Progress */}
+            <div className="p-4 bg-[#141b2d] border border-slate-800 rounded-2xl space-y-2">
+              <div className="flex items-center justify-between text-xs font-bold">
+                <span className="text-white">Overall Learning Progress</span>
+                <span className="text-[#04AA6D] font-extrabold">{totalCompletedCount} / {totalCourseLessons} lessons</span>
+              </div>
+              <div className="w-full h-2.5 bg-slate-900 rounded-full overflow-hidden border border-slate-800">
+                <div
+                  className="h-full bg-gradient-to-r from-[#04AA6D] to-emerald-400 rounded-full transition-all duration-500"
+                  style={{ width: `${overallPercent}%` }}
+                />
+              </div>
+              <p className="text-[11px] text-slate-400 font-medium pt-0.5">
+                {overallPercent}% of total curriculum completed! Keep learning.
+              </p>
+            </div>
+
+            {/* Subject / Unit Breakdown Cards */}
+            <div className="space-y-2.5">
+              <h4 className="text-xs font-black uppercase tracking-wider text-slate-400">Unit & Subject Progress</h4>
+              
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-bold">
+                <div className="p-3 bg-slate-900/80 border border-slate-800 rounded-xl flex items-center justify-between">
+                  <span className="text-slate-200">🪟 Windows CLI</span>
+                  <span className="text-[#04AA6D] font-extrabold">{cliCompletedCount} / {cliLessons.length}</span>
+                </div>
+                <div className="p-3 bg-slate-900/80 border border-slate-800 rounded-xl flex items-center justify-between">
+                  <span className="text-slate-200">🌐 HTML Development</span>
+                  <span className="text-[#04AA6D] font-extrabold">{htmlCompletedCount} / {htmlLessons.length}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Actions: Sign Out / View Complete Profile / Return to Lesson */}
+            <div className="pt-2 flex items-center gap-2 flex-wrap sm:flex-nowrap">
+              {currentUser ? (
+                <button
+                  onClick={handleSignOut}
+                  className="py-2.5 px-3 bg-rose-950/80 hover:bg-rose-900 border border-rose-500/40 text-rose-300 font-extrabold text-xs rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1.5 shadow-md"
+                >
+                  <LogOut size={15} />
+                  <span>Sign Out</span>
+                </button>
+              ) : (
+                <button
+                  onClick={handleSignIn}
+                  className="py-2.5 px-3 bg-[#04AA6D] hover:bg-[#039861] text-white font-extrabold text-xs rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1.5 shadow-md"
+                >
+                  <LogIn size={15} />
+                  <span>Sign In</span>
+                </button>
+              )}
+
+              <a
+                href="/profile"
+                className="flex-1 py-2.5 px-3 bg-cyan-950/80 hover:bg-cyan-900 border border-cyan-500/40 text-cyan-300 font-extrabold text-xs rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1.5 text-center shadow-md"
+              >
+                <User size={15} />
+                <span>Full Profile &amp; Certificates »</span>
+              </a>
+
+              <button
+                onClick={() => setProfileOverlayOpen(false)}
+                className="py-2.5 px-3 bg-[#04AA6D] hover:bg-[#039861] text-white font-extrabold text-xs rounded-xl transition-all cursor-pointer shadow-md shrink-0"
+              >
+                Return to Lesson
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }

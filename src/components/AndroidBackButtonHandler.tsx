@@ -16,8 +16,6 @@ export default function AndroidBackButtonHandler() {
       // Custom routing logic for Android hardware back button to navigate to the previous menu
       if (pathname?.startsWith('/book/')) {
         router.push('/');
-      } else if (pathname === '/cmd') {
-        router.push('/');
       } else if (pathname === '/profile') {
         router.push('/');
       } else if (pathname === '/course') {

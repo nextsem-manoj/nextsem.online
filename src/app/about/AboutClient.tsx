@@ -50,7 +50,7 @@ export default function AboutClient() {
 
   const features = [
     { 
-      icon: <Languages size={22} className="text-[#c1a648]" />, 
+      icon: <Languages size={22} className="text-[#04AA6D]" />, 
       label: "Multilingual Localized Learning", 
       desc: "Switch between English, Hindi, and Hinglish instantly mid-lesson. We write lessons the way you actually speak and think, eliminating linguistic barriers to core engineering concepts." 
     },
@@ -91,7 +91,7 @@ export default function AboutClient() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#050914] text-slate-100 font-sans selection:bg-[#c1a648]/30 selection:text-white relative bg-[radial-gradient(rgba(193,166,72,0.06)_1px,transparent_1px)] [background-size:24px_24px]">
+    <div className="min-h-screen bg-[#050914] text-slate-100 font-sans selection:bg-[#04AA6D]/30 selection:text-white relative bg-[radial-gradient(rgba(193,166,72,0.06)_1px,transparent_1px)] [background-size:24px_24px]">
 
       {/* Header Navigation Bar */}
       <header className="sticky top-0 z-40 bg-[#060813]/90 backdrop-blur-xl border-b border-slate-800/80 flex items-center justify-between px-6 py-4">
@@ -118,7 +118,7 @@ export default function AboutClient() {
         ) : (
           <button
             onClick={async () => { try { await signInWithGoogle(); } catch (e) { console.error(e); } }}
-            className="text-xs font-black uppercase tracking-wider text-[#c1a648] hover:text-[#e4ca67] transition-colors cursor-pointer border-none bg-transparent"
+            className="text-xs font-black uppercase tracking-wider text-[#04AA6D] hover:text-[#e4ca67] transition-colors cursor-pointer border-none bg-transparent"
           >
             Sign in
           </button>
@@ -130,14 +130,14 @@ export default function AboutClient() {
 
         {/* ── HERO HEADER SECTION ── */}
         <section className="text-center space-y-6 max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-gradient-to-r from-amber-500/10 to-[#c1a648]/10 border border-[#c1a648]/20 rounded-full text-[10px] font-black uppercase tracking-widest text-[#c1a648]">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-gradient-to-r from-amber-500/10 to-[#04AA6D]/10 border border-[#04AA6D]/20 rounded-full text-[10px] font-black uppercase tracking-widest text-[#04AA6D]">
             <Zap size={10} />
             <span>Our Vision & Mission</span>
           </div>
 
           <h1 className="text-3xl md:text-5xl font-black text-white uppercase tracking-tight leading-none">
             Democratizing Technology<br />
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#e4ca67] via-[#c1a648] to-[#967b26]">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#e4ca67] via-[#04AA6D] to-[#967b26]">
               Education for India
             </span>
           </h1>
@@ -149,7 +149,7 @@ export default function AboutClient() {
           <div className="flex flex-wrap items-center justify-center gap-3.5 pt-4">
             <Link
               href="/course"
-              className="px-6 py-3 bg-[#c1a648] hover:bg-[#a38b3a] text-slate-950 font-black text-xs uppercase tracking-wider rounded-xl transition-all hover:scale-[1.02] active:scale-[0.98] shadow-lg flex items-center gap-1"
+              className="px-6 py-3 bg-[#04AA6D] hover:bg-[#a38b3a] text-slate-950 font-black text-xs uppercase tracking-wider rounded-xl transition-all hover:scale-[1.02] active:scale-[0.98] shadow-lg flex items-center gap-1"
             >
               <span>Explore Curriculum</span>
               <ChevronRight size={14} className="stroke-[2.5]" />
@@ -168,7 +168,7 @@ export default function AboutClient() {
           {stats.map((s, idx) => (
             <div key={idx} className="bg-[#0c101f]/40 border border-slate-850/60 rounded-2xl p-5 text-center space-y-1">
               <span className="block text-2xl md:text-3xl font-black text-white tracking-tight">{s.number}</span>
-              <span className="block text-[10px] font-black uppercase text-[#c1a648] tracking-wider">{s.label}</span>
+              <span className="block text-[10px] font-black uppercase text-[#04AA6D] tracking-wider">{s.label}</span>
               <span className="block text-[9px] text-slate-500 font-bold leading-normal">{s.desc}</span>
             </div>
           ))}
@@ -177,7 +177,7 @@ export default function AboutClient() {
         {/* ── BRAND MISSION STATEMENT ── */}
         <section className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center bg-[#070b19]/35 border border-slate-850/60 rounded-3xl p-8 backdrop-blur-md">
           <div className="md:col-span-4 flex justify-center">
-            <div className="w-16 h-16 rounded-2xl bg-[#c1a648]/10 border border-[#c1a648]/20 flex items-center justify-center text-[#c1a648]">
+            <div className="w-16 h-16 rounded-2xl bg-[#04AA6D]/10 border border-[#04AA6D]/20 flex items-center justify-center text-[#04AA6D]">
               <Heart size={32} className="animate-pulse" />
             </div>
           </div>
@@ -192,7 +192,7 @@ export default function AboutClient() {
         {/* ── SYSTEM KEY FEATURES Grid ── */}
         <section className="space-y-8">
           <div className="text-center space-y-1">
-            <span className="text-[9px] font-black uppercase text-[#c1a648] tracking-widest">Built-in Innovation</span>
+            <span className="text-[9px] font-black uppercase text-[#04AA6D] tracking-widest">Built-in Innovation</span>
             <h2 className="text-xl md:text-2xl font-black text-white uppercase tracking-tight">Everything is Included & 100% Free</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -213,14 +213,14 @@ export default function AboutClient() {
         {/* ── CURRICULUM TIMELINE ── */}
         <section className="space-y-8">
           <div className="text-center space-y-1">
-            <span className="text-[9px] font-black uppercase text-[#c1a648] tracking-widest">The Roadmap</span>
+            <span className="text-[9px] font-black uppercase text-[#04AA6D] tracking-widest">The Roadmap</span>
             <h2 className="text-xl md:text-2xl font-black text-white uppercase tracking-tight">Curriculum Structure</h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {curriculum.map((c, idx) => (
               <div key={idx} className="bg-[#0b0c16] border border-slate-850 rounded-2xl p-5 space-y-3 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-16 h-16 bg-slate-900/40 rounded-bl-full flex items-center justify-center text-[10px] font-black text-[#c1a648] opacity-60">
+                <div className="absolute top-0 right-0 w-16 h-16 bg-slate-900/40 rounded-bl-full flex items-center justify-center text-[10px] font-black text-[#04AA6D] opacity-60">
                   {c.phase}
                 </div>
                 <h4 className="font-extrabold text-white text-xs uppercase tracking-tight pr-8">{c.label}</h4>
@@ -232,7 +232,7 @@ export default function AboutClient() {
           <div className="text-center pt-2">
             <Link 
               href="/course" 
-              className="inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-[#c1a648] hover:text-[#e4ca67] transition-all hover:translate-x-0.5"
+              className="inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-[#04AA6D] hover:text-[#e4ca67] transition-all hover:translate-x-0.5"
             >
               <span>See Full Course Details</span>
               <ChevronRight size={14} className="stroke-[2.5]" />
@@ -250,7 +250,7 @@ export default function AboutClient() {
           <div>
             <Link
               href="/course"
-              className="px-6 py-3.5 bg-[#c1a648] hover:bg-[#a38b3a] text-slate-950 font-black text-xs uppercase tracking-wider rounded-xl transition-all hover:scale-[1.02] active:scale-[0.98] inline-flex items-center gap-1"
+              className="px-6 py-3.5 bg-[#04AA6D] hover:bg-[#a38b3a] text-slate-950 font-black text-xs uppercase tracking-wider rounded-xl transition-all hover:scale-[1.02] active:scale-[0.98] inline-flex items-center gap-1"
             >
               <span>Start Course Now</span>
               <ChevronRight size={14} className="stroke-[2.5]" />

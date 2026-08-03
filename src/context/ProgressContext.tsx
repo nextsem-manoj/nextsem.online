@@ -4,6 +4,13 @@ import React, { createContext, useContext, useState, useEffect, useRef, ReactNod
 import Link from 'next/link';
 import { Sparkles, CheckCircle2, ArrowRight, X } from 'lucide-react';
 import searchIndex from '../data/searchIndex.json';
+import {
+  syncCloudProgressOnLogin,
+  saveLessonCompletionToCloud,
+  subscribeToRealtimeUserProgress,
+  loadLocalProgress,
+  saveLocalProgress,
+} from '../lib/userProgressSync';
 
 interface ProgressContextType {
   completedChapters: Record<string, boolean>;
@@ -150,69 +157,82 @@ export const ProgressProvider = ({ children }: { children: ReactNode }) => {
     return () => window.removeEventListener("nextsem_auth_changed", handleAuth);
   }, []);
 
-  // Load progress when userEmail changes or on mount
+  // ── CLOUD SYNC ON LOGIN ──────────────────────────────────────────────────
+  // When userEmail changes (i.e., user logs in on any device), pull progress
+  // from Firestore, merge with any local offline completions, and update state.
   useEffect(() => {
-    const key = `nextsem-progress:${userEmail}`;
-    const assignKey = `nextsem-assignments:${userEmail}`;
-    const savedProgress = localStorage.getItem(key);
-    const savedAssign = localStorage.getItem(assignKey);
-    
-    let chapters: Record<string, boolean> = {};
-    let assignments: Record<string, boolean> = {};
+    let unsubscribe: (() => void) | undefined;
 
-    if (savedProgress) {
-      try {
-        chapters = JSON.parse(savedProgress);
-      } catch (e) {
-        chapters = {};
+    const loadProgress = async () => {
+      // Load assignments from local storage (not cloud-synced yet)
+      const assignKey = `nextsem-assignments:${userEmail}`;
+      const savedAssign = localStorage.getItem(assignKey);
+      let assignments: Record<string, boolean> = {};
+      if (savedAssign) {
+        try { assignments = JSON.parse(savedAssign); } catch { assignments = {}; }
       }
-    } else {
-      // Migrate old progress key if migrating guest user
-      if (userEmail === "guest") {
-        const oldProgress = localStorage.getItem('nextsem-progress');
-        if (oldProgress) {
-          try {
-            const parsed = JSON.parse(oldProgress);
-            chapters = parsed;
-            localStorage.setItem(key, oldProgress);
-          } catch (e) {
-            chapters = {};
+      setCompletedAssignments(assignments);
+
+      if (userEmail !== "guest") {
+        // Fetch + merge cloud progress on every login / device switch
+        const merged = await syncCloudProgressOnLogin(userEmail);
+        setCompletedChapters(merged);
+        setIsLoaded(true);
+
+        // Subscribe to real-time Firestore updates so multi-device stays in sync
+        unsubscribe = subscribeToRealtimeUserProgress(userEmail, (cloudProgress) => {
+          setCompletedChapters((prev) => {
+            const updated = { ...prev, ...cloudProgress };
+            saveLocalProgress(userEmail, updated);
+            return updated;
+          });
+        });
+      } else {
+        // Guest: load from localStorage only
+        const localProg = loadLocalProgress(userEmail);
+        // Migrate old key format
+        if (Object.keys(localProg).length === 0) {
+          const oldProgress = localStorage.getItem('nextsem-progress');
+          if (oldProgress) {
+            try {
+              const parsed = JSON.parse(oldProgress);
+              saveLocalProgress(userEmail, parsed);
+              setCompletedChapters(parsed);
+            } catch { setCompletedChapters({}); }
+          } else {
+            setCompletedChapters({});
           }
         } else {
-          chapters = {};
+          setCompletedChapters(localProg);
         }
-      } else {
-        chapters = {};
+        setIsLoaded(true);
       }
-    }
+    };
 
-    if (savedAssign) {
-      try {
-        assignments = JSON.parse(savedAssign);
-      } catch (e) {
-        assignments = {};
-      }
-    } else {
-      assignments = {};
-    }
+    loadProgress();
 
-    /* eslint-disable react-hooks/set-state-in-effect */
-    setCompletedChapters(chapters);
-    setCompletedAssignments(assignments);
-    setIsLoaded(true);
-    /* eslint-enable react-hooks/set-state-in-effect */
+    return () => {
+      if (unsubscribe) unsubscribe();
+    };
   }, [userEmail]);
 
-  // Save progress to key specific to the current logged-in user
+  // ── SAVE TO CLOUD + LOCAL ON EVERY COMPLETION ────────────────────────────
   useEffect(() => {
     if (isLoaded) {
-      localStorage.setItem(`nextsem-progress:${userEmail}`, JSON.stringify(completedChapters));
+      // Save assignments to local (not Firestore-synced)
       localStorage.setItem(`nextsem-assignments:${userEmail}`, JSON.stringify(completedAssignments));
     }
-  }, [completedChapters, completedAssignments, userEmail, isLoaded]);
+  }, [completedAssignments, userEmail, isLoaded]);
 
   const markCompleted = (chapterId: string) => {
-    setCompletedChapters((prev) => ({ ...prev, [chapterId]: true }));
+    setCompletedChapters((prev) => {
+      const updated = { ...prev, [chapterId]: true };
+      // Persist locally immediately
+      saveLocalProgress(userEmail, updated);
+      // Push to Firestore in background (non-blocking)
+      saveLessonCompletionToCloud(userEmail !== "guest" ? userEmail : null, chapterId, true);
+      return updated;
+    });
 
     // Find completed chapter and prepare congratulations quote
     const currentChapter = searchIndex.find(c => c.id === chapterId);
@@ -239,6 +259,8 @@ export const ProgressProvider = ({ children }: { children: ReactNode }) => {
     setCompletedChapters((prev) => {
       const newState = { ...prev };
       delete newState[chapterId];
+      saveLocalProgress(userEmail, newState);
+      saveLessonCompletionToCloud(userEmail !== "guest" ? userEmail : null, chapterId, false);
       return newState;
     });
   };

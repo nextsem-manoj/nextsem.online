@@ -135,7 +135,7 @@ export default function HtmlTagTooltip({ code, lang = "english", className = "" 
 
   if (!match) {
     return (
-      <code className={`font-mono text-[#c1a648] text-[0.75em] bg-slate-900/60 px-1.5 py-0.5 rounded ${className}`}>
+      <code className={`font-mono text-[#04AA6D] text-[0.75em] bg-slate-900/60 px-1.5 py-0.5 rounded ${className}`}>
         {code}
       </code>
     );
@@ -150,7 +150,7 @@ export default function HtmlTagTooltip({ code, lang = "english", className = "" 
       <code
         onClick={() => setOpen(o => !o)}
         onMouseEnter={() => setOpen(true)}
-        className={`font-mono text-[0.75em] px-1.5 py-0.5 rounded cursor-pointer transition-all select-none bg-slate-900/70 text-[#c1a648] border border-slate-800 hover:border-[#c1a648]/50 hover:bg-[#c1a648]/10 ${className}`}
+        className={`font-mono text-[0.75em] px-1.5 py-0.5 rounded cursor-pointer transition-all select-none bg-slate-900/70 text-[#04AA6D] border border-slate-800 hover:border-[#04AA6D]/50 hover:bg-[#04AA6D]/10 ${className}`}
       >
         {code}
       </code>
@@ -164,7 +164,7 @@ export default function HtmlTagTooltip({ code, lang = "english", className = "" 
           <div className="flex items-center justify-between px-3.5 pt-3.5 pb-2 border-b border-slate-800">
             <div className="flex items-center gap-2 min-w-0">
               <span className="text-base shrink-0">{info.emoji}</span>
-              <code className="font-mono text-xs font-black text-[#c1a648] truncate">{match.key}</code>
+              <code className="font-mono text-xs font-black text-[#04AA6D] truncate">{match.key}</code>
               <span className={`text-[9px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded-md border ${catColor} shrink-0`}>{info.category}</span>
             </div>
             <button onClick={() => setOpen(false)} className="text-slate-600 hover:text-slate-300 transition-colors cursor-pointer shrink-0 ml-1">
@@ -182,7 +182,7 @@ export default function HtmlTagTooltip({ code, lang = "english", className = "" 
                     {copied ? "Copied!" : "Copy"}
                   </button>
                 </div>
-                <pre className="px-3 py-2 font-mono text-[10px] text-[#c1a648] overflow-x-auto whitespace-pre-wrap break-all">{info.example}</pre>
+                <pre className="px-3 py-2 font-mono text-[10px] text-[#04AA6D] overflow-x-auto whitespace-pre-wrap break-all">{info.example}</pre>
               </div>
             )}
             <div className="flex items-center gap-1.5 pt-0.5">

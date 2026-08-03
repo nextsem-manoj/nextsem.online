@@ -6,7 +6,7 @@ import { Home, BookOpen, Terminal, ArrowRight, HelpCircle } from 'lucide-react';
 
 export default function NotFound() {
   return (
-    <div className="w-full min-h-screen bg-slate-950 text-white flex flex-col items-center justify-center font-sans selection:bg-[#c1a648]/30 relative overflow-hidden px-4">
+    <div className="w-full min-h-screen bg-slate-950 text-white flex flex-col items-center justify-center font-sans selection:bg-[#04AA6D]/30 relative overflow-hidden px-4">
       {/* Ambient background glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-indigo-950/10 blur-[130px] pointer-events-none" />
 
@@ -58,12 +58,12 @@ export default function NotFound() {
           </Link>
 
           <Link 
-            href="/cmd" 
+            href="/cli" 
             className="flex items-center justify-between p-3 bg-slate-900/40 hover:bg-indigo-600/10 border border-slate-850 hover:border-indigo-550/40 rounded-xl transition-all group"
           >
             <div className="flex items-center gap-2.5">
               <Terminal size={16} className="text-slate-400 group-hover:text-indigo-400" />
-              <span className="text-xs font-bold text-slate-200 group-hover:text-white">Command Simulator</span>
+              <span className="text-xs font-bold text-slate-200 group-hover:text-white">Windows CLI Module</span>
             </div>
             <ArrowRight size={14} className="text-slate-600 group-hover:text-indigo-400 transition-transform group-hover:translate-x-0.5" />
           </Link>

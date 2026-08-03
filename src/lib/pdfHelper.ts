@@ -90,7 +90,7 @@ export function generateAndDownloadLessonPdf(data: LessonPdfPayload): void {
 
   // Sub heading
   doc.setFontSize(8);
-  doc.setTextColor(193, 166, 72); // gold #c1a648
+  doc.setTextColor(193, 166, 72); // gold #04AA6D
   doc.text("IGNOU BCA 1st Semester Official Study Notes", margin, 18);
 
   // NS Badge (top right)

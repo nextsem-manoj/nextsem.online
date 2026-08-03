@@ -113,6 +113,8 @@ const BottomNavigation = () => {
     window.dispatchEvent(new Event("open_google_auth"));
   };
 
+  const isHome = pathname === '/';
+
   const navTabs = [
     {
       id: 'home',
@@ -121,20 +123,20 @@ const BottomNavigation = () => {
       icon: Home,
       isActive: pathname === '/' && !menuOpen
     },
-    {
+    isHome ? {
+      id: 'start-learning',
+      label: 'Start CLI',
+      path: '/cli',
+      icon: Terminal,
+      isActive: false
+    } : {
       id: 'courses',
       label: pathname?.startsWith('/html') ? 'HTML' :
              pathname?.startsWith('/cli') ? 'CLI' :
-             pathname?.startsWith('/git') ? 'Git' :
-             pathname?.startsWith('/msword') ? 'MS Word' :
-             pathname?.startsWith('/book/p1-') ? 'HTML' :
-             pathname?.startsWith('/book/p2-') ? 'CSS' :
-             pathname?.startsWith('/book/p3-') ? 'JS' :
-             pathname?.startsWith('/book/p4-') ? 'React' :
-             pathname?.startsWith('/book/p5-') ? 'Node' : 'Courses',
+             pathname?.startsWith('/git') ? 'Git' : 'Courses',
       path: '/course',
       icon: BookOpen,
-      isActive: (pathname === '/course' || pathname?.startsWith('/html') || pathname?.startsWith('/cli') || pathname?.startsWith('/git') || pathname?.startsWith('/book')) && !menuOpen
+      isActive: (pathname === '/course' || pathname?.startsWith('/html') || pathname?.startsWith('/cli') || pathname?.startsWith('/git')) && !menuOpen
     },
     {
       id: 'profile',

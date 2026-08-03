@@ -634,7 +634,7 @@ export default function GitClient() {
   );
 
   return (
-    <div className="flex flex-col min-h-[calc(100vh-92px)] bg-[#060813] text-slate-100 font-sans relative selection:bg-[#c1a648]/30">
+    <div className="flex flex-col min-h-[calc(100vh-92px)] bg-[#060813] text-slate-100 font-sans relative selection:bg-[#04AA6D]/30">
 
       {/* Header bar */}
       <header className="w-full px-4 md:px-6 py-3 bg-[#090d22]/30 border-b border-slate-800/60 sticky top-[92px] z-20 backdrop-blur-md flex items-center justify-between">

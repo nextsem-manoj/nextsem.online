@@ -16,6 +16,7 @@ interface NsSubjectNavBarProps {
   currentUser?: UserProfile | null;
   onSignIn?: () => void;
   onToggleSidebar?: () => void;
+  showSubjectBar?: boolean;
 }
 
 const SUBJECT_TABS = [
@@ -26,11 +27,10 @@ const SUBJECT_TABS = [
   { id: "backend", label: "NODE.JS", href: "/book/p5-1-node", match: (p: string) => p.includes("p5-") },
   { id: "cli", label: "WINDOWS CLI", href: "/cli", match: (p: string) => p.startsWith("/cli") },
   { id: "git", label: "GIT", href: "/git", match: (p: string) => p.startsWith("/git") },
-  { id: "cmd", label: "CMD SIMULATOR", href: "/cmd", match: (p: string) => p.startsWith("/cmd") },
   { id: "curriculum", label: "CURRICULUM", href: "/curriculum", match: (p: string) => p.startsWith("/curriculum") }
 ];
 
-export default function NsSubjectNavBar({ currentUser, onSignIn, onToggleSidebar }: NsSubjectNavBarProps) {
+export default function NsSubjectNavBar({ currentUser, onSignIn, onToggleSidebar, showSubjectBar }: NsSubjectNavBarProps) {
   const [isFullscreen, setIsFullscreen] = useState(false);
 
   useEffect(() => {
@@ -42,7 +42,31 @@ export default function NsSubjectNavBar({ currentUser, onSignIn, onToggleSidebar
   }, []);
 
   const pathname = usePathname() || "";
+  const isHomePage = pathname === "/";
+  const isLessonPage = pathname.startsWith("/html") || pathname.startsWith("/cli") || pathname.startsWith("/git") || pathname.startsWith("/book") || pathname.startsWith("/msword");
+  const shouldShowSubjectBar = showSubjectBar ?? isHomePage;
   const [searchQuery, setSearchQuery] = useState("");
+  const [showTopHeader, setShowTopHeader] = useState(true);
+
+  useEffect(() => {
+    if (!isLessonPage) {
+      setShowTopHeader(true);
+      return;
+    }
+
+    const handleScroll = () => {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      if (scrollTop <= 60) {
+        setShowTopHeader(true);
+      } else {
+        setShowTopHeader(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [isLessonPage]);
 
   if (isFullscreen) return null;
 
@@ -56,7 +80,21 @@ export default function NsSubjectNavBar({ currentUser, onSignIn, onToggleSidebar
   };
 
   return (
-    <header className="sticky top-0 z-40 bg-[#060c18] border-b border-slate-800/80 shadow-md select-none">
+    <>
+      {/* Floating Home Logo — always visible on lesson pages when top header is hidden */}
+      {isLessonPage && !showTopHeader && (
+        <a
+          href="/"
+          className="fixed top-3 left-3 z-[9999] w-9 h-9 rounded-xl bg-[#09101f] border border-[#04AA6D]/60 flex items-center justify-center text-[#04AA6D] font-black text-[10px] shadow-lg hover:scale-110 transition-transform cursor-pointer"
+          title="Go to Home"
+        >
+          NS
+        </a>
+      )}
+
+    <header className={`sticky top-0 z-40 bg-[#060c18] border-b border-slate-800/80 shadow-md select-none transition-all duration-300 ${
+      showTopHeader ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0 pointer-events-none"
+    }`}>
       {/* ── TOP HEADER BAR ── */}
       <div className="max-w-7xl mx-auto px-3 sm:px-6 h-14 flex items-center justify-between gap-3">
         
@@ -128,27 +166,30 @@ export default function NsSubjectNavBar({ currentUser, onSignIn, onToggleSidebar
 
       </div>
 
-      {/* ── SUBJECT TABS NAVIGATION BAR (Horizontal Scrollable) ── */}
-      <div className="bg-[#09101f] border-t border-slate-850 px-2">
-        <div className="max-w-7xl mx-auto flex items-center gap-1 overflow-x-auto custom-scrollbar py-1 scroll-smooth">
-          {SUBJECT_TABS.map((tab) => {
-            const isActive = tab.match(pathname);
-            return (
-              <Link
-                key={tab.id}
-                href={tab.href}
-                className={`px-3 py-1.5 text-xs font-black uppercase tracking-wider rounded-md whitespace-nowrap transition-all ${
-                  isActive
-                    ? "bg-[#04AA6D] text-white shadow-sm font-bold"
-                    : "text-slate-300 hover:text-white hover:bg-slate-900"
-                }`}
-              >
-                {tab.label}
-              </Link>
-            );
-          })}
+      {/* ── SUBJECT TABS NAVIGATION BAR (Horizontal Scrollable - ONLY ON FRONT PAGE) ── */}
+      {shouldShowSubjectBar && (
+        <div className="bg-[#09101f] border-t border-slate-850 px-2">
+          <div className="max-w-7xl mx-auto flex items-center gap-1 overflow-x-auto custom-scrollbar py-1 scroll-smooth">
+            {SUBJECT_TABS.map((tab) => {
+              const isActive = tab.match(pathname);
+              return (
+                <Link
+                  key={tab.id}
+                  href={tab.href}
+                  className={`px-3 py-1.5 text-xs font-black uppercase tracking-wider rounded-md whitespace-nowrap transition-all ${
+                    isActive
+                      ? "bg-[#04AA6D] text-white shadow-sm font-bold"
+                      : "text-slate-300 hover:text-white hover:bg-slate-900"
+                  }`}
+                >
+                  {tab.label}
+                </Link>
+              );
+            })}
+          </div>
         </div>
-      </div>
+      )}
     </header>
+    </>
   );
 }

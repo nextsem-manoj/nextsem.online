@@ -365,7 +365,7 @@ export default function TextbookViewer() {
   }
 
   return (
-    <div className="w-full h-screen bg-[#060c18] text-white flex flex-col justify-between font-sans selection:bg-[#c1a648]/30 overflow-hidden relative">
+    <div className="w-full h-screen bg-[#060c18] text-white flex flex-col justify-between font-sans selection:bg-[#04AA6D]/30 overflow-hidden relative">
       
       {/* Header bar */}
       <header className="h-16 border-b border-slate-800/80 bg-[#060c18]/95 flex items-center justify-between px-3 md:px-6 shrink-0 z-30 shadow-md">

@@ -77,10 +77,10 @@ export function queryOfflineAi(promptText: string, persona: string = "Web Dev Tu
   );
 
   if (matchedCli) {
-    const englishPro = matchedCli.english?.pro || matchedCli.english?.kid || "";
+    const lessonText = matchedCli.content || "";
     let md = `## ${matchedCli.title}\n\n`;
     md += `> **Unit**: ${matchedCli.unit} | **Reference**: ${matchedCli.bookRef}\n\n`;
-    md += `${englishPro.replace(/###/g, "### ").slice(0, 800)}...\n\n`;
+    md += `${lessonText.replace(/###/g, "### ").slice(0, 800)}...\n\n`;
     md += `### 💻 Command Line Example\n`;
     md += `\`\`\`cmd\n${matchedCli.slug.split("-")[0]} --help\n\`\`\`\n`;
 

@@ -62,9 +62,9 @@ export default function GlobalNavigationWidget() {
       color: "text-blue-400 border-blue-500/20 bg-blue-500/5",
       links: [
         {
-          name: "CMD Simulator",
-          href: "/cmd",
-          desc: "Practice Windows CMD terminal commands",
+          name: "Windows CLI",
+          href: "/cli",
+          desc: "Practice Windows CLI terminal commands",
           icon: <Terminal size={14} className="text-blue-400" />,
           badge: "drill",
           badgeColor: "bg-blue-500/10 text-blue-400 border-blue-500/20"
@@ -87,7 +87,7 @@ export default function GlobalNavigationWidget() {
           name: "PDF to Markdown",
           href: "/pdf-to-markdown",
           desc: "Convert uploaded PDF notes into .md files",
-          icon: <FileSpreadsheet size={14} className="text-[#c1a648]" />,
+          icon: <FileSpreadsheet size={14} className="text-[#04AA6D]" />,
           badge: "NEW",
           badgeColor: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"
         },

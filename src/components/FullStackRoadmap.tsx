@@ -7,6 +7,8 @@ import {
   Globe, Terminal, Palette, Code2, Server, Database,
   Layers, Rocket, Wrench, Brain, BookOpen, Sparkles, Briefcase
 } from "lucide-react";
+import { cliLessons } from "../data/cliLessonsData";
+import { htmlLessons } from "../data/htmlLessonsData";
 
 // ─── Curriculum Data ────────────────────────────────────────────────────────
 
@@ -30,29 +32,14 @@ interface Phase {
 
 const CURRICULUM: Phase[] = [
   {
-    id: "career",
-    icon: <Briefcase size={18} />,
-    title: "Phase 0 — Office & Career Productivity",
-    color: "from-blue-600 to-indigo-500",
-    glow: "shadow-blue-500/20",
-    subjects: [
-      { id: "msword", name: "MS Word 365 (Career Skills)", lessons: 60, covered: 8, link: "/msword", priority: "high" },
-      { id: "msexcel", name: "MS Excel 365 (Formulas & Data)", lessons: 60, covered: 0, priority: "high" },
-      { id: "ppt", name: "MS PowerPoint 365", lessons: 40, covered: 0, priority: "medium" },
-      { id: "gworkspace", name: "Google Workspace (Docs, Sheets)", lessons: 40, covered: 0, priority: "medium" },
-      { id: "email", name: "Professional Email Writing", lessons: 20, covered: 0, priority: "high" },
-      { id: "resume-skills", name: "Resume & LinkedIn Building", lessons: 20, covered: 0, priority: "critical" },
-    ],
-  },
-  {
     id: "foundation",
     icon: <Globe size={18} />,
     title: "Phase 1 — Foundation",
     color: "from-blue-500 to-cyan-400",
     glow: "shadow-blue-500/20",
     subjects: [
-      { id: "html", name: "HTML5", lessons: 100, covered: 100, link: "/html", priority: "critical" },
-      { id: "cli", name: "Windows CLI / CMD", lessons: 100, covered: 15, link: "/cli", priority: "critical" },
+      { id: "cli", name: "Windows CLI / CMD", lessons: cliLessons.length, covered: cliLessons.length, link: "/cli", priority: "critical" },
+      { id: "html", name: "HTML5", lessons: htmlLessons.length, covered: htmlLessons.length, link: "/html", priority: "critical" },
       { id: "css-basics", name: "CSS3 (Basics)", lessons: 100, covered: 0, priority: "critical" },
       { id: "js-basics", name: "JavaScript (ES6+)", lessons: 100, covered: 0, priority: "critical" },
       { id: "git", name: "Git & GitHub", lessons: 100, covered: 0, priority: "critical" },

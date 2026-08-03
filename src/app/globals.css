@@ -3,12 +3,12 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --background: #060c18;
+  --background: #17181c;
   --foreground: #ffffff;
 }
 
 html, body {
-  background-color: #060c18 !important;
+  background-color: #17181c !important;
   color: #ffffff;
   padding: 0 !important;
   margin: 0 !important;
@@ -59,12 +59,12 @@ html,
 body {
   overflow-x: clip;
   max-width: 100%;
-  background-color: #060c18;
+  background-color: #17181c;
 }
 
 body {
   background: var(--background);
-  background-color: #060c18;
+  background-color: #17181c;
   color: var(--foreground);
   font-family: var(--font-inter), sans-serif;
   padding: 0;
@@ -186,15 +186,15 @@ body {
   --theme-text-muted:   #99a7a7;
   --theme-text-subtle:  #7f7034;
   --theme-border:       rgba(193, 166, 72, 0.15);
-  --theme-btn-bg:       #c1a648;
+  --theme-btn-bg:       #04AA6D;
   --theme-btn-text:     #1e303f;
   --theme-btn-blue-bg:  #7f7034;
-  --theme-accent:       #c1a648;
+  --theme-accent:       #04AA6D;
   --dot-color:          rgba(193, 166, 72, 0.1);
 
   --slate-50:           #fbfbfb;
   --slate-100:          #fbfbfb;
-  --slate-200:          #c1a648;
+  --slate-200:          #04AA6D;
   --slate-300:          #fbfbfb;
   --slate-400:          #99a7a7;
   --slate-500:          #99a7a7;
@@ -216,10 +216,10 @@ html.light {
   --theme-text-muted:   #4b5563;
   --theme-text-subtle:  #9ca3af;
   --theme-border:       #e5e7eb;
-  --theme-btn-bg:       #c1a648;
+  --theme-btn-bg:       #04AA6D;
   --theme-btn-text:     #ffffff;
   --theme-btn-blue-bg:  #2563eb;
-  --theme-accent:       #c1a648;
+  --theme-accent:       #04AA6D;
   --dot-color:          rgba(0, 0, 0, 0.05);
 
   --slate-50:           #fafafa;
@@ -248,15 +248,15 @@ html.dark {
   --theme-text-muted:   #99a7a7;
   --theme-text-subtle:  #7f7034;
   --theme-border:       rgba(193, 166, 72, 0.15);
-  --theme-btn-bg:       #c1a648;
+  --theme-btn-bg:       #04AA6D;
   --theme-btn-text:     #1e303f;
   --theme-btn-blue-bg:  #7f7034;
-  --theme-accent:       #c1a648;
+  --theme-accent:       #04AA6D;
   --dot-color:          rgba(193, 166, 72, 0.1);
 
   --slate-50:           #fbfbfb;
   --slate-100:          #fbfbfb;
-  --slate-200:          #c1a648;
+  --slate-200:          #04AA6D;
   --slate-300:          #fbfbfb;
   --slate-350:          #cbd5e1;
   --slate-400:          #99a7a7;
@@ -272,19 +272,19 @@ html.dark {
 /* Golden Theme Overrides for Hardcoded Green Colors */
 :root, html.dark {
   .bg-\[\#04AA6D\], .bg-\[\#04aa6d\] {
-    background-color: #c1a648 !important;
+    background-color: #04AA6D !important;
   }
   .hover\:bg-\[\#039861\]:hover, .hover\:bg-emerald-600:hover {
     background-color: #7f7034 !important;
   }
   .text-\[\#04AA6D\], .text-\[\#04aa6d\] {
-    color: #c1a648 !important;
+    color: #04AA6D !important;
   }
   .border-\[\#04AA6D\], .border-\[\#04aa6d\] {
-    border-color: #c1a648 !important;
+    border-color: #04AA6D !important;
   }
   .border-l-\[\#04aa6d\] {
-    border-left-color: #c1a648 !important;
+    border-left-color: #04AA6D !important;
   }
 }
 

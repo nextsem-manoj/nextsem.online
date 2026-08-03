@@ -1,46 +1,80 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
-import { auth, signInWithGoogle, db } from '../../lib/firebase';
-import { signOut, onAuthStateChanged } from 'firebase/auth';
-import { doc, getDoc } from 'firebase/firestore';
-import { useProgress } from '../../context/ProgressContext';
-import { CheckCircle2, Circle, ArrowLeft, LogOut, BookOpen, ArrowRight, Terminal, Download, User } from 'lucide-react';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import searchIndex from '../../data/searchIndex.json';
-import { usePWA } from '../../hooks/usePWA';
-import { getChapterUrl } from '../../lib/htmlLessonsHelper';
+import React, { useEffect, useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { 
+  auth, signInWithGoogle, db 
+} from "@/lib/firebase";
+import { signOut, onAuthStateChanged, User as FirebaseUser } from "firebase/auth";
+import { doc, getDoc, setDoc } from "firebase/firestore";
+import { useProgress } from "@/context/ProgressContext";
+import { usePWA } from "@/hooks/usePWA";
+import { LANGUAGES, changeLanguage } from "@/components/TranslateWidget";
+import ResumeLessonBanner from "@/components/ResumeLessonBanner";
+import MilestoneBadge from "@/components/MilestoneBadge";
+import ShareButton from "@/components/ShareButton";
+import { getLastLessonCloud, getLastLessonLocal, isMilestoneAwarded, saveMilestoneAwarded, LastLesson } from "@/lib/userProgressSync";
+
+import { 
+  Terminal, Code, Palette, BookOpen, CheckCircle2, Circle, 
+  ArrowRight, ArrowLeft, LogOut, LogIn, ShieldAlert, Download, 
+  Languages, Sparkles, Award, CloudCheck, RefreshCw, User, Flame, Lock,
+  Target, TrendingUp
+} from "lucide-react";
+import searchIndex from "@/data/searchIndex.json";
+import { cliLessons } from "@/data/cliLessonsData";
+import { htmlLessons } from "@/data/htmlLessonsData";
+import { gitLessons } from "@/data/gitLessonsData";
 
 interface UserProfile {
   name: string;
   email: string;
   avatar: string;
   photo: string | null;
+  uid: string;
 }
 
 export default function ProfileClient() {
   const router = useRouter();
   const [user, setUser] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
+  const [syncing, setSyncing] = useState(false);
   const { completedChapters, totalCompleted } = useProgress();
   const { isInstallable, installApp } = usePWA();
+
+  // CMD Progress States
   const [terminalStep, setTerminalStep] = useState(0);
   const [terminalCertified, setTerminalCertified] = useState(false);
+  // Resume lesson & milestone states
+  const [lastLesson, setLastLesson] = useState<LastLesson | null>(null);
+  const [activeMilestone, setActiveMilestone] = useState<number | null>(null);
 
+  // Sync auth & progress on mount
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser: FirebaseUser | null) => {
       if (firebaseUser) {
         const initials = firebaseUser.displayName
-          ? firebaseUser.displayName.split(" ").map(n => n[0]).join("").substring(0, 2)
+          ? firebaseUser.displayName.split(" ").map((n) => n[0]).join("").substring(0, 2)
           : "NS";
-        setUser({
-          name: firebaseUser.displayName || "Nextsem Student",
+        
+        const profileObj: UserProfile = {
+          uid: firebaseUser.uid,
+          name: firebaseUser.displayName || "Nextsem Full Stack Student",
           email: firebaseUser.email || "",
           avatar: initials.toUpperCase(),
-          photo: firebaseUser.photoURL
+          photo: firebaseUser.photoURL,
+        };
+        setUser(profileObj);
+
+        // Load last lesson (local first, then cloud)
+        const localLast = getLastLessonLocal(firebaseUser.email);
+        if (localLast) setLastLesson(localLast);
+        getLastLessonCloud(firebaseUser.email || "").then((cloudLast) => {
+          if (cloudLast) setLastLesson(cloudLast);
         });
 
+        // Sync local terminal progress with cloud
         const email = firebaseUser.email || "";
         const localStep = parseInt(localStorage.getItem(`nextsem_terminal_step_${email}`) || "0", 10);
         const localCertified = localStorage.getItem(`nextsem_terminal_certified_${email}`) === "true";
@@ -60,29 +94,49 @@ export default function ProfileClient() {
               localStorage.setItem(`nextsem_terminal_step_${email}`, dbStep.toString());
               localStorage.setItem(`nextsem_terminal_certified_${email}`, dbCertified.toString());
             }
+          } else {
+            // Save initial local progress to cloud
+            await setDoc(userDocRef, {
+              email,
+              stepIdx: localStep,
+              courseCertified: localCertified,
+              updatedAt: new Date().toISOString(),
+            }, { merge: true });
           }
         } catch (e) {
-          console.error("Error loading terminal progress in profile:", e);
+          console.error("Cloud progress sync error:", e);
         }
       } else {
         setUser(null);
+        // Load guest terminal step from guest localStorage
+        const guestStep = parseInt(localStorage.getItem("nextsem_terminal_step_guest") || "0", 10);
+        const guestCertified = localStorage.getItem("nextsem_terminal_certified_guest") === "true";
+        setTerminalStep(guestStep);
+        setTerminalCertified(guestCertified);
       }
       setLoading(false);
     });
+
     return () => unsubscribe();
   }, []);
 
   const handleGoogleSignIn = async () => {
     try {
+      setSyncing(true);
       await signInWithGoogle();
     } catch (err) {
       console.error("Sign-In Error: ", err);
+    } finally {
+      setSyncing(false);
     }
   };
 
   const handleSignOut = async () => {
     try {
       await signOut(auth);
+      localStorage.removeItem("nextsem_user");
+      window.dispatchEvent(new Event("nextsem_auth_changed"));
+      setUser(null);
     } catch (err) {
       console.error("Sign-Out Error: ", err);
     }
@@ -90,22 +144,22 @@ export default function ProfileClient() {
 
   const handleDeleteAccount = async () => {
     const confirmed = window.confirm(
-      "Are you sure you want to permanently delete your account? All progress and data will be lost and cannot be recovered."
+      "Are you sure you want to permanently delete your account? All progress and certificates will be removed permanently."
     );
     if (!confirmed) return;
+
     try {
       const firebaseUser = auth.currentUser;
       if (firebaseUser) {
         await firebaseUser.delete();
-        localStorage.removeItem('nextsem_user');
-        localStorage.removeItem('nextsem_premium_badge');
-        localStorage.removeItem('completed_chapters');
-        window.dispatchEvent(new Event('nextsem_auth_changed'));
-        router.push('/');
+        localStorage.removeItem("nextsem_user");
+        window.dispatchEvent(new Event("nextsem_auth_changed"));
+        setUser(null);
+        router.push("/");
       }
     } catch (err: unknown) {
       const error = err as { code?: string };
-      if (error.code === 'auth/requires-recent-login') {
+      if (error.code === "auth/requires-recent-login") {
         alert("For security, please sign out, sign in again, and then retry account deletion.");
       } else {
         alert("Failed to delete account. Please check your connection and try again.");
@@ -113,239 +167,690 @@ export default function ProfileClient() {
     }
   };
 
-  const totalChapters = searchIndex.length;
-  const progressPercent = totalChapters > 0 ? Math.round((totalCompleted / totalChapters) * 100) : 0;
-  const terminalPercent = terminalCertified ? 100 : Math.round((terminalStep / 10) * 100);
+  // Module Progress Calculations
+  const completedCliCount = cliLessons.filter(l => completedChapters[l.slug] || completedChapters[l.id]).length;
+  const completedHtmlCount = htmlLessons.filter(l => completedChapters[l.slug] || completedChapters[l.id]).length;
+  const completedGitCount = gitLessons.filter(l => completedChapters[l.slug] || completedChapters[l.id]).length;
+
+  const cliPercent = Math.round((completedCliCount / cliLessons.length) * 100) || (terminalCertified ? 100 : Math.round((terminalStep / 10) * 100));
+  const htmlPercent = Math.round((completedHtmlCount / htmlLessons.length) * 100);
+  const gitPercent = Math.round((completedGitCount / gitLessons.length) * 100);
+
+  const TARGET_TOTAL = 300; // 100 lessons per subject × 3 subjects
+  const overallPercent = TARGET_TOTAL > 0 ? Math.min(100, Math.round((totalCompleted / TARGET_TOTAL) * 100)) : 0;
+
+  // Milestone check on totalCompleted change
+  React.useEffect(() => {
+    const MILESTONES = [10, 25, 50, 100];
+    const userEmail = user?.email || null;
+    for (const m of MILESTONES) {
+      if (totalCompleted >= m && !isMilestoneAwarded(userEmail, m)) {
+        setActiveMilestone(m);
+        saveMilestoneAwarded(userEmail, m);
+        break;
+      }
+    }
+  }, [totalCompleted, user?.email]);
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-950 flex items-center justify-center">
-        <div className="w-6 h-6 rounded-full border-2 border-slate-600 border-t-slate-300 animate-spin" />
+      <div className="min-h-screen bg-[#060c18] flex items-center justify-center">
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-8 h-8 rounded-full border-2 border-cyan-500/40 border-t-cyan-400 animate-spin" />
+          <span className="text-xs text-slate-400 font-bold uppercase tracking-wider">Loading Developer Account...</span>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white">
-
-      {/* Top bar */}
-      <div className="sticky top-0 z-40 h-14 bg-slate-950/90 backdrop-blur border-b border-slate-800 flex items-center justify-between px-4 md:px-8">
-        <Link href="/" className="flex items-center gap-2 text-sm text-slate-400 hover:text-white transition-colors">
-          <ArrowLeft size={15} />
-          Home
+    <div className="min-h-screen bg-[#060c18] text-slate-100 pb-28 selection:bg-cyan-500/30">
+      
+      {/* Top Header Navigation */}
+      <header className="sticky top-0 z-40 bg-[#090d22]/90 backdrop-blur-xl border-b border-slate-800/80 px-4 md:px-8 py-3.5 flex items-center justify-between shadow-lg">
+        <Link 
+          href="/" 
+          className="flex items-center gap-2 text-xs font-bold text-slate-300 hover:text-white transition-colors group"
+        >
+          <ArrowLeft size={16} className="group-hover:-translate-x-0.5 transition-transform text-cyan-400" />
+          <span>Home</span>
         </Link>
-        <span className="text-sm font-semibold text-slate-300">My Profile</span>
-        {user && (
-          <button onClick={handleSignOut} className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-rose-400 transition-colors cursor-pointer">
-            <LogOut size={14} />
-            Sign out
-          </button>
-        )}
-      </div>
-
-      <div className="max-w-3xl mx-auto px-4 py-10 space-y-6">
+        
+        <div className="flex items-center gap-2">
+          <div className="w-6 h-6 rounded bg-[#09101f] border border-[#04AA6D]/40 flex items-center justify-center text-[#04AA6D] font-black text-[10px]">
+            NS
+          </div>
+          <span className="text-xs font-extrabold tracking-wider uppercase text-slate-200">
+            Developer Account
+          </span>
+        </div>
 
         {user ? (
-          <>
-            {/* ── Profile card ── */}
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 flex items-center gap-5">
-              {user.photo ? (
-                <img src={user.photo} alt={user.name} className="w-14 h-14 rounded-full border border-slate-700 shrink-0 object-cover" />
+          <button 
+            onClick={handleSignOut} 
+            className="flex items-center gap-1.5 text-xs font-bold text-slate-400 hover:text-rose-400 transition-colors cursor-pointer"
+          >
+            <LogOut size={14} />
+            <span className="hidden sm:inline">Sign out</span>
+          </button>
+        ) : (
+          <button
+            onClick={handleGoogleSignIn}
+            className="flex items-center gap-1.5 text-xs font-extrabold text-slate-950 bg-amber-400 hover:bg-amber-300 px-3 py-1.5 rounded-xl transition-all cursor-pointer shadow-md"
+          >
+            <LogIn size={14} />
+            <span>Sign In</span>
+          </button>
+        )}
+      </header>
+
+      {/* Milestone Badge Modal */}
+      {activeMilestone && (
+        <MilestoneBadge
+          milestone={activeMilestone}
+          onClose={() => setActiveMilestone(null)}
+        />
+      )}
+
+      <div className="max-w-4xl mx-auto px-4 py-8 space-y-6">
+
+        {/* ── 0. OVERALL PROGRESS HERO CARD ── */}
+        <div className="relative bg-gradient-to-br from-[#0a1628] via-[#0c1a30] to-[#080e1f] border border-slate-700/60 rounded-3xl p-6 shadow-2xl overflow-hidden">
+          {/* Decorative glow */}
+          <div className="absolute top-0 left-0 w-48 h-48 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute bottom-0 right-0 w-32 h-32 bg-cyan-500/5 rounded-full blur-2xl pointer-events-none" />
+
+          <div className="relative z-10">
+            <div className="flex items-start justify-between mb-5">
+              <div>
+                <div className="flex items-center gap-2 mb-1">
+                  <TrendingUp size={14} className="text-emerald-400" />
+                  <span className="text-[10px] font-extrabold uppercase tracking-widest text-emerald-400">Overall Progress</span>
+                </div>
+                <h2 className="text-xl md:text-2xl font-black text-white tracking-tight">
+                  {totalCompleted} <span className="text-slate-500 font-medium text-base">/ {TARGET_TOTAL} Lessons</span>
+                </h2>
+                <p className="text-xs text-slate-400 mt-1 font-medium">
+                  {overallPercent}% of full curriculum completed
+                </p>
+              </div>
+              <div className="flex items-center gap-2">
+                <ShareButton
+                  title="I'm learning web development on Nextsem!"
+                  text={`I've completed ${totalCompleted} lessons on Nextsem — free full stack web dev! 🚀`}
+                  url="https://nextsem.online/curriculum"
+                />
+                <div className="w-14 h-14 rounded-2xl bg-[#04AA6D]/10 border border-[#04AA6D]/30 flex flex-col items-center justify-center">
+                  <span className="text-lg font-black text-[#04AA6D]">{overallPercent}%</span>
+                  <span className="text-[8px] text-slate-400 font-bold">done</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Overall progress bar */}
+            <div className="relative h-3 bg-slate-800/80 rounded-full overflow-hidden mb-4">
+              <div
+                className="h-full bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-full transition-all duration-700 ease-out"
+                style={{ width: `${Math.max(1, overallPercent)}%` }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent to-white/5 rounded-full" />
+            </div>
+
+            {/* Subject breakdown */}
+            <div className="grid grid-cols-3 gap-3 mb-5">
+              {[
+                { label: "CMD/CLI", count: completedCliCount, total: cliLessons.length, pct: cliPercent, color: "text-emerald-400", bg: "bg-emerald-500" },
+                { label: "HTML5", count: completedHtmlCount, total: htmlLessons.length, pct: htmlPercent, color: "text-orange-400", bg: "bg-orange-500" },
+                { label: "Git", count: completedGitCount, total: gitLessons.length, pct: gitPercent, color: "text-violet-400", bg: "bg-violet-500" },
+              ].map((s) => (
+                <div key={s.label} className="bg-slate-800/40 border border-slate-700/40 rounded-xl p-3">
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className={`text-[10px] font-extrabold uppercase ${s.color}`}>{s.label}</span>
+                    <span className="text-[10px] text-slate-400">{s.count}/{s.total}</span>
+                  </div>
+                  <div className="h-1.5 bg-slate-700 rounded-full overflow-hidden">
+                    <div className={`h-full ${s.bg} rounded-full transition-all duration-500`} style={{ width: `${s.pct}%` }} />
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Resume Last Lesson */}
+            {lastLesson ? (
+              <ResumeLessonBanner lastLesson={lastLesson} />
+            ) : (
+              <Link
+                href="/cli"
+                className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-[#04AA6D]/10 border border-[#04AA6D]/30 text-[#04AA6D] text-sm font-bold hover:bg-[#04AA6D]/20 transition-all"
+              >
+                <Target size={15} />
+                Start Learning — Windows CMD Course
+                <ArrowRight size={13} />
+              </Link>
+            )}
+          </div>
+        </div>
+
+        {/* ── 1. USER IDENTITY & CLOUD SYNC BADGE ── */}
+        <div className="relative bg-[#0c1328] border border-slate-800/80 rounded-3xl p-5 md:p-6 shadow-2xl overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-500/5 rounded-full blur-3xl pointer-events-none" />
+
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 relative z-10">
+            <div className="flex items-center gap-4 min-w-0">
+              {user?.photo ? (
+                <img 
+                  src={user.photo} 
+                  alt={user.name} 
+                  className="w-16 h-16 rounded-2xl border-2 border-cyan-500/40 object-cover shrink-0 shadow-lg" 
+                />
               ) : (
-                <div className="w-14 h-14 rounded-full bg-slate-700 text-white flex items-center justify-center font-bold text-lg shrink-0">
-                  {user.avatar}
+                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-cyan-600 to-emerald-600 text-white flex items-center justify-center font-black text-xl shrink-0 shadow-lg border border-cyan-400/30">
+                  {user?.avatar || "👤"}
                 </div>
               )}
-              <div className="min-w-0">
-                <h1 className="text-lg font-bold text-white truncate">{user.name}</h1>
-                <p className="text-sm text-slate-400 truncate">{user.email}</p>
-                <span className="inline-block mt-1.5 text-xs text-slate-500 bg-slate-800 border border-slate-700 px-2 py-0.5 rounded">
-                  Student
-                </span>
-              </div>
-            </div>
 
-            {/* ── Overall course progress ── */}
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-3">
-              <div className="flex items-center justify-between">
+              <div className="min-w-0 space-y-1">
                 <div className="flex items-center gap-2">
-                  <BookOpen size={15} className="text-slate-400" />
-                  <span className="text-sm font-semibold text-slate-200">Course Progress</span>
+                  <h1 className="text-base sm:text-lg font-black text-white truncate">
+                    {user?.name || "Guest Full Stack Learner"}
+                  </h1>
+                  <span className="text-[10px] font-black uppercase px-2 py-0.5 bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 rounded-full shrink-0">
+                    Full Stack Student
+                  </span>
                 </div>
-                <span className="text-sm font-semibold text-emerald-400">{progressPercent}%</span>
-              </div>
-              <div className="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
-                <div
-                  className="bg-emerald-500 h-full rounded-full transition-all duration-500"
-                  style={{ width: `${progressPercent}%` }}
-                />
-              </div>
-              <p className="text-xs text-slate-500">
-                {totalCompleted} of {totalChapters} modules completed
-              </p>
-            </div>
-
-            {/* ── Terminal CMD progress ── */}
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-3">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <Terminal size={15} className="text-slate-400" />
-                  <span className="text-sm font-semibold text-slate-200">Windows CMD Simulator</span>
-                </div>
-                <span className="text-sm font-semibold text-violet-400">{terminalPercent}%</span>
-              </div>
-              <div className="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
-                <div
-                  className="bg-violet-500 h-full rounded-full transition-all duration-500"
-                  style={{ width: `${terminalPercent}%` }}
-                />
-              </div>
-              <div className="flex items-center justify-between">
-                <p className="text-xs text-slate-500">
-                  {terminalCertified ? "Completed" : `Step ${terminalStep + 1} of 10`}
+                <p className="text-xs text-slate-400 truncate font-medium">
+                  {user?.email || "Local Device Cache Storage"}
                 </p>
-                <Link href="/cmd" className="flex items-center gap-1 text-xs text-violet-400 hover:text-violet-300 transition-colors">
-                  Open Simulator <ArrowRight size={12} />
-                </Link>
-              </div>
-            </div>
 
-            {/* ── PWA install ── */}
-            {isInstallable && (
-              <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 flex items-center justify-between gap-4">
-                <div>
-                  <p className="text-sm font-semibold text-slate-200">Install as App</p>
-                  <p className="text-xs text-slate-500 mt-0.5">Add Nextsem to your home screen for quick access and offline learning.</p>
+                {/* Live Auth Badge */}
+                <div className="flex items-center gap-2 pt-1">
+                  {user ? (
+                    <span className="inline-flex items-center gap-1.5 text-[10px] font-extrabold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2.5 py-0.5 rounded-full">
+                      <CloudCheck size={12} className="stroke-[2.5]" />
+                      Google Cloud Synced
+                    </span>
+                  ) : (
+                    <span className="inline-flex items-center gap-1.5 text-[10px] font-extrabold text-amber-400 bg-amber-500/10 border border-amber-500/30 px-2.5 py-0.5 rounded-full">
+                      <ShieldAlert size={12} className="stroke-[2.5]" />
+                      Unsynced Device Cache
+                    </span>
+                  )}
                 </div>
-                <button
-                  onClick={installApp}
-                  className="flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white rounded-xl text-sm font-medium transition-all cursor-pointer shrink-0"
-                >
-                  <Download size={14} />
-                  Install
-                </button>
-              </div>
-            )}
-
-            {/* ── Syllabus checklist ── */}
-            <div className="space-y-3">
-              <div className="flex items-center gap-2 px-1">
-                <BookOpen size={14} className="text-slate-500" />
-                <span className="text-sm font-semibold text-slate-300">Syllabus Checklist</span>
-                <span className="text-xs text-slate-600 ml-auto">{totalCompleted}/{totalChapters} done</span>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                {searchIndex.map((chapter) => {
-                  const isDone = completedChapters[chapter.id];
-                  return (
-                    <Link
-                      key={chapter.id}
-                      href={getChapterUrl(chapter.id)}
-                      className={`p-3.5 border rounded-xl flex items-center gap-3 transition-all group hover:bg-slate-900 ${
-                        isDone ? "border-emerald-800/60 bg-emerald-950/20" : "border-slate-800 bg-slate-900/40"
-                      }`}
-                    >
-                      {isDone ? (
-                        <CheckCircle2 size={15} className="text-emerald-500 shrink-0" />
-                      ) : (
-                        <Circle size={15} className="text-slate-700 group-hover:text-slate-500 shrink-0 transition-colors" />
-                      )}
-                      <div className="min-w-0 flex-1">
-                        <span className="block text-sm text-slate-300 group-hover:text-white truncate transition-colors">{chapter.title}</span>
-                        <span className="block text-xs text-slate-600 mt-0.5">{chapter.phase} · {chapter.duration}</span>
-                      </div>
-                      <ArrowRight size={13} className="text-slate-700 group-hover:text-slate-400 shrink-0 transition-colors" />
-                    </Link>
-                  );
-                })}
               </div>
             </div>
 
-            {/* ── Danger zone ── */}
-            <div className="border border-slate-800 rounded-2xl p-6">
-              <p className="text-sm font-semibold text-slate-300 mb-1">Delete account</p>
-              <p className="text-xs text-slate-500 mb-4">
-                Permanently removes your progress, saved data, and account. This cannot be undone.
-              </p>
-              <button
-                onClick={handleDeleteAccount}
-                className="px-4 py-2 text-sm text-rose-400 border border-rose-900 rounded-xl hover:bg-rose-950 transition-colors cursor-pointer"
-              >
-                Delete my account
-              </button>
-            </div>
-          </>
-        ) : (
-          /* ── Guest state: show progress from localStorage ── */
-          <div className="space-y-6">
-            {/* Guest profile card */}
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 flex items-center gap-5">
-              <div className="w-14 h-14 rounded-full bg-gradient-to-br from-slate-700 to-slate-800 border border-slate-600 text-white flex items-center justify-center font-bold text-2xl shrink-0">
-                👤
-              </div>
-              <div className="min-w-0 flex-1">
-                <h1 className="text-lg font-bold text-white">Guest Learner</h1>
-                <p className="text-sm text-slate-400">Progress saved locally on this device</p>
-                <span className="inline-block mt-1.5 text-xs text-amber-400/80 bg-amber-950/30 border border-amber-800/30 px-2 py-0.5 rounded">
-                  🔓 No login required
-                </span>
-              </div>
-            </div>
-
-            {/* Progress stats */}
-            <div className="grid grid-cols-2 gap-4">
-              <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 text-center">
-                <p className="text-3xl font-black text-white">{totalCompleted}</p>
-                <p className="text-xs text-slate-500 mt-1">Lessons Completed</p>
-              </div>
-              <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 text-center">
-                <p className="text-3xl font-black text-emerald-400">{progressPercent}%</p>
-                <p className="text-xs text-slate-500 mt-1">Overall Progress</p>
-              </div>
-            </div>
-
-            {/* Progress bar */}
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-3">
-              <div className="flex justify-between text-xs text-slate-400">
-                <span className="font-semibold">Course Progress</span>
-                <span>{totalCompleted} / {totalChapters} chapters</span>
-              </div>
-              <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
-                <div
-                  className="h-full bg-gradient-to-r from-emerald-600 to-teal-500 rounded-full transition-all duration-500"
-                  style={{ width: `${progressPercent}%` }}
-                />
-              </div>
-            </div>
-
-            {/* Soft sign-in upsell — not a gate */}
-            <div className="bg-gradient-to-br from-blue-950/40 to-indigo-950/40 border border-blue-800/40 rounded-2xl p-6 text-center space-y-4">
-              <div className="w-12 h-12 mx-auto rounded-xl bg-blue-900/30 border border-blue-700/30 flex items-center justify-center text-2xl">
-                ☁️
-              </div>
-              <div>
-                <p className="text-sm font-bold text-white">Want cloud sync?</p>
-                <p className="text-xs text-slate-400 mt-1 leading-relaxed">
-                  Sign in with Google to backup your progress to the cloud and access it from any device.
-                  <br />
-                  <span className="text-slate-500 italic">Coming after AdSense approval.</span>
-                </p>
-              </div>
+            {!user && (
               <button
                 onClick={handleGoogleSignIn}
-                className="w-full flex items-center justify-center gap-3 px-6 py-3 bg-white text-slate-900 border border-slate-200 rounded-xl font-semibold text-sm shadow-sm hover:bg-slate-50 transition-all cursor-pointer"
+                disabled={syncing}
+                className="w-full sm:w-auto flex items-center justify-center gap-2 px-5 py-2.5 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 rounded-2xl font-black text-xs transition-all shadow-xl hover:scale-[1.02] active:scale-98 cursor-pointer shrink-0"
               >
-                <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24">
-                  <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
-                  <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
-                  <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" />
-                  <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" />
-                </svg>
-                Sign in with Google (optional)
+                {syncing ? (
+                  <RefreshCw size={14} className="animate-spin" />
+                ) : (
+                  <LogIn size={14} className="stroke-[2.5]" />
+                )}
+                <span>Sign In to Sync Cloud</span>
               </button>
+            )}
+          </div>
+
+          {/* ⚠️ HIGH VISIBILITY GUEST DATA LOSS WARNING BANNER */}
+          {!user && (
+            <div className="mt-5 p-4 bg-amber-500/10 border border-amber-500/30 rounded-2xl flex items-start gap-3">
+              <ShieldAlert size={20} className="text-amber-400 shrink-0 mt-0.5" />
+              <div className="space-y-1 text-xs">
+                <div className="font-extrabold text-amber-300">
+                  ⚠️ Warning: Progress Stored Only in Device Cache!
+                </div>
+                <p className="text-slate-300 leading-relaxed font-medium">
+                  Your learning steps and certificates are currently saved in your browser cache memory. 
+                  <strong className="text-amber-200"> If you clear your browser cache or close app data, you will lose your progress!</strong> 
+                  Sign in with your Google Gmail account to back up your progress permanently.
+                </p>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* ── 2. DEVELOPER LEARNING METRICS GRID ── */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 md:gap-4">
+          
+          <div className="bg-[#0c1328] border border-slate-800/80 rounded-2xl p-4 text-center space-y-1 shadow-lg">
+            <div className="text-[10px] font-black uppercase tracking-widest text-slate-400">Total Lessons</div>
+            <div className="text-2xl sm:text-3xl font-black text-white">{totalCompleted}</div>
+            <div className="text-[10px] text-slate-500 font-semibold">out of 3,750 lessons</div>
+          </div>
+
+          <div className="bg-[#0c1328] border border-slate-800/80 rounded-2xl p-4 text-center space-y-1 shadow-lg">
+            <div className="text-[10px] font-black uppercase tracking-widest text-slate-400">Overall Progress</div>
+            <div className="text-2xl sm:text-3xl font-black text-[#04AA6D]">{overallPercent}%</div>
+            <div className="text-[10px] text-slate-500 font-semibold">all active subjects</div>
+          </div>
+
+          <div className="bg-[#0c1328] border border-slate-800/80 rounded-2xl p-4 text-center space-y-1 shadow-lg">
+            <div className="text-[10px] font-black uppercase tracking-widest text-slate-400">CMD Steps</div>
+            <div className="text-2xl sm:text-3xl font-black text-violet-400">
+              {terminalCertified ? "10/10" : `${terminalStep}/10`}
+            </div>
+            <div className="text-[10px] text-slate-500 font-semibold">Terminal Commands</div>
+          </div>
+
+          <div className="bg-[#0c1328] border border-slate-800/80 rounded-2xl p-4 text-center space-y-1 shadow-lg">
+            <div className="text-[10px] font-black uppercase tracking-widest text-slate-400">Certificates</div>
+            <div className="text-2xl sm:text-3xl font-black text-amber-400">
+              {terminalCertified ? "1" : "0"}
+            </div>
+            <div className="text-[10px] text-slate-500 font-semibold">Verified Developer</div>
+          </div>
+
+        </div>
+
+        {/* ── 3. FULL STACK SKILLS MATRIX (ALL PHASES) ── */}
+        <div className="space-y-8">
+          <div className="flex items-center justify-between px-1 border-b border-slate-800/80 pb-3">
+            <h2 className="text-base font-extrabold uppercase tracking-wider text-white flex items-center gap-2">
+              <Award size={18} className="text-cyan-400" />
+              <span>Full Stack Skills Matrix (All Phases)</span>
+            </h2>
+            <span className="text-xs text-cyan-400 font-bold bg-cyan-500/10 px-3 py-1 rounded-full border border-cyan-500/30">
+              5 Phases Total
+            </span>
+          </div>
+
+          {/* ── PHASE 1: WEB FOUNDATIONS ── */}
+          <div className="space-y-3">
+            <div className="flex items-center justify-between px-1">
+              <h3 className="text-xs font-black uppercase tracking-wider text-[#04AA6D] flex items-center gap-2">
+                <span>Phase 1 — Web Foundations</span>
+              </h3>
+              <span className="text-[11px] text-slate-400 font-semibold">Steps 1.1 - 1.5</span>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+              {/* 🪟 Windows CLI Command Prompt Card */}
+              <div className="p-4 bg-[#090e1f] border border-slate-800/90 rounded-2xl space-y-2.5 shadow-lg">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <h3 className="text-sm font-black text-[#04AA6D]">Windows CLI / CMD</h3>
+                    <span className="px-2.5 py-0.5 rounded-full bg-[#16294a] text-[#4ea8ff] font-extrabold text-[11px] border border-[#2b518c]/60">
+                      {cliPercent}% done
+                    </span>
+                  </div>
+                  <span className="text-xs font-mono font-bold text-slate-400">
+                    {completedCliCount || terminalStep}/{cliLessons.length || 15}
+                  </span>
+                </div>
+
+                <div className="w-full bg-[#101d36] h-2 rounded-full overflow-hidden border border-slate-800/80">
+                  <div 
+                    className="bg-gradient-to-r from-cyan-400 to-[#00f2fe] h-full rounded-full transition-all duration-500 shadow-[0_0_8px_#00d2ff]"
+                    style={{ width: `${cliPercent}%` }}
+                  />
+                </div>
+
+                <div className="flex items-center justify-between pt-1">
+                  <span className="text-[11px] text-slate-400 font-medium">
+                    {terminalCertified ? "🏆 CLI Certified" : `Completed ${terminalStep} of 10 steps`}
+                  </span>
+                  <Link
+                    href="/cli"
+                    className="flex items-center gap-1 text-xs font-bold text-cyan-400 hover:text-cyan-300 transition-colors"
+                  >
+                    <span>Start Lesson</span>
+                    <ArrowRight size={13} />
+                  </Link>
+                </div>
+              </div>
+
+              {/* 📄 HTML5 Web Foundations Card */}
+              <div className="p-4 bg-[#090e1f] border border-slate-800/90 rounded-2xl space-y-2.5 shadow-lg">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <h3 className="text-sm font-black text-[#04AA6D]">HTML5 Web Dev</h3>
+                    <span className="px-2.5 py-0.5 rounded-full bg-[#16294a] text-[#4ea8ff] font-extrabold text-[11px] border border-[#2b518c]/60">
+                      {htmlPercent}% done
+                    </span>
+                  </div>
+                  <span className="text-xs font-mono font-bold text-slate-400">
+                    {completedHtmlCount}/{htmlLessons.length}
+                  </span>
+                </div>
+
+                <div className="w-full bg-[#101d36] h-2 rounded-full overflow-hidden border border-slate-800/80">
+                  <div 
+                    className="bg-gradient-to-r from-cyan-400 to-[#00f2fe] h-full rounded-full transition-all duration-500 shadow-[0_0_8px_#00d2ff]"
+                    style={{ width: `${htmlPercent}%` }}
+                  />
+                </div>
+
+                <div className="flex items-center justify-between pt-1">
+                  <span className="text-[11px] text-slate-400 font-medium">
+                    {completedHtmlCount} of {htmlLessons.length} lessons done
+                  </span>
+                  <Link
+                    href="/html"
+                    className="flex items-center gap-1 text-xs font-bold text-cyan-400 hover:text-cyan-300 transition-colors"
+                  >
+                    <span>Explore HTML</span>
+                    <ArrowRight size={13} />
+                  </Link>
+                </div>
+              </div>
+
+              {/* 🎨 CSS3 & Responsive Design Card */}
+              <div className="p-4 bg-[#090e1f] border border-slate-800/90 rounded-2xl space-y-2.5 shadow-lg">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <h3 className="text-sm font-black text-[#04AA6D]">CSS3 & Styling</h3>
+                    <span className="px-2.5 py-0.5 rounded-full bg-[#16294a] text-[#4ea8ff] font-extrabold text-[11px] border border-[#2b518c]/60">
+                      0% done
+                    </span>
+                  </div>
+                  <span className="text-xs font-mono font-bold text-slate-400">
+                    0/50
+                  </span>
+                </div>
+
+                <div className="w-full bg-[#101d36] h-2 rounded-full overflow-hidden border border-slate-800/80">
+                  <div className="bg-gradient-to-r from-cyan-400 to-[#00f2fe] h-full rounded-full w-0" />
+                </div>
+
+                <div className="flex items-center justify-between pt-1">
+                  <span className="text-[11px] text-slate-400 font-medium">
+                    Phase 1 Step 1.3
+                  </span>
+                  <Link
+                    href="/"
+                    className="flex items-center gap-1 text-xs font-bold text-cyan-400 hover:text-cyan-300 transition-colors"
+                  >
+                    <span>Curriculum</span>
+                    <ArrowRight size={13} />
+                  </Link>
+                </div>
+              </div>
+
+              {/* 🐙 Git & GitHub Version Control Card */}
+              <div className="p-4 bg-[#090e1f] border border-slate-800/90 rounded-2xl space-y-2.5 shadow-lg">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <h3 className="text-sm font-black text-[#04AA6D]">Git Version Control</h3>
+                    <span className="px-2.5 py-0.5 rounded-full bg-[#16294a] text-[#4ea8ff] font-extrabold text-[11px] border border-[#2b518c]/60">
+                      {gitPercent}% done
+                    </span>
+                  </div>
+                  <span className="text-xs font-mono font-bold text-slate-400">
+                    {completedGitCount}/{gitLessons.length}
+                  </span>
+                </div>
+
+                <div className="w-full bg-[#101d36] h-2 rounded-full overflow-hidden border border-slate-800/80">
+                  <div 
+                    className="bg-gradient-to-r from-cyan-400 to-[#00f2fe] h-full rounded-full transition-all duration-500 shadow-[0_0_8px_#00d2ff]"
+                    style={{ width: `${gitPercent}%` }}
+                  />
+                </div>
+
+                <div className="flex items-center justify-between pt-1">
+                  <span className="text-[11px] text-slate-400 font-medium">
+                    {completedGitCount} of {gitLessons.length} commands done
+                  </span>
+                  <Link
+                    href="/git"
+                    className="flex items-center gap-1 text-xs font-bold text-cyan-400 hover:text-cyan-300 transition-colors"
+                  >
+                    <span>Open Git</span>
+                    <ArrowRight size={13} />
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
+
+          {/* ── PHASE 2: FRONTEND ENGINEERING ── */}
+          <div className="space-y-3 pt-2">
+            <div className="flex items-center justify-between px-1">
+              <h3 className="text-xs font-black uppercase tracking-wider text-[#04AA6D] flex items-center gap-2">
+                <span>Phase 2 — Frontend Engineering</span>
+              </h3>
+              <span className="text-[11px] text-slate-400 font-semibold">Steps 2.1 - 2.4</span>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+              {/* ⚛️ React.js */}
+              <div className="p-4 bg-[#090e1f] border border-slate-800/90 rounded-2xl space-y-2.5 shadow-lg">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <h3 className="text-sm font-black text-[#04AA6D]">React.js & Hooks</h3>
+                    <span className="px-2.5 py-0.5 rounded-full bg-[#16294a] text-[#4ea8ff] font-extrabold text-[11px] border border-[#2b518c]/60">
+                      0% done
+                    </span>
+                  </div>
+                  <span className="text-xs font-mono font-bold text-slate-400">0/60</span>
+                </div>
+                <div className="w-full bg-[#101d36] h-2 rounded-full overflow-hidden border border-slate-800/80">
+                  <div className="bg-gradient-to-r from-cyan-400 to-[#00f2fe] h-full rounded-full w-0" />
+                </div>
+                <div className="flex items-center justify-between pt-1">
+                  <span className="text-[11px] text-slate-400 font-medium">JSX, Components & State</span>
+                  <Link href="/" className="flex items-center gap-1 text-xs font-bold text-cyan-400 hover:text-cyan-300">
+                    <span>Explore React</span> <ArrowRight size={13} />
+                  </Link>
+                </div>
+              </div>
+
+              {/* 🧩 Next.js App Router */}
+              <div className="p-4 bg-[#090e1f] border border-slate-800/90 rounded-2xl space-y-2.5 shadow-lg">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <h3 className="text-sm font-black text-[#04AA6D]">Next.js App Router</h3>
+                    <span className="px-2.5 py-0.5 rounded-full bg-[#16294a] text-[#4ea8ff] font-extrabold text-[11px] border border-[#2b518c]/60">
+                      0% done
+                    </span>
+                  </div>
+                  <span className="text-xs font-mono font-bold text-slate-400">0/40</span>
+                </div>
+                <div className="w-full bg-[#101d36] h-2 rounded-full overflow-hidden border border-slate-800/80">
+                  <div className="bg-gradient-to-r from-cyan-400 to-[#00f2fe] h-full rounded-full w-0" />
+                </div>
+                <div className="flex items-center justify-between pt-1">
+                  <span className="text-[11px] text-slate-400 font-medium">SSR, SSG & Server Components</span>
+                  <Link href="/" className="flex items-center gap-1 text-xs font-bold text-cyan-400 hover:text-cyan-300">
+                    <span>Explore Next.js</span> <ArrowRight size={13} />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* ── PHASE 3: BACKEND & DATABASES ── */}
+          <div className="space-y-3 pt-2">
+            <div className="flex items-center justify-between px-1">
+              <h3 className="text-xs font-black uppercase tracking-wider text-[#04AA6D] flex items-center gap-2">
+                <span>Phase 3 — Backend & Databases</span>
+              </h3>
+              <span className="text-[11px] text-slate-400 font-semibold">Steps 3.1 - 3.4</span>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+              {/* 🟢 Node.js & Express */}
+              <div className="p-4 bg-[#090e1f] border border-slate-800/90 rounded-2xl space-y-2.5 shadow-lg">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <h3 className="text-sm font-black text-[#04AA6D]">Node.js & Express</h3>
+                    <span className="px-2.5 py-0.5 rounded-full bg-[#16294a] text-[#4ea8ff] font-extrabold text-[11px] border border-[#2b518c]/60">
+                      0% done
+                    </span>
+                  </div>
+                  <span className="text-xs font-mono font-bold text-slate-400">0/45</span>
+                </div>
+                <div className="w-full bg-[#101d36] h-2 rounded-full overflow-hidden border border-slate-800/80">
+                  <div className="bg-gradient-to-r from-cyan-400 to-[#00f2fe] h-full rounded-full w-0" />
+                </div>
+                <div className="flex items-center justify-between pt-1">
+                  <span className="text-[11px] text-slate-400 font-medium">REST API Architecture</span>
+                  <Link href="/" className="flex items-center gap-1 text-xs font-bold text-cyan-400 hover:text-cyan-300">
+                    <span>Explore Node</span> <ArrowRight size={13} />
+                  </Link>
+                </div>
+              </div>
+
+              {/* 🍃 MongoDB & SQL */}
+              <div className="p-4 bg-[#090e1f] border border-slate-800/90 rounded-2xl space-y-2.5 shadow-lg">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <h3 className="text-sm font-black text-[#04AA6D]">MongoDB & SQL</h3>
+                    <span className="px-2.5 py-0.5 rounded-full bg-[#16294a] text-[#4ea8ff] font-extrabold text-[11px] border border-[#2b518c]/60">
+                      0% done
+                    </span>
+                  </div>
+                  <span className="text-xs font-mono font-bold text-slate-400">0/35</span>
+                </div>
+                <div className="w-full bg-[#101d36] h-2 rounded-full overflow-hidden border border-slate-800/80">
+                  <div className="bg-gradient-to-r from-cyan-400 to-[#00f2fe] h-full rounded-full w-0" />
+                </div>
+                <div className="flex items-center justify-between pt-1">
+                  <span className="text-[11px] text-slate-400 font-medium">Schemas & Querying</span>
+                  <Link href="/" className="flex items-center gap-1 text-xs font-bold text-cyan-400 hover:text-cyan-300">
+                    <span>Explore Databases</span> <ArrowRight size={13} />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* ── PHASE 4: FULL STACK PROJECTS ── */}
+          <div className="space-y-3 pt-2">
+            <div className="flex items-center justify-between px-1">
+              <h3 className="text-xs font-black uppercase tracking-wider text-[#04AA6D] flex items-center gap-2">
+                <span>Phase 4 — Full Stack Production Projects</span>
+              </h3>
+              <span className="text-[11px] text-slate-400 font-semibold">Steps 4.1 - 4.5</span>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+              {/* 🛒 E-Commerce & Apps */}
+              <div className="p-4 bg-[#090e1f] border border-slate-800/90 rounded-2xl space-y-2.5 shadow-lg">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <h3 className="text-sm font-black text-[#04AA6D]">Production Apps</h3>
+                    <span className="px-2.5 py-0.5 rounded-full bg-[#16294a] text-[#4ea8ff] font-extrabold text-[11px] border border-[#2b518c]/60">
+                      0% done
+                    </span>
+                  </div>
+                  <span className="text-xs font-mono font-bold text-slate-400">0/20</span>
+                </div>
+                <div className="w-full bg-[#101d36] h-2 rounded-full overflow-hidden border border-slate-800/80">
+                  <div className="bg-gradient-to-r from-cyan-400 to-[#00f2fe] h-full rounded-full w-0" />
+                </div>
+                <div className="flex items-center justify-between pt-1">
+                  <span className="text-[11px] text-slate-400 font-medium">Full Stack SaaS & E-Commerce</span>
+                  <Link href="/" className="flex items-center gap-1 text-xs font-bold text-cyan-400 hover:text-cyan-300">
+                    <span>View Projects</span> <ArrowRight size={13} />
+                  </Link>
+                </div>
+              </div>
+
+              {/* ☁️ Cloud Deployment */}
+              <div className="p-4 bg-[#090e1f] border border-slate-800/90 rounded-2xl space-y-2.5 shadow-lg">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <h3 className="text-sm font-black text-[#04AA6D]">Cloud Deployment</h3>
+                    <span className="px-2.5 py-0.5 rounded-full bg-[#16294a] text-[#4ea8ff] font-extrabold text-[11px] border border-[#2b518c]/60">
+                      0% done
+                    </span>
+                  </div>
+                  <span className="text-xs font-mono font-bold text-slate-400">0/15</span>
+                </div>
+                <div className="w-full bg-[#101d36] h-2 rounded-full overflow-hidden border border-slate-800/80">
+                  <div className="bg-gradient-to-r from-cyan-400 to-[#00f2fe] h-full rounded-full w-0" />
+                </div>
+                <div className="flex items-center justify-between pt-1">
+                  <span className="text-[11px] text-slate-400 font-medium">Vercel, Docker & CI/CD</span>
+                  <Link href="/" className="flex items-center gap-1 text-xs font-bold text-cyan-400 hover:text-cyan-300">
+                    <span>Explore Cloud</span> <ArrowRight size={13} />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* ── PHASE 5: CAREER & SYSTEM DESIGN ── */}
+          <div className="space-y-3 pt-2">
+            <div className="flex items-center justify-between px-1">
+              <h3 className="text-xs font-black uppercase tracking-wider text-[#04AA6D] flex items-center gap-2">
+                <span>Phase 5 — Career & System Design</span>
+              </h3>
+              <span className="text-[11px] text-slate-400 font-semibold">Steps 5.1 - 5.2</span>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+              {/* 🗣️ System Design */}
+              <div className="p-4 bg-[#090e1f] border border-slate-800/90 rounded-2xl space-y-2.5 shadow-lg">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <h3 className="text-sm font-black text-[#04AA6D]">System Design</h3>
+                    <span className="px-2.5 py-0.5 rounded-full bg-[#16294a] text-[#4ea8ff] font-extrabold text-[11px] border border-[#2b518c]/60">
+                      0% done
+                    </span>
+                  </div>
+                  <span className="text-xs font-mono font-bold text-slate-400">0/10</span>
+                </div>
+                <div className="w-full bg-[#101d36] h-2 rounded-full overflow-hidden border border-slate-800/80">
+                  <div className="bg-gradient-to-r from-cyan-400 to-[#00f2fe] h-full rounded-full w-0" />
+                </div>
+                <div className="flex items-center justify-between pt-1">
+                  <span className="text-[11px] text-slate-400 font-medium">Scalability & Architecture</span>
+                  <Link href="/" className="flex items-center gap-1 text-xs font-bold text-cyan-400 hover:text-cyan-300">
+                    <span>System Design</span> <ArrowRight size={13} />
+                  </Link>
+                </div>
+              </div>
+
+              {/* 💼 Interview Prep */}
+              <div className="p-4 bg-[#090e1f] border border-slate-800/90 rounded-2xl space-y-2.5 shadow-lg">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <h3 className="text-sm font-black text-[#04AA6D]">Interview Coding Prep</h3>
+                    <span className="px-2.5 py-0.5 rounded-full bg-[#16294a] text-[#4ea8ff] font-extrabold text-[11px] border border-[#2b518c]/60">
+                      0% done
+                    </span>
+                  </div>
+                  <span className="text-xs font-mono font-bold text-slate-400">0/25</span>
+                </div>
+                <div className="w-full bg-[#101d36] h-2 rounded-full overflow-hidden border border-slate-800/80">
+                  <div className="bg-gradient-to-r from-cyan-400 to-[#00f2fe] h-full rounded-full w-0" />
+                </div>
+                <div className="flex items-center justify-between pt-1">
+                  <span className="text-[11px] text-slate-400 font-medium">Live Coding & Behavioral</span>
+                  <Link href="/" className="flex items-center gap-1 text-xs font-bold text-cyan-400 hover:text-cyan-300">
+                    <span>Interview Prep</span> <ArrowRight size={13} />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+
+
+        {/* ── 5. DANGER ZONE ── */}
+        {user && (
+          <div className="bg-[#0c1328] border border-rose-950/60 rounded-3xl p-5 space-y-3">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-rose-400">Account Danger Zone</h3>
+            <p className="text-xs text-slate-400 font-medium">
+              Permanently delete your account and clear all saved cloud progress. This action cannot be reversed.
+            </p>
+            <button
+              onClick={handleDeleteAccount}
+              className="px-4 py-2 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/30 rounded-xl text-xs font-bold transition-all cursor-pointer"
+            >
+              Delete My Account
+            </button>
+          </div>
         )}
+
       </div>
     </div>
   );

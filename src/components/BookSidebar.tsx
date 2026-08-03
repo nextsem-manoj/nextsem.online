@@ -202,9 +202,9 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, onWidthChange, isCollaps
       <aside
         style={{ width: `${effectiveWidth}px` }}
         className={`
-          fixed top-[50px] md:top-[92px] left-0 md:left-[5vw] h-[calc(100vh-50px)] md:h-[calc(100vh-92px)]
-          bg-[#15202b] text-white border-r border-slate-700/60 shadow-2xl md:shadow-xl
-          transition-[width,transform,opacity] duration-300 z-50 md:z-30 overflow-y-auto overflow-x-hidden shrink-0 select-none
+          fixed top-0 left-0 h-full
+          bg-[#0e1117] text-white border-r border-slate-800/80 shadow-2xl
+          transition-[width,transform,opacity] duration-300 z-50 overflow-y-auto overflow-x-hidden shrink-0 select-none
           ${isOpen ? 'translate-x-0 opacity-100' : '-translate-x-full opacity-0 md:translate-x-0 md:opacity-100'}
         `}
       >
@@ -251,14 +251,14 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, onWidthChange, isCollaps
 
           {/* ── Logo/Tutorial Header Box ── */}
           {(() => {
-            const isHtml = activePhaseKey === 'P1';
-            const isCli = activePhaseKey === 'P0';
+            const isHtml = pathname.startsWith('/html');
+            const isCli = pathname.startsWith('/cli');
             const isGit = pathname.startsWith('/git');
             return (
               <div className={`mb-3 text-left border-b border-slate-800/60 pb-3 ${isCollapsed ? 'flex flex-col items-center' : ''}`}>
                 <div className={`flex ${isCollapsed ? 'flex-col items-center gap-1' : 'items-center gap-2.5'} mb-2`}>
                   <div className="w-8 h-8 rounded-lg bg-[#04AA6D] text-white flex items-center justify-center font-black text-xs shadow-md shrink-0">
-                    {isHtml ? "5" : isCli ? "⌘" : isGit ? "🐙" : "NS"}
+                    {isHtml ? "5" : isCli ? "CMD" : isGit ? "GIT" : "NS"}
                   </div>
                   {!isCollapsed && (
                     <div>
@@ -273,14 +273,14 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, onWidthChange, isCollaps
                 {!isCollapsed && isHtml && (
                   <Link href="/html/quiz" onClick={() => setIsOpen(false)}
                     className="mt-2 flex items-center justify-between px-3 py-1.5 bg-[#04AA6D]/15 border border-[#04AA6D]/40 text-[#04AA6D] hover:bg-[#04AA6D]/25 rounded-lg text-xs font-black uppercase tracking-wider transition-all cursor-pointer">
-                    <span>📝 Take HTML Quiz</span>
+                    <span>Take HTML Quiz</span>
                     <span className="text-[9px] bg-[#04AA6D] text-white px-1.5 py-0.5 rounded font-bold">100 Qs</span>
                   </Link>
                 )}
                 {!isCollapsed && isCli && (
                   <Link href="/cli/quiz" onClick={() => setIsOpen(false)}
                     className="mt-2 flex items-center justify-between px-3 py-1.5 bg-[#04AA6D]/15 border border-[#04AA6D]/40 text-[#04AA6D] hover:bg-[#04AA6D]/25 rounded-lg text-xs font-black uppercase tracking-wider transition-all cursor-pointer">
-                    <span>💻 Take CLI Quiz</span>
+                    <span>Take CLI Quiz</span>
                     <span className="text-[9px] bg-[#04AA6D] text-white px-1.5 py-0.5 rounded font-bold">Start</span>
                   </Link>
                 )}
@@ -321,7 +321,39 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, onWidthChange, isCollaps
                   })}
                 </div>
               )
-            ) : activePhaseKey === 'P1' ? (
+            ) : pathname.startsWith('/cli') ? (
+              /* CLI Lessons */
+              isCollapsed ? (
+                <div className="flex flex-col items-center gap-1.5">
+                  {cliLessons.map((l: any, li: number) => {
+                    const Icon = CLI_ICONS[li] ?? Terminal;
+                    const isLActive = pathname.endsWith(`/${l.slug}`) || (pathname === '/cli' && l.id === 1);
+                    return (
+                      <Link key={l.id} href={l.id === 1 ? '/cli' : `/cli/${l.slug}`} title={l.title}
+                        className={`w-8 h-8 rounded-lg flex items-center justify-center transition-all ${isLActive ? 'bg-[#04AA6D] text-white shadow-md' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`}>
+                        <Icon size={15} />
+                      </Link>
+                    );
+                  })}
+                </div>
+              ) : (
+                <div className="flex flex-col gap-0.5 text-left">
+                  <span className="px-2 py-1 text-[11px] font-black uppercase tracking-wider text-slate-400 border-b border-slate-800/60 mb-1 block">CMD Fundamentals</span>
+                  {cliLessons.map((l: any) => {
+                    const isLActive = pathname.endsWith(`/${l.slug}`) || (pathname === '/cli' && l.id === 1);
+                    const isLCompleted = completedHtmlLessons.has(l.id);
+                    const cleanTitle = l.title;
+                    return (
+                      <Link key={l.id} href={l.id === 1 ? '/cli' : `/cli/${l.slug}`}
+                        className={`flex items-center justify-between px-3 py-1.5 rounded-md text-xs font-semibold transition-all ${isLActive ? 'bg-[#04AA6D] text-white font-extrabold shadow-sm' : isLCompleted ? 'text-emerald-400 hover:bg-slate-800/60' : 'text-slate-300 hover:bg-slate-800/60 hover:text-white'}`}>
+                        <span className="truncate flex-1 text-left">{cleanTitle}</span>
+                        {isLCompleted && <Check size={12} className="text-emerald-400 shrink-0 ml-1.5 stroke-[3]" />}
+                      </Link>
+                    );
+                  })}
+                </div>
+              )
+            ) : pathname.startsWith('/html') ? (
               /* HTML Modules */
               isCollapsed ? (
                 /* Collapsed: icon-only dots per module */
@@ -382,38 +414,6 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, onWidthChange, isCollaps
                   })}
                 </div>
               )
-            ) : activePhaseKey === 'P0' ? (
-              /* CLI Lessons */
-              isCollapsed ? (
-                <div className="flex flex-col items-center gap-1.5">
-                  {cliLessons.map((l: any, li: number) => {
-                    const Icon = CLI_ICONS[li] ?? Terminal;
-                    const isLActive = pathname.endsWith(`/${l.slug}`) || (pathname === '/cli' && l.id === 1);
-                    return (
-                      <Link key={l.id} href={l.id === 1 ? '/cli' : `/cli/${l.slug}`} title={l.title}
-                        className={`w-8 h-8 rounded-lg flex items-center justify-center transition-all ${isLActive ? 'bg-[#04AA6D] text-white shadow-md' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`}>
-                        <Icon size={15} />
-                      </Link>
-                    );
-                  })}
-                </div>
-              ) : (
-                <div className="flex flex-col gap-0.5 text-left">
-                  <span className="px-2 py-1 text-[11px] font-black uppercase tracking-wider text-slate-400 border-b border-slate-800/60 mb-1 block">CMD Fundamentals</span>
-                  {cliLessons.map((l: any) => {
-                    const isLActive = pathname.endsWith(`/${l.slug}`) || (pathname === '/cli' && l.id === 1);
-                    const isLCompleted = completedHtmlLessons.has(l.id);
-                    const cleanTitle = l.id === 1 ? "CLI Home" : `CLI ${l.title.replace(/^(Lesson\s+\d+:|Learn CLI|Introduction to|What is|How)\s*/i, '').trim()}`;
-                    return (
-                      <Link key={l.id} href={l.id === 1 ? '/cli' : `/cli/${l.slug}`}
-                        className={`flex items-center justify-between px-3 py-1.5 rounded-md text-xs font-semibold transition-all ${isLActive ? 'bg-[#04AA6D] text-white font-extrabold shadow-sm' : isLCompleted ? 'text-emerald-400 hover:bg-slate-800/60' : 'text-slate-300 hover:bg-slate-800/60 hover:text-white'}`}>
-                        <span className="truncate flex-1 text-left">{cleanTitle}</span>
-                        {isLCompleted && <Check size={12} className="text-emerald-400 shrink-0 ml-1.5 stroke-[3]" />}
-                      </Link>
-                    );
-                  })}
-                </div>
-              )
             ) : (
               /* Other courses */
               (() => {
@@ -441,7 +441,7 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, onWidthChange, isCollaps
                         ) : (
                           <span className="shrink-0 mt-1 w-3.5 h-3.5 rounded-full border border-slate-600/80" />
                         )}
-                        <span className="truncate flex-1 text-left leading-snug">{chapter.title}</span>
+                        <span className="truncate flex-1 text-left leading-snug">{chapter.title.replace(/^(CLI\.\d+:|P\d+\.\d+:|Phase\s+\d+:)\s*/i, '').trim()}</span>
                       </div>
                     </Link>
                   );

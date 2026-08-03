@@ -91,12 +91,12 @@ export default function HtmlDashboardClient() {
       {/* Top Banner section */}
       <div className="relative rounded-3xl p-6 md:p-10 overflow-hidden border border-white/5 bg-gradient-to-br from-[#1c2d3b]/40 via-[#121d27]/55 to-slate-950 shadow-2xl mb-8 flex flex-col md:flex-row items-center justify-between gap-6">
         {/* Blur overlays for premium glass aesthetics */}
-        <div className="absolute -top-12 -left-12 w-64 h-64 bg-[#c1a648]/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -top-12 -left-12 w-64 h-64 bg-[#04AA6D]/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute -bottom-12 -right-12 w-64 h-64 bg-[#7f7034]/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="text-left space-y-3 z-10 flex-1">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#c1a648]/10 text-[#c1a648] text-[10px] font-black uppercase tracking-wider border border-[#c1a648]/20">
-            <Zap size={10} className="fill-[#c1a648]" />
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#04AA6D]/10 text-[#04AA6D] text-[10px] font-black uppercase tracking-wider border border-[#04AA6D]/20">
+            <Zap size={10} className="fill-[#04AA6D]" />
             <span>Interactive Course</span>
           </span>
           <h1 className="text-2xl md:text-4xl font-black tracking-tight leading-none bg-gradient-to-r from-white via-slate-100 to-slate-350 bg-clip-text text-transparent">
@@ -110,11 +110,11 @@ export default function HtmlDashboardClient() {
           <div className="pt-2">
             <div className="flex items-center justify-between text-xs font-bold text-slate-400 mb-1.5">
               <span>Course Progress</span>
-              <span className="text-[#c1a648]">{completedCount} / {totalLessons} Lessons ({progressPercent}%)</span>
+              <span className="text-[#04AA6D]">{completedCount} / {totalLessons} Lessons ({progressPercent}%)</span>
             </div>
             <div className="w-full h-2 rounded-full bg-slate-900 overflow-hidden border border-white/5">
               <div 
-                className="h-full bg-gradient-to-r from-[#e4ca67] via-[#c1a648] to-[#967b26] rounded-full transition-all duration-500"
+                className="h-full bg-gradient-to-r from-[#e4ca67] via-[#04AA6D] to-[#967b26] rounded-full transition-all duration-500"
                 style={{ width: `${progressPercent}%` }}
               />
             </div>
@@ -149,7 +149,7 @@ export default function HtmlDashboardClient() {
                 >
                   <div className="space-y-1.5 flex-1">
                     <div className="flex items-center gap-2">
-                      <span className="text-[9px] font-black uppercase text-[#c1a648] tracking-wider">Unit {mod.id}</span>
+                      <span className="text-[9px] font-black uppercase text-[#04AA6D] tracking-wider">Unit {mod.id}</span>
                       {allDone && (
                         <span className="inline-flex items-center gap-0.5 text-[8px] font-black uppercase bg-emerald-950/60 text-emerald-400 border border-emerald-500/20 px-1.5 py-0.5 rounded-full">
                           <CheckCircle size={8} className="text-emerald-405" /> Completed
@@ -167,7 +167,7 @@ export default function HtmlDashboardClient() {
                     </span>
                     <button
                       onClick={() => router.push(`/html/${mod.lessons[0].slug}`)}
-                      className="inline-flex items-center gap-1 text-[10px] font-black uppercase text-[#c1a648] hover:text-[#7f7034] transition-colors cursor-pointer"
+                      className="inline-flex items-center gap-1 text-[10px] font-black uppercase text-[#04AA6D] hover:text-[#7f7034] transition-colors cursor-pointer"
                     >
                       <span>Explore</span>
                       <ChevronRight size={10} />
@@ -210,7 +210,7 @@ export default function HtmlDashboardClient() {
                               <CheckCircle size={10} className="text-white" />
                             </span>
                           ) : (
-                            <span className="shrink-0 text-[10px] font-bold font-mono text-[#c1a648] bg-[#c1a648]/10 w-4 h-4 rounded-full flex items-center justify-center border border-[#c1a648]/20">
+                            <span className="shrink-0 text-[10px] font-bold font-mono text-[#04AA6D] bg-[#04AA6D]/10 w-4 h-4 rounded-full flex items-center justify-center border border-[#04AA6D]/20">
                               {lesson.id}
                             </span>
                           )}
