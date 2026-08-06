@@ -1,0 +1,4163 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JavaScript Mastery | NextSem Online</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --bg-primary: #17181c;
+      --bg-secondary: #1e2430;
+      --bg-card: #1e2430;
+      --bg-card-hover: #262d3d;
+      --text-primary: #ffffff;
+      --text-secondary: #cbd5e1;
+      --text-muted: #94a3b8;
+      --accent-yellow: #f7df1e;
+      --accent-blue: #38bdf8;
+      --accent-green: #04AA6D;
+      --accent-green-hover: #039861;
+      --accent-purple: #c084fc;
+      --border-color: #2e3748;
+      --sidebar-width: 300px;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'Fira Code', monospace;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.1);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.3);
+      --shadow-lg: 0 10px 25px -5px rgb(0 0 0 / 0.5);
+    }
+
+    .light {
+      --bg-primary: #f8fafc;
+      --bg-secondary: #ffffff;
+      --bg-card: #ffffff;
+      --bg-card-hover: #f1f5f9;
+      --text-primary: #0f172a;
+      --text-secondary: #334155;
+      --text-muted: #64748b;
+      --border-color: #e2e8f0;
+      --shadow-lg: 0 10px 25px -5px rgb(0 0 0 / 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+    }
+
+    /* Accessibility Focus Style */
+    *:focus-visible {
+      outline: 2px solid var(--accent-blue);
+      outline-offset: 2px;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      display: flex;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Sticky Sidebar Navigation */
+    aside.sidebar {
+      width: var(--sidebar-width);
+      background-color: var(--bg-secondary);
+      border-right: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 50;
+      overflow-y: auto;
+      scroll-behavior: smooth;
+    }
+
+    .sidebar-header {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      background-color: var(--bg-secondary);
+      z-index: 10;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .brand-icon {
+      background: var(--accent-yellow);
+      color: #000000;
+      font-weight: 900;
+      font-size: 1.2rem;
+      width: 38px;
+      height: 38px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(247, 223, 30, 0.4);
+    }
+
+    .brand-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+    }
+
+    /* Sidebar Search Input */
+    .search-box {
+      padding: 1rem 1.25rem 0.5rem;
+    }
+
+    .search-input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .search-input-wrapper i {
+      position: absolute;
+      left: 0.85rem;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 0.55rem 0.75rem 0.55rem 2.25rem;
+      background: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      color: var(--text-primary);
+      font-size: 0.85rem;
+    }
+
+    .search-input:focus {
+      border-color: var(--accent-blue);
+      outline: none;
+    }
+
+    .sidebar-nav {
+      padding: 0.5rem 0 2rem;
+      flex: 1;
+    }
+
+    .nav-section-title {
+      padding: 1rem 1.5rem 0.4rem;
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1.5rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      border-left: 3px solid transparent;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .nav-item:hover {
+      background-color: var(--bg-card-hover);
+      color: var(--text-primary);
+      transform: translateX(2px);
+    }
+
+    .nav-item.active {
+      background-color: rgba(56, 189, 248, 0.12);
+      color: var(--accent-blue);
+      border-left-color: var(--accent-blue);
+      font-weight: 700;
+    }
+
+    .nav-item i.check-icon {
+      margin-left: auto;
+      color: var(--accent-green);
+      font-size: 0.85rem;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .nav-item.completed i.check-icon {
+      opacity: 1;
+    }
+
+    /* Main Content */
+    main.main-content {
+      margin-left: var(--sidebar-width);
+      flex: 1;
+      max-width: 1050px;
+      padding: 1.5rem 2.5rem 4rem;
+      width: calc(100% - var(--sidebar-width));
+    }
+
+    /* Top Progress Bar */
+    .course-progress-bar-container {
+      width: 100%;
+      height: 6px;
+      background: var(--bg-secondary);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.2);
+    }
+
+    .course-progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent-blue), var(--accent-green));
+      border-radius: 999px;
+      transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Header Bar */
+    header.top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-color);
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      padding: 0.5rem 0.75rem;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .breadcrumbs {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .breadcrumbs a {
+      color: var(--text-secondary);
+      text-decoration: none;
+    }
+
+    .breadcrumbs a:hover {
+      color: var(--accent-blue);
+    }
+
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .header-badge {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      padding: 0.4rem 0.85rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent-yellow);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .control-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      padding: 0.5rem 0.85rem;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .control-btn:hover {
+      background-color: var(--bg-card-hover);
+      border-color: var(--accent-blue);
+    }
+
+    .control-btn.bookmarked i {
+      color: var(--accent-yellow);
+    }
+
+    /* Lesson Typography & Metadata */
+    .lesson-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.3rem 0.8rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .badge-yellow {
+      background: rgba(247, 223, 30, 0.15);
+      color: #f7df1e;
+      border: 1px solid rgba(247, 223, 30, 0.3);
+    }
+
+    .badge-blue {
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--accent-blue);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+
+    .badge-green {
+      background: rgba(4, 170, 109, 0.15);
+      color: #4ade80;
+      border: 1px solid rgba(4, 170, 109, 0.3);
+    }
+
+    .badge-red {
+      background: rgba(239, 68, 68, 0.15);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+
+    .meta-item {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-weight: 500;
+    }
+
+    .lesson-title {
+      font-size: 2.3rem;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+      line-height: 1.25;
+    }
+
+    .lesson-lead {
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+      font-weight: 400;
+    }
+
+    /* High Contrast White Heading Standard */
+    .lesson-body h2 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin: 2.25rem 0 1.25rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .light .lesson-body h2 {
+      color: #0f172a;
+    }
+
+    .lesson-body p {
+      margin-bottom: 1.25rem;
+      color: var(--text-secondary);
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+
+    .lesson-body strong {
+      color: #ffffff;
+      font-weight: 700;
+    }
+
+    .light .lesson-body strong {
+      color: #0f172a;
+    }
+
+    .lesson-body ul, .lesson-body ol {
+      margin-bottom: 1.5rem;
+      padding-left: 1.5rem;
+      color: var(--text-secondary);
+    }
+
+    .lesson-body li {
+      margin-bottom: 0.6rem;
+      line-height: 1.6;
+    }
+
+    /* Vibrant Underlined Green Link Standard */
+    .lesson-body a, .green-link {
+      color: var(--accent-green) !important;
+      text-decoration: underline !important;
+      text-decoration-color: var(--accent-green) !important;
+      font-weight: 600 !important;
+    }
+
+    .lesson-body a:hover, .green-link:hover {
+      color: var(--accent-green-hover) !important;
+    }
+
+    code:not(pre code) {
+      font-family: var(--font-mono);
+      background: rgba(56, 189, 248, 0.1);
+      padding: 0.2rem 0.45rem;
+      border-radius: 4px;
+      font-size: 0.88em;
+      color: var(--accent-blue);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+    }
+
+    /* Callouts */
+    .callout {
+      padding: 1.25rem 1.5rem;
+      border-radius: var(--radius-md);
+      margin: 1.75rem 0;
+      display: flex;
+      gap: 1rem;
+      border-left: 4px solid;
+      background: var(--bg-card);
+    }
+
+    .callout-info {
+      background: rgba(56, 189, 248, 0.08);
+      border-color: var(--accent-blue);
+    }
+
+    .callout-tip {
+      background: rgba(4, 170, 109, 0.08);
+      border-color: var(--accent-green);
+    }
+
+    .callout-warning {
+      background: rgba(247, 223, 30, 0.08);
+      border-color: var(--accent-yellow);
+    }
+
+    .callout-icon {
+      font-size: 1.3rem;
+    }
+
+    .callout-info .callout-icon { color: var(--accent-blue); }
+    .callout-tip .callout-icon { color: var(--accent-green); }
+    .callout-warning .callout-icon { color: var(--accent-yellow); }
+
+    .callout-title {
+      font-weight: 800;
+      margin-bottom: 0.25rem;
+      color: var(--text-primary);
+    }
+
+    /* Code Editor Playground */
+    .code-editor-card {
+      background: #090d16;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      margin: 2rem 0;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .editor-header {
+      background: #111827;
+      padding: 0.85rem 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #1f2937;
+    }
+
+    .editor-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+    }
+
+    .dot-red { background: #ef4444; }
+    .dot-yellow { background: #f59e0b; }
+    .dot-green { background: #10b981; }
+
+    .editor-file-title {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: #9ca3af;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 600;
+    }
+
+    .btn-run {
+      background: var(--accent-green);
+      color: #ffffff;
+      border: none;
+      padding: 0.45rem 1.1rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      box-shadow: 0 2px 6px rgba(4, 170, 109, 0.4);
+    }
+
+    .btn-run:hover {
+      background: var(--accent-green-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn-run:active {
+      transform: translateY(0);
+    }
+
+    .code-textarea {
+      width: 100%;
+      background: #0d1322;
+      color: #38bdf8;
+      font-family: var(--font-mono);
+      font-size: 0.92rem;
+      line-height: 1.6;
+      padding: 1.25rem;
+      border: none;
+      resize: vertical;
+      min-height: 220px;
+      outline: none;
+      tab-size: 2;
+    }
+
+    .console-output {
+      background: #030712;
+      border-top: 1px solid #1f2937;
+      padding: 1rem 1.25rem;
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+    }
+
+    .console-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #6b7280;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .console-logs {
+      color: #4ade80;
+      white-space: pre-wrap;
+      min-height: 48px;
+    }
+
+    .console-logs.error {
+      color: #f87171;
+    }
+
+    /* Knowledge Check Section UI */
+    .quiz-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 2rem;
+      margin: 3rem 0 2rem;
+      box-shadow: var(--shadow-md);
+    }
+
+    .quiz-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .quiz-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      color: var(--text-primary);
+    }
+
+    .quiz-step-meta {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .quiz-question {
+      color: var(--text-primary);
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+    }
+
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .option-btn {
+      background: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      padding: 1rem 1.35rem;
+      border-radius: var(--radius-sm);
+      text-align: left;
+      cursor: pointer;
+      font-size: 0.98rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      line-height: 1.4;
+    }
+
+    .option-btn:hover:not([disabled]) {
+      border-color: var(--accent-blue);
+      background-color: var(--bg-card-hover);
+      transform: translateX(4px);
+    }
+
+    .option-btn[disabled] {
+      cursor: not-allowed;
+      opacity: 0.9;
+    }
+
+    .option-btn.correct {
+      border-color: var(--accent-green) !important;
+      background: rgba(4, 170, 109, 0.15) !important;
+      color: #4ade80 !important;
+      font-weight: 700;
+    }
+
+    .option-btn.wrong {
+      border-color: #ef4444 !important;
+      background: rgba(239, 68, 68, 0.15) !important;
+      color: #f87171 !important;
+    }
+
+    .quiz-explanation {
+      display: none;
+      padding: 1.25rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+
+    .quiz-explanation.show-correct {
+      display: block;
+      background: rgba(4, 170, 109, 0.12);
+      border: 1px solid var(--accent-green);
+      color: var(--text-primary);
+    }
+
+    .quiz-explanation.show-wrong {
+      display: block;
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid #ef4444;
+      color: var(--text-primary);
+    }
+
+    .quiz-actions {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .btn-next-question {
+      background: #2563eb;
+      color: #ffffff;
+      border: none;
+      padding: 0.65rem 1.5rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-next-question:hover {
+      background: #1d4ed8;
+    }
+
+    .quiz-countdown-banner {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      background: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 0.85rem 1.25rem;
+      margin-top: 1rem;
+    }
+
+    .countdown-text {
+      font-size: 0.92rem;
+      color: var(--accent-yellow);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .countdown-progress-bar {
+      width: 100%;
+      height: 4px;
+      background: var(--border-color);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .countdown-progress-fill {
+      width: 100%;
+      height: 100%;
+      background: var(--accent-yellow);
+      border-radius: 2px;
+    }
+
+    /* Quiz Summary Results Card */
+    .quiz-results-card {
+      text-align: center;
+      padding: 1.5rem 1rem;
+    }
+
+    .results-icon {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .results-score-title {
+      font-size: 2rem;
+      font-weight: 900;
+      margin-bottom: 0.5rem;
+    }
+
+    .results-badge-wrap {
+      margin-bottom: 1.5rem;
+    }
+
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+
+    .result-stat-box {
+      background: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      padding: 1rem;
+      border-radius: var(--radius-sm);
+    }
+
+    .result-stat-num {
+      font-size: 1.5rem;
+      font-weight: 800;
+    }
+
+    .result-stat-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .btn-retry-quiz {
+      background: var(--accent-yellow);
+      color: #000;
+      border: none;
+      padding: 0.75rem 2rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.95rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-retry-quiz:hover {
+      transform: translateY(-2px);
+    }
+
+    /* Footer Pagination */
+    .lesson-footer-nav {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border-color);
+      gap: 1.5rem;
+    }
+
+    .nav-card {
+      text-decoration: none;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      padding: 1.25rem 1.5rem;
+      border-radius: var(--radius-md);
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      width: 48%;
+      cursor: pointer;
+    }
+
+    .nav-card:hover:not(.disabled) {
+      border-color: var(--accent-blue);
+      background: var(--bg-card-hover);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .nav-card.disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    .nav-card-dir {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+    }
+
+    .nav-card-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .nav-card.next {
+      text-align: right;
+      align-items: flex-end;
+    }
+
+    /* Modal Backdrop & Certificate Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(6px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 1.5rem;
+    }
+
+    .modal-backdrop.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: var(--bg-card);
+      border: 2px solid var(--accent-yellow);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      max-width: 600px;
+      width: 100%;
+      text-align: center;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 1rem;
+      right: 1.25rem;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.25rem;
+      cursor: pointer;
+    }
+
+    .modal-close-btn:hover {
+      color: var(--text-primary);
+    }
+
+    .cert-icon {
+      font-size: 3.5rem;
+      color: var(--accent-yellow);
+      margin-bottom: 1rem;
+    }
+
+    .cert-title {
+      font-size: 1.8rem;
+      font-weight: 900;
+      margin-bottom: 0.5rem;
+    }
+
+    .cert-subtitle {
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+    }
+
+    .cert-input {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-color);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    .cert-download-btn {
+      background: linear-gradient(135deg, var(--accent-yellow), #eab308);
+      color: #000;
+      border: none;
+      padding: 0.85rem 2rem;
+      border-radius: var(--radius-sm);
+      font-size: 1rem;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(234, 179, 8, 0.4);
+    }
+
+    .cert-download-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    /* Mobile Backdrop Drawer Overlay */
+    .sidebar-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 45;
+    }
+
+    /* Responsive Breakdown */
+    @media (max-width: 850px) {
+      aside.sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      aside.sidebar.mobile-open {
+        transform: translateX(0);
+      }
+      .sidebar-overlay.mobile-open {
+        display: block;
+      }
+      main.main-content {
+        margin-left: 0;
+        width: 100%;
+        padding: 1.25rem 1.25rem 3rem;
+      }
+      .mobile-menu-btn {
+        display: block;
+      }
+      .lesson-title {
+        font-size: 1.8rem;
+      }
+      .lesson-footer-nav {
+        flex-direction: column;
+      }
+      .nav-card {
+        width: 100%;
+      }
+      .nav-card.next {
+        text-align: left;
+        align-items: flex-start;
+      }
+      .results-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Mobile Sidebar Backdrop Overlay -->
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleMobileSidebar(false)"></div>
+
+  <!-- Sticky Sidebar Navigation -->
+  <aside class="sidebar" id="sidebar" role="navigation" aria-label="Course Lessons">
+    <div class="sidebar-header">
+      <div class="brand-group">
+        <div class="brand-icon">JS</div>
+        <div class="brand-title">JS Mastery</div>
+      </div>
+      <button class="mobile-menu-btn" onclick="toggleMobileSidebar(false)" aria-label="Close Navigation">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <!-- Search Box -->
+    <div class="search-box">
+      <div class="search-input-wrapper">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="searchInput" class="search-input" placeholder="Search lessons..." oninput="filterLessons()" aria-label="Search lessons">
+      </div>
+    </div>
+    
+    <nav class="sidebar-nav" id="sidebarNav">
+      <!-- Rendered dynamically by JS -->
+    </nav>
+  </aside>
+
+  <!-- Main Content Area -->
+  <main class="main-content">
+    
+    <!-- Top Progress Bar -->
+    <div class="course-progress-bar-container" title="Course Completion Progress">
+      <div class="course-progress-bar-fill" id="courseProgressBar"></div>
+    </div>
+
+    <!-- Top Header Bar -->
+    <header class="top-bar">
+      <div class="header-left">
+        <button class="mobile-menu-btn" onclick="toggleMobileSidebar(true)" aria-label="Open Navigation">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <div class="breadcrumbs">
+          <a href="#" class="green-link">JS Course</a>
+          <i class="fa-solid fa-chevron-right" style="font-size: 0.65rem;"></i>
+          <span id="breadcrumbModule">Module 1</span>
+          <i class="fa-solid fa-chevron-right" style="font-size: 0.65rem;"></i>
+          <span id="breadcrumbTitle">Variables & Scope</span>
+        </div>
+      </div>
+
+      <div class="header-controls">
+        <div class="header-badge" id="scoreBadge" title="Passed Chapters">
+          <i class="fa-solid fa-trophy"></i>
+          <span id="scoreText">0 / 9 PASSED</span>
+        </div>
+
+        <button class="control-btn" id="bookmarkBtn" onclick="toggleBookmark()" aria-label="Bookmark lesson">
+          <i class="fa-regular fa-bookmark"></i>
+          <span id="bookmarkText">Bookmark</span>
+        </button>
+
+        <button class="control-btn" id="themeToggle" onclick="toggleTheme()" aria-label="Toggle dark/light mode">
+          <i class="fa-solid fa-moon"></i>
+          <span id="themeText">Dark Mode</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Lesson Header -->
+    <section class="lesson-header">
+      <div class="lesson-meta">
+        <span class="badge badge-yellow" id="lessonDifficulty"><i class="fa-solid fa-star"></i> Beginner</span>
+        <span class="badge badge-blue" id="lessonReadTime"><i class="fa-regular fa-clock"></i> 8 min read</span>
+        <span class="meta-item" id="lessonNumber"><i class="fa-solid fa-book-open"></i> Lesson 01 of 09</span>
+      </div>
+
+      <h1 class="lesson-title" id="lessonTitle">Loading Lesson...</h1>
+      <p class="lesson-lead" id="lessonLead"></p>
+    </section>
+
+    <!-- Dynamic Lesson Article Content -->
+    <article class="lesson-body" id="lessonBody">
+      <!-- Populated dynamically -->
+    </article>
+
+    <!-- Interactive Code Editor Playground -->
+    <section class="code-editor-card">
+      <div class="editor-header">
+        <div class="editor-dots">
+          <div class="dot dot-red"></div>
+          <div class="dot dot-yellow"></div>
+          <div class="dot dot-green"></div>
+        </div>
+        <div class="editor-file-title">
+          <i class="fa-brands fa-js" style="color: #f7df1e;"></i>
+          <span>script.js</span>
+        </div>
+        <div style="display: flex; gap: 0.5rem;">
+          <button class="btn-run" style="background: var(--bg-primary); color: var(--text-primary); border: 1px solid var(--border-color);" onclick="resetTaskCode()" title="Reset editor to default task template">
+            <i class="fa-solid fa-rotate-left"></i> Reset Task
+          </button>
+          <button class="btn-run" id="btnRun" onclick="runPlaygroundCode()">
+            <i class="fa-solid fa-play"></i> Run Code
+          </button>
+        </div>
+      </div>
+      <textarea id="codePlayground" class="code-textarea" spellcheck="false" aria-label="JavaScript Code Editor"></textarea>
+      <div class="console-output">
+        <div class="console-title">
+          <span><i class="fa-solid fa-terminal"></i> Console Output</span>
+          <span id="consoleStatus" style="color: var(--accent-blue);">Ready</span>
+        </div>
+        <div class="console-logs" id="consoleLogs">Click "Run Code" to execute.</div>
+      </div>
+    </section>
+
+    <!-- Interactive Knowledge Check Card -->
+    <section class="quiz-card" id="quizSection">
+      <!-- Dynamic Quiz Question Viewer or Results Card -->
+    </section>
+
+    <!-- Bottom Lesson Pagination Nav -->
+    <footer class="lesson-footer-nav">
+      <button class="nav-card" id="prevBtn" onclick="navigateLesson(-1)">
+        <span class="nav-card-dir">← Previous</span>
+        <span class="nav-card-title" id="prevTitle">Introduction</span>
+      </button>
+      <button class="nav-card next" id="nextBtn" onclick="navigateLesson(1)">
+        <span class="nav-card-dir">Next →</span>
+        <span class="nav-card-title" id="nextTitle">Data Types</span>
+      </button>
+    </footer>
+
+  </main>
+
+  <!-- Course Completion Certificate Modal -->
+  <div class="modal-backdrop" id="certModal">
+    <div class="modal-content">
+      <button class="modal-close-btn" onclick="toggleCertModal(false)"><i class="fa-solid fa-xmark"></i></button>
+      <i class="fa-solid fa-award cert-icon"></i>
+      <h2 class="cert-title">Congratulations! 🎓</h2>
+      <p class="cert-subtitle">You have completed all 9 lessons in <strong>JavaScript Mastery</strong>!</p>
+      
+      <input type="text" id="certStudentName" class="cert-input" placeholder="Enter your full name for certificate" value="Developer Candidate">
+      
+      <button class="cert-download-btn" onclick="generateCertificate()">
+        <i class="fa-solid fa-download"></i> Print / Download Certificate
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // ----------------------------------------------------
+    // CURRICULUM LESSON DATASET (10-12 MCQs per Chapter)
+    // ----------------------------------------------------
+    const LESSONS = [
+      {
+        id: "intro-to-js",
+        module: "Module 1: Fundamentals",
+        title: "1. Introduction to JavaScript",
+        badge: "Beginner",
+        readTime: "5 min read",
+        lead: "Welcome to modern JavaScript! Learn how JavaScript powers modern web applications across ⊞ Windows, Mac, and Cloud servers.",
+        contentHtml: `
+          <h2>⚡ What is JavaScript?</h2>
+          <p>JavaScript (JS) is the high-level, dynamic programming language that powers over <strong>98% of all websites on the internet</strong>. Together with <strong>HTML</strong> (which defines structure) and <strong>CSS</strong> (which defines styling), JavaScript completes the standard web technology stack by adding <em>interactivity, state management, and real-time business logic</em>.</p>
+          
+          <div class="callout callout-info">
+            <div class="callout-icon"><i class="fa-solid fa-circle-info"></i></div>
+            <div>
+              <div class="callout-title">🪟 Full Stack Web Developer Note</div>
+              <p style="margin:0;">JavaScript is uniquely versatile because it runs natively inside all modern web browsers (Google Chrome, Microsoft Edge on 🪟 Windows 11, Safari) as well as backend web servers via <strong>Node.js</strong> and <strong>Express</strong>!</p>
+            </div>
+          </div>
+
+          <h2>🌐 Where Does JavaScript Run?</h2>
+          <p>Modern Full Stack Web Developers use JavaScript across the complete web application stack:</p>
+          <ul>
+            <li><strong>Frontend Web Browsers:</strong> Handles user clicks, form validation, animations, DOM updates, and API requests directly in the user's browser.</li>
+            <li><strong>Backend Cloud Servers (Node.js):</strong> Processes database queries (MongoDB, PostgreSQL), authenticates users, and serves RESTful APIs using standard JavaScript logic.</li>
+            <li><strong>Cross-Platform Desktop & Mobile:</strong> Build native mobile apps (React Native, Capacitor) and desktop software (Electron) using 100% JavaScript!</li>
+          </ul>
+
+          <h2>⚙️ How JavaScript Executes Under the Hood</h2>
+          <p>JavaScript is a <strong>single-threaded, Just-In-Time (JIT) compiled</strong> language. When a web browser opens your web page:</p>
+          <ol>
+            <li>The browser's JavaScript engine (like Google V8 in Chrome & Microsoft Edge on 🪟 Windows 11) parses your source code into an Abstract Syntax Tree (AST).</li>
+            <li>The JIT compiler translates high-level JS into optimized machine bytecode in real time for ultra-fast execution.</li>
+            <li>The <strong>Event Loop</strong> handles asynchronous non-blocking operations (such as timers and network fetch calls) without freezing the user interface!</li>
+          </ol>
+
+          <div class="callout callout-tip">
+            <div class="callout-icon"><i class="fa-solid fa-lightbulb"></i></div>
+            <div>
+              <div class="callout-title">💡 Pro Developer Tip: Opening the Developer Console</div>
+              <p style="margin:0;">On 🪟 Windows 11, press <code>F12</code> or <code>Ctrl + Shift + I</code> in Chrome or Edge to open Developer Tools. Click the <strong>Console</strong> tab to type live JavaScript commands and inspect <code>console.log()</code> output instantly!</p>
+            </div>
+          </div>
+
+          <div class="callout callout-warning" style="border-left-color: var(--accent-yellow); margin-top: 1.5rem;">
+            <div class="callout-icon" style="color: var(--accent-yellow);"><i class="fa-solid fa-laptop-code"></i></div>
+            <div>
+              <div class="callout-title" style="color: var(--accent-yellow);">🎯 Hands-on Developer Task</div>
+              <p style="margin-bottom: 0.5rem;"><strong>Task Objective:</strong> Print a Developer Profile Card to the console.</p>
+              <p style="margin: 0;">In the <strong>Live Code Playground</strong> below, create variables for your <code>devName</code>, <code>targetRole</code> ("Full Stack Developer"), and <code>operatingSystem</code> ("🪟 Windows 11"), then log them formatted using <code>console.log()</code>!</p>
+            </div>
+          </div>
+        `,
+        defaultCode: `// 🎯 HANDS-ON TASK: Print Your Developer Profile Card
+const devName = "Manoj Kumar";
+const targetRole = "Full Stack Web Developer";
+const operatingSystem = "🪟 Windows 11";
+
+console.log("-----------------------------------------");
+console.log("🚀 DEVELOPER PROFILE CARD");
+console.log("-----------------------------------------");
+console.log("👨‍💻 Name: " + devName);
+console.log("🎯 Goal: " + targetRole);
+console.log("💻 OS:   " + operatingSystem);
+console.log("-----------------------------------------");`,
+        questions: [
+          {
+            question: "1. Where can JavaScript execute in modern software development?",
+            options: [
+              { text: "A) Only inside web browser tabs", isCorrect: false },
+              { text: "B) Both inside modern browsers and on server environments (Node.js)", isCorrect: true },
+              { text: "C) Only inside Microsoft Word documents", isCorrect: false },
+              { text: "D) Only inside CSS stylesheet files", isCorrect: false }
+            ],
+            explanation: "JavaScript runs everywhere! In web browsers (frontend) and on servers via Node.js/Express (backend)."
+          },
+          {
+            question: "2. Which standard body specifies the official JavaScript specification?",
+            options: [
+              { text: "A) W3C Consortium", isCorrect: false },
+              { text: "B) ECMAScript (TC39)", isCorrect: true },
+              { text: "C) ISO Standards Council", isCorrect: false },
+              { text: "D) Mozilla Developer Network", isCorrect: false }
+            ],
+            explanation: "ECMAScript (TC39 committee) standardizes JavaScript specifications across all vendor browsers."
+          },
+          {
+            question: "3. Which built-in function writes text output to the developer console terminal?",
+            options: [
+              { text: "A) print.write()", isCorrect: false },
+              { text: "B) console.log()", isCorrect: true },
+              { text: "C) System.out.println()", isCorrect: false },
+              { text: "D) terminal.output()", isCorrect: false }
+            ],
+            explanation: "`console.log()` is the standard tool used by developers to print debug output to the console."
+          },
+          {
+            question: "4. What is the extension for JavaScript source code files?",
+            options: [
+              { text: "A) .html", isCorrect: false },
+              { text: "B) .css", isCorrect: false },
+              { text: "C) .js", isCorrect: true },
+              { text: "D) .script", isCorrect: false }
+            ],
+            explanation: "JavaScript source files use the `.js` file extension (or `.jsx`/`.ts` in advanced frameworks)."
+          },
+          {
+            question: "5. Is JavaScript a compiled language or an interpreted/JIT-compiled language?",
+            options: [
+              { text: "A) Pure statically compiled language like C++", isCorrect: false },
+              { text: "B) JIT (Just-In-Time) compiled dynamic language", isCorrect: true },
+              { text: "C) Hardware assembly language", isCorrect: false },
+              { text: "D) CSS preprocessor language", isCorrect: false }
+            ],
+            explanation: "Modern engines like V8 use Just-In-Time (JIT) compilation to turn JS source into machine code at runtime."
+          },
+          {
+            question: "6. Which HTML tag is used to embed JavaScript code into an HTML document?",
+            options: [
+              { text: "A) <javascript>", isCorrect: false },
+              { text: "B) <script>", isCorrect: true },
+              { text: "C) <code-js>", isCorrect: false },
+              { text: "D) <style>", isCorrect: false }
+            ],
+            explanation: "HTML uses the `<script>` tag to embed inline JavaScript or link external `.js` files."
+          },
+          {
+            question: "7. Which company originally created JavaScript in 1995?",
+            options: [
+              { text: "A) Microsoft Corporation", isCorrect: false },
+              { text: "B) Netscape Communications", isCorrect: true },
+              { text: "C) Google LLC", isCorrect: false },
+              { text: "D) Oracle Inc.", isCorrect: false }
+            ],
+            explanation: "Brendan Eich created JavaScript at Netscape in 1995 within just 10 days!"
+          },
+          {
+            question: "8. Is JavaScript single-threaded or multi-threaded by default?",
+            options: [
+              { text: "A) Multi-threaded parallel processing engine", isCorrect: false },
+              { text: "B) Single-threaded event-loop based runtime", isCorrect: true },
+              { text: "C) 64-thread parallel engine", isCorrect: false },
+              { text: "D) Non-threaded compiler", isCorrect: false }
+            ],
+            explanation: "JavaScript is single-threaded, using an Event Loop to handle non-blocking asynchronous operations efficiently."
+          },
+          {
+            question: "9. What happens when a script encounters an unhandled runtime error?",
+            options: [
+              { text: "A) The computer restarts automatically", isCorrect: false },
+              { text: "B) Execution throws an exception and halts that call stack", isCorrect: true },
+              { text: "C) The browser window closes immediately", isCorrect: false },
+              { text: "D) The code rewrites itself", isCorrect: false }
+            ],
+            explanation: "Unhandled runtime errors throw exceptions that stop execution of that thread unless caught by try/catch."
+          },
+          {
+            question: "10. What attribute on a `<script>` tag allows script download without blocking HTML parsing?",
+            options: [
+              { text: "A) defer or async", isCorrect: true },
+              { text: "B) FastLoad", isCorrect: false },
+              { text: "C) no-block", isCorrect: false },
+              { text: "D) inline", isCorrect: false }
+            ],
+            explanation: "Using `defer` or `async` on `<script src=\"...\">` prevents script downloading from blocking DOM parsing."
+          }
+        ]
+      },
+      {
+        id: "variables-scope",
+        module: "Module 1: Fundamentals",
+        title: "2. Variables & Scope: let, const, & var",
+        badge: "Beginner",
+        readTime: "8 min read",
+        lead: "Master the foundational building blocks of storing data in JavaScript, including modern block scoping rules and best practices.",
+        contentHtml: `
+          <h2>📦 Declaring Variables in Modern JS</h2>
+          <p>In modern JavaScript (ES6+), developers store data values using three keywords: <code>const</code>, <code>let</code>, and legacy <code>var</code>. Choosing the right variable declaration ensures clean, bug-free software architecture.</p>
+
+          <ul>
+            <li><strong><code>const</code> (Constant Reference):</strong> Use this by default for 90%+ of your variables! Prevents accidental reassignment.</li>
+            <li><strong><code>let</code> (Reassignable Block Scope):</strong> Use when you know a variable's value will change over time (e.g. loop counters, score accumulators).</li>
+            <li><strong><code>var</code> (Legacy Scope):</strong> Function-scoped syntax from original JS. Avoid using <code>var</code> in modern code bases due to scope leakage bugs!</li>
+          </ul>
+
+          <div class="callout callout-warning">
+            <div class="callout-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+            <div>
+              <div class="callout-title">⚠️ The Const Object Mutation Catch</div>
+              <p style="margin:0;">Declaring an object or array with <code>const</code> prevents reassigning the variable identifier itself, but <strong>does NOT freeze internal properties</strong>! For example: <code>const user = { name: "Alex" }; user.name = "Sam";</code> is completely valid!</p>
+            </div>
+          </div>
+
+          <h2>🔒 Block Scope vs. Function Scope</h2>
+          <p>Variables declared with <code>let</code> and <code>const</code> are strictly bound to their nearest enclosing <strong>Block Scope</strong> bounded by curly braces <code>{ ... }</code> (such as inside an <code>if</code> block or <code>for</code> loop).</p>
+          <p>Legacy <code>var</code> ignores block scope and leaks out to the enclosing function or global window scope, causing accidental variable overwrites on 🪟 Windows web applications.</p>
+
+          <h2>👻 Hoisting & The Temporal Dead Zone (TDZ)</h2>
+          <p><strong>Variable Hoisting</strong> is JavaScript's default behavior of moving variable declarations to the top of their current scope during execution parsing phase.</p>
+          <ul>
+            <li><code>var</code> is hoisted and initialized with value <code>undefined</code>.</li>
+            <li><code>let</code> and <code>const</code> are hoisted but NOT initialized, placing them in the <strong>Temporal Dead Zone (TDZ)</strong>. Accessing them before their actual declaration line throws a <code>ReferenceError</code>!</li>
+          </ul>
+
+          <div class="callout callout-warning" style="border-left-color: var(--accent-yellow); margin-top: 1.5rem;">
+            <div class="callout-icon" style="color: var(--accent-yellow);"><i class="fa-solid fa-laptop-code"></i></div>
+            <div>
+              <div class="callout-title" style="color: var(--accent-yellow);">🎯 Hands-on Developer Task</div>
+              <p style="margin-bottom: 0.5rem;"><strong>Task Objective:</strong> Calculate Shopping Cart Total with Tax using <code>const</code> and <code>let</code>.</p>
+              <p style="margin: 0;">In the <strong>Live Code Playground</strong> below, declare <code>const TAX_RATE = 0.18;</code> and <code>let itemPrice = 1200;</code>, compute <code>let totalPrice = itemPrice * (1 + TAX_RATE);</code>, and print the calculated total!</p>
+            </div>
+          </div>
+        `,
+        defaultCode: `// 🎯 HANDS-ON TASK: Calculate Cart Total
+const TAX_RATE = 0.18; // 18% GST / Tax
+let itemPrice = 1200;
+
+// Calculate total with tax
+let totalPrice = itemPrice * (1 + TAX_RATE);
+
+console.log("Subtotal: ₹" + itemPrice);
+console.log("Tax Rate: " + (TAX_RATE * 100) + "%");
+console.log("✅ Total Payable Amount: ₹" + totalPrice.toFixed(2));`,
+        questions: [
+          {
+            question: "1. Which keyword should you use by default for a variable whose value will never be reassigned?",
+            options: [
+              { text: "A) let", isCorrect: false },
+              { text: "B) const", isCorrect: true },
+              { text: "C) var", isCorrect: false },
+              { text: "D) static", isCorrect: false }
+            ],
+            explanation: "Use `const` by default. It signals immutability of the reference and prevents accidental reassignment."
+          },
+          {
+            question: "2. What scope do variables declared with `let` and `const` have?",
+            options: [
+              { text: "A) Global scope only", isCorrect: false },
+              { text: "B) Block scope `{ ... }`", isCorrect: true },
+              { text: "C) Function scope only", isCorrect: false },
+              { text: "D) File-level scope only", isCorrect: false }
+            ],
+            explanation: "`let` and `const` are block-scoped, existing strictly within the curly braces `{}` where defined."
+          },
+          {
+            question: "3. What happens if you try to reassign a `const` variable?",
+            options: [
+              { text: "A) It silently fails", isCorrect: false },
+              { text: "B) It throws a TypeError: Assignment to constant variable", isCorrect: true },
+              { text: "C) The variable converts to `let`", isCorrect: false },
+              { text: "D) A warning is printed in console", isCorrect: false }
+            ],
+            explanation: "Reassigning a `const` variable throws a runtime `TypeError` in strict JavaScript mode."
+          },
+          {
+            question: "4. Why is `var` considered problematic in modern JavaScript?",
+            options: [
+              { text: "A) It does not support numbers", isCorrect: false },
+              { text: "B) It is function-scoped and hoists with `undefined`, leading to bugs", isCorrect: true },
+              { text: "C) It only runs on ⊞ Windows OS", isCorrect: false },
+              { text: "D) It is slower than `let`", isCorrect: false }
+            ],
+            explanation: "`var` ignores block scope and hoists variables initialized as `undefined`, causing variable leakage bugs."
+          },
+          {
+            question: "5. What is the Temporal Dead Zone (TDZ)?",
+            options: [
+              { text: "A) Time spent waiting for network API responses", isCorrect: false },
+              { text: "B) The period between entering scope and `let`/`const` declaration line", isCorrect: true },
+              { text: "C) Memory leaks in garbage collection", isCorrect: false },
+              { text: "D) Deprecated browser features", isCorrect: false }
+            ],
+            explanation: "TDZ is the phase where accessing a `let` or `const` variable before its actual declaration line throws a `ReferenceError`."
+          },
+          {
+            question: "6. Can you mutate properties of an object declared with `const`?",
+            options: [
+              { text: "A) No, objects created with `const` are completely frozen", isCorrect: false },
+              { text: "B) Yes! `const` prevents reassigning the variable reference, not object mutation", isCorrect: true },
+              { text: "C) Only if using `let` syntax", isCorrect: false },
+              { text: "D) Only in backend Node.js", isCorrect: false }
+            ],
+            explanation: "`const` binds the variable reference. Property values inside an object/array can still be modified!"
+          },
+          {
+            question: "7. Which error occurs when accessing an undeclared variable?",
+            options: [
+              { text: "A) SyntaxError", isCorrect: false },
+              { text: "B) ReferenceError", isCorrect: true },
+              { text: "C) TypeError", isCorrect: false },
+              { text: "D) RangeError", isCorrect: false }
+            ],
+            explanation: "Accessing an identifier that hasn't been declared throws a `ReferenceError`."
+          },
+          {
+            question: "8. What is variable hoisting?",
+            options: [
+              { text: "A) Moving HTML elements into the DOM", isCorrect: false },
+              { text: "B) JS engine moving variable/function declarations to top of scope during parsing", isCorrect: true },
+              { text: "C) Uploading files to server", isCorrect: false },
+              { text: "D) Converting strings to numbers", isCorrect: false }
+            ],
+            explanation: "Hoisting is JavaScript's default behavior of moving declarations to the top of the current scope."
+          },
+          {
+            question: "9. Can you declare a variable twice in the same scope using `let`?",
+            options: [
+              { text: "A) Yes, second declaration overrides first", isCorrect: false },
+              { text: "B) No, it throws SyntaxError: Identifier has already been declared", isCorrect: true },
+              { text: "C) Only if values are strings", isCorrect: false },
+              { text: "D) Yes, in non-strict mode", isCorrect: false }
+            ],
+            explanation: "Redeclaring a variable in the same block scope using `let` or `const` throws a SyntaxError."
+          },
+          {
+            question: "10. What happens when a variable is declared without `var`, `let`, or `const` in non-strict mode?",
+            options: [
+              { text: "A) It creates an unintended global property", isCorrect: true },
+              { text: "B) It creates a local private variable", isCorrect: false },
+              { text: "C) It deletes automatically", isCorrect: false },
+              { text: "D) It throws a compile warning", isCorrect: false }
+            ],
+            explanation: "Implicit global variable creation leaks scope. Always use strict mode `'use strict';` or modern module syntax!"
+          }
+        ]
+      },
+      {
+        id: "data-types",
+        module: "Module 1: Fundamentals",
+        title: "3. Data Types & Type Conversion",
+        badge: "Beginner",
+        readTime: "7 min read",
+        lead: "Explore primitive data types like String, Number, Boolean, BigInt, Symbol, Null, Undefined, and complex Objects.",
+        contentHtml: `
+          <h2>🧩 JavaScript Primitive Data Types</h2>
+          <p>JavaScript is a dynamic weakly-typed language. Values in JS fall into two main categories: <strong>Primitive Types</strong> (immutable raw data) and <strong>Reference Types</strong> (complex objects).</p>
+          
+          <p>There are 7 built-in primitive data types:</p>
+          <ul>
+            <li><strong>String:</strong> Textual data enclosed in quotes: <code>"NextSem Online"</code> or template literals <code>\`Hello \${user}\`</code>.</li>
+            <li><strong>Number:</strong> Integers and floating-point decimal numbers alike: <code>42</code>, <code>3.14159</code>.</li>
+            <li><strong>Boolean:</strong> Logical truth values: <code>true</code> or <code>false</code>.</li>
+            <li><strong>Undefined:</strong> Automatically assigned to variables declared without an initial value.</li>
+            <li><strong>Null:</strong> Explicitly assigned by developers to represent an intentional empty value.</li>
+            <li><strong>BigInt:</strong> For arbitrarily large integers beyond <code>Number.MAX_SAFE_INTEGER</code> (written with <code>n</code> suffix: <code>9007199254740991n</code>).</li>
+            <li><strong>Symbol:</strong> Unique and immutable primitive tokens used as private object keys: <code>Symbol("id")</code>.</li>
+          </ul>
+
+          <div class="callout callout-info">
+            <div class="callout-icon"><i class="fa-solid fa-bug"></i></div>
+            <div>
+              <div class="callout-title">🐛 Infamous JavaScript Quirk: typeof null</div>
+              <p style="margin:0;">Evaluating <code>typeof null</code> in JavaScript returns <code>"object"</code>! This is a historical bug from JS 1.0 (1995) that was preserved to maintain backwards compatibility across web browsers on 🪟 Windows and Mac.</p>
+            </div>
+          </div>
+
+          <h2>🔄 Explicit vs. Implicit Type Coercion</h2>
+          <p>JavaScript automatically converts data types when performing operations between mismatched types:</p>
+          <ul>
+            <li><strong>Implicit Coercion (Automatic):</strong> <code>"5" + 3</code> evaluates to <code>"53"</code> (string concatenation), while <code>"5" - 3</code> evaluates to <code>2</code> (numeric subtraction).</li>
+            <li><strong>Explicit Casting (Developer Best Practice):</strong> Use built-in constructors <code>Number("42")</code>, <code>String(100)</code>, or <code>Boolean(val)</code> to cast types explicitly.</li>
+          </ul>
+
+          <div class="callout callout-warning" style="border-left-color: var(--accent-yellow); margin-top: 1.5rem;">
+            <div class="callout-icon" style="color: var(--accent-yellow);"><i class="fa-solid fa-laptop-code"></i></div>
+            <div>
+              <div class="callout-title" style="color: var(--accent-yellow);">🎯 Hands-on Developer Task</div>
+              <p style="margin-bottom: 0.5rem;"><strong>Task Objective:</strong> Type Conversion & Type Checking.</p>
+              <p style="margin: 0;">In the <strong>Live Code Playground</strong> below, parse string input <code>"450.75"</code> to a float number using <code>parseFloat()</code>, add <code>50</code>, and log both the sum and its data type using <code>typeof</code>!</p>
+            </div>
+          </div>
+        `,
+        defaultCode: `// 🎯 HANDS-ON TASK: Parse Input & Type Checking
+const rawInput = "450.75";
+const parsedPrice = parseFloat(rawInput);
+const shippingFee = 50;
+
+const totalCost = parsedPrice + shippingFee;
+
+console.log("Raw Input String:", rawInput, "(Type: " + typeof rawInput + ")");
+console.log("Parsed Price Number:", parsedPrice, "(Type: " + typeof parsedPrice + ")");
+console.log("✅ Total Cost with Shipping: ₹" + totalCost);`,
+        questions: [
+          {
+            question: "1. What does `typeof null` return in JavaScript?",
+            options: [
+              { text: "A) 'null'", isCorrect: false },
+              { text: "B) 'object'", isCorrect: true },
+              { text: "C) 'undefined'", isCorrect: false },
+              { text: "D) 'number'", isCorrect: false }
+            ],
+            explanation: "`typeof null` returning 'object' is a legacy JS bug preserved for backwards compatibility."
+          },
+          {
+            question: "2. Which primitive type represents intentionally empty or missing values?",
+            options: [
+              { text: "A) undefined", isCorrect: false },
+              { text: "B) null", isCorrect: true },
+              { text: "C) NaN", isCorrect: false },
+              { text: "D) void", isCorrect: false }
+            ],
+            explanation: "`null` is explicitly assigned by developers to represent an intentional absence of any value."
+          },
+          {
+            question: "3. What is the value of an uninitialized variable declared with `let`?",
+            options: [
+              { text: "A) null", isCorrect: false },
+              { text: "B) undefined", isCorrect: true },
+              { text: "C) 0", isCorrect: false },
+              { text: "D) false", isCorrect: false }
+            ],
+            explanation: "Variables declared with `let` without an initial value default to `undefined`."
+          },
+          {
+            question: "4. Which data type is used for arbitrarily large integers beyond `Number.MAX_SAFE_INTEGER`?",
+            options: [
+              { text: "A) Int64", isCorrect: false },
+              { text: "B) BigInt", isCorrect: true },
+              { text: "C) Float", isCorrect: false },
+              { text: "D) Decimal", isCorrect: false }
+            ],
+            explanation: "`BigInt` (written with `n` suffix, like `9007199254740991n`) handles arbitrarily large integers."
+          },
+          {
+            question: "5. What is the output of `typeof NaN`?",
+            options: [
+              { text: "A) 'NaN'", isCorrect: false },
+              { text: "B) 'number'", isCorrect: true },
+              { text: "C) 'undefined'", isCorrect: false },
+              { text: "D) 'object'", isCorrect: false }
+            ],
+            explanation: "NaN stands for 'Not-a-Number', but its data type according to IEEE 754 floating point standard is `'number'`!"
+          },
+          {
+            question: "6. Are JavaScript primitive values mutable or immutable?",
+            options: [
+              { text: "A) Mutable", isCorrect: false },
+              { text: "B) Immutable", isCorrect: true },
+              { text: "C) Dynamic", isCorrect: false },
+              { text: "D) Depends on browser", isCorrect: false }
+            ],
+            explanation: "Primitives (strings, numbers, booleans, etc.) are immutable values; string operations produce new strings."
+          },
+          {
+            question: "7. Which Symbol property guarantees uniqueness when used as object key?",
+            options: [
+              { text: "A) UniqueID", isCorrect: false },
+              { text: "B) Symbol()", isCorrect: true },
+              { text: "C) String()", isCorrect: false },
+              { text: "D) Hash()", isCorrect: false }
+            ],
+            explanation: "Every `Symbol()` call returns a unique token guaranteed not to collide with any other key."
+          },
+          {
+            question: "8. What does `String(123)` return?",
+            options: [
+              { text: "A) 123", isCorrect: false },
+              { text: "B) \"123\"", isCorrect: true },
+              { text: "C) NaN", isCorrect: false },
+              { text: "D) undefined", isCorrect: false }
+            ],
+            explanation: "`String(123)` converts the primitive number `123` to string `\"123\"`."
+          },
+          {
+            question: "9. Which result occurs when evaluating `Boolean(\"\")` (empty string)?",
+            options: [
+              { text: "A) true", isCorrect: false },
+              { text: "B) false", isCorrect: true },
+              { text: "C) null", isCorrect: false },
+              { text: "D) undefined", isCorrect: false }
+            ],
+            explanation: "Empty strings `\"\"` are falsy in JavaScript, converting to `false` in boolean contexts."
+          },
+          {
+            question: "10. What are non-primitive values in JavaScript called?",
+            options: [
+              { text: "A) Strings", isCorrect: false },
+              { text: "B) Objects (including Arrays & Functions)", isCorrect: true },
+              { text: "C) Booleans", isCorrect: false },
+              { text: "D) Bytes", isCorrect: false }
+            ],
+            explanation: "All non-primitive values in JavaScript are Objects (including Plain Objects, Arrays, Functions, Dates, etc.)."
+          }
+        ]
+      },
+      {
+        id: "operators",
+        module: "Module 1: Fundamentals",
+        title: "4. Operators & Strict Equality",
+        badge: "Beginner",
+        readTime: "6 min read",
+        lead: "Learn arithmetic, assignment, logical, and why you should always use strict equality (===) over loose equality (==).",
+        contentHtml: `
+          <h2>⚖️ Strict Equality vs. Loose Equality</h2>
+          <p>In JavaScript, comparing two values can produce unexpected results if you use loose comparison. Always default to <strong><code>===</code> (Strict Equality)</strong> because it compares both <em>Value</em> AND <em>Data Type</em> without implicit conversion.</p>
+
+          <ul>
+            <li><strong><code>===</code> (Strict Equality):</strong> <code>5 === "5"</code> returns <code>false</code> because number is not string.</li>
+            <li><strong><code>==</code> (Loose Equality):</strong> <code>5 == "5"</code> returns <code>true</code> because it coercively converts string <code>"5"</code> to number <code>5</code>.</li>
+          </ul>
+
+          <div class="callout callout-warning">
+            <div class="callout-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+            <div>
+              <div class="callout-title">⚠️ Dangerous Loose Equality Edge Cases</div>
+              <p style="margin:0;">Avoid <code>==</code> loose comparison! Notice these surprising edge cases: <code>0 == false</code> (true!), <code>"" == 0</code> (true!), <code>null == undefined</code> (true!), but <code>null === undefined</code> (false!).</p>
+            </div>
+          </div>
+
+          <h2>➕ Arithmetic & Logical Operators</h2>
+          <p>JavaScript supports standard mathematical operators alongside modern logical shortcuts:</p>
+          <ul>
+            <li><strong>Arithmetic:</strong> Addition <code>+</code>, Subtraction <code>-</code>, Multiplication <code>*</code>, Division <code>/</code>, Modulo Remainder <code>%</code>, Exponentiation <code>**</code>.</li>
+            <li><strong>Logical Operators:</strong> AND <code>&&</code>, OR <code>||</code>, NOT <code>!</code>.</li>
+            <li><strong>Nullish Coalescing Operator (<code>??</code>):</strong> Returns right-hand value ONLY if left-hand operand is <code>null</code> or <code>undefined</code>.</li>
+          </ul>
+
+          <h2>⚡ Short-Circuit Evaluation</h2>
+          <p>Logical <code>&&</code> and <code>||</code> operators short-circuit evaluation from left to right:</p>
+          <ul>
+            <li><code>&&</code> (AND): Returns the first falsy operand, or the last truthy operand if all are truthy.</li>
+            <li><code>||</code> (OR): Returns the first truthy operand, or the last falsy operand if all are falsy. E.g. <code>const name = input || "Default User";</code></li>
+          </ul>
+
+          <div class="callout callout-warning" style="border-left-color: var(--accent-yellow); margin-top: 1.5rem;">
+            <div class="callout-icon" style="color: var(--accent-yellow);"><i class="fa-solid fa-laptop-code"></i></div>
+            <div>
+              <div class="callout-title" style="color: var(--accent-yellow);">🎯 Hands-on Developer Task</div>
+              <p style="margin-bottom: 0.5rem;"><strong>Task Objective:</strong> User Authentication & Permission Check.</p>
+              <p style="margin: 0;">In the <strong>Live Code Playground</strong> below, create <code>isLoggedIn = true</code> and <code>userRole = "admin"</code>. Evaluate <code>isLoggedIn === true && userRole === "admin"</code> using strict equality and print the boolean result!</p>
+            </div>
+          </div>
+        `,
+        defaultCode: `// 🎯 HANDS-ON TASK: User Authentication & Permission Check
+const isLoggedIn = true;
+const userRole = "admin";
+
+const canAccessAdminDashboard = isLoggedIn === true && userRole === "admin";
+
+console.log("Logged In Status:", isLoggedIn);
+console.log("User Role:", userRole);
+console.log("✅ Admin Access Granted:", canAccessAdminDashboard);`,
+        questions: [
+          {
+            question: "1. Why is `===` preferred over `==` in modern JavaScript codebases?",
+            options: [
+              { text: "A) It runs faster on ⊞ Windows computers", isCorrect: false },
+              { text: "B) It checks both value AND data type, avoiding unexpected coercion bugs", isCorrect: true },
+              { text: "C) `==` is deprecated in HTML5", isCorrect: false },
+              { text: "D) `===` converts values to numbers automatically", isCorrect: false }
+            ],
+            explanation: "Strict equality `===` ensures strict type checking without performing implicit type coercion."
+          },
+          {
+            question: "2. What is the result of `\"5\" + 3` in JavaScript?",
+            options: [
+              { text: "A) 8", isCorrect: false },
+              { text: "B) \"53\"", isCorrect: true },
+              { text: "C) NaN", isCorrect: false },
+              { text: "D) TypeError", isCorrect: false }
+            ],
+            explanation: "The `+` operator performs string concatenation when one operand is a string."
+          },
+          {
+            question: "3. What is the result of `\"5\" - 3` in JavaScript?",
+            options: [
+              { text: "A) 2", isCorrect: true },
+              { text: "B) \"53\"", isCorrect: false },
+              { text: "C) NaN", isCorrect: false },
+              { text: "D) \"2\"", isCorrect: false }
+            ],
+            explanation: "The `-` operator coerces string `\"5\"` to number `5`, evaluating `5 - 3 = 2`."
+          },
+          {
+            question: "4. Which operator is used for Nullish Coalescing?",
+            options: [
+              { text: "A) ||", isCorrect: false },
+              { text: "B) ??", isCorrect: true },
+              { text: "C) &&", isCorrect: false },
+              { text: "D) ?", isCorrect: false }
+            ],
+            explanation: "The `??` operator returns the right-hand operand ONLY if left-hand is `null` or `undefined`."
+          },
+          {
+            question: "5. What does the logical NOT operator `!` do?",
+            options: [
+              { text: "A) Reverses boolean truthiness of a value", isCorrect: true },
+              { text: "B) Multiplies number by -1", isCorrect: false },
+              { text: "C) Deletes a variable", isCorrect: false },
+              { text: "D) Compares string length", isCorrect: false }
+            ],
+            explanation: "`!` converts a value to boolean and negates it. Double negation `!!value` casts to boolean."
+          },
+          {
+            question: "6. What is short-circuit evaluation in `&&` (AND) operations?",
+            options: [
+              { text: "A) Stops evaluation at first falsy value and returns it", isCorrect: true },
+              { text: "B) Evaluates all operands regardless", isCorrect: false },
+              { text: "C) Throws error on false", isCorrect: false },
+              { text: "D) Converts all operands to 1", isCorrect: false }
+            ],
+            explanation: "`&&` evaluates left to right and short-circuits on the first falsy operand."
+          },
+          {
+            question: "7. Which arithmetic operator calculates the remainder of division?",
+            options: [
+              { text: "A) /", isCorrect: false },
+              { text: "B) %", isCorrect: true },
+              { text: "C) **", isCorrect: false },
+              { text: "D) //", isCorrect: false }
+            ],
+            explanation: "The `%` (Modulo) operator returns the remainder left over when one operand is divided by a second."
+          },
+          {
+            question: "8. What is exponentiation operator syntax in modern JS?",
+            options: [
+              { text: "A) 2 ^ 3", isCorrect: false },
+              { text: "B) 2 ** 3", isCorrect: true },
+              { text: "C) Math.pow syntax only", isCorrect: false },
+              { text: "D) 2 ^^ 3", isCorrect: false }
+            ],
+            explanation: "`2 ** 3` evaluates `2` raised to the power `3`, returning `8`."
+          },
+          {
+            question: "9. What does optional chaining `?.` prevent?",
+            options: [
+              { text: "A) Prevents infinite loops", isCorrect: false },
+              { text: "B) Prevents TypeError when accessing nested properties on `null` or `undefined`", isCorrect: true },
+              { text: "C) Prevents HTML parsing errors", isCorrect: false },
+              { text: "D) Prevents variable hoisting", isCorrect: false }
+            ],
+            explanation: "`obj?.user?.name` short-circuits to `undefined` if `obj` or `user` is nullish, avoiding crashes."
+          },
+          {
+            question: "10. What is the result of `typeof (5 > 3)`?",
+            options: [
+              { text: "A) 'boolean'", isCorrect: true },
+              { text: "B) 'number'", isCorrect: false },
+              { text: "C) 'true'", isCorrect: false },
+              { text: "D) 'comparison'", isCorrect: false }
+            ],
+            explanation: "`5 > 3` evaluates to boolean `true`, so `typeof true` returns string `'boolean'`."
+          }
+        ]
+      },
+      {
+        id: "conditionals-loops",
+        module: "Module 2: Control & Functions",
+        title: "5. Conditionals & Loops",
+        badge: "Intermediate",
+        readTime: "9 min read",
+        lead: "Control application execution flow using if/else statements, ternary operators, for loops, and Array iteration.",
+        contentHtml: `
+          <h2>🚦 Conditional Control Flow</h2>
+          <p>Control flow structures allow web applications on 🪟 Windows and cloud servers to execute different code blocks based on dynamic business conditions.</p>
+
+          <ul>
+            <li><strong><code>if...else if...else</code>:</strong> Evaluates boolean expressions in order.</li>
+            <li><strong>Ternary Operator (<code>condition ? val1 : val2</code>):</strong> Concise inline shorthand for simple conditional assignments. E.g., <code>const status = age >= 18 ? "Adult" : "Minor";</code></li>
+            <li><strong><code>switch(expression)</code>:</strong> Matches against multiple discrete value <code>case</code> blocks. Always include a <code>break;</code> statement to prevent unexpected case fall-through!</li>
+          </ul>
+
+          <h2>🔄 Loop Iteration Structures</h2>
+          <p>Loops repeat code execution until a terminating condition is met:</p>
+
+          <ul>
+            <li><strong>Standard <code>for</code> Loop:</strong> <code>for (let i = 0; i < 5; i++) { ... }</code> - Ideal for index-based counting loops.</li>
+            <li><strong><code>for...of</code> Loop:</strong> Modern ES6 loop for iterating directly over values of iterable collections (Arrays, Strings, Maps, Sets).</li>
+            <li><strong><code>for...in</code> Loop:</strong> Iterates over enumerable property keys of plain Objects.</li>
+            <li><strong><code>while</code> & <code>do...while</code>:</strong> <code>do...while</code> guarantees the loop body executes at least ONCE before evaluating the condition.</li>
+          </ul>
+
+          <div class="callout callout-tip">
+            <div class="callout-icon"><i class="fa-solid fa-lightbulb"></i></div>
+            <div>
+              <div class="callout-title">💡 Truthy vs. Falsy Values in JavaScript</div>
+              <p style="margin:0;">There are exactly 6 falsy values in JS: <code>false</code>, <code>0</code>, <code>""</code> (empty string), <code>null</code>, <code>undefined</code>, and <code>NaN</code>. Everything else (including empty arrays <code>[]</code> and empty objects <code>{}</code>!) is <strong>Truthy</strong>!</p>
+            </div>
+          </div>
+
+          <div class="callout callout-warning" style="border-left-color: var(--accent-yellow); margin-top: 1.5rem;">
+            <div class="callout-icon" style="color: var(--accent-yellow);"><i class="fa-solid fa-laptop-code"></i></div>
+            <div>
+              <div class="callout-title" style="color: var(--accent-yellow);">🎯 Hands-on Developer Task</div>
+              <p style="margin-bottom: 0.5rem;"><strong>Task Objective:</strong> Print Even Numbers with a Loop.</p>
+              <p style="margin: 0;">In the <strong>Live Code Playground</strong> below, write a <code>for</code> loop from 1 to 10. Use <code>if (i % 2 === 0)</code> to log only even numbers to the console!</p>
+            </div>
+          </div>
+        `,
+        defaultCode: `// 🎯 HANDS-ON TASK: Print Even Numbers from 1 to 10
+console.log("⚡ Printing Even Numbers:");
+
+for (let i = 1; i <= 10; i++) {
+  if (i % 2 === 0) {
+    console.log("Even Number:", i);
+  }
+}`,
+        questions: [
+          {
+            question: "1. What is the shorthand operator for an `if...else` statement in JavaScript?",
+            options: [
+              { text: "A) Binary Operator", isCorrect: false },
+              { text: "B) Ternary Operator (`condition ? val1 : val2`)", isCorrect: true },
+              { text: "C) Switch Operator", isCorrect: false },
+              { text: "D) Coalescing Operator", isCorrect: false }
+            ],
+            explanation: "The ternary operator `cond ? expr1 : expr2` offers clean inline conditional evaluation."
+          },
+          {
+            question: "2. Which keyword terminates a loop immediately?",
+            options: [
+              { text: "A) stop", isCorrect: false },
+              { text: "B) break", isCorrect: true },
+              { text: "C) continue", isCorrect: false },
+              { text: "D) exit", isCorrect: false }
+            ],
+            explanation: "`break` exits the nearest enclosing loop or `switch` block immediately."
+          },
+          {
+            question: "3. What does `continue` do inside a loop?",
+            options: [
+              { text: "A) Terminates loop", isCorrect: false },
+              { text: "B) Skips current iteration and jumps to next iteration", isCorrect: true },
+              { text: "C) Restarts loop from beginning", isCorrect: false },
+              { text: "D) Clears console", isCorrect: false }
+            ],
+            explanation: "`continue` skips the rest of the code in current iteration and moves to next loop iteration."
+          },
+          {
+            question: "4. Which loop structure is best for iterating over object keys?",
+            options: [
+              { text: "A) for...of", isCorrect: false },
+              { text: "B) for...in", isCorrect: true },
+              { text: "C) while loop", isCorrect: false },
+              { text: "D) do...while", isCorrect: false }
+            ],
+            explanation: "`for...in` iterates over enumerable property keys of an object."
+          },
+          {
+            question: "5. Which loop structure is best for iterating over iterable values like Arrays?",
+            options: [
+              { text: "A) for...of", isCorrect: true },
+              { text: "B) for...in", isCorrect: false },
+              { text: "C) switch", isCorrect: false },
+              { text: "D) if...else", isCorrect: false }
+            ],
+            explanation: "`for...of` iterates directly over values of iterable objects (Arrays, Maps, Sets, Strings)."
+          },
+          {
+            question: "6. What makes a `do...while` loop different from a `while` loop?",
+            options: [
+              { text: "A) Runs faster", isCorrect: false },
+              { text: "B) Always executes loop body at least ONCE before checking condition", isCorrect: true },
+              { text: "C) Does not require condition", isCorrect: false },
+              { text: "D) Only works with numbers", isCorrect: false }
+            ],
+            explanation: "`do...while` evaluates condition AFTER executing body, guaranteeing at least one execution."
+          },
+          {
+            question: "7. What is required at the end of every `case` block in a `switch` statement to prevent fall-through?",
+            options: [
+              { text: "A) return", isCorrect: false },
+              { text: "B) break", isCorrect: true },
+              { text: "C) stop", isCorrect: false },
+              { text: "D) pass", isCorrect: false }
+            ],
+            explanation: "Without a `break` statement, execution falls through into subsequent `case` blocks automatically."
+          },
+          {
+            question: "8. What are falsy values in JavaScript conditional statements?",
+            options: [
+              { text: "A) false, 0, \"\", null, undefined, NaN", isCorrect: true },
+              { text: "B) Empty arrays `[]` and empty objects `{}`", isCorrect: false },
+              { text: "C) All negative numbers", isCorrect: false },
+              { text: "D) Functions", isCorrect: false }
+            ],
+            explanation: "The 6 falsy values in JS are `false`, `0`, `-0`, `0n`, `\"\"`, `null`, `undefined`, and `NaN`."
+          },
+          {
+            question: "9. Are empty arrays `[]` and empty objects `{}` truthy or falsy?",
+            options: [
+              { text: "A) Falsy", isCorrect: false },
+              { text: "B) Truthy", isCorrect: true },
+              { text: "C) Nullish", isCorrect: false },
+              { text: "D) Depends on length", isCorrect: false }
+            ],
+            explanation: "All objects and arrays (even empty `[]` and `{}`) evaluate to `true` in boolean contexts."
+          },
+          {
+            question: "10. What happens in an infinite loop like `while(true) {}`?",
+            options: [
+              { text: "A) CPU thread freezes/hangs", isCorrect: true },
+              { text: "B) Automatically stops after 10 seconds", isCorrect: false },
+              { text: "C) Converts to `for` loop", isCorrect: false },
+              { text: "D) Clears RAM", isCorrect: false }
+            ],
+            explanation: "Infinite loops lock the single JS main execution thread, causing browser tabs to freeze."
+          }
+        ]
+      },
+      {
+        id: "arrow-functions",
+        module: "Module 2: Control & Functions",
+        title: "6. Functions & Modern Arrow Syntax",
+        badge: "Intermediate",
+        readTime: "8 min read",
+        lead: "Write clean, modular code using reusable functions, default parameters, and ES6 arrow function expressions.",
+        contentHtml: `
+          <h2>🚀 Functions & Modern Arrow Syntax</h2>
+          <p>Functions are reusable blocks of code designed to perform specific tasks. In modern JavaScript (ES6+), arrow functions provide a sleek, concise alternative to traditional function expressions.</p>
+
+          <ul>
+            <li><strong>Function Declarations:</strong> <code>function add(a, b) { return a + b; }</code> - Fully hoisted to top of scope.</li>
+            <li><strong>Arrow Functions:</strong> <code>const add = (a, b) => a + b;</code> - Concise syntax with implicit return for single-line expressions.</li>
+          </ul>
+
+          <div class="callout callout-info">
+            <div class="callout-icon"><i class="fa-solid fa-circle-info"></i></div>
+            <div>
+              <div class="callout-title">🎯 Key Arrow Function Advantages</div>
+              <p style="margin:0;">Arrow functions do NOT bind their own <code>this</code> keyword! They inherit <code>this</code> lexically from their enclosing parent scope, solving common event handling bugs in frontend web apps.</p>
+            </div>
+          </div>
+
+          <h2>📥 Default Parameters & Rest Operator</h2>
+          <ul>
+            <li><strong>Default Parameters:</strong> Assign fallback values directly in function signature: <code>function greet(name = "Developer") { ... }</code></li>
+            <li><strong>Rest Parameters (<code>...args</code>):</strong> Collect an arbitrary number of function arguments into a clean array: <code>function sum(...numbers) { ... }</code></li>
+          </ul>
+
+          <div class="callout callout-warning" style="border-left-color: var(--accent-yellow); margin-top: 1.5rem;">
+            <div class="callout-icon" style="color: var(--accent-yellow);"><i class="fa-solid fa-laptop-code"></i></div>
+            <div>
+              <div class="callout-title" style="color: var(--accent-yellow);">🎯 Hands-on Developer Task</div>
+              <p style="margin-bottom: 0.5rem;"><strong>Task Objective:</strong> Build an Arrow Function for Discount Calculation.</p>
+              <p style="margin: 0;">In the <strong>Live Code Playground</strong> below, define an arrow function <code>const calcDiscount = (price, pct = 10) => price - (price * (pct / 100));</code> and call it with a sample price of <code>500</code>!</p>
+            </div>
+          </div>
+        `,
+        defaultCode: `// 🎯 HANDS-ON TASK: Arrow Function for Discount Calculation
+const calcDiscount = (price, pct = 10) => price - (price * (pct / 100));
+
+const originalPrice = 500;
+const finalPrice = calcDiscount(originalPrice, 15); // 15% discount
+
+console.log("Original Price: ₹" + originalPrice);
+console.log("✅ Final Price (15% off): ₹" + finalPrice);`,
+        questions: [
+          {
+            question: "1. Which feature was introduced with ES6 Arrow Functions?",
+            options: [
+              { text: "A) Concise syntax and lexical `this` binding", isCorrect: true },
+              { text: "B) Automatic global scope creation", isCorrect: false },
+              { text: "C) Replacement of HTML tags", isCorrect: false },
+              { text: "D) Automatic async execution", isCorrect: false }
+            ],
+            explanation: "Arrow functions provide cleaner syntax and inherit `this` from their outer enclosing scope."
+          },
+          {
+            question: "2. Can arrow functions be used as constructors with `new` keyword?",
+            options: [
+              { text: "A) Yes", isCorrect: false },
+              { text: "B) No, arrow functions lack `[[Construct]]` method and `prototype`", isCorrect: true },
+              { text: "C) Only in Node.js", isCorrect: false },
+              { text: "D) Only if capitalized", isCorrect: false }
+            ],
+            explanation: "Arrow functions cannot be invoked with `new` and will throw a TypeError if attempted."
+          },
+          {
+            question: "3. How do default parameter values work in function definitions?",
+            options: [
+              { text: "A) Assigned when argument is `undefined` or missing", isCorrect: true },
+              { text: "B) Assigned on `null` values only", isCorrect: false },
+              { text: "C) Require `var` keyword", isCorrect: false },
+              { text: "D) Only work with numbers", isCorrect: false }
+            ],
+            explanation: "Default parameters (e.g. `(tax = 0.05)`) apply whenever passed argument is `undefined`."
+          },
+          {
+            question: "4. What is a Rest Parameter `(...args)` in function syntax?",
+            options: [
+              { text: "A) Pauses function execution", isCorrect: false },
+              { text: "B) Collects remaining arguments into a real Array", isCorrect: true },
+              { text: "C) Deletes unused parameters", isCorrect: false },
+              { text: "D) Imports external module", isCorrect: false }
+            ],
+            explanation: "Rest parameters `(...args)` capture unlimited extra arguments into a true JS Array."
+          },
+          {
+            question: "5. What does an implicit return in single-line arrow function look like?",
+            options: [
+              { text: "A) const square = x => x * x;", isCorrect: true },
+              { text: "B) const square = x => { x * x };", isCorrect: false },
+              { text: "C) const square = x => return x * x;", isCorrect: false },
+              { text: "D) const square = (x) => { return; x * x }", isCorrect: false }
+            ],
+            explanation: "Single-line arrow functions without `{}` implicitly return the expression result."
+          },
+          {
+            question: "6. How do you implicitly return an object literal from single-line arrow function?",
+            options: [
+              { text: "A) const getUser = () => { name: \"Alex\" };", isCorrect: false },
+              { text: "B) const getUser = () => ({ name: \"Alex\" });", isCorrect: true },
+              { text: "C) const getUser = () => return { name: \"Alex\" };", isCorrect: false },
+              { text: "D) const getUser = () => Object({ name: \"Alex\" });", isCorrect: false }
+            ],
+            explanation: "Wrap object literal in parentheses `({ key: val })` so curly braces are not parsed as function block."
+          },
+          {
+            question: "7. What is a Higher-Order Function?",
+            options: [
+              { text: "A) Function built into ⊞ Windows OS", isCorrect: false },
+              { text: "B) Function that accepts another function as argument or returns a function", isCorrect: true },
+              { text: "C) Function with over 100 lines", isCorrect: false },
+              { text: "D) Function that runs first on page load", isCorrect: false }
+            ],
+            explanation: "Higher-Order Functions take functions as parameters (`callbacks`) or return functions (`closures`)."
+          },
+          {
+            question: "8. What is a Callback Function?",
+            options: [
+              { text: "A) Function passed as argument to another function to be executed later", isCorrect: true },
+              { text: "B) Function that calls back phone API", isCorrect: false },
+              { text: "C) Function defined inside HTML", isCorrect: false },
+              { text: "D) Recursive function loop", isCorrect: false }
+            ],
+            explanation: "A callback function is passed into another function as an argument and invoked inside it."
+          },
+          {
+            question: "9. What is a Closure in JavaScript?",
+            options: [
+              { text: "A) Closing browser tab", isCorrect: false },
+              { text: "B) Function bundled with references to its surrounding lexical environment", isCorrect: true },
+              { text: "C) Private HTML element", isCorrect: false },
+              { text: "D) End of file syntax", isCorrect: false }
+            ],
+            explanation: "Closure gives inner functions access to outer function scope variables even after outer function returns."
+          },
+          {
+            question: "10. What is an IIFE (Immediately Invoked Function Expression)?",
+            options: [
+              { text: "A) Function executed immediately after declaration `(() => {})()`", isCorrect: true },
+              { text: "B) Infinite loop function", isCorrect: false },
+              { text: "C) Inline CSS function", isCorrect: false },
+              { text: "D) Deprecated ES5 function", isCorrect: false }
+            ],
+            explanation: "IIFEs run as soon as defined: `(function() { ... })();` creating isolated scope."
+          }
+        ]
+      },
+      {
+        id: "arrays-methods",
+        module: "Module 2: Control & Functions",
+        title: "7. Arrays & High-Order Array Methods",
+        badge: "Intermediate",
+        readTime: "10 min read",
+        lead: "Master key array transformations using `.map()`, `.filter()`, `.reduce()`, `.find()`, and `.forEach()`.",
+        contentHtml: `
+          <h2>⚡ Higher-Order Array Transformation Methods</h2>
+          <p>Modern JavaScript array methods allow developers to manipulate lists in a declarative, functional style without mutating the original source array.</p>
+
+          <ul>
+            <li><strong><code>.map(callback)</code>:</strong> Transforms every element in an array and returns a brand-new array of equal length. E.g. <code>[1, 2, 3].map(x => x * 2) // [2, 4, 6]</code></li>
+            <li><strong><code>.filter(callback)</code>:</strong> Returns a new array containing only elements that pass a boolean condition. E.g. <code>[10, 25, 30].filter(x => x > 15) // [25, 30]</code></li>
+            <li><strong><code>.reduce(callback, initialVal)</code>:</strong> Collapses an array down to a single accumulator value (e.g. total sum or dictionary object).</li>
+            <li><strong><code>.forEach(callback)</code>:</strong> Executes side-effects for each element without returning a value (returns <code>undefined</code>).</li>
+          </ul>
+
+          <div class="callout callout-tip">
+            <div class="callout-icon"><i class="fa-solid fa-lightbulb"></i></div>
+            <div>
+              <div class="callout-title">💡 Mutating vs Non-Mutating Array Operations</div>
+              <p style="margin:0;">Keep your state clean! Non-mutating methods like <code>.map()</code>, <code>.filter()</code>, <code>.concat()</code>, <code>.slice()</code>, and spread <code>[...arr]</code> return new arrays, while mutating methods like <code>.push()</code>, <code>.pop()</code>, <code>.splice()</code>, and <code>.sort()</code> modify the existing array in place.</p>
+            </div>
+          </div>
+
+          <div class="callout callout-warning" style="border-left-color: var(--accent-yellow); margin-top: 1.5rem;">
+            <div class="callout-icon" style="color: var(--accent-yellow);"><i class="fa-solid fa-laptop-code"></i></div>
+            <div>
+              <div class="callout-title" style="color: var(--accent-yellow);">🎯 Hands-on Developer Task</div>
+              <p style="margin-bottom: 0.5rem;"><strong>Task Objective:</strong> Filter & Transform Array Scores.</p>
+              <p style="margin: 0;">In the <strong>Live Code Playground</strong> below, use <code>.filter(s => s >= 70)</code> on <code>[45, 78, 92, 88, 60]</code> to get passing scores, then <code>.map(s => s * 2)</code> to double them!</p>
+            </div>
+          </div>
+        `,
+        defaultCode: `// 🎯 HANDS-ON TASK: Filter & Map Score Transformations
+const scores = [45, 78, 92, 88, 60];
+
+const passingScores = scores.filter(s => s >= 70);
+const doubledPassing = passingScores.map(s => s * 2);
+
+console.log("Original Scores:", scores);
+console.log("Passing Scores (>=70):", passingScores);
+console.log("✅ Doubled Passing Scores:", doubledPassing);`,
+        questions: [
+          {
+            question: "1. Which high-order array method returns a NEW array filtered down to elements passing a test?",
+            options: [
+              { text: "A) .forEach()", isCorrect: false },
+              { text: "B) .filter()", isCorrect: true },
+              { text: "C) .reduce()", isCorrect: false },
+              { text: "D) .slice()", isCorrect: false }
+            ],
+            explanation: "`.filter()` creates a new array with all elements that pass test callback condition."
+          },
+          {
+            question: "2. Which method transforms every element in an array and returns a NEW array of equal length?",
+            options: [
+              { text: "A) .map()", isCorrect: true },
+              { text: "B) .filter()", isCorrect: false },
+              { text: "C) .push()", isCorrect: false },
+              { text: "D) .some()", isCorrect: false }
+            ],
+            explanation: "`.map()` applies transformation callback to every item, producing a new array of mapped values."
+          },
+          {
+            question: "3. Which method reduces an array to a single accumulator value (e.g. sum of numbers)?",
+            options: [
+              { text: "A) .reduce()", isCorrect: true },
+              { text: "B) .map()", isCorrect: false },
+              { text: "C) .concat()", isCorrect: false },
+              { text: "D) .flat()", isCorrect: false }
+            ],
+            explanation: "`.reduce((acc, curr) => acc + curr, initialValue)` collapses array into single result."
+          },
+          {
+            question: "4. What is the key difference between `.forEach()` and `.map()`?",
+            options: [
+              { text: "A) `.forEach()` returns `undefined`; `.map()` returns a new Array", isCorrect: true },
+              { text: "B) `.forEach()` is faster on arrays", isCorrect: false },
+              { text: "C) `.map()` mutates original array", isCorrect: false },
+              { text: "D) `.forEach()` only works on strings", isCorrect: false }
+            ],
+            explanation: "`.forEach()` executes side-effects for each element without returning a value (`undefined`)."
+          },
+          {
+            question: "5. Which method returns the FIRST element satisfying a testing function?",
+            options: [
+              { text: "A) .find()", isCorrect: true },
+              { text: "B) .filter()", isCorrect: false },
+              { text: "C) .indexOf()", isCorrect: false },
+              { text: "D) .includes()", isCorrect: false }
+            ],
+            explanation: "`.find()` returns the first item matching condition (or `undefined` if none found)."
+          },
+          {
+            question: "6. Which method checks if AT LEAST ONE element passes a test, returning boolean?",
+            options: [
+              { text: "A) .some()", isCorrect: true },
+              { text: "B) .every()", isCorrect: false },
+              { text: "C) .has()", isCorrect: false },
+              { text: "D) .includes()", isCorrect: false }
+            ],
+            explanation: "`.some()` returns `true` if at least 1 element matches condition; `.every()` requires all."
+          },
+          {
+            question: "7. Which array mutator method removes the LAST element of an array?",
+            options: [
+              { text: "A) .pop()", isCorrect: true },
+              { text: "B) .shift()", isCorrect: false },
+              { text: "C) .push()", isCorrect: false },
+              { text: "D) .splice()", isCorrect: false }
+            ],
+            explanation: "`.pop()` removes and returns the last element of an array."
+          },
+          {
+            question: "8. Which method adds one or more elements to the START of an array?",
+            options: [
+              { text: "A) .unshift()", isCorrect: true },
+              { text: "B) .push()", isCorrect: false },
+              { text: "C) .prepend()", isCorrect: false },
+              { text: "D) .shift()", isCorrect: false }
+            ],
+            explanation: "`.unshift()` inserts items at beginning index `0` of array."
+          },
+          {
+            question: "9. Does `.slice(start, end)` mutate the original array?",
+            options: [
+              { text: "A) No, it returns a shallow copy section of array", isCorrect: true },
+              { text: "B) Yes, it deletes elements from original array", isCorrect: false },
+              { text: "C) Only in Node.js", isCorrect: false },
+              { text: "D) Only if end index is negative", isCorrect: false }
+            ],
+            explanation: "`.slice()` is non-mutating, returning a shallow copy. `.splice()` mutates original array."
+          },
+          {
+            question: "10. How does modern spread operator `[...arr1, ...arr2]` combine arrays?",
+            options: [
+              { text: "A) Merges elements into new flat array", isCorrect: true },
+              { text: "B) Multiplies arrays", isCorrect: false },
+              { text: "C) Deletes duplicate elements", isCorrect: false },
+              { text: "D) Converts arrays to JSON", isCorrect: false }
+            ],
+            explanation: "Spread operator `...` expands array elements cleanly into new array literal."
+          }
+        ]
+      },
+      {
+        id: "promises-async",
+        module: "Module 3: Advanced JS",
+        title: "8. Promises & Async / Await",
+        badge: "Advanced",
+        readTime: "12 min read",
+        lead: "Handle asynchronous network API requests cleanly without callback hell using Promises and async/await.",
+        contentHtml: `
+          <h2>⏳ Asynchronous JavaScript & Promises</h2>
+          <p>Asynchronous operations allow your web application on 🪟 Windows 11 and server backends to perform non-blocking tasks (like network API fetches and file reads) without freezing the browser user interface.</p>
+
+          <p>A <strong>Promise</strong> represents a value that may be available now, in the future, or never. Promises exist in one of three states:</p>
+          <ul>
+            <li><strong>Pending:</strong> Initial state before outcome is determined.</li>
+            <li><strong>Fulfilled (Resolved):</strong> Operation completed successfully with result value.</li>
+            <li><strong>Rejected:</strong> Operation failed with an error exception.</li>
+          </ul>
+
+          <h2>🚀 Modern <code>async/await</code> & Error Handling</h2>
+          <p>The ES2017 <code>async/await</code> syntax builds on top of Promises, allowing developers to write asynchronous code that reads like clean synchronous lines:</p>
+          <ul>
+            <li>Mark functions with <code>async</code> to enable the <code>await</code> keyword inside them.</li>
+            <li>Wrap network calls inside <code>try { const res = await fetch(url); const data = await res.json(); } catch(err) { ... }</code> for robust exception handling.</li>
+          </ul>
+
+          <div class="callout callout-warning" style="border-left-color: var(--accent-yellow); margin-top: 1.5rem;">
+            <div class="callout-icon" style="color: var(--accent-yellow);"><i class="fa-solid fa-laptop-code"></i></div>
+            <div>
+              <div class="callout-title" style="color: var(--accent-yellow);">🎯 Hands-on Developer Task</div>
+              <p style="margin-bottom: 0.5rem;"><strong>Task Objective:</strong> Async Data Loader with try...catch.</p>
+              <p style="margin: 0;">In the <strong>Live Code Playground</strong> below, create an <code>async function loadUser()</code> that awaits a Promise resolving after 300ms, logged inside a <code>try...catch</code> block!</p>
+            </div>
+          </div>
+        `,
+        defaultCode: `// 🎯 HANDS-ON TASK: Async Data Loader
+const fetchUserPromise = () => new Promise(resolve => {
+  setTimeout(() => resolve({ username: "dev_pro", role: "Full Stack Engineer" }), 300);
+});
+
+async function loadUser() {
+  try {
+    console.log("⏳ Loading User Data...");
+    const user = await fetchUserPromise();
+    console.log("✅ User Loaded:", user.username, "-", user.role);
+  } catch (err) {
+    console.error("❌ Failed to load user:", err.message);
+  }
+}
+
+loadUser();`,
+        questions: [
+          {
+            question: "1. What keyword is placed before function declaration to allow `await` inside it?",
+            options: [
+              { text: "A) defer", isCorrect: false },
+              { text: "B) async", isCorrect: true },
+              { text: "C) promise", isCorrect: false },
+              { text: "D) sync", isCorrect: false }
+            ],
+            explanation: "Functions declared with `async` return Promises and allow `await` pauses inside body."
+          },
+          {
+            question: "2. What are the 3 states of a JavaScript Promise?",
+            options: [
+              { text: "A) Pending, Fulfilled, Rejected", isCorrect: true },
+              { text: "B) Starting, Running, Stopped", isCorrect: false },
+              { text: "C) Open, Closed, Error", isCorrect: false },
+              { text: "D) Input, Processing, Output", isCorrect: false }
+            ],
+            explanation: "Promises begin in `Pending` state, resolving to `Fulfilled` (success) or `Rejected` (failure)."
+          },
+          {
+            question: "3. How do you handle exceptions in async/await code?",
+            options: [
+              { text: "A) Using try...catch blocks", isCorrect: true },
+              { text: "B) Using if...else", isCorrect: false },
+              { text: "C) Using switch statement", isCorrect: false },
+              { text: "D) Errors cannot occur in async functions", isCorrect: false }
+            ],
+            explanation: "Wrap `await` calls inside `try { ... } catch(err) { ... }` blocks for standard exception handling."
+          },
+          {
+            question: "4. What does `Promise.all([p1, p2])` do?",
+            options: [
+              { text: "A) Waits for ALL promises to fulfill, or rejects immediately if ANY promise rejects", isCorrect: true },
+              { text: "B) Returns first resolved promise only", isCorrect: false },
+              { text: "C) Cancels all promises", isCorrect: false },
+              { text: "D) Runs promises sequentially one by one", isCorrect: false }
+            ],
+            explanation: "`Promise.all()` runs promises concurrently in parallel, fulfilling when all succeed."
+          },
+          {
+            question: "5. What does `Promise.race([p1, p2])` return?",
+            options: [
+              { text: "A) Fulfills/rejects as soon as the FIRST promise settles", isCorrect: true },
+              { text: "B) Slowest promise result", isCorrect: false },
+              { text: "C) Array of all promises", isCorrect: false },
+              { text: "D) Error", isCorrect: false }
+            ],
+            explanation: "`Promise.race()` settles with the result/reason of whichever input promise settles first."
+          },
+          {
+            question: "6. Which microtask queue priority handles Promises compared to `setTimeout` macrotasks?",
+            options: [
+              { text: "A) Microtask queue (Promises) executes BEFORE Macrotask queue (setTimeout)", isCorrect: true },
+              { text: "B) setTimeout executes first", isCorrect: false },
+              { text: "C) Both execute simultaneously", isCorrect: false },
+              { text: "D) Microtasks execute last", isCorrect: false }
+            ],
+            explanation: "Promise callbacks land in Microtask Queue, draining completely before Macrotask Queue (setTimeout)."
+          },
+          {
+            question: "7. What does `.then()` method return?",
+            options: [
+              { text: "A) A NEW Promise", isCorrect: true },
+              { text: "B) Void", isCorrect: false },
+              { text: "C) String", isCorrect: false },
+              { text: "D) Function", isCorrect: false }
+            ],
+            explanation: "`.then()` chains return new Promises, allowing promise chaining `.then().then()`."
+          },
+          {
+            question: "8. What does `.finally()` method execute?",
+            options: [
+              { text: "A) Code that runs regardless of whether Promise fulfilled or rejected", isCorrect: true },
+              { text: "B) Code that runs only on success", isCorrect: false },
+              { text: "C) Code that runs only on error", isCorrect: false },
+              { text: "D) Page shutdown code", isCorrect: false }
+            ],
+            explanation: "`.finally()` is useful for cleanup logic (stopping loading spinners) regardless of outcome."
+          },
+          {
+            question: "9. What API is built into modern browsers for making HTTP fetch network requests?",
+            options: [
+              { text: "A) fetch()", isCorrect: true },
+              { text: "B) http.get()", isCorrect: false },
+              { text: "C) cURL()", isCorrect: false },
+              { text: "D) request()", isCorrect: false }
+            ],
+            explanation: "The native `fetch()` web API returns a Promise resolving to Response object."
+          },
+          {
+            question: "10. What step is needed after `const res = await fetch(url)` to parse JSON body?",
+            options: [
+              { text: "A) const data = await res.json()", isCorrect: true },
+              { text: "B) res.parse()", isCorrect: false },
+              { text: "C) JSON.stringify(res)", isCorrect: false },
+              { text: "D) res.toObject()", isCorrect: false }
+            ],
+            explanation: "`res.json()` reads Response stream to completion and parses body text as JSON (returning a Promise)."
+          }
+        ]
+      },
+      {
+        id: "dom-manipulation",
+        module: "Module 3: Advanced JS",
+        title: "9. DOM Manipulation & Event Handling",
+        badge: "Advanced",
+        readTime: "11 min read",
+        lead: "Interact with the Document Object Model (DOM) to handle click events, query elements, update styles, and build dynamic UIs.",
+        contentHtml: `
+          <h2>🌐 The Document Object Model (DOM)</h2>
+          <p>The <strong>Document Object Model (DOM)</strong> represents the structure of an HTML document as a dynamic tree of node objects in memory. JavaScript interacts with the DOM to build responsive, single-page web applications.</p>
+
+          <h2>🎯 Selecting & Modifying Elements</h2>
+          <ul>
+            <li><strong><code>document.querySelector(selector)</code>:</strong> Selects the first HTML element matching a CSS selector (e.g. <code>#submitBtn</code> or <code>.card-title</code>).</li>
+            <li><strong><code>document.querySelectorAll(selector)</code>:</strong> Returns a static <code>NodeList</code> of all matching elements.</li>
+            <li><strong>Updating Content & Classes:</strong> Modify text using <code>el.textContent = "New Text"</code> and manage CSS classes using <code>el.classList.add()</code>, <code>.remove()</code>, or <code>.toggle()</code>.</li>
+          </ul>
+
+          <h2>🖱️ Event Handling & Delegation</h2>
+          <p>Register user interactions using <code>element.addEventListener('click', (event) => { ... })</code>.</p>
+          <ul>
+            <li><strong><code>event.preventDefault()</code>:</strong> Stops default browser behaviors (such as preventing form submit page reloads).</li>
+            <li><strong>Event Delegation:</strong> Attach a single event listener to a common parent element to efficiently handle events bubbling up from dynamic child nodes!</li>
+          </ul>
+
+          <div class="callout callout-warning" style="border-left-color: var(--accent-yellow); margin-top: 1.5rem;">
+            <div class="callout-icon" style="color: var(--accent-yellow);"><i class="fa-solid fa-laptop-code"></i></div>
+            <div>
+              <div class="callout-title" style="color: var(--accent-yellow);">🎯 Hands-on Developer Task</div>
+              <p style="margin-bottom: 0.5rem;"><strong>Task Objective:</strong> Query DOM Title & Simulate Element Creation.</p>
+              <p style="margin: 0;">In the <strong>Live Code Playground</strong> below, log <code>document.title</code> and simulate creating a dynamic card node using <code>document.createElement('div')</code>!</p>
+            </div>
+          </div>
+        `,
+        defaultCode: `// 🎯 HANDS-ON TASK: Query DOM & Simulate Element Creation
+console.log("Document Title:", document.title);
+
+// Simulate creating a new DOM element
+const newCard = document.createElement("div");
+newCard.textContent = "🚀 Dynamic Lesson Card";
+newCard.className = "card-badge";
+
+console.log("Created Tag Name:", newCard.tagName);
+console.log("Created Card Content:", newCard.textContent);
+console.log("✅ Element successfully prepared for DOM insertion!");`,
+        questions: [
+          {
+            question: "1. Which method is the modern standard for selecting a single element by CSS selector?",
+            options: [
+              { text: "A) document.getElement()", isCorrect: false },
+              { text: "B) document.querySelector()", isCorrect: true },
+              { text: "C) document.findCSS()", isCorrect: false },
+              { text: "D) document.select()", isCorrect: false }
+            ],
+            explanation: "`document.querySelector('#id')` or `.class` returns first matching element."
+          },
+          {
+            question: "2. Which method selects ALL matching elements returning a static NodeList?",
+            options: [
+              { text: "A) document.querySelectorAll()", isCorrect: true },
+              { text: "B) document.getElementsByClassName()", isCorrect: false },
+              { text: "C) document.getAll()", isCorrect: false },
+              { text: "D) document.children", isCorrect: false }
+            ],
+            explanation: "`document.querySelectorAll('div.card')` returns NodeList of all matching elements."
+          },
+          {
+            question: "3. How do you attach an event listener to a button element?",
+            options: [
+              { text: "A) btn.addEventListener('click', handler)", isCorrect: true },
+              { text: "B) btn.onClick(handler)", isCorrect: false },
+              { text: "C) btn.attachEvent('click')", isCorrect: false },
+              { text: "D) btn.listen('click')", isCorrect: false }
+            ],
+            explanation: "`addEventListener('click', callback)` is standard event registration method."
+          },
+          {
+            question: "4. What does `e.preventDefault()` do inside an event handler?",
+            options: [
+              { text: "A) Prevents browser default behavior (e.g. form submission page reload)", isCorrect: true },
+              { text: "B) Stops event propagation to parent nodes", isCorrect: false },
+              { text: "C) Deletes DOM element", isCorrect: false },
+              { text: "D) Disables JavaScript", isCorrect: false }
+            ],
+            explanation: "`e.preventDefault()` prevents browser default action such as form submissions re-navigating."
+          },
+          {
+            question: "5. What does `e.stopPropagation()` do during event bubbling?",
+            options: [
+              { text: "A) Stops event from bubbling up DOM parent tree", isCorrect: true },
+              { text: "B) Prevents form submit", isCorrect: false },
+              { text: "C) Clears console logs", isCorrect: false },
+              { text: "D) Closes modal", isCorrect: false }
+            ],
+            explanation: "`e.stopPropagation()` stops event from ascending up parent element chain."
+          },
+          {
+            question: "6. Which property safely sets or gets plain text content of an element without HTML parsing?",
+            options: [
+              { text: "A) textContent", isCorrect: true },
+              { text: "B) innerHTML", isCorrect: false },
+              { text: "C) outerHTML", isCorrect: false },
+              { text: "D) value", isCorrect: false }
+            ],
+            explanation: "`textContent` escapes string input, preventing XSS vulnerabilities compared to `innerHTML`."
+          },
+          {
+            question: "7. How do you toggle a CSS class on an element?",
+            options: [
+              { text: "A) element.classList.toggle('active')", isCorrect: true },
+              { text: "B) element.className += 'active'", isCorrect: false },
+              { text: "C) element.setStyle('active')", isCorrect: false },
+              { text: "D) element.css('active')", isCorrect: false }
+            ],
+            explanation: "`classList.toggle('className')` adds class if missing, or removes class if present."
+          },
+          {
+            question: "8. What is Event Delegation in DOM programming?",
+            options: [
+              { text: "A) Attaching single event listener to parent element to handle events on dynamic children", isCorrect: true },
+              { text: "B) Delegating JS execution to web worker", isCorrect: false },
+              { text: "C) Sending events to server API", isCorrect: false },
+              { text: "D) Deleting child elements", isCorrect: false }
+            ],
+            explanation: "Event Delegation relies on event bubbling to listen on common parent element efficiently."
+          },
+          {
+            question: "9. How do you create a new DOM element programmatically?",
+            options: [
+              { text: "A) document.createElement('div')", isCorrect: true },
+              { text: "B) new Element('div')", isCorrect: false },
+              { text: "C) document.make('div')", isCorrect: false },
+              { text: "D) DOM.create('div')", isCorrect: false }
+            ],
+            explanation: "`document.createElement('div')` instantiates new HTML Element in memory."
+          },
+          {
+            question: "10. How do you insert a newly created child node into a parent element?",
+            options: [
+              { text: "A) parentElement.appendChild(childNode)", isCorrect: true },
+              { text: "B) parentElement.insert(childNode)", isCorrect: false },
+              { text: "C) childNode.attachTo(parentElement)", isCorrect: false },
+              { text: "D) document.add(childNode)", isCorrect: false }
+            ],
+            explanation: "`parentElement.appendChild(childNode)` or `append()` adds child node to end of parent's children."
+          }
+        ]
+      },
+      {
+        id: "classes-oop",
+        module: "Module 4: OOP & ES6+ Architecture",
+        title: "10. Classes, Inheritance & OOP",
+        badge: "Advanced",
+        readTime: "10 min read",
+        lead: "Master Object-Oriented Programming (OOP) in JavaScript using ES6 class syntax, constructors, extends inheritance, and static methods.",
+        contentHtml: `
+          <h2>🏗️ ES6 Classes & Object-Oriented Architecture</h2>
+          <p>Object-Oriented Programming (OOP) allows developers to structure complex applications into modular, reusable blueprints called <strong>Classes</strong>. Instantiated objects hold unique data properties and share common behavior methods.</p>
+
+          <ul>
+            <li><strong>Constructor:</strong> Special <code>constructor()</code> method that initializes instance properties when an object is instantiated via <code>new ClassName()</code>.</li>
+            <li><strong>Instance Methods:</strong> Shared functions attached to class prototypes for performant memory management.</li>
+            <li><strong>Private Fields (<code>#field</code>):</strong> Enforces encapsulation by hiding internal state variables from external code mutation.</li>
+          </ul>
+
+          <h2>🧬 Inheritance with <code>extends</code> &amp; <code>super()</code></h2>
+          <p>Subclasses inherit methods and properties from parent base classes using <code>extends</code>:</p>
+          <ul>
+            <li>Call <code>super(...)</code> inside child class constructors to execute parent initialization logic before using <code>this</code>.</li>
+            <li><strong>Method Overriding:</strong> Child classes can redefine inherited methods to provide custom specialized behavior.</li>
+          </ul>
+
+          <div class="callout callout-info">
+            <div class="callout-icon"><i class="fa-solid fa-circle-info"></i></div>
+            <div>
+              <div class="callout-title">🔒 Static Utility Methods</div>
+              <p style="margin:0;">Use <code>static methodName()</code> to define static helper utilities attached directly to the class constructor function (e.g. <code>Math.max()</code> or <code>User.createGuest()</code>) rather than object instances.</p>
+            </div>
+          </div>
+
+          <div class="callout callout-warning" style="border-left-color: var(--accent-yellow); margin-top: 1.5rem;">
+            <div class="callout-icon" style="color: var(--accent-yellow);"><i class="fa-solid fa-laptop-code"></i></div>
+            <div>
+              <div class="callout-title" style="color: var(--accent-yellow);">🎯 Hands-on Developer Task</div>
+              <p style="margin-bottom: 0.5rem;"><strong>Task Objective:</strong> Build a BankAccount Class with OOP Methods.</p>
+              <p style="margin: 0;">In the <strong>Live Code Playground</strong> below, create class <code>BankAccount</code> with <code>deposit(amount)</code> and <code>withdraw(amount)</code> methods, instantiate it with 1000 balance, and test transactions!</p>
+            </div>
+          </div>
+        `,
+        defaultCode: `// 🎯 HANDS-ON TASK: BankAccount Class OOP Logic
+class BankAccount {
+  constructor(owner, balance = 0) {
+    this.owner = owner;
+    this.balance = balance;
+  }
+
+  deposit(amount) {
+    this.balance += amount;
+    console.log(\`💵 Deposited ₹\${amount}. New Balance: ₹\${this.balance}\`);
+  }
+
+  withdraw(amount) {
+    if (amount > this.balance) {
+      console.log("❌ Insufficient Funds!");
+      return;
+    }
+    this.balance -= amount;
+    console.log(\`💸 Withdrew ₹\${amount}. Remaining Balance: ₹\${this.balance}\`);
+  }
+}
+
+const myAcc = new BankAccount("Manoj", 1000);
+myAcc.deposit(500);
+myAcc.withdraw(200);
+console.log("✅ Final Account Owner & Balance:", myAcc.owner, "- ₹" + myAcc.balance);`,
+        questions: [
+          {
+            question: "1. Which keyword is used to declare a class in ES6 JavaScript?",
+            options: [
+              { text: "A) class", isCorrect: true },
+              { text: "B) struct", isCorrect: false },
+              { text: "C) interface", isCorrect: false },
+              { text: "D) object", isCorrect: false }
+            ],
+            explanation: "`class` is the keyword introduced in ES6 for object-oriented programming."
+          },
+          {
+            question: "2. Which method is automatically called when instantiating a new object using `new ClassName()`?",
+            options: [
+              { text: "A) constructor()", isCorrect: true },
+              { text: "B) init()", isCorrect: false },
+              { text: "C) create()", isCorrect: false },
+              { text: "D) build()", isCorrect: false }
+            ],
+            explanation: "The `constructor()` method initializes new object instances upon creation."
+          },
+          {
+            question: "3. How does a child class inherit properties and methods from a parent class?",
+            options: [
+              { text: "A) class Child extends Parent", isCorrect: true },
+              { text: "B) class Child inherits Parent", isCorrect: false },
+              { text: "C) class Child implements Parent", isCorrect: false },
+              { text: "D) class Child includes Parent", isCorrect: false }
+            ],
+            explanation: "The `extends` keyword establishes prototype inheritance between child and parent classes."
+          },
+          {
+            question: "4. What keyword MUST be called inside a child constructor before using `this`?",
+            options: [
+              { text: "A) super()", isCorrect: true },
+              { text: "B) parent()", isCorrect: false },
+              { text: "C) base()", isCorrect: false },
+              { text: "D) call()", isCorrect: false }
+            ],
+            explanation: "`super()` invokes the parent class constructor and initializes `this` binding."
+          },
+          {
+            question: "5. How do you define a private field in modern JavaScript classes?",
+            options: [
+              { text: "A) Using # hash prefix (e.g. #privateVal)", isCorrect: true },
+              { text: "B) Using private keyword", isCorrect: false },
+              { text: "C) Using _ underscore prefix", isCorrect: false },
+              { text: "D) Using local keyword", isCorrect: false }
+            ],
+            explanation: "The `#` hash prefix enforces true language-level private fields."
+          },
+          {
+            question: "6. How do you define a method attached to the class itself rather than instances?",
+            options: [
+              { text: "A) static methodName()", isCorrect: true },
+              { text: "B) class methodName()", isCorrect: false },
+              { text: "C) global methodName()", isCorrect: false },
+              { text: "D) direct methodName()", isCorrect: false }
+            ],
+            explanation: "`static` methods belong to the class constructor function itself."
+          },
+          {
+            question: "7. Does JavaScript use prototype-based inheritance or class-based inheritance under the hood?",
+            options: [
+              { text: "A) Prototype-based inheritance", isCorrect: true },
+              { text: "B) Class-based inheritance", isCorrect: false },
+              { text: "C) Function-based inheritance", isCorrect: false },
+              { text: "D) No inheritance support", isCorrect: false }
+            ],
+            explanation: "ES6 `class` syntax is syntactic sugar over JavaScript's existing prototype chain."
+          },
+          {
+            question: "8. What operator tests if an object is an instance of a specific class?",
+            options: [
+              { text: "A) instanceof", isCorrect: true },
+              { text: "B) typeof", isCorrect: false },
+              { text: "C) isClassOf", isCorrect: false },
+              { text: "D) isA", isCorrect: false }
+            ],
+            explanation: "`obj instanceof ClassName` tests if constructor prototype appears in object's prototype chain."
+          },
+          {
+            question: "9. Can a class extend another class that extends a third class?",
+            options: [
+              { text: "A) Yes, multi-level class inheritance chains are supported", isCorrect: true },
+              { text: "B) No, max 1 level of inheritance", isCorrect: false },
+              { text: "C) Only in strict mode", isCorrect: false },
+              { text: "D) Only for abstract classes", isCorrect: false }
+            ],
+            explanation: "Classes can form multi-level inheritance chains (e.g. C extends B extends A)."
+          },
+          {
+            question: "10. What happens if a class does not define a constructor?",
+            options: [
+              { text: "A) An empty default constructor is automatically inserted", isCorrect: true },
+              { text: "B) A SyntaxError occurs", isCorrect: false },
+              { text: "C) The class cannot be instantiated", isCorrect: false },
+              { text: "D) It turns into a function", isCorrect: false }
+            ],
+            explanation: "Classes provide an empty default constructor `constructor() {}` if none is explicitly provided."
+          }
+        ]
+      },
+      {
+        id: "es6-modules",
+        module: "Module 4: OOP & ES6+ Architecture",
+        title: "11. ES6+ Modules (import / export)",
+        badge: "Advanced",
+        readTime: "9 min read",
+        lead: "Structure clean, scalable JavaScript projects using ES6 module imports/exports, destructuring, and spread/rest operators.",
+        contentHtml: `
+          <h2>📦 Modular Code Architecture with ES6 Modules</h2>
+          <p>ES6 Modules enable developers to split massive JavaScript codebases into separate, decoupled, maintainable files on 🪟 Windows 11 and server environments.</p>
+
+          <ul>
+            <li><strong>Named Exports:</strong> Export multiple utilities per file: <code>export const add = (a, b) => a + b;</code> and import selectively using destructuring braces <code>import { add } from './math.js';</code>.</li>
+            <li><strong>Default Export:</strong> Export one main component per file: <code>export default class App { ... }</code> and import with custom aliases <code>import MainApp from './App.js';</code>.</li>
+          </ul>
+
+          <h2>✨ Modern ES6+ Developer Shortcuts</h2>
+          <ul>
+            <li><strong>Object/Array Destructuring:</strong> Extract properties cleanly: <code>const { name, role } = developer;</code></li>
+            <li><strong>Spread & Rest Operators (<code>...</code>):</strong> Merge arrays <code>[...frontend, ...backend]</code> and clone objects <code>{ ...userConfig }</code> without mutating state.</li>
+            <li><strong>Optional Chaining (<code>?.</code>) & Nullish Coalescing (<code>??</code>):</strong> Safely access deeply nested properties: <code>const theme = user?.settings?.theme ?? "dark";</code>.</li>
+          </ul>
+
+          <div class="callout callout-tip">
+            <div class="callout-icon"><i class="fa-solid fa-lightbulb"></i></div>
+            <div>
+              <div class="callout-title">💡 Strict Mode & Browser Script Modules</div>
+              <p style="margin:0;">All ES6 modules run in strict mode (<code>'use strict'</code>) by default. In HTML documents, enable module loading by setting <code>&lt;script type="module" src="app.js"&gt;&lt;/script&gt;</code>.</p>
+            </div>
+          </div>
+
+          <div class="callout callout-warning" style="border-left-color: var(--accent-yellow); margin-top: 1.5rem;">
+            <div class="callout-icon" style="color: var(--accent-yellow);"><i class="fa-solid fa-laptop-code"></i></div>
+            <div>
+              <div class="callout-title" style="color: var(--accent-yellow);">🎯 Hands-on Developer Task</div>
+              <p style="margin-bottom: 0.5rem;"><strong>Task Objective:</strong> Unpack Profile Object & Fallback Avatar.</p>
+              <p style="margin: 0;">In the <strong>Live Code Playground</strong> below, use destructuring to extract <code>name</code> and <code>skills</code>, then use nullish coalescing <code>??</code> to set a fallback avatar URL!</p>
+            </div>
+          </div>
+        `,
+        defaultCode: `// 🎯 HANDS-ON TASK: Destructuring & Nullish Coalescing
+const user = {
+  name: "Alex",
+  skills: ["JavaScript", "HTML", "CSS"],
+  social: {}
+};
+
+// Destructuring name and skills
+const { name, skills } = user;
+const updatedSkills = [...skills, "React", "Node.js"];
+
+// Nullish Coalescing for fallback avatar
+const avatar = user.social?.avatar ?? "https://nextsem.online/default-avatar.png";
+
+console.log("Developer Name:", name);
+console.log("Updated Skills Array:", updatedSkills.join(", "));
+console.log("✅ Avatar URL (Fallback):", avatar);`,
+        questions: [
+          {
+            question: "1. Which keyword exports a variable or function from an ES6 module?",
+            options: [
+              { text: "A) export", isCorrect: true },
+              { text: "B) publish", isCorrect: false },
+              { text: "C) share", isCorrect: false },
+              { text: "D) module.out", isCorrect: false }
+            ],
+            explanation: "The `export` keyword makes module members available for importing."
+          },
+          {
+            question: "2. How do you import a named export from another file?",
+            options: [
+              { text: "A) import { name } from './module.js'", isCorrect: true },
+              { text: "B) import name from './module.js'", isCorrect: false },
+              { text: "C) require('./module.js').name", isCorrect: false },
+              { text: "D) include './module.js'", isCorrect: false }
+            ],
+            explanation: "Named exports require curly braces `{ name }` in import statements."
+          },
+          {
+            question: "3. How many `default` exports can a single module file have?",
+            options: [
+              { text: "A) Maximum ONE default export per module", isCorrect: true },
+              { text: "B) Unlimited default exports", isCorrect: false },
+              { text: "C) Exactly 2", isCorrect: false },
+              { text: "D) Default exports are not supported", isCorrect: false }
+            ],
+            explanation: "A JavaScript module file can have at most 1 default export."
+          },
+          {
+            question: "4. What attribute is required on HTML `<script>` tag to enable ES6 module imports in browser?",
+            options: [
+              { text: "A) type=\"module\"", isCorrect: true },
+              { text: "B) module=\"true\"", isCorrect: false },
+              { text: "C) ES6=\"true\"", isCorrect: false },
+              { text: "D) async=\"module\"", isCorrect: false }
+            ],
+            explanation: "`&lt;script type=&quot;module&quot; src=&quot;main.js&quot;&gt;&lt;/script&gt;` enables ES6 module mode in web browsers."
+          },
+          {
+            question: "5. Are ES6 modules executed in strict mode automatically?",
+            options: [
+              { text: "A) Yes, ES6 modules are always evaluated in strict mode", isCorrect: true },
+              { text: "B) No, requires 'use strict' header", isCorrect: false },
+              { text: "C) Only in Node.js", isCorrect: false },
+              { text: "D) Only in Chrome browser", isCorrect: false }
+            ],
+            explanation: "Modules automatically enforce strict mode (`'use strict'`) by default."
+          },
+          {
+            question: "6. What is Object Destructuring syntax?",
+            options: [
+              { text: "A) const { title, price } = item;", isCorrect: true },
+              { text: "B) const [ title, price ] = item;", isCorrect: false },
+              { text: "C) const item.title = title;", isCorrect: false },
+              { text: "D) const item -> { title, price };", isCorrect: false }
+            ],
+            explanation: "Curly braces `{ prop1, prop2 } = object` unpack properties into distinct variables."
+          },
+          {
+            question: "7. How do you shallow clone an object using spread operator?",
+            options: [
+              { text: "A) const clone = { ...original };", isCorrect: true },
+              { text: "B) const clone = original.clone();", isCorrect: false },
+              { text: "C) const clone = [ ...original ];", isCorrect: false },
+              { text: "D) const clone = Object.spread(original);", isCorrect: false }
+            ],
+            explanation: "`{ ...original }` spreads key-value pairs into a new shallow object clone."
+          },
+          {
+            question: "8. What does `import * as Utils from './utils.js'` do?",
+            options: [
+              { text: "A) Imports all exports from file as properties of object `Utils`", isCorrect: true },
+              { text: "B) Imports default export only", isCorrect: false },
+              { text: "C) Deletes utils.js file", isCorrect: false },
+              { text: "D) Runs script in background thread", isCorrect: false }
+            ],
+            explanation: "`* as Namespace` creates a module namespace object containing all exported members."
+          },
+          {
+            question: "9. What is Dynamic Import syntax `import(path)`?",
+            options: [
+              { text: "A) Returns a Promise resolving to the loaded module (for code-splitting)", isCorrect: true },
+              { text: "B) Synchronous blocking file load", isCorrect: false },
+              { text: "C) CSS stylesheet importer", isCorrect: false },
+              { text: "D) HTML tag parser", isCorrect: false }
+            ],
+            explanation: "Dynamic `import('./module.js')` loads modules asynchronously on demand for web performance."
+          },
+          {
+            question: "10. What is property shorthand syntax in object literals?",
+            options: [
+              { text: "A) const obj = { name, age }; (when variable name matches key)", isCorrect: true },
+              { text: "B) const obj = name: age;", isCorrect: false },
+              { text: "C) const obj = { name = age };", isCorrect: false },
+              { text: "D) const obj = key(name, age);", isCorrect: false }
+            ],
+            explanation: "If key name and variable name match, `{ name }` is shorthand for `{ name: name }`."
+          }
+        ]
+      },
+      {
+        id: "web-storage",
+        module: "Module 5: Web Storage & Exception Handling",
+        title: "12. Web Storage: localStorage & JSON",
+        badge: "Intermediate",
+        readTime: "8 min read",
+        lead: "Persist client-side application state across page reloads using browser localStorage, sessionStorage, and JSON serialization.",
+        contentHtml: `
+          <h2>💾 Web Storage APIs: Client State Persistence</h2>
+          <p>Web Storage APIs allow browser applications running on 🪟 Windows 11 to persist key-value pairs directly inside user browser storage.</p>
+
+          <ul>
+            <li><strong><code>localStorage</code>:</strong> Persistent key-value storage that survives browser restarts and OS reboots. Data never expires until explicitly cleared.</li>
+            <li><strong><code>sessionStorage</code>:</strong> Temporary storage scoped strictly to the current browser tab session. Data is cleared automatically when the tab or window is closed.</li>
+          </ul>
+
+          <h2>🔄 JSON Serialization (<code>JSON.stringify</code> &amp; <code>JSON.parse</code>)</h2>
+          <p>Web Storage APIs can ONLY store string primitives! To save complex JavaScript Objects or Arrays:</p>
+          <ul>
+            <li><strong><code>JSON.stringify(object)</code>:</strong> Converts JavaScript objects into JSON-formatted text strings for storage.</li>
+            <li><strong><code>JSON.parse(jsonString)</code>:</strong> Deserializes stored JSON strings back into live JavaScript object instances.</li>
+          </ul>
+
+          <div class="callout callout-warning">
+            <div class="callout-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+            <div>
+              <div class="callout-title">⚠️ Storage Quotas & Security Best Practices</div>
+              <p style="margin:0;">Web Storage is capped at <strong>~5MB</strong> per origin domain. Never store unencrypted passwords, secret API keys, or sensitive personal data in <code>localStorage</code> because client-side scripts can access it!</p>
+            </div>
+          </div>
+
+          <div class="callout callout-warning" style="border-left-color: var(--accent-yellow); margin-top: 1.5rem;">
+            <div class="callout-icon" style="color: var(--accent-yellow);"><i class="fa-solid fa-laptop-code"></i></div>
+            <div>
+              <div class="callout-title" style="color: var(--accent-yellow);">🎯 Hands-on Developer Task</div>
+              <p style="margin-bottom: 0.5rem;"><strong>Task Objective:</strong> Serialize & Deserialize User Preferences.</p>
+              <p style="margin: 0;">In the <strong>Live Code Playground</strong> below, convert <code>{ theme: "dark", score: 95 }</code> to a JSON string using <code>JSON.stringify()</code>, then parse it back using <code>JSON.parse()</code>!</p>
+            </div>
+          </div>
+        `,
+        defaultCode: `// 🎯 HANDS-ON TASK: Serialize & Deserialize Data
+const userPreferences = {
+  theme: "dark",
+  completedLessons: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+  lastActive: new Date().toLocaleDateString()
+};
+
+// Step 1: Serialize to JSON string
+const jsonString = JSON.stringify(userPreferences);
+console.log("JSON Serialized String:", jsonString);
+
+// Step 2: Deserialize back to Object
+const parsedObject = JSON.parse(jsonString);
+console.log("✅ Deserialized Theme Preference:", parsedObject.theme);
+console.log("✅ Completed Lessons Count:", parsedObject.completedLessons.length);`,
+        questions: [
+          {
+            question: "1. What is the storage persistence behavior of `localStorage`?",
+            options: [
+              { text: "A) Persists permanently until explicitly cleared", isCorrect: true },
+              { text: "B) Clears when tab is closed", isCorrect: false },
+              { text: "C) Expires after 24 hours", isCorrect: false },
+              { text: "D) Clears on page reload", isCorrect: false }
+            ],
+            explanation: "`localStorage` data has no expiration time and persists across browser restarts."
+          },
+          {
+            question: "2. How does `sessionStorage` differ from `localStorage`?",
+            options: [
+              { text: "A) Data is cleared when browser tab or window closes", isCorrect: true },
+              { text: "B) Stores data on server", isCorrect: false },
+              { text: "C) Can store images directly", isCorrect: false },
+              { text: "D) Works without JavaScript", isCorrect: false }
+            ],
+            explanation: "`sessionStorage` data is scoped to the browser tab session lifetime."
+          },
+          {
+            question: "3. What data type can `localStorage` store directly?",
+            options: [
+              { text: "A) DOM String text values only", isCorrect: true },
+              { text: "B) Objects and Functions", isCorrect: false },
+              { text: "C) Binary Blob data", isCorrect: false },
+              { text: "D) SQL tables", isCorrect: false }
+            ],
+            explanation: "Web storage key-value pairs are strictly stored as DOM Strings."
+          },
+          {
+            question: "4. Which method saves an item into `localStorage`?",
+            options: [
+              { text: "A) localStorage.setItem(key, value)", isCorrect: true },
+              { text: "B) localStorage.save(key, value)", isCorrect: false },
+              { text: "C) localStorage.add(key, value)", isCorrect: false },
+              { text: "D) localStorage.write(key, value)", isCorrect: false }
+            ],
+            explanation: "`setItem('key', 'value')` creates or updates a storage entry."
+          },
+          {
+            question: "5. Which method retrieves an item from `localStorage`?",
+            options: [
+              { text: "A) localStorage.getItem(key)", isCorrect: true },
+              { text: "B) localStorage.read(key)", isCorrect: false },
+              { text: "C) localStorage.fetch(key)", isCorrect: false },
+              { text: "D) localStorage.select(key)", isCorrect: false }
+            ],
+            explanation: "`getItem('key')` returns the string value (or `null` if key does not exist)."
+          },
+          {
+            question: "6. Which method converts a JS object to a JSON string for storage?",
+            options: [
+              { text: "A) JSON.stringify(object)", isCorrect: true },
+              { text: "B) JSON.parse(object)", isCorrect: false },
+              { text: "C) object.toJSON()", isCorrect: false },
+              { text: "D) String(object)", isCorrect: false }
+            ],
+            explanation: "`JSON.stringify()` serializes JavaScript objects/arrays into JSON string format."
+          },
+          {
+            question: "7. Which method converts a JSON string back into a JavaScript object?",
+            options: [
+              { text: "A) JSON.parse(string)", isCorrect: true },
+              { text: "B) JSON.stringify(string)", isCorrect: false },
+              { text: "C) String.toObject(json)", isCorrect: false },
+              { text: "D) JSON.decode(json)", isCorrect: false }
+            ],
+            explanation: "`JSON.parse()` parses JSON text string and constructs the corresponding JS value/object."
+          },
+          {
+            question: "8. How do you delete all data stored in `localStorage` for the current domain?",
+            options: [
+              { text: "A) localStorage.clear()", isCorrect: true },
+              { text: "B) localStorage.removeAll()", isCorrect: false },
+              { text: "C) localStorage.reset()", isCorrect: false },
+              { text: "D) localStorage.delete()", isCorrect: false }
+            ],
+            explanation: "`localStorage.clear()` deletes all key-value entries for the current origin."
+          },
+          {
+            question: "9. How do you remove a specific single key from `localStorage`?",
+            options: [
+              { text: "A) localStorage.removeItem(key)", isCorrect: true },
+              { text: "B) localStorage.deleteItem(key)", isCorrect: false },
+              { text: "C) localStorage.clearKey(key)", isCorrect: false },
+              { text: "D) delete localStorage[key]", isCorrect: false }
+            ],
+            explanation: "`localStorage.removeItem('key')` deletes the targeted key-value pair."
+          },
+          {
+            question: "10. What storage limit cap do modern browsers enforce on `localStorage` per domain?",
+            options: [
+              { text: "A) Approximately 5MB to 10MB", isCorrect: true },
+              { text: "B) 1GB", isCorrect: false },
+              { text: "C) 100KB", isCorrect: false },
+              { text: "D) Unlimited RAM", isCorrect: false }
+            ],
+            explanation: "Web Storage is capped at around 5MB per domain origin in modern web browsers."
+          }
+        ]
+      },
+      {
+        id: "error-handling",
+        module: "Module 5: Web Storage & Exception Handling",
+        title: "13. Error Handling: try...catch & Custom Errors",
+        badge: "Intermediate",
+        readTime: "8 min read",
+        lead: "Build fault-tolerant applications using try...catch...finally blocks, throwing exceptions, and creating custom Error classes.",
+        contentHtml: `
+          <h2>🛡️ Fault-Tolerant Code with <code>try...catch...finally</code></h2>
+          <p>Uncaught runtime errors crash web applications and freeze user interfaces. The <code>try...catch...finally</code> architecture catches exceptions gracefully and prevents application failure on 🪟 Windows browsers.</p>
+
+          <ul>
+            <li><strong><code>try { ... }</code>:</strong> Encloses risky code blocks that might throw exceptions (such as network API fetches or JSON parsing).</li>
+            <li><strong><code>catch (err) { ... }</code>:</strong> Executes automatically when an error is thrown inside the try block. Access error details via <code>err.name</code>, <code>err.message</code>, and <code>err.stack</code>.</li>
+            <li><strong><code>finally { ... }</code>:</strong> Code block that executes ALWAYS regardless of whether an exception occurred or not (perfect for hiding loading spinners or closing connections).</li>
+          </ul>
+
+          <h2>💥 Standard Exceptions & Custom Error Classes</h2>
+          <ul>
+            <li><strong>Common Error Types:</strong> <code>TypeError</code>, <code>ReferenceError</code>, <code>SyntaxError</code>, <code>RangeError</code>.</li>
+            <li><strong>Throwing Custom Errors:</strong> Enforce data validation by throwing explicit exceptions: <code>throw new Error("Invalid Input");</code>.</li>
+          </ul>
+
+          <div class="callout callout-tip">
+            <div class="callout-icon"><i class="fa-solid fa-bug"></i></div>
+            <div>
+              <div class="callout-title">💡 Custom Error Class Inheritance</div>
+              <p style="margin:0;">Create specialized application error classes by extending the built-in <code>Error</code> base class: <code>class ValidationError extends Error { ... }</code>.</p>
+            </div>
+          </div>
+
+          <div class="callout callout-warning" style="border-left-color: var(--accent-yellow); margin-top: 1.5rem;">
+            <div class="callout-icon" style="color: var(--accent-yellow);"><i class="fa-solid fa-laptop-code"></i></div>
+            <div>
+              <div class="callout-title" style="color: var(--accent-yellow);">🎯 Hands-on Developer Task</div>
+              <p style="margin-bottom: 0.5rem;"><strong>Task Objective:</strong> Validate Input & Throw Exceptions.</p>
+              <p style="margin: 0;">In the <strong>Live Code Playground</strong> below, write a function <code>validateAge(age)</code> that throws a <code>RangeError</code> if <code>age &lt; 18</code>. Catch it with <code>try...catch</code>!</p>
+            </div>
+          </div>
+        `,
+        defaultCode: `// 🎯 HANDS-ON TASK: Validate Input & Throw Exception
+function validateUserAge(age) {
+  if (typeof age !== "number") {
+    throw new TypeError("Age parameter must be a number!");
+  }
+  if (age < 18) {
+    throw new RangeError("User must be at least 18 years old!");
+  }
+  return \`Valid Age Registered: \${age}\`;
+}
+
+try {
+  console.log(validateUserAge(22));
+  // Testing boundary invalid age:
+  console.log(validateUserAge(15));
+} catch (err) {
+  console.error("🔒 Caught Exception:", err.name, "-", err.message);
+} finally {
+  console.log("Process completed safely.");
+}`,
+        questions: [
+          {
+            question: "1. Which block handles exceptions thrown inside a `try` block?",
+            options: [
+              { text: "A) catch (error) { ... }", isCorrect: true },
+              { text: "B) except (error) { ... }", isCorrect: false },
+              { text: "C) handle (error) { ... }", isCorrect: false },
+              { text: "D) error (err) { ... }", isCorrect: false }
+            ],
+            explanation: "The `catch` block receives and handles exceptions thrown inside preceding `try` block."
+          },
+          {
+            question: "2. Which block in `try...catch...finally` executes ALWAYS regardless of outcome?",
+            options: [
+              { text: "A) finally", isCorrect: true },
+              { text: "B) always", isCorrect: false },
+              { text: "C) end", isCorrect: false },
+              { text: "D) complete", isCorrect: false }
+            ],
+            explanation: "The `finally` block runs whether `try` succeeded or `catch` handled an error."
+          },
+          {
+            question: "3. How do you manually throw an exception in JavaScript?",
+            options: [
+              { text: "A) throw new Error('Message')", isCorrect: true },
+              { text: "B) raise Error('Message')", isCorrect: false },
+              { text: "C) return Error('Message')", isCorrect: false },
+              { text: "D) call Error('Message')", isCorrect: false }
+            ],
+            explanation: "The `throw` statement throws a user-defined exception."
+          },
+          {
+            question: "4. Which standard Error type occurs when trying to access an undeclared variable?",
+            options: [
+              { text: "A) ReferenceError", isCorrect: true },
+              { text: "B) TypeError", isCorrect: false },
+              { text: "C) SyntaxError", isCorrect: false },
+              { text: "D) RangeError", isCorrect: false }
+            ],
+            explanation: "`ReferenceError` occurs when evaluating a non-existent identifier variable."
+          },
+          {
+            question: "5. Which standard Error type occurs when a value is not of expected data type (e.g. calling non-function)?",
+            options: [
+              { text: "A) TypeError", isCorrect: true },
+              { text: "B) ReferenceError", isCorrect: false },
+              { text: "C) EvalError", isCorrect: false },
+              { text: "D) SystemError", isCorrect: false }
+            ],
+            explanation: "`TypeError` occurs when an operation cannot be performed because operand type is incompatible."
+          },
+          {
+            question: "6. Which standard Error type occurs when trying to parse invalid JSON syntax?",
+            options: [
+              { text: "A) SyntaxError", isCorrect: true },
+              { text: "B) TypeError", isCorrect: false },
+              { text: "C) JSONError", isCorrect: false },
+              { text: "D) ParseError", isCorrect: false }
+            ],
+            explanation: "`JSON.parse()` throws a `SyntaxError` when string contains invalid JSON syntax."
+          },
+          {
+            question: "7. Which standard Error type occurs when a number is outside acceptable range bounds?",
+            options: [
+              { text: "A) RangeError", isCorrect: true },
+              { text: "B) BoundError", isCorrect: false },
+              { text: "C) OutOfMemoryError", isCorrect: false },
+              { text: "D) TypeError", isCorrect: false }
+            ],
+            explanation: "`RangeError` occurs when passing a numeric value outside permitted range (e.g. `Array(-1)`)."
+          },
+          {
+            question: "8. How do you create a custom Error class in ES6?",
+            options: [
+              { text: "A) class CustomError extends Error { ... }", isCorrect: true },
+              { text: "B) class CustomError implements Error { ... }", isCorrect: false },
+              { text: "C) function CustomError() extends Exception", isCorrect: false },
+              { text: "D) new ErrorClass('Custom')", isCorrect: false }
+            ],
+            explanation: "Extend the built-in `Error` class (`class CustomError extends Error`) to create custom error types."
+          },
+          {
+            question: "9. What property on an Error object contains the call stack traceback text?",
+            options: [
+              { text: "A) err.stack", isCorrect: true },
+              { text: "B) err.trace", isCorrect: false },
+              { text: "C) err.callstack", isCorrect: false },
+              { text: "D) err.history", isCorrect: false }
+            ],
+            explanation: "`err.stack` contains string representation of call stack history at moment of error creation."
+          },
+          {
+            question: "10. What happens if an error is thrown and NO `try...catch` block catches it?",
+            options: [
+              { text: "A) The error bubbles up to global scope, printing Uncaught Exception in console and halting script execution", isCorrect: true },
+              { text: "B) It is ignored silently", isCorrect: false },
+              { text: "C) The browser window closes", isCorrect: false },
+              { text: "D) Code auto-fixes itself", isCorrect: false }
+            ],
+            explanation: "Uncaught exceptions bubble up to top window/process scope, triggering uncaught error handlers."
+          }
+        ]
+      },
+      {
+        id: "fetch-api",
+        module: "Module 6: Modern Web APIs & Tooling",
+        title: "14. Fetch API & RESTful Web Services",
+        badge: "Advanced",
+        readTime: "11 min read",
+        lead: "Connect web applications to backend REST APIs using the native Fetch API, HTTP methods (GET, POST, PUT, DELETE), and async/await.",
+        contentHtml: `
+          <h2>🌐 Asynchronous Network Requests with Fetch API</h2>
+          <p>Modern Full Stack web applications communicate with remote backend cloud servers and RESTful APIs using the native browser <code>fetch()</code> API.</p>
+
+          <h2>📡 RESTful HTTP Verbs & Response Statuses</h2>
+          <ul>
+            <li><strong>HTTP Methods:</strong> <code>GET</code> (retrieve records), <code>POST</code> (create new record), <code>PUT/PATCH</code> (update record), <code>DELETE</code> (remove record).</li>
+            <li><strong>HTTP Headers:</strong> Pass metadata such as <code>'Content-Type': 'application/json'</code> to inform server parsers of payload formats.</li>
+            <li><strong>Status Code Categories:</strong>
+              <ul>
+                <li><code>200 OK</code> / <code>201 Created</code>: Successful requests.</li>
+                <li><code>400 Bad Request</code> / <code>401 Unauthorized</code> / <code>404 Not Found</code>: Client-side errors.</li>
+                <li><code>500 Internal Server Error</code>: Backend server errors.</li>
+              </ul>
+            </li>
+          </ul>
+
+          <h2>🛡️ Response Stream Parsing with <code>async/await</code></h2>
+          <p>The <code>fetch()</code> method returns a Promise resolving to an HTTP <strong>Response</strong> object stream. Read body contents via <code>const data = await response.json();</code>.</p>
+
+          <div class="callout callout-warning">
+            <div class="callout-icon"><i class="fa-solid fa-shield-halved"></i></div>
+            <div>
+              <div class="callout-title">⚠️ CORS (Cross-Origin Resource Sharing)</div>
+              <p style="margin:0;">Browsers enforce CORS security rules to block un-allowed cross-domain requests. Ensure backend API headers include <code>Access-Control-Allow-Origin: *</code> for smooth integration!</p>
+            </div>
+          </div>
+
+          <div class="callout callout-warning" style="border-left-color: var(--accent-yellow); margin-top: 1.5rem;">
+            <div class="callout-icon" style="color: var(--accent-yellow);"><i class="fa-solid fa-laptop-code"></i></div>
+            <div>
+              <div class="callout-title" style="color: var(--accent-yellow);">🎯 Hands-on Developer Task</div>
+              <p style="margin-bottom: 0.5rem;"><strong>Task Objective:</strong> Simulate API Fetch Request & Parse Body.</p>
+              <p style="margin: 0;">In the <strong>Live Code Playground</strong> below, create an <code>async function fetchRepo()</code> that simulates fetching JSON data for a GitHub repo and logs HTTP status 200!</p>
+            </div>
+          </div>
+        `,
+        defaultCode: `// 🎯 HANDS-ON TASK: Simulate API Fetch & Parse Payload
+async function fetchRepoDetails(repoName) {
+  console.log(\`⏳ Requesting data for \${repoName}...\`);
+
+  const mockResponse = await new Promise(resolve => {
+    setTimeout(() => {
+      resolve({
+        ok: true,
+        status: 200,
+        json: async () => ({ repo: repoName, stars: 14200, language: "JavaScript", owner: "NextSem" })
+      });
+    }, 400);
+  });
+
+  if (!mockResponse.ok) {
+    throw new Error(\`HTTP Error Status: \${mockResponse.status}\`);
+  }
+
+  const data = await mockResponse.json();
+  console.log("✅ Repository Data Fetched:", data.repo, "(Stars: " + data.stars + ")");
+}
+
+fetchRepoDetails("nextsem/javascript-mastery");`,
+        questions: [
+          {
+            question: "1. What does native browser `fetch(url)` function return?",
+            options: [
+              { text: "A) A Promise resolving to Response stream object", isCorrect: true },
+              { text: "B) Direct JSON object", isCorrect: false },
+              { text: "C) Plain string HTML", isCorrect: false },
+              { text: "D) Void", isCorrect: false }
+            ],
+            explanation: "`fetch()` returns a Promise that resolves to the Response object representing the HTTP request."
+          },
+          {
+            question: "2. Does `fetch()` reject its Promise on HTTP 404 or 500 status codes?",
+            options: [
+              { text: "A) No, fetch() only rejects on network failures or blocked requests (check response.ok)", isCorrect: true },
+              { text: "B) Yes, rejects on all HTTP 4xx/5xx errors", isCorrect: false },
+              { text: "C) Only in Node.js", isCorrect: false },
+              { text: "D) Only on 500 errors", isCorrect: false }
+            ],
+            explanation: "`fetch()` Promise resolves normally even on 404/500 HTTP statuses. Check `response.ok === true`."
+          },
+          {
+            question: "3. Which HTTP method is default when making a `fetch(url)` request?",
+            options: [
+              { text: "A) GET", isCorrect: true },
+              { text: "B) POST", isCorrect: false },
+              { text: "C) PUT", isCorrect: false },
+              { text: "D) HEAD", isCorrect: false }
+            ],
+            explanation: "`fetch()` defaults to HTTP `GET` request unless specified in options object."
+          },
+          {
+            question: "4. How do you configure a `fetch()` request to perform an HTTP POST request?",
+            options: [
+              { text: "A) fetch(url, { method: 'POST', body: JSON.stringify(data), headers: { 'Content-Type': 'application/json' } })", isCorrect: true },
+              { text: "B) fetch.post(url, data)", isCorrect: false },
+              { text: "C) fetch(url, 'POST', data)", isCorrect: false },
+              { text: "D) fetch(url).post(data)", isCorrect: false }
+            ],
+            explanation: "Pass configuration options object `{ method: 'POST', body: ..., headers: ... }` as 2nd parameter."
+          },
+          {
+            question: "5. What HTTP header tells the server that request payload body is formatted as JSON?",
+            options: [
+              { text: "A) 'Content-Type': 'application/json'", isCorrect: true },
+              { text: "B) 'Accept': 'text/plain'", isCorrect: false },
+              { text: "C) 'Mode': 'cors'", isCorrect: false },
+              { text: "D) 'Data-Format': 'json'", isCorrect: false }
+            ],
+            explanation: "`Content-Type: application/json` informs server parser that payload is JSON string."
+          },
+          {
+            question: "6. Which HTTP status code range represents successful requests?",
+            options: [
+              { text: "A) 200–299 (e.g. 200 OK, 201 Created)", isCorrect: true },
+              { text: "B) 400–499", isCorrect: false },
+              { text: "C) 500–599", isCorrect: false },
+              { text: "D) 300–399", isCorrect: false }
+            ],
+            explanation: "HTTP 2xx status codes indicate successful HTTP transactions."
+          },
+          {
+            question: "7. What does CORS stand for in web API security?",
+            options: [
+              { text: "A) Cross-Origin Resource Sharing", isCorrect: true },
+              { text: "B) Core Object Reference System", isCorrect: false },
+              { text: "C) Client Online Request Security", isCorrect: false },
+              { text: "D) Computer Operating System", isCorrect: false }
+            ],
+            explanation: "CORS (Cross-Origin Resource Sharing) is a browser security mechanism restricting cross-domain API calls."
+          },
+          {
+            question: "8. Which method reads `response` body stream and parses it as text?",
+            options: [
+              { text: "A) await response.text()", isCorrect: true },
+              { text: "B) response.toString()", isCorrect: false },
+              { text: "C) response.read()", isCorrect: false },
+              { text: "D) response.bodyText()", isCorrect: false }
+            ],
+            explanation: "`response.text()` returns a Promise resolving to raw text content of Response."
+          },
+          {
+            question: "9. How do you append URL query parameters to a GET fetch request?",
+            options: [
+              { text: "A) Using URLSearchParams (e.g. url + '?' + new URLSearchParams({ page: 1 }))", isCorrect: true },
+              { text: "B) Passing query in POST body", isCorrect: false },
+              { text: "C) Setting header 'Query': 'page=1'", isCorrect: false },
+              { text: "D) Query parameters are not supported", isCorrect: false }
+            ],
+            explanation: "`URLSearchParams` formats key-value query parameters safely for URL string appending."
+          },
+          {
+            question: "10. What tool allows inspecting live network HTTP fetch requests in browser?",
+            options: [
+              { text: "A) Network tab in Developer Tools (F12 on 🪟 Windows 11)", isCorrect: true },
+              { text: "B) Windows Task Manager", isCorrect: false },
+              { text: "C) Elements Panel", isCorrect: false },
+              { text: "D) Terminal Prompt", isCorrect: false }
+            ],
+            explanation: "The **Network** tab in Developer Tools displays all active HTTP requests, headers, and responses."
+          }
+        ]
+      },
+      {
+        id: "nodejs-tooling",
+        module: "Module 6: Modern Web APIs & Tooling",
+        title: "15. Introduction to Node.js, npm, & Tooling",
+        badge: "Advanced",
+        readTime: "12 min read",
+        lead: "Expand your JavaScript skills beyond the browser. Learn Node.js backend runtime, npm package management, and modern bundlers (Vite/Webpack).",
+        contentHtml: `
+          <h2>🟢 Server-Side JavaScript with Node.js</h2>
+          <p><strong>Node.js</strong> is a cross-platform JavaScript runtime environment built on Chrome's V8 engine that enables developers to run JavaScript outside web browsers to build fast, scalable backends on 🪟 Windows 11 and Linux cloud servers.</p>
+
+          <h2>📦 Node Package Manager (npm) & Project Tooling</h2>
+          <ul>
+            <li><strong><code>package.json</code>:</strong> Central project manifest tracking metadata, custom scripts (e.g. <code>npm run dev</code>), and third-party dependency packages.</li>
+            <li><strong><code>node_modules/</code>:</strong> Local directory storing installed third-party npm libraries (such as Express, React, or Mongoose). <em>Always exclude from Git via <code>.gitignore</code>!</em></li>
+            <li><strong>Modern Web Bundlers (Vite / Webpack):</strong> Development servers and production compilers providing Hot Module Replacement (HMR) and optimized code bundling.</li>
+          </ul>
+
+          <div class="callout callout-info">
+            <div class="callout-icon"><i class="fa-solid fa-terminal"></i></div>
+            <div>
+              <div class="callout-title">🪟 Windows 11 Terminal Integration</div>
+              <p style="margin:0;">Manage Node.js projects directly from 🪟 Windows Command Prompt (CMD) or PowerShell using commands like <code>node index.js</code>, <code>npm init -y</code>, and <code>npm install &lt;package&gt;</code>.</p>
+            </div>
+          </div>
+
+          <div class="callout callout-warning" style="border-left-color: var(--accent-yellow); margin-top: 1.5rem;">
+            <div class="callout-icon" style="color: var(--accent-yellow);"><i class="fa-solid fa-laptop-code"></i></div>
+            <div>
+              <div class="callout-title" style="color: var(--accent-yellow);">🎯 Hands-on Developer Task</div>
+              <p style="margin-bottom: 0.5rem;"><strong>Task Objective:</strong> Server Environment Status Logger.</p>
+              <p style="margin: 0;">In the <strong>Live Code Playground</strong> below, create an environment object <code>envConfig = { NODE_ENV: "production", PORT: 8080, OS: "🪟 Windows 11" }</code> and print a formatted server status report!</p>
+            </div>
+          </div>
+        `,
+        defaultCode: `// 🎯 HANDS-ON TASK: Server Environment Status Logger
+const envConfig = {
+  NODE_ENV: "production",
+  PORT: 8080,
+  OS: "🪟 Windows 11",
+  PACKAGES: ["express", "dotenv", "cors", "mongoose"]
+};
+
+console.log("-----------------------------------------");
+console.log("🟢 NODE.JS SERVER ENVIRONMENT LOG");
+console.log("-----------------------------------------");
+console.log("Mode:     " + envConfig.NODE_ENV);
+console.log("Port:     " + envConfig.PORT);
+console.log("Platform: " + envConfig.OS);
+console.log("Packages: " + envConfig.PACKAGES.join(", "));
+console.log("-----------------------------------------");
+console.log("✅ Server active and listening for incoming requests!");`,
+        questions: [
+          {
+            question: "1. What is Node.js?",
+            options: [
+              { text: "A) Server-side JavaScript runtime environment built on V8 engine", isCorrect: true },
+              { text: "B) CSS framework", isCorrect: false },
+              { text: "C) Web browser vendor", isCorrect: false },
+              { text: "D) HTML database", isCorrect: false }
+            ],
+            explanation: "Node.js executes JavaScript on servers outside the web browser environment."
+          },
+          {
+            question: "2. What is `npm` in JavaScript development ecosystem?",
+            options: [
+              { text: "A) Node Package Manager for installing third-party JS libraries", isCorrect: true },
+              { text: "B) New Programming Method", isCorrect: false },
+              { text: "C) Network Protocol Manager", isCorrect: false },
+              { text: "D) Node Private Memory", isCorrect: false }
+            ],
+            explanation: "`npm` is the default package manager for Node.js to publish/install reusable code modules."
+          },
+          {
+            question: "3. Which file tracks project dependencies and scripts in a Node.js project?",
+            options: [
+              { text: "A) package.json", isCorrect: true },
+              { text: "B) index.html", isCorrect: false },
+              { text: "C) node.config", isCorrect: false },
+              { text: "D) main.js", isCorrect: false }
+            ],
+            explanation: "`package.json` contains project configuration, dependencies list, and npm scripts."
+          },
+          {
+            question: "4. Where does `npm install` download project dependencies to?",
+            options: [
+              { text: "A) node_modules/ directory", isCorrect: true },
+              { text: "B) System32/ directory", isCorrect: false },
+              { text: "C) public/ directory", isCorrect: false },
+              { text: "D) src/ directory", isCorrect: false }
+            ],
+            explanation: "`npm install` stores downloaded dependency packages inside `node_modules/` folder."
+          },
+          {
+            question: "5. What command runs a script named `dev` defined inside `package.json` scripts block?",
+            options: [
+              { text: "A) npm run dev", isCorrect: true },
+              { text: "B) node dev", isCorrect: false },
+              { text: "C) start dev", isCorrect: false },
+              { text: "D) execute dev", isCorrect: false }
+            ],
+            explanation: "`npm run dev` executes the custom `dev` script command registered in `package.json`."
+          },
+          {
+            question: "6. What is Vite in modern frontend Web Development?",
+            options: [
+              { text: "A) Next-generation ultra-fast frontend build tool and dev server", isCorrect: true },
+              { text: "B) Database engine", isCorrect: false },
+              { text: "C) Browser plugin", isCorrect: false },
+              { text: "D) CSS preprocessor", isCorrect: false }
+            ],
+            explanation: "Vite provides extremely fast dev server startup and optimized production bundling."
+          },
+          {
+            question: "7. What global object provides access to environment variables in Node.js?",
+            options: [
+              { text: "A) process.env", isCorrect: true },
+              { text: "B) window.env", isCorrect: false },
+              { text: "C) global.variables", isCorrect: false },
+              { text: "D) system.env", isCorrect: false }
+            ],
+            explanation: "`process.env` stores environment configuration variables in Node.js runtime."
+          },
+          {
+            question: "8. What is the legacy CommonJS module export syntax in Node.js?",
+            options: [
+              { text: "A) module.exports = { ... }", isCorrect: true },
+              { text: "B) export default { ... }", isCorrect: false },
+              { text: "C) return module", isCorrect: false },
+              { text: "D) node.export = { ... }", isCorrect: false }
+            ],
+            explanation: "CommonJS uses `module.exports` and `require()` (standard before ES6 modules)."
+          },
+          {
+            question: "9. How do you import a module in CommonJS syntax?",
+            options: [
+              { text: "A) const express = require('express');", isCorrect: true },
+              { text: "B) import express from 'express';", isCorrect: false },
+              { text: "C) load 'express';", isCorrect: false },
+              { text: "D) fetch('express');", isCorrect: false }
+            ],
+            explanation: "CommonJS uses `const pkg = require('pkg_name')` for module loading."
+          },
+          {
+            question: "10. Why should `node_modules/` folder be listed in `.gitignore` file?",
+            options: [
+              { text: "A) It contains thousands of downloaded dependency files that can be reinstalled easily via `npm install`", isCorrect: true },
+              { text: "B) It contains private passwords", isCorrect: false },
+              { text: "C) Git cannot track folders", isCorrect: false },
+              { text: "D) It breaks Windows OS", isCorrect: false }
+            ],
+            explanation: "Excluding `node_modules/` keeps Git repositories lightweight; dependencies are restored via `npm install`."
+          }
+        ]
+      }
+    ];
+
+    // ----------------------------------------------------
+    // STATE MANAGEMENT & LOCAL STORAGE
+    // ----------------------------------------------------
+    let currentLessonIndex = 0;
+    let completedLessons = JSON.parse(localStorage.getItem('js_completed_lessons') || '[]');
+    let bookmarkedLessons = JSON.parse(localStorage.getItem('js_bookmarks') || '[]');
+
+    // Quiz Execution State for current lesson
+    let activeQuizQuestions = [];
+    let currentQuizStep = 0;
+    let quizUserAnswers = []; // stores { questionIdx, selectedIdx, isCorrect }
+    let autoAdvanceTimer = null;
+    let countdownInterval = null;
+
+    function clearQuizTimers() {
+      if (autoAdvanceTimer) {
+        clearTimeout(autoAdvanceTimer);
+        autoAdvanceTimer = null;
+      }
+      if (countdownInterval) {
+        clearInterval(countdownInterval);
+        countdownInterval = null;
+      }
+    }
+
+    // ----------------------------------------------------
+    // INITIALIZATION & EVENT LISTENERS
+    // ----------------------------------------------------
+    document.addEventListener('DOMContentLoaded', () => {
+      // Restore Theme
+      const savedTheme = localStorage.getItem('js_theme') || 'dark';
+      setTheme(savedTheme);
+
+      // Check URL Hash for specific lesson (e.g. #variables-scope)
+      const hash = window.location.hash.replace('#', '');
+      const foundIdx = LESSONS.findIndex(l => l.id === hash);
+      if (foundIdx !== -1) {
+        currentLessonIndex = foundIdx;
+      }
+
+      renderSidebar();
+      loadLesson(currentLessonIndex);
+      updateOverallProgress();
+    });
+
+    // ----------------------------------------------------
+    // RENDER SIDEBAR & SEARCH
+    // ----------------------------------------------------
+    function renderSidebar(filteredLessons = null) {
+      const navEl = document.getElementById('sidebarNav');
+      navEl.innerHTML = '';
+
+      const lessonsToRender = filteredLessons || LESSONS;
+      let currentMod = '';
+
+      lessonsToRender.forEach((lesson) => {
+        const globalIdx = LESSONS.findIndex(l => l.id === lesson.id);
+
+        if (lesson.module !== currentMod) {
+          currentMod = lesson.module;
+          const sectionTitle = document.createElement('div');
+          sectionTitle.className = 'nav-section-title';
+          sectionTitle.textContent = currentMod;
+          navEl.appendChild(sectionTitle);
+        }
+
+        const isCompleted = completedLessons.includes(lesson.id);
+        const isActive = globalIdx === currentLessonIndex;
+
+        const navItem = document.createElement('a');
+        navItem.className = `nav-item ${isActive ? 'active' : ''} ${isCompleted ? 'completed' : ''}`;
+        navItem.setAttribute('role', 'button');
+        navItem.setAttribute('aria-current', isActive ? 'page' : 'false');
+        navItem.onclick = () => {
+          loadLesson(globalIdx);
+          toggleMobileSidebar(false);
+        };
+
+        navItem.innerHTML = `
+          <i class="fa-solid fa-code" style="font-size: 0.85rem;"></i>
+          <span>${lesson.title}</span>
+          <i class="fa-solid fa-check check-icon" title="Passed Knowledge Check"></i>
+        `;
+
+        navEl.appendChild(navItem);
+      });
+    }
+
+    function filterLessons() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      const filtered = LESSONS.filter(l => 
+        l.title.toLowerCase().includes(query) || 
+        l.module.toLowerCase().includes(query) ||
+        l.lead.toLowerCase().includes(query)
+      );
+      renderSidebar(filtered);
+    }
+
+    // ----------------------------------------------------
+    // LOAD & RENDER LESSON CONTENT
+    // ----------------------------------------------------
+    function loadLesson(index) {
+      if (index < 0 || index >= LESSONS.length) return;
+
+      clearQuizTimers();
+      currentLessonIndex = index;
+      const lesson = LESSONS[index];
+
+      // Update Hash
+      window.location.hash = lesson.id;
+
+      // Update Breadcrumbs & Meta
+      document.getElementById('breadcrumbModule').textContent = lesson.module.split(':')[0];
+      document.getElementById('breadcrumbTitle').textContent = lesson.title.replace(/^\d+\.\s*/, '');
+      
+      document.getElementById('lessonDifficulty').innerHTML = `<i class="fa-solid fa-star"></i> ${lesson.badge}`;
+      document.getElementById('lessonReadTime').innerHTML = `<i class="fa-regular fa-clock"></i> ${lesson.readTime}`;
+      const currentNumStr = String(index + 1).padStart(2, '0');
+      const totalNumStr = String(LESSONS.length).padStart(2, '0');
+      document.getElementById('lessonNumber').innerHTML = `<i class="fa-solid fa-book-open"></i> Lesson ${currentNumStr} of ${totalNumStr}`;
+
+      document.getElementById('lessonTitle').textContent = lesson.title;
+      document.getElementById('lessonLead').textContent = lesson.lead;
+      document.getElementById('lessonBody').innerHTML = lesson.contentHtml;
+
+      // Load Playground Code (restore custom edited code if saved, else default to task)
+      const savedCode = localStorage.getItem(`js_code_${lesson.id}`);
+      const codeToLoad = (savedCode && savedCode.includes('HANDS-ON TASK')) ? savedCode : lesson.defaultCode;
+      document.getElementById('codePlayground').value = codeToLoad;
+      document.getElementById('consoleLogs').textContent = 'Click "Run Code" to execute code in console.';
+      document.getElementById('consoleLogs').className = 'console-logs';
+      document.getElementById('consoleStatus').textContent = 'Ready';
+      document.getElementById('consoleStatus').style.color = 'var(--accent-blue)';
+
+      // Initialize Chapter Knowledge Check Quiz
+      initChapterQuiz(lesson);
+
+      // Update Footer Nav Buttons
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+
+      if (index === 0) {
+        prevBtn.classList.add('disabled');
+        document.getElementById('prevTitle').textContent = 'First Lesson';
+      } else {
+        prevBtn.classList.remove('disabled');
+        document.getElementById('prevTitle').textContent = LESSONS[index - 1].title;
+      }
+
+      if (index === LESSONS.length - 1) {
+        nextBtn.classList.add('disabled');
+        document.getElementById('nextTitle').textContent = 'Final Lesson';
+      } else {
+        nextBtn.classList.remove('disabled');
+        document.getElementById('nextTitle').textContent = LESSONS[index + 1].title;
+      }
+
+      // Bookmark Button State
+      updateBookmarkButtonState();
+
+      // Refresh Sidebar Active Highlight
+      renderSidebar();
+
+      // Scroll top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function navigateLesson(direction) {
+      const targetIdx = currentLessonIndex + direction;
+      if (targetIdx >= 0 && targetIdx < LESSONS.length) {
+        loadLesson(targetIdx);
+      }
+    }
+
+    // ----------------------------------------------------
+    // INTERACTIVE CODE PLAYGROUND
+    // ----------------------------------------------------
+    function resetTaskCode() {
+      const lesson = LESSONS[currentLessonIndex];
+      localStorage.removeItem(`js_code_${lesson.id}`);
+      document.getElementById('codePlayground').value = lesson.defaultCode;
+      document.getElementById('consoleLogs').textContent = 'Code reset to default task template. Click "Run Code" to execute.';
+      document.getElementById('consoleLogs').className = 'console-logs';
+      document.getElementById('consoleStatus').textContent = 'Reset';
+      document.getElementById('consoleStatus').style.color = 'var(--accent-yellow)';
+    }
+
+    function runPlaygroundCode() {
+      const code = document.getElementById('codePlayground').value;
+      const logsEl = document.getElementById('consoleLogs');
+      const statusEl = document.getElementById('consoleStatus');
+      const lesson = LESSONS[currentLessonIndex];
+
+      // Save user edited code to LocalStorage
+      localStorage.setItem(`js_code_${lesson.id}`, code);
+
+      // Loading state
+      statusEl.textContent = 'Running...';
+      statusEl.style.color = 'var(--accent-yellow)';
+      logsEl.className = 'console-logs';
+      logsEl.textContent = '⏳ Executing JavaScript...';
+
+      setTimeout(() => {
+        let logs = [];
+        const customConsole = {
+          log: (...args) => {
+            logs.push(args.map(arg => typeof arg === 'object' ? JSON.stringify(arg, null, 2) : arg).join(' '));
+          },
+          error: (...args) => {
+            logs.push('❌ ' + args.join(' '));
+          },
+          warn: (...args) => {
+            logs.push('⚠️ ' + args.join(' '));
+          }
+        };
+
+        try {
+          const runFn = new Function('console', 'document', 'window', code);
+          runFn(customConsole, document, window);
+          
+          statusEl.textContent = 'Success (0 Errors)';
+          statusEl.style.color = '#4ade80';
+          logsEl.className = 'console-logs';
+          logsEl.textContent = logs.length > 0 ? logs.join('\n') : '✅ Code executed successfully with no console output.';
+        } catch (err) {
+          statusEl.textContent = 'Runtime Error';
+          statusEl.style.color = '#ef4444';
+          logsEl.className = 'console-logs error';
+          logsEl.textContent = '❌ Runtime Exception:\n' + (err.stack || err.message);
+        }
+      }, 250);
+    }
+
+    // ----------------------------------------------------
+    // CHAPTER KNOWLEDGE CHECK QUIZ ENGINE (10 MCQs)
+    // ----------------------------------------------------
+    function escapeHtml(str) {
+      if (str === null || str === undefined) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function shuffleArray(arr) {
+      const shuffled = [...arr];
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
+      return shuffled;
+    }
+
+    function initChapterQuiz(lesson) {
+      clearQuizTimers();
+      // Deep clone and shuffle questions + option positions
+      activeQuizQuestions = shuffleArray(lesson.questions).map(q => ({
+        ...q,
+        options: shuffleArray(q.options)
+      }));
+      currentQuizStep = 0;
+      quizUserAnswers = [];
+
+      renderQuizQuestionStep();
+    }
+
+    function renderQuizQuestionStep() {
+      clearQuizTimers();
+      const quizSection = document.getElementById('quizSection');
+      const totalQ = activeQuizQuestions.length;
+
+      if (currentQuizStep >= totalQ) {
+        renderQuizResults();
+        return;
+      }
+
+      const q = activeQuizQuestions[currentQuizStep];
+      const isLast = currentQuizStep === totalQ - 1;
+      const cleanQuestionText = q.question.replace(/^\d+\.\s*/, '');
+      const prefixes = ['A', 'B', 'C', 'D'];
+
+      quizSection.innerHTML = `
+        <div class="quiz-header">
+          <div class="quiz-title">
+            <i class="fa-solid fa-circle-question" style="color: var(--accent-yellow);"></i>
+            <span>Knowledge Check: Question ${currentQuizStep + 1} of ${totalQ}</span>
+          </div>
+          <span class="quiz-step-meta">Passing Threshold: 70%</span>
+        </div>
+
+        <p class="quiz-question">${currentQuizStep + 1}. ${escapeHtml(cleanQuestionText)}</p>
+
+        <div class="quiz-options" id="stepOptions">
+          ${q.options.map((opt, idx) => {
+            const cleanOptText = opt.text.replace(/^[A-D]\)\s*/, '');
+            const prefix = prefixes[idx] || '';
+            return `
+              <button class="option-btn" onclick="handleOptionSelect(${idx})">
+                <span>${prefix ? prefix + ') ' : ''}${escapeHtml(cleanOptText)}</span>
+              </button>
+            `;
+          }).join('')}
+        </div>
+
+        <div class="quiz-explanation" id="stepExplanation"></div>
+
+        <div class="quiz-countdown-banner" id="stepCountdown" style="display: none;">
+          <div class="countdown-text" id="countdownText"></div>
+          <div class="countdown-progress-bar">
+            <div class="countdown-progress-fill" id="countdownFill"></div>
+          </div>
+        </div>
+      `;
+    }
+
+    function handleOptionSelect(selectedOptionIdx) {
+      clearQuizTimers();
+      const q = activeQuizQuestions[currentQuizStep];
+      const totalQ = activeQuizQuestions.length;
+      const isLast = currentQuizStep === totalQ - 1;
+      const optionBtns = document.querySelectorAll('#stepOptions .option-btn');
+      const expEl = document.getElementById('stepExplanation');
+      const countdownEl = document.getElementById('stepCountdown');
+      const countdownTextEl = document.getElementById('countdownText');
+      const countdownFillEl = document.getElementById('countdownFill');
+
+      // Disable all option buttons immediately
+      optionBtns.forEach(btn => btn.disabled = true);
+
+      const isCorrect = q.options[selectedOptionIdx].isCorrect;
+      quizUserAnswers.push({
+        question: q.question,
+        selectedOptionIdx,
+        isCorrect
+      });
+
+      if (isCorrect) {
+        optionBtns[selectedOptionIdx].classList.add('correct');
+        expEl.className = 'quiz-explanation show-correct';
+        expEl.innerHTML = `🎉 <strong>Correct Answer!</strong><br>${escapeHtml(q.explanation)}`;
+      } else {
+        optionBtns[selectedOptionIdx].classList.add('wrong');
+        expEl.className = 'quiz-explanation show-wrong';
+        expEl.innerHTML = `❌ <strong>Incorrect Answer.</strong><br>${escapeHtml(q.explanation)}`;
+
+        // Highlight correct answer
+        const correctIdx = q.options.findIndex(o => o.isCorrect);
+        if (correctIdx !== -1 && optionBtns[correctIdx]) {
+          optionBtns[correctIdx].classList.add('correct');
+        }
+      }
+
+      expEl.style.display = 'block';
+
+      // Setup 3-second automatic advance countdown
+      let secondsLeft = 3;
+      const targetLabel = isLast ? 'Quiz Result' : 'next question';
+      
+      countdownTextEl.innerHTML = `⏳ Moving to <strong>${targetLabel}</strong> in <strong>${secondsLeft}</strong> seconds...`;
+      countdownEl.style.display = 'flex';
+      
+      if (countdownFillEl) {
+        countdownFillEl.style.transition = 'none';
+        countdownFillEl.style.width = '100%';
+        setTimeout(() => {
+          if (countdownFillEl) {
+            countdownFillEl.style.transition = 'width 3s linear';
+            countdownFillEl.style.width = '0%';
+          }
+        }, 10);
+      }
+
+      countdownInterval = setInterval(() => {
+        secondsLeft--;
+        if (secondsLeft > 0) {
+          countdownTextEl.innerHTML = `⏳ Moving to <strong>${targetLabel}</strong> in <strong>${secondsLeft}</strong> seconds...`;
+        } else {
+          clearInterval(countdownInterval);
+          countdownInterval = null;
+        }
+      }, 1000);
+
+      autoAdvanceTimer = setTimeout(() => {
+        advanceQuizStep();
+      }, 3000);
+    }
+
+    function advanceQuizStep() {
+      clearQuizTimers();
+      currentQuizStep++;
+      renderQuizQuestionStep();
+    }
+
+    function renderQuizResults() {
+      const quizSection = document.getElementById('quizSection');
+      const total = activeQuizQuestions.length;
+      const correctCount = quizUserAnswers.filter(a => a.isCorrect).length;
+      const incorrectCount = total - correctCount;
+      const scorePct = Math.round((correctCount / total) * 100);
+      const passed = scorePct >= 70;
+
+      const lesson = LESSONS[currentLessonIndex];
+
+      // Save high score and completion state if passed
+      localStorage.setItem(`js_quiz_score_${lesson.id}`, scorePct);
+      if (passed && !completedLessons.includes(lesson.id)) {
+        completedLessons.push(lesson.id);
+        localStorage.setItem('js_completed_lessons', JSON.stringify(completedLessons));
+        updateOverallProgress();
+        renderSidebar();
+
+        // Check if all lessons passed
+        if (completedLessons.length === LESSONS.length) {
+          setTimeout(() => toggleCertModal(true), 800);
+        }
+      }
+
+      quizSection.innerHTML = `
+        <div class="quiz-results-card">
+          <div class="results-icon">${passed ? '🎉' : '❌'}</div>
+          <h2 class="results-score-title">${scorePct}% Score</h2>
+          
+          <div class="results-badge-wrap">
+            <span class="badge ${passed ? 'badge-green' : 'badge-red'}" style="font-size: 0.95rem; padding: 0.4rem 1.2rem;">
+              <i class="fa-solid ${passed ? 'fa-circle-check' : 'fa-circle-xmark'}"></i> 
+              ${passed ? 'CHAPTER PASSED! (>= 70%)' : 'NEEDS IMPROVEMENT (< 70%)'}
+            </span>
+          </div>
+
+          <p style="color: var(--text-secondary); max-width: 500px; margin: 0 auto 1.5rem;">
+            ${passed 
+              ? 'Awesome job! You demonstrated strong mastery of this chapter.' 
+              : 'Don\'t worry! Review the lesson material above and retry the quiz to pass.'}
+          </p>
+
+          <div class="results-grid">
+            <div class="result-stat-box">
+              <div class="result-stat-num" style="color: var(--text-primary);">${total}</div>
+              <div class="result-stat-label">Total Questions</div>
+            </div>
+            <div class="result-stat-box">
+              <div class="result-stat-num" style="color: #4ade80;">${correctCount}</div>
+              <div class="result-stat-label">Correct Answers</div>
+            </div>
+            <div class="result-stat-box">
+              <div class="result-stat-num" style="color: #f87171;">${incorrectCount}</div>
+              <div class="result-stat-label">Incorrect Answers</div>
+            </div>
+          </div>
+
+          <button class="btn-retry-quiz" onclick="initChapterQuiz(LESSONS[currentLessonIndex])">
+            <i class="fa-solid fa-rotate-right"></i> Retry Quiz (Shuffled)
+          </button>
+        </div>
+      `;
+    }
+
+    // ----------------------------------------------------
+    // PROGRESS & BADGE UPDATES
+    // ----------------------------------------------------
+    function updateOverallProgress() {
+      const percentage = Math.round((completedLessons.length / LESSONS.length) * 100);
+      document.getElementById('courseProgressBar').style.width = `${percentage}%`;
+      document.getElementById('scoreText').textContent = `${completedLessons.length} / ${LESSONS.length} PASSED`;
+    }
+
+    // ----------------------------------------------------
+    // BOOKMARK TOGGLE
+    // ----------------------------------------------------
+    function toggleBookmark() {
+      const lesson = LESSONS[currentLessonIndex];
+      const idx = bookmarkedLessons.indexOf(lesson.id);
+      if (idx === -1) {
+        bookmarkedLessons.push(lesson.id);
+      } else {
+        bookmarkedLessons.splice(idx, 1);
+      }
+      localStorage.setItem('js_bookmarks', JSON.stringify(bookmarkedLessons));
+      updateBookmarkButtonState();
+    }
+
+    function updateBookmarkButtonState() {
+      const lesson = LESSONS[currentLessonIndex];
+      const isBookmarked = bookmarkedLessons.includes(lesson.id);
+      const btn = document.getElementById('bookmarkBtn');
+      const icon = btn.querySelector('i');
+      const text = document.getElementById('bookmarkText');
+
+      if (isBookmarked) {
+        btn.classList.add('bookmarked');
+        icon.className = 'fa-solid fa-bookmark';
+        text.textContent = 'Bookmarked';
+      } else {
+        btn.classList.remove('bookmarked');
+        icon.className = 'fa-regular fa-bookmark';
+        text.textContent = 'Bookmark';
+      }
+    }
+
+    // ----------------------------------------------------
+    // THEME TOGGLE
+    // ----------------------------------------------------
+    function setTheme(theme) {
+      const htmlEl = document.documentElement;
+      const themeText = document.getElementById('themeText');
+      const themeIcon = document.querySelector('#themeToggle i');
+
+      if (theme === 'light') {
+        htmlEl.classList.remove('dark');
+        htmlEl.classList.add('light');
+        themeText.textContent = 'Light Mode';
+        themeIcon.className = 'fa-solid fa-sun';
+      } else {
+        htmlEl.classList.remove('light');
+        htmlEl.classList.add('dark');
+        themeText.textContent = 'Dark Mode';
+        themeIcon.className = 'fa-solid fa-moon';
+      }
+      localStorage.setItem('js_theme', theme);
+    }
+
+    function toggleTheme() {
+      const current = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    }
+
+    // ----------------------------------------------------
+    // MOBILE DRAWER NAV
+    // ----------------------------------------------------
+    function toggleMobileSidebar(open) {
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('sidebarOverlay');
+      if (open) {
+        sidebar.classList.add('mobile-open');
+        overlay.classList.add('mobile-open');
+      } else {
+        sidebar.classList.remove('mobile-open');
+        overlay.classList.remove('mobile-open');
+      }
+    }
+
+    // ----------------------------------------------------
+    // CERTIFICATE GENERATOR MODAL
+    // ----------------------------------------------------
+    function toggleCertModal(show) {
+      const modal = document.getElementById('certModal');
+      if (show) modal.classList.add('active');
+      else modal.classList.remove('active');
+    }
+
+    function generateCertificate() {
+      const name = document.getElementById('certStudentName').value || 'Full Stack Developer';
+      const printWin = window.open('', '_blank');
+      const htmlContent = '<html><head><title>Certificate of Completion - ' + name + '<\/title>' +
+        '<style>' +
+        'body { font-family: sans-serif; text-align: center; padding: 4rem; background: #0f172a; color: #fff; }' +
+        '.cert-box { border: 8px double #f7df1e; padding: 4rem; border-radius: 20px; max-width: 800px; margin: 0 auto; background: #1e293b; }' +
+        'h1 { font-size: 3rem; color: #f7df1e; margin-bottom: 0.5rem; }' +
+        'h2 { font-size: 2.2rem; color: #38bdf8; margin: 1.5rem 0; }' +
+        'p { font-size: 1.2rem; color: #cbd5e1; }' +
+        '.date { margin-top: 3rem; font-size: 1rem; color: #94a3b8; }' +
+        '<\/style>' +
+        '<\/head><body>' +
+        '<div class="cert-box">' +
+        '<h1>🏆 CERTIFICATE OF COMPLETION<\/h1>' +
+        '<p>This is proudly presented to<\/p>' +
+        '<h2>' + name + '<\/h2>' +
+        '<p>For successfully completing all modules of<\/p>' +
+        '<p style="font-size: 1.5rem; font-weight: bold; color: #4ade80;">JavaScript Mastery Course<\/p>' +
+        '<div class="date">Issued by NextSem Online • ' + new Date().toLocaleDateString() + '<\/div>' +
+        '<\/div><\/body><\/html>';
+      printWin.document.write(htmlContent);
+      printWin.document.close();
+      printWin.focus();
+      setTimeout(() => printWin.print(), 500);
+    }
+  </script>
+</body>
+</html>
