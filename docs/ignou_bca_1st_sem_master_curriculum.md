@@ -1070,3 +1070,9 @@ Total: 26 features shipped across 2 app versions (v25 → v26) 🎯
 - **Task-Based Coding Lab Integration (2026-07-31)**:
   - Built interactive `TaskBasedCodingLab.tsx` component with step-by-step task checklist, live code editor, automated keyword/regex verification engine, hints system, and celebration confetti.
   - Embedded `TaskBasedCodingLab` into `HtmlLessonClient.tsx` and `BcaLessonClient.tsx` for hands-on practice.
+- **Lesson Layout Architecture & Standards Documentation (2026-08-06)**:
+  - Created dedicated `docs/lesson_layout/` directory and authoritative [`lesson_layout.md`](file:///c:/Users/manoj2403/nextsem.online/docs/lesson_layout/lesson_layout.md) master specification.
+  - Built standalone reference component [`TestLessonTemplate.tsx`](file:///c:/Users/manoj2403/nextsem.online/docs/lesson_layout/TestLessonTemplate.tsx) implementing the `#17181c` dark theme, pure white headings, `#04AA6D` green link accents, Nextsem Example Card with 🪟 Windows 11 screenshots, bookmarking, and responsive Lightbox Image Zoom modal.
+  - Built specialized Windows 11 Command Prompt component [`Windows11CliLessonTemplate.tsx`](file:///c:/Users/manoj2403/nextsem.online/src/components/Windows11CliLessonTemplate.tsx) with authentic 🪟 Windows 11 title bar (`cmd.exe`), prompt path prefix (`C:\Users\Nextsem>`), one-click command copy, **Run in Simulator »** integration, expected terminal output container, command switches spec table, and 100% matching CMD output screenshots with Lightbox zoom.
+  - Created CLI preview route handler [`src/app/cli/preview/page.tsx`](file:///c:/Users/manoj2403/nextsem.online/src/app/cli/preview/page.tsx) for live browser testing.
+  - Verified 100% clean TypeScript compilation (`npx tsc --noEmit`) with 0 build errors.

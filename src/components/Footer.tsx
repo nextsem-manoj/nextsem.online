@@ -9,7 +9,9 @@ const Footer = () => {
         {/* Logo and Tagline */}
         <div className="flex flex-col items-center md:items-start gap-1">
           <div className="flex items-center gap-2.5">
-            <img src="/logo.svg" alt="Nextsem Logo" className="w-6 h-6 rounded-md border border-emerald-500/20" />
+            <div className="w-6 h-6 rounded-lg bg-[#0a0a0a] border border-[#04AA6D]/60 flex items-center justify-center text-[#04AA6D] font-black text-[10px] shadow-sm">
+              NS
+            </div>
             <span className="text-white font-black text-xs md:text-sm tracking-wider uppercase">Nextsem Academy</span>
           </div>
           <span className="text-[10px] text-slate-500 font-bold">Start your journey to become a job-ready Front End Developer.</span>

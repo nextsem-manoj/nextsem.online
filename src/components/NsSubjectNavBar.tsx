@@ -114,9 +114,8 @@ export default function NsSubjectNavBar({ currentUser, onSignIn, onToggleSidebar
             <div className="w-8 h-8 rounded-xl bg-[#09101f] border border-[#04AA6D]/40 flex items-center justify-center text-[#04AA6D] font-black text-xs shadow-md transition-transform group-hover:scale-105">
               NS
             </div>
-            <span className="font-extrabold text-base sm:text-lg tracking-tight text-white group-hover:text-[#04AA6D] transition-colors flex items-center gap-1.5">
+            <span className="font-extrabold text-base sm:text-lg tracking-tight text-white group-hover:text-[#04AA6D] transition-colors">
               NextSem<span className="text-[#04AA6D]">.online</span>
-              <span className="text-[9px] bg-[#04AA6D]/20 text-[#04AA6D] border border-[#04AA6D]/40 px-1.5 py-0.5 rounded-md font-black">v29</span>
             </span>
           </Link>
         </div>

@@ -7,16 +7,20 @@ android {
         applicationId "online.nextsem.app"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 29
-        versionName "2.9.0"
+        versionCode 30
+        versionName "3.0.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         ndk {
             abiFilters "armeabi-v7a", "arm64-v8a"
         }
+        androidResources {
+            noCompress 'png', 'jpg', 'jpeg', 'webp', 'svg', 'json', 'html', 'css', 'js'
+            ignoreAssetsPattern = '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~:BCA_NEW_Books:cli:html'
+        }
         aaptOptions {
-             // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
-             // Default: https://android.googlesource.com/platform/frameworks/base/+/282e181b58cf72b6ca770dc7ca5f91f135444502/tools/aapt/AaptAssets.cpp#61
-            ignoreAssetsPattern = '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~:BCA_NEW_Books:ncert-pdfs:bca:book:cli:html:civics:economics:history:msword:ncert:git:admin:curriculum:lessons:sitemap:playground:pdf-to-markdown:gemini-ai:contact:htmldemo:simulator:jobs:mascot'
+            cruncherEnabled = false
+            noCompress 'png', 'jpg', 'jpeg', 'webp', 'svg', 'json', 'html', 'css', 'js'
+            ignoreAssetsPattern = '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~:BCA_NEW_Books:cli:html'
         }
     }
     signingConfigs {
