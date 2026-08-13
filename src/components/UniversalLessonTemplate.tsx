@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { 
   ChevronLeft, ChevronRight, Bookmark, Download, 
-  Terminal, Monitor, Sparkles, CheckCircle2
+  Terminal, Monitor, Sparkles, CheckCircle2, Copy, Check
 } from "lucide-react";
 import CopyableCommand from "./CopyableCommand";
 import ShareButton from "./ShareButton";
@@ -136,6 +136,19 @@ export default function UniversalLessonTemplate({
     });
   };
 
+  const [copiedCodeIndex, setCopiedCodeIndex] = useState<number | null>(null);
+
+  const getHeaderTitle = (code: string) => {
+    const trimmed = code.trim();
+    if (trimmed.startsWith("winget")) return "Windows Package Manager Command";
+    if (trimmed.startsWith("pacman")) return "MSYS2 Toolchain Command";
+    if (trimmed.startsWith("g++")) return "GCC Compiler Command";
+    if (trimmed.startsWith("cd ") || trimmed.startsWith("dir") || trimmed.startsWith("cls") || trimmed.startsWith("mkdir")) return "Windows Command Prompt Command";
+    if (trimmed.startsWith("#include") || trimmed.startsWith("int main") || trimmed.startsWith("using ")) return "C++ Source Code (main.cpp)";
+    if (trimmed.startsWith("<!DOCTYPE") || trimmed.startsWith("<html")) return "HTML Web Code";
+    return "Command Execution Snippet";
+  };
+
   // Dynamic Markdown-to-JSX Parser with 1-to-1 Screenshot Card Embedding
   const renderFormattedContent = (text: string) => {
     if (!text) return null;
@@ -157,10 +170,7 @@ export default function UniversalLessonTemplate({
         const currentShot = lesson.screenshots?.[exampleCounter] || lesson.screenshots?.[0];
         exampleCounter++;
 
-        const firstLine = cleanCode.split("\n")[0].trim();
-        const displayHeader = firstLine.startsWith("#include") || firstLine.startsWith("int main") || firstLine.startsWith("<!DOCTYPE") || firstLine.startsWith("using ")
-          ? (subject === "cpp" ? "C++ Source Code (main.cpp)" : "Source Code Snippet")
-          : firstLine;
+        const displayHeader = getHeaderTitle(cleanCode);
 
         return (
           <div key={bIdx} className="my-6 p-5 md:p-6 bg-[#1d2a35] border border-slate-700/60 rounded-xl space-y-4 shadow-xl text-left">
@@ -169,7 +179,29 @@ export default function UniversalLessonTemplate({
                 <span className="text-[#04AA6D] font-bold">⊞</span>
                 <span className="truncate">{displayHeader}</span>
               </div>
-              <CopyableCommand command={cleanCode} inline={false} className="my-0" />
+
+              <button
+                onClick={() => {
+                  if (typeof window !== "undefined") {
+                    navigator.clipboard.writeText(cleanCode);
+                    setCopiedCodeIndex(bIdx);
+                    setTimeout(() => setCopiedCodeIndex(null), 2000);
+                  }
+                }}
+                className="flex items-center gap-1.5 px-3 py-1 bg-[#15202b] hover:bg-[#1f2d3d] border border-slate-700/80 rounded-md text-xs font-mono text-slate-300 hover:text-white transition-all cursor-pointer select-none"
+              >
+                {copiedCodeIndex === bIdx ? (
+                  <>
+                    <Check size={13} className="text-emerald-400" />
+                    <span className="text-emerald-400 font-bold">Copied</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy size={13} className="text-[#04AA6D]" />
+                    <span>Copy</span>
+                  </>
+                )}
+              </button>
             </div>
 
             {/* Code Snippet Box displaying the exact command/code */}
