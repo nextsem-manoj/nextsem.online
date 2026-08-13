@@ -84,8 +84,10 @@ Open Windows Terminal or Command Prompt (cmd.exe) and run the package manager co
 winget install MSYS2.MSYS2
 \`\`\`
 
-#### Step 2: Install g++ Toolchain
-In the MSYS2 terminal, execute:
+#### Step 2: Install g++ Toolchain in MSYS2 UCRT64 Terminal
+Press ⊞ Windows Key, search for **MSYS2 UCRT64** terminal (or press Win + R and run \`C:\\msys64\\ucrt64.exe\`), and execute:
+
+> Note: Do not run \`pacman\` in regular CMD (\`C:\\\`). \`pacman\` runs inside the **MSYS2 UCRT64** terminal.
 
 \`\`\`bash
 pacman -S --needed base-devel mingw-w64-ucrt-x86_64-toolchain
