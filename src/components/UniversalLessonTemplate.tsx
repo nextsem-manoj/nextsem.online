@@ -152,6 +152,12 @@ export default function UniversalLessonTemplate({
   const getTerminalOutput = (code: string) => {
     const trimmed = code.trim();
 
+    if (trimmed.includes("ucrt64.exe")) {
+      return `C:\\Users\\Student> C:\\msys64\\ucrt64.exe
+Launching MSYS2 UCRT64 Terminal (x86_64 GCC Toolchain Environment)...
+[MSYS2 UCRT64 Terminal Window Opened Successfully]`;
+    }
+
     if (trimmed.includes("winget install")) {
       return `Found MSYS2 [MSYS2.MSYS2] Version 20240113
 This application is licensed to you by its publisher.
