@@ -337,6 +337,46 @@ Execution successful! Output verified on Windows 11 Pro x86_64.
               </Link>
             )}
 
+            {/* Real Windows 11 Pro Live Screen Recording Video Player for winget install MSYS2 */}
+            {cleanCode.includes("winget install MSYS2") && (
+              <div className="pt-3 border-t border-slate-700/50 space-y-2 font-mono text-xs text-left">
+                <div className="flex items-center justify-between text-xs font-bold text-slate-300">
+                  <span className="flex items-center gap-2 text-[#04AA6D] font-mono">
+                    <span className="text-[#04AA6D] font-bold">⊞</span>
+                    <span>Windows 11 Pro Live Screen Recording (Real PC Execution)</span>
+                  </span>
+                  <span className="text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase border border-emerald-500/20">
+                    Windows 11 Pro Recorded
+                  </span>
+                </div>
+
+                <div className="rounded-xl overflow-hidden border border-slate-800 bg-[#0c0c0c] shadow-2xl">
+                  {/* Monochromatic Windows 11 Pro Titlebar */}
+                  <div className="bg-[#1f1f1f] px-3 py-1.5 flex items-center justify-between border-b border-slate-800 text-[11px] text-slate-300 select-none">
+                    <div className="flex items-center gap-2">
+                      <span className="text-[#04AA6D] font-bold text-sm">⊞</span>
+                      <span className="font-bold text-white">Administrator: Windows 11 Pro Screen Recording (winget install MSYS2)</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-slate-500 text-xs">
+                      <span>&#8212;</span>
+                      <span>&#9633;</span>
+                      <span>&#10005;</span>
+                    </div>
+                  </div>
+
+                  <video
+                    controls
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="w-full h-auto max-h-[480px] rounded-b-xl"
+                    src="/recordings/msys2-install-windows11.mp4"
+                  />
+                </div>
+              </div>
+            )}
+
             {/* Matching Screenshot / Windows 11 Pro Terminal Execution Output */}
             {currentShot ? (
               <div className="pt-3 border-t border-slate-700/50 space-y-2">
