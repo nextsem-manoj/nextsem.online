@@ -88,14 +88,14 @@ winget install MSYS2.MSYS2
 
 **Sub-Step 2A: Launch MSYS2 UCRT64 Terminal Window**  
 Launch the MSYS2 UCRT64 terminal using either method:
-* **Option 1 (Start Menu):** Press ⊞ Windows Key and search for **MSYS2 UCRT64**.
-* **Option 2 (Command Prompt / Run):** Copy and run this command in Windows CMD:
+* **Option 1 (Start Menu - Recommended):** Press ⊞ **Windows Key** and click **MSYS2 UCRT64** (or **MSYS2**).
+* **Option 2 (Windows Command Prompt / Win + R):** Copy and run this \`start\` command in Windows CMD:
 
 \`\`\`cmd
-C:\\msys64\\msys2_shell.cmd -ucrt64
+start C:\\msys64\\ucrt64.exe
 \`\`\`
 
-> ⚠️ **CRITICAL STEP:** Running \`msys2_shell.cmd\` will open a **NEW terminal window** titled **MSYS2 UCRT64**. Click on that NEW MSYS2 window to perform Sub-Step 2B below. Do NOT paste \`pacman\` inside regular Windows CMD!
+> ⚠️ **CRITICAL STEP:** Running \`start C:\\msys64\\ucrt64.exe\` will open a **NEW terminal window** titled **MSYS2 UCRT64**. Click on that NEW MSYS2 window to perform Sub-Step 2B below. Do NOT paste \`pacman\` inside regular Windows CMD!
 
 **Sub-Step 2B: Install GCC Toolchain (Inside the NEW MSYS2 UCRT64 Window)**  
 Copy and paste this zero-prompt command inside the **NEW MSYS2 UCRT64** terminal window:
