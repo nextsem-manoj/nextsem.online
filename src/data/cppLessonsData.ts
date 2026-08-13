@@ -85,18 +85,12 @@ winget install MSYS2.MSYS2
 \`\`\`
 
 #### Step 2: Install g++ Toolchain in MSYS2 UCRT64 Terminal
-Open **MSYS2 UCRT64** terminal from your ⊞ Windows Start Menu and run the zero-prompt auto-installer command:
+1. Press ⊞ Windows Key and click **MSYS2 UCRT64** (or press Win + R and run \`C:\\msys64\\ucrt64.exe\`).
+2. Copy and paste this zero-prompt command into the **MSYS2 UCRT64** terminal window:
 
 \`\`\`bash
 pacman -S --noconfirm --needed base-devel mingw-w64-ucrt-x86_64-toolchain
 \`\`\`
-
-> **Alternative (Run Directly from Windows Command Prompt / CMD):**  
-> If you are inside standard Windows Command Prompt (\`cmd.exe\`), copy and run this one-line command:
-> 
-> \`\`\`cmd
-> C:\\msys64\\usr\\bin\\bash.exe -lc "pacman -S --noconfirm --needed base-devel mingw-w64-ucrt-x86_64-toolchain"
-> \`\`\`
 
 #### Step 3: Add g++ Compiler to Windows PATH
 1. Press Win + R, type sysdm.cpl, and press Enter.
