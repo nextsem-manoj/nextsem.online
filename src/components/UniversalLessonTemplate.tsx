@@ -139,78 +139,21 @@ export default function UniversalLessonTemplate({
   // Dynamic Markdown-to-JSX Parser with 1-to-1 Screenshot Card Embedding
   const renderFormattedContent = (text: string) => {
     if (!text) return null;
-    const lines = text.split("\n");
+    const codeBlockRegex = /(```[a-z]*[\s\S]*?```)/gi;
+    const blocks = text.split(codeBlockRegex);
     let exampleCounter = 0;
 
-    return lines.map((line, idx) => {
-      const trimmed = line.trim();
-      if (!trimmed) return null;
+    return blocks.map((block, bIdx) => {
+      const trimmedBlock = block.trim();
+      if (!trimmedBlock) return null;
 
-      if (trimmed === "---" || trimmed === "___" || trimmed === "***") {
-        return <hr key={idx} className="border-t border-slate-800/80 my-6" />;
-      }
+      // Detect multiline code fence ```lang ... ```
+      if (trimmedBlock.startsWith("```")) {
+        const cleanCode = trimmedBlock
+          .replace(/^```[a-z]*\n?/i, "")
+          .replace(/\n?```$/, "")
+          .trim();
 
-      if (trimmed.startsWith("## ")) {
-        const cleanTitle = trimmed.replace(/^##\s*/, "").replace(/^[#\s]+/, "").replace(/\*\*(.*?)\*\*/g, "$1").trim();
-        return (
-          <h2 key={idx} className="text-xl md:text-2xl font-extrabold text-white mt-8 mb-4 border-b border-slate-800/60 pb-2 tracking-tight">
-            {cleanTitle}
-          </h2>
-        );
-      }
-
-      if (trimmed.startsWith("###")) {
-        const cleanTitle = trimmed.replace(/^###\s*/, "").replace(/^[#\s]+/, "").replace(/\*\*(.*?)\*\*/g, "$1").trim();
-        return (
-          <h3 key={idx} className="text-xl sm:text-2xl font-bold text-white mt-6 mb-3 tracking-tight">
-            {cleanTitle}
-          </h3>
-        );
-      }
-
-      // Ignore Markdown Table Separator Rows (|:---|:---|)
-      if (trimmed.startsWith("|") && (trimmed.includes(":-") || trimmed.includes("--"))) {
-        return null;
-      }
-
-      // Handle Markdown Table Rows (| col1 | col2 |)
-      if (trimmed.startsWith("|") && trimmed.endsWith("|")) {
-        const cells = trimmed
-          .split("|")
-          .map((c) => c.trim())
-          .filter((c) => c.length > 0);
-
-        if (cells.length === 0) return null;
-
-        return (
-          <div key={idx} className="my-4 overflow-x-auto rounded-xl border border-slate-800 bg-[#15202b]">
-            <table className="w-full text-left font-sans text-sm text-slate-200 border-collapse">
-              <tbody>
-                <tr className="border-b border-slate-800 bg-[#1c2834]">
-                  {cells.map((cell, cIdx) => {
-                    const cleanCell = cell.replace(/\*\*(.*?)\*\*/g, "$1").replace(/[*`_]/g, "").trim();
-                    return (
-                      <td key={cIdx} className="px-4 py-3 font-extrabold text-white border-r border-slate-800 last:border-r-0">
-                        {cleanCell}
-                      </td>
-                    );
-                  })}
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        );
-      }
-
-      // Detect code snippets and render Example Card with embedded 100% matching screenshot
-      if (
-        trimmed.startsWith("Host:") ||
-        trimmed.startsWith("GET ") ||
-        trimmed.startsWith("HTTP/1.1 ") ||
-        trimmed.startsWith("<!DOCTYPE html>") ||
-        trimmed.startsWith("```")
-      ) {
-        const cleanCode = trimmed.replace(/^```[a-z]*\n?/, "").replace(/\n?```$/, "");
         const currentShot = lesson.screenshots?.[exampleCounter] || lesson.screenshots?.[0];
         exampleCounter++;
 
@@ -220,7 +163,7 @@ export default function UniversalLessonTemplate({
           : firstLine;
 
         return (
-          <div key={idx} className="my-6 p-5 md:p-6 bg-[#1d2a35] border border-slate-700/60 rounded-xl space-y-4 shadow-xl text-left">
+          <div key={bIdx} className="my-6 p-5 md:p-6 bg-[#1d2a35] border border-slate-700/60 rounded-xl space-y-4 shadow-xl text-left">
             <div className="flex items-center justify-between gap-3 border-b border-slate-800/80 pb-3">
               <div className="flex items-center gap-2 font-mono text-sm sm:text-base font-bold text-white overflow-hidden">
                 <span className="text-[#04AA6D] font-bold">⊞</span>
@@ -229,22 +172,13 @@ export default function UniversalLessonTemplate({
               <CopyableCommand command={cleanCode} inline={false} className="my-0" />
             </div>
 
-            {/* Code Snippet Box */}
+            {/* Code Snippet Box displaying the exact command/code */}
             <div className="bg-[#15202b] p-4 md:p-5 rounded-lg border-l-4 border-[#04AA6D] font-mono text-sm overflow-x-auto leading-relaxed shadow-inner">
-              {cleanCode.split('\n').map((codeLine, cIdx) => {
-                const tagRegex = /(<\/?[a-zA-Z0-9!\s="-]+>)/g;
-                const tokens = codeLine.split(tagRegex);
-                return (
-                  <div key={cIdx}>
-                    {tokens.map((tok, tIdx) => {
-                      if (tok.startsWith('<') && tok.endsWith('>')) {
-                        return <span key={tIdx} className="text-[#f25f5c] font-semibold">{tok}</span>;
-                      }
-                      return <span key={tIdx} className="text-white font-medium">{tok}</span>;
-                    })}
-                  </div>
-                );
-              })}
+              {cleanCode.split('\n').map((codeLine, cIdx) => (
+                <div key={cIdx} className="text-white font-medium whitespace-pre">
+                  {codeLine || " "}
+                </div>
+              ))}
             </div>
 
             {/* Render 'Try it Yourself' button ONLY for HTML subject */}
@@ -340,6 +274,12 @@ export default function UniversalLessonTemplate({
         );
       }
 
+      // Process normal text lines
+      const lines = trimmedBlock.split("\n");
+      return lines.map((line, idx) => {
+        const trimmed = line.trim();
+        if (!trimmed) return null;
+
       // Handle Bullet Lists (*, -, +)
       if (trimmed.startsWith("* ") || trimmed.startsWith("- ") || trimmed.startsWith("+ ")) {
         const cleanText = trimmed.replace(/^[*\-+]\s*/, "").replace(/\*"/g, '"').replace(/"\*/g, '"').trim();
@@ -396,7 +336,8 @@ export default function UniversalLessonTemplate({
         </p>
       );
     });
-  };
+  });
+};
 
   if (!mounted) {
     return (
