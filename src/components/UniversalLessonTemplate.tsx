@@ -149,6 +149,96 @@ export default function UniversalLessonTemplate({
     return "Command Execution Snippet";
   };
 
+  const getTerminalOutput = (code: string) => {
+    const trimmed = code.trim();
+
+    if (trimmed.includes("winget install")) {
+      return `Found MSYS2 [MSYS2.MSYS2] Version 20240113
+This application is licensed to you by its publisher.
+Downloading https://github.com/msys2/msys2-installer/releases/download/2024-01-13/msys2-x86_64-20240113.exe
+  ██████████████████████████████  87.4 MB / 87.4 MB
+Successfully verified installer hash
+Starting package install...
+Successfully installed MSYS2!`;
+    }
+
+    if (trimmed.includes("pacman")) {
+      return `resolving dependencies...
+looking for conflicting packages...
+
+Packages (14) mingw-w64-ucrt-x86_64-binutils-2.41-2 mingw-w64-ucrt-x86_64-crt-git-11.0.0.r407-1
+              mingw-w64-ucrt-x86_64-gcc-13.2.0-2 mingw-w64-ucrt-x86_64-gdb-13.2-1
+              mingw-w64-ucrt-x86_64-headers-git-11.0.0.r407-1 mingw-w64-ucrt-x86_64-tools-git-11.0.0.r407-1
+
+Total Download Size:    142.50 MiB
+Total Installed Size:   812.30 MiB
+
+:: Proceed with installation? [Y/n] y
+(14/14) checking keys in keyring                      [100%]
+(14/14) checking package integrity                    [100%]
+(14/14) loading package files                         [100%]
+(14/14) installing mingw-w64-ucrt-x86_64-gcc ......... [100%]
+(14/14) installing base-devel toolchain .............. [100%]
+Installation complete. GCC 13.2.0 ready for Windows 11 Pro.`;
+    }
+
+    if (trimmed.includes("g++ --version")) {
+      return `g++ (Rev2, Built by MSYS2 project) 13.2.0
+Copyright (C) 2023 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.`;
+    }
+
+    if (trimmed.includes("g++ -O3") || trimmed.includes("main_optimized")) {
+      return `C:\\Users\\Student\\CPP_Project> g++ -O3 -std=c++20 main.cpp -o main_optimized.exe
+Compilation successful! Vectorized release binary created.
+
+C:\\Users\\Student\\CPP_Project> main_optimized.exe
+Hello World from C++ on Windows 11 Pro! [Modern C++20 Release Build]
+[Process exited with code 0 in 0.001 seconds]`;
+    }
+
+    if (trimmed.includes("g++ -o") || trimmed.includes("g++ main.cpp")) {
+      return `C:\\Users\\Student\\CPP_Project> g++ -o main.exe main.cpp
+Compilation successful! [0 errors, 0 warnings]
+
+C:\\Users\\Student\\CPP_Project> main.exe
+Hello World from C++ on Windows 11 Pro!
+[Process exited with code 0 in 0.001 seconds]`;
+    }
+
+    if (trimmed.includes("main.exe")) {
+      return `Hello World from C++ on Windows 11 Pro!
+[Process exited with code 0 in 0.001 seconds]`;
+    }
+
+    if (trimmed.includes("#include") || trimmed.includes("int main")) {
+      return `C:\\Users\\Student\\CPP_Project> g++ -o main.exe main.cpp
+C:\\Users\\Student\\CPP_Project> main.exe
+Hello World from C++ on Windows 11 Pro!
+
+[Process exited with code 0 in 0.001 seconds]`;
+    }
+
+    if (trimmed.startsWith("dir")) {
+      return ` Volume in drive C has no label.
+ Volume Serial Number is 8A4E-29F1
+
+ Directory of C:\\Users\\Student\\CPP_Project
+
+08/05/2026  10:15 AM    <DIR>          .
+08/05/2026  10:15 AM    <DIR>          ..
+08/05/2026  10:14 AM               248 main.cpp
+08/05/2026  10:15 AM            142,336 main.exe
+               2 File(s)        142,584 bytes
+               2 Dir(s)  248,192,840,704 bytes free`;
+    }
+
+    return `C:\\Users\\Student\\CPP_Project> ${trimmed.split('\n')[0]}
+Execution successful! Output verified on Windows 11 Pro x86_64.
+[Process exited with code 0 in 0.002 seconds]`;
+  };
+
   // Dynamic Markdown-to-JSX Parser with 1-to-1 Screenshot Card Embedding
   const renderFormattedContent = (text: string) => {
     if (!text) return null;
@@ -284,18 +374,10 @@ export default function UniversalLessonTemplate({
                     <div className="pt-2 space-y-1">
                       <p className="text-[#04AA6D] font-bold flex items-center gap-1 flex-wrap">
                         <span>C:\Users\Student\CPP_Project&gt;</span>
-                        <span className="text-white font-mono">{cleanCode}</span>
+                        <span className="text-white font-mono">{cleanCode.split('\n')[0]}</span>
                       </p>
                       <div className="text-emerald-400/90 pt-1 font-mono whitespace-pre-wrap">
-                        {cleanCode.includes("g++ --version")
-                          ? "g++ (Rev2, Built by MSYS2 project) 13.2.0\nCopyright (C) 2023 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions."
-                          : cleanCode.includes("g++ -o") || cleanCode.includes("g++")
-                          ? "Compiling main.cpp into main.exe...\nCompilation successful! [0 errors, 0 warnings]"
-                          : cleanCode.includes("winget")
-                          ? "Found MSYS2 [MSYS2.MSYS2]\nDownloading https://github.com/msys2/msys2-installer/...\nInstalling package...\nSuccessfully installed MSYS2!"
-                          : cleanCode.includes("main.exe") || cleanCode.includes("main_optimized.exe")
-                          ? "Hello World from C++ on Windows 11 Pro!\n[Process exited with code 0 in 0.001 seconds]"
-                          : "[Command executed on Windows 11 Pro with exit code 0]"}
+                        {getTerminalOutput(cleanCode)}
                       </div>
                     </div>
                   </div>
