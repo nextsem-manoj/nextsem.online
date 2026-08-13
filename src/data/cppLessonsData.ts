@@ -87,13 +87,15 @@ winget install MSYS2.MSYS2
 #### Step 2: Install g++ Toolchain in MSYS2 UCRT64 Terminal
 
 **Sub-Step 2A: Launch MSYS2 UCRT64 Terminal Window**  
-Run this command in Windows Command Prompt (\`cmd.exe\`) or press Win + R:
+Launch the MSYS2 UCRT64 terminal using either method:
+* **Option 1 (Start Menu):** Press ⊞ Windows Key and search for **MSYS2 UCRT64**.
+* **Option 2 (Command Prompt / Run):** Copy and run this command in Windows CMD:
 
 \`\`\`cmd
-C:\\msys64\\ucrt64.exe
+C:\\msys64\\msys2_shell.cmd -ucrt64
 \`\`\`
 
-> ⚠️ **CRITICAL STEP:** Running \`C:\\msys64\\ucrt64.exe\` will launch a **NEW terminal window** titled **MSYS2 UCRT64**. Click on that NEW MSYS2 window to perform Sub-Step 2B below. Do NOT paste \`pacman\` inside regular Windows CMD!
+> ⚠️ **CRITICAL STEP:** Running \`msys2_shell.cmd\` will open a **NEW terminal window** titled **MSYS2 UCRT64**. Click on that NEW MSYS2 window to perform Sub-Step 2B below. Do NOT paste \`pacman\` inside regular Windows CMD!
 
 **Sub-Step 2B: Install GCC Toolchain (Inside the NEW MSYS2 UCRT64 Window)**  
 Copy and paste this zero-prompt command inside the **NEW MSYS2 UCRT64** terminal window:
