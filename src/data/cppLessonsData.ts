@@ -29,7 +29,7 @@ export const cppLessons: CppLesson[] = [
   {
     id: 1,
     slug: "learn-cpp-introduction-and-windows-setup",
-    title: "Lesson 1: C++ Introduction & 🪟 Windows 11 GCC Compiler Setup",
+    title: "Lesson 1: C++ Introduction & ⊞ Windows 11 GCC Compiler Setup",
     unit: "Unit 1: C++ Foundations & Windows 11 Setup",
     bookRef: "C++ Fundamentals & Compiler Setup (p. 1-15)",
     icon: "⚡",
@@ -233,7 +233,7 @@ int main() {
 }
 \`\`\`
 
-### 🛠️ Execution Output in 🪟 Windows 11 Command Prompt:
+### 🛠️ Execution Output in ⊞ Windows 11 Command Prompt:
 
 \`\`\`cmd
 Enter Student Name: Manoj Kumar
@@ -310,7 +310,7 @@ a ^ b  = 21 (Binary: 0001 0101)
 a << 2 = 48 (Shift Left by 2 = Multiply by 4)
 \`\`\`
 
-> ⊞ **Windows Tip:** Bitwise operations like \`a << 2\` execute directly in a single CPU cycle on modern 64-bit 🪟 Windows x86_64 processors!`
+> ⊞ **Windows Tip:** Bitwise operations like \`a << 2\` execute directly in a single CPU cycle on modern 64-bit ⊞ Windows x86_64 processors!`
   },
   {
     id: 4,
@@ -434,7 +434,7 @@ int main() {
 }
 \`\`\`
 
-### 🛠️ Execution Output on 🪟 Windows 11 CMD:
+### 🛠️ Execution Output on ⊞ Windows 11 CMD:
 
 \`\`\`cmd
 --- Counting 1 to 5 ---
@@ -574,7 +574,7 @@ int main() {
 }
 \`\`\`
 
-### 🛠️ Execution Output on 🪟 Windows 11 CMD:
+### 🛠️ Execution Output on ⊞ Windows 11 CMD:
 
 \`\`\`cmd
 Int Add: 15
@@ -830,7 +830,7 @@ int main() {
 }
 \`\`\`
 
-> ⊞ **Windows Tip:** Tools like **Diagnostic Tools** in VS 2026 monitor 🪟 Windows heap allocation graphs in real-time to catch memory leaks!`
+> ⊞ **Windows Tip:** Tools like **Diagnostic Tools** in VS 2026 monitor ⊞ Windows heap allocation graphs in real-time to catch memory leaks!`
   },
   {
     id: 12,
@@ -1245,7 +1245,7 @@ int main() {
       correctAnswer: "std::ifstream",
       hint: "std::ifstream (Input File Stream) reads data into C++ variables from disk files!"
     },
-    contentBody: `### 📁 File Streams & Disk I/O on 🪟 Windows 11
+    contentBody: `### 📁 File Streams & Disk I/O on ⊞ Windows 11
 
 File operations in C++ are handled via the \`<fstream>\` header:
 * 📥 **\`std::ifstream\`**: Read input from files.

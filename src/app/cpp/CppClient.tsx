@@ -24,7 +24,7 @@ const CPP_SIMULATOR_STEPS: CppStepType[] = [
   {
     id: "version",
     title: "Check g++ Compiler Version",
-    instruction: "Verify that the MinGW / GCC C++ compiler is installed on 🪟 Windows 11. Type `g++ --version` and press Enter.",
+    instruction: "Verify that the MinGW / GCC C++ compiler is installed on ⊞ Windows 11. Type `g++ --version` and press Enter.",
     expectedCommand: "g++ --version",
     hint: "g++ --version",
     successMsg: "g++ (Rev2, Built by MSYS2 project) 13.2.0\nCopyright (C) 2023 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions."
@@ -40,10 +40,10 @@ const CPP_SIMULATOR_STEPS: CppStepType[] = [
   {
     id: "run",
     title: "Run C++ Executable",
-    instruction: "Execute your compiled `main.exe` binary in 🪟 Windows Command Prompt. Type `main.exe` and press Enter.",
+    instruction: "Execute your compiled `main.exe` binary in ⊞ Windows Command Prompt. Type `main.exe` and press Enter.",
     expectedCommand: "main.exe",
     hint: "main.exe",
-    successMsg: "Hello, World from C++ on 🪟 Windows 11!\n[Process exited with code 0 in 0.002 seconds]"
+    successMsg: "Hello, World from C++ on ⊞ Windows 11!\n[Process exited with code 0 in 0.002 seconds]"
   },
   {
     id: "optimize",
@@ -59,8 +59,8 @@ const CODE_PLAYGROUND_SNIPPETS = [
   {
     id: "hello",
     label: "1. Hello World (iostream)",
-    code: `#include <iostream>\n\nint main() {\n    std::cout << "Hello, C++ Systems Studio on 🪟 Windows 11!" << std::endl;\n    return 0;\n}`,
-    output: `Hello, C++ Systems Studio on 🪟 Windows 11!\n[Process exited with code 0 in 0.001s]`
+    code: `#include <iostream>\n\nint main() {\n    std::cout << "Hello, C++ Systems Studio on ⊞ Windows 11!" << std::endl;\n    return 0;\n}`,
+    output: `Hello, C++ Systems Studio on ⊞ Windows 11!\n[Process exited with code 0 in 0.001s]`
   },
   {
     id: "pointers",
@@ -276,7 +276,7 @@ export default function CppClient() {
                   <span>Systems Architecture 2026</span>
                 </span>
                 <span className="px-2.5 py-1 bg-blue-500/10 border border-blue-500/30 rounded-full text-[11px] font-mono font-bold text-blue-400">
-                  🪟 Windows 11 x86_64
+                  ⊞ Windows 11 x86_64
                 </span>
               </div>
 

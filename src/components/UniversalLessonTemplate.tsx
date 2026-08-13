@@ -239,20 +239,24 @@ export default function UniversalLessonTemplate({
               })}
             </div>
 
-            <Link
-              href={`/htmldemo?code=${encodeURIComponent(cleanCode)}`}
-              target="_blank"
-              className="inline-flex items-center gap-1.5 px-5 py-2.5 bg-[#04AA6D] hover:bg-[#039861] text-white font-extrabold text-sm rounded-md transition-all shadow-md cursor-pointer"
-            >
-              <span>Try it Yourself »</span>
-            </Link>
+            {/* Render 'Try it Yourself' button ONLY for HTML subject */}
+            {subject === "html" && (
+              <Link
+                href={`/htmldemo?code=${encodeURIComponent(cleanCode)}`}
+                target="_blank"
+                className="inline-flex items-center gap-1.5 px-5 py-2.5 bg-[#04AA6D] hover:bg-[#039861] text-white font-extrabold text-sm rounded-md transition-all shadow-md cursor-pointer"
+              >
+                <span>Try it Yourself »</span>
+              </Link>
+            )}
 
-            {/* Matching Screenshot Output (Full-Width Responsive Inside Example Card) */}
+            {/* Matching Screenshot / Windows 11 Pro Terminal Execution Output */}
             {currentShot ? (
               <div className="pt-3 border-t border-slate-700/50 space-y-2">
                 <div className="flex items-center justify-between text-xs font-bold text-slate-300">
-                  <span className="flex items-center gap-2 text-blue-400 font-mono">
-                    <span>🪟 Output Screenshot (Windows 11)</span>
+                  <span className="flex items-center gap-2 text-[#04AA6D] font-mono">
+                    <span className="text-[#04AA6D] font-bold">⊞</span>
+                    <span>Windows 11 Pro Terminal Output (100% Real PC Match)</span>
                   </span>
                   <span className="text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase">
                     100% Matching Code
@@ -264,7 +268,7 @@ export default function UniversalLessonTemplate({
                 >
                   <img
                     src={currentShot.src}
-                    alt={currentShot.caption || "Editor running example on Windows 11"}
+                    alt={currentShot.caption || "Editor running example on Windows 11 Pro"}
                     className="w-full h-auto max-h-[450px] object-contain rounded-md shadow-md group-hover:scale-[1.01] transition-transform duration-300"
                     onError={(e) => {
                       (e.currentTarget as HTMLElement).style.display = 'none';
@@ -276,7 +280,8 @@ export default function UniversalLessonTemplate({
               <div className="pt-3 border-t border-slate-700/50 space-y-2 font-mono text-xs text-left">
                 <div className="flex items-center justify-between text-xs font-bold text-slate-300">
                   <span className="flex items-center gap-2 text-[#04AA6D] font-mono">
-                    <span>🪟 Windows 11 Pro Terminal Execution Output (100% Real PC Match)</span>
+                    <span className="text-[#04AA6D] font-bold">⊞</span>
+                    <span>Windows 11 Pro Terminal Execution Output</span>
                   </span>
                   <span className="text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase border border-emerald-500/20">
                     Windows 11 Pro Verified
@@ -285,11 +290,11 @@ export default function UniversalLessonTemplate({
                 
                 {/* Windows 11 Pro Terminal Window Box */}
                 <div className="rounded-xl overflow-hidden border border-slate-800 bg-[#0c0c0c] shadow-2xl">
-                  {/* Titlebar */}
+                  {/* Monochromatic Windows 11 Pro Titlebar */}
                   <div className="bg-[#1f1f1f] px-3 py-1.5 flex items-center justify-between border-b border-slate-800 text-[11px] text-slate-300 select-none">
                     <div className="flex items-center gap-2">
-                      <span className="text-[#04AA6D] font-bold">⊞</span>
-                      <span className="font-bold">Administrator: Windows 11 Pro Command Prompt (g++ GCC 13.2.0)</span>
+                      <span className="text-[#04AA6D] font-bold text-sm">⊞</span>
+                      <span className="font-bold text-white">Administrator: Windows 11 Pro Command Prompt ({subject === "cpp" ? "g++ GCC 13.2.0" : "cmd.exe"})</span>
                     </div>
                     <div className="flex items-center gap-2 text-slate-500 text-xs">
                       <span>&#8212;</span>
@@ -315,7 +320,7 @@ export default function UniversalLessonTemplate({
                           : cleanCode.includes("winget")
                           ? "Found MSYS2 [MSYS2.MSYS2]\nDownloading https://github.com/msys2/msys2-installer/...\nInstalling package...\nSuccessfully installed MSYS2!"
                           : cleanCode.includes("main.exe") || cleanCode.includes("main_optimized.exe")
-                          ? "Hello, World from C++ on 🪟 Windows 11 Pro!\n[Process exited with code 0 in 0.001 seconds]"
+                          ? "Hello World from C++ on Windows 11 Pro!\n[Process exited with code 0 in 0.001 seconds]"
                           : "[Command executed on Windows 11 Pro with exit code 0]"}
                       </div>
                     </div>
