@@ -168,37 +168,37 @@ export default function UniversalLessonTemplate({
         );
       }
 
-      // Handle Bullet Lists (*, -, +)
-      if (trimmed.startsWith("* ") || trimmed.startsWith("- ") || trimmed.startsWith("+ ")) {
-        const cleanText = trimmed.replace(/^[*\-+]\s*/, "").trim();
-        const boldRegex = /\*\*(.*?)\*\*/g;
-        const parts = cleanText.split(boldRegex);
-
-        return (
-          <li key={idx} className="ml-6 list-disc text-sm md:text-base text-slate-300 my-2 leading-relaxed">
-            {parts.map((part, pIdx) =>
-              pIdx % 2 === 1
-                ? <strong key={pIdx} className="text-white font-bold">{part}</strong>
-                : <React.Fragment key={pIdx}>{renderInlineCode(part)}</React.Fragment>
-            )}
-          </li>
-        );
+      // Ignore Markdown Table Separator Rows (|:---|:---|)
+      if (trimmed.startsWith("|") && (trimmed.includes(":-") || trimmed.includes("--"))) {
+        return null;
       }
 
-      // Handle Numbered Lists (1., 2., etc.)
-      if (/^\d+\.\s+/.test(trimmed)) {
-        const cleanText = trimmed.replace(/^\d+\.\s+/, "").trim();
-        const boldRegex = /\*\*(.*?)\*\*/g;
-        const parts = cleanText.split(boldRegex);
+      // Handle Markdown Table Rows (| col1 | col2 |)
+      if (trimmed.startsWith("|") && trimmed.endsWith("|")) {
+        const cells = trimmed
+          .split("|")
+          .map((c) => c.trim())
+          .filter((c) => c.length > 0);
+
+        if (cells.length === 0) return null;
 
         return (
-          <li key={idx} className="ml-6 list-decimal text-sm md:text-base text-slate-300 my-2 leading-relaxed">
-            {parts.map((part, pIdx) =>
-              pIdx % 2 === 1
-                ? <strong key={pIdx} className="text-white font-bold">{part}</strong>
-                : <React.Fragment key={pIdx}>{renderInlineCode(part)}</React.Fragment>
-            )}
-          </li>
+          <div key={idx} className="my-4 overflow-x-auto rounded-xl border border-slate-800 bg-[#15202b]">
+            <table className="w-full text-left font-sans text-sm text-slate-200 border-collapse">
+              <tbody>
+                <tr className="border-b border-slate-800 bg-[#1c2834]">
+                  {cells.map((cell, cIdx) => {
+                    const cleanCell = cell.replace(/\*\*(.*?)\*\*/g, "$1").replace(/[*`_]/g, "").trim();
+                    return (
+                      <td key={cIdx} className="px-4 py-3 font-extrabold text-white border-r border-slate-800 last:border-r-0">
+                        {cleanCell}
+                      </td>
+                    );
+                  })}
+                </tr>
+              </tbody>
+            </table>
+          </div>
         );
       }
 
@@ -327,16 +327,51 @@ export default function UniversalLessonTemplate({
         );
       }
 
+      // Handle Bullet Lists (*, -, +)
+      if (trimmed.startsWith("* ") || trimmed.startsWith("- ") || trimmed.startsWith("+ ")) {
+        const cleanText = trimmed.replace(/^[*\-+]\s*/, "").replace(/\*"/g, '"').replace(/"\*/g, '"').trim();
+        const boldRegex = /\*\*(.*?)\*\*/g;
+        const parts = cleanText.split(boldRegex);
+
+        return (
+          <li key={idx} className="ml-6 list-disc text-sm md:text-base text-slate-300 my-2 leading-relaxed">
+            {parts.map((part, pIdx) =>
+              pIdx % 2 === 1
+                ? <strong key={pIdx} className="text-white font-bold">{part.replace(/[*`]/g, "")}</strong>
+                : <React.Fragment key={pIdx}>{renderInlineCode(part.replace(/\*"/g, '"').replace(/"\*/g, '"'))}</React.Fragment>
+            )}
+          </li>
+        );
+      }
+
+      // Handle Numbered Lists (1., 2., etc.)
+      if (/^\d+\.\s+/.test(trimmed)) {
+        const cleanText = trimmed.replace(/^\d+\.\s+/, "").replace(/\*"/g, '"').replace(/"\*/g, '"').trim();
+        const boldRegex = /\*\*(.*?)\*\*/g;
+        const parts = cleanText.split(boldRegex);
+
+        return (
+          <li key={idx} className="ml-6 list-decimal text-sm md:text-base text-slate-300 my-2 leading-relaxed">
+            {parts.map((part, pIdx) =>
+              pIdx % 2 === 1
+                ? <strong key={pIdx} className="text-white font-bold">{part.replace(/[*`]/g, "")}</strong>
+                : <React.Fragment key={pIdx}>{renderInlineCode(part.replace(/\*"/g, '"').replace(/"\*/g, '"'))}</React.Fragment>
+            )}
+          </li>
+        );
+      }
+
       // Normal paragraph text
+      const sanitizedParagraph = trimmed.replace(/\*"/g, '"').replace(/"\*/g, '"').replace(/\*([^"*\s][^*]*[^"*\s])\*/g, "$1");
       const boldRegex = /\*\*(.*?)\*\*/g;
-      if (boldRegex.test(trimmed) || trimmed.includes('`') || trimmed.includes('<')) {
-        const parts = trimmed.split(boldRegex);
+      if (boldRegex.test(sanitizedParagraph) || sanitizedParagraph.includes('`') || sanitizedParagraph.includes('<')) {
+        const parts = sanitizedParagraph.split(boldRegex);
         return (
           <p key={idx} className="text-sm md:text-base text-slate-300 leading-relaxed my-3 font-normal">
             {parts.map((part, pIdx) =>
               pIdx % 2 === 1
-                ? <strong key={pIdx} className="text-white font-bold">{part}</strong>
-                : <React.Fragment key={pIdx}>{renderInlineCode(part)}</React.Fragment>
+                ? <strong key={pIdx} className="text-white font-bold">{part.replace(/[*`]/g, "")}</strong>
+                : <React.Fragment key={pIdx}>{renderInlineCode(part.replace(/[*]/g, ""))}</React.Fragment>
             )}
           </p>
         );
@@ -344,7 +379,7 @@ export default function UniversalLessonTemplate({
 
       return (
         <p key={idx} className="text-sm md:text-base text-slate-300 leading-relaxed my-3 font-normal">
-          {renderInlineCode(trimmed)}
+          {renderInlineCode(sanitizedParagraph.replace(/[*]/g, ""))}
         </p>
       );
     });
