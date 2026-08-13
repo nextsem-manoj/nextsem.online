@@ -81,7 +81,7 @@ To write, compile, and run C++ programs on Windows 11 using Command Prompt or Wi
 Open Windows Terminal or Command Prompt (cmd.exe) and run the package manager command:
 
 \`\`\`cmd
-winget install MSYS2
+winget install MSYS2.MSYS2
 \`\`\`
 
 #### Step 2: Install g++ Toolchain
