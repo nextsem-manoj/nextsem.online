@@ -239,6 +239,29 @@ Execution successful! Output verified on Windows 11 Pro x86_64.
 [Process exited with code 0 in 0.002 seconds]`;
   };
 
+  const getHeaderIcon = (title: string) => {
+    const t = title.toLowerCase();
+    if (t.includes("compiler") || t.includes("setup") || t.includes("step") || t.includes("install") || t.includes("config")) {
+      return "/icons/monochrome/settings.svg";
+    }
+    if (t.includes("performance") || t.includes("cpu") || t.includes("architecture") || t.includes("hardware") || t.includes("system")) {
+      return "/icons/monochrome/cpu.svg";
+    }
+    if (t.includes("code") || t.includes("program") || t.includes("breakdown") || t.includes("hello world") || t.includes("source")) {
+      return "/icons/monochrome/code.svg";
+    }
+    if (t.includes("memory") || t.includes("pointer") || t.includes("pipeline") || t.includes("stack") || t.includes("heap")) {
+      return "/icons/monochrome/memory.svg";
+    }
+    if (t.includes("terminal") || t.includes("command") || t.includes("cmd") || t.includes("execut") || t.includes("prompt")) {
+      return "/icons/monochrome/terminal.svg";
+    }
+    if (t.includes("window")) {
+      return "/icons/monochrome/windows.svg";
+    }
+    return "/icons/monochrome/book.svg";
+  };
+
   // Dynamic Markdown-to-JSX Parser with 1-to-1 Screenshot Card Embedding
   const renderFormattedContent = (text: string) => {
     if (!text) return null;
@@ -394,64 +417,89 @@ Execution successful! Output verified on Windows 11 Pro x86_64.
         const trimmed = line.trim();
         if (!trimmed) return null;
 
-      // Handle Bullet Lists (*, -, +)
-      if (trimmed.startsWith("* ") || trimmed.startsWith("- ") || trimmed.startsWith("+ ")) {
-        const cleanText = trimmed.replace(/^[*\-+]\s*/, "").replace(/\*"/g, '"').replace(/"\*/g, '"').trim();
+        // Render --- Dividers as subtle horizontal line
+        if (trimmed === "---" || trimmed === "___" || trimmed === "***") {
+          return <hr key={idx} className="border-t border-slate-800/80 my-8" />;
+        }
+
+        // Render ## / ### Headings with Monochromatic Vector SVG Icons
+        if (trimmed.startsWith("#")) {
+          const cleanHeading = trimmed
+            .replace(/^[#\s]+/, "")
+            .replace(/\*\*(.*?)\*\*/g, "$1")
+            .replace(/[*`_]/g, "")
+            .trim();
+
+          const iconPath = getHeaderIcon(cleanHeading);
+
+          return (
+            <div key={idx} className="flex items-center gap-3 mt-8 mb-4 border-b border-slate-800/80 pb-3">
+              <img src={iconPath} alt="" className="w-6 h-6 object-contain shrink-0" />
+              <h3 className="text-xl md:text-2xl font-extrabold text-white tracking-tight">
+                {cleanHeading}
+              </h3>
+            </div>
+          );
+        }
+
+        // Handle Bullet Lists (*, -, +)
+        if (trimmed.startsWith("* ") || trimmed.startsWith("- ") || trimmed.startsWith("+ ")) {
+          const cleanText = trimmed.replace(/^[*\-+]\s*/, "").replace(/\*"/g, '"').replace(/"\*/g, '"').trim();
+          const boldRegex = /\*\*(.*?)\*\*/g;
+          const parts = cleanText.split(boldRegex);
+
+          return (
+            <li key={idx} className="ml-6 list-disc text-sm md:text-base text-slate-300 my-2 leading-relaxed">
+              {parts.map((part, pIdx) =>
+                pIdx % 2 === 1
+                  ? <strong key={pIdx} className="text-white font-bold">{part.replace(/[*`]/g, "")}</strong>
+                  : <React.Fragment key={pIdx}>{renderInlineCode(part.replace(/\*"/g, '"').replace(/"\*/g, '"'))}</React.Fragment>
+              )}
+            </li>
+          );
+        }
+
+        // Handle Numbered Lists (1., 2., etc.)
+        if (/^\d+\.\s+/.test(trimmed)) {
+          const cleanText = trimmed.replace(/^\d+\.\s+/, "").replace(/\*"/g, '"').replace(/"\*/g, '"').trim();
+          const boldRegex = /\*\*(.*?)\*\*/g;
+          const parts = cleanText.split(boldRegex);
+
+          return (
+            <li key={idx} className="ml-6 list-decimal text-sm md:text-base text-slate-300 my-2 leading-relaxed">
+              {parts.map((part, pIdx) =>
+                pIdx % 2 === 1
+                  ? <strong key={pIdx} className="text-white font-bold">{part.replace(/[*`]/g, "")}</strong>
+                  : <React.Fragment key={pIdx}>{renderInlineCode(part.replace(/\*"/g, '"').replace(/"\*/g, '"'))}</React.Fragment>
+              )}
+            </li>
+          );
+        }
+
+        // Normal paragraph text
+        const sanitizedParagraph = trimmed.replace(/\*"/g, '"').replace(/"\*/g, '"').replace(/\*([^"*\s][^*]*[^"*\s])\*/g, "$1");
         const boldRegex = /\*\*(.*?)\*\*/g;
-        const parts = cleanText.split(boldRegex);
+        if (boldRegex.test(sanitizedParagraph) || sanitizedParagraph.includes('`') || sanitizedParagraph.includes('<')) {
+          const parts = sanitizedParagraph.split(boldRegex);
+          return (
+            <p key={idx} className="text-sm md:text-base text-slate-300 leading-relaxed my-3 font-normal">
+              {parts.map((part, pIdx) =>
+                pIdx % 2 === 1
+                  ? <strong key={pIdx} className="text-white font-bold">{part.replace(/[*`]/g, "")}</strong>
+                  : <React.Fragment key={pIdx}>{renderInlineCode(part.replace(/[*]/g, ""))}</React.Fragment>
+              )}
+            </p>
+          );
+        }
 
-        return (
-          <li key={idx} className="ml-6 list-disc text-sm md:text-base text-slate-300 my-2 leading-relaxed">
-            {parts.map((part, pIdx) =>
-              pIdx % 2 === 1
-                ? <strong key={pIdx} className="text-white font-bold">{part.replace(/[*`]/g, "")}</strong>
-                : <React.Fragment key={pIdx}>{renderInlineCode(part.replace(/\*"/g, '"').replace(/"\*/g, '"'))}</React.Fragment>
-            )}
-          </li>
-        );
-      }
-
-      // Handle Numbered Lists (1., 2., etc.)
-      if (/^\d+\.\s+/.test(trimmed)) {
-        const cleanText = trimmed.replace(/^\d+\.\s+/, "").replace(/\*"/g, '"').replace(/"\*/g, '"').trim();
-        const boldRegex = /\*\*(.*?)\*\*/g;
-        const parts = cleanText.split(boldRegex);
-
-        return (
-          <li key={idx} className="ml-6 list-decimal text-sm md:text-base text-slate-300 my-2 leading-relaxed">
-            {parts.map((part, pIdx) =>
-              pIdx % 2 === 1
-                ? <strong key={pIdx} className="text-white font-bold">{part.replace(/[*`]/g, "")}</strong>
-                : <React.Fragment key={pIdx}>{renderInlineCode(part.replace(/\*"/g, '"').replace(/"\*/g, '"'))}</React.Fragment>
-            )}
-          </li>
-        );
-      }
-
-      // Normal paragraph text
-      const sanitizedParagraph = trimmed.replace(/\*"/g, '"').replace(/"\*/g, '"').replace(/\*([^"*\s][^*]*[^"*\s])\*/g, "$1");
-      const boldRegex = /\*\*(.*?)\*\*/g;
-      if (boldRegex.test(sanitizedParagraph) || sanitizedParagraph.includes('`') || sanitizedParagraph.includes('<')) {
-        const parts = sanitizedParagraph.split(boldRegex);
         return (
           <p key={idx} className="text-sm md:text-base text-slate-300 leading-relaxed my-3 font-normal">
-            {parts.map((part, pIdx) =>
-              pIdx % 2 === 1
-                ? <strong key={pIdx} className="text-white font-bold">{part.replace(/[*`]/g, "")}</strong>
-                : <React.Fragment key={pIdx}>{renderInlineCode(part.replace(/[*]/g, ""))}</React.Fragment>
-            )}
+            {renderInlineCode(sanitizedParagraph.replace(/[*]/g, ""))}
           </p>
         );
-      }
-
-      return (
-        <p key={idx} className="text-sm md:text-base text-slate-300 leading-relaxed my-3 font-normal">
-          {renderInlineCode(sanitizedParagraph.replace(/[*]/g, ""))}
-        </p>
-      );
+      });
     });
-  });
-};
+  };
 
   if (!mounted) {
     return (
