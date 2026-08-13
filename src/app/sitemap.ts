@@ -1,6 +1,7 @@
 import { MetadataRoute } from "next";
 import searchIndex from "../data/searchIndex.json";
 import { htmlLessons } from "../data/htmlLessonsData";
+import { cppLessons } from "../data/cppLessonsData";
 
 export const dynamic = "force-static";
 
@@ -8,7 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://nextsem.online";
 
   // Base paths
-  const baseRoutes = ["", "/about", "/contact", "/playground", "/privacy", "/profile", "/terms", "/course", "/course/projects", "/cli", "/html"].map((route) => ({
+  const baseRoutes = ["", "/about", "/contact", "/playground", "/privacy", "/profile", "/terms", "/course", "/course/projects", "/cli", "/html", "/git", "/cpp"].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
     changeFrequency: "weekly" as const,
@@ -25,13 +26,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     }));
 
-  // Add the other 99 HTML sub-lessons
-  const htmlLessonRoutes = htmlLessons.slice(1).map((lesson) => ({
+  // Add HTML lessons
+  const htmlLessonRoutes = htmlLessons.map((lesson) => ({
     url: `${baseUrl}/html/${lesson.slug}`,
     lastModified: new Date(),
     changeFrequency: "monthly" as const,
     priority: 0.9,
   }));
 
-  return [...baseRoutes, ...courseRoutes, ...htmlLessonRoutes];
+  // Add C++ lessons
+  const cppLessonRoutes = cppLessons.map((lesson) => ({
+    url: `${baseUrl}/cpp/${lesson.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.9,
+  }));
+
+  return [...baseRoutes, ...courseRoutes, ...htmlLessonRoutes, ...cppLessonRoutes];
 }
+
