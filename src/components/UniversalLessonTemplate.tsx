@@ -411,15 +411,82 @@ Execution successful! Output verified on Windows 11 Pro x86_64.
         );
       }
 
-      // Process normal text lines
+      // Process normal text lines and markdown tables
       const lines = trimmedBlock.split("\n");
-      return lines.map((line, idx) => {
-        const trimmed = line.trim();
-        if (!trimmed) return null;
+      const result: React.ReactNode[] = [];
+      let i = 0;
+
+      while (i < lines.length) {
+        const trimmed = lines[i].trim();
+        if (!trimmed) {
+          i++;
+          continue;
+        }
+
+        // Handle Full Markdown Tables (| Feature | C++ | Python |)
+        if (trimmed.startsWith("|")) {
+          const tableLines: string[] = [];
+          while (i < lines.length && lines[i].trim().startsWith("|")) {
+            const tLine = lines[i].trim();
+            if (!(tLine.includes(":-") || (tLine.includes("---") && tLine.includes("|")))) {
+              tableLines.push(tLine);
+            }
+            i++;
+          }
+
+          if (tableLines.length > 0) {
+            const headerLine = tableLines[0];
+            const bodyLines = tableLines.slice(1);
+
+            const headerCells = headerLine
+              .split("|")
+              .map((c) => c.trim())
+              .filter((c) => c.length > 0)
+              .map((cell) => cell.replace(/\*\*(.*?)\*\*/g, "$1").replace(/[*`_]/g, "").trim());
+
+            const bodyRows = bodyLines.map((row) =>
+              row
+                .split("|")
+                .map((c) => c.trim())
+                .filter((c) => c.length > 0)
+                .map((cell) => cell.replace(/\*\*(.*?)\*\*/g, "$1").replace(/[*`_]/g, "").trim())
+            );
+
+            result.push(
+              <div key={`table-${i}`} className="my-6 overflow-x-auto rounded-xl border border-slate-700/80 bg-[#15202b] shadow-xl">
+                <table className="w-full text-left font-sans text-sm text-slate-200 border-collapse">
+                  <thead>
+                    <tr className="border-b border-slate-700 bg-[#1d2a35]">
+                      {headerCells.map((cell, cIdx) => (
+                        <th key={cIdx} className="px-4 py-3.5 font-extrabold text-white border-r border-slate-700/80 last:border-r-0 tracking-tight">
+                          {cell}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {bodyRows.map((rowCells, rIdx) => (
+                      <tr key={rIdx} className="border-b border-slate-800/80 hover:bg-[#1c2834] transition-colors last:border-b-0">
+                        {rowCells.map((cell, cIdx) => (
+                          <td key={cIdx} className="px-4 py-3 font-medium text-slate-200 border-r border-slate-800/80 last:border-r-0">
+                            {cell}
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            );
+            continue;
+          }
+        }
 
         // Render --- Dividers as subtle horizontal line
         if (trimmed === "---" || trimmed === "___" || trimmed === "***") {
-          return <hr key={idx} className="border-t border-slate-800/80 my-8" />;
+          result.push(<hr key={`hr-${i}`} className="border-t border-slate-800/80 my-8" />);
+          i++;
+          continue;
         }
 
         // Render ## / ### Headings with Monochromatic Vector SVG Icons
@@ -431,15 +498,16 @@ Execution successful! Output verified on Windows 11 Pro x86_64.
             .trim();
 
           const iconPath = getHeaderIcon(cleanHeading);
-
-          return (
-            <div key={idx} className="flex items-center gap-3 mt-8 mb-4 border-b border-slate-800/80 pb-3">
+          result.push(
+            <div key={`heading-${i}`} className="flex items-center gap-3 mt-8 mb-4 border-b border-slate-800/80 pb-3">
               <img src={iconPath} alt="" className="w-6 h-6 object-contain shrink-0" />
               <h3 className="text-xl md:text-2xl font-extrabold text-white tracking-tight">
                 {cleanHeading}
               </h3>
             </div>
           );
+          i++;
+          continue;
         }
 
         // Handle Bullet Lists (*, -, +)
@@ -448,8 +516,8 @@ Execution successful! Output verified on Windows 11 Pro x86_64.
           const boldRegex = /\*\*(.*?)\*\*/g;
           const parts = cleanText.split(boldRegex);
 
-          return (
-            <li key={idx} className="ml-6 list-disc text-sm md:text-base text-slate-300 my-2 leading-relaxed">
+          result.push(
+            <li key={`li-${i}`} className="ml-6 list-disc text-sm md:text-base text-slate-300 my-2 leading-relaxed">
               {parts.map((part, pIdx) =>
                 pIdx % 2 === 1
                   ? <strong key={pIdx} className="text-white font-bold">{part.replace(/[*`]/g, "")}</strong>
@@ -457,6 +525,8 @@ Execution successful! Output verified on Windows 11 Pro x86_64.
               )}
             </li>
           );
+          i++;
+          continue;
         }
 
         // Handle Numbered Lists (1., 2., etc.)
@@ -465,8 +535,8 @@ Execution successful! Output verified on Windows 11 Pro x86_64.
           const boldRegex = /\*\*(.*?)\*\*/g;
           const parts = cleanText.split(boldRegex);
 
-          return (
-            <li key={idx} className="ml-6 list-decimal text-sm md:text-base text-slate-300 my-2 leading-relaxed">
+          result.push(
+            <li key={`oli-${i}`} className="ml-6 list-decimal text-sm md:text-base text-slate-300 my-2 leading-relaxed">
               {parts.map((part, pIdx) =>
                 pIdx % 2 === 1
                   ? <strong key={pIdx} className="text-white font-bold">{part.replace(/[*`]/g, "")}</strong>
@@ -474,6 +544,8 @@ Execution successful! Output verified on Windows 11 Pro x86_64.
               )}
             </li>
           );
+          i++;
+          continue;
         }
 
         // Normal paragraph text
@@ -481,8 +553,8 @@ Execution successful! Output verified on Windows 11 Pro x86_64.
         const boldRegex = /\*\*(.*?)\*\*/g;
         if (boldRegex.test(sanitizedParagraph) || sanitizedParagraph.includes('`') || sanitizedParagraph.includes('<')) {
           const parts = sanitizedParagraph.split(boldRegex);
-          return (
-            <p key={idx} className="text-sm md:text-base text-slate-300 leading-relaxed my-3 font-normal">
+          result.push(
+            <p key={`p-${i}`} className="text-sm md:text-base text-slate-300 leading-relaxed my-3 font-normal">
               {parts.map((part, pIdx) =>
                 pIdx % 2 === 1
                   ? <strong key={pIdx} className="text-white font-bold">{part.replace(/[*`]/g, "")}</strong>
@@ -490,14 +562,16 @@ Execution successful! Output verified on Windows 11 Pro x86_64.
               )}
             </p>
           );
+        } else {
+          result.push(
+            <p key={`p-${i}`} className="text-sm md:text-base text-slate-300 leading-relaxed my-3 font-normal">
+              {renderInlineCode(sanitizedParagraph.replace(/[*]/g, ""))}
+            </p>
+          );
         }
-
-        return (
-          <p key={idx} className="text-sm md:text-base text-slate-300 leading-relaxed my-3 font-normal">
-            {renderInlineCode(sanitizedParagraph.replace(/[*]/g, ""))}
-          </p>
-        );
-      });
+        i++;
+      }
+      return result;
     });
   };
 
