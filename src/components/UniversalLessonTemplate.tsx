@@ -368,12 +368,10 @@ Execution successful! Output verified on Windows 11 Pro x86_64.
 
                   <video
                     controls
-                    autoPlay
-                    loop
-                    muted
+                    preload="metadata"
                     playsInline
                     className="w-full h-auto max-h-[480px] rounded-b-xl object-contain bg-black"
-                    src="/recordings/msys2-install-windows11.mp4"
+                    src="/recordings/msys2-install-windows11.mp4#t=0.5"
                   />
                 </div>
               </div>
