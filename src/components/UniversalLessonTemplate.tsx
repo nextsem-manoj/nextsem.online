@@ -214,10 +214,18 @@ export default function UniversalLessonTemplate({
         const currentShot = lesson.screenshots?.[exampleCounter] || lesson.screenshots?.[0];
         exampleCounter++;
 
+        const firstLine = cleanCode.split("\n")[0].trim();
+        const displayHeader = firstLine.startsWith("#include") || firstLine.startsWith("int main") || firstLine.startsWith("<!DOCTYPE") || firstLine.startsWith("using ")
+          ? (subject === "cpp" ? "C++ Source Code (main.cpp)" : "Source Code Snippet")
+          : firstLine;
+
         return (
           <div key={idx} className="my-6 p-5 md:p-6 bg-[#1d2a35] border border-slate-700/60 rounded-xl space-y-4 shadow-xl text-left">
-            <div className="flex items-center justify-between gap-3">
-              <h3 className="text-xl font-extrabold text-white tracking-tight">Example</h3>
+            <div className="flex items-center justify-between gap-3 border-b border-slate-800/80 pb-3">
+              <div className="flex items-center gap-2 font-mono text-sm sm:text-base font-bold text-white overflow-hidden">
+                <span className="text-[#04AA6D] font-bold">⊞</span>
+                <span className="truncate">{displayHeader}</span>
+              </div>
               <CopyableCommand command={cleanCode} inline={false} className="my-0" />
             </div>
 
