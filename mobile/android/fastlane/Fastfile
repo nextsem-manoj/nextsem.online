@@ -3,11 +3,9 @@ default_platform(:android)
 platform :android do
   desc "Deploy a new release to Google Play"
   lane :deploy do
-    # Increment version code and name automatically
-    increment_version_code
-    increment_version_name
-    # Build the AAB (Flutter build already done, but ensure gradle task runs)
-    # gradle(task: "bundleRelease") # not needed as Flutter already builds
+    # Increment version code and name automatically (handled via pubspec.yaml / Gradle)
+    # increment_version_code
+    # increment_version_name
     supply(
       track: ENV['PLAY_STORE_TRACK'] || "internal",
       json_key: "fastlane/play_store.json",
@@ -19,3 +17,4 @@ platform :android do
     )
   end
 end
+

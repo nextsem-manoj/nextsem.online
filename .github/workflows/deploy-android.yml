@@ -9,8 +9,8 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     env:
-      KEYSTORE_PATH: keystore.jks
-      PLAY_STORE_JSON_KEY: mobile/android/fastlane/play_store.json
+      KEYSTORE_PATH: ${{ github.workspace }}/mobile/android/app/keystore.jks
+      PLAY_STORE_JSON_KEY: ${{ github.workspace }}/mobile/android/fastlane/play_store.json
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -37,18 +37,30 @@ jobs:
         env:
           PLAY_STORE_SECRET: ${{ secrets.PLAY_STORE_JSON_KEY }}
         run: |
-          echo "$PLAY_STORE_SECRET" > "$PLAY_STORE_JSON_KEY"
+          echo "$PLAY_STORE_SECRET" > ${{ env.PLAY_STORE_JSON_KEY }}
 
       - name: Set up Ruby & Fastlane
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.2'
-          bundler-cache: true
+          bundler-cache: false
           working-directory: mobile/android
 
-      - name: Build release AAB
+      - name: Install Fastlane dependencies
         run: |
-          cd mobile && flutter build appbundle --release
+          cd mobile/android && bundle install
+
+      - name: Build release AAB
+        env:
+          KEYSTORE_PATH: ${{ env.KEYSTORE_PATH }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+          STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
+        run: |
+          cd mobile
+          flutter pub get
+          flutter build appbundle --release
+
 
       - name: Upload to Play Store via Fastlane
         env:
@@ -67,3 +79,4 @@ jobs:
           git config user.email "github-actions@github.com"
           git tag $TAG_NAME
           git push origin $TAG_NAME
+
