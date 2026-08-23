@@ -993,25 +993,24 @@ export default function HomeClient() {
           <div className="space-y-3">
             <h5 className="font-black uppercase text-white text-xs tracking-wider">Top Tutorials</h5>
             <ul className="space-y-2 font-medium">
-              <li><button onClick={() => handleScrollToId('html-section')} className="hover:text-white">HTML Tutorial</button></li>
-              <li><button onClick={() => handleScrollToId('css-section')} className="hover:text-white">CSS Tutorial</button></li>
-              <li><button onClick={() => handleScrollToId('js-section')} className="hover:text-white">JavaScript Tutorial</button></li>
-              <li><button onClick={() => handleScrollToId('react-section')} className="hover:text-white">React Tutorial</button></li>
-              <li><button onClick={() => handleScrollToId('backend-section')} className="hover:text-white">Node.js Backend</button></li>
-              <li><button onClick={() => handleScrollToId('cli-section')} className="hover:text-white">Windows Commands (CLI)</button></li>
-              <li><Link href="/curriculum" className="hover:text-white text-emerald-400 font-bold">🚀 Full Dev Curriculum</Link></li>
+              <li><Link href="/html" className="hover:text-white">HTML5 Tutorials</Link></li>
+              <li><Link href="/candle-flame-animation" className="hover:text-white">CSS3 Animations &amp; UI</Link></li>
+              <li><Link href="/playground" className="hover:text-white">JavaScript ES6+ Logic</Link></li>
+              <li><Link href="/curriculum" className="hover:text-white">React.js &amp; Next.js</Link></li>
+              <li><Link href="/curriculum" className="hover:text-white">Node.js REST APIs</Link></li>
+              <li><Link href="/cli" className="hover:text-white">Windows 11 CLI Commands</Link></li>
+              <li><Link href="/curriculum" className="hover:text-[#04AA6D] text-[#04AA6D] font-bold">🚀 Full Dev Curriculum</Link></li>
             </ul>
           </div>
 
           <div className="space-y-3">
-            <h5 className="font-black uppercase text-white text-xs tracking-wider">Simulators & Tools</h5>
+            <h5 className="font-black uppercase text-white text-xs tracking-wider">Simulators &amp; Tools</h5>
             <ul className="space-y-2 font-medium">
-              <li><Link href="/cli" className="hover:text-white">🪟 Windows CLI Module</Link></li>
+              <li><Link href="/cli" className="hover:text-white">🪟 Windows Terminal</Link></li>
               <li><Link href="/git" target="_blank" className="hover:text-white">🌿 Git Simulator</Link></li>
               <li><Link href="/playground" className="hover:text-white">💻 Code Sandbox Playground</Link></li>
-              <li><Link href="/bca" className="hover:text-white">🎓 BCA Semester Hub</Link></li>
-              <li><button onClick={() => handleLaunchChapter('p0-3-vscode')} className="hover:text-white">VS Code Editor Setup</button></li>
-              <li><button onClick={() => handleLaunchChapter('p0-5-devtools')} className="hover:text-white">Chrome DevTools Console</button></li>
+              <li><Link href="/html" className="hover:text-white">🌐 Full Stack Code Studio</Link></li>
+              <li><a href="https://ignou.nextsem.online" target="_blank" rel="noopener noreferrer" className="hover:text-white">🎓 IGNOU BCA Degree Hub</a></li>
             </ul>
           </div>
 
@@ -1021,12 +1020,13 @@ export default function HomeClient() {
               <li><Link href="/full-stack-web-development-roadmap" className="hover:text-white">🚀 Full Stack 2026 Roadmap</Link></li>
               <li><Link href="/course/projects" className="hover:text-white">💡 15+ Interactive Projects</Link></li>
               <li><Link href="/playground" className="hover:text-white">💻 Live Code Playground</Link></li>
-              <li><Link href="/html" className="hover:text-white">🌐 HTML5 Fundamentals</Link></li>
+              <li><Link href="/html" className="hover:text-white">🌐 HTML5 Architecture</Link></li>
+              <li><Link href="/curriculum" className="hover:text-white">📦 Full Stack Modules</Link></li>
             </ul>
           </div>
 
           <div className="space-y-3">
-            <h5 className="font-black uppercase text-white text-xs tracking-wider">Legal & AdSense Compliance</h5>
+            <h5 className="font-black uppercase text-white text-xs tracking-wider">Legal &amp; Policy Hub</h5>
             <ul className="space-y-2 font-medium">
               <li><Link href="/privacy" className="hover:text-white">📜 Privacy Policy</Link></li>
               <li><Link href="/terms" className="hover:text-white">⚖️ Terms of Service</Link></li>

@@ -222,4 +222,4 @@ user ko windows pe sikhana hai ya to visual studio install krna hoga pehle to wh
 ise actual vs code in windows 11 fromat m rakho
 ![alt text](image-3.png)
 
-![ye hta do full stack se related use karo](image-4.png) ![alt text](image-5.png) ![alt text](image-6.png) ![alt text](image-7.png) ![alt text](image-8.png)
+![ye hta do full stack se related use karo](image-4.png) ![alt text](image-5.png) ![alt text](image-6.png) ![alt text](image-7.png) ![alt text](image-8.png)![alt text](image-9.png)
