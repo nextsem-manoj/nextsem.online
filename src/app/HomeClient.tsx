@@ -487,22 +487,22 @@ export default function HomeClient() {
           {/* Action CTAs */}
           <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
             <Link
-              href="/cli/introduction-to-command-line-interface-cli-basics"
+              href="/html/learn-html-web-free-lessons-what-is-the-internet"
               className="px-6 py-3.5 bg-[#04AA6D] hover:bg-[#039861] text-white font-extrabold text-xs sm:text-sm uppercase tracking-wider rounded-xl shadow-lg shadow-[#04AA6D]/20 transition-all transform hover:-translate-y-0.5 flex items-center gap-2 cursor-pointer"
             >
-              <Terminal size={17} />
-              <span>Start Step 1: Terminal Setup »</span>
+              <BookOpen size={17} />
+              <span>Start Step 1: HTML5 Web Basics »</span>
             </Link>
-            <a
-              href="#pathway"
-              className="px-6 py-3.5 bg-[#0c1328] hover:bg-slate-800 text-white border border-slate-700 hover:border-emerald-500/50 font-extrabold text-xs sm:text-sm uppercase tracking-wider rounded-xl shadow-md transition-all flex items-center gap-2 cursor-pointer"
+            <Link
+              href="/cli"
+              className="px-6 py-3.5 bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold text-xs sm:text-sm uppercase tracking-wider rounded-xl shadow-md transition-all flex items-center gap-2 cursor-pointer"
             >
-              <Layers size={17} className="text-emerald-400" />
-              <span>Explore 8-Step Pathway ➔</span>
-            </a>
+              <Terminal size={17} />
+              <span>Developer Terminal & CLI »</span>
+            </Link>
             <Link
               href="/full-stack-web-development-roadmap"
-              className="px-6 py-3.5 bg-gradient-to-r from-amber-600 to-indigo-600 hover:from-amber-500 hover:to-indigo-500 text-white font-extrabold text-xs sm:text-sm uppercase tracking-wider rounded-xl shadow-lg transition-all flex items-center gap-2 cursor-pointer"
+              className="px-6 py-3.5 bg-gradient-to-r from-amber-600 to-cyan-600 hover:from-amber-500 hover:to-cyan-500 text-white font-extrabold text-xs sm:text-sm uppercase tracking-wider rounded-xl shadow-lg transition-all flex items-center gap-2 cursor-pointer"
             >
               <Rocket size={17} />
               <span>Full Stack 2026 Roadmap »</span>
@@ -544,70 +544,44 @@ export default function HomeClient() {
             The 8-Stage Full Stack Developer Journey
           </h2>
           <p className="text-xs sm:text-sm text-slate-300 max-w-2xl mx-auto leading-relaxed">
-            Follow this exact sequential path to eliminate all confusion. Master foundational terminal skills, frontend architecture, backend REST APIs, databases, and deployment.
+            Follow this exact sequential path to eliminate all confusion. Master HTML web structures, CSS styling, JavaScript logic, the developer terminal, Git, React, Node.js, and Cloud deployment.
           </p>
         </div>
 
         {/* 8-Stage Grid Deck */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           
-          {/* Step 1: Windows CMD */}
+          {/* Step 1: HTML5 */}
           <div className="p-5 bg-[#0c1328] border border-slate-800 hover:border-[#04AA6D] rounded-2xl transition-all shadow-xl flex flex-col justify-between group">
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <span className="w-7 h-7 rounded-lg bg-[#04AA6D]/20 text-[#04AA6D] font-black text-xs flex items-center justify-center border border-[#04AA6D]/40">01</span>
-                <span className="text-[10px] font-bold text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800/80">100+ Lessons</span>
+                <span className="text-[10px] font-bold text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800/80">98+ Lessons</span>
               </div>
               <div>
                 <h3 className="text-base font-extrabold text-white group-hover:text-[#04AA6D] transition-colors flex items-center gap-2">
-                  <Terminal size={18} className="text-[#04AA6D]" />
-                  <span>🪟 Windows CMD CLI</span>
-                </h3>
-                <p className="text-xs text-slate-300 mt-1.5 leading-relaxed">
-                  Terminal navigation, directory creation, drive switching, PATH variables, and developer tooling.
-                </p>
-              </div>
-            </div>
-            <div className="pt-4 mt-4 border-t border-slate-800/80 flex items-center justify-between">
-              <Link href="/cli" className="text-xs font-bold text-[#04AA6D] hover:text-[#039861] underline decoration-[#04AA6D] flex items-center gap-1">
-                <span>Start Module 01</span>
-                <ArrowRight size={13} />
-              </Link>
-              <Link href="/cli/preview" className="text-[11px] font-bold text-slate-400 hover:text-white">Simulator ➔</Link>
-            </div>
-          </div>
-
-          {/* Step 2: HTML5 */}
-          <div className="p-5 bg-[#0c1328] border border-slate-800 hover:border-blue-500 rounded-2xl transition-all shadow-xl flex flex-col justify-between group">
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <span className="w-7 h-7 rounded-lg bg-blue-500/20 text-blue-400 font-black text-xs flex items-center justify-center border border-blue-500/40">02</span>
-                <span className="text-[10px] font-bold text-blue-400 bg-blue-950/60 px-2 py-0.5 rounded border border-blue-800/80">98+ Lessons</span>
-              </div>
-              <div>
-                <h3 className="text-base font-extrabold text-white group-hover:text-blue-400 transition-colors flex items-center gap-2">
-                  <Code size={18} className="text-blue-400" />
+                  <Code size={18} className="text-[#04AA6D]" />
                   <span>🧱 HTML5 Architecture</span>
                 </h3>
                 <p className="text-xs text-slate-300 mt-1.5 leading-relaxed">
-                  Semantic tags, forms, tables, accessibility, DOM hierarchy, and HTTP request headers.
+                  Web anatomy, semantic tags, forms, tables, inputs, accessibility, DOM hierarchy, and HTTP requests.
                 </p>
               </div>
             </div>
             <div className="pt-4 mt-4 border-t border-slate-800/80 flex items-center justify-between">
-              <Link href="/html" className="text-xs font-bold text-blue-400 hover:text-blue-300 underline decoration-blue-400 flex items-center gap-1">
-                <span>Start Module 02</span>
+              <Link href="/html" className="text-xs font-bold text-[#04AA6D] hover:text-[#039861] underline decoration-[#04AA6D] flex items-center gap-1">
+                <span>Start Module 01</span>
                 <ArrowRight size={13} />
               </Link>
               <Link href="/html/quiz" className="text-[11px] font-bold text-slate-400 hover:text-white">HTML Quiz ➔</Link>
             </div>
           </div>
 
-          {/* Step 3: CSS3 UI */}
+          {/* Step 2: CSS3 UI */}
           <div className="p-5 bg-[#0c1328] border border-slate-800 hover:border-teal-500 rounded-2xl transition-all shadow-xl flex flex-col justify-between group">
             <div className="space-y-3">
               <div className="flex items-center justify-between">
-                <span className="w-7 h-7 rounded-lg bg-teal-500/20 text-teal-400 font-black text-xs flex items-center justify-center border border-teal-500/40">03</span>
+                <span className="w-7 h-7 rounded-lg bg-teal-500/20 text-teal-400 font-black text-xs flex items-center justify-center border border-teal-500/40">02</span>
                 <span className="text-[10px] font-bold text-teal-400 bg-teal-950/60 px-2 py-0.5 rounded border border-teal-800/80">Interactive Labs</span>
               </div>
               <div>
@@ -629,11 +603,11 @@ export default function HomeClient() {
             </div>
           </div>
 
-          {/* Step 4: JavaScript ES6+ */}
+          {/* Step 3: JavaScript ES6+ */}
           <div className="p-5 bg-[#0c1328] border border-slate-800 hover:border-amber-500 rounded-2xl transition-all shadow-xl flex flex-col justify-between group">
             <div className="space-y-3">
               <div className="flex items-center justify-between">
-                <span className="w-7 h-7 rounded-lg bg-amber-500/20 text-amber-400 font-black text-xs flex items-center justify-center border border-amber-500/40">04</span>
+                <span className="w-7 h-7 rounded-lg bg-amber-500/20 text-amber-400 font-black text-xs flex items-center justify-center border border-amber-500/40">03</span>
                 <span className="text-[10px] font-bold text-amber-400 bg-amber-950/60 px-2 py-0.5 rounded border border-amber-800/80">Core Logic</span>
               </div>
               <div>
@@ -652,6 +626,32 @@ export default function HomeClient() {
                 <ArrowRight size={13} />
               </Link>
               <Link href="/rain-effect-animation" className="text-[11px] font-bold text-slate-400 hover:text-white">Canvas Lab ➔</Link>
+            </div>
+          </div>
+
+          {/* Step 4: Windows CMD & Tooling */}
+          <div className="p-5 bg-[#0c1328] border border-slate-800 hover:border-blue-500 rounded-2xl transition-all shadow-xl flex flex-col justify-between group">
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="w-7 h-7 rounded-lg bg-blue-500/20 text-blue-400 font-black text-xs flex items-center justify-center border border-blue-500/40">04</span>
+                <span className="text-[10px] font-bold text-blue-400 bg-blue-950/60 px-2 py-0.5 rounded border border-blue-800/80">100+ Lessons</span>
+              </div>
+              <div>
+                <h3 className="text-base font-extrabold text-white group-hover:text-blue-400 transition-colors flex items-center gap-2">
+                  <Terminal size={18} className="text-blue-400" />
+                  <span>🪟 Developer Terminal</span>
+                </h3>
+                <p className="text-xs text-slate-300 mt-1.5 leading-relaxed">
+                  Terminal navigation, directory creation, drive switching, PATH variables, and developer tooling.
+                </p>
+              </div>
+            </div>
+            <div className="pt-4 mt-4 border-t border-slate-800/80 flex items-center justify-between">
+              <Link href="/cli" className="text-xs font-bold text-blue-400 hover:text-blue-300 underline decoration-blue-400 flex items-center gap-1">
+                <span>Start Module 04</span>
+                <ArrowRight size={13} />
+              </Link>
+              <Link href="/cli/preview" className="text-[11px] font-bold text-slate-400 hover:text-white">Simulator ➔</Link>
             </div>
           </div>
 
