@@ -481,24 +481,24 @@ export default function HomeClient() {
 
           {/* Subtitle / Clear Developer English Guidance */}
           <p className="text-slate-300 text-sm sm:text-lg max-w-3xl mx-auto leading-relaxed font-normal">
-            Master modern web development step-by-step. Start with your first Windows terminal command and HTML structure, progress through modern CSS layouts and JavaScript logic, build full-stack React and Node.js applications, manage databases, and deploy real-world projects to the cloud.
+            Master full-stack web development step-by-step on your Windows PC. Start by setting up Visual Studio Code & HTML structure, progress through modern CSS layouts and JavaScript logic, build full-stack React and Node.js applications, manage databases, and deploy real-world projects to the cloud.
           </p>
 
           {/* Action CTAs */}
           <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
             <Link
               href="/html/learn-html-web-free-lessons-what-is-the-internet"
-              className="px-6 py-3.5 bg-[#04AA6D] hover:bg-[#039861] text-white font-extrabold text-xs sm:text-sm uppercase tracking-wider rounded-xl shadow-lg shadow-[#04AA6D]/20 transition-all transform hover:-translate-y-0.5 flex items-center gap-2 cursor-pointer"
+              className="px-8 py-4 bg-[#04AA6D] hover:bg-[#039861] text-white font-black text-sm sm:text-base uppercase tracking-wider rounded-xl shadow-xl shadow-[#04AA6D]/25 transition-all transform hover:-translate-y-0.5 flex items-center gap-2.5 cursor-pointer"
             >
-              <BookOpen size={17} />
-              <span>Start Step 1: HTML5 Web Basics »</span>
+              <Play size={18} className="fill-white" />
+              <span>Start Learning »</span>
             </Link>
             <Link
               href="/cli"
-              className="px-6 py-3.5 bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold text-xs sm:text-sm uppercase tracking-wider rounded-xl shadow-md transition-all flex items-center gap-2 cursor-pointer"
+              className="px-6 py-4 bg-[#0c1328] hover:bg-slate-800 text-white border border-slate-700 hover:border-emerald-500/50 font-extrabold text-xs sm:text-sm uppercase tracking-wider rounded-xl shadow-md transition-all flex items-center gap-2 cursor-pointer"
             >
-              <Terminal size={17} />
-              <span>Developer Terminal & CLI »</span>
+              <Terminal size={17} className="text-emerald-400" />
+              <span>Developer Terminal & Setup »</span>
             </Link>
             <Link
               href="/full-stack-web-development-roadmap"

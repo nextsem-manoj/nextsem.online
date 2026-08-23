@@ -100,10 +100,10 @@ graph TD
 - **Pill Badge:** `⚡ 100% FREE SOFTWARE ENGINEERING PATHWAY • ZERO PAYWALLS`
 - **Main Heading (H1):** `Become a Job-Ready Full Stack Web Developer`
 - **Subtitle:**  
-  *"Master modern web development step-by-step. Start with your first Windows terminal command and HTML structure, progress through modern CSS layouts and JavaScript logic, build full-stack React and Node.js applications, manage databases, and deploy real-world projects to the cloud."*
+  *"Master full-stack web development step-by-step on your Windows PC. Start by setting up Visual Studio Code & HTML structure, progress through modern CSS layouts and JavaScript logic, build full-stack React and Node.js applications, manage databases, and deploy real-world projects to the cloud."*
 - **Action Buttons:**
-  1. `[Primary Emerald Button]` **Start Step 1: Terminal Setup »** $\rightarrow$ Links to [`/cli/introduction-to-command-line-interface-cli-basics`](https://nextsem.online/cli/introduction-to-command-line-interface-cli-basics)
-  2. `[Secondary Dark Button]` **Explore 8-Step Pathway ➔** $\rightarrow$ Scrolls to `#pathway`.
+  1. `[Primary Emerald Button]` **Start Learning »** $\rightarrow$ Links to [`/html/learn-html-web-free-lessons-what-is-the-internet`](https://nextsem.online/html/learn-html-web-free-lessons-what-is-the-internet)
+  2. `[Secondary Dark Button]` **Developer Terminal & Setup »** $\rightarrow$ Links to [`/cli`](https://nextsem.online/cli)
   3. `[Gradient Accent Button]` **Full Stack 2026 Roadmap »** $\rightarrow$ Links to [`/full-stack-web-development-roadmap`](https://nextsem.online/full-stack-web-development-roadmap)
 
 #### Live Terminal Code Preview Card
@@ -206,3 +206,4 @@ Permanent brand footer containing all legal and sitemap compliance links:
 front page ko analyse karo aur batao kya changes jaroori hai
 sabse pehle ye batao full stack web developer banne k liye kha se start kra chahiye fir usi ka according front page design
 kya cmd sikhana jaroori hai ?
+user ko windows pe sikhana hai ya to visual studio install krna hoga pehle to wha se strat karo aur start learning button bnankar start step 1 ko replace karo
