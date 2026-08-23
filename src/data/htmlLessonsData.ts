@@ -37,6 +37,317 @@ export interface Lesson {
 
 export const htmlLessons: Lesson[] = [
   {
+    id: 0,
+    slug: "download-install-vscode-windows-11-setup-guide",
+    title: "Visual Studio Code Download, Windows 11 Setup & First HTML Page",
+    unit: "Unit 0: Developer Workstation Setup & Visual Studio Code",
+    bookRef: "Nextsem Full Stack Web Dev Guide (Phase 0)",
+    exercise: {
+      english: {
+        question: "Which crucial checkbox during VS Code installation enables right-clicking any folder in Windows 11 File Explorer to open it directly in VS Code?",
+        options: [
+          "Add 'Open with Code' action to Windows Explorer directory context menu",
+          "Create Desktop shortcut only",
+          "Disable GPU hardware acceleration",
+          "Install Microsoft Edge DevTools only",
+        ],
+        correctAnswer: "Add 'Open with Code' action to Windows Explorer directory context menu",
+        hint: "This option allows you to right-click on any project folder on your Windows PC and select 'Open with Code'!"
+      },
+      hinglish: {
+        question: "VS Code install karte samay kaun sa checkbox select karna sabse zaroori hai taaki aap Windows 11 ke kisi bhi folder par right-click karke use direct VS Code me khol sakein?",
+        options: [
+          "Sirf Desktop shortcut banayein",
+          "Add 'Open with Code' action to Windows Explorer directory context menu",
+          "GPU hardware acceleration ko band karein",
+          "Edge browser extension install karein",
+        ],
+        correctAnswer: "Add 'Open with Code' action to Windows Explorer directory context menu",
+        hint: "Is option se aap Windows PC par kisi bhi folder par right-click karke direct 'Open with Code' kar sakte hain!"
+      },
+      hindi: {
+        question: "🪟 Windows 11 पर VS Code इंस्टॉल करते समय कौन सा चेकबॉक्स चुनना सबसे जरूरी है ताकि आप किसी भी फोल्डर पर राइट-क्लिक करके उसे सीधे VS Code में खोल सकें?",
+        options: [
+          "केवल डेस्कटॉप शॉर्टकट बनाएं",
+          "Add 'Open with Code' action to Windows Explorer directory context menu",
+          "GPU एक्सेलेरेशन बंद करें",
+          "माइक्रोसॉफ्ट एज एक्सटेंशन इंस्टॉल करें"
+        ],
+        correctAnswer: "Add 'Open with Code' action to Windows Explorer directory context menu",
+        hint: "यह विकल्प आपको विंडोज में किसी भी प्रोजेक्ट फोल्डर पर राइट-क्लिक करके 'Open with Code' करने की सुविधा देता है!"
+      }
+    },
+    english: {
+      kid: `Welcome to Full Stack Web Development! Before we start writing HTML, CSS, and JavaScript, we need a powerful code editor on our 🪟 Windows 11 computer.
+
+## 🛠️ What is Visual Studio Code (VS Code)?
+* **Visual Studio Code (VS Code)** is the most popular, free, and lightning-fast code editor built by Microsoft.
+* It includes syntax color highlighting, auto-completion, built-in Git, an integrated terminal, and thousands of powerful developer extensions.
+
+---
+
+## 📥 Step 1: Download VS Code for 🪟 Windows 11
+1. Open your web browser and visit the official website: [https://code.visualstudio.com/](https://code.visualstudio.com/)
+2. Click the big blue **"Download for Windows"** button (or choose **User Installer x64**).
+3. The setup file \`VSCodeUserSetup-x64.exe\` will download to your **Downloads** folder.
+
+---
+
+## ⚙️ Step 2: Install VS Code & Check Crucial Windows Options
+1. Double-click the downloaded \`VSCodeUserSetup-x64.exe\` installer.
+2. Accept the license agreement and click **Next**.
+3. ⚠️ **CRITICAL STEP:** On the **"Select Additional Tasks"** screen, make sure you CHECK ALL of these boxes:
+   * ☑ **Add "Open with Code" action to Windows Explorer file context menu**
+   * ☑ **Add "Open with Code" action to Windows Explorer directory context menu**
+   * ☑ **Register Code as an editor for supported file types**
+   * ☑ **Add to PATH (requires shell restart)**
+4. Click **Install** and then click **Finish** to launch Visual Studio Code.
+
+---
+
+## 🧩 Step 3: Install Essential Web Developer Extensions
+VS Code extensions supercharge your development workflow:
+1. Press \`Ctrl + Shift + X\` (or click the Extensions icon 🧩 on the left Activity Bar).
+2. Search and click **Install** for each of these 3 essential extensions:
+   * 🌟 **Live Server** *(by Ritwick Dey)*: Launches a local development server with auto-reload for static HTML/CSS/JS pages.
+   * 🌟 **Prettier - Code Formatter**: Automatically formats your code into clean, beautiful syntax every time you press \`Ctrl + S\`.
+   * 🌟 **Auto Rename Tag**: Automatically renames paired HTML tags when you change the opening tag.
+
+---
+
+## 📂 Step 4: Create Your First Project Folder in Windows
+1. Open Windows File Explorer (\`Win + E\`) and navigate to your **Documents** or **Desktop**.
+2. Create a new folder named \`my-first-website\`.
+3. **Open in VS Code:**
+   * **Method A (Right-Click):** Right-click the folder ➔ select **Show more options** (Windows 11) ➔ click **Open with Code** 🪟.
+   * **Method B (Terminal):** Open Command Prompt (\`cmd\`) and type:
+     \`mkdir my-first-website && cd my-first-website && code .\`
+
+---
+
+## 📄 Step 5: Create Your First File (\`index.html\`)
+1. In the VS Code Explorer panel (left side), click the **New File** icon (📄+) and name it \`index.html\`.
+2. **Emmet Boilerplate Shortcut:** Inside the editor, type \`!\` (exclamation mark) and press **Enter** (or **Tab**).
+3. VS Code will automatically generate the standard HTML5 skeleton:
+
+\`\`\`html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My First Website | Nextsem</title>
+</head>
+<body>
+  <h1>Hello World! My First Web Page 🚀</h1>
+  <p>I am learning Full Stack Web Development on Nextsem Academy.</p>
+</body>
+</html>
+\`\`\`
+
+4. Press \`Ctrl + S\` to save the file.
+
+---
+
+## 🚀 Step 6: Launch Live Server in Your Browser
+1. Right-click anywhere inside your \`index.html\` editor window.
+2. Click **"Open with Live Server"** (Shortcut: \`Alt + L, Alt + O\`).
+3. Your default web browser will automatically open \`http://127.0.0.1:5500/index.html\` displaying your live web page!
+4. Whenever you edit the code and save (\`Ctrl + S\`), your browser updates instantly without manual refresh!
+
+---
+
+## ⌨️ Essential Windows 11 VS Code Keyboard Shortcuts Drill
+* **\`Ctrl + S\`**: Save current file
+* **\`Ctrl + \`\` (backtick)**: Toggle integrated developer terminal
+* **\`Ctrl + Shift + P\`**: Open Command Palette
+* **\`Alt + Up / Down\`**: Move the current line of code up or down
+* **\`Ctrl + /\`**: Toggle comment (\`<!-- code -->\`)
+* **\`Alt + Shift + F\`**: Auto-format entire document with Prettier`,
+      pro: `Professional Web Development Workstation Setup on 🪟 Windows 11 using Visual Studio Code.
+
+## 🛠️ Industry-Standard Editor: Visual Studio Code
+* **VS Code** is the premier IDE for Full Stack JavaScript/TypeScript, React, Node.js, and web application development.
+* Features native terminal integration, Git version control, multi-root workspaces, and language server protocols (LSP).
+
+---
+
+## 📥 1. Automated & Manual Installation on 🪟 Windows 11
+* **Direct Installer:** Download the x64 User Installer from [code.visualstudio.com](https://code.visualstudio.com/).
+* **CLI Package Manager Option (Windows Terminal / PowerShell):**
+  \`winget install Microsoft.VisualStudioCode\`
+* **Key Installation Tasks:**
+  * Ensure \`code\` binary is added to your Windows system \`PATH\` environment variable.
+  * Enable directory context menu registration for seamless \`code .\` workspace launching.
+
+---
+
+## 🧩 2. Core Extension Toolchain
+* **Live Server** (\`ritwickdey.liveserver\`): Local HTTP server with WebSocket live-reloading.
+* **Prettier** (\`esbenp.prettier-vscode\`): Opinionated code formatting.
+* **ESLint** (\`dbaeumer.vscode-eslint\`): Static code analysis for JavaScript & TypeScript.
+
+---
+
+## 📂 3. Workspace Architecture & First Document
+1. Initialize project directory:
+   \`mkdir my-first-website && cd my-first-website && code .\`
+2. Generate \`index.html\` using Emmet \`!\` expansion:
+\`\`\`html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Full Stack Development Workspace | Nextsem</title>
+</head>
+<body>
+  <h1>Hello World! Building Full Stack Web Applications 🚀</h1>
+  <p>Configured on 🪟 Windows 11 with Visual Studio Code.</p>
+</body>
+</html>
+\`\`\`
+3. Launch with Live Server: Right-click ➔ **Open with Live Server** (\`http://127.0.0.1:5500\`).`
+    },
+    hinglish: {
+      kid: `Full Stack Web Developer banne ke safar me aapka swagat hai! Web development shuru karne ke liye sabse pehle hume apne 🪟 Windows 11 PC par **Visual Studio Code (VS Code)** download aur install karna hoga.
+
+### 🛠️ Visual Studio Code Kya Hai?
+* **VS Code** Microsoft ka banaya hua world ka #1 free code editor hai jisme professional software engineers code likhte hain.
+* Isme syntax colors, auto-completion, terminal, aur extensions milte hain jo coding ko aasan banate hain.
+
+---
+
+### 📥 Step 1: VS Code Download Karein
+1. Official website par jayein: [https://code.visualstudio.com/](https://code.visualstudio.com/)
+2. Blue **"Download for Windows"** button par click karein.
+3. \`VSCodeUserSetup-x64.exe\` file aapke **Downloads** folder me save ho jayegi.
+
+---
+
+### ⚙️ Step 2: Windows 11 me Install Karein (Important Checkboxes!)
+1. Download hui \`.exe\` file par double click karein.
+2. License accept karke **Next** dabayein.
+3. ⚠️ **ZAROORI STEP:** "Select Additional Tasks" screen par in saare boxes ko zaroor tick (☑) karein:
+   * ☑ **Add "Open with Code" action to Windows Explorer file context menu**
+   * ☑ **Add "Open with Code" action to Windows Explorer directory context menu**
+   * ☑ **Register Code as an editor for supported file types**
+   * ☑ **Add to PATH (requires shell restart)**
+4. **Install** par click karein aur finish karein.
+
+---
+
+### 🧩 Step 3: Zaroori Extensions Install Karein
+1. VS Code me \`Ctrl + Shift + X\` dabayein (Extensions tab).
+2. Ye 3 extensions search karke **Install** karein:
+   * 🌟 **Live Server**: Browser me direct live website dekhne ke liye.
+   * 🌟 **Prettier - Code Formatter**: Code ko automatic format aur clean rakhne ke liye.
+   * 🌟 **Auto Rename Tag**: HTML tag rename karte hi closing tag auto-update karne ke liye.
+
+---
+
+### 📂 Step 4: Apna Pehla Project Folder Banayein
+1. Windows Explorer me **Documents** ya **Desktop** par jayein.
+2. Naya folder banayein: \`my-first-website\`.
+3. Folder par Right Click karein ➔ **Show more options** ➔ **Open with Code** 🪟 par click karein.
+
+---
+
+### 📄 Step 5: Pehli File (\`index.html\`) Banayein
+1. Explorer me **New File** icon par click karein aur naam dein \`index.html\`.
+2. Editor me sirf \`!\` (exclamation) type karke **Enter** dabayein (Emmet magic).
+3. \`<body>\` tag ke andar likhein:
+   \`<h1>Hello World! Meri Pehli Website 🚀</h1>\`
+4. \`Ctrl + S\` dabakar save karein.
+
+---
+
+### 🚀 Step 6: Live Server se Browser me Run Karein
+1. Editor me right-click karein ➔ **Open with Live Server** chunein.
+2. Chrome ya Edge browser me \`http://127.0.0.1:5500/index.html\` par aapki website live open ho jayegi!`,
+      pro: `Professional 🪟 Windows 11 Web Developer Workstation Setup using Visual Studio Code.
+
+### 🛠️ Environment Configuration
+1. **Download & Binary Verification**:
+   * [code.visualstudio.com](https://code.visualstudio.com/) se Windows User Installer x64 download karein.
+   * Verify PATH integration in Windows Terminal: \`code --version\`.
+2. **Context Menu Shell Integration**:
+   * Installation wizard me Directory Context Menu option ko enable karein taaki kisi bhi folder se \`code .\` execute kiya ja sake.
+3. **Productivity Extensions**:
+   * \`ritwickdey.liveserver\` (Live Server on port 5500)
+   * \`esbenp.prettier-vscode\` (Format On Save enabled in settings.json)
+4. **First HTML Document & Live Server Loop**:
+   * Directory initialize karein: \`mkdir web-project && cd web-project && code .\`
+   * Emmet standard boilerplate trigger karein with \`!\` + \`Tab\`.
+   * Live Server launch karein with \`Alt + L, Alt + O\`.`
+    },
+    hindi: {
+      kid: `फुल स्टैक वेब डेवलपर बनने के सफर में आपका स्वागत है! कोडिंग शुरू करने से पहले हमें अपने 🪟 Windows 11 कंप्यूटर पर **Visual Studio Code (VS Code)** डाउनलोड और इंस्टॉल करना होगा।
+
+### 🛠️ विजुअल स्टूडियो कोड क्या है?
+* **VS Code** माइक्रोसॉफ्ट द्वारा बनाया गया दुनिया का सबसे लोकप्रिय और मुफ्त कोड एडिटर है।
+* इसमें सिंटैक्स कलरिंग, स्वतः पूर्णता (Auto-complete), टर्मिनल और उपयोगी एक्सटेंशन मिलते हैं।
+
+---
+
+### 📥 चरण 1: VS Code डाउनलोड करें
+1. आधिकारिक वेबसाइट पर जाएं: [https://code.visualstudio.com/](https://code.visualstudio.com/)
+2. नीले **"Download for Windows"** बटन पर क्लिक करें।
+3. आपकी **Downloads** डायरेक्टरी में इंस्टॉलर \`VSCodeUserSetup-x64.exe\` डाउनलोड हो जाएगा।
+
+---
+
+### ⚙️ चरण 2: विंडोज 11 में इंस्टॉल करें (महत्वपूर्ण चेकबॉक्स!)
+1. डाउनलोड की गई \`.exe\` फाइल पर डबल-क्लिक करें।
+2. लाइसेंस स्वीकार करें और **Next** पर क्लिक करें।
+3. ⚠️ **अति महत्वपूर्ण:** "Select Additional Tasks" स्क्रीन पर इन सभी विकल्पों को टिक (☑) करें:
+   * ☑ **Add "Open with Code" action to Windows Explorer file context menu**
+   * ☑ **Add "Open with Code" action to Windows Explorer directory context menu**
+   * ☑ **Register Code as an editor for supported file types**
+   * ☑ **Add to PATH (requires shell restart)**
+4. **Install** पर क्लिक करें और प्रक्रिया पूरी करें।
+
+---
+
+### 🧩 चरण 3: आवश्यक एक्सटेंशन इंस्टॉल करें
+1. VS Code में \`Ctrl + Shift + X\` दबाएं।
+2. निम्नलिखित एक्सटेंशन इंस्टॉल करें:
+   * 🌟 **Live Server**: ब्राउज़र में वास्तविक समय में लाइव पेज देखने के लिए।
+   * 🌟 **Prettier - Code Formatter**: कोड को स्वतः सुंदर और व्यवस्थित रखने के लिए।
+   * 🌟 **Auto Rename Tag**: HTML टैग को स्वतः अपडेट करने के लिए।
+
+---
+
+### 📂 चरण 4: अपना पहला प्रोजेक्ट फोल्डर बनाएं
+1. अपने कंप्यूटर पर \`my-first-website\` नाम का एक नया फोल्डर बनाएं।
+2. फोल्डर पर राइट-क्लिक करें ➔ **Show more options** ➔ **Open with Code** 🪟 चुनें।
+
+---
+
+### 📄 चरण 5: पहली फाइल (\`index.html\`) बनाएं और कोड लिखें
+1. VS Code में नई फाइल बनाएं और नाम दें \`index.html\`।
+2. एडिटर में सिर्फ \`!\` टाइप करके **Enter** दबाएं (Emmet शॉर्टकट)।
+3. फाइल में अपनी हेडिंग लिखें और \`Ctrl + S\` से सेव करें।
+
+---
+
+### 🚀 चरण 6: लाइव सर्वर शुरू करें
+1. एडिटर में राइट-क्लिक करें ➔ **Open with Live Server** चुनें।
+2. आपका ब्राउज़र \`http://127.0.0.1:5500/index.html\` पर तुरंत आपकी लाइव वेबसाइट प्रदर्शित करेगा!`,
+      pro: `🪟 Windows 11 पर विजुअल स्टूडियो कोड का पेशेवर वातावरण सेटअप और पहली HTML फाइल का निर्माण।
+
+### 🛠️ सेटअप और विन्यास
+1. **डाउनलोड व इंस्टॉलेशन**: [code.visualstudio.com](https://code.visualstudio.com/) से विंडोज x64 इंस्टॉलर प्राप्त करें और PATH एनवायरनमेंट वेरिएबल चेकबॉक्स को सक्रिय रखें।
+2. **एक्सटेंशन टूलचेन**:
+   * \`Live Server\` (लोकल पोर्ट 5500 पर ऑटो रीलोडिंग)
+   * \`Prettier\` (सेव करते समय स्वतः फॉर्मेटिंग)
+3. **परियोजना संरचना व निष्पादन**:
+   * टर्मिनल में प्रोजेक्ट बनाएं: \`mkdir web-project && cd web-project && code .\`
+   * \`index.html\` बनाएं और Emmet \`!\` शॉर्टकट से HTML5 संरचना जनरेट करें।
+   * \`Alt + L, Alt + O\` दबाकर लाइव सर्वर शुरू करें।`
+    }
+  },
+  {
     id: 1,
     slug: "learn-html-web-free-lessons-what-is-the-internet",
     title: "What is the Internet?",

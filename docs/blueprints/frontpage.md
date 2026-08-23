@@ -178,18 +178,7 @@ Direct interactive access to all structured subjects with lesson badges and coun
 
 ---
 
-### 📌 Section 6: Platform Pedagogy Pillars (Why Nextsem is Unique)
-
-1. 💻 **1-to-1 Windows 11 PC Screenshots:**  
-   Every lesson includes real Windows 11 Command Prompt and VS Code screenshots so students practicing on their PC can verify output line-by-line against their mobile phone.
-2. ⚡ **Zero Paywalls & Zero Forced Sign-ups:**  
-   Students can immediately start reading, copying code, and running interactive terminal commands without payment gates or mandatory sign-up walls.
-3. 🎯 **Job-Ready Code Snippets:**  
-   Complete, fully functional code blocks (no truncated placeholders) adhering to industry best practices.
-
----
-
-### 📌 Section 7: Nextsem Standard Global Footer (`Footer.tsx`)
+### 📌 Section 6: Nextsem Standard Global Footer (`Footer.tsx`)
 
 Permanent brand footer containing all legal and sitemap compliance links:
 

@@ -502,7 +502,7 @@ export default function HomeClient() {
           {/* Action CTA: Single Prominent Start Learning Button */}
           <div className="flex items-center justify-center pt-3">
             <Link
-              href="/html/learn-html-web-free-lessons-what-is-the-internet"
+              href="/html/download-install-vscode-windows-11-setup-guide"
               className="px-10 py-4.5 bg-[#04AA6D] hover:bg-[#039861] text-white font-black text-sm sm:text-base uppercase tracking-wider rounded-2xl shadow-2xl shadow-[#04AA6D]/30 transition-all transform hover:-translate-y-1 hover:scale-105 flex items-center gap-3 cursor-pointer border border-emerald-400/40"
             >
               <Play size={20} className="fill-white" />
@@ -893,74 +893,8 @@ export default function HomeClient() {
       </section>
 
       {/* ── FRONT PAGE CAROUSEL 2: STRUCTURED SUBJECT COURSES ── */}
-        {/* ── CORE FULL STACK DEVELOPER PILLARS ── */}
-      <section className="py-16 px-4 md:px-8 max-w-[1400px] mx-auto w-full border-t border-slate-800/80">
-        <div className="text-center space-y-2 mb-10">
-          <span className="px-3.5 py-1 rounded-full bg-[#04AA6D]/15 text-[#04AA6D] border border-[#04AA6D]/30 text-[10px] font-black uppercase tracking-widest inline-flex items-center gap-1.5">
-            <ShieldCheck size={12} />
-            <span>Full Stack Engineering Excellence</span>
-          </span>
-          <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Everything You Need to Build &amp; Deploy Full Stack Web Apps
-          </h2>
-          <p className="text-xs sm:text-sm text-slate-300 max-w-2xl mx-auto leading-relaxed">
-            From your first HTML tag on Windows 11 to production server deployment — structured, step-by-step training with complete code standards and zero fluff.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {/* Pillar 1: Frontend Architecture */}
-          <div className="p-6 bg-[#0c1328] border border-slate-800 rounded-2xl space-y-3 hover:border-emerald-500/50 transition-colors shadow-xl">
-            <div className="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-extrabold text-lg border border-emerald-500/30">
-              🧱
-            </div>
-            <h3 className="text-sm font-extrabold text-white uppercase tracking-wider">
-              Semantic Frontend Architecture
-            </h3>
-            <p className="text-xs text-slate-300 leading-relaxed">
-              Master HTML5 semantic documents, CSS3 responsive layouts (Flexbox &amp; Grid), and modern JavaScript ES6+ DOM logic from scratch.
-            </p>
-          </div>
-
-          {/* Pillar 2: React & Next.js */}
-          <div className="p-6 bg-[#0c1328] border border-slate-800 rounded-2xl space-y-3 hover:border-cyan-500/50 transition-colors shadow-xl">
-            <div className="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-extrabold text-lg border border-cyan-500/30">
-              ⚛️
-            </div>
-            <h3 className="text-sm font-extrabold text-white uppercase tracking-wider">
-              Component &amp; State Systems
-            </h3>
-            <p className="text-xs text-slate-300 leading-relaxed">
-              Build fast, dynamic Single Page Applications (SPAs) and Server-Side Rendered websites with React hooks and Next.js App Router.
-            </p>
-          </div>
-
-          {/* Pillar 3: Node.js & REST APIs */}
-          <div className="p-6 bg-[#0c1328] border border-slate-800 rounded-2xl space-y-3 hover:border-amber-500/50 transition-colors shadow-xl">
-            <div className="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-extrabold text-lg border border-amber-500/30">
-              🔌
-            </div>
-            <h3 className="text-sm font-extrabold text-white uppercase tracking-wider">
-              Backend REST APIs &amp; Auth
-            </h3>
-            <p className="text-xs text-slate-300 leading-relaxed">
-              Engineer scalable backend servers with Node.js and Express, handle HTTP routes, validate JSON payloads, and implement secure JWT authentication.
-            </p>
-          </div>
-
-          {/* Pillar 4: Databases & Cloud */}
-          <div className="p-6 bg-[#0c1328] border border-slate-800 rounded-2xl space-y-3 hover:border-purple-500/50 transition-colors shadow-xl">
-            <div className="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center font-extrabold text-lg border border-purple-500/30">
-              🗄️
-            </div>
-            <h3 className="text-sm font-extrabold text-white uppercase tracking-wider">
-              Databases &amp; Cloud Deployment
-            </h3>
-            <p className="text-xs text-slate-300 leading-relaxed">
-              Structure relational SQL and NoSQL MongoDB databases, write CRUD queries, and deploy production full-stack apps to modern cloud platforms.
-            </p>
-          </div>
-        </div>
+      <section className="py-8 px-4 md:px-8 max-w-[1400px] mx-auto w-full border-t border-slate-800/80">
+        <CourseCarouselSection />
       </section>
 
       {/* ── FOOTER (Nextsem Academy style columned) ── */}
