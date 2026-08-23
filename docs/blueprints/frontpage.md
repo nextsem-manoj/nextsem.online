@@ -1,6 +1,53 @@
-# 🌐 Nextsem Academy: Master Front Page Design & Content Blueprint (`frontpage.md`)
+# 🚀 Nextsem.online — Full Stack Web Developer Landing Page Master Document (`frontpage.md`)
 
 > **Primary Mission:** Guide every new student step-by-step from zero coding knowledge to a **Job-Ready Full Stack Web Developer** in clear, structured, motivating English with zero paywalls, zero bloat, and zero confusion.
+
+---
+
+## 💬 User Original Inputs & Notes (Verbatim)
+
+> we will work in very small small steps so that we dont get bored.
+> i want front page design unique and based onour aim of learning and becoming full stack web developer. 
+>
+> is file m nextsem.online ka front page ko most beautiful way me design karo jisme aim full stack web developer banane ka ho aur google pe jitne bhi ese platform hai unse ideas collect karo aur mujhe batao fir hum usse banayenge
+>
+> logo jo humne green black aur white colour m design kiya hai wo use karo
+>
+> acha thoda thoda update karo aur mujhe batate raho bilkul chote chote steps k sath taki m bore na hou
+>
+> ek problem hai logo m -> Logo ka image asset galat hai (/logo-transparent.png ya /logo.png use karna hai)
+>
+> tum batao ab kya krna chahiye front page k liye aur abhi tak jo humne front page pe update kiya hai sab lkuch front_page.md m sahi se update kardo taki m future m easilt smjh saku
+>
+> ha agar kisi ko pehle se thoda knowledge hai to uska test karne k liye koi test type actual simulations based type professional exam babo jaise cicso ka CCIE ka exam hota hai aur use start lesson k upar ek link k form m add kardo
+>
+> remove v29 pill badge it does not look professional.
+> logo is broken correct it.
+> remove back to home front page
+> logo animation at the start of website keep that as final and use logo similiar to that.
+> why this progress if user is not logged in locally nor with google
+> put a accept agreement at the bottom so that cookies and users data are saved locally
+> balki front page ko fresh redesign krte hai kyunki hamara main task is waqt full stack web developer hai m confuse hu kese start karein jo bhi user front page pe pohche use englih langugae me guide krte hue full stack web developer sikhana hai baki jo bhi is waqt unnecessary ho use archive kardo aur sirf search engine ko show ho users ko link na show ho par delete nhi karna kuch bhi
+> frontpage.md naam se ek file bna do jisem hum sirf front page ka content desing sab hoga docs wale folder m bna do
+> saari files folders k andar ho docs wale folder k andar
+> nextsem.online ka favicon logo for nextsem/nextsem-favicon.svg ye arkho
+
+---
+
+## 🎯 Primary Goal & Design Philosophy
+
+**Goal**: Make `https://nextsem.online` the #1 unique, visually stunning, free learning platform for self-taught software engineers, college students, and computer science aspirants worldwide to become **Full Stack Web Developers**.
+
+**Development Workflow Constraint**:
+- ⚡ **Very Small Steps Policy**: All updates are broken down into bite-sized, single-focused incremental micro-steps so learning & building remains engaging, visual, and fun without boredom!
+
+**Theme Palette**:
+- **Background**: High-contrast dark mode `#17181c`
+- **Surface Cards**: Sleek dark surface `#0c1328`
+- **Primary Accent**: Emerald Green `#04AA6D` (Glow: `drop-shadow-[0_0_10px_rgba(4,170,109,0.3)]`)
+- **Text Standard**: Crisp pure white `#ffffff` headings & high-contrast body text
+- **Links Standard**: Vibrant emerald green `text-[#04AA6D] hover:text-[#039861] underline decoration-[#04AA6D]`
+- **Branding Logo Asset**: `logo for nextsem/nextsem-favicon.svg` & `NextsemLogoAnimation.tsx` (Emerald N + White S vector emblem)
 
 ---
 
@@ -30,7 +77,6 @@ graph TD
   - `Projects Lab` (`/course/projects`)
   - `Curriculum` (`/curriculum`)
 - **Search Widget:** Interactive dropdown with instant full-text tutorial search + Google Search fallback.
-- **Brand Badge:** `v29` / `100% Free Dev Bootcamp`.
 
 ---
 
@@ -40,24 +86,27 @@ graph TD
 - **Pill Badge:** `⚡ 100% FREE SOFTWARE ENGINEERING PATHWAY • ZERO PAYWALLS`
 - **Main Heading (H1):** `Become a Job-Ready Full Stack Web Developer`
 - **Subtitle:**  
-  *"Learn modern web development from the ground up. Start with your first Windows terminal command and HTML structure, progress through modern CSS layouts and JavaScript logic, build full-stack React and Node.js applications, manage databases, and deploy real-world projects to the cloud."*
+  *"Master modern web development step-by-step. Start with your first Windows terminal command and HTML structure, progress through modern CSS layouts and JavaScript logic, build full-stack React and Node.js applications, manage databases, and deploy real-world projects to the cloud."*
 - **Action Buttons:**
   1. `[Primary Emerald Button]` **Start Step 1: Terminal Setup »** $\rightarrow$ Links to [`/cli/introduction-to-command-line-interface-cli-basics`](https://nextsem.online/cli/introduction-to-command-line-interface-cli-basics)
-  2. `[Secondary Indigo Button]` **Explore Full Pathway ➔** $\rightarrow$ Scrolls to Section 3 Pathway Deck.
+  2. `[Secondary Dark Button]` **Explore 8-Step Pathway ➔** $\rightarrow$ Scrolls to `#pathway`.
   3. `[Gradient Accent Button]` **Full Stack 2026 Roadmap »** $\rightarrow$ Links to [`/full-stack-web-development-roadmap`](https://nextsem.online/full-stack-web-development-roadmap)
 
 #### Live Terminal Code Preview Card:
 ```cmd
+Microsoft Windows [Version 10.0.22631.4169]
+(c) Microsoft Corporation. All rights reserved.
+
 C:\Users\Developer> mkdir nextsem-portfolio
 C:\Users\Developer> cd nextsem-portfolio
-C:\Users\Developer\nextsem-portfolio> echo ^<h1^>Hello Full Stack^</h1^> > index.html
+C:\Users\Developer\nextsem-portfolio> echo <h1>Hello Full Stack</h1> > index.html
 C:\Users\Developer\nextsem-portfolio> code .
-[SUCCESS] Workspace launched in VS Code. Ready to build!
+[SUCCESS] Workspace opened in VS Code. Ready to build!
 ```
 
 ---
 
-### 📌 Section 3: The 8-Stage Sequential Full Stack Learning Pathway
+### 📌 Section 3: The 8-Stage Sequential Full Stack Learning Pathway (`#pathway`)
 
 Every beginner follows this exact chronological step-by-step roadmap to eliminate all confusion:
 
@@ -65,7 +114,7 @@ Every beginner follows this exact chronological step-by-step roadmap to eliminat
 | :---: | :--- | :--- | :--- |
 | **01** | **🪟 Windows CMD & Dev Environment** | Terminal navigation, directory creation, drive switching, environment variables, PATH configuration, and local server tooling. | 📚 **100+ Lessons**<br>🔗 [`/cli`](https://nextsem.online/cli) |
 | **02** | **🧱 HTML5 Web Architecture** | Semantic tags, document outlines, forms, inputs, tables, accessibility, DOM tree hierarchy, and HTTP request headers. | 📚 **98+ Lessons**<br>🔗 [`/html`](https://nextsem.online/html) |
-| **03** | **🎨 CSS3 Responsive UI & Layouts** | Flexbox containers, CSS Grid systems, custom properties (variables), media queries, keyframe animations, and modern Tailwind CSS utility styling. | 📚 **Interactive Labs**<br>🔗 [`/html`](https://nextsem.online/html) |
+| **03** | **🎨 CSS3 Responsive UI & Layouts** | Flexbox containers, CSS Grid systems, custom properties (variables), media queries, keyframe animations, and modern Tailwind CSS utility styling. | 📚 **Interactive Labs**<br>🔗 [`/candle-flame-animation`](https://nextsem.online/candle-flame-animation) |
 | **04** | **⚡ JavaScript (ES6+) Core Logic** | Variables (`let`/`const`), arrow functions, arrays, objects, event listeners, DOM manipulation, promises, and `async/await` API fetching. | 📚 **Hands-on Labs**<br>🔗 [`/playground`](https://nextsem.online/playground) |
 | **05** | **🌿 Git & GitHub Version Control** | `git init`, commit staging, branch management, pull requests, merge conflict resolution, and GitHub remote repositories. | 📚 **Terminal Simulator**<br>🔗 [`/git`](https://nextsem.online/git) |
 | **06** | **⚛️ React.js & Next.js Framework** | Component architecture, JSX, `useState`/`useEffect` hooks, props passing, Next.js App Router, SSR, and Server Components. | 📚 **Full Stack Pathway**<br>🔗 [`/curriculum`](https://nextsem.online/curriculum) |
