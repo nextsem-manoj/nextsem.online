@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
   allowedDevOrigins: ['192.168.29.170:3000', '192.168.29.170'],
   devIndicators: false,
   turbopack: {
-    root: path.resolve(__dirname),
+    root: path.resolve(__dirname, '..'),
   },
 };
 

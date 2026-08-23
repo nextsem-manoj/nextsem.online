@@ -9,7 +9,39 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://nextsem.online";
 
   // Base paths
-  const baseRoutes = ["", "/about", "/contact", "/playground", "/privacy", "/profile", "/terms", "/course", "/course/projects", "/cli", "/html", "/git", "/cpp"].map((route) => ({
+  const baseRoutes = [
+    "",
+    "/about",
+    "/contact",
+    "/playground",
+    "/privacy",
+    "/profile",
+    "/terms",
+    "/course",
+    "/course/projects",
+    "/cli",
+    "/batch",
+    "/batch/open-browser-tabs-script",
+    "/html",
+    "/git",
+    "/cpp",
+    "/full-stack-web-development-roadmap",
+    "/matrix-code-animation",
+    "/neon-button-animation",
+    "/solar-system-animation",
+    "/rain-effect-animation",
+    "/warp-speed-animation",
+    "/3d-cube-animation",
+    "/candle-flame-animation",
+    "/audio-spectrum-animation",
+    "/animated-waves-animation",
+    "/glassmorphism-card-animation",
+    "/glitch-text-animation",
+    "/holographic-card-animation",
+    "/dna-helix-animation",
+    "/liquid-wave-animation",
+    "/black-hole-animation"
+  ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
     changeFrequency: "weekly" as const,

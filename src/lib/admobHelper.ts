@@ -7,11 +7,11 @@ const TEST_INTERSTITIAL_ID = 'ca-app-pub-3940256099942544/1033173712';
 const TEST_APP_OPEN_ID = 'ca-app-pub-3940256099942544/9257395921';
 
 // Production AdMob Unit IDs — v20 (2.3.0)
-export const PROD_REWARDED_ID = 'ca-app-pub-4242865347895866/5641573985';
-export const PROD_INTERSTITIAL_ID = 'ca-app-pub-4242865347895866/7073253343';
-export const PROD_BANNER_ID = 'ca-app-pub-4242865347895866/6549409087';
-export const PROD_REWARDED_INTERSTITIAL_ID = 'ca-app-pub-4242865347895866/7318318434'; // Rewarded Interstitial (BETA)
-export const PROD_APP_OPEN_ID = 'ca-app-pub-4242865347895866/7054474411';              // App Open Ad
+export const PROD_REWARDED_ID = 'ca-app-pub-5947565211927754/3747294963';
+export const PROD_INTERSTITIAL_ID = 'ca-app-pub-5947565211927754/8710374859';
+export const PROD_BANNER_ID = 'ca-app-pub-5947565211927754/4565552616';
+export const PROD_REWARDED_INTERSTITIAL_ID = 'ca-app-pub-5947565211927754/7318318434'; // Rewarded Interstitial (BETA)
+export const PROD_APP_OPEN_ID = 'ca-app-pub-5947565211927754/4753305205';              // App Open Ad
 
 let isInitialized = false;
 let isBannerShowing = false;
@@ -159,6 +159,26 @@ export async function showInterstitialAd(): Promise<boolean> {
       return false;
     }
   }
+}
+
+/**
+ * Triggers an Interstitial Ad every 2nd link navigation click.
+ * Tracks navigation count in sessionStorage so it persists across route changes.
+ */
+export async function triggerNavigationAd(): Promise<boolean> {
+  if (typeof window === "undefined") return false;
+
+  let currentCount = parseInt(sessionStorage.getItem("nextsem_nav_ad_click_count") || "0", 10);
+  currentCount += 1;
+  sessionStorage.setItem("nextsem_nav_ad_click_count", currentCount.toString());
+
+  // Show Interstitial Ad on every 2nd link click (2, 4, 6, 8...)
+  if (currentCount % 2 === 0) {
+    if (Capacitor.isNativePlatform()) {
+      return await showInterstitialAd();
+    }
+  }
+  return false;
 }
 
 /**

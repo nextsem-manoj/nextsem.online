@@ -1,39 +1,66 @@
 import React from 'react';
 import Link from 'next/link';
 
-const Footer = () => {
+export default function Footer() {
   return (
-    <footer className="bg-[#0b0f19] border-t border-slate-900 text-slate-400 py-8 w-full mt-auto select-none">
-      <div className="max-w-[1600px] mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
-        
-        {/* Logo and Tagline */}
-        <div className="flex flex-col items-center md:items-start gap-1">
-          <div className="flex items-center gap-2.5">
-            <div className="w-6 h-6 rounded-lg bg-[#0a0a0a] border border-[#04AA6D]/60 flex items-center justify-center text-[#04AA6D] font-black text-[10px] shadow-sm">
-              NS
-            </div>
-            <span className="text-white font-black text-xs md:text-sm tracking-wider uppercase">Nextsem Academy</span>
-          </div>
-          <span className="text-[10px] text-slate-500 font-bold">Start your journey to become a job-ready Front End Developer.</span>
+    <footer className="bg-[#0c1328] border-t border-slate-800 py-8 px-4 text-center text-xs text-slate-400 font-medium w-full mt-auto transition-colors">
+      <div className="max-w-[1200px] mx-auto space-y-4">
+        {/* Nextsem Educational Ecosystem Links */}
+        <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-4 pb-3 border-b border-slate-800/80">
+          <span className="text-[11px] uppercase tracking-wider font-extrabold text-slate-400">
+            Nextsem Ecosystem:
+          </span>
+          <a
+            href="https://ignou.nextsem.online"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#17181c] border border-slate-700 text-white font-bold hover:text-[#04AA6D] hover:border-[#04AA6D] transition-all shadow-xs"
+          >
+            <span>🎓</span>
+            <span>IGNOU BCA Hub</span>
+          </a>
+          <a
+            href="https://ncert.nextsem.online"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#17181c] border border-slate-700 text-white font-bold hover:text-[#04AA6D] hover:border-[#04AA6D] transition-all shadow-xs"
+          >
+            <span>📚</span>
+            <span>NCERT Solutions</span>
+          </a>
         </div>
 
-        {/* Legal Pages & Links required by AdSense */}
-        <div className="flex flex-wrap items-center justify-center gap-6 text-[10px] font-black uppercase tracking-wider">
-          <Link href="/about" className="hover:text-white transition-colors cursor-pointer">About Us</Link>
-          <Link href="/contact" className="hover:text-white transition-colors cursor-pointer">Contact Us</Link>
-          <Link href="/privacy" className="hover:text-white transition-colors cursor-pointer">Privacy Policy</Link>
-          <Link href="/terms" className="hover:text-white transition-colors cursor-pointer">Terms of Service</Link>
-          <Link href="/sitemap" className="hover:text-emerald-350 text-emerald-450 transition-colors cursor-pointer flex items-center gap-1">Sitemap</Link>
-        </div>
+        <Link href="/curriculum" className="text-white font-bold uppercase tracking-wider hover:text-[#04AA6D] transition-colors inline-block">
+          Nextsem Academy • Complete Free Dev Curriculum
+        </Link>
 
-        {/* Copyright notice */}
-        <div className="text-[10px] text-slate-500 font-bold text-center md:text-right">
-          <span>© {new Date().getFullYear()} Nextsem. All rights reserved.</span>
+        <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs font-semibold pt-1">
+          <Link href="/curriculum" className="text-slate-400 hover:text-[#04AA6D] hover:underline transition-colors">
+            📚 Curriculum
+          </Link>
+          <Link href="/privacy" className="text-slate-400 hover:text-[#04AA6D] hover:underline transition-colors">
+            📜 Privacy Policy
+          </Link>
+          <Link href="/terms" className="text-slate-400 hover:text-[#04AA6D] hover:underline transition-colors">
+            ⚖️ Terms of Service
+          </Link>
+          <Link href="/contact" className="text-slate-400 hover:text-[#04AA6D] hover:underline transition-colors">
+            📞 Contact Support
+          </Link>
+          <Link href="/about" className="text-slate-400 hover:text-[#04AA6D] hover:underline transition-colors">
+            ℹ️ About Us
+          </Link>
+          <a
+            href="/sitemap.xml"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[#04AA6D] hover:text-[#039861] hover:underline font-bold transition-colors"
+          >
+            🗺️ XML Sitemap
+          </a>
         </div>
-
       </div>
     </footer>
   );
-};
+}
 
-export default Footer;

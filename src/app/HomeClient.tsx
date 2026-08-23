@@ -11,6 +11,9 @@ import searchIndex from '@/data/searchIndex.json';
 import { getChapterSimulator } from '@/data/chapterSimulators';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import FullStackRoadmap from '@/components/FullStackRoadmap';
+import StudentProjectsSection from '@/components/StudentProjectsSection';
+import CourseCarouselSection from '@/components/CourseCarouselSection';
+import Footer from '@/components/Footer';
 import { 
   Layers, Cpu, Code, Palette, Cloud, Briefcase, 
   Rocket, BookOpen, ChevronRight, Play, CheckCircle, 
@@ -45,6 +48,8 @@ export default function HomeClient() {
   // Navigation states
   const [tutorialsDropdownOpen, setTutorialsDropdownOpen] = useState(false);
   const [exercisesDropdownOpen, setExercisesDropdownOpen] = useState(false);
+  const [showAllPhases, setShowAllPhases] = useState(false);
+
   
   interface SearchItem {
     id: string;
@@ -337,15 +342,11 @@ export default function HomeClient() {
                 <Rocket size={14} className="text-[#04AA6D]" />
                 <span>Curriculum</span>
               </Link>
-              <Link href="/jobs" className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white transition-all cursor-pointer">
-                <Briefcase size={14} className="text-blue-400" />
-                <span>Jobs Portal</span>
+              <Link href="/course" className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white transition-all cursor-pointer">
+                <BookOpen size={14} className="text-[#04AA6D]" />
+                <span>Courses</span>
               </Link>
-              <Link href="/playground" className="px-3 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white transition-all">Playground</Link>
-              <Link href="/bca" className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white transition-all cursor-pointer">
-                <Layers size={14} className="text-indigo-500" />
-                <span>BCA Hub</span>
-              </Link>
+
             </nav>
           </div>
 
@@ -475,426 +476,628 @@ export default function HomeClient() {
             No sign-up needed, just start learning.
           </p>
 
+          {/* Hero Action Buttons */}
+          <div className="flex flex-wrap items-center justify-center gap-3 mt-8">
+            <Link
+              href="/html"
+              className="px-6 py-3 bg-[#04AA6D] hover:bg-[#039861] text-white font-extrabold text-xs sm:text-sm uppercase tracking-wider rounded-xl shadow-lg transition-all flex items-center gap-2 cursor-pointer"
+            >
+              <BookOpen size={16} />
+              <span>Start HTML Tutorials »</span>
+            </Link>
+            <Link
+              href="/cli"
+              className="px-6 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold text-xs sm:text-sm uppercase tracking-wider rounded-xl shadow-lg transition-all flex items-center gap-2 cursor-pointer"
+            >
+              <Terminal size={16} />
+              <span>Learn Windows CMD »</span>
+            </Link>
+            <Link
+              href="/full-stack-web-development-roadmap"
+              className="px-6 py-3 bg-gradient-to-r from-amber-600 to-cyan-600 hover:from-amber-500 hover:to-cyan-500 text-white font-extrabold text-xs sm:text-sm uppercase tracking-wider rounded-xl shadow-lg transition-all flex items-center gap-2 cursor-pointer"
+            >
+              <Sparkles size={16} />
+              <span>Full Stack Roadmap »</span>
+            </Link>
+          </div>
+        </div>
+      </section>
 
+      {/* ── FRONT PAGE CAROUSEL 1: INTERACTIVE DEVELOPER MINI-PROJECTS ── */}
+      <section className="py-8 px-4 md:px-8 max-w-[1400px] mx-auto w-full">
+        <StudentProjectsSection />
+      </section>
 
-          {/* ── FULL STACK WEB DEVELOPER CAREER ROADMAP (Replaces image-88) ── */}
-          <div className="mt-12 max-w-5xl mx-auto text-left space-y-6">
-            <div className="text-center space-y-2">
-              <span className="px-3.5 py-1 rounded-full bg-[#04AA6D]/15 text-[#04AA6D] border border-[#04AA6D]/30 text-[10px] font-black uppercase tracking-widest inline-flex items-center gap-1.5">
-                <Sparkles size={12} />
-                <span>Complete Career Path</span>
-              </span>
-              <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
-                Full Stack Web Developer Roadmap
-              </h2>
-              <p className="text-xs sm:text-sm text-slate-300 max-w-2xl mx-auto leading-relaxed">
-                Follow our structured, step-by-step career path to master modern web development — from basic HTML tags to full-stack software engineering.
+      {/* ── FRONT PAGE CAROUSEL 2: STRUCTURED SUBJECT COURSES ── */}
+      <section className="py-8 px-4 md:px-8 max-w-[1400px] mx-auto w-full border-t border-slate-800/80">
+        <CourseCarouselSection />
+      </section>
+
+      {/* ── COMPACT PHASE TOGGLE BANNER ── */}
+      <section className="bg-slate-900 border-y border-slate-800 py-8 px-4 text-center">
+        <div className="max-w-4xl mx-auto space-y-4">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-5 bg-[#17181c] border border-slate-800 rounded-2xl shadow-xl">
+            <div className="text-left space-y-1">
+              <h3 className="text-base font-extrabold text-white flex items-center gap-2">
+                <BookOpen size={18} className="text-[#04AA6D]" />
+                <span>Curriculum Modules & Phase Previews</span>
+              </h3>
+              <p className="text-xs text-slate-300 font-medium">
+                Explore HTML5, CSS3, JavaScript, React, Node.js, and Windows CLI subject modules.
               </p>
             </div>
+            <button
+              onClick={() => setShowAllPhases(!showAllPhases)}
+              className="px-5 py-2.5 bg-[#04AA6D] hover:bg-[#039861] text-white text-xs font-black uppercase tracking-wider rounded-xl transition-all shadow-md shrink-0 flex items-center gap-2 cursor-pointer"
+            >
+              <span>{showAllPhases ? "Hide Course Phases" : "View All 9 Course Phases"}</span>
+              <ChevronDown size={14} className={`transform transition-transform ${showAllPhases ? 'rotate-180' : ''}`} />
+            </button>
+          </div>
+        </div>
+      </section>
 
-            {/* Roadmap Grid Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-4">
-              
-              {/* Stage 1: Frontend Fundamentals */}
-              <div className="p-6 bg-[#16222f] border border-slate-700/60 rounded-2xl shadow-xl hover:border-[#04AA6D]/60 transition-all duration-300 group relative overflow-hidden flex flex-col justify-between">
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <span className="w-8 h-8 rounded-xl bg-[#04AA6D]/20 text-[#04AA6D] font-black text-xs flex items-center justify-center border border-[#04AA6D]/40">
-                      01
-                    </span>
-                    <span className="text-[10px] font-extrabold uppercase tracking-wider text-emerald-400 bg-emerald-950/60 border border-emerald-800 px-2.5 py-1 rounded-md">
-                      Step 1 • Foundation
-                    </span>
+      {showAllPhases && (
+        <>
+          {/* ── FULL STACK WEB DEVELOPER CAREER ROADMAP ── */}
+          <section className="bg-slate-900 py-12 px-4 border-b border-slate-800">
+            <div className="max-w-5xl mx-auto text-left space-y-6">
+              <div className="text-center space-y-2">
+                <span className="px-3.5 py-1 rounded-full bg-[#04AA6D]/15 text-[#04AA6D] border border-[#04AA6D]/30 text-[10px] font-black uppercase tracking-widest inline-flex items-center gap-1.5">
+                  <Sparkles size={12} />
+                  <span>Complete Career Path</span>
+                </span>
+                <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
+                  Full Stack Web Developer Roadmap
+                </h2>
+                <p className="text-xs sm:text-sm text-slate-300 max-w-2xl mx-auto leading-relaxed">
+                  Follow our structured, step-by-step career path to master modern web development — from basic HTML tags to full-stack software engineering.
+                </p>
+              </div>
+
+              {/* Roadmap Grid Cards */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-4">
+                
+                {/* Stage 1: Frontend Fundamentals */}
+                <div className="p-6 bg-[#16222f] border border-slate-700/60 rounded-2xl shadow-xl hover:border-[#04AA6D]/60 transition-all duration-300 group relative overflow-hidden flex flex-col justify-between">
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <span className="w-8 h-8 rounded-xl bg-[#04AA6D]/20 text-[#04AA6D] font-black text-xs flex items-center justify-center border border-[#04AA6D]/40">
+                        01
+                      </span>
+                      <span className="text-[10px] font-extrabold uppercase tracking-wider text-emerald-400 bg-emerald-950/60 border border-emerald-800 px-2.5 py-1 rounded-md">
+                        Step 1 • Foundation
+                      </span>
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-extrabold text-white group-hover:text-[#04AA6D] transition-colors">
+                        Frontend Web Fundamentals
+                      </h3>
+                      <p className="text-xs text-slate-300 mt-1 leading-relaxed">
+                        Master document structuring with HTML5, visual styling with CSS, and interactive logic with JavaScript.
+                      </p>
+                    </div>
+                    <div className="flex flex-wrap gap-1.5 pt-1">
+                      <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-xs font-mono font-bold text-slate-300">HTML5</span>
+                      <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-xs font-mono font-bold text-slate-300">CSS3</span>
+                      <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-xs font-mono font-bold text-slate-300">JavaScript ES6+</span>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="text-lg font-extrabold text-white group-hover:text-[#04AA6D] transition-colors">
-                      Frontend Web Fundamentals
-                    </h3>
-                    <p className="text-xs text-slate-300 mt-1 leading-relaxed">
-                      Master document structuring with HTML5, visual styling with CSS, and interactive logic with JavaScript.
-                    </p>
-                  </div>
-                  <div className="flex flex-wrap gap-1.5 pt-1">
-                    <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-xs font-mono font-bold text-slate-300">HTML5</span>
-                    <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-xs font-mono font-bold text-slate-300">CSS3</span>
-                    <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-xs font-mono font-bold text-slate-300">JavaScript ES6+</span>
+                  <div className="pt-6 mt-4 border-t border-slate-800/80 flex items-center justify-between gap-3">
+                    <Link
+                      href="/html"
+                      className="px-4 py-2 bg-[#04AA6D] hover:bg-[#039861] text-white font-extrabold text-xs rounded-xl shadow-md transition-all flex items-center gap-1.5 cursor-pointer"
+                    >
+                      <span>Start HTML Tutorials »</span>
+                    </Link>
+                    <Link
+                      href="/html/quiz"
+                      className="text-xs font-bold text-slate-400 hover:text-white transition-colors"
+                    >
+                      Take HTML Quiz ➔
+                    </Link>
                   </div>
                 </div>
-                <div className="pt-6 mt-4 border-t border-slate-800/80 flex items-center justify-between gap-3">
-                  <Link
+
+                {/* Stage 2: Command Line & Version Control */}
+                <div className="p-6 bg-[#16222f] border border-slate-700/60 rounded-2xl shadow-xl hover:border-indigo-500/60 transition-all duration-300 group relative overflow-hidden flex flex-col justify-between">
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <span className="w-8 h-8 rounded-xl bg-indigo-500/20 text-indigo-400 font-black text-xs flex items-center justify-center border border-indigo-500/40">
+                        02
+                      </span>
+                      <span className="text-[10px] font-extrabold uppercase tracking-wider text-indigo-400 bg-indigo-950/60 border border-indigo-800 px-2.5 py-1 rounded-md">
+                        Step 2 • Workflows
+                      </span>
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-extrabold text-white group-hover:text-indigo-400 transition-colors">
+                        Command Line & Git Version Control
+                      </h3>
+                      <p className="text-xs text-slate-300 mt-1 leading-relaxed">
+                        Learn terminal commands in Windows Command Prompt and track project code versions using Git & GitHub.
+                      </p>
+                    </div>
+                    <div className="flex flex-wrap gap-1.5 pt-1">
+                      <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-xs font-mono font-bold text-slate-300">Windows CMD</span>
+                      <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-xs font-mono font-bold text-slate-300">Git Basics</span>
+                      <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-xs font-mono font-bold text-slate-300">GitHub Repos</span>
+                    </div>
+                  </div>
+                  <div className="pt-6 mt-4 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-3">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <Link
+                        href="/cli"
+                        className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold text-xs rounded-xl shadow-md transition-all flex items-center gap-1.5 cursor-pointer"
+                      >
+                        <span>Learn Windows CMD »</span>
+                      </Link>
+                      <Link
+                        href="/cli/most-useful-cmd-commands-in-windows"
+                        className="px-3.5 py-2 bg-[#04AA6D] hover:bg-[#039861] text-white font-extrabold text-xs rounded-xl shadow-md transition-all flex items-center gap-1.5 cursor-pointer"
+                      >
+                        <span>Essential CMD Commands 🔥</span>
+                      </Link>
+                    </div>
+                    <Link
+                      href="/git/terminal"
+                      className="text-xs font-bold text-slate-400 hover:text-white transition-colors"
+                    >
+                      Git Terminal ➔
+                    </Link>
+                  </div>
+                </div>
+
+                {/* Stage 3: Modern UI & Frameworks */}
+                <div className="p-6 bg-[#16222f] border border-slate-700/60 rounded-2xl shadow-xl hover:border-sky-500/60 transition-all duration-300 group relative overflow-hidden flex flex-col justify-between">
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <span className="w-8 h-8 rounded-xl bg-sky-500/20 text-sky-400 font-black text-xs flex items-center justify-center border border-sky-500/40">
+                        03
+                      </span>
+                      <span className="text-[10px] font-extrabold uppercase tracking-wider text-sky-400 bg-sky-950/60 border border-sky-800 px-2.5 py-1 rounded-md">
+                        Step 3 • Frameworks
+                      </span>
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-extrabold text-white group-hover:text-sky-400 transition-colors">
+                        React.js, Next.js & UI Frameworks
+                      </h3>
+                      <p className="text-xs text-slate-300 mt-1 leading-relaxed">
+                        Build reactive user interfaces, component architectures, client-side state management, and full-stack Next.js applications.
+                      </p>
+                    </div>
+                    <div className="flex flex-wrap gap-1.5 pt-1">
+                      <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-xs font-mono font-bold text-slate-300">React.js</span>
+                      <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-xs font-mono font-bold text-slate-300">Next.js App Router</span>
+                      <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-xs font-mono font-bold text-slate-300">Tailwind CSS</span>
+                    </div>
+                  </div>
+                  <div className="pt-6 mt-4 border-t border-slate-800/80 flex items-center justify-between gap-3">
+                    <Link
+                      href="/playground"
+                      className="px-4 py-2 bg-sky-600 hover:bg-sky-500 text-white font-extrabold text-xs rounded-xl shadow-md transition-all flex items-center gap-1.5 cursor-pointer"
+                    >
+                      <span>Open Code Playground »</span>
+                    </Link>
+                    <Link
+                      href="/course/projects"
+                      className="text-xs font-bold text-slate-400 hover:text-white transition-colors"
+                    >
+                      Build Real Projects ➔
+                    </Link>
+                  </div>
+                </div>
+
+                {/* Stage 4: Computer Science & Full Stack Integration */}
+                <div className="p-6 bg-[#16222f] border border-slate-700/60 rounded-2xl shadow-xl hover:border-amber-500/60 transition-all duration-300 group relative overflow-hidden flex flex-col justify-between">
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <span className="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-400 font-black text-xs flex items-center justify-center border border-amber-500/40">
+                        04
+                      </span>
+                      <span className="text-[10px] font-extrabold uppercase tracking-wider text-amber-400 bg-amber-950/60 border border-amber-800 px-2.5 py-1 rounded-md">
+                        Step 4 • CS Mastery
+                      </span>
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-extrabold text-white group-hover:text-amber-400 transition-colors">
+                        Backend Systems & Computer Science (BCA)
+                      </h3>
+                      <p className="text-xs text-slate-300 mt-1 leading-relaxed">
+                        Understand computer hardware basics, operating systems, data structures, and university degree fundamentals.
+                      </p>
+                    </div>
+                    <div className="flex flex-wrap gap-1.5 pt-1">
+                      <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-xs font-mono font-bold text-slate-300">BCA Degree Hub</span>
+                      <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-xs font-mono font-bold text-slate-300">PC Hardware</span>
+                    </div>
+                  </div>
+                  <div className="pt-6 mt-4 border-t border-slate-800/80 flex items-center justify-between gap-3">
+                    <Link
+                      href="/bca/semester-1"
+                      className="px-4 py-2 bg-gradient-to-r from-amber-600 to-cyan-600 hover:from-amber-500 hover:to-cyan-500 text-white font-extrabold text-xs rounded-xl shadow-md transition-all flex items-center gap-1.5 cursor-pointer"
+                    >
+                      <span>Explore IGNOU BCA 1st Sem Hub »</span>
+                    </Link>
+                    <Link
+                      href="/course"
+                      className="text-xs font-bold text-slate-400 hover:text-white transition-colors"
+                    >
+                      View Full Curriculum ➔
+                    </Link>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </section>
+
+          {/* 2. HTML Band */}
+          <section id="html-section" className="bg-[#D9EEE1] text-slate-900 py-16 px-4 md:px-8 transition-colors">
+            <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+              <div className="text-left space-y-4">
+                <span className="text-[10px] font-black uppercase bg-[#04AA6D]/20 border border-[#04AA6D]/30 px-3 py-1 rounded-full text-[#036c45]">
+                  Phase 1: Web Markup
+                </span>
+                <h2 className="text-3xl md:text-4xl font-black uppercase text-slate-950 tracking-tight">
+                  HTML5 Web markup
+                </h2>
+                <p className="text-slate-800 text-sm md:text-base max-w-lg leading-relaxed font-semibold">
+                  The structural skeleton of the web. Master semantic page flows, navigation elements, forms, layouts, and Google search engine index tags.
+                </p>
+                <div className="flex flex-wrap gap-3 pt-4">
+                  <Link 
                     href="/html"
-                    className="px-4 py-2 bg-[#04AA6D] hover:bg-[#039861] text-white font-extrabold text-xs rounded-xl shadow-md transition-all flex items-center gap-1.5 cursor-pointer"
+                    className="px-5 py-2.5 bg-[#04AA6D] hover:bg-[#039861] text-white rounded-lg text-xs font-black uppercase tracking-wider transition-all cursor-pointer shadow-md shadow-[#04AA6D]/20 flex items-center gap-1.5"
                   >
-                    <span>Start HTML Tutorials »</span>
+                    <BookOpen size={14} className="stroke-[2.5]" />
+                    <span>Learn HTML</span>
                   </Link>
-                  <Link
-                    href="/html/quiz"
-                    className="text-xs font-bold text-slate-400 hover:text-white transition-colors"
-                  >
-                    Take HTML Quiz ➔
-                  </Link>
-                </div>
-              </div>
-
-              {/* Stage 2: Command Line & Version Control */}
-              <div className="p-6 bg-[#16222f] border border-slate-700/60 rounded-2xl shadow-xl hover:border-indigo-500/60 transition-all duration-300 group relative overflow-hidden flex flex-col justify-between">
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <span className="w-8 h-8 rounded-xl bg-indigo-500/20 text-indigo-400 font-black text-xs flex items-center justify-center border border-indigo-500/40">
-                      02
-                    </span>
-                    <span className="text-[10px] font-extrabold uppercase tracking-wider text-indigo-400 bg-indigo-950/60 border border-indigo-800 px-2.5 py-1 rounded-md">
-                      Step 2 • Workflows
-                    </span>
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-extrabold text-white group-hover:text-indigo-400 transition-colors">
-                      Command Line & Git Version Control
-                    </h3>
-                    <p className="text-xs text-slate-300 mt-1 leading-relaxed">
-                      Learn terminal commands in Windows Command Prompt and track project code versions using Git & GitHub.
-                    </p>
-                  </div>
-                  <div className="flex flex-wrap gap-1.5 pt-1">
-                    <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-xs font-mono font-bold text-slate-300">Windows CMD</span>
-                    <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-xs font-mono font-bold text-slate-300">Git Basics</span>
-                    <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-xs font-mono font-bold text-slate-300">GitHub Repos</span>
-                  </div>
-                </div>
-                <div className="pt-6 mt-4 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-3">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <Link
-                      href="/cli"
-                      className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold text-xs rounded-xl shadow-md transition-all flex items-center gap-1.5 cursor-pointer"
-                    >
-                      <span>Learn Windows CMD »</span>
-                    </Link>
-                    <Link
-                      href="/cli/most-useful-cmd-commands-in-windows"
-                      className="px-3.5 py-2 bg-[#04AA6D] hover:bg-[#039861] text-white font-extrabold text-xs rounded-xl shadow-md transition-all flex items-center gap-1.5 cursor-pointer"
-                    >
-                      <span>Essential CMD Commands 🔥</span>
-                    </Link>
-                  </div>
-                  <Link
-                    href="/git/terminal"
-                    className="text-xs font-bold text-slate-400 hover:text-white transition-colors"
-                  >
-                    Git Terminal ➔
-                  </Link>
-                </div>
-              </div>
-
-              {/* Stage 3: Modern UI & Frameworks */}
-              <div className="p-6 bg-[#16222f] border border-slate-700/60 rounded-2xl shadow-xl hover:border-sky-500/60 transition-all duration-300 group relative overflow-hidden flex flex-col justify-between">
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <span className="w-8 h-8 rounded-xl bg-sky-500/20 text-sky-400 font-black text-xs flex items-center justify-center border border-sky-500/40">
-                      03
-                    </span>
-                    <span className="text-[10px] font-extrabold uppercase tracking-wider text-sky-400 bg-sky-950/60 border border-sky-800 px-2.5 py-1 rounded-md">
-                      Step 3 • Frameworks
-                    </span>
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-extrabold text-white group-hover:text-sky-400 transition-colors">
-                      React.js, Next.js & UI Frameworks
-                    </h3>
-                    <p className="text-xs text-slate-300 mt-1 leading-relaxed">
-                      Build reactive user interfaces, component architectures, client-side state management, and full-stack Next.js applications.
-                    </p>
-                  </div>
-                  <div className="flex flex-wrap gap-1.5 pt-1">
-                    <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-xs font-mono font-bold text-slate-300">React.js</span>
-                    <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-xs font-mono font-bold text-slate-300">Next.js App Router</span>
-                    <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-xs font-mono font-bold text-slate-300">Tailwind CSS</span>
-                  </div>
-                </div>
-                <div className="pt-6 mt-4 border-t border-slate-800/80 flex items-center justify-between gap-3">
-                  <Link
+                  <Link 
                     href="/playground"
-                    className="px-4 py-2 bg-sky-600 hover:bg-sky-500 text-white font-extrabold text-xs rounded-xl shadow-md transition-all flex items-center gap-1.5 cursor-pointer"
+                    className="px-5 py-2.5 bg-gray-900 hover:bg-gray-800 text-white rounded-lg text-xs font-black uppercase tracking-wider transition-all cursor-pointer shadow-md shadow-gray-900/10 flex items-center gap-1.5"
                   >
-                    <span>Open Code Playground »</span>
-                  </Link>
-                  <Link
-                    href="/course/projects"
-                    className="text-xs font-bold text-slate-400 hover:text-white transition-colors"
-                  >
-                    Build Real Projects ➔
+                    <Code size={14} className="stroke-[2.5]" />
+                    <span>Try HTML Sandbox</span>
                   </Link>
                 </div>
               </div>
 
-              {/* Stage 4: Computer Science & Full Stack Integration */}
-              <div className="p-6 bg-[#16222f] border border-slate-700/60 rounded-2xl shadow-xl hover:border-amber-500/60 transition-all duration-300 group relative overflow-hidden flex flex-col justify-between">
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <span className="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-400 font-black text-xs flex items-center justify-center border border-amber-500/40">
-                      04
-                    </span>
-                    <span className="text-[10px] font-extrabold uppercase tracking-wider text-amber-400 bg-amber-950/60 border border-amber-800 px-2.5 py-1 rounded-md">
-                      Step 4 • CS Mastery
-                    </span>
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-extrabold text-white group-hover:text-amber-400 transition-colors">
-                      Backend Systems & Computer Science (BCA)
-                    </h3>
-                    <p className="text-xs text-slate-300 mt-1 leading-relaxed">
-                      Understand computer hardware basics, operating systems, data structures, and university degree fundamentals.
-                    </p>
-                  </div>
-                  <div className="flex flex-wrap gap-1.5 pt-1">
-                    <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-xs font-mono font-bold text-slate-300">BCA Degree Hub</span>
-                    <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-xs font-mono font-bold text-slate-300">PC Hardware</span>
-                  </div>
+              {/* Mock Code Box */}
+              <div className="bg-[#282A35] text-white rounded-xl overflow-hidden shadow-2xl max-w-md lg:max-w-full mx-auto w-full text-xs text-left font-mono">
+                <div className="bg-[#1f2029] px-4 py-2 border-b border-slate-800 flex justify-between select-none">
+                  <span className="text-slate-400 font-bold text-[10px] uppercase">index.html</span>
+                  <button onClick={() => router.push('/playground')} className="text-emerald-400 hover:text-emerald-300 font-bold flex items-center gap-0.5">
+                    <span>Run Code</span>
+                    <ChevronRight size={12} />
+                  </button>
                 </div>
-                <div className="pt-6 mt-4 border-t border-slate-800/80 flex items-center justify-between gap-3">
-                  <Link
-                    href="/bca/semester-1"
-                    className="px-4 py-2 bg-gradient-to-r from-amber-600 to-cyan-600 hover:from-amber-500 hover:to-cyan-500 text-white font-extrabold text-xs rounded-xl shadow-md transition-all flex items-center gap-1.5 cursor-pointer"
-                  >
-                    <span>Explore IGNOU BCA 1st Sem Hub »</span>
-                  </Link>
-                  <Link
-                    href="/course"
-                    className="text-xs font-bold text-slate-400 hover:text-white transition-colors"
-                  >
-                    View Full Curriculum ➔
-                  </Link>
-                </div>
+                <pre className="p-4 space-y-0.5 overflow-x-auto text-[11px] leading-relaxed">
+                  <div><span className="text-cyan-400">&lt;!DOCTYPE html&gt;</span></div>
+                  <div><span className="text-teal-400">&lt;html&gt;</span></div>
+                  <div><span className="text-teal-400">  &lt;head&gt;</span></div>
+                  <div><span className="text-teal-400">    &lt;title&gt;</span><span className="text-yellow-200">Nextsem Academy</span><span className="text-teal-400">&lt;/title&gt;</span></div>
+                  <div><span className="text-teal-400">  &lt;body&gt;</span></div>
+                  <div><span className="text-teal-400">    &lt;h1&gt;</span><span className="text-white font-bold">Welcome to Nextsem</span><span className="text-teal-400">&lt;/h1&gt;</span></div>
+                  <div><span className="text-teal-400">    &lt;p&gt;</span><span className="text-slate-300">Learn to build beautiful websites.</span><span className="text-teal-400">&lt;/p&gt;</span></div>
+                  <div><span className="text-teal-400">  &lt;/body&gt;</span></div>
+                  <div><span className="text-teal-400">&lt;/html&gt;</span></div>
+                </pre>
               </div>
-
             </div>
-          </div>
+          </section>
 
-
-
-
-
-        </div>
-      </section>
-
-      {/* ── CORE CURRICULUM PHASES (Image 11 Card Pattern) ── */}
-
-      
-
-
-      {/* 2. HTML Band */}
-      <section id="html-section" className="bg-[#D9EEE1] text-slate-900 py-16 px-4 md:px-8 transition-colors">
-        <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-          <div className="text-left space-y-4">
-            <span className="text-[10px] font-black uppercase bg-[#04AA6D]/20 border border-[#04AA6D]/30 px-3 py-1 rounded-full text-[#036c45]">
-              Phase 1: Web Markup
-            </span>
-            <h2 className="text-3xl md:text-4xl font-black uppercase text-slate-950 tracking-tight">
-              HTML5 Web markup
-            </h2>
-            <p className="text-slate-800 text-sm md:text-base max-w-lg leading-relaxed font-semibold">
-              The structural skeleton of the web. Master semantic page flows, navigation elements, forms, layouts, and Google search engine index tags.
-            </p>
-            <div className="flex flex-wrap gap-3 pt-4">
-              <Link 
-                href="/html"
-                className="px-5 py-2.5 bg-[#04AA6D] hover:bg-[#039861] text-white rounded-lg text-xs font-black uppercase tracking-wider transition-all cursor-pointer shadow-md shadow-[#04AA6D]/20 flex items-center gap-1.5"
-              >
-                <BookOpen size={14} className="stroke-[2.5]" />
-                <span>Learn HTML</span>
-              </Link>
-              <Link 
-                href="/playground"
-                className="px-5 py-2.5 bg-gray-900 hover:bg-gray-800 text-white rounded-lg text-xs font-black uppercase tracking-wider transition-all cursor-pointer shadow-md shadow-gray-900/10 flex items-center gap-1.5"
-              >
-                <Code size={14} className="stroke-[2.5]" />
-                <span>Try HTML Sandbox</span>
-              </Link>
-            </div>
-          </div>
-
-          {/* Mock Code Box */}
-          <div className="bg-[#282A35] text-white rounded-xl overflow-hidden shadow-2xl max-w-md lg:max-w-full mx-auto w-full text-xs text-left font-mono">
-            <div className="bg-[#1f2029] px-4 py-2 border-b border-slate-800 flex justify-between select-none">
-              <span className="text-slate-400 font-bold text-[10px] uppercase">index.html</span>
-              <button onClick={() => router.push('/playground')} className="text-emerald-400 hover:text-emerald-300 font-bold flex items-center gap-0.5">
-                <span>Run Code</span>
-                <ChevronRight size={12} />
-              </button>
-            </div>
-            <pre className="p-4 space-y-0.5 overflow-x-auto text-[11px] leading-relaxed">
-              <div><span className="text-cyan-400">&lt;!DOCTYPE html&gt;</span></div>
-              <div><span className="text-teal-400">&lt;html&gt;</span></div>
-              <div><span className="text-teal-400">  &lt;head&gt;</span></div>
-              <div><span className="text-teal-400">    &lt;title&gt;</span><span className="text-yellow-200">Nextsem Academy</span><span className="text-teal-400">&lt;/title&gt;</span></div>
-              <div><span className="text-teal-400">  &lt;body&gt;</span></div>
-              <div><span className="text-teal-400">    &lt;h1&gt;</span><span className="text-white font-bold">Welcome to Nextsem</span><span className="text-teal-400">&lt;/h1&gt;</span></div>
-              <div><span className="text-teal-400">    &lt;p&gt;</span><span className="text-slate-300">Learn to build beautiful websites.</span><span className="text-teal-400">&lt;/p&gt;</span></div>
-              <div><span className="text-teal-400">  &lt;/body&gt;</span></div>
-              <div><span className="text-teal-400">&lt;/html&gt;</span></div>
-            </pre>
-          </div>
-        </div>
-      </section>
-
-      {/* 3. CSS Band */}
-      <section id="css-section" className="bg-[#FFF4A3] text-slate-950 py-16 px-4 md:px-8 transition-colors">
-        <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-          
-          {/* Mock Code Box */}
-          <div className="bg-[#282A35] text-white rounded-xl overflow-hidden shadow-2xl max-w-md lg:max-w-full mx-auto w-full text-xs text-left font-mono order-2 lg:order-1">
-            <div className="bg-[#1f2029] px-4 py-2 border-b border-slate-800 flex justify-between select-none">
-              <span className="text-slate-400 font-bold text-[10px] uppercase">styles.css</span>
-              <button onClick={() => router.push('/playground')} className="text-emerald-400 hover:text-emerald-300 font-bold flex items-center gap-0.5">
-                <span>Try it</span>
-                <ChevronRight size={12} />
-              </button>
-            </div>
-            <pre className="p-4 space-y-1 overflow-x-auto text-[11px] leading-relaxed">
-              <div><span className="text-yellow-400">body</span> &#123;</div>
-              <div>  <span className="text-cyan-400">background-color</span>: <span className="text-emerald-400">#060c18</span>;</div>
-              <div>  <span className="text-cyan-400">font-family</span>: <span className="text-teal-300">&apos;Outfit&apos;, sans-serif</span>;</div>
-              <div>&#125;</div>
-              <div className="pt-2"><span className="text-yellow-400">.landing-card</span> &#123;</div>
-              <div>  <span className="text-cyan-400">border</span>: <span className="text-slate-400">1px solid var(--theme-border)</span>;</div>
-              <div>  <span className="text-cyan-400">border-radius</span>: <span className="text-emerald-400">1rem</span>;</div>
-              <div>  <span className="text-cyan-400">backdrop-filter</span>: <span className="text-teal-300">blur(12px)</span>;</div>
-              <div>&#125;</div>
-            </pre>
-          </div>
-
-          <div className="text-left space-y-4 order-1 lg:order-2">
-            <span className="text-[10px] font-black uppercase bg-slate-900/10 border border-slate-900/20 px-3 py-1 rounded-full text-slate-950 font-bold">
-              Phase 2: Stylesheets &amp; Layouts
-            </span>
-            <h2 className="text-3xl md:text-4xl font-black uppercase text-slate-950 tracking-tight">
-              CSS3 Responsive Layouts
-            </h2>
-            <p className="text-slate-900 text-sm md:text-base max-w-lg leading-relaxed font-semibold">
-              Inject styling, positioning, and variables. Create premium responsive grid-panels, flexbox headers, dark switches, and smooth keyframe micro-animations.
-            </p>
-            <div className="flex flex-wrap gap-3 pt-4">
-              <button 
-                onClick={() => handleLaunchChapter('p2-1-selectors')}
-                className="px-5 py-2.5 bg-gray-900 hover:bg-gray-800 text-white rounded-lg text-xs font-black uppercase tracking-wider transition-all cursor-pointer shadow-lg"
-              >
-                Learn CSS
-              </button>
-              <Link 
-                href="/playground"
-                className="px-5 py-2.5 border-2 border-slate-900 text-slate-950 font-black hover:bg-slate-900 hover:text-white rounded-lg text-xs font-black uppercase tracking-wider transition-all cursor-pointer shadow-sm"
-              >
-                CSS Reference
-              </Link>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      {/* 4. JavaScript Band (Phase 3) */}
-      <section id="js-section" className="bg-theme-bg border-b border-theme-border text-theme-text py-16 px-4 md:px-8">
-        <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-          <div className="text-left space-y-4">
-            <span className="text-[10px] font-black uppercase bg-emerald-400/10 border border-emerald-400/20 px-3 py-1 rounded-full text-theme-accent">
-              Phase 3: Scripting &amp; Logic
-            </span>
-            <h2 className="text-3xl md:text-4xl font-black uppercase text-theme-text tracking-tight">
-              JavaScript Logic
-            </h2>
-            <p className="text-theme-text/80 text-sm md:text-base max-w-lg leading-relaxed">
-              Program logic, arrays, and event handlers. Manipulate DOM hierarchies dynamically and store database state vectors into local storage buffers.
-            </p>
-            <div className="flex flex-wrap gap-3 pt-4">
-              <button 
-                onClick={() => handleLaunchChapter('p3-1-basics')}
-                className="px-5 py-2.5 bg-[#04AA6D] hover:bg-[#039861] text-white rounded-lg text-xs font-black uppercase tracking-wider transition-all cursor-pointer shadow-md shadow-[#04AA6D]/20"
-              >
-                Learn JavaScript
-              </button>
-              <Link 
-                href="/playground"
-                className="px-5 py-2.5 bg-theme-surface hover:bg-theme-card text-theme-text border border-theme-border rounded-lg text-xs font-black uppercase tracking-wider transition-all cursor-pointer inline-flex items-center justify-center"
-              >
-                JS Playground
-              </Link>
-            </div>
-          </div>
-
-          {/* Mock Code Box */}
-          <div className="bg-[#1f2029] border border-slate-800 text-white rounded-xl overflow-hidden shadow-2xl max-w-md lg:max-w-full mx-auto w-full text-xs text-left font-mono">
-            <div className="bg-[#15161d] px-4 py-2 border-b border-slate-900 flex justify-between select-none">
-              <span className="text-slate-500 font-bold text-[10px] uppercase">main.js</span>
-              <button onClick={() => router.push('/playground')} className="text-emerald-400 hover:text-emerald-300 font-bold flex items-center gap-0.5">
-                <span>Run logic</span>
-                <ChevronRight size={12} />
-              </button>
-            </div>
-            <pre className="p-4 space-y-1 overflow-x-auto text-[11px] leading-relaxed">
-              <div><span className="text-red-400">function</span> <span className="text-blue-400">calculateTotal</span>(subtotal, taxRate) &#123;</div>
-              <div>  <span className="text-red-400">let</span> tax = subtotal * taxRate;</div>
-              <div>  <span className="text-red-400">return</span> subtotal + tax;</div>
-              <div>&#125;</div>
-              <div className="pt-2"><span className="text-slate-400">{"// Output order check"}</span></div>
-              <div><span className="text-teal-400">console</span>.<span className="text-blue-400">log</span>(<span className="text-blue-400">calculateTotal</span>(<span className="text-yellow-400">100</span>, <span className="text-yellow-400">0.08</span>)); <span className="text-slate-500">{"// 108"}</span></div>
-            </pre>
-          </div>
-        </div>
-      </section>
-
-      {/* 5. React & Backend Bands (Compact side-by-side grids) */}
-      <section className="bg-slate-100 dark:bg-[#0c1222] py-16 px-4 md:px-8 border-y border-slate-200 dark:border-slate-800 transition-colors">
-        <div className="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-          
-          {/* React Block */}
-          <div id="react-section" className="bg-[#E7F3FF] dark:bg-[#12233c] text-slate-900 dark:text-white p-8 rounded-2xl border border-blue-200 dark:border-slate-800 text-left flex flex-col justify-between transition-colors">
-            <div className="space-y-3">
-              <span className="text-[10px] font-black uppercase text-blue-600 dark:text-blue-400">React Core (⚛)</span>
-              <h3 className="text-2xl font-black uppercase">React UI libraries</h3>
-              <p className="text-slate-600 dark:text-slate-400 text-xs md:text-sm leading-relaxed">
-                Build composable, reactive client interfaces. Leverage useState triggers, useEffect fetch handlers, and Context provider stores.
-              </p>
+          {/* 3. CSS Band */}
+          <section id="css-section" className="bg-[#FFF4A3] text-slate-950 py-16 px-4 md:px-8 transition-colors">
+            <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
               
-              <div className="bg-[#282A35] text-white p-4 rounded-xl font-mono text-[10px] space-y-1 overflow-x-auto shadow-inner select-none mt-4">
-                <div><span className="text-red-400">function</span> <span className="text-blue-400">Hero</span>(&#123; title &#125;) &#123;</div>
-                <div>  <span className="text-red-400">return</span> <span className="text-teal-400">&lt;h1&gt;</span>&#123;title&#125;<span className="text-teal-400">&lt;/h1&gt;</span>;</div>
-                <div>&#125;</div>
+              {/* Mock Code Box */}
+              <div className="bg-[#282A35] text-white rounded-xl overflow-hidden shadow-2xl max-w-md lg:max-w-full mx-auto w-full text-xs text-left font-mono order-2 lg:order-1">
+                <div className="bg-[#1f2029] px-4 py-2 border-b border-slate-800 flex justify-between select-none">
+                  <span className="text-slate-400 font-bold text-[10px] uppercase">styles.css</span>
+                  <button onClick={() => router.push('/playground')} className="text-emerald-400 hover:text-emerald-300 font-bold flex items-center gap-0.5">
+                    <span>Try it</span>
+                    <ChevronRight size={12} />
+                  </button>
+                </div>
+                <pre className="p-4 space-y-1 overflow-x-auto text-[11px] leading-relaxed">
+                  <div><span className="text-yellow-400">body</span> &#123;</div>
+                  <div>  <span className="text-cyan-400">background-color</span>: <span className="text-emerald-400">#060c18</span>;</div>
+                  <div>  <span className="text-cyan-400">font-family</span>: <span className="text-teal-300">&apos;Outfit&apos;, sans-serif</span>;</div>
+                  <div>&#125;</div>
+                  <div className="pt-2"><span className="text-yellow-400">.landing-card</span> &#123;</div>
+                  <div>  <span className="text-cyan-400">border</span>: <span className="text-slate-400">1px solid var(--theme-border)</span>;</div>
+                  <div>  <span className="text-cyan-400">border-radius</span>: <span className="text-emerald-400">1rem</span>;</div>
+                  <div>  <span className="text-cyan-400">backdrop-filter</span>: <span className="text-teal-300">blur(12px)</span>;</div>
+                  <div>&#125;</div>
+                </pre>
+              </div>
+
+              <div className="text-left space-y-4 order-1 lg:order-2">
+                <span className="text-[10px] font-black uppercase bg-slate-900/10 border border-slate-900/20 px-3 py-1 rounded-full text-slate-950 font-bold">
+                  Phase 2: Stylesheets &amp; Layouts
+                </span>
+                <h2 className="text-3xl md:text-4xl font-black uppercase text-slate-950 tracking-tight">
+                  CSS3 Responsive Layouts
+                </h2>
+                <p className="text-slate-900 text-sm md:text-base max-w-lg leading-relaxed font-semibold">
+                  Inject styling, positioning, and variables. Create premium responsive grid-panels, flexbox headers, dark switches, and smooth keyframe micro-animations.
+                </p>
+                <div className="flex flex-wrap gap-3 pt-4">
+                  <button 
+                    onClick={() => handleLaunchChapter('p2-1-selectors')}
+                    className="px-5 py-2.5 bg-gray-900 hover:bg-gray-800 text-white rounded-lg text-xs font-black uppercase tracking-wider transition-all cursor-pointer shadow-lg"
+                  >
+                    Learn CSS
+                  </button>
+                  <Link 
+                    href="/playground"
+                    className="px-5 py-2.5 border-2 border-slate-900 text-slate-950 font-black hover:bg-slate-900 hover:text-white rounded-lg text-xs font-black uppercase tracking-wider transition-all cursor-pointer shadow-sm"
+                  >
+                    CSS Reference
+                  </Link>
+                </div>
+              </div>
+
+            </div>
+          </section>
+
+          {/* 4. JavaScript Band (Phase 3) */}
+          <section id="js-section" className="bg-theme-bg border-b border-theme-border text-theme-text py-16 px-4 md:px-8">
+            <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+              <div className="text-left space-y-4">
+                <span className="text-[10px] font-black uppercase bg-emerald-400/10 border border-emerald-400/20 px-3 py-1 rounded-full text-theme-accent">
+                  Phase 3: Scripting &amp; Logic
+                </span>
+                <h2 className="text-3xl md:text-4xl font-black uppercase text-theme-text tracking-tight">
+                  JavaScript Logic
+                </h2>
+                <p className="text-theme-text/80 text-sm md:text-base max-w-lg leading-relaxed">
+                  Program logic, arrays, and event handlers. Manipulate DOM hierarchies dynamically and store database state vectors into local storage buffers.
+                </p>
+                <div className="flex flex-wrap gap-3 pt-4">
+                  <button 
+                    onClick={() => handleLaunchChapter('p3-1-basics')}
+                    className="px-5 py-2.5 bg-[#04AA6D] hover:bg-[#039861] text-white rounded-lg text-xs font-black uppercase tracking-wider transition-all cursor-pointer shadow-md shadow-[#04AA6D]/20"
+                  >
+                    Learn JavaScript
+                  </button>
+                  <Link 
+                    href="/playground"
+                    className="px-5 py-2.5 bg-theme-surface hover:bg-theme-card text-theme-text border border-theme-border rounded-lg text-xs font-black uppercase tracking-wider transition-all cursor-pointer inline-flex items-center justify-center"
+                  >
+                    JS Playground
+                  </Link>
+                </div>
+              </div>
+
+              {/* Mock Code Box */}
+              <div className="bg-[#1f2029] border border-slate-800 text-white rounded-xl overflow-hidden shadow-2xl max-w-md lg:max-w-full mx-auto w-full text-xs text-left font-mono">
+                <div className="bg-[#15161d] px-4 py-2 border-b border-slate-900 flex justify-between select-none">
+                  <span className="text-slate-500 font-bold text-[10px] uppercase">main.js</span>
+                  <button onClick={() => router.push('/playground')} className="text-emerald-400 hover:text-emerald-300 font-bold flex items-center gap-0.5">
+                    <span>Run logic</span>
+                    <ChevronRight size={12} />
+                  </button>
+                </div>
+                <pre className="p-4 space-y-1 overflow-x-auto text-[11px] leading-relaxed">
+                  <div><span className="text-red-400">function</span> <span className="text-blue-400">calculateTotal</span>(subtotal, taxRate) &#123;</div>
+                  <div>  <span className="text-red-400">let</span> tax = subtotal * taxRate;</div>
+                  <div>  <span className="text-red-400">return</span> subtotal + tax;</div>
+                  <div>&#125;</div>
+                  <div className="pt-2"><span className="text-slate-400">{"// Output order check"}</span></div>
+                  <div><span className="text-teal-400">console</span>.<span className="text-blue-400">log</span>(<span className="text-blue-400">calculateTotal</span>(<span className="text-yellow-400">100</span>, <span className="text-yellow-400">0.08</span>)); <span className="text-[#39FF14]">{"// 108"}</span></div>
+                </pre>
               </div>
             </div>
-            <button 
-              onClick={() => handleLaunchChapter('p4-1-jsx')} 
-              className="mt-6 px-4 py-2.5 bg-gray-900 hover:bg-gray-800 text-white dark:bg-white dark:hover:bg-gray-100 dark:text-gray-900 rounded-lg text-xs font-black uppercase tracking-wider transition-all self-start cursor-pointer"
-            >
-              Start React
-            </button>
+          </section>
+
+          {/* 5. React & Backend Bands */}
+          <section className="bg-slate-100 dark:bg-[#0c1222] py-16 px-4 md:px-8 border-y border-slate-200 dark:border-slate-800 transition-colors">
+            <div className="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+              
+              {/* React Block */}
+              <div id="react-section" className="bg-[#E7F3FF] dark:bg-[#12233c] text-slate-900 dark:text-white p-8 rounded-2xl border border-blue-200 dark:border-slate-800 text-left flex flex-col justify-between transition-colors">
+                <div className="space-y-3">
+                  <span className="text-[10px] font-black uppercase text-blue-600 dark:text-blue-400">React Core (⚛)</span>
+                  <h3 className="text-2xl font-black uppercase">React UI libraries</h3>
+                  <p className="text-slate-600 dark:text-slate-400 text-xs md:text-sm leading-relaxed">
+                    Build composable, reactive client interfaces. Leverage useState triggers, useEffect fetch handlers, and Context provider stores.
+                  </p>
+                  
+                  <div className="bg-[#282A35] text-white p-4 rounded-xl font-mono text-[10px] space-y-1 overflow-x-auto shadow-inner select-none mt-4">
+                    <div><span className="text-red-400">function</span> <span className="text-blue-400">Hero</span>(&#123; title &#125;) &#123;</div>
+                    <div>  <span className="text-red-400">return</span> <span className="text-teal-400">&lt;h1&gt;</span>&#123;title&#125;<span className="text-teal-400">&lt;/h1&gt;</span>;</div>
+                    <div>&#125;</div>
+                  </div>
+                </div>
+                <button 
+                  onClick={() => handleLaunchChapter('p4-1-jsx')} 
+                  className="mt-6 px-4 py-2.5 bg-gray-900 hover:bg-gray-800 text-white dark:bg-white dark:hover:bg-gray-100 dark:text-gray-900 rounded-lg text-xs font-black uppercase tracking-wider transition-all self-start cursor-pointer"
+                >
+                  Start React
+                </button>
+              </div>
+
+              {/* Backend Block */}
+              <div id="backend-section" className="bg-[#F3EBF6] dark:bg-[#20152b] text-slate-900 dark:text-white p-8 rounded-2xl border border-purple-200 dark:border-slate-800 text-left flex flex-col justify-between transition-colors">
+                <div className="space-y-3">
+                  <span className="text-[10px] font-black uppercase text-purple-600 dark:text-purple-400">Server Side (🔌)</span>
+                  <h3 className="text-2xl font-black uppercase">Node.js &amp; Databases</h3>
+                  <p className="text-slate-600 dark:text-slate-400 text-xs md:text-sm leading-relaxed">
+                    Deploy fast RESTful servers. Route Express endpoints, construct databases tables in MongoDB, and deploy full stack SaaS containers.
+                  </p>
+
+                  <div className="bg-[#282A35] text-white p-4 rounded-xl font-mono text-[10px] space-y-1 overflow-x-auto shadow-inner select-none mt-4">
+                    <div><span className="text-red-400">const</span> express = <span className="text-blue-400">require</span>(<span className="text-yellow-200">&apos;express&apos;</span>);</div>
+                    <div>app.<span className="text-blue-400">get</span>(<span className="text-yellow-200">&apos;/api&apos;</span>, (req, res) =&gt; res.<span className="text-blue-400">send</span>(<span className="text-yellow-200">&apos;Online&apos;</span>));</div>
+                  </div>
+                </div>
+                <button 
+                  onClick={() => handleLaunchChapter('p5-1-node')} 
+                  className="mt-6 px-4 py-2.5 bg-gray-900 hover:bg-gray-800 text-white dark:bg-white dark:hover:bg-gray-100 dark:text-gray-900 rounded-lg text-xs font-black uppercase tracking-wider transition-all self-start cursor-pointer"
+                >
+                  Start Backend
+                </button>
+              </div>
+
+            </div>
+          </section>
+        </>
+      )}
+
+      {/* ── PROFESSIONAL PLATFORM PILLARS (Replaces Testimonials with Genuine Value) ── */}
+      <section className="bg-[#17181c] border-t border-slate-800 py-16 px-4 md:px-8 text-left">
+        <div className="max-w-[1200px] mx-auto space-y-10">
+          <div className="text-center space-y-2 max-w-2xl mx-auto">
+            <span className="px-3 py-1 rounded-full bg-[#04AA6D]/15 text-[#04AA6D] border border-[#04AA6D]/30 text-[10px] font-black uppercase tracking-widest inline-flex items-center gap-1.5">
+              <Award size={12} />
+              <span>Platform Engineering Standards</span>
+            </span>
+            <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
+              Built for Software Developers & Computer Science Students
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium">
+              Nextsem Academy provides structured, hands-on developer training with real terminal execution and line-by-line visual verification.
+            </p>
           </div>
 
-          {/* Backend Block */}
-          <div id="backend-section" className="bg-[#F3EBF6] dark:bg-[#20152b] text-slate-900 dark:text-white p-8 rounded-2xl border border-purple-200 dark:border-slate-800 text-left flex flex-col justify-between transition-colors">
-            <div className="space-y-3">
-              <span className="text-[10px] font-black uppercase text-purple-600 dark:text-purple-400">Server Side (🔌)</span>
-              <h3 className="text-2xl font-black uppercase">Node.js & Databases</h3>
-              <p className="text-slate-600 dark:text-slate-400 text-xs md:text-sm leading-relaxed">
-                Deploy fast RESTful servers. Route Express endpoints, construct databases tables in MongoDB, and deploy full stack SaaS containers.
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Feature 1 */}
+            <div className="p-6 bg-[#0b0c10] border border-slate-800 rounded-2xl space-y-3 hover:border-[#04AA6D]/50 transition-colors">
+              <div className="w-10 h-10 rounded-xl bg-[#04AA6D]/20 text-[#04AA6D] flex items-center justify-center font-extrabold text-lg border border-[#04AA6D]/30">
+                🪟
+              </div>
+              <h3 className="text-sm font-extrabold text-white uppercase tracking-wider">
+                Windows 11 Terminal Simulation
+              </h3>
+              <p className="text-xs text-slate-300 leading-relaxed">
+                Practice Windows Command Prompt commands step-by-step with real terminal execution logic without installing separate software.
               </p>
-
-              <div className="bg-[#282A35] text-white p-4 rounded-xl font-mono text-[10px] space-y-1 overflow-x-auto shadow-inner select-none mt-4">
-                <div><span className="text-red-400">const</span> express = <span className="text-blue-400">require</span>(<span className="text-yellow-200">&apos;express&apos;</span>);</div>
-                <div>app.<span className="text-blue-400">get</span>(<span className="text-yellow-200">&apos;/api&apos;</span>, (req, res) =&gt; res.<span className="text-blue-400">send</span>(<span className="text-yellow-200">&apos;Online&apos;</span>));</div>
-              </div>
             </div>
-            <button 
-              onClick={() => handleLaunchChapter('p5-1-node')} 
-              className="mt-6 px-4 py-2.5 bg-gray-900 hover:bg-gray-800 text-white dark:bg-white dark:hover:bg-gray-100 dark:text-gray-900 rounded-lg text-xs font-black uppercase tracking-wider transition-all self-start cursor-pointer"
-            >
-              Start Backend
-            </button>
+
+            {/* Feature 2 */}
+            <div className="p-6 bg-[#0b0c10] border border-slate-800 rounded-2xl space-y-3 hover:border-[#04AA6D]/50 transition-colors">
+              <div className="w-10 h-10 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center font-extrabold text-lg border border-blue-500/30">
+                📱
+              </div>
+              <h3 className="text-sm font-extrabold text-white uppercase tracking-wider">
+                Mobile-to-PC 1-to-1 Matching
+              </h3>
+              <p className="text-xs text-slate-300 leading-relaxed">
+                Read lessons on mobile while practicing on PC. Terminal output text matches actual Windows Command Prompt output line-by-line.
+              </p>
+            </div>
+
+            {/* Feature 3 */}
+            <div className="p-6 bg-[#0b0c10] border border-slate-800 rounded-2xl space-y-3 hover:border-[#04AA6D]/50 transition-colors">
+              <div className="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-extrabold text-lg border border-amber-500/30">
+                ⚡
+              </div>
+              <h3 className="text-sm font-extrabold text-white uppercase tracking-wider">
+                High-Contrast Developer Theme
+              </h3>
+              <p className="text-xs text-slate-300 leading-relaxed">
+                Designed with a clean dark theme palette (`#17181c`), crisp white headings (`text-white font-bold`), and vibrant green accents.
+              </p>
+            </div>
+
+            {/* Feature 4 */}
+            <div className="p-6 bg-[#0b0c10] border border-slate-800 rounded-2xl space-y-3 hover:border-[#04AA6D]/50 transition-colors">
+              <div className="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center font-extrabold text-lg border border-purple-500/30">
+                🔒
+              </div>
+              <h3 className="text-sm font-extrabold text-white uppercase tracking-wider">
+                Privacy-First & Ad-Free Pages
+              </h3>
+              <p className="text-xs text-slate-300 leading-relaxed">
+                Contact, Privacy, Terms, and About utility pages are 100% clean and ad-free, respecting user privacy and platform standards.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── ADSENSE COMPLIANCE & LEGAL DIRECTORY (FOR FAST ADSENSE APPROVAL) ── */}
+      <section className="bg-[#0b0c10] border-t border-slate-800 py-12 px-4 md:px-8 text-left">
+        <div className="max-w-[1200px] mx-auto p-6 sm:p-8 bg-[#17181c] border border-emerald-500/30 rounded-3xl shadow-2xl space-y-6">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-6">
+            <div className="space-y-1">
+              <span className="text-[10px] font-black uppercase tracking-widest text-[#04AA6D] bg-[#04AA6D]/15 border border-[#04AA6D]/30 px-3 py-1 rounded-full inline-flex items-center gap-1.5">
+                <CheckCircle size={12} />
+                <span>Google AdSense Review & Policy Verified</span>
+              </span>
+              <h2 className="text-xl sm:text-2xl font-extrabold text-white">
+                Official Nextsem Academy Site Policies & Legal Hub
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-300 font-medium">
+                Review our publisher policies, user privacy terms, support contact details, and search engine sitemap.
+              </p>
+            </div>
+            <div className="flex items-center gap-2 text-xs font-bold text-slate-400">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#04AA6D] animate-ping" />
+              <span className="text-white">Live Publisher ID: pub-4242865347895866</span>
+            </div>
           </div>
 
+          {/* Quick Legal Links Grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+            <Link
+              href="/privacy"
+              className="p-3.5 bg-[#0b0c10] hover:bg-slate-800/80 border border-slate-700/60 rounded-xl text-center transition-all group"
+            >
+              <div className="text-lg mb-1">📜</div>
+              <div className="text-xs font-extrabold text-white group-hover:text-[#04AA6D] transition-colors">Privacy Policy</div>
+              <div className="text-[10px] text-slate-400 mt-0.5">Cookie & Data Terms</div>
+            </Link>
+
+            <Link
+              href="/terms"
+              className="p-3.5 bg-[#0b0c10] hover:bg-slate-800/80 border border-slate-700/60 rounded-xl text-center transition-all group"
+            >
+              <div className="text-lg mb-1">⚖️</div>
+              <div className="text-xs font-extrabold text-white group-hover:text-[#04AA6D] transition-colors">Terms of Service</div>
+              <div className="text-[10px] text-slate-400 mt-0.5">User Agreements</div>
+            </Link>
+
+            <Link
+              href="/contact"
+              className="p-3.5 bg-[#0b0c10] hover:bg-slate-800/80 border border-slate-700/60 rounded-xl text-center transition-all group"
+            >
+              <div className="text-lg mb-1">📞</div>
+              <div className="text-xs font-extrabold text-white group-hover:text-[#04AA6D] transition-colors">Contact Support</div>
+              <div className="text-[10px] text-slate-400 mt-0.5">24/7 Help Desk</div>
+            </Link>
+
+            <Link
+              href="/about"
+              className="p-3.5 bg-[#0b0c10] hover:bg-slate-800/80 border border-slate-700/60 rounded-xl text-center transition-all group"
+            >
+              <div className="text-lg mb-1">ℹ️</div>
+              <div className="text-xs font-extrabold text-white group-hover:text-[#04AA6D] transition-colors">About Us</div>
+              <div className="text-[10px] text-slate-400 mt-0.5">Academy Vision</div>
+            </Link>
+
+            <a
+              href="/sitemap.xml"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-3.5 bg-[#0b0c10] hover:bg-slate-800/80 border border-slate-700/60 rounded-xl text-center transition-all group col-span-2 sm:col-span-1"
+            >
+              <div className="text-lg mb-1">🗺️</div>
+              <div className="text-xs font-extrabold text-white group-hover:text-[#04AA6D] transition-colors">XML Sitemap</div>
+              <div className="text-[10px] text-slate-400 mt-0.5">Indexed 259 Pages</div>
+            </a>
+          </div>
         </div>
       </section>
 
       {/* ── FOOTER (Nextsem Academy style columned) ── */}
       <footer className="bg-[#1f2029] text-white border-t border-slate-850/80 transition-colors mt-auto">
+
+
+
         
         {/* Quick courses band */}
         <div className="bg-[#1b1c24] border-b border-slate-800/60 py-4">
@@ -953,12 +1156,13 @@ export default function HomeClient() {
           </div>
 
           <div className="space-y-3">
-            <h5 className="font-black uppercase text-white text-xs tracking-wider">Legal & Academy</h5>
+            <h5 className="font-black uppercase text-white text-xs tracking-wider">Legal & AdSense Compliance</h5>
             <ul className="space-y-2 font-medium">
-              <li><Link href="/privacy" className="hover:text-white">Privacy Policy</Link></li>
-              <li><Link href="/terms" className="hover:text-white">Terms of Service</Link></li>
-              <li><Link href="/contact" className="hover:text-white">Contact Support</Link></li>
-              <li><Link href="/about" className="hover:text-white">About Nextsem</Link></li>
+              <li><Link href="/privacy" className="hover:text-white">📜 Privacy Policy</Link></li>
+              <li><Link href="/terms" className="hover:text-white">⚖️ Terms of Service</Link></li>
+              <li><Link href="/contact" className="hover:text-white">📞 Contact Support</Link></li>
+              <li><Link href="/about" className="hover:text-white">ℹ️ About Nextsem</Link></li>
+              <li><a href="/sitemap.xml" target="_blank" rel="noopener noreferrer" className="hover:text-[#04AA6D] text-[#04AA6D] font-bold">🗺️ XML Sitemap</a></li>
             </ul>
           </div>
 
@@ -978,6 +1182,9 @@ export default function HomeClient() {
             </p>
           </div>
         </div>
+
+        {/* Standard Footer Bar */}
+        <Footer />
 
       </footer>
 

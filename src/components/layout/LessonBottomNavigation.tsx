@@ -17,7 +17,7 @@ import { getChapterIdFromPath, getChapterUrl } from "@/lib/htmlLessonsHelper";
 import { auth } from "@/lib/firebase";
 import { signOut } from "firebase/auth";
 import { Capacitor } from "@capacitor/core";
-import { showBannerAd, hideBannerAd } from "@/lib/admobHelper";
+import { showBannerAd, hideBannerAd, triggerNavigationAd } from "@/lib/admobHelper";
 import { useProgress } from "@/context/ProgressContext";
 
 interface LessonBottomNavigationProps {
@@ -650,7 +650,10 @@ export default function LessonBottomNavigation({ pathname }: LessonBottomNavigat
           {/* TAB 2: PREV */}
           {prevHref ? (
             <button
-              onClick={() => { window.location.href = prevHref!; }}
+              onClick={async () => {
+                await triggerNavigationAd();
+                window.location.href = prevHref!;
+              }}
               className="relative flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all duration-200 active:scale-90 text-[#04AA6D] hover:text-white font-bold cursor-pointer"
             >
               <ChevronLeft size={18} className="stroke-[2.5] text-[#04AA6D]" />
@@ -688,8 +691,9 @@ export default function LessonBottomNavigation({ pathname }: LessonBottomNavigat
           {/* TAB 4: NEXT */}
           {nextHref ? (
             <button
-              onClick={() => {
+              onClick={async () => {
                 if (currentSlug) markCompleted(currentSlug);
+                await triggerNavigationAd();
                 window.location.href = nextHref!;
               }}
               className="relative flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all duration-200 active:scale-90 text-[#04AA6D] hover:text-white font-bold cursor-pointer"

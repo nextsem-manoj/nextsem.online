@@ -26,6 +26,7 @@ const SUBJECT_TABS = [
   { id: "react", label: "REACT", href: "/book/p4-1-jsx", match: (p: string) => p.includes("p4-") },
   { id: "backend", label: "NODE.JS", href: "/book/p5-1-node", match: (p: string) => p.includes("p5-") },
   { id: "cli", label: "WINDOWS CLI", href: "/cli", match: (p: string) => p.startsWith("/cli") },
+  { id: "batch", label: "BATCH FILE", href: "/batch", match: (p: string) => p.startsWith("/batch") },
   { id: "git", label: "GIT", href: "/git", match: (p: string) => p.startsWith("/git") },
   { id: "curriculum", label: "CURRICULUM", href: "/curriculum", match: (p: string) => p.startsWith("/curriculum") }
 ];

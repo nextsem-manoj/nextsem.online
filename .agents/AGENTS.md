@@ -1,6 +1,7 @@
 # Project-Scoped Rules
 
 - Do not make or compile native APK or AAB files (e.g. running Gradle assembleDebug or bundleRelease) for the Android app unless the user explicitly requests it.
+- **Proactive Task & Roadmap Orientation**: At the beginning of every session or whenever the user asks for status, inspect `docs/adsense_admob_approval_roadmap.md` & `docs/roadmap/task.md`, remind the user of their exact next task, and keep development aligned with the revenue goals in `revenue-model/team-and-planning.md`. The user can also run `npm run status` or `npm run task` in the terminal anytime to view their live project dashboard!
 - **Ad Platform Hybrid Strategy**: Always show Google AdSense ads only on web platform builds, and native Google AdMob ads only on native mobile app builds. Check `Capacitor.isNativePlatform()` to dynamically toggle and display the correct ad units.
 - **App Update Notification Strategy**: Always display new feature additions and app updates on the Home page. Use clean, animated app-start modal alerts or banners that describe the changes and provide direct click-to-navigate links so users can instantly check out the new features.
 - **Proactive Execution / Command Authorization**: Always proceed with command execution, verification runs (e.g. `npm run lint`, `npm test`), and workspace file changes proactively. Avoid asking for manual permission or approval prompts for these actions since the user has authorized an "accept all" policy from their side.
@@ -22,7 +23,10 @@
   * **Day 10**: Build sandbox static portfolio subdomain publishing backend.
   * Keep track of this progress inside `docs/roadmap/task.md` in the workspace directory.
 
-- **Single Stream Developer Lesson Template (PERMANENT RULE - ALL CURRENT AND FUTURE LESSONS)**: Every lesson created for this project (HTML, CLI, or any future subject) MUST follow this simplified, clean standard format:
+- **Strict White Text & Emerald Green Link Styling Standard (PERMANENT RULE)**: Across all current and future pages, components, and lesson templates:
+  1. **Text Color**: All body text, lesson headings (H1, H2, H3), titles, and paragraphs MUST render strictly in high-contrast pure white (`text-white` / `#ffffff` or `text-slate-100`).
+  2. **Link Color**: All hyperlinks, internal navigation anchors, command bullet links, and reference URLs MUST render strictly in vibrant emerald green (`text-[#04AA6D] hover:text-[#039861] underline decoration-[#04AA6D] font-semibold`).
+  3. **Cookie Agreement Button**: The "Accept All & Continue" cookie consent button MUST render in simple white text with a solid black background (`bg-black text-white hover:bg-slate-900 border border-white/20 font-bold`).
   1. **Single-Stream Clean Lesson Content**: Primary, high-quality, visual English developer content. Do NOT include or require multiple language variants (English/Hinglish/Hindi) or Kid vs Pro complexity mode toggles.
   2. **Interactive MCQ Exercise**: Standard `{ question, options, correctAnswer, hint }` exercise block for knowledge checks.
   3. **Dashboard Back Link**: All lesson pages must include a header link back to their subject dashboard (e.g. `/html`, `/cli`).
@@ -30,3 +34,13 @@
   5. **AdMob/AdSense PDF Download**: Each lesson must include a "Download Lesson PDF" option.
   6. **Beginner-Friendly Full Stack Web Developer Focus**: 100% focused on pure Full Stack Web Developer pathways (HTML, CSS, JavaScript, React, Node.js, Express, Databases, Git, 🪟 Windows CMD CLI, and Cloud Deployment).
 - **Exclusion of Non-Coding Office Software**: Do not include or feature MS Word, MS Excel, PowerPoint, Google Docs, email writing, professional email etiquette, or resume writing topics. Keep all content strictly focused on software engineering and web development.
+- **Mobile & Desktop Unified Optimization Standard**: Always design, build, and optimize features for seamless, high-performance compatibility across both Mobile and Desktop viewports. Use responsive design standards, adaptive layouts, touch/mouse friendly interactions, and optimal platform-specific decisions without compromising either experience.
+- **Deployment Safety Directive**: Never deploy to production (e.g. running `npm run deploy:prod` or `firebase deploy`) unless the user explicitly requests or instructs a deployment.
+- **Exclusion of Ad Banners on Utility & Compliance Pages**: Do not place or render AdSense/AdMob banner containers on contact (`/contact`), privacy policy (`/privacy`), terms of service (`/terms`), or about (`/about`) pages. Keep all utility and legal policy pages 100% clean and ad-free.
+- **Consistent Standard Footer Rule**: Always use the exact standard front page footer on all standalone project pages, subject dashboards, and lesson pages (`Nextsem Academy • Complete Free Dev Curriculum` along with `Privacy Policy`, `Terms of Service`, `Contact Support`, `About Us`, and `XML Sitemap` links).
+- **Complete Code Standard in Editor Windows**: Always write complete, fully functional HTML, CSS, JavaScript, and other code tags inside the VS Code editor windows and lesson code blocks instead of using truncated or partial placeholders.
+
+
+
+
+

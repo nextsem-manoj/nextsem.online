@@ -38,7 +38,7 @@ export default function PaginatedSections({
       try {
         // Prepare Rewarded Video Ad
         await AdMob.prepareRewardVideoAd({
-          adId: 'ca-app-pub-4242865347895866/5641573985', // Production AdMob Rewarded Ad ID
+          adId: 'ca-app-pub-5947565211927754/3747294963', // Production AdMob Rewarded Ad ID
           isTesting: false
         });
 

@@ -12,6 +12,7 @@ import ShareButton from "./ShareButton";
 import { saveLastLesson } from "@/lib/userProgressSync";
 import { auth } from "@/lib/firebase";
 import { useProgress } from "../context/ProgressContext";
+import { triggerNavigationAd } from "@/lib/admobHelper";
 
 export interface UniversalScreenshot {
   src: string;
@@ -676,6 +677,9 @@ Execution successful! Output verified on Windows 11 Pro x86_64.
         {prevLesson ? (
           <Link
             href={`${subjectDashboardUrl}/${prevLesson.slug}`}
+            onClick={async () => {
+              await triggerNavigationAd();
+            }}
             className="px-5 py-2.5 bg-[#04AA6D] hover:bg-[#039861] text-white rounded-lg text-xs font-black uppercase tracking-wider transition-all flex items-center gap-1.5 shadow-md shadow-[#04AA6D]/20 cursor-pointer"
           >
             <ChevronLeft size={16} className="stroke-[3]" />
@@ -686,6 +690,9 @@ Execution successful! Output verified on Windows 11 Pro x86_64.
         {nextLesson ? (
           <Link
             href={`${subjectDashboardUrl}/${nextLesson.slug}`}
+            onClick={async () => {
+              await triggerNavigationAd();
+            }}
             className="px-5 py-2.5 bg-[#04AA6D] hover:bg-[#039861] text-white rounded-lg text-xs font-black uppercase tracking-wider transition-all flex items-center gap-1.5 shadow-md shadow-[#04AA6D]/20 cursor-pointer"
           >
             <span>Next Lesson</span>

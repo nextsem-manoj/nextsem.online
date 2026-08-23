@@ -46,3 +46,7 @@ firebase-debug.log*
 
 # Gradle cache
 .gradle_user_home/
+
+# turbo
+.turbo/
+

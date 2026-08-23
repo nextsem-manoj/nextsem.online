@@ -7,24 +7,79 @@
   --foreground: #ffffff;
 }
 
+.dark {
+  --background: #17181c;
+  --foreground: #ffffff;
+}
+
 html, body {
-  background-color: #17181c !important;
-  color: #ffffff;
+  background-color: var(--background);
+  color: var(--foreground);
   padding: 0 !important;
   margin: 0 !important;
   touch-action: manipulation;
   -webkit-tap-highlight-color: rgba(4, 170, 109, 0.2);
 }
 
-a, button {
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: rgba(4, 170, 109, 0.2);
+/* AdSense Clean Non-Placeholder Enforcement */
+ins.adsbygoogle,
+iframe[name^="google_ads_iframe"] {
+  background-color: transparent !important;
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+ins.adsbygoogle[data-ad-status="unfilled"],
+ins.adsbygoogle:empty {
+  display: none !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  opacity: 0 !important;
+}
+
+/* Custom Sleek VS Code Dark Scrollbar Rules */
+.vscode-editor-scroll::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.vscode-editor-scroll::-webkit-scrollbar-track {
+  background: #1e1e1e;
+  border-radius: 4px;
+}
+.vscode-editor-scroll::-webkit-scrollbar-thumb {
+  background: #333333;
+  border-radius: 4px;
+}
+.vscode-editor-scroll::-webkit-scrollbar-thumb:hover {
+  background: #04AA6D;
+}
+
+/* Hide scrollbars when requested */
+.scrollbar-none::-webkit-scrollbar {
+  display: none !important;
+}
+.scrollbar-none {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
 }
 
 a:active, button:active {
   transform: scale(0.96);
   opacity: 0.85;
   transition: transform 0.05s ease-out, opacity 0.05s ease-out;
+}
+
+/* Clean Default Standard Web Browser Text Selection */
+::selection {
+  background-color: #0284c7 !important;
+  color: #ffffff !important;
+}
+::-moz-selection {
+  background-color: #0284c7 !important;
+  color: #ffffff !important;
 }
 
 @theme inline {

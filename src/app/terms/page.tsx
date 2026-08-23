@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import React from 'react';
 import Link from 'next/link';
 import { ArrowLeft, Scale } from 'lucide-react';
-import AdSenseBanner from "@/components/AdSenseBanner";
 
 export const metadata: Metadata = {
   title: "Terms & Conditions | Nextsem Academy",
@@ -47,8 +46,6 @@ export default function TermsPage() {
 
         <hr className="border-slate-850" />
 
-        <AdSenseBanner />
-
         <div className="space-y-4 text-xs md:text-sm text-slate-300 leading-relaxed font-medium">
           <p>
             Welcome to Nextsem Academy. These terms and conditions outline the rules and regulations for the use of Nextsem Academy&apos;s Website, located at https://nextsem.online.
@@ -62,8 +59,6 @@ export default function TermsPage() {
           <p>
             Unless otherwise stated, Nextsem Academy and/or its licensors own the intellectual property rights for all material on Nextsem Academy. All intellectual property rights are reserved. You may access this from Nextsem Academy for your own personal use subjected to restrictions set in these terms and conditions.
           </p>
-
-          <AdSenseBanner />
 
           <h3 className="text-base font-black text-white pt-2">User Accounts</h3>
           <p>
@@ -79,11 +74,10 @@ export default function TermsPage() {
           <p>
             To the maximum extent permitted by applicable law, we exclude all representations, warranties and conditions relating to our website and the use of this website. Nextsem Academy makes no warranties regarding curriculum completeness or job guarantees.
           </p>
-
-          <AdSenseBanner />
         </div>
 
       </div>
     </div>
   );
 }
+

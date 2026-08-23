@@ -16,7 +16,7 @@ export default function MarkCompleteButton({ chapterId, hasAssignment }: { chapt
   const prepareAd = async () => {
     try {
       await AdMob.prepareInterstitial({
-        adId: 'ca-app-pub-4242865347895866/7073253343', // Production AdMob Interstitial ID
+        adId: 'ca-app-pub-5947565211927754/8710374859', // Production AdMob Interstitial ID
         isTesting: false
       });
     } catch (e) {

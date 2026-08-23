@@ -14,6 +14,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 <!-- END:nextjs-agent-rules -->
 
 # Project-Scoped Rules
+- **Proactive Task & Roadmap Orientation**: At the beginning of every session or whenever the user asks for status, inspect `docs/adsense_admob_approval_roadmap.md` & `docs/roadmap/task.md`, remind the user of their exact next task, and keep development aligned with the revenue goals in `revenue-model/team-and-planning.md`. The user can also run `npm run status` or `npm run task` in the terminal anytime to view their live project dashboard!
 - **Curriculum Formatting Style:** Always avoid long, continuous blocks of plain text in curriculum/MDX files. Instead, rewrite them with relevant icons, emojis, bullet list highlights, descriptive GIFs/visual animations, and engaging developer jokes to keep learning highly visual, fun, and memorable.
 - **Windows Naming Style:** Whenever referring to "Windows" or "Windows 11" in the curriculum/textbook content, always accompany it with the Windows icon/emoji (e.g. ⊞ Windows or 🪟 Windows 11) to maintain standard, high-quality visual branding.
 - **Automatic Chat Transcript Archiving**: Always run `npm run save-chat` or write a custom formatting script to archive the conversation transcript under the `chat-logs/` folder before concluding any session. If the user requests a custom name, use that name (e.g. `100+ more projects for front end web developer.md`). Make sure to structure and save all chat logs dynamically for future developer references.
@@ -36,4 +37,14 @@ This version has breaking changes — APIs, conventions, and file structure may 
   4. 🪟 Windows 11 screenshots scale responsively (`w-full h-auto max-h-[450px] object-contain`) and remain touch-friendly for Lightbox zoom modal.
 - **Mobile-to-PC 1-to-1 Screenshot Standard**: All lesson templates MUST be optimized for students reading on mobile phones while practicing live on their Windows 11 PC. The terminal execution output text inside the lesson code box MUST BE 100% IDENTICAL line-by-line to actual Windows Command Prompt output on a real PC. Every lesson MUST include a 1-to-1 matching 🪟 Windows 11 screenshot with touch-friendly Lightbox zoom so students can verify their PC terminal line-by-line against their mobile screen.
 - **Strict Black & White or Emerald Green Icon/Image Style Standard**: All icons, badges, visual illustrations, and UI graphics across all projects MUST be strictly rendered in Black & White (`#ffffff` / `#000000` / `#94a3b8`) or Emerald Green (`#04AA6D` / `#10b981`). Never use multi-color, fancy, or rainbow colored icons/images.
+- **Mobile & Desktop Unified Optimization Standard**: Always design, build, and optimize features for seamless, high-performance compatibility across both Mobile and Desktop viewports. Use responsive design standards, adaptive layouts, touch/mouse friendly interactions, and optimal platform-specific decisions without compromising either experience.
+- **Deployment Safety Directive**: Never deploy to production (e.g. running `npm run deploy:prod` or `firebase deploy`) unless the user explicitly requests or instructs a deployment.
+- **Exclusion of Ad Banners on Utility & Compliance Pages**: Do not place or render AdSense/AdMob banner containers on contact (`/contact`), privacy policy (`/privacy`), terms of service (`/terms`), or about (`/about`) pages. Keep all utility and legal policy pages 100% clean and ad-free.
+- **Consistent Standard Footer Rule**: Always use the exact standard front page footer on all standalone project pages, subject dashboards, and lesson pages (`Nextsem Academy • Complete Free Dev Curriculum` along with `Privacy Policy`, `Terms of Service`, `Contact Support`, `About Us`, and `XML Sitemap` links).
+- **Complete Code Standard in Editor Windows**: Always write complete, fully functional HTML, CSS, JavaScript, and other code tags inside the VS Code editor windows and lesson code blocks instead of using truncated or partial placeholders.
+
+
+
+
+
 

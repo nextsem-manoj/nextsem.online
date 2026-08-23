@@ -6,26 +6,31 @@ import "./globals.css";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const lora = Lora({
   variable: "--font-lora",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const outfit = Outfit({
   variable: "--font-outfit",
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const viewport: Viewport = {
@@ -112,7 +117,11 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+  other: {
+    "google-adsense-account": "ca-pub-5947565211927754",
+  },
 };
+
 
 
 import Script from "next/script";
@@ -162,12 +171,21 @@ export default function RootLayout({
           strategy="afterInteractive"
         />
 
+        <Script
+          id="google-adsense"
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5947565211927754"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
+
+
 
 
 
         <ThemeProvider
           attribute="class"
-          themes={["dark"]}
+          themes={["light", "dark"]}
           defaultTheme="dark"
           forcedTheme="dark"
           enableSystem={false}

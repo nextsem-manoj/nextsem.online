@@ -291,7 +291,7 @@ export default function FullStackRoadmap() {
           </span>
         </h2>
         <p className="mt-3 text-slate-400 text-sm max-w-xl mx-auto leading-relaxed">
-          48 subjects · ~3,750 lessons · Hindi + Hinglish + English · Kid &amp; Pro mode
+          48 subjects · 300+ interactive lessons · Single-Stream High-Visual Developer Standard
         </p>
 
         {/* Global progress bar */}

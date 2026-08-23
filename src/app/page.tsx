@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import CurriculumClient from './curriculum/CurriculumClient';
+import HomeClient from './HomeClient';
 
 export const metadata: Metadata = {
   title: "Nextsem Academy | Complete Free Dev Curriculum",
@@ -18,5 +18,5 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  return <CurriculumClient />;
+  return <HomeClient />;
 }

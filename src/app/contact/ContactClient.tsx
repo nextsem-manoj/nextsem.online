@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { ArrowLeft, Mail, MapPin, Send, HelpCircle } from 'lucide-react';
 import { db } from '../../lib/firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
-import AdSenseBanner from "../../components/AdSenseBanner";
+
 
 export default function ContactClient() {
   const [submitted, setSubmitted] = useState(false);
@@ -50,10 +50,6 @@ export default function ContactClient() {
         </Link>
       </div>
 
-      <div className="max-w-4xl mx-auto px-6 pt-6 shrink-0">
-        <AdSenseBanner />
-      </div>
-
       <div className="max-w-4xl mx-auto px-6 pt-6 grid grid-cols-1 md:grid-cols-2 gap-10 text-left">
         
         {/* Contact Info & Details */}
@@ -91,8 +87,6 @@ export default function ContactClient() {
               </div>
             </div>
           </div>
-
-          <AdSenseBanner />
 
           {/* FAQ Preview */}
           <div className="p-4 bg-slate-900/30 border border-slate-850 rounded-2xl space-y-3">
@@ -181,10 +175,7 @@ export default function ContactClient() {
         </div>
 
       </div>
-
-      <div className="max-w-4xl mx-auto px-6 pb-6 shrink-0">
-        <AdSenseBanner />
-      </div>
     </div>
   );
 }
+
