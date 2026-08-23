@@ -199,11 +199,21 @@ export default function HomeClient() {
           
           {/* Left Side Branding and Links */}
           <div className="flex items-center gap-4 lg:gap-6">
-            <Link href="/" className="flex items-center gap-2 select-none group">
-              <img src="/logo.svg" alt="Nextsem Logo" className="w-8 h-8 rounded-lg border border-emerald-500/20 group-hover:scale-105 transition-transform select-none" />
-              <span className="font-black text-base tracking-tight text-slate-800 dark:text-white uppercase">
-                Nextsem<span className="text-[#04AA6D] lowercase font-bold">.online</span>
-              </span>
+            <Link href="/" className="flex items-center gap-2.5 select-none group">
+              <div className="w-8 h-8 rounded-lg bg-[#0c1328] border border-[#04AA6D]/50 flex items-center justify-center shadow-[0_0_10px_rgba(4,170,109,0.3)] group-hover:border-[#04AA6D] transition-all">
+                <svg viewBox="0 0 160 110" className="h-5 w-auto overflow-visible">
+                  <path d="M 15 95 V 15 L 65 95 V 15" fill="none" stroke="#04AA6D" strokeWidth="22" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M 145 32 C 145 15, 95 15, 95 38 C 95 60, 145 60, 145 82 C 145 95, 95 95, 95 82" fill="none" stroke="#FFFFFF" strokeWidth="22" strokeLinecap="round" />
+                </svg>
+              </div>
+              <div className="flex flex-col justify-center text-left">
+                <span className="font-black text-sm tracking-tight text-slate-800 dark:text-white uppercase leading-none">
+                  Nextsem<span className="text-[#04AA6D] lowercase font-bold">.online</span>
+                </span>
+                <span className="text-[8px] font-extrabold text-[#04AA6D] tracking-wider uppercase font-mono mt-0.5 leading-none">
+                  Full Stack Web Developer
+                </span>
+              </div>
             </Link>
 
             {/* Desktop Navbar Links */}
@@ -468,10 +478,15 @@ export default function HomeClient() {
         <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#04AA6D]/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="max-w-5xl mx-auto text-center relative z-10 space-y-6">
-          {/* Pathway Pill Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900/90 border border-emerald-500/30 text-emerald-400 text-xs font-black uppercase tracking-wider shadow-lg">
-            <Sparkles size={14} className="text-[#04AA6D] animate-pulse" />
-            <span>100% Free Software Engineering Pathway • Zero Paywalls</span>
+          {/* Authentic Developer Platform Badge */}
+          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#0c1328] border border-slate-800 text-slate-300 text-xs font-semibold shadow-md hover:border-emerald-500/40 transition-colors">
+            <span className="flex h-2 w-2 relative">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#04AA6D] opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#04AA6D]"></span>
+            </span>
+            <span className="text-white font-bold tracking-tight">Nextsem Academy</span>
+            <span className="text-slate-600 font-bold">•</span>
+            <span className="text-slate-300">Full Stack Web Development Curriculum</span>
           </div>
 
           {/* Master Heading */}
@@ -484,50 +499,160 @@ export default function HomeClient() {
             Master full-stack web development step-by-step on your Windows PC. Start by setting up Visual Studio Code & HTML structure, progress through modern CSS layouts and JavaScript logic, build full-stack React and Node.js applications, manage databases, and deploy real-world projects to the cloud.
           </p>
 
-          {/* Action CTAs */}
-          <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+          {/* Action CTA: Single Prominent Start Learning Button */}
+          <div className="flex items-center justify-center pt-3">
             <Link
               href="/html/learn-html-web-free-lessons-what-is-the-internet"
-              className="px-8 py-4 bg-[#04AA6D] hover:bg-[#039861] text-white font-black text-sm sm:text-base uppercase tracking-wider rounded-xl shadow-xl shadow-[#04AA6D]/25 transition-all transform hover:-translate-y-0.5 flex items-center gap-2.5 cursor-pointer"
+              className="px-10 py-4.5 bg-[#04AA6D] hover:bg-[#039861] text-white font-black text-sm sm:text-base uppercase tracking-wider rounded-2xl shadow-2xl shadow-[#04AA6D]/30 transition-all transform hover:-translate-y-1 hover:scale-105 flex items-center gap-3 cursor-pointer border border-emerald-400/40"
             >
-              <Play size={18} className="fill-white" />
+              <Play size={20} className="fill-white" />
               <span>Start Learning »</span>
-            </Link>
-            <Link
-              href="/cli"
-              className="px-6 py-4 bg-[#0c1328] hover:bg-slate-800 text-white border border-slate-700 hover:border-emerald-500/50 font-extrabold text-xs sm:text-sm uppercase tracking-wider rounded-xl shadow-md transition-all flex items-center gap-2 cursor-pointer"
-            >
-              <Terminal size={17} className="text-emerald-400" />
-              <span>Developer Terminal & Setup »</span>
-            </Link>
-            <Link
-              href="/full-stack-web-development-roadmap"
-              className="px-6 py-3.5 bg-gradient-to-r from-amber-600 to-cyan-600 hover:from-amber-500 hover:to-cyan-500 text-white font-extrabold text-xs sm:text-sm uppercase tracking-wider rounded-xl shadow-lg transition-all flex items-center gap-2 cursor-pointer"
-            >
-              <Rocket size={17} />
-              <span>Full Stack 2026 Roadmap »</span>
             </Link>
           </div>
 
-          {/* Live Windows CMD Terminal Preview Box */}
-          <div className="max-w-2xl mx-auto mt-8 text-left rounded-2xl border border-slate-800 bg-[#0c1328] shadow-2xl overflow-hidden">
-            <div className="flex items-center justify-between px-4 py-2.5 bg-slate-900 border-b border-slate-800">
-              <div className="flex items-center gap-2">
-                <span className="w-3 h-3 rounded-full bg-red-500/80 inline-block" />
-                <span className="w-3 h-3 rounded-full bg-amber-500/80 inline-block" />
-                <span className="w-3 h-3 rounded-full bg-emerald-500/80 inline-block" />
-                <span className="text-xs font-mono font-bold text-slate-400 ml-2">🪟 Windows 11 Command Prompt — Project Workspace</span>
+          {/* Actual 🪟 Windows 11 Visual Studio Code Editor Window */}
+          <div className="max-w-3xl mx-auto mt-10 text-left rounded-xl border border-slate-700/80 bg-[#1e1e1e] shadow-[0_20px_50px_rgba(0,0,0,0.8)] overflow-hidden font-sans">
+            {/* 1. Windows 11 VS Code Title Bar */}
+            <div className="h-8 bg-[#181818] border-b border-[#2b2b2b] flex items-center justify-between px-3 select-none">
+              {/* Left: VS Code Icon & Menu Items */}
+              <div className="flex items-center gap-3 text-xs text-slate-300">
+                {/* VS Code Blue Icon */}
+                <svg viewBox="0 0 100 100" className="w-3.5 h-3.5 fill-[#007ACC]" aria-label="Visual Studio Code">
+                  <path d="M72.9 96.6c2.4 1.3 5.4.9 7.4-.9l15.8-14.7c2.1-2 3.3-4.8 3.3-7.7V26.7c0-2.9-1.2-5.7-3.3-7.7L80.3 4.3c-2-1.8-5-2.2-7.4-.9L24.4 34.6 9.7 23.2c-1.8-1.4-4.3-1.4-6.1 0-1.8 1.4-2.6 3.7-2.1 5.9l8.6 39.8-8.6 39.8c-.5 2.2.3 4.5 2.1 5.9 1.8 1.4 4.3 1.4 6.1 0l14.7-11.4 48.5 31.8zM28.4 50l40.1-29.8v59.6L28.4 50z" />
+                </svg>
+                {/* Windows VS Code Standard Menu Bar */}
+                <div className="hidden sm:flex items-center gap-2.5 text-[11px] text-[#cccccc] font-normal">
+                  <span className="hover:bg-[#333333] px-1.5 py-0.5 rounded cursor-default">File</span>
+                  <span className="hover:bg-[#333333] px-1.5 py-0.5 rounded cursor-default">Edit</span>
+                  <span className="hover:bg-[#333333] px-1.5 py-0.5 rounded cursor-default">Selection</span>
+                  <span className="hover:bg-[#333333] px-1.5 py-0.5 rounded cursor-default">View</span>
+                  <span className="hover:bg-[#333333] px-1.5 py-0.5 rounded cursor-default">Go</span>
+                  <span className="hover:bg-[#333333] px-1.5 py-0.5 rounded cursor-default">Run</span>
+                  <span className="hover:bg-[#333333] px-1.5 py-0.5 rounded cursor-default">Terminal</span>
+                  <span className="hover:bg-[#333333] px-1.5 py-0.5 rounded cursor-default">Help</span>
+                </div>
               </div>
-              <span className="text-[10px] font-mono text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800">LIVE CMD</span>
+
+              {/* Center: File & Project Workspace Name */}
+              <div className="text-[11px] text-slate-400 font-mono hidden md:block truncate max-w-xs">
+                index.html - nextsem-fullstack - Visual Studio Code
+              </div>
+
+              {/* Right: Windows 11 Standard Caption Controls (Minimize, Maximize, Close) */}
+              <div className="flex items-center h-full">
+                <button className="h-8 w-10 hover:bg-[#333333] flex items-center justify-center text-slate-400 hover:text-white transition-colors">
+                  <span className="w-2.5 h-[1px] bg-current inline-block" />
+                </button>
+                <button className="h-8 w-10 hover:bg-[#333333] flex items-center justify-center text-slate-400 hover:text-white transition-colors">
+                  <span className="w-2.5 h-2.5 border border-current inline-block" />
+                </button>
+                <button className="h-8 w-11 hover:bg-[#e81123] flex items-center justify-center text-slate-400 hover:text-white transition-colors">
+                  <span className="text-xs">✕</span>
+                </button>
+              </div>
             </div>
-            <div className="p-4 font-mono text-xs text-slate-300 space-y-1.5 select-all overflow-x-auto">
-              <p className="text-slate-400">Microsoft Windows [Version 10.0.22631.4169]</p>
-              <p className="text-slate-400">(c) Microsoft Corporation. All rights reserved.</p>
-              <p className="pt-1"><span className="text-[#04AA6D]">C:\Users\Developer&gt;</span> mkdir nextsem-portfolio</p>
-              <p><span className="text-[#04AA6D]">C:\Users\Developer&gt;</span> cd nextsem-portfolio</p>
-              <p><span className="text-[#04AA6D]">C:\Users\Developer\nextsem-portfolio&gt;</span> echo ^&lt;h1^&gt;Hello Full Stack^&lt;/h1^&gt; &gt; index.html</p>
-              <p><span className="text-[#04AA6D]">C:\Users\Developer\nextsem-portfolio&gt;</span> code .</p>
-              <p className="text-emerald-400 font-bold">[SUCCESS] Workspace opened in VS Code. Ready to build!</p>
+
+            {/* 2. VS Code Main Layout: Left Activity Bar + Editor Area */}
+            <div className="flex bg-[#1e1e1e]">
+              {/* Left Vertical Activity Bar (Standard VS Code width) */}
+              <div className="w-10 sm:w-11 bg-[#181818] border-r border-[#2b2b2b] flex flex-col items-center py-2 gap-4 text-slate-400 select-none">
+                {/* Active Explorer Icon */}
+                <div className="p-1.5 rounded text-white bg-[#2b2b2b]/60 border-l-2 border-[#007ACC] cursor-pointer" title="Explorer">
+                  <Layers size={16} className="text-[#04AA6D]" />
+                </div>
+                <div className="p-1.5 rounded hover:text-white cursor-pointer" title="Search">
+                  <Search size={16} />
+                </div>
+                <div className="p-1.5 rounded hover:text-white cursor-pointer" title="Source Control (Git)">
+                  <Globe size={16} />
+                </div>
+                <div className="p-1.5 rounded hover:text-white cursor-pointer" title="Extensions">
+                  <Cpu size={16} />
+                </div>
+              </div>
+
+              {/* Center & Right: Editor Tabs + Code Area */}
+              <div className="flex-1 flex flex-col min-w-0">
+                {/* Editor Tab Bar */}
+                <div className="h-8 bg-[#181818] border-b border-[#2b2b2b] flex items-center justify-between overflow-x-auto select-none">
+                  <div className="flex items-center h-full">
+                    {/* Active index.html Tab */}
+                    <div className="h-full px-3.5 bg-[#1e1e1e] border-t-2 border-[#04AA6D] border-r border-[#2b2b2b] flex items-center gap-2 text-xs font-mono text-white font-bold cursor-default">
+                      <span className="text-[#e44d26] font-extrabold text-[11px]">&lt;&gt;</span>
+                      <span>index.html</span>
+                      <span className="text-[10px] text-slate-500 hover:text-white ml-1">✕</span>
+                    </div>
+                    {/* Inactive styles.css Tab */}
+                    <div className="h-full px-3.5 bg-[#181818] hover:bg-[#1f1f1f] border-r border-[#2b2b2b] flex items-center gap-2 text-xs font-mono text-slate-400 cursor-pointer hidden sm:flex">
+                      <span className="text-[#264de4] font-extrabold text-[11px]">#</span>
+                      <span>styles.css</span>
+                    </div>
+                    {/* Inactive app.js Tab */}
+                    <div className="h-full px-3.5 bg-[#181818] hover:bg-[#1f1f1f] border-r border-[#2b2b2b] flex items-center gap-2 text-xs font-mono text-slate-400 cursor-pointer hidden sm:flex">
+                      <span className="text-[#f7df1e] font-extrabold text-[11px]">JS</span>
+                      <span>app.js</span>
+                    </div>
+                  </div>
+
+                  {/* Breadcrumb / Status Badge */}
+                  <div className="pr-3 text-[10px] font-mono text-emerald-400 flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#04AA6D] animate-pulse" />
+                    <span>🪟 Windows 11 Workstation</span>
+                  </div>
+                </div>
+
+                {/* Code Body with Line Numbers */}
+                <div className="p-4 bg-[#1e1e1e] font-mono text-xs text-slate-200 select-all overflow-x-auto leading-relaxed flex">
+                  {/* Line Numbers Column */}
+                  <div className="text-slate-600 select-none pr-4 text-right space-y-1 font-mono text-xs w-6 border-r border-[#2b2b2b] mr-4">
+                    <div>1</div>
+                    <div>2</div>
+                    <div>3</div>
+                    <div>4</div>
+                    <div>5</div>
+                    <div>6</div>
+                    <div>7</div>
+                    <div>8</div>
+                    <div>9</div>
+                    <div>10</div>
+                    <div>11</div>
+                  </div>
+
+                  {/* Code Syntax Highlighted Lines */}
+                  <div className="space-y-1 text-slate-300">
+                    <p><span className="text-[#808080]">&lt;!-- 🚀 Nextsem Full Stack Web Developer Blueprint --&gt;</span></p>
+                    <p><span className="text-[#569cd6]">&lt;!DOCTYPE</span> <span className="text-[#9cdcfe]">html</span><span className="text-[#569cd6]">&gt;</span></p>
+                    <p><span className="text-[#569cd6]">&lt;html</span> <span className="text-[#9cdcfe]">lang</span>=<span className="text-[#ce9178]">&quot;en&quot;</span><span className="text-[#569cd6]">&gt;</span></p>
+                    <p className="pl-3"><span className="text-[#569cd6]">&lt;head&gt;</span></p>
+                    <p className="pl-6"><span className="text-[#569cd6]">&lt;title&gt;</span><span className="text-white font-bold">Job-Ready Full Stack Developer</span><span className="text-[#569cd6]">&lt;/title&gt;</span></p>
+                    <p className="pl-6"><span className="text-[#569cd6]">&lt;link</span> <span className="text-[#9cdcfe]">rel</span>=<span className="text-[#ce9178]">&quot;stylesheet&quot;</span> <span className="text-[#9cdcfe]">href</span>=<span className="text-[#ce9178]">&quot;styles.css&quot;</span><span className="text-[#569cd6]">&gt;</span></p>
+                    <p className="pl-3"><span className="text-[#569cd6]">&lt;/head&gt;</span></p>
+                    <p className="pl-3"><span className="text-[#569cd6]">&lt;body&gt;</span></p>
+                    <p className="pl-6"><span className="text-[#569cd6]">&lt;h1</span> <span className="text-[#9cdcfe]">class</span>=<span className="text-[#ce9178]">&quot;text-emerald-400&quot;</span><span className="text-[#569cd6]">&gt;</span><span className="text-white font-bold">Hello World! Building Full Stack Web Apps 🚀</span><span className="text-[#569cd6]">&lt;/h1&gt;</span></p>
+                    <p className="pl-6"><span className="text-[#569cd6]">&lt;script</span> <span className="text-[#9cdcfe]">src</span>=<span className="text-[#ce9178]">&quot;app.js&quot;</span><span className="text-[#569cd6]">&gt;&lt;/script&gt;</span></p>
+                    <p className="pl-3"><span className="text-[#569cd6]">&lt;/body&gt;</span></p>
+                    <p><span className="text-[#569cd6]">&lt;/html&gt;</span></p>
+                  </div>
+                </div>
+
+                {/* 3. VS Code Bottom Status Bar (Real VS Code Blue #007acc) */}
+                <div className="h-6 bg-[#007acc] text-white flex items-center justify-between px-3 text-[11px] font-mono select-none">
+                  <div className="flex items-center gap-3">
+                    <span className="flex items-center gap-1 font-bold">
+                      <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                      <span>Live: 5500</span>
+                    </span>
+                    <span className="hidden sm:inline opacity-80">main*</span>
+                    <span className="hidden sm:inline opacity-80">0 ⚠ 0</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className="hidden sm:inline">UTF-8</span>
+                    <span className="hidden sm:inline">CRLF</span>
+                    <span className="font-bold">HTML</span>
+                    <span className="bg-black/20 px-1.5 py-0.2 rounded text-[10px]">Prettier</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -768,634 +893,72 @@ export default function HomeClient() {
       </section>
 
       {/* ── FRONT PAGE CAROUSEL 2: STRUCTURED SUBJECT COURSES ── */}
-      <section className="py-8 px-4 md:px-8 max-w-[1400px] mx-auto w-full border-t border-slate-800/80">
-        <CourseCarouselSection />
-      </section>
-
-      {/* ── PLATFORM PEDAGOGY PILLARS (WHY LEARN HERE?) ── */}
+        {/* ── CORE FULL STACK DEVELOPER PILLARS ── */}
       <section className="py-16 px-4 md:px-8 max-w-[1400px] mx-auto w-full border-t border-slate-800/80">
         <div className="text-center space-y-2 mb-10">
           <span className="px-3.5 py-1 rounded-full bg-[#04AA6D]/15 text-[#04AA6D] border border-[#04AA6D]/30 text-[10px] font-black uppercase tracking-widest inline-flex items-center gap-1.5">
             <ShieldCheck size={12} />
-            <span>Developer-First Platform Standards</span>
+            <span>Full Stack Engineering Excellence</span>
           </span>
           <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Built for Real-World Software Engineering
+            Everything You Need to Build &amp; Deploy Full Stack Web Apps
           </h2>
           <p className="text-xs sm:text-sm text-slate-300 max-w-2xl mx-auto leading-relaxed">
-            Every feature on Nextsem Academy is engineered to give aspiring developers the highest-efficiency learning experience without distractions.
+            From your first HTML tag on Windows 11 to production server deployment — structured, step-by-step training with complete code standards and zero fluff.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="p-6 bg-[#0c1328] border border-slate-800 rounded-2xl shadow-xl space-y-3">
-            <div className="w-10 h-10 rounded-xl bg-[#04AA6D]/20 text-[#04AA6D] flex items-center justify-center font-black">
-              <Terminal size={22} />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* Pillar 1: Frontend Architecture */}
+          <div className="p-6 bg-[#0c1328] border border-slate-800 rounded-2xl space-y-3 hover:border-emerald-500/50 transition-colors shadow-xl">
+            <div className="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-extrabold text-lg border border-emerald-500/30">
+              🧱
             </div>
-            <h3 className="text-lg font-extrabold text-white">1-to-1 Windows 11 Screenshots</h3>
+            <h3 className="text-sm font-extrabold text-white uppercase tracking-wider">
+              Semantic Frontend Architecture
+            </h3>
             <p className="text-xs text-slate-300 leading-relaxed">
-              Every lesson includes real Windows Command Prompt and VS Code screenshots so you can practice on your PC while verifying line-by-line against your mobile screen.
+              Master HTML5 semantic documents, CSS3 responsive layouts (Flexbox &amp; Grid), and modern JavaScript ES6+ DOM logic from scratch.
             </p>
           </div>
 
-          <div className="p-6 bg-[#0c1328] border border-slate-800 rounded-2xl shadow-xl space-y-3">
-            <div className="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-black">
-              <Zap size={22} />
+          {/* Pillar 2: React & Next.js */}
+          <div className="p-6 bg-[#0c1328] border border-slate-800 rounded-2xl space-y-3 hover:border-cyan-500/50 transition-colors shadow-xl">
+            <div className="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-extrabold text-lg border border-cyan-500/30">
+              ⚛️
             </div>
-            <h3 className="text-lg font-extrabold text-white">Zero Paywalls & Forced Sign-ups</h3>
+            <h3 className="text-sm font-extrabold text-white uppercase tracking-wider">
+              Component &amp; State Systems
+            </h3>
             <p className="text-xs text-slate-300 leading-relaxed">
-              No mandatory credit cards or gated chapters. Immediately start reading tutorials, copying terminal commands, and testing interactive simulation labs.
+              Build fast, dynamic Single Page Applications (SPAs) and Server-Side Rendered websites with React hooks and Next.js App Router.
             </p>
           </div>
 
-          <div className="p-6 bg-[#0c1328] border border-slate-800 rounded-2xl shadow-xl space-y-3">
-            <div className="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-black">
-              <Code size={22} />
+          {/* Pillar 3: Node.js & REST APIs */}
+          <div className="p-6 bg-[#0c1328] border border-slate-800 rounded-2xl space-y-3 hover:border-amber-500/50 transition-colors shadow-xl">
+            <div className="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-extrabold text-lg border border-amber-500/30">
+              🔌
             </div>
-            <h3 className="text-lg font-extrabold text-white">Complete Code Standard</h3>
+            <h3 className="text-sm font-extrabold text-white uppercase tracking-wider">
+              Backend REST APIs &amp; Auth
+            </h3>
             <p className="text-xs text-slate-300 leading-relaxed">
-              Every code example is fully complete and ready to run. We never use truncated snippets or missing tags, ensuring your code works on the very first try.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* ── COMPACT PHASE TOGGLE BANNER ── */}
-      <section className="bg-slate-900 border-y border-slate-800 py-8 px-4 text-center">
-        <div className="max-w-4xl mx-auto space-y-4">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-5 bg-[#17181c] border border-slate-800 rounded-2xl shadow-xl">
-            <div className="text-left space-y-1">
-              <h3 className="text-base font-extrabold text-white flex items-center gap-2">
-                <BookOpen size={18} className="text-[#04AA6D]" />
-                <span>Curriculum Modules & Phase Previews</span>
-              </h3>
-              <p className="text-xs text-slate-300 font-medium">
-                Explore HTML5, CSS3, JavaScript, React, Node.js, and Windows CLI subject modules.
-              </p>
-            </div>
-            <button
-              onClick={() => setShowAllPhases(!showAllPhases)}
-              className="px-5 py-2.5 bg-[#04AA6D] hover:bg-[#039861] text-white text-xs font-black uppercase tracking-wider rounded-xl transition-all shadow-md shrink-0 flex items-center gap-2 cursor-pointer"
-            >
-              <span>{showAllPhases ? "Hide Course Phases" : "View All 9 Course Phases"}</span>
-              <ChevronDown size={14} className={`transform transition-transform ${showAllPhases ? 'rotate-180' : ''}`} />
-            </button>
-          </div>
-        </div>
-      </section>
-
-      {showAllPhases && (
-        <>
-          {/* ── FULL STACK WEB DEVELOPER CAREER ROADMAP ── */}
-          <section className="bg-slate-900 py-12 px-4 border-b border-slate-800">
-            <div className="max-w-5xl mx-auto text-left space-y-6">
-              <div className="text-center space-y-2">
-                <span className="px-3.5 py-1 rounded-full bg-[#04AA6D]/15 text-[#04AA6D] border border-[#04AA6D]/30 text-[10px] font-black uppercase tracking-widest inline-flex items-center gap-1.5">
-                  <Sparkles size={12} />
-                  <span>Complete Career Path</span>
-                </span>
-                <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
-                  Full Stack Web Developer Roadmap
-                </h2>
-                <p className="text-xs sm:text-sm text-slate-300 max-w-2xl mx-auto leading-relaxed">
-                  Follow our structured, step-by-step career path to master modern web development — from basic HTML tags to full-stack software engineering.
-                </p>
-              </div>
-
-              {/* Roadmap Grid Cards */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-4">
-                
-                {/* Stage 1: Frontend Fundamentals */}
-                <div className="p-6 bg-[#16222f] border border-slate-700/60 rounded-2xl shadow-xl hover:border-[#04AA6D]/60 transition-all duration-300 group relative overflow-hidden flex flex-col justify-between">
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <span className="w-8 h-8 rounded-xl bg-[#04AA6D]/20 text-[#04AA6D] font-black text-xs flex items-center justify-center border border-[#04AA6D]/40">
-                        01
-                      </span>
-                      <span className="text-[10px] font-extrabold uppercase tracking-wider text-emerald-400 bg-emerald-950/60 border border-emerald-800 px-2.5 py-1 rounded-md">
-                        Step 1 • Foundation
-                      </span>
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-extrabold text-white group-hover:text-[#04AA6D] transition-colors">
-                        Frontend Web Fundamentals
-                      </h3>
-                      <p className="text-xs text-slate-300 mt-1 leading-relaxed">
-                        Master document structuring with HTML5, visual styling with CSS, and interactive logic with JavaScript.
-                      </p>
-                    </div>
-                    <div className="flex flex-wrap gap-1.5 pt-1">
-                      <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-xs font-mono font-bold text-slate-300">HTML5</span>
-                      <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-xs font-mono font-bold text-slate-300">CSS3</span>
-                      <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-xs font-mono font-bold text-slate-300">JavaScript ES6+</span>
-                    </div>
-                  </div>
-                  <div className="pt-6 mt-4 border-t border-slate-800/80 flex items-center justify-between gap-3">
-                    <Link
-                      href="/html"
-                      className="px-4 py-2 bg-[#04AA6D] hover:bg-[#039861] text-white font-extrabold text-xs rounded-xl shadow-md transition-all flex items-center gap-1.5 cursor-pointer"
-                    >
-                      <span>Start HTML Tutorials »</span>
-                    </Link>
-                    <Link
-                      href="/html/quiz"
-                      className="text-xs font-bold text-slate-400 hover:text-white transition-colors"
-                    >
-                      Take HTML Quiz ➔
-                    </Link>
-                  </div>
-                </div>
-
-                {/* Stage 2: Command Line & Version Control */}
-                <div className="p-6 bg-[#16222f] border border-slate-700/60 rounded-2xl shadow-xl hover:border-indigo-500/60 transition-all duration-300 group relative overflow-hidden flex flex-col justify-between">
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <span className="w-8 h-8 rounded-xl bg-indigo-500/20 text-indigo-400 font-black text-xs flex items-center justify-center border border-indigo-500/40">
-                        02
-                      </span>
-                      <span className="text-[10px] font-extrabold uppercase tracking-wider text-indigo-400 bg-indigo-950/60 border border-indigo-800 px-2.5 py-1 rounded-md">
-                        Step 2 • Workflows
-                      </span>
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-extrabold text-white group-hover:text-indigo-400 transition-colors">
-                        Command Line & Git Version Control
-                      </h3>
-                      <p className="text-xs text-slate-300 mt-1 leading-relaxed">
-                        Learn terminal commands in Windows Command Prompt and track project code versions using Git & GitHub.
-                      </p>
-                    </div>
-                    <div className="flex flex-wrap gap-1.5 pt-1">
-                      <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-xs font-mono font-bold text-slate-300">Windows CMD</span>
-                      <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-xs font-mono font-bold text-slate-300">Git Basics</span>
-                      <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-xs font-mono font-bold text-slate-300">GitHub Repos</span>
-                    </div>
-                  </div>
-                  <div className="pt-6 mt-4 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-3">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <Link
-                        href="/cli"
-                        className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold text-xs rounded-xl shadow-md transition-all flex items-center gap-1.5 cursor-pointer"
-                      >
-                        <span>Learn Windows CMD »</span>
-                      </Link>
-                      <Link
-                        href="/cli/most-useful-cmd-commands-in-windows"
-                        className="px-3.5 py-2 bg-[#04AA6D] hover:bg-[#039861] text-white font-extrabold text-xs rounded-xl shadow-md transition-all flex items-center gap-1.5 cursor-pointer"
-                      >
-                        <span>Essential CMD Commands 🔥</span>
-                      </Link>
-                    </div>
-                    <Link
-                      href="/git/terminal"
-                      className="text-xs font-bold text-slate-400 hover:text-white transition-colors"
-                    >
-                      Git Terminal ➔
-                    </Link>
-                  </div>
-                </div>
-
-                {/* Stage 3: Modern UI & Frameworks */}
-                <div className="p-6 bg-[#16222f] border border-slate-700/60 rounded-2xl shadow-xl hover:border-sky-500/60 transition-all duration-300 group relative overflow-hidden flex flex-col justify-between">
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <span className="w-8 h-8 rounded-xl bg-sky-500/20 text-sky-400 font-black text-xs flex items-center justify-center border border-sky-500/40">
-                        03
-                      </span>
-                      <span className="text-[10px] font-extrabold uppercase tracking-wider text-sky-400 bg-sky-950/60 border border-sky-800 px-2.5 py-1 rounded-md">
-                        Step 3 • Frameworks
-                      </span>
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-extrabold text-white group-hover:text-sky-400 transition-colors">
-                        React.js, Next.js & UI Frameworks
-                      </h3>
-                      <p className="text-xs text-slate-300 mt-1 leading-relaxed">
-                        Build reactive user interfaces, component architectures, client-side state management, and full-stack Next.js applications.
-                      </p>
-                    </div>
-                    <div className="flex flex-wrap gap-1.5 pt-1">
-                      <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-xs font-mono font-bold text-slate-300">React.js</span>
-                      <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-xs font-mono font-bold text-slate-300">Next.js App Router</span>
-                      <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-xs font-mono font-bold text-slate-300">Tailwind CSS</span>
-                    </div>
-                  </div>
-                  <div className="pt-6 mt-4 border-t border-slate-800/80 flex items-center justify-between gap-3">
-                    <Link
-                      href="/playground"
-                      className="px-4 py-2 bg-sky-600 hover:bg-sky-500 text-white font-extrabold text-xs rounded-xl shadow-md transition-all flex items-center gap-1.5 cursor-pointer"
-                    >
-                      <span>Open Code Playground »</span>
-                    </Link>
-                    <Link
-                      href="/course/projects"
-                      className="text-xs font-bold text-slate-400 hover:text-white transition-colors"
-                    >
-                      Build Real Projects ➔
-                    </Link>
-                  </div>
-                </div>
-
-                {/* Stage 4: Computer Science & Full Stack Integration */}
-                <div className="p-6 bg-[#16222f] border border-slate-700/60 rounded-2xl shadow-xl hover:border-amber-500/60 transition-all duration-300 group relative overflow-hidden flex flex-col justify-between">
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <span className="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-400 font-black text-xs flex items-center justify-center border border-amber-500/40">
-                        04
-                      </span>
-                      <span className="text-[10px] font-extrabold uppercase tracking-wider text-amber-400 bg-amber-950/60 border border-amber-800 px-2.5 py-1 rounded-md">
-                        Step 4 • CS Mastery
-                      </span>
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-extrabold text-white group-hover:text-amber-400 transition-colors">
-                        Backend Systems & Computer Science (BCA)
-                      </h3>
-                      <p className="text-xs text-slate-300 mt-1 leading-relaxed">
-                        Understand computer hardware basics, operating systems, data structures, and university degree fundamentals.
-                      </p>
-                    </div>
-                    <div className="flex flex-wrap gap-1.5 pt-1">
-                      <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-xs font-mono font-bold text-slate-300">BCA Degree Hub</span>
-                      <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-xs font-mono font-bold text-slate-300">PC Hardware</span>
-                    </div>
-                  </div>
-                  <div className="pt-6 mt-4 border-t border-slate-800/80 flex items-center justify-between gap-3">
-                    <Link
-                      href="/bca/semester-1"
-                      className="px-4 py-2 bg-gradient-to-r from-amber-600 to-cyan-600 hover:from-amber-500 hover:to-cyan-500 text-white font-extrabold text-xs rounded-xl shadow-md transition-all flex items-center gap-1.5 cursor-pointer"
-                    >
-                      <span>Explore IGNOU BCA 1st Sem Hub »</span>
-                    </Link>
-                    <Link
-                      href="/course"
-                      className="text-xs font-bold text-slate-400 hover:text-white transition-colors"
-                    >
-                      View Full Curriculum ➔
-                    </Link>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-          </section>
-
-          {/* 2. HTML Band */}
-          <section id="html-section" className="bg-[#D9EEE1] text-slate-900 py-16 px-4 md:px-8 transition-colors">
-            <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-              <div className="text-left space-y-4">
-                <span className="text-[10px] font-black uppercase bg-[#04AA6D]/20 border border-[#04AA6D]/30 px-3 py-1 rounded-full text-[#036c45]">
-                  Phase 1: Web Markup
-                </span>
-                <h2 className="text-3xl md:text-4xl font-black uppercase text-slate-950 tracking-tight">
-                  HTML5 Web markup
-                </h2>
-                <p className="text-slate-800 text-sm md:text-base max-w-lg leading-relaxed font-semibold">
-                  The structural skeleton of the web. Master semantic page flows, navigation elements, forms, layouts, and Google search engine index tags.
-                </p>
-                <div className="flex flex-wrap gap-3 pt-4">
-                  <Link 
-                    href="/html"
-                    className="px-5 py-2.5 bg-[#04AA6D] hover:bg-[#039861] text-white rounded-lg text-xs font-black uppercase tracking-wider transition-all cursor-pointer shadow-md shadow-[#04AA6D]/20 flex items-center gap-1.5"
-                  >
-                    <BookOpen size={14} className="stroke-[2.5]" />
-                    <span>Learn HTML</span>
-                  </Link>
-                  <Link 
-                    href="/playground"
-                    className="px-5 py-2.5 bg-gray-900 hover:bg-gray-800 text-white rounded-lg text-xs font-black uppercase tracking-wider transition-all cursor-pointer shadow-md shadow-gray-900/10 flex items-center gap-1.5"
-                  >
-                    <Code size={14} className="stroke-[2.5]" />
-                    <span>Try HTML Sandbox</span>
-                  </Link>
-                </div>
-              </div>
-
-              {/* Mock Code Box */}
-              <div className="bg-[#282A35] text-white rounded-xl overflow-hidden shadow-2xl max-w-md lg:max-w-full mx-auto w-full text-xs text-left font-mono">
-                <div className="bg-[#1f2029] px-4 py-2 border-b border-slate-800 flex justify-between select-none">
-                  <span className="text-slate-400 font-bold text-[10px] uppercase">index.html</span>
-                  <button onClick={() => router.push('/playground')} className="text-emerald-400 hover:text-emerald-300 font-bold flex items-center gap-0.5">
-                    <span>Run Code</span>
-                    <ChevronRight size={12} />
-                  </button>
-                </div>
-                <pre className="p-4 space-y-0.5 overflow-x-auto text-[11px] leading-relaxed">
-                  <div><span className="text-cyan-400">&lt;!DOCTYPE html&gt;</span></div>
-                  <div><span className="text-teal-400">&lt;html&gt;</span></div>
-                  <div><span className="text-teal-400">  &lt;head&gt;</span></div>
-                  <div><span className="text-teal-400">    &lt;title&gt;</span><span className="text-yellow-200">Nextsem Academy</span><span className="text-teal-400">&lt;/title&gt;</span></div>
-                  <div><span className="text-teal-400">  &lt;body&gt;</span></div>
-                  <div><span className="text-teal-400">    &lt;h1&gt;</span><span className="text-white font-bold">Welcome to Nextsem</span><span className="text-teal-400">&lt;/h1&gt;</span></div>
-                  <div><span className="text-teal-400">    &lt;p&gt;</span><span className="text-slate-300">Learn to build beautiful websites.</span><span className="text-teal-400">&lt;/p&gt;</span></div>
-                  <div><span className="text-teal-400">  &lt;/body&gt;</span></div>
-                  <div><span className="text-teal-400">&lt;/html&gt;</span></div>
-                </pre>
-              </div>
-            </div>
-          </section>
-
-          {/* 3. CSS Band */}
-          <section id="css-section" className="bg-[#FFF4A3] text-slate-950 py-16 px-4 md:px-8 transition-colors">
-            <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-              
-              {/* Mock Code Box */}
-              <div className="bg-[#282A35] text-white rounded-xl overflow-hidden shadow-2xl max-w-md lg:max-w-full mx-auto w-full text-xs text-left font-mono order-2 lg:order-1">
-                <div className="bg-[#1f2029] px-4 py-2 border-b border-slate-800 flex justify-between select-none">
-                  <span className="text-slate-400 font-bold text-[10px] uppercase">styles.css</span>
-                  <button onClick={() => router.push('/playground')} className="text-emerald-400 hover:text-emerald-300 font-bold flex items-center gap-0.5">
-                    <span>Try it</span>
-                    <ChevronRight size={12} />
-                  </button>
-                </div>
-                <pre className="p-4 space-y-1 overflow-x-auto text-[11px] leading-relaxed">
-                  <div><span className="text-yellow-400">body</span> &#123;</div>
-                  <div>  <span className="text-cyan-400">background-color</span>: <span className="text-emerald-400">#060c18</span>;</div>
-                  <div>  <span className="text-cyan-400">font-family</span>: <span className="text-teal-300">&apos;Outfit&apos;, sans-serif</span>;</div>
-                  <div>&#125;</div>
-                  <div className="pt-2"><span className="text-yellow-400">.landing-card</span> &#123;</div>
-                  <div>  <span className="text-cyan-400">border</span>: <span className="text-slate-400">1px solid var(--theme-border)</span>;</div>
-                  <div>  <span className="text-cyan-400">border-radius</span>: <span className="text-emerald-400">1rem</span>;</div>
-                  <div>  <span className="text-cyan-400">backdrop-filter</span>: <span className="text-teal-300">blur(12px)</span>;</div>
-                  <div>&#125;</div>
-                </pre>
-              </div>
-
-              <div className="text-left space-y-4 order-1 lg:order-2">
-                <span className="text-[10px] font-black uppercase bg-slate-900/10 border border-slate-900/20 px-3 py-1 rounded-full text-slate-950 font-bold">
-                  Phase 2: Stylesheets &amp; Layouts
-                </span>
-                <h2 className="text-3xl md:text-4xl font-black uppercase text-slate-950 tracking-tight">
-                  CSS3 Responsive Layouts
-                </h2>
-                <p className="text-slate-900 text-sm md:text-base max-w-lg leading-relaxed font-semibold">
-                  Inject styling, positioning, and variables. Create premium responsive grid-panels, flexbox headers, dark switches, and smooth keyframe micro-animations.
-                </p>
-                <div className="flex flex-wrap gap-3 pt-4">
-                  <button 
-                    onClick={() => handleLaunchChapter('p2-1-selectors')}
-                    className="px-5 py-2.5 bg-gray-900 hover:bg-gray-800 text-white rounded-lg text-xs font-black uppercase tracking-wider transition-all cursor-pointer shadow-lg"
-                  >
-                    Learn CSS
-                  </button>
-                  <Link 
-                    href="/playground"
-                    className="px-5 py-2.5 border-2 border-slate-900 text-slate-950 font-black hover:bg-slate-900 hover:text-white rounded-lg text-xs font-black uppercase tracking-wider transition-all cursor-pointer shadow-sm"
-                  >
-                    CSS Reference
-                  </Link>
-                </div>
-              </div>
-
-            </div>
-          </section>
-
-          {/* 4. JavaScript Band (Phase 3) */}
-          <section id="js-section" className="bg-theme-bg border-b border-theme-border text-theme-text py-16 px-4 md:px-8">
-            <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-              <div className="text-left space-y-4">
-                <span className="text-[10px] font-black uppercase bg-emerald-400/10 border border-emerald-400/20 px-3 py-1 rounded-full text-theme-accent">
-                  Phase 3: Scripting &amp; Logic
-                </span>
-                <h2 className="text-3xl md:text-4xl font-black uppercase text-theme-text tracking-tight">
-                  JavaScript Logic
-                </h2>
-                <p className="text-theme-text/80 text-sm md:text-base max-w-lg leading-relaxed">
-                  Program logic, arrays, and event handlers. Manipulate DOM hierarchies dynamically and store database state vectors into local storage buffers.
-                </p>
-                <div className="flex flex-wrap gap-3 pt-4">
-                  <button 
-                    onClick={() => handleLaunchChapter('p3-1-basics')}
-                    className="px-5 py-2.5 bg-[#04AA6D] hover:bg-[#039861] text-white rounded-lg text-xs font-black uppercase tracking-wider transition-all cursor-pointer shadow-md shadow-[#04AA6D]/20"
-                  >
-                    Learn JavaScript
-                  </button>
-                  <Link 
-                    href="/playground"
-                    className="px-5 py-2.5 bg-theme-surface hover:bg-theme-card text-theme-text border border-theme-border rounded-lg text-xs font-black uppercase tracking-wider transition-all cursor-pointer inline-flex items-center justify-center"
-                  >
-                    JS Playground
-                  </Link>
-                </div>
-              </div>
-
-              {/* Mock Code Box */}
-              <div className="bg-[#1f2029] border border-slate-800 text-white rounded-xl overflow-hidden shadow-2xl max-w-md lg:max-w-full mx-auto w-full text-xs text-left font-mono">
-                <div className="bg-[#15161d] px-4 py-2 border-b border-slate-900 flex justify-between select-none">
-                  <span className="text-slate-500 font-bold text-[10px] uppercase">main.js</span>
-                  <button onClick={() => router.push('/playground')} className="text-emerald-400 hover:text-emerald-300 font-bold flex items-center gap-0.5">
-                    <span>Run logic</span>
-                    <ChevronRight size={12} />
-                  </button>
-                </div>
-                <pre className="p-4 space-y-1 overflow-x-auto text-[11px] leading-relaxed">
-                  <div><span className="text-red-400">function</span> <span className="text-blue-400">calculateTotal</span>(subtotal, taxRate) &#123;</div>
-                  <div>  <span className="text-red-400">let</span> tax = subtotal * taxRate;</div>
-                  <div>  <span className="text-red-400">return</span> subtotal + tax;</div>
-                  <div>&#125;</div>
-                  <div className="pt-2"><span className="text-slate-400">{"// Output order check"}</span></div>
-                  <div><span className="text-teal-400">console</span>.<span className="text-blue-400">log</span>(<span className="text-blue-400">calculateTotal</span>(<span className="text-yellow-400">100</span>, <span className="text-yellow-400">0.08</span>)); <span className="text-[#39FF14]">{"// 108"}</span></div>
-                </pre>
-              </div>
-            </div>
-          </section>
-
-          {/* 5. React & Backend Bands */}
-          <section className="bg-slate-100 dark:bg-[#0c1222] py-16 px-4 md:px-8 border-y border-slate-200 dark:border-slate-800 transition-colors">
-            <div className="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-              
-              {/* React Block */}
-              <div id="react-section" className="bg-[#E7F3FF] dark:bg-[#12233c] text-slate-900 dark:text-white p-8 rounded-2xl border border-blue-200 dark:border-slate-800 text-left flex flex-col justify-between transition-colors">
-                <div className="space-y-3">
-                  <span className="text-[10px] font-black uppercase text-blue-600 dark:text-blue-400">React Core (⚛)</span>
-                  <h3 className="text-2xl font-black uppercase">React UI libraries</h3>
-                  <p className="text-slate-600 dark:text-slate-400 text-xs md:text-sm leading-relaxed">
-                    Build composable, reactive client interfaces. Leverage useState triggers, useEffect fetch handlers, and Context provider stores.
-                  </p>
-                  
-                  <div className="bg-[#282A35] text-white p-4 rounded-xl font-mono text-[10px] space-y-1 overflow-x-auto shadow-inner select-none mt-4">
-                    <div><span className="text-red-400">function</span> <span className="text-blue-400">Hero</span>(&#123; title &#125;) &#123;</div>
-                    <div>  <span className="text-red-400">return</span> <span className="text-teal-400">&lt;h1&gt;</span>&#123;title&#125;<span className="text-teal-400">&lt;/h1&gt;</span>;</div>
-                    <div>&#125;</div>
-                  </div>
-                </div>
-                <button 
-                  onClick={() => handleLaunchChapter('p4-1-jsx')} 
-                  className="mt-6 px-4 py-2.5 bg-gray-900 hover:bg-gray-800 text-white dark:bg-white dark:hover:bg-gray-100 dark:text-gray-900 rounded-lg text-xs font-black uppercase tracking-wider transition-all self-start cursor-pointer"
-                >
-                  Start React
-                </button>
-              </div>
-
-              {/* Backend Block */}
-              <div id="backend-section" className="bg-[#F3EBF6] dark:bg-[#20152b] text-slate-900 dark:text-white p-8 rounded-2xl border border-purple-200 dark:border-slate-800 text-left flex flex-col justify-between transition-colors">
-                <div className="space-y-3">
-                  <span className="text-[10px] font-black uppercase text-purple-600 dark:text-purple-400">Server Side (🔌)</span>
-                  <h3 className="text-2xl font-black uppercase">Node.js &amp; Databases</h3>
-                  <p className="text-slate-600 dark:text-slate-400 text-xs md:text-sm leading-relaxed">
-                    Deploy fast RESTful servers. Route Express endpoints, construct databases tables in MongoDB, and deploy full stack SaaS containers.
-                  </p>
-
-                  <div className="bg-[#282A35] text-white p-4 rounded-xl font-mono text-[10px] space-y-1 overflow-x-auto shadow-inner select-none mt-4">
-                    <div><span className="text-red-400">const</span> express = <span className="text-blue-400">require</span>(<span className="text-yellow-200">&apos;express&apos;</span>);</div>
-                    <div>app.<span className="text-blue-400">get</span>(<span className="text-yellow-200">&apos;/api&apos;</span>, (req, res) =&gt; res.<span className="text-blue-400">send</span>(<span className="text-yellow-200">&apos;Online&apos;</span>));</div>
-                  </div>
-                </div>
-                <button 
-                  onClick={() => handleLaunchChapter('p5-1-node')} 
-                  className="mt-6 px-4 py-2.5 bg-gray-900 hover:bg-gray-800 text-white dark:bg-white dark:hover:bg-gray-100 dark:text-gray-900 rounded-lg text-xs font-black uppercase tracking-wider transition-all self-start cursor-pointer"
-                >
-                  Start Backend
-                </button>
-              </div>
-
-            </div>
-          </section>
-        </>
-      )}
-
-      {/* ── PROFESSIONAL PLATFORM PILLARS (Replaces Testimonials with Genuine Value) ── */}
-      <section className="bg-[#17181c] border-t border-slate-800 py-16 px-4 md:px-8 text-left">
-        <div className="max-w-[1200px] mx-auto space-y-10">
-          <div className="text-center space-y-2 max-w-2xl mx-auto">
-            <span className="px-3 py-1 rounded-full bg-[#04AA6D]/15 text-[#04AA6D] border border-[#04AA6D]/30 text-[10px] font-black uppercase tracking-widest inline-flex items-center gap-1.5">
-              <Award size={12} />
-              <span>Platform Engineering Standards</span>
-            </span>
-            <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
-              Built for Software Developers & Computer Science Students
-            </h2>
-            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium">
-              Nextsem Academy provides structured, hands-on developer training with real terminal execution and line-by-line visual verification.
+              Engineer scalable backend servers with Node.js and Express, handle HTTP routes, validate JSON payloads, and implement secure JWT authentication.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {/* Feature 1 */}
-            <div className="p-6 bg-[#0b0c10] border border-slate-800 rounded-2xl space-y-3 hover:border-[#04AA6D]/50 transition-colors">
-              <div className="w-10 h-10 rounded-xl bg-[#04AA6D]/20 text-[#04AA6D] flex items-center justify-center font-extrabold text-lg border border-[#04AA6D]/30">
-                🪟
-              </div>
-              <h3 className="text-sm font-extrabold text-white uppercase tracking-wider">
-                Windows 11 Terminal Simulation
-              </h3>
-              <p className="text-xs text-slate-300 leading-relaxed">
-                Practice Windows Command Prompt commands step-by-step with real terminal execution logic without installing separate software.
-              </p>
+          {/* Pillar 4: Databases & Cloud */}
+          <div className="p-6 bg-[#0c1328] border border-slate-800 rounded-2xl space-y-3 hover:border-purple-500/50 transition-colors shadow-xl">
+            <div className="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center font-extrabold text-lg border border-purple-500/30">
+              🗄️
             </div>
-
-            {/* Feature 2 */}
-            <div className="p-6 bg-[#0b0c10] border border-slate-800 rounded-2xl space-y-3 hover:border-[#04AA6D]/50 transition-colors">
-              <div className="w-10 h-10 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center font-extrabold text-lg border border-blue-500/30">
-                📱
-              </div>
-              <h3 className="text-sm font-extrabold text-white uppercase tracking-wider">
-                Mobile-to-PC 1-to-1 Matching
-              </h3>
-              <p className="text-xs text-slate-300 leading-relaxed">
-                Read lessons on mobile while practicing on PC. Terminal output text matches actual Windows Command Prompt output line-by-line.
-              </p>
-            </div>
-
-            {/* Feature 3 */}
-            <div className="p-6 bg-[#0b0c10] border border-slate-800 rounded-2xl space-y-3 hover:border-[#04AA6D]/50 transition-colors">
-              <div className="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-extrabold text-lg border border-amber-500/30">
-                ⚡
-              </div>
-              <h3 className="text-sm font-extrabold text-white uppercase tracking-wider">
-                High-Contrast Developer Theme
-              </h3>
-              <p className="text-xs text-slate-300 leading-relaxed">
-                Designed with a clean dark theme palette (`#17181c`), crisp white headings (`text-white font-bold`), and vibrant green accents.
-              </p>
-            </div>
-
-            {/* Feature 4 */}
-            <div className="p-6 bg-[#0b0c10] border border-slate-800 rounded-2xl space-y-3 hover:border-[#04AA6D]/50 transition-colors">
-              <div className="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center font-extrabold text-lg border border-purple-500/30">
-                🔒
-              </div>
-              <h3 className="text-sm font-extrabold text-white uppercase tracking-wider">
-                Privacy-First & Ad-Free Pages
-              </h3>
-              <p className="text-xs text-slate-300 leading-relaxed">
-                Contact, Privacy, Terms, and About utility pages are 100% clean and ad-free, respecting user privacy and platform standards.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── ADSENSE COMPLIANCE & LEGAL DIRECTORY (FOR FAST ADSENSE APPROVAL) ── */}
-      <section className="bg-[#0b0c10] border-t border-slate-800 py-12 px-4 md:px-8 text-left">
-        <div className="max-w-[1200px] mx-auto p-6 sm:p-8 bg-[#17181c] border border-emerald-500/30 rounded-3xl shadow-2xl space-y-6">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-6">
-            <div className="space-y-1">
-              <span className="text-[10px] font-black uppercase tracking-widest text-[#04AA6D] bg-[#04AA6D]/15 border border-[#04AA6D]/30 px-3 py-1 rounded-full inline-flex items-center gap-1.5">
-                <CheckCircle size={12} />
-                <span>Google AdSense Review & Policy Verified</span>
-              </span>
-              <h2 className="text-xl sm:text-2xl font-extrabold text-white">
-                Official Nextsem Academy Site Policies & Legal Hub
-              </h2>
-              <p className="text-xs sm:text-sm text-slate-300 font-medium">
-                Review our publisher policies, user privacy terms, support contact details, and search engine sitemap.
-              </p>
-            </div>
-            <div className="flex items-center gap-2 text-xs font-bold text-slate-400">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#04AA6D] animate-ping" />
-              <span className="text-white">Live Publisher ID: pub-4242865347895866</span>
-            </div>
-          </div>
-
-          {/* Quick Legal Links Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
-            <Link
-              href="/privacy"
-              className="p-3.5 bg-[#0b0c10] hover:bg-slate-800/80 border border-slate-700/60 rounded-xl text-center transition-all group"
-            >
-              <div className="text-lg mb-1">📜</div>
-              <div className="text-xs font-extrabold text-white group-hover:text-[#04AA6D] transition-colors">Privacy Policy</div>
-              <div className="text-[10px] text-slate-400 mt-0.5">Cookie & Data Terms</div>
-            </Link>
-
-            <Link
-              href="/terms"
-              className="p-3.5 bg-[#0b0c10] hover:bg-slate-800/80 border border-slate-700/60 rounded-xl text-center transition-all group"
-            >
-              <div className="text-lg mb-1">⚖️</div>
-              <div className="text-xs font-extrabold text-white group-hover:text-[#04AA6D] transition-colors">Terms of Service</div>
-              <div className="text-[10px] text-slate-400 mt-0.5">User Agreements</div>
-            </Link>
-
-            <Link
-              href="/contact"
-              className="p-3.5 bg-[#0b0c10] hover:bg-slate-800/80 border border-slate-700/60 rounded-xl text-center transition-all group"
-            >
-              <div className="text-lg mb-1">📞</div>
-              <div className="text-xs font-extrabold text-white group-hover:text-[#04AA6D] transition-colors">Contact Support</div>
-              <div className="text-[10px] text-slate-400 mt-0.5">24/7 Help Desk</div>
-            </Link>
-
-            <Link
-              href="/about"
-              className="p-3.5 bg-[#0b0c10] hover:bg-slate-800/80 border border-slate-700/60 rounded-xl text-center transition-all group"
-            >
-              <div className="text-lg mb-1">ℹ️</div>
-              <div className="text-xs font-extrabold text-white group-hover:text-[#04AA6D] transition-colors">About Us</div>
-              <div className="text-[10px] text-slate-400 mt-0.5">Academy Vision</div>
-            </Link>
-
-            <a
-              href="/sitemap.xml"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-3.5 bg-[#0b0c10] hover:bg-slate-800/80 border border-slate-700/60 rounded-xl text-center transition-all group col-span-2 sm:col-span-1"
-            >
-              <div className="text-lg mb-1">🗺️</div>
-              <div className="text-xs font-extrabold text-white group-hover:text-[#04AA6D] transition-colors">XML Sitemap</div>
-              <div className="text-[10px] text-slate-400 mt-0.5">Indexed 259 Pages</div>
-            </a>
+            <h3 className="text-sm font-extrabold text-white uppercase tracking-wider">
+              Databases &amp; Cloud Deployment
+            </h3>
+            <p className="text-xs text-slate-300 leading-relaxed">
+              Structure relational SQL and NoSQL MongoDB databases, write CRUD queries, and deploy production full-stack apps to modern cloud platforms.
+            </p>
           </div>
         </div>
       </section>
@@ -1453,12 +1016,12 @@ export default function HomeClient() {
           </div>
 
           <div className="space-y-3">
-            <h5 className="font-black uppercase text-white text-xs tracking-wider">Career Prep</h5>
+            <h5 className="font-black uppercase text-white text-xs tracking-wider">Full Stack Pathways</h5>
             <ul className="space-y-2 font-medium">
-              <li><button onClick={() => handleLaunchChapter('p7-2-resume')} className="hover:text-white">ATS-friendly Resume</button></li>
-              <li><button onClick={() => handleLaunchChapter('p7-1-interview')} className="hover:text-white">Technical Interview Q&A</button></li>
-              <li><button onClick={() => handleLaunchChapter('p7-3-github')} className="hover:text-white">GitHub Portfolio SEO</button></li>
-              <li><button onClick={() => handleLaunchChapter('p6-1-portfolio')} className="hover:text-white">PWA App manifest</button></li>
+              <li><Link href="/full-stack-web-development-roadmap" className="hover:text-white">🚀 Full Stack 2026 Roadmap</Link></li>
+              <li><Link href="/course/projects" className="hover:text-white">💡 15+ Interactive Projects</Link></li>
+              <li><Link href="/playground" className="hover:text-white">💻 Live Code Playground</Link></li>
+              <li><Link href="/html" className="hover:text-white">🌐 HTML5 Fundamentals</Link></li>
             </ul>
           </div>
 

@@ -63,9 +63,9 @@ export default function NextsemLogoAnimation({
         <div key={replayKey} className="relative h-9 flex items-center">
           {/* WHEN LOCKED: Show sleek NS Logo Emblem */}
           {isFinalLocked ? (
-            <div className="flex items-center gap-1.5 transition-all duration-500 animate-scale-in">
+            <div className="flex items-center gap-2 transition-all duration-500 animate-scale-in">
               <div className="h-8 px-2.5 rounded-lg bg-[#0c1328] border border-[#04AA6D]/50 flex items-center justify-center shadow-[0_0_15px_rgba(4,170,109,0.4)] group-hover:border-[#04AA6D]">
-                <svg viewBox="0 0 160 110" className="h-6 w-auto overflow-visible">
+                <svg viewBox="0 0 160 110" className="h-5 w-auto overflow-visible">
                   {/* BOLD N (Green) */}
                   <path
                     d="M 15 95 V 15 L 65 95 V 15"
@@ -85,9 +85,14 @@ export default function NextsemLogoAnimation({
                   />
                 </svg>
               </div>
-              <span className="text-xs font-mono font-bold text-slate-300 group-hover:text-[#04AA6D] transition-colors hidden xs:inline">
-                Nextsem
-              </span>
+              <div className="flex flex-col justify-center text-left">
+                <span className="text-xs font-black text-white group-hover:text-[#04AA6D] transition-colors leading-none">
+                  Nextsem
+                </span>
+                <span className="text-[8px] font-extrabold text-[#04AA6D] tracking-wider uppercase font-mono mt-0.5 leading-none">
+                  Full Stack Web Developer
+                </span>
+              </div>
             </div>
           ) : (
             /* ANIMATION SEQUENCE (N ➔ e ➔ x ➔ t ➔ s ➔ e ➔ m) */

@@ -79,9 +79,13 @@ graph TD
 
 ## 🎯 2. Section-by-Section Content & Copywriting (100% Developer English)
 
-### 📌 Section 1: Sticky Brand Header (`Header.tsx`)
+### 📌 Section 1: Sticky Brand Header (`Header.tsx` & `NextsemLogoAnimation.tsx`)
 
-- **Logo Emblem:** Interactive vector `NextsemLogoAnimation` (N-E-X-T-S-E-M trace $\rightarrow$ locks into permanent emerald `NS` badge).
+- **Logo Emblem & Tagline:** Interactive vector `NextsemLogoAnimation` (N-E-X-T-S-E-M trace $\rightarrow$ locks into permanent emerald `NS` badge + **"FULL STACK WEB DEVELOPER"** theme-styled emerald subtitle).
+- **Official SVG Assets in `docs/logo for nextsem/`:**
+  - [`docs/logo for nextsem/nextsem-logo-fullstack.svg`](file:///c:/Users/manoj2403/Documents/nextsem.online/docs/logo%20for%20nextsem/nextsem-logo-fullstack.svg) (Horizontal Navbar SVG)
+  - [`docs/logo for nextsem/nextsem-logo-fullstack-stacked.svg`](file:///c:/Users/manoj2403/Documents/nextsem.online/docs/logo%20for%20nextsem/nextsem-logo-fullstack-stacked.svg) (Stacked Icon & Badge SVG)
+  - [`public/logo.svg`](file:///c:/Users/manoj2403/Documents/nextsem.online/public/logo.svg) (Public Web Asset)
 - **Navigation Links:**
   - `Home` (`/`)
   - `Full Stack Roadmap` (`/full-stack-web-development-roadmap`)
@@ -101,22 +105,24 @@ graph TD
 - **Main Heading (H1):** `Become a Job-Ready Full Stack Web Developer`
 - **Subtitle:**  
   *"Master full-stack web development step-by-step on your Windows PC. Start by setting up Visual Studio Code & HTML structure, progress through modern CSS layouts and JavaScript logic, build full-stack React and Node.js applications, manage databases, and deploy real-world projects to the cloud."*
-- **Action Buttons:**
-  1. `[Primary Emerald Button]` **Start Learning »** $\rightarrow$ Links to [`/html/learn-html-web-free-lessons-what-is-the-internet`](https://nextsem.online/html/learn-html-web-free-lessons-what-is-the-internet)
-  2. `[Secondary Dark Button]` **Developer Terminal & Setup »** $\rightarrow$ Links to [`/cli`](https://nextsem.online/cli)
-  3. `[Gradient Accent Button]` **Full Stack 2026 Roadmap »** $\rightarrow$ Links to [`/full-stack-web-development-roadmap`](https://nextsem.online/full-stack-web-development-roadmap)
+- **Action Button:**
+  1. `[Primary Emerald Button]` **Start Learning »** $\rightarrow$ Links directly to [`/html/learn-html-web-free-lessons-what-is-the-internet`](https://nextsem.online/html/learn-html-web-free-lessons-what-is-the-internet)
 
-#### Live Terminal Code Preview Card
+#### Live Full Stack VS Code & Web Developer Studio Card
 
-```cmd
-Microsoft Windows [Version 10.0.22631.4169]
-(c) Microsoft Corporation. All rights reserved.
-
-C:\Users\Developer> mkdir nextsem-portfolio
-C:\Users\Developer> cd nextsem-portfolio
-C:\Users\Developer\nextsem-portfolio> echo <h1>Hello Full Stack</h1> > index.html
-C:\Users\Developer\nextsem-portfolio> code .
-[SUCCESS] Workspace opened in VS Code. Ready to build!
+```html
+<!-- 1. Frontend Web Architecture (HTML5 + CSS + JavaScript) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Job-Ready Full Stack Developer</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1 class="text-emerald-400">Hello World! Building Full Stack Web Apps 🚀</h1>
+  <script src="app.js"></script>
+</body>
+</html>
 ```
 
 ---
@@ -207,3 +213,13 @@ front page ko analyse karo aur batao kya changes jaroori hai
 sabse pehle ye batao full stack web developer banne k liye kha se start kra chahiye fir usi ka according front page design
 kya cmd sikhana jaroori hai ?
 user ko windows pe sikhana hai ya to visual studio install krna hoga pehle to wha se strat karo aur start learning button bnankar start step 1 ko replace karo
+
+![inhe hta do](image.png)
+![iski jagah ful stack se related if use karo ](image-1.png)
+
+![ye ai made lag ra hai ise thik karo](image-2.png)
+
+ise actual vs code in windows 11 fromat m rakho
+![alt text](image-3.png)
+
+![ye hta do full stack se related use karo](image-4.png) ![alt text](image-5.png) ![alt text](image-6.png) ![alt text](image-7.png) ![alt text](image-8.png)
