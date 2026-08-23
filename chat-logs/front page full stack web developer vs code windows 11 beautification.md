@@ -34,6 +34,7 @@
      2. ⚛️ **Component & State Systems** (React Hooks, Next.js App Router, SSR)
      3. 🔌 **Backend REST APIs & Auth** (Node.js, Express, HTTP routes, JWT Authentication)
      4. 🗄️ **Databases & Cloud Deployment** (MongoDB, SQL CRUD, Firebase Cloud & Vercel)
+   - Updated Footer columns (`Top Tutorials`, `Simulators & Tools`, `Full Stack Pathways`, `Legal & Policy Hub`) to strictly link to live Full Stack Developer routes.
 
 6. **Official Full Stack Logo Vectors:**
    - Created `docs/logo for nextsem/nextsem-logo-fullstack.svg` and `nextsem-logo-fullstack-stacked.svg`.
