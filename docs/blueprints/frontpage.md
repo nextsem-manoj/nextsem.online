@@ -31,6 +31,16 @@
 > frontpage.md naam se ek file bna do jisem hum sirf front page ka content desing sab hoga docs wale folder m bna do
 > saari files folders k andar ho docs wale folder k andar
 > nextsem.online ka favicon logo for nextsem/nextsem-favicon.svg ye arkho
+> makfrontpage adsense bot frecldy reove bottom navigatoin ansd show them ony on lesno pages strictly
+> keep al phaes hidden toreduce front page space and size andon frnt page add privacy contact us etc [ages
+> beautify front page professional platform pillars no fake testimonials
+> redesign course curriculum page as per our theme
+> remove ads from contact and utility pages
+> we are wrkg for both moble and desktop versoisn so do whatever is better
+> 100% complete work for adsense geting verified
+> do not deloy just build
+> front page ko jaise pehle 2 carasoual the project aur courses k jaise wese wapis kardo
+> ye files q hai inhe merge karke ek file hi rakho
 
 ---
 
