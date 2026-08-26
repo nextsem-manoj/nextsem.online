@@ -78,55 +78,71 @@ export const htmlLessons: Lesson[] = [
       }
     },
     english: {
-      kid: `Welcome to Full Stack Web Development! Before we start writing HTML, CSS, and JavaScript, we need a powerful code editor on our 🪟 Windows 11 computer.
+      kid: `Welcome to Full Stack Web Development! Before we write HTML, CSS, and JavaScript, we need a modern code editor on our Windows 11 computer.
 
-## 🛠️ What is Visual Studio Code (VS Code)?
-* **Visual Studio Code (VS Code)** is the most popular, free, and lightning-fast code editor built by Microsoft.
-* It includes syntax color highlighting, auto-completion, built-in Git, an integrated terminal, and thousands of powerful developer extensions.
-
----
-
-## 📥 Step 1: Download VS Code for 🪟 Windows 11
-1. Open your web browser and visit the official website: [https://code.visualstudio.com/](https://code.visualstudio.com/)
-2. Click the big blue **"Download for Windows"** button (or choose **User Installer x64**).
-3. The setup file \`VSCodeUserSetup-x64.exe\` will download to your **Downloads** folder.
+## What is Visual Studio Code (VS Code)?
+![Visual Studio Code Windows 11 Developer Workspace](/screenshots/vscode/step0_vscode_windows11_workspace.png)
+* **Visual Studio Code (VS Code)** is the world's most popular, free, and lightning-fast code editor built by Microsoft.
+* It includes syntax color highlighting, intelligent auto-completion, integrated terminal, built-in Git, and thousands of powerful developer extensions.
 
 ---
 
-## ⚙️ Step 2: Install VS Code & Check Crucial Windows Options
-1. Double-click the downloaded \`VSCodeUserSetup-x64.exe\` installer.
-2. Accept the license agreement and click **Next**.
-3. ⚠️ **CRITICAL STEP:** On the **"Select Additional Tasks"** screen, make sure you CHECK ALL of these boxes:
-   * ☑ **Add "Open with Code" action to Windows Explorer file context menu**
-   * ☑ **Add "Open with Code" action to Windows Explorer directory context menu**
-   * ☑ **Register Code as an editor for supported file types**
-   * ☑ **Add to PATH (requires shell restart)**
-4. Click **Install** and then click **Finish** to launch Visual Studio Code.
+## Step 1: Search for VS Code Download on Google
+![Step 1: Search for VS Code on Google Chrome Windows 11](/screenshots/vscode/step1_google_search_vscode.png)
+1. Open Google Chrome and search for: \`download visual studio code windows 11\`
+2. Click the official Microsoft result: **Download Visual Studio Code** (\`https://code.visualstudio.com/Download\`).
 
 ---
 
-## 🧩 Step 3: Install Essential Web Developer Extensions
+## Step 2: Download the Official Windows 11 Installer
+![Step 2: Download Visual Studio Code for Windows 11](/screenshots/vscode/step2_vscode_download_page.png)
+1. On the official download page, click the prominent blue **"Windows (64-bit User Installer)"** button.
+2. The installation setup file \`VSCodeUserSetup-x64.exe\` (~98 MB) will automatically begin downloading in Google Chrome.
+
+---
+
+## Step 3: Open Downloads Folder in Windows 11
+![Step 3: Downloaded VSCodeUserSetup-x64.exe in Windows 11 Downloads](/screenshots/vscode/step3_windows11_downloads_folder.png)
+1. Open Windows File Explorer (\`Win + E\`) and navigate to your **Downloads** folder.
+2. Locate the downloaded file: \`VSCodeUserSetup-x64.exe\`.
+3. Double-click the file to launch the Microsoft Setup Wizard.
+
+---
+
+## Step 4: Installation Wizard & Crucial Windows Checkboxes
+![Step 4: Check Crucial Setup Checkboxes on Windows 11](/screenshots/vscode/step4_vscode_setup_wizard_checkboxes.png)
+1. Accept the Microsoft software license agreement and click **Next**.
+2. **CRITICAL STEP:** On the **"Select Additional Tasks"** screen, make sure you CHECK ALL of these boxes:
+   * **Add "Open with Code" action to Windows Explorer file context menu**
+   * **Add "Open with Code" action to Windows Explorer directory context menu**
+   * **Register Code as an editor for supported file types**
+   * **Add to PATH (requires shell restart)**
+3. Click **Install** and then click **Finish** to launch Visual Studio Code!
+
+---
+
+## Step 5: Install Essential Web Developer Extensions
+![Step 5: Install Live Server and Prettier in Visual Studio Code](/screenshots/vscode/step5_vscode_extensions_liveserver.png)
 VS Code extensions supercharge your development workflow:
-1. Press \`Ctrl + Shift + X\` (or click the Extensions icon 🧩 on the left Activity Bar).
-2. Search and click **Install** for each of these 3 essential extensions:
-   * 🌟 **Live Server** *(by Ritwick Dey)*: Launches a local development server with auto-reload for static HTML/CSS/JS pages.
-   * 🌟 **Prettier - Code Formatter**: Automatically formats your code into clean, beautiful syntax every time you press \`Ctrl + S\`.
-   * 🌟 **Auto Rename Tag**: Automatically renames paired HTML tags when you change the opening tag.
+1. Press \`Ctrl + Shift + X\` (or click the Extensions icon on the left Activity Bar).
+2. Search and click **Install** for these essential tools:
+   * **Live Server** *(by Ritwick Dey)*: Launches a local development server with auto-reload for static HTML/CSS/JS pages.
+   * **Prettier - Code Formatter**: Automatically formats your code into clean, beautiful syntax every time you press \`Ctrl + S\`.
+   * **Auto Rename Tag**: Automatically renames paired HTML tags when you change the opening tag.
 
 ---
 
-## 📂 Step 4: Create Your First Project Folder in Windows
-1. Open Windows File Explorer (\`Win + E\`) and navigate to your **Documents** or **Desktop**.
-2. Create a new folder named \`my-first-website\`.
-3. **Open in VS Code:**
-   * **Method A (Right-Click):** Right-click the folder ➔ select **Show more options** (Windows 11) ➔ click **Open with Code** 🪟.
-   * **Method B (Terminal):** Open Command Prompt (\`cmd\`) and type:
-     \`mkdir my-first-website && cd my-first-website && code .\`
+## Step 6: Create Your Project Folder & "Open with Code"
+![Step 6: Windows 11 Right-Click Folder -> Open with Code](/screenshots/vscode/step6_windows11_rightclick_open_with_code.png)
+1. In Windows Explorer, create a new folder named \`my-first-website\`.
+2. **Right-click the folder** ➔ select **Show more options** (Windows 11) ➔ click **"Open with Code"**.
+3. VS Code will immediately open the folder as your active developer workspace!
 
 ---
 
-## 📄 Step 5: Create Your First File (\`index.html\`)
-1. In the VS Code Explorer panel (left side), click the **New File** icon (📄+) and name it \`index.html\`.
+## Step 7: Create index.html & Run Google Chrome Live Server
+![Step 7: Visual Studio Code on Windows 11 and Google Chrome Live Server Preview](/screenshots/vscode/step7_first_index_html_live_server.png)
+1. In the VS Code Explorer panel (left side), click the **New File** icon and name it \`index.html\`.
 2. **Emmet Boilerplate Shortcut:** Inside the editor, type \`!\` (exclamation mark) and press **Enter** (or **Tab**).
 3. VS Code will automatically generate the standard HTML5 skeleton:
 
@@ -145,141 +161,139 @@ VS Code extensions supercharge your development workflow:
 </html>
 \`\`\`
 
-4. Press \`Ctrl + S\` to save the file.
+4. Right-click anywhere in \`index.html\` ➔ select **"Open with Live Server"** (Shortcut: \`Alt + L, Alt + O\`).
+5. Google Chrome will instantly open \`http://127.0.0.1:5500/index.html\` displaying your live website!
 
 ---
 
-## 🚀 Step 6: Launch Live Server in Your Browser
-1. Right-click anywhere inside your \`index.html\` editor window.
-2. Click **"Open with Live Server"** (Shortcut: \`Alt + L, Alt + O\`).
-3. Your default web browser will automatically open \`http://127.0.0.1:5500/index.html\` displaying your live web page!
-4. Whenever you edit the code and save (\`Ctrl + S\`), your browser updates instantly without manual refresh!
-
----
-
-## ⌨️ Essential Windows 11 VS Code Keyboard Shortcuts Drill
+## Essential Windows 11 VS Code Keyboard Shortcuts Drill
 * **\`Ctrl + S\`**: Save current file
 * **\`Ctrl + \`\` (backtick)**: Toggle integrated developer terminal
 * **\`Ctrl + Shift + P\`**: Open Command Palette
 * **\`Alt + Up / Down\`**: Move the current line of code up or down
 * **\`Ctrl + /\`**: Toggle comment (\`<!-- code -->\`)
 * **\`Alt + Shift + F\`**: Auto-format entire document with Prettier`,
-      pro: `Professional Web Development Workstation Setup on 🪟 Windows 11 using Visual Studio Code.
+      pro: `Professional Web Development Workstation Setup on Windows 11 using Visual Studio Code.
 
-## 🛠️ Industry-Standard Editor: Visual Studio Code
+## Industry-Standard Editor: Visual Studio Code
+![Visual Studio Code Windows 11 Developer Workspace](/screenshots/vscode/step0_vscode_windows11_workspace.png)
 * **VS Code** is the premier IDE for Full Stack JavaScript/TypeScript, React, Node.js, and web application development.
 * Features native terminal integration, Git version control, multi-root workspaces, and language server protocols (LSP).
 
 ---
 
-## 📥 1. Automated & Manual Installation on 🪟 Windows 11
-* **Direct Installer:** Download the x64 User Installer from [code.visualstudio.com](https://code.visualstudio.com/).
-* **CLI Package Manager Option (Windows Terminal / PowerShell):**
-  \`winget install Microsoft.VisualStudioCode\`
-* **Key Installation Tasks:**
-  * Ensure \`code\` binary is added to your Windows system \`PATH\` environment variable.
-  * Enable directory context menu registration for seamless \`code .\` workspace launching.
+## Step 1 & 2: Search & Download for Windows 11
+![Step 1: Search for VS Code on Google Chrome Windows 11](/screenshots/vscode/step1_google_search_vscode.png)
+![Step 2: Download Visual Studio Code for Windows 11](/screenshots/vscode/step2_vscode_download_page.png)
+* Direct Installer: Download the x64 User Installer from [code.visualstudio.com/Download](https://code.visualstudio.com/Download).
+* Windows Package Manager: \`winget install Microsoft.VisualStudioCode\`
 
 ---
 
-## 🧩 2. Core Extension Toolchain
-* **Live Server** (\`ritwickdey.liveserver\`): Local HTTP server with WebSocket live-reloading.
-* **Prettier** (\`esbenp.prettier-vscode\`): Opinionated code formatting.
-* **ESLint** (\`dbaeumer.vscode-eslint\`): Static code analysis for JavaScript & TypeScript.
+## Step 3 & 4: Installation & Windows Context Shell Integration
+![Step 3: Downloaded VSCodeUserSetup-x64.exe in Windows 11 Downloads](/screenshots/vscode/step3_windows11_downloads_folder.png)
+![Step 4: Check Crucial Setup Checkboxes on Windows 11](/screenshots/vscode/step4_vscode_setup_wizard_checkboxes.png)
+* In the installation wizard, activate directory context menu integration and PATH registration.
 
 ---
 
-## 📂 3. Workspace Architecture & First Document
-1. Initialize project directory:
-   \`mkdir my-first-website && cd my-first-website && code .\`
-2. Generate \`index.html\` using Emmet \`!\` expansion:
-\`\`\`html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Full Stack Development Workspace | Nextsem</title>
-</head>
-<body>
-  <h1>Hello World! Building Full Stack Web Applications 🚀</h1>
-  <p>Configured on 🪟 Windows 11 with Visual Studio Code.</p>
-</body>
-</html>
-\`\`\`
-3. Launch with Live Server: Right-click ➔ **Open with Live Server** (\`http://127.0.0.1:5500\`).`
+## Step 5, 6 & 7: Toolchain Extensions, Workspace & First Server Launch
+![Step 5: Install Live Server and Prettier in Visual Studio Code](/screenshots/vscode/step5_vscode_extensions_liveserver.png)
+![Step 6: Windows 11 Right-Click Folder -> Open with Code](/screenshots/vscode/step6_windows11_rightclick_open_with_code.png)
+![Step 7: Visual Studio Code on Windows 11 and Google Chrome Live Server Preview](/screenshots/vscode/step7_first_index_html_live_server.png)
+* Extensions: \`Live Server\` (\`ritwickdey.liveserver\`) and \`Prettier\` (\`esbenp.prettier-vscode\`).
+* Workspace Launch: Right-click folder ➔ **Open with Code** or run \`code .\` in terminal.
+* HTML5 Boilerplate: Emmet expansion with \`!\` ➔ Launch Google Chrome on \`http://127.0.0.1:5500\`.`
     },
     hinglish: {
-      kid: `Full Stack Web Developer banne ke safar me aapka swagat hai! Web development shuru karne ke liye sabse pehle hume apne 🪟 Windows 11 PC par **Visual Studio Code (VS Code)** download aur install karna hoga.
+      kid: `Full Stack Web Developer banne ke safar me aapka swagat hai! Web development shuru karne ke liye sabse pehle hume apne Windows 11 PC par **Visual Studio Code (VS Code)** download aur install karna hoga.
 
-### 🛠️ Visual Studio Code Kya Hai?
+### Visual Studio Code Kya Hai?
+![Visual Studio Code Windows 11 Developer Workspace](/screenshots/vscode/step0_vscode_windows11_workspace.png)
 * **VS Code** Microsoft ka banaya hua world ka #1 free code editor hai jisme professional software engineers code likhte hain.
 * Isme syntax colors, auto-completion, terminal, aur extensions milte hain jo coding ko aasan banate hain.
 
 ---
 
-### 📥 Step 1: VS Code Download Karein
-1. Official website par jayein: [https://code.visualstudio.com/](https://code.visualstudio.com/)
-2. Blue **"Download for Windows"** button par click karein.
-3. \`VSCodeUserSetup-x64.exe\` file aapke **Downloads** folder me save ho jayegi.
+### Step 1: Google Par "VS Code Download" Search Karein
+![Step 1: Search for VS Code on Google Chrome Windows 11](/screenshots/vscode/step1_google_search_vscode.png)
+1. Apne Google Chrome browser me search karein: \`download visual studio code windows 11\`
+2. Official link par click karein: \`https://code.visualstudio.com/Download\`
 
 ---
 
-### ⚙️ Step 2: Windows 11 me Install Karein (Important Checkboxes!)
-1. Download hui \`.exe\` file par double click karein.
-2. License accept karke **Next** dabayein.
-3. ⚠️ **ZAROORI STEP:** "Select Additional Tasks" screen par in saare boxes ko zaroor tick (☑) karein:
-   * ☑ **Add "Open with Code" action to Windows Explorer file context menu**
-   * ☑ **Add "Open with Code" action to Windows Explorer directory context menu**
-   * ☑ **Register Code as an editor for supported file types**
-   * ☑ **Add to PATH (requires shell restart)**
-4. **Install** par click karein aur finish karein.
+### Step 2: Windows 11 Installer Download Karein
+![Step 2: Download Visual Studio Code for Windows 11](/screenshots/vscode/step2_vscode_download_page.png)
+1. Website par blue **"Windows (64-bit User Installer)"** button par click karein.
+2. \`VSCodeUserSetup-x64.exe\` file download hona shuru ho jayegi.
 
 ---
 
-### 🧩 Step 3: Zaroori Extensions Install Karein
+### Step 3: Downloads Folder Me File Kholein
+![Step 3: Downloaded VSCodeUserSetup-x64.exe in Windows 11 Downloads](/screenshots/vscode/step3_windows11_downloads_folder.png)
+1. Windows Explorer (\`Win + E\`) me **Downloads** folder open karein.
+2. \`VSCodeUserSetup-x64.exe\` file par double click karein.
+
+---
+
+### Step 4: Windows 11 me Install Karein (Zaroori Checkboxes!)
+![Step 4: Check Crucial Setup Checkboxes on Windows 11](/screenshots/vscode/step4_vscode_setup_wizard_checkboxes.png)
+1. License accept karke **Next** dabayein.
+2. **ZAROORI STEP:** "Select Additional Tasks" screen par in saare boxes ko zaroor tick karein:
+   * **Add "Open with Code" action to Windows Explorer file context menu**
+   * **Add "Open with Code" action to Windows Explorer directory context menu**
+   * **Register Code as an editor for supported file types**
+   * **Add to PATH (requires shell restart)**
+3. **Install** par click karein aur setup finish karein!
+
+---
+
+### Step 5: Zaroori Extensions Install Karein
+![Step 5: Install Live Server and Prettier in Visual Studio Code](/screenshots/vscode/step5_vscode_extensions_liveserver.png)
 1. VS Code me \`Ctrl + Shift + X\` dabayein (Extensions tab).
-2. Ye 3 extensions search karke **Install** karein:
-   * 🌟 **Live Server**: Browser me direct live website dekhne ke liye.
-   * 🌟 **Prettier - Code Formatter**: Code ko automatic format aur clean rakhne ke liye.
-   * 🌟 **Auto Rename Tag**: HTML tag rename karte hi closing tag auto-update karne ke liye.
+2. Ye 2 zaroori extensions search karke **Install** karein:
+   * **Live Server**: Google Chrome me direct live website dekhne ke liye.
+   * **Prettier - Code Formatter**: Code ko automatic clean aur format rakhne ke liye.
 
 ---
 
-### 📂 Step 4: Apna Pehla Project Folder Banayein
-1. Windows Explorer me **Documents** ya **Desktop** par jayein.
-2. Naya folder banayein: \`my-first-website\`.
-3. Folder par Right Click karein ➔ **Show more options** ➔ **Open with Code** 🪟 par click karein.
+### Step 6: Naya Folder Banayein & "Open with Code" Karein
+![Step 6: Windows 11 Right-Click Folder -> Open with Code](/screenshots/vscode/step6_windows11_rightclick_open_with_code.png)
+1. Desktop ya Documents me \`my-first-website\` naam ka folder banayein.
+2. Folder par Right Click karein ➔ **Show more options** ➔ **Open with Code** par click karein.
 
 ---
 
-### 📄 Step 5: Pehli File (\`index.html\`) Banayein
-1. Explorer me **New File** icon par click karein aur naam dein \`index.html\`.
-2. Editor me sirf \`!\` (exclamation) type karke **Enter** dabayein (Emmet magic).
-3. \`<body>\` tag ke andar likhein:
-   \`<h1>Hello World! Meri Pehli Website 🚀</h1>\`
-4. \`Ctrl + S\` dabakar save karein.
-
----
-
-### 🚀 Step 6: Live Server se Browser me Run Karein
-1. Editor me right-click karein ➔ **Open with Live Server** chunein.
-2. Chrome ya Edge browser me \`http://127.0.0.1:5500/index.html\` par aapki website live open ho jayegi!`,
+### Step 7: Pehli File (index.html) Banayein aur Google Chrome me Live Chalayein!
+![Step 7: Visual Studio Code on Windows 11 and Google Chrome Live Server Preview](/screenshots/vscode/step7_first_index_html_live_server.png)
+1. VS Code Explorer me **New File** icon par click karke \`index.html\` banayein.
+2. Editor me sirf \`!\` (exclamation) type karke **Enter** dabayein (Emmet magic boilerplate).
+3. \`index.html\` par right-click karein ➔ **Open with Live Server** select karein.
+4. Google Chrome \`http://127.0.0.1:5500/index.html\` par live website open kar dega!`,
       pro: `Professional 🪟 Windows 11 Web Developer Workstation Setup using Visual Studio Code.
 
 ### 🛠️ Environment Configuration
 1. **Download & Binary Verification**:
-   * [code.visualstudio.com](https://code.visualstudio.com/) se Windows User Installer x64 download karein.
+   * [code.visualstudio.com/Download](https://code.visualstudio.com/Download) se Windows User Installer x64 download karein.
    * Verify PATH integration in Windows Terminal: \`code --version\`.
+
+![Step 1: Search for VS Code Download on Google](/screenshots/vscode/step1_google_search_vscode.png)
+![Step 2: Official Visual Studio Code Windows 11 Download Page](/screenshots/vscode/step2_vscode_download_page.png)
+
 2. **Context Menu Shell Integration**:
    * Installation wizard me Directory Context Menu option ko enable karein taaki kisi bhi folder se \`code .\` execute kiya ja sake.
-3. **Productivity Extensions**:
+
+![Step 3: Downloaded VSCodeUserSetup-x64.exe in Windows 11 Downloads](/screenshots/vscode/step3_windows11_downloads_folder.png)
+![Step 4: Windows 11 Setup Wizard Checkboxes (Enable Open with Code & PATH)](/screenshots/vscode/step4_vscode_setup_wizard_checkboxes.png)
+
+3. **Productivity Extensions & First Launch Loop**:
    * \`ritwickdey.liveserver\` (Live Server on port 5500)
    * \`esbenp.prettier-vscode\` (Format On Save enabled in settings.json)
-4. **First HTML Document & Live Server Loop**:
-   * Directory initialize karein: \`mkdir web-project && cd web-project && code .\`
-   * Emmet standard boilerplate trigger karein with \`!\` + \`Tab\`.
-   * Live Server launch karein with \`Alt + L, Alt + O\`.`
+   * Launch workspace: Right-click folder ➔ **Open with Code** ➔ Emmet \`!\` ➔ Live Server \`http://127.0.0.1:5500\`.
+
+![Step 5: Install Live Server & Prettier Extensions in VS Code](/screenshots/vscode/step5_vscode_extensions_liveserver.png)
+![Step 6: Windows 11 Right-Click Folder -> Open with Code](/screenshots/vscode/step6_windows11_rightclick_open_with_code.png)
+![Step 7: Create index.html and Launch Live Server Preview](/screenshots/vscode/step7_first_index_html_live_server.png)`
     },
     hindi: {
       kid: `फुल स्टैक वेब डेवलपर बनने के सफर में आपका स्वागत है! कोडिंग शुरू करने से पहले हमें अपने 🪟 Windows 11 कंप्यूटर पर **Visual Studio Code (VS Code)** डाउनलोड और इंस्टॉल करना होगा।
@@ -290,211 +304,270 @@ VS Code extensions supercharge your development workflow:
 
 ---
 
-### 📥 चरण 1: VS Code डाउनलोड करें
-1. आधिकारिक वेबसाइट पर जाएं: [https://code.visualstudio.com/](https://code.visualstudio.com/)
-2. नीले **"Download for Windows"** बटन पर क्लिक करें।
-3. आपकी **Downloads** डायरेक्टरी में इंस्टॉलर \`VSCodeUserSetup-x64.exe\` डाउनलोड हो जाएगा।
+### 🔍 चरण 1: गूगल पर "VS Code Download" खोजें
+1. अपने ब्राउज़र में सर्च करें: \`download visual studio code windows 11\`
+2. आधिकारिक लिंक खोलें: \`https://code.visualstudio.com/Download\`
+
+![Step 1: Search for VS Code Download on Google](/screenshots/vscode/step1_google_search_vscode.png)
 
 ---
 
-### ⚙️ चरण 2: विंडोज 11 में इंस्टॉल करें (महत्वपूर्ण चेकबॉक्स!)
-1. डाउनलोड की गई \`.exe\` फाइल पर डबल-क्लिक करें।
-2. लाइसेंस स्वीकार करें और **Next** पर क्लिक करें।
-3. ⚠️ **अति महत्वपूर्ण:** "Select Additional Tasks" स्क्रीन पर इन सभी विकल्पों को टिक (☑) करें:
+### 📥 चरण 2: आधिकारिक विंडोज 11 इंस्टॉलर डाउनलोड करें
+1. डाउनलोड पेज पर नीले **"Windows (64-bit User Installer)"** बटन पर क्लिक करें।
+2. आपकी **Downloads** डायरेक्टरी में इंस्टॉलर \`VSCodeUserSetup-x64.exe\` डाउनलोड हो जाएगा।
+
+![Step 2: Official Visual Studio Code Windows 11 Download Page](/screenshots/vscode/step2_vscode_download_page.png)
+
+---
+
+### 📂 चरण 3: डाउनलोड फोल्डर खोलें
+1. विंडोज फाइल एक्सप्लोरर में **Downloads** फोल्डर खोलें।
+2. \`VSCodeUserSetup-x64.exe\` पर डबल-क्लिक करें।
+
+![Step 3: Downloaded VSCodeUserSetup-x64.exe in Windows 11 Downloads](/screenshots/vscode/step3_windows11_downloads_folder.png)
+
+---
+
+### ⚙️ चरण 4: विंडोज 11 में इंस्टॉल करें (महत्वपूर्ण चेकबॉक्स!)
+1. लाइसेंस स्वीकार करें और **Next** पर क्लिक करें।
+2. ⚠️ **अति महत्वपूर्ण:** "Select Additional Tasks" स्क्रीन पर इन सभी विकल्पों को टिक (☑) करें:
    * ☑ **Add "Open with Code" action to Windows Explorer file context menu**
    * ☑ **Add "Open with Code" action to Windows Explorer directory context menu**
    * ☑ **Register Code as an editor for supported file types**
    * ☑ **Add to PATH (requires shell restart)**
-4. **Install** पर क्लिक करें और प्रक्रिया पूरी करें।
+3. **Install** पर क्लिक करें और प्रक्रिया पूरी करें।
+
+![Step 4: Windows 11 Setup Wizard Checkboxes (Enable Open with Code & PATH)](/screenshots/vscode/step4_vscode_setup_wizard_checkboxes.png)
 
 ---
 
-### 🧩 चरण 3: आवश्यक एक्सटेंशन इंस्टॉल करें
+### 🧩 चरण 5: आवश्यक एक्सटेंशन इंस्टॉल करें
 1. VS Code में \`Ctrl + Shift + X\` दबाएं।
 2. निम्नलिखित एक्सटेंशन इंस्टॉल करें:
    * 🌟 **Live Server**: ब्राउज़र में वास्तविक समय में लाइव पेज देखने के लिए।
    * 🌟 **Prettier - Code Formatter**: कोड को स्वतः सुंदर और व्यवस्थित रखने के लिए।
-   * 🌟 **Auto Rename Tag**: HTML टैग को स्वतः अपडेट करने के लिए।
+
+![Step 5: Install Live Server & Prettier Extensions in VS Code](/screenshots/vscode/step5_vscode_extensions_liveserver.png)
 
 ---
 
-### 📂 चरण 4: अपना पहला प्रोजेक्ट फोल्डर बनाएं
-1. अपने कंप्यूटर पर \`my-first-website\` नाम का एक नया फोल्डर बनाएं।
+### 📁 चरण 6: अपना पहला प्रोजेक्ट फोल्डर बनाएं और VS Code में खोलें
+1. कंप्यूटर पर \`my-first-website\` नाम का फोल्डर बनाएं।
 2. फोल्डर पर राइट-क्लिक करें ➔ **Show more options** ➔ **Open with Code** 🪟 चुनें।
 
----
-
-### 📄 चरण 5: पहली फाइल (\`index.html\`) बनाएं और कोड लिखें
-1. VS Code में नई फाइल बनाएं और नाम दें \`index.html\`।
-2. एडिटर में सिर्फ \`!\` टाइप करके **Enter** दबाएं (Emmet शॉर्टकट)।
-3. फाइल में अपनी हेडिंग लिखें और \`Ctrl + S\` से सेव करें।
+![Step 6: Windows 11 Right-Click Folder -> Open with Code](/screenshots/vscode/step6_windows11_rightclick_open_with_code.png)
 
 ---
 
-### 🚀 चरण 6: लाइव सर्वर शुरू करें
-1. एडिटर में राइट-क्लिक करें ➔ **Open with Live Server** चुनें।
-2. आपका ब्राउज़र \`http://127.0.0.1:5500/index.html\` पर तुरंत आपकी लाइव वेबसाइट प्रदर्शित करेगा!`,
+### 📄 चरण 7: पहली फाइल (\`index.html\`) बनाएं और लाइव सर्वर शुरू करें
+1. VS Code में नई फाइल \`index.html\` बनाएं और Emmet \`!\` दबाकर HTML5 संरचना प्राप्त करें।
+2. एडिटर में राइट-क्लिक करें ➔ **Open with Live Server** चुनें।
+3. आपका ब्राउज़र \`http://127.0.0.1:5500/index.html\` पर तुरंत लाइव वेबसाइट प्रदर्शित करेगा!
+
+![Step 7: Create index.html and Launch Live Server Preview](/screenshots/vscode/step7_first_index_html_live_server.png)`,
       pro: `🪟 Windows 11 पर विजुअल स्टूडियो कोड का पेशेवर वातावरण सेटअप और पहली HTML फाइल का निर्माण।
 
 ### 🛠️ सेटअप और विन्यास
-1. **डाउनलोड व इंस्टॉलेशन**: [code.visualstudio.com](https://code.visualstudio.com/) से विंडोज x64 इंस्टॉलर प्राप्त करें और PATH एनवायरनमेंट वेरिएबल चेकबॉक्स को सक्रिय रखें।
-2. **एक्सटेंशन टूलचेन**:
-   * \`Live Server\` (लोकल पोर्ट 5500 पर ऑटो रीलोडिंग)
-   * \`Prettier\` (सेव करते समय स्वतः फॉर्मेटिंग)
-3. **परियोजना संरचना व निष्पादन**:
-   * टर्मिनल में प्रोजेक्ट बनाएं: \`mkdir web-project && cd web-project && code .\`
-   * \`index.html\` बनाएं और Emmet \`!\` शॉर्टकट से HTML5 संरचना जनरेट करें।
-   * \`Alt + L, Alt + O\` दबाकर लाइव सर्वर शुरू करें।`
+1. **डाउनलोड व इंस्टॉलेशन**: [code.visualstudio.com/Download](https://code.visualstudio.com/Download) से विंडोज x64 इंस्टॉलर प्राप्त करें और PATH एनवायरनमेंट वेरिएबल चेकबॉक्स को सक्रिय रखें।
+
+![Step 1: Search for VS Code Download on Google](/screenshots/vscode/step1_google_search_vscode.png)
+![Step 2: Official Visual Studio Code Windows 11 Download Page](/screenshots/vscode/step2_vscode_download_page.png)
+![Step 3: Downloaded VSCodeUserSetup-x64.exe in Windows 11 Downloads](/screenshots/vscode/step3_windows11_downloads_folder.png)
+![Step 4: Windows 11 Setup Wizard Checkboxes (Enable Open with Code & PATH)](/screenshots/vscode/step4_vscode_setup_wizard_checkboxes.png)
+
+2. **एक्सटेंशन टूलचेन व पहला प्रोजेक्ट**:
+   * \`Live Server\` और \`Prettier\` एक्सटेंशन सक्रिय करें।
+   * फोल्डर पर राइट-क्लिक करके **Open with Code** खोलें और \`index.html\` लाइव सर्वर पर चलाएं।
+
+![Step 5: Install Live Server & Prettier Extensions in VS Code](/screenshots/vscode/step5_vscode_extensions_liveserver.png)
+![Step 6: Windows 11 Right-Click Folder -> Open with Code](/screenshots/vscode/step6_windows11_rightclick_open_with_code.png)
+![Step 7: Create index.html and Launch Live Server Preview](/screenshots/vscode/step7_first_index_html_live_server.png)`
     }
   },
   {
     id: 1,
-    slug: "learn-html-web-free-lessons-what-is-the-internet",
-    title: "What is the Internet?",
-    unit: "Unit 1: Web Fundamentals & Client-Server Architecture",
-    bookRef: "Duckett Chapter 1 (p. 2-5)",
+    slug: "html-introduction-what-is-html",
+    title: "HTML Introduction (What is HTML?)",
+    unit: "Unit 1: HTML Introduction & Fundamentals",
+    bookRef: "W3Schools HTML Introduction & Standards Guide",
     exercise: {
       english: {
-        question: "What is the physical reality of the internet?",
+        question: "What does HTML stand for?",
         options: [
-          "A software package installed on Windows",
-          "A satellite-only beam that doesn't use wires",
-          "A global network of physical cables, routers, and data centers",
-          "A magical cloud in the sky",
+          "Hyper Text Markup Language",
+          "High Tech Modern Language",
+          "Hyperlinks and Text Management Language",
+          "Home Tool Markup Language",
         ],
-        correctAnswer: "A global network of physical cables, routers, and data centers",
-        hint: "Remember, the internet is not magical or invisible. It relies on thousands of miles of cables running under the oceans!"
+        correctAnswer: "Hyper Text Markup Language",
+        hint: "HTML is the universal standard markup language used to create and structure Web pages across the World Wide Web!"
       },
       hinglish: {
-        question: "Internet ki physical reality kya hai?",
+        question: "HTML ka full form kya hai?",
         options: [
-          "Sirf satellite se chalne wali beam jo wires use nahi karti",
-          "Ek jadui baadal jo hawa mein hai",
-          "Windows par install hua ek software package",
-          "Dunia bhar mein failye physical cables, routers aur data centers ka network",
+          "High Tech Modern Language",
+          "Hyper Text Markup Language",
+          "Hyperlinks and Text Management Language",
+          "Home Tool Markup Language",
         ],
-        correctAnswer: "Dunia bhar mein failye physical cables, routers aur data centers ka network",
-        hint: "Yaad raho, internet koi jaadu nahi hai. Yeh samudron ke neeche bikhre hazaaron miles ke cables par nirbhar karta hai!"
+        correctAnswer: "Hyper Text Markup Language",
+        hint: "HTML ka matlab Hyper Text Markup Language hota hai jo web pages ka structure banata hai."
       },
       hindi: {
-        question: "इंटरनेट की वास्तविकता क्या है?",
+        question: "HTML का पूर्ण रूप (Full Form) क्या है?",
         options: [
-          "आकाश में एक जादुई बादल",
-          "एक सैटेलाइट बीम जो तारों का उपयोग नहीं करती",
-          "भौतिक केबलों, राउटरों और डेटा केंद्रों का एक वैश्विक नेटवर्क",
-          "🪟 Windows पर इंस्टॉल किया गया एक सॉफ्टवेयर पैकेज"
+          "हाई टेक मॉडर्न लैंग्वेज",
+          "Hyper Text Markup Language",
+          "हाइपरलिंक टेक्स्ट मैनेजमेंट लैंग्वेज",
+          "होम टूल मार्कअप लैंग्वेज"
         ],
-        correctAnswer: "भौतिक केबलों, राउटरों और डेटा केंद्रों का एक वैश्विक नेटवर्क",
-        hint: "याद रखें, इंटरनेट कोई जादू नहीं है। यह समुद्र के नीचे फैले हजारों मील के केबलों पर निर्भर करता है!"
+        correctAnswer: "Hyper Text Markup Language",
+        hint: "HTML का अर्थ Hyper Text Markup Language है जो वेब पेजों का ढांचा बनाता है।"
       }
     },
     english: {
-      kid: `HTML is the standard markup language for creating Web pages.
+      kid: `* 1. HTML is the standard language for web pages.
+* 2. It defines the structure of web content.
+* 3. HTML consists of a series of elements.
+* 4. Elements tell browsers how to display content.
+* 5. Elements label content like headings and paragraphs.
 
-## What is HTML?
-* **HTML** stands for Hyper Text Markup Language
-* **HTML** is the standard markup language for creating Web pages
-* **HTML** describes the structure of a Web page
-* **HTML** consists of a series of elements
-* **HTML** elements tell the browser how to display the content
-* **HTML** elements label pieces of content such as "this is a heading", "this is a paragraph", "this is a link", etc.
-
-## A Simple HTML Document
+### Example
+\`\`\`html
 <!DOCTYPE html>
 <html>
 <head>
-<title>Nextsem Academy</title>
+  <title>Page Title</title>
 </head>
 <body>
 
-<h1>
-  <img src="/icon.svg" width="32" height="32" alt="Nextsem Logo">
-  Welcome to Nextsem
-</h1>
-<p>Learn web development step-by-step with interactive coding examples.</p>
-
-<footer>
-  <p>© 2026 Nextsem Academy. All rights reserved.</p>
-</footer>
+  <h1>My First Heading</h1>
+  <p>My first paragraph.</p>
 
 </body>
 </html>
+\`\`\`
 
-## Example Explained
-* The \`<!DOCTYPE html>\` declaration defines that this document is an HTML5 document
-* The \`<html>\` element is the root element of an HTML page
-* The \`<head>\` element contains meta information about the HTML page
-* The \`<title>\` element specifies a title for the HTML page (which is shown in the browser's title bar or in the page's tab)
-* The \`<body>\` element defines the document's body, and is a container for all the visible contents, such as headings, paragraphs, images, hyperlinks, tables, lists, etc.
-* The \`<h1>\` element defines a large heading
-* The \`<p>\` element defines a paragraph
+![Windows 11 Google Chrome First HTML Page Live Preview](/screenshots/html/lesson1_html_first_page_chrome.png)`,
+      pro: `* 1. HTML is the standard language for web pages.
+* 2. It defines the structure of web content.
+* 3. HTML consists of a series of elements.
+* 4. Elements tell browsers how to display content.
+* 5. Elements label content like headings and paragraphs.
 
-## What is an HTML Element?
-An HTML element is defined by a start tag, some content, and an end tag:
-\`<tagname>\` Content goes here... \`</tagname>\`
-
-The HTML element is everything from the start tag to the end tag:
-\`<h1>\`My First Heading\`</h1>\`
-\`<p>\`My first paragraph.\`<p>\`
-
-Note: Some HTML elements have no content (like the \`<br>\` element). These elements are called empty elements. Empty elements do not have an end tag!`,
-      pro: `HTML is the standard markup language for creating Web pages.
-
-## What is HTML?
-* **HTML** stands for Hyper Text Markup Language
-* **HTML** is the standard markup language for creating Web pages
-* **HTML** describes the structure of a Web page
-* **HTML** consists of a series of elements
-* **HTML** elements tell the browser how to display the content
-* **HTML** elements label pieces of content such as "this is a heading", "this is a paragraph", "this is a link", etc.
-
-## A Simple HTML Document
+### Example
+\`\`\`html
 <!DOCTYPE html>
 <html>
 <head>
-<title>Nextsem Academy</title>
+  <title>Page Title</title>
 </head>
 <body>
 
-<h1>
-  <img src="/icon.svg" width="32" height="32" alt="Nextsem Logo">
-  Welcome to Nextsem
-</h1>
-<p>Learn web development step-by-step with interactive coding examples.</p>
-
-<footer>
-  <p>© 2026 Nextsem Academy. All rights reserved.</p>
-</footer>
+  <h1>My First Heading</h1>
+  <p>My first paragraph.</p>
 
 </body>
 </html>
+\`\`\`
 
-## Example Explained
-* The \`<!DOCTYPE html>\` declaration defines that this document is an HTML5 document
-* The \`<html>\` element is the root element of an HTML page
-* The \`<head>\` element contains meta information about the HTML page
-* The \`<title>\` element specifies a title for the HTML page (which is shown in the browser's title bar or in the page's tab)
-* The \`<body>\` element defines the document's body, and is a container for all the visible contents, such as headings, paragraphs, images, hyperlinks, tables, lists, etc.
-* The \`<h1>\` element defines a large heading
-* The \`<p>\` element defines a paragraph
-
-## What is an HTML Element?
-An HTML element is defined by a start tag, some content, and an end tag:
-\`<tagname>\` Content goes here... \`</tagname>\`
-
-The HTML element is everything from the start tag to the end tag:
-\`<h1>\`My First Heading\`</h1>\`
-\`<p>\`My first paragraph.\`<p>\`
-
-Note: Some HTML elements have no content (like the \`<br>\` element). These elements are called empty elements. Empty elements do not have an end tag!`
+![Windows 11 Google Chrome First HTML Page Live Preview](/screenshots/html/lesson1_html_first_page_chrome.png)`
     },
     hinglish: {
-      kid: "### 📮 Internet Ek Bada Cables Ka Highway Hai!\nLog sochte hain ki internet hawa me chalne waala koi jaadu hai, par sach ye hai ki internet **bade-bade taaro (cables) ka ek network** hai jo zameen ke niche aur samundar ke andar bichha hua hai!\n\n* **Aapka Computer**: Ye highway par bana ek ghar hai.\n* **Data Packets**: Aapki photos aur web pages chhote-chhote packets me toot kar in taaro ke zariye bhaagte hain.\n\n⚡ **Analogy**: Jaise postman chitthiyo ko alag-alag ghar bhejta hai, waise hi routers in data packets ko sahi address par deliver karte hain!",
-      pro: "### 📡 System Level Internet Infrastructure\nProduction me internet ko samajhne ke liye hume **Autonomous Systems (AS)** aur routing protocols ko dekhna hoga. Internet koi single network nahi hai balki aapas me connected thousands of private and public networks ka group hai.\n\n* **Fiber Optic Backbone**: Oceans ke niche layed submarine cables 99% international internet traffic carry karte hain.\n* **Packet Switching**: Data split hota hai packets me aur independent routes se destination tak pahunchta hai.\n\n💻 **Developer Advice**: Connection routes ko track karne ke liye ⊞ Windows Command Prompt me `tracert` utility use karein."
+      kid: `* 1. HTML web pages banane ki standard language hai.
+* 2. Ye website ka basic structure banata hai.
+* 3. HTML alag alag elements se milkar banta.
+* 4. Elements browser ko content dikhana sikhate hain.
+* 5. Ye heading aur paragraph jaise content darshata.
+
+### Example
+\`\`\`html
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Page Title</title>
+</head>
+<body>
+
+  <h1>My First Heading</h1>
+  <p>My first paragraph.</p>
+
+</body>
+</html>
+\`\`\`
+
+![Windows 11 Google Chrome First HTML Page Live Preview](/screenshots/html/lesson1_html_first_page_chrome.png)`,
+      pro: `* 1. HTML web pages banane ki standard language hai.
+* 2. Ye website ka basic structure banata hai.
+* 3. HTML alag alag elements se milkar banta.
+* 4. Elements browser ko content dikhana sikhate hain.
+* 5. Ye heading aur paragraph jaise content darshata.
+
+### Example
+\`\`\`html
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Page Title</title>
+</head>
+<body>
+
+  <h1>My First Heading</h1>
+  <p>My first paragraph.</p>
+
+</body>
+</html>
+\`\`\`
+
+![Windows 11 Google Chrome First HTML Page Live Preview](/screenshots/html/lesson1_html_first_page_chrome.png)`
     },
     hindi: {
-      kid: "### 📮 इंटरनेट तारों का एक विशाल नेटवर्क है!\nबहुत से लोग सोचते हैं कि इंटरनेट हवा में उड़ने वाला कोई जादुई बादल है, लेकिन यह वास्तव में तांबे के तारों और कांच के केबलों का एक विशाल भौतिक नेटवर्क है जो जमीन के नीचे और समुद्र के नीचे बिछा हुआ है!\n\n* **आपका कंप्यूटर**: यह इस बड़े नेटवर्क पर बने एक घर की तरह है।\n* **डेटा पैकेट**: आपकी फोटो या वेबसाइट की फाइलें छोटे-छोटे लिफाफों (पैकेट) में विभाजित होकर इन तारों से बहुत तेजी से यात्रा करती हैं।\n\n📝 **निष्कर्ष**: जब आप कोई वेबसाइट खोलते हैं, तो वह आपके कंप्यूटर तक पहुंचाने के लिए इन भौतिक तारों के माध्यम से यात्रा करती है।",
-      pro: "### 📡 ग्लोबल नेटवर्क इन्फ्रास्ट्रक्चर और आईपी राउटिंग\nपेशेवर स्तर पर, इंटरनेट स्वायत्त प्रणालियों (Autonomous Systems) का एक विकेन्द्रीकृत वैश्विक नेटवर्क है जो **TCP/IP प्रोटोकॉल** का उपयोग करके संचार करता है।\n\n* **बैकबोन नेटवर्क**: टियर 1 आईएसपी (ISP) के पास समुद्र के नीचे फैले विशाल फाइबर-ऑप्टिक केबल हैं, जो डेटा को प्रकाश की गति से ट्रांसफर करते हैं।\n* **पैकेट स्विचिंग**: डेटा को छोटे आईपी पैकेटों में तोड़ा जाता है, और राउटर गंतव्य तक पहुंचने के लिए सबसे छोटे मार्ग का चयन करते हैं।\n\n💻 **प्रो टिप**: अपने कंप्यूटर से सर्वर तक का मार्ग देखने के लिए 🪟 Windows 11 के टर्मिनल में `tracert nextsem.online` चलाएं।"
+      kid: `* 1. HTML वेब पेज बनाने की मानक भाषा है।
+* 2. यह वेब सामग्री का मूल ढांचा बनाती है।
+* 3. HTML विभिन्न एलिमेंट्स से मिलकर बना होता है।
+* 4. एलिमेंट्स ब्राउज़र को सामग्री दिखाना सिखाते हैं।
+* 5. यह हेडिंग और पैराग्राफ जैसी सामग्री दर्शाता।
+
+### Example
+\`\`\`html
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Page Title</title>
+</head>
+<body>
+
+  <h1>My First Heading</h1>
+  <p>My first paragraph.</p>
+
+</body>
+</html>
+\`\`\`
+
+![Windows 11 Google Chrome First HTML Page Live Preview](/screenshots/html/lesson1_html_first_page_chrome.png)`,
+      pro: `* 1. HTML वेब पेज बनाने की मानक भाषा है।
+* 2. यह वेब सामग्री का मूल ढांचा बनाती है।
+* 3. HTML विभिन्न एलिमेंट्स से मिलकर बना होता है।
+* 4. एलिमेंट्स ब्राउज़र को सामग्री दिखाना सिखाते हैं।
+* 5. यह हेडिंग और पैराग्राफ जैसी सामग्री दर्शाता।
+
+### Example
+\`\`\`html
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Page Title</title>
+</head>
+<body>
+
+  <h1>My First Heading</h1>
+  <p>My first paragraph.</p>
+
+</body>
+</html>
+\`\`\`
+
+![Windows 11 Google Chrome First HTML Page Live Preview](/screenshots/html/lesson1_html_first_page_chrome.png)`
     }
   },
   {
@@ -730,16 +803,204 @@ Network layer se le kar application layer tak web communication flow:
       hint: "A successful operation returns the standard 'OK' status, which is 200!"
     },
     english: {
-      kid: "### 📮 The Server's Reply (HTTP Response)\nWhen the server gets your request, it mails back an **HTTP Response** with a status code:\n\n* **200 OK**: *'Here is your webpage!'* \n* **404 Not Found**: *'Oops! I cannot find that page!'*\n* **500 Server Error**: *'My database crashed!'*",
-      pro: "### 📡 HTTP Response Payload & Status Code Segments\nAn HTTP response package contains a status line, headers, and the document payload:\n\n1. **Status Line**: HTTP Version, status numeric code, and status text:\n   ```http\n   HTTP/1.1 200 OK\n   ```\n2. **Response Headers**: Metadata describing the content:\n   ```http\n   Content-Type: text/html; charset=UTF-8\n   Content-Length: 1250\n   ```\n3. **Response Body**: The actual HTML source code rendered by the client browser."
+      kid: `### 📮 The Server's Reply (HTTP Response)
+When the server gets your request, it mails back an **HTTP Response** with a status code:
+
+* **200 OK**: *'Here is your webpage!'* 
+* **404 Not Found**: *'Oops! I cannot find that page!'*
+* **500 Server Error**: *'My database crashed!'*
+
+## Example
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTTP Response Example</title>
+  <style>
+    body { font-family: sans-serif; background: #0f172a; color: #fff; padding: 24px; }
+    .card { background: #1e293b; padding: 24px; border-radius: 12px; border: 1px solid #334155; max-width: 600px; margin: 0 auto; }
+    .badge { background: #04AA6D; color: #fff; font-weight: bold; padding: 6px 12px; border-radius: 6px; font-family: monospace; }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <span class="badge">HTTP/1.1 200 OK</span>
+    <h2 style="color:#04AA6D; margin-top:16px;">Server Response Payload</h2>
+    <p>The web server successfully processed your request and returned this live HTML page to your browser!</p>
+  </div>
+
+</body>
+</html>`,
+      pro: `### 📡 HTTP Response Payload & Status Code Segments
+An HTTP response package contains a status line, headers, and the document payload:
+
+1. **Status Line**: HTTP Version, status numeric code, and status text:
+   \`\`\`http
+   HTTP/1.1 200 OK
+   \`\`\`
+2. **Response Headers**: Metadata describing the content:
+   \`\`\`http
+   Content-Type: text/html; charset=UTF-8
+   Content-Length: 1250
+   \`\`\`
+3. **Response Body**: The actual HTML source code rendered by the client browser:
+
+## Example
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTTP 200 OK Response Demo</title>
+  <style>
+    body { font-family: monospace; background: #0f172a; color: #38bdf8; padding: 24px; }
+    .headers { background: #1e293b; padding: 16px; border-radius: 8px; border: 1px solid #334155; margin-bottom: 20px; }
+    .content { background: #1e293b; padding: 16px; border-radius: 8px; border: 1px solid #04AA6D; color: #fff; font-family: sans-serif; }
+  </style>
+</head>
+<body>
+
+  <div class="headers">
+    <p><strong>HTTP/1.1 200 OK</strong></p>
+    <p>Content-Type: text/html; charset=UTF-8</p>
+    <p>Server: Nextsem-Edge/2.0</p>
+  </div>
+
+  <div class="content">
+    <h1 style="color:#04AA6D;">Welcome to Nextsem Academy!</h1>
+    <p>This is the HTML body returned by the HTTP 200 OK server response.</p>
+  </div>
+
+</body>
+</html>`
     },
     hinglish: {
-      kid: "### 📮 Server Ka Jawaab (HTTP Response)\nServer request milne par files ke sath ek **Status Code** bhejta hai jo connection status batata hai:\n\n* **200 OK**: Sab sahi hai, ye rahi aapki file!\n* **404 Not Found**: Ye page website par exist nahi karta.\n* **500 Internal Server Error**: Server me koi coding crash ho gayi hai.",
-      pro: "### 📡 HTTP Response Protocol & Status Classes\nResponse packages content deliver status return karte hain:\n\n* **Status Code Range**: 2xx (Success), 3xx (Redirect), 4xx (Client Errors), 5xx (Server Problems).\n* **Content headers**: Browser compiler engine ko parsing strategies configure karne me help karte hain (Content-Type header checks)."
+      kid: `### 📮 Server Ka Jawaab (HTTP Response)
+Server request milne par files ke sath ek **Status Code** bhejta hai jo connection status batata hai:
+
+* **200 OK**: Sab sahi hai, ye rahi aapki file!
+* **404 Not Found**: Ye page website par exist nahi karta.
+* **500 Internal Server Error**: Server me koi coding crash ho gayi hai.
+
+## Example
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTTP Response Example</title>
+  <style>
+    body { font-family: sans-serif; background: #0f172a; color: #fff; padding: 24px; }
+    .card { background: #1e293b; padding: 24px; border-radius: 12px; border: 1px solid #334155; }
+    .badge { background: #04AA6D; color: #fff; font-weight: bold; padding: 6px 12px; border-radius: 6px; }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <span class="badge">HTTP/1.1 200 OK</span>
+    <h2>Server Response Payload</h2>
+    <p>The web server successfully processed your request and returned this live HTML page!</p>
+  </div>
+
+</body>
+</html>`,
+      pro: `### 📡 HTTP Response Protocol & Status Classes
+Response packages content deliver status return karte hain:
+
+* **Status Code Range**: 2xx (Success), 3xx (Redirect), 4xx (Client Errors), 5xx (Server Problems).
+* **Content headers**: Browser compiler engine ko parsing strategies configure karne me help karte hain (Content-Type header checks).
+
+## Example
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTTP 200 OK Response Demo</title>
+  <style>
+    body { font-family: monospace; background: #0f172a; color: #38bdf8; padding: 24px; }
+    .headers { background: #1e293b; padding: 16px; border-radius: 8px; border: 1px solid #334155; margin-bottom: 20px; }
+    .content { background: #1e293b; padding: 16px; border-radius: 8px; border: 1px solid #04AA6D; color: #fff; font-family: sans-serif; }
+  </style>
+</head>
+<body>
+
+  <div class="headers">
+    <p><strong>HTTP/1.1 200 OK</strong></p>
+    <p>Content-Type: text/html; charset=UTF-8</p>
+    <p>Server: Nextsem-Edge/2.0</p>
+  </div>
+
+  <div class="content">
+    <h1 style="color:#04AA6D;">Welcome to Nextsem Academy!</h1>
+    <p>This is the HTML body returned by the HTTP 200 OK server response.</p>
+  </div>
+
+</body>
+</html>`
     },
     hindi: {
-      kid: "### 📮 सर्वर का उत्तर (HTTP Response)\nअनुरोध प्राप्त करने के बाद, सर्वर वेबसाइट की फाइलों के साथ एक प्रतिक्रिया (HTTP Response) और एक स्टेटस कोड भेजता है:\n\n* **200 OK**: *'सब ठीक है! ये रही आपकी वेबसाइट।'*\n* **404 Not Found**: *'यह पेज मौजूद नहीं है!'*\n* **500 Server Error**: *'सर्वर की कोडिंग में कोई समस्या आ गई है!'*",
-      pro: "### 📡 HTTP प्रतिक्रिया पेलोड और स्थिति कोड (Response Status Codes)\nएक HTTP प्रतिक्रिया में स्थिति पंक्ति (Status Line), हेडर (Headers) और दस्तावेज़ बॉडी शामिल होती है:\n\n* **स्थिति पंक्ति**: प्रतिक्रिया स्थिति (उदा. `HTTP/1.1 200 OK`) लौटाती है।\n* **प्रतिक्रिया हेडर**: डेटा का प्रकार (उदा. `Content-Type: text/html`) और लंबाई परिभाषित करते हैं।"
+      kid: `### 📮 सर्वर का उत्तर (HTTP Response)
+अनुरोध प्राप्त करने के बाद, सर्वर वेबसाइट की फाइलों के साथ एक प्रतिक्रिया (HTTP Response) और एक स्टेटस कोड भेजता है:
+
+* **200 OK**: *'सब ठीक है! ये रही आपकी वेबसाइट।'*
+* **404 Not Found**: *'यह पेज मौजूद नहीं है!'*
+* **500 Server Error**: *'सर्वर की कोडिंग में कोई समस्या आ गई है!'*
+
+## Example
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTTP Response Example</title>
+  <style>
+    body { font-family: sans-serif; background: #0f172a; color: #fff; padding: 24px; }
+    .card { background: #1e293b; padding: 24px; border-radius: 12px; border: 1px solid #334155; }
+    .badge { background: #04AA6D; color: #fff; font-weight: bold; padding: 6px 12px; border-radius: 6px; }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <span class="badge">HTTP/1.1 200 OK</span>
+    <h2>Server Response Payload</h2>
+    <p>The web server successfully processed your request and returned this live HTML page!</p>
+  </div>
+
+</body>
+</html>`,
+      pro: `### 📡 HTTP प्रतिक्रिया पेलोड और स्थिति कोड (Response Status Codes)
+एक HTTP प्रतिक्रिया में स्थिति पंक्ति (Status Line), हेडर (Headers) और दस्तावेज़ बॉडी शामिल होती है:
+
+* **स्थिति पंक्ति**: प्रतिक्रिया स्थिति (उदा. \`HTTP/1.1 200 OK\`) लौटाती है।
+* **प्रतिक्रिया हेडर**: डेटा का प्रकार (उदा. \`Content-Type: text/html\`) और लंबाई परिभाषित करते हैं।
+
+## Example
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTTP 200 OK Response Demo</title>
+  <style>
+    body { font-family: monospace; background: #0f172a; color: #38bdf8; padding: 24px; }
+    .headers { background: #1e293b; padding: 16px; border-radius: 8px; border: 1px solid #334155; margin-bottom: 20px; }
+    .content { background: #1e293b; padding: 16px; border-radius: 8px; border: 1px solid #04AA6D; color: #fff; font-family: sans-serif; }
+  </style>
+</head>
+<body>
+
+  <div class="headers">
+    <p><strong>HTTP/1.1 200 OK</strong></p>
+    <p>Content-Type: text/html; charset=UTF-8</p>
+    <p>Server: Nextsem-Edge/2.0</p>
+  </div>
+
+  <div class="content">
+    <h1 style="color:#04AA6D;">Welcome to Nextsem Academy!</h1>
+    <p>This is the HTML body returned by the HTTP 200 OK server response.</p>
+  </div>
+
+</body>
+</html>`
     }
   },
   {
@@ -760,16 +1021,206 @@ Network layer se le kar application layer tak web communication flow:
       hint: "Query parameters start with a question mark (?) and pass extra search values to the page."
     },
     english: {
-      kid: "### 🧭 Decoding a URL Address!\nEvery webpage has a address bar link called a **URL** (Uniform Resource Locator). Let's dissect one:\n`https://nextsem.online/html?search=tags` \n\n* **https://**: The protocol (how data travels safely).\n* **nextsem.online**: The domain host name (which site you are visiting).\n* **query parameters (?search=tags)**: Extra filters to find specific items on the page.",
-      pro: "### 📐 URL Specification & Component Parsers\nA Uniform Resource Locator (URL) specifies the address of a resource on the Internet:\n\n1. **Scheme/Protocol**: `https` indicating secure communication over SSL/TLS.\n2. **Hostname/Domain**: `nextsem.online` resolved via DNS query.\n3. **Port**: Default is `443` for HTTPS, `80` for HTTP.\n4. **Path**: `/html` referring to the localized directory route.\n5. **Query String**: `?search=tags` passing parameters via key-value tuples."
+      kid: `### 🧭 Decoding a URL Address!
+Every webpage has a address bar link called a **URL** (Uniform Resource Locator). Let's dissect one:
+\`https://nextsem.online/html?search=tags\` 
+
+* **https://**: The protocol (how data travels safely).
+* **nextsem.online**: The domain host name (which site you are visiting).
+* **query parameters (?search=tags)**: Extra filters to find specific items on the page.
+
+## Example
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>URL & Hyperlink Demo</title>
+  <style>
+    body { font-family: sans-serif; background: #0f172a; color: #fff; padding: 24px; }
+    .url-box { background: #1e293b; padding: 20px; border-radius: 12px; border: 1px solid #334155; }
+    a { color: #04AA6D; font-weight: bold; text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  <div class="url-box">
+    <h2>Interactive URL Link</h2>
+    <p>Click below to navigate using query parameters:</p>
+    <a href="https://nextsem.online/html?topic=attributes" target="_blank">
+      https://nextsem.online/html?topic=attributes
+    </a>
+  </div>
+
+</body>
+</html>`,
+      pro: `### 📐 URL Specification & Component Parsers
+A Uniform Resource Locator (URL) specifies the address of a resource on the Internet:
+
+1. **Scheme/Protocol**: \`https\` indicating secure communication over SSL/TLS.
+2. **Hostname/Domain**: \`nextsem.online\` resolved via DNS query.
+3. **Port**: Default is \`443\` for HTTPS, \`80\` for HTTP.
+4. **Path**: \`/html\` referring to the localized directory route.
+5. **Query String**: \`?search=tags\` passing parameters via key-value tuples.
+
+## Example
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>URL Component Visualizer</title>
+  <style>
+    body { font-family: monospace; background: #0f172a; color: #f8fafc; padding: 24px; }
+    .url-container { background: #1e293b; padding: 20px; border-radius: 10px; border: 1px solid #334155; }
+    .scheme { color: #f43f5e; font-weight: bold; }
+    .host { color: #38bdf8; font-weight: bold; }
+    .path { color: #04AA6D; font-weight: bold; }
+    .query { color: #f59e0b; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+  <div class="url-container">
+    <h2>RFC 3986 URL Anatomy</h2>
+    <p style="font-size:16px;">
+      <span class="scheme">https://</span><span class="host">nextsem.online</span><span class="path">/html</span><span class="query">?topic=anatomy</span>
+    </p>
+  </div>
+
+</body>
+</html>`
     },
     hinglish: {
-      kid: "### 🧭 URL Address Ka Breakdown!\nURL ka matlab hota hai **Uniform Resource Locator**. Chalo iski body ko samajhte hain:\n`https://nextsem.online/html?user=john` \n\n* **https**: Protocol jo data transfer secure karta hai.\n* **nextsem.online**: Main website host address.\n* **Query (?user=john)**: Extra variable parameters jo page dynamic inputs load karne me use karta hai.",
-      pro: "### 📐 RFC 3986 URI & URL Architecture\nURL parser architecture logical parts divide karti hai:\n\n* **Authority**: Domain credentials aur server ports binding specify karti hai.\n* **Query parameters & Fragment hashes (#id)**: Client routers ko browser routing controls inject karne me access parameters map karne ke liye dynamic variables query pass karte hain."
+      kid: `### 🧭 URL Address Ka Breakdown!
+URL ka matlab hota hai **Uniform Resource Locator**. Chalo iski body ko samajhte hain:
+\`https://nextsem.online/html?user=john\` 
+
+* **https**: Protocol jo data transfer secure karta hai.
+* **nextsem.online**: Main website host address.
+* **Query (?user=john)**: Extra variable parameters jo page dynamic inputs load karne me use karta hai.
+
+## Example
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>URL & Hyperlink Demo</title>
+  <style>
+    body { font-family: sans-serif; background: #0f172a; color: #fff; padding: 24px; }
+    .url-box { background: #1e293b; padding: 20px; border-radius: 12px; border: 1px solid #334155; }
+    a { color: #04AA6D; font-weight: bold; text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  <div class="url-box">
+    <h2>Interactive URL Link</h2>
+    <p>Click below to navigate using query parameters:</p>
+    <a href="https://nextsem.online/html?topic=attributes" target="_blank">
+      https://nextsem.online/html?topic=attributes
+    </a>
+  </div>
+
+</body>
+</html>`,
+      pro: `### 📐 RFC 3986 URI & URL Architecture
+URL parser architecture logical parts divide karti hai:
+
+* **Authority**: Domain credentials aur server ports binding specify karti hai.
+* **Query parameters & Fragment hashes (#id)**: Client routers ko browser routing controls inject karne me access parameters map karne ke liye dynamic variables query pass karte hain.
+
+## Example
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>URL Component Visualizer</title>
+  <style>
+    body { font-family: monospace; background: #0f172a; color: #f8fafc; padding: 24px; }
+    .url-container { background: #1e293b; padding: 20px; border-radius: 10px; border: 1px solid #334155; }
+    .scheme { color: #f43f5e; font-weight: bold; }
+    .host { color: #38bdf8; font-weight: bold; }
+    .path { color: #04AA6D; font-weight: bold; }
+    .query { color: #f59e0b; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+  <div class="url-container">
+    <h2>RFC 3986 URL Anatomy</h2>
+    <p style="font-size:16px;">
+      <span class="scheme">https://</span><span class="host">nextsem.online</span><span class="path">/html</span><span class="query">?topic=anatomy</span>
+    </p>
+  </div>
+
+</body>
+</html>`
     },
     hindi: {
-      kid: "### 🧭 यूआरएल का वर्गीकरण (URL Breakdown)!\nप्रत्येक वेब पेज का एक डिजिटल पता होता है जिसे **URL** (यूनिफ़ॉर्म रिसोर्स लोकेटर) कहा जाता है:\n`https://nextsem.online/html?search=tags` \n\n* **https://**: प्रोटोकॉल (डेटा सुरक्षित रूप से कैसे ट्रांसफर होगा)\n* **nextsem.online**: डोमेन नेम (आप कौन सी वेबसाइट देख रहे हैं)\n* **क्वेरी पैरामीटर (?search=tags)**: खोज परिणामों को फ़िल्टर करने के लिए अतिरिक्त निर्देश।",
-      pro: "### 📐 यूआरएल संरचना (URL Anatomy)\nएक यूआरएल (URL) इंटरनेट पर किसी संसाधन का पूर्ण पता और स्थान है:\n\n* **प्रोटोकॉल**: `https` जो सुरक्षित एसएसएल (SSL) कनेक्शन को दर्शाता है।\n* **होस्टनेम**: `nextsem.online` जिसे डीएनएस द्वारा रिज़ॉल्व किया जाता है।\n* **क्वेरी स्ट्रिंग**: `?` के बाद आने वाले कुंजी-मूल्य जोड़े (Key-Value Pairs) जो डेटा पास करते हैं।"
+      kid: `### 🧭 यूआरएल का वर्गीकरण (URL Breakdown)!
+प्रत्येक वेब पेज का एक डिजिटल पता होता है जिसे **URL** (यूनिफ़ॉर्म रिसोर्स लोकेटर) कहा जाता है:
+\`https://nextsem.online/html?search=tags\` 
+
+* **https://**: प्रोटोकॉल (डेटा सुरक्षित रूप से कैसे ट्रांसफर होगा)
+* **nextsem.online**: डोमेन नेम (आप कौन सी वेबसाइट देख रहे हैं)
+* **क्वेरी पैरामीटर (?search=tags)**: खोज परिणामों को फ़िल्टर करने के लिए अतिरिक्त निर्देश।
+
+## Example
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>URL & Hyperlink Demo</title>
+  <style>
+    body { font-family: sans-serif; background: #0f172a; color: #fff; padding: 24px; }
+    .url-box { background: #1e293b; padding: 20px; border-radius: 12px; border: 1px solid #334155; }
+    a { color: #04AA6D; font-weight: bold; text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  <div class="url-box">
+    <h2>Interactive URL Link</h2>
+    <p>Click below to navigate using query parameters:</p>
+    <a href="https://nextsem.online/html?topic=attributes" target="_blank">
+      https://nextsem.online/html?topic=attributes
+    </a>
+  </div>
+
+</body>
+</html>`,
+      pro: `### 📐 यूआरएल संरचना (URL Anatomy)
+एक यूआरएल (URL) इंटरनेट पर किसी संसाधन का पूर्ण पता और स्थान है:
+
+* **प्रोटोकॉल**: \`https\` जो सुरक्षित एसएसएल (SSL) कनेक्शन को दर्शाता है।
+* **होस्टनेम**: \`nextsem.online\` जिसे डीएनएस द्वारा रिज़ॉल्व किया जाता है।
+* **क्वेरी स्ट्रिंग**: \`?\` के बाद आने वाले कुंजी-मूल्य जोड़े (Key-Value Pairs) जो डेटा पास करते हैं।
+
+## Example
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>URL Component Visualizer</title>
+  <style>
+    body { font-family: monospace; background: #0f172a; color: #f8fafc; padding: 24px; }
+    .url-container { background: #1e293b; padding: 20px; border-radius: 10px; border: 1px solid #334155; }
+    .scheme { color: #f43f5e; font-weight: bold; }
+    .host { color: #38bdf8; font-weight: bold; }
+    .path { color: #04AA6D; font-weight: bold; }
+    .query { color: #f59e0b; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+  <div class="url-container">
+    <h2>RFC 3986 URL Anatomy</h2>
+    <p style="font-size:16px;">
+      <span class="scheme">https://</span><span class="host">nextsem.online</span><span class="path">/html</span><span class="query">?topic=anatomy</span>
+    </p>
+  </div>
+
+</body>
+</html>`
     }
   },
   {
@@ -790,16 +1241,204 @@ Network layer se le kar application layer tak web communication flow:
       hint: "It represents the page structure as a tree of objects. It starts with 'Document'!"
     },
     english: {
-      kid: "### 🌳 The DOM: Building a Tree of Tags!\nWhen your browser downloads an HTML file, it translates it into a tree model called the **Document Object Model (DOM)**:\n\n* **The Root Trunk**: The `<html>` tag.\n* **The Big Branches**: `<head>` and `<body>` tags.\n* **The Leaves**: Headings, links, and paragraphs nested inside.\n\n✨ If you change a leaf tag, the whole page structure updates instantly!",
-      pro: "### 🌳 Critical Rendering Path & DOM Tree Construction\nThe Document Object Model (DOM) is an API interface for HTML documents, representing the layout structure as a node tree:\n\n1. **Conversion**: Browser parses raw bytes into characters.\n2. **Tokenization**: Identifies tags (e.g. `<html>`, `<body>`) based on HTML5 token rules.\n3. **Lexing**: Converts tokens into node objects containing attributes.\n4. **DOM Construction**: Nodes are linked hierarchically, forming the DOM tree."
+      kid: `### 🌳 The DOM: Building a Tree of Tags!
+When your browser downloads an HTML file, it translates it into a tree model called the **Document Object Model (DOM)**:
+
+* **The Root Trunk**: The \`<html>\` tag.
+* **The Big Branches**: \`<head>\` and \`<body>\` tags.
+* **The Leaves**: Headings, links, and paragraphs nested inside.
+
+✨ If you change a leaf tag, the whole page structure updates instantly!
+
+## Example
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DOM Tree Visualizer</title>
+  <style>
+    body { font-family: sans-serif; background: #0f172a; color: #fff; padding: 24px; }
+    .tree-node { background: #1e293b; padding: 16px; border-radius: 8px; border-left: 4px solid #04AA6D; margin: 10px 0; }
+    .child-node { margin-left: 24px; border-left-color: #38bdf8; }
+  </style>
+</head>
+<body>
+
+  <div class="tree-node">
+    <strong>&lt;html&gt; (Root Element)</strong>
+    <div class="tree-node child-node">
+      <strong>&lt;body&gt;</strong>
+      <div class="tree-node child-node" style="border-left-color:#f59e0b;">
+        &lt;h1&gt;Document Object Model Tree&lt;/h1&gt;
+        <p>&lt;p&gt;Every tag forms a live branch on the DOM tree.&lt;/p&gt;</p>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>`,
+      pro: `### 🌳 Critical Rendering Path & DOM Tree Construction
+The Document Object Model (DOM) is an API interface for HTML documents, representing the layout structure as a node tree:
+
+1. **Conversion**: Browser parses raw bytes into characters.
+2. **Tokenization**: Identifies tags (e.g. \`<html>\`, \`<body>\`) based on HTML5 token rules.
+3. **Lexing**: Converts tokens into node objects containing attributes.
+4. **DOM Construction**: Nodes are linked hierarchically, forming the DOM tree.
+
+## Example
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DOM Node Tree Architecture</title>
+  <style>
+    body { font-family: monospace; background: #0f172a; color: #fff; padding: 24px; }
+    .node-box { background: #1e293b; border: 1px solid #334155; padding: 14px; border-radius: 6px; margin-bottom: 8px; }
+  </style>
+</head>
+<body>
+
+  <div class="node-box" id="root-node">
+    <h3 style="color:#04AA6D;">#document &gt; html &gt; body</h3>
+    <p id="dom-status">Active Nodes: 12 | Tree State: Complete</p>
+    <button onclick="document.getElementById('dom-status').innerText = 'Node Updated via DOM API!';" style="background:#04AA6D;color:#fff;border:none;padding:8px 16px;border-radius:4px;cursor:pointer;">
+      Mutate DOM Node
+    </button>
+  </div>
+
+</body>
+</html>`
     },
     hinglish: {
-      kid: "### 🌳 DOM Tree: Web Page Ka Skeleton!\nHTML file load hone par browser use ek tree structure me convert karta hai jise **DOM (Document Object Model)** kehte hain:\n\n* **Main Trunk**: `<html>` tag root node hota hai.\n* **Branches**: Uske andar `<head>` aur `<body>` nodes split hote hain.\n* **Leaves**: Paragraphs `<p>` aur images `<img>` tiny nested leaves ki tarah nodes se attach hote hain.",
-      pro: "### 🌳 Browser Parsing and DOM/CSSOM Integration\nBrowser rendering engine critical path parsing sequences calculate karta hai:\n\n* **Token Stream Parsing**: Bytes stream tokenize hokar elements tree dynamic nodes register karti hai.\n* **Render Tree**: DOM (structure) aur CSSOM (styles) merge hokar final Layout tree construct karte hain jo browser canvas par paint hota hai."
+      kid: `### 🌳 DOM Tree: Web Page Ka Skeleton!
+HTML file load hone par browser use ek tree structure me convert karta hai jise **DOM (Document Object Model)** kehte hain:
+
+* **Main Trunk**: \`<html>\` tag root node hota hai.
+* **Branches**: Uske andar \`<head>\` aur \`<body>\` nodes split hote hain.
+* **Leaves**: Paragraphs \`<p>\` aur images \`<img>\` tiny nested leaves ki tarah nodes se attach hote hain.
+
+## Example
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DOM Tree Visualizer</title>
+  <style>
+    body { font-family: sans-serif; background: #0f172a; color: #fff; padding: 24px; }
+    .tree-node { background: #1e293b; padding: 16px; border-radius: 8px; border-left: 4px solid #04AA6D; margin: 10px 0; }
+    .child-node { margin-left: 24px; border-left-color: #38bdf8; }
+  </style>
+</head>
+<body>
+
+  <div class="tree-node">
+    <strong>&lt;html&gt; (Root Element)</strong>
+    <div class="tree-node child-node">
+      <strong>&lt;body&gt;</strong>
+      <div class="tree-node child-node" style="border-left-color:#f59e0b;">
+        &lt;h1&gt;Document Object Model Tree&lt;/h1&gt;
+        <p>&lt;p&gt;Every tag forms a live branch on the DOM tree.&lt;/p&gt;</p>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>`,
+      pro: `### 🌳 Browser Parsing and DOM/CSSOM Integration
+Browser rendering engine critical path parsing sequences calculate karta hai:
+
+* **Token Stream Parsing**: Bytes stream tokenize hokar elements tree dynamic nodes register karti hai.
+* **Render Tree**: DOM (structure) aur CSSOM (styles) merge hokar final Layout tree construct karte hain jo browser canvas par paint hota hai.
+
+## Example
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DOM Node Tree Architecture</title>
+  <style>
+    body { font-family: monospace; background: #0f172a; color: #fff; padding: 24px; }
+    .node-box { background: #1e293b; border: 1px solid #334155; padding: 14px; border-radius: 6px; margin-bottom: 8px; }
+  </style>
+</head>
+<body>
+
+  <div class="node-box" id="root-node">
+    <h3 style="color:#04AA6D;">#document &gt; html &gt; body</h3>
+    <p id="dom-status">Active Nodes: 12 | Tree State: Complete</p>
+    <button onclick="document.getElementById('dom-status').innerText = 'Node Updated via DOM API!';" style="background:#04AA6D;color:#fff;border:none;padding:8px 16px;border-radius:4px;cursor:pointer;">
+      Mutate DOM Node
+    </button>
+  </div>
+
+</body>
+</html>`
     },
     hindi: {
-      kid: "### 🌳 डीओएम (DOM): टैग्स का एक पेड़!\nजब आपका ब्राउज़र एक HTML फ़ाइल डाउनलोड करता है, तो वह इसे एक पेड़ जैसी संरचना में बदल देता है जिसे **Document Object Model (DOM)** कहा जाता है:\n\n* **मुख्य तना**: `<html>` टैग (रूट नोड)\n* **बड़ी शाखाएँ**: `<head>` और `<body>` टैग\n* **पत्तियाँ**: इनके अंदर नेस्टेड हेडिंग, लिंक और पैराग्राफ।",
-      pro: "### 🌳 क्रिटिकल रेंडरिंग पाथ और डीओएम (DOM) निर्माण\nदस्तावेज़ ऑब्जेक्ट मॉडल (DOM) HTML दस्तावेज़ों के लिए एक प्रोग्रामिंग इंटरफ़ेस है:\n\n* **टोकनाइजेशन**: ब्राउज़र कच्चे बाइट्स को वर्णों में बदलता है और टोकन (शुरू और बंद होने वाले टैग) की पहचान करता है।\n* **नोड निर्माण**: प्रत्येक टोकन को गुणों वाले एक विशिष्ट ऑब्जेक्ट (नोड) में बदला जाता है।\n* **पेड़ की संरचना**: इन नोड्स को आपस में जोड़कर पैरेंट-चाइल्ड रिलेशनशिप ट्री बनाया जाता है।"
+      kid: `### 🌳 डीओएम (DOM): टैग्स का एक पेड़!
+जब आपका ब्राउज़र एक HTML फ़ाइल डाउनलोड करता है, तो वह इसे एक पेड़ जैसी संरचना में बदल देता है जिसे **Document Object Model (DOM)** कहा जाता है:
+
+* **मुख्य तना**: \`<html>\` टैग (रूट नोड)
+* **बड़ी शाखाएँ**: \`<head>\` और \`<body>\` टैग
+* **पत्तियाँ**: इनके अंदर नेस्टेड हेडिंग, लिंक और पैराग्राफ।
+
+## Example
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DOM Tree Visualizer</title>
+  <style>
+    body { font-family: sans-serif; background: #0f172a; color: #fff; padding: 24px; }
+    .tree-node { background: #1e293b; padding: 16px; border-radius: 8px; border-left: 4px solid #04AA6D; margin: 10px 0; }
+    .child-node { margin-left: 24px; border-left-color: #38bdf8; }
+  </style>
+</head>
+<body>
+
+  <div class="tree-node">
+    <strong>&lt;html&gt; (Root Element)</strong>
+    <div class="tree-node child-node">
+      <strong>&lt;body&gt;</strong>
+      <div class="tree-node child-node" style="border-left-color:#f59e0b;">
+        &lt;h1&gt;Document Object Model Tree&lt;/h1&gt;
+        <p>&lt;p&gt;Every tag forms a live branch on the DOM tree.&lt;/p&gt;</p>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>`,
+      pro: `### 🌳 क्रिटिकल रेंडरिंग पाथ और डीओएम (DOM) निर्माण
+दस्तावेज़ ऑब्जेक्ट मॉडल (DOM) HTML दस्तावेज़ों के लिए एक प्रोग्रामिंग इंटरफ़ेस है:
+
+* **टोकनाइजेशन**: ब्राउज़र कच्चे बाइट्स को वर्णों में बदलता है और टोकन (शुरू और बंद होने वाले टैग) की पहचान करता है।
+* **नोड निर्माण**: प्रत्येक टोकन को गुणों वाले एक विशिष्ट ऑब्जेक्ट (नोड) में बदला जाता है।
+* **पेड़ की संरचना**: इन नोड्स को आपस में जोड़कर पैरेंट-चाइल्ड रिलेशनशिप ट्री बनाया जाता है।
+
+## Example
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DOM Node Tree Architecture</title>
+  <style>
+    body { font-family: monospace; background: #0f172a; color: #fff; padding: 24px; }
+    .node-box { background: #1e293b; border: 1px solid #334155; padding: 14px; border-radius: 6px; margin-bottom: 8px; }
+  </style>
+</head>
+<body>
+
+  <div class="node-box" id="root-node">
+    <h3 style="color:#04AA6D;">#document &gt; html &gt; body</h3>
+    <p id="dom-status">Active Nodes: 12 | Tree State: Complete</p>
+    <button onclick="document.getElementById('dom-status').innerText = 'Node Updated via DOM API!';" style="background:#04AA6D;color:#fff;border:none;padding:8px 16px;border-radius:4px;cursor:pointer;">
+      Mutate DOM Node
+    </button>
+  </div>
+
+</body>
+</html>`
     }
   },
   {
@@ -820,16 +1459,179 @@ Network layer se le kar application layer tak web communication flow:
       hint: "It is named after the components of HTML, which are called elements!"
     },
     english: {
-      kid: "### 🔍 DevTools: Your Superpower Magnifying Glass!\nWant to peek behind the scenes of any website? Press `F12` or right-click and choose **Inspect** to open **Developer Tools**!\n\n* **Elements Panel**: Shows you the exact HTML structure of the page.\n* **Live Edits**: You can double-click any heading text and change it right on your screen!\n\n🔍 **Try It**: Open DevTools, select a line, and edit the words to see it change live!",
-      pro: "### 🛠️ DOM Inspection & DevTools Debugging Workflows\nBrowser Developer Tools are essential tools for auditing, styling, and debugging web pages:\n\n* **Elements Tree**: Renders the active in-memory DOM, showing changes made via Javascript in real-time.\n* **Styles Panel**: Debugs CSS rules, box models, grid layouts, and active selectors.\n* **Console Panel**: Outputs runtime logs, stack traces, Javascript alerts, and network handshake problems."
+      kid: `### 🔍 DevTools: Your Superpower Magnifying Glass!
+Want to peek behind the scenes of any website? Press \`F12\` or right-click and choose **Inspect** to open **Developer Tools**!
+
+* **Elements Panel**: Shows you the exact HTML structure of the page.
+* **Live Edits**: You can double-click any heading text and change it right on your screen!
+
+## Example
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DevTools Interactive DOM Inspector</title>
+  <style>
+    body { font-family: sans-serif; background: #0f172a; color: #fff; padding: 24px; text-align: center; }
+    .demo-box { background: #1e293b; padding: 24px; border-radius: 12px; border: 2px dashed #04AA6D; max-width: 500px; margin: 0 auto; }
+    h2 { color: #04AA6D; }
+  </style>
+</head>
+<body>
+
+  <div class="demo-box">
+    <h2 id="demo-title">Inspect Me in DevTools!</h2>
+    <p>Right-click this element and select <strong>Inspect</strong> to view it in the Elements panel.</p>
+    <button onclick="alert('Hello from Browser DevTools!')" style="background:#04AA6D;color:#fff;border:none;padding:10px 20px;border-radius:6px;font-weight:bold;cursor:pointer;margin-top:10px;">
+      Test DevTools Click
+    </button>
+  </div>
+
+</body>
+</html>`,
+      pro: `### 🛠️ DOM Inspection & DevTools Debugging Workflows
+Browser Developer Tools are essential tools for auditing, styling, and debugging web pages:
+
+* **Elements Tree**: Renders the active in-memory DOM, showing changes made via Javascript in real-time.
+* **Styles Panel**: Debugs CSS rules, box models, grid layouts, and active selectors.
+* **Console Panel**: Outputs runtime logs, stack traces, Javascript alerts, and network handshake problems.
+
+## Example
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DevTools Live DOM Editing</title>
+  <style>
+    body { font-family: sans-serif; background: #0f172a; color: #fff; padding: 24px; }
+    .card { background: #1e293b; padding: 24px; border-radius: 12px; border: 1px solid #334155; max-width: 600px; margin: 0 auto; }
+    .tag-badge { background: #0078d4; color: #fff; padding: 3px 8px; border-radius: 4px; font-family: monospace; font-size: 12px; }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <span class="tag-badge">&lt;article class="card"&gt;</span>
+    <h2 style="color:#04AA6D; margin-top:12px;">Live DOM Node</h2>
+    <p>Open DevTools (F12) to inspect, edit attributes, or live-tweak CSS styles on this element.</p>
+  </div>
+
+</body>
+</html>`
     },
     hinglish: {
-      kid: "### 🔍 Browser DevTools: Hacker Mod Active!\nKya aap kisi bhi website ka structure dekhna chahte hain? Page par right-click karke **Inspect** select karein, DevTools khul jayega!\n\n* **Elements Panel**: Page ka saara HTML code yahan dikhta hai.\n* **Live Edit**: Aap kisi bhi website ka text change karke apne browser me mazaak kar sakte hain!",
-      pro: "### 🛠️ Runtime DOM Debugging using DevTools\nModern front-end developers inspection workflows me DevTools panels master karte hain:\n\n* **Live Style Audits**: Computed layout attributes, media query breakpoints, and device dimension overrides configure custom parameters.\n* **Network Panel**: Track request status codes (200 OK, 301, 500) and API latency payloads."
+      kid: `### 🔍 Browser DevTools: Hacker Mod Active!
+Kya aap kisi bhi website ka structure dekhna chahte hain? Page par right-click karke **Inspect** select karein, DevTools khul jayega!
+
+* **Elements Panel**: Page ka saara HTML code yahan dikhta hai.
+* **Live Edit**: Aap kisi bhi website ka text change karke apne browser me mazaak kar sakte hain!
+
+## Example
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DevTools Interactive DOM Inspector</title>
+  <style>
+    body { font-family: sans-serif; background: #0f172a; color: #fff; padding: 24px; text-align: center; }
+    .demo-box { background: #1e293b; padding: 24px; border-radius: 12px; border: 2px dashed #04AA6D; max-width: 500px; margin: 0 auto; }
+    h2 { color: #04AA6D; }
+  </style>
+</head>
+<body>
+
+  <div class="demo-box">
+    <h2 id="demo-title">Inspect Me in DevTools!</h2>
+    <p>Right-click this element and select <strong>Inspect</strong> to view it in the Elements panel.</p>
+  </div>
+
+</body>
+</html>`,
+      pro: `### 🛠️ Runtime DOM Debugging using DevTools
+Modern front-end developers inspection workflows me DevTools panels master karte hain:
+
+* **Live Style Audits**: Computed layout attributes, media query breakpoints, and device dimension overrides configure custom parameters.
+* **Network Panel**: Track request status codes (200 OK, 301, 500) and API latency payloads.
+
+## Example
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DevTools Live DOM Editing</title>
+  <style>
+    body { font-family: sans-serif; background: #0f172a; color: #fff; padding: 24px; }
+    .card { background: #1e293b; padding: 24px; border-radius: 12px; border: 1px solid #334155; max-width: 600px; margin: 0 auto; }
+    .tag-badge { background: #0078d4; color: #fff; padding: 3px 8px; border-radius: 4px; font-family: monospace; font-size: 12px; }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <span class="tag-badge">&lt;article class="card"&gt;</span>
+    <h2 style="color:#04AA6D; margin-top:12px;">Live DOM Node</h2>
+    <p>Open DevTools (F12) to inspect, edit attributes, or live-tweak CSS styles on this element.</p>
+  </div>
+
+</body>
+</html>`
     },
     hindi: {
-      kid: "### 🔍 डेवलपर टूल्स (DevTools): हैकर मॉड एक्टिव करें!\nक्या आप किसी भी वेबसाइट के पीछे का कोड देखना चाहते हैं? किसी भी पेज पर राइट-क्लिक करें और **Inspect** चुनें, डीवटूल्स खुल जाएगा!\n\n* **Elements पैनल**: यहाँ आपको वेबसाइट का पूरा HTML कोड दिखाई देगा।\n* **लाइव एडिटिंग**: आप यहाँ किसी भी हेडिंग को बदल सकते हैं और वह तुरंत आपकी स्क्रीन पर बदल जाएगी!",
-      pro: "### 🛠️ रनटाइम डीओएम निरीक्षण और देवटूल्स वर्कफ़्लो\nब्राउज़र डेवलपर टूल्स (DevTools) फ्रंट-एंड वेब इंजीनियरिंग के लिए सबसे महत्वपूर्ण उपकरण हैं:\n\n* **Elements पैनल**: यह सक्रिय इन-मेमोरी DOM पेड़ दिखाता है, जिससे आप टैग जोड़ या हटा सकते हैं।\n* **Styles टैब**: इसके द्वारा आप बॉक्स मॉडल (Margin, Padding) और सक्रिय सीएसएस नियमों को संशोधित कर सकते हैं।"
+      kid: `### 🔍 डेवलपर टूल्स (DevTools): हैकर मॉड एक्टिव करें!
+क्या आप किसी भी वेबसाइट के पीछे का कोड देखना चाहते हैं? किसी भी पेज पर राइट-क्लिक करें और **Inspect** चुनें, डीवटूल्स खुल जाएगा!
+
+* **Elements पैनल**: यहाँ आपको वेबसाइट का पूरा HTML कोड दिखाई देगा।
+* **लाइव एडिटिंग**: आप यहाँ किसी भी हेडिंग को बदल सकते हैं और वह तुरंत आपकी स्क्रीन पर बदल जाएगी!
+
+## Example
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DevTools Interactive DOM Inspector</title>
+  <style>
+    body { font-family: sans-serif; background: #0f172a; color: #fff; padding: 24px; text-align: center; }
+    .demo-box { background: #1e293b; padding: 24px; border-radius: 12px; border: 2px dashed #04AA6D; max-width: 500px; margin: 0 auto; }
+    h2 { color: #04AA6D; }
+  </style>
+</head>
+<body>
+
+  <div class="demo-box">
+    <h2 id="demo-title">Inspect Me in DevTools!</h2>
+    <p>Right-click this element and select <strong>Inspect</strong> to view it in the Elements panel.</p>
+  </div>
+
+</body>
+</html>`,
+      pro: `### 🛠️ रनटाइम डीओएम निरीक्षण और देवटूल्स वर्कफ़्लो
+ब्राउज़र डेवलपर टूल्स (DevTools) फ्रंट-एंड वेब इंजीनियरिंग के लिए सबसे महत्वपूर्ण उपकरण हैं:
+
+* **Elements पैनल**: यह सक्रिय इन-मेमोरी DOM पेड़ दिखाता है, जिससे आप टैग जोड़ या हटा सकते हैं।
+* **Styles टैब**: इसके द्वारा आप बॉक्स मॉडल (Margin, Padding) और सक्रिय सीएसएस नियमों को संशोधित कर सकते हैं।
+
+## Example
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DevTools Live DOM Editing</title>
+  <style>
+    body { font-family: sans-serif; background: #0f172a; color: #fff; padding: 24px; }
+    .card { background: #1e293b; padding: 24px; border-radius: 12px; border: 1px solid #334155; max-width: 600px; margin: 0 auto; }
+    .tag-badge { background: #0078d4; color: #fff; padding: 3px 8px; border-radius: 4px; font-family: monospace; font-size: 12px; }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <span class="tag-badge">&lt;article class="card"&gt;</span>
+    <h2 style="color:#04AA6D; margin-top:12px;">Live DOM Node</h2>
+    <p>Open DevTools (F12) to inspect, edit attributes, or live-tweak CSS styles on this element.</p>
+  </div>
+
+</body>
+</html>`
     }
   },
   {

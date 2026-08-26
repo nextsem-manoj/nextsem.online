@@ -153,7 +153,6 @@ function HtmlLayoutContent({ children }: { children: React.ReactNode }) {
     const checkMobile = () => {
       const mobile = window.innerWidth < 768;
       setIsMobile(mobile);
-      // Open sidebar on desktop, always keep it closed on mobile
       setSidebarOpen(!mobile);
     };
     checkMobile();
@@ -167,7 +166,7 @@ function HtmlLayoutContent({ children }: { children: React.ReactNode }) {
       <NsSubjectNavBar currentUser={currentUser} onSignIn={handleSignIn} onToggleSidebar={() => setSidebarOpen(prev => !prev)} />
       <div
         className="flex-1 flex flex-col md:flex-row w-full min-w-0 bg-[#17181c]"
-        style={mounted && !isMobile ? { paddingLeft: `${effectiveSidebarWidth}px` } : undefined}
+        style={mounted && !isMobile && sidebarOpen ? { paddingLeft: `${effectiveSidebarWidth}px` } : undefined}
       >
         <BookSidebar
           isOpen={sidebarOpen}
@@ -178,13 +177,13 @@ function HtmlLayoutContent({ children }: { children: React.ReactNode }) {
           onCollapsedChange={setSidebarCollapsed}
         />
 
-        <main className="flex-1 p-2 md:p-4 w-full flex flex-col relative min-w-0 bg-[#060c18]">
+        <main className="flex-1 px-3 py-3 sm:px-6 md:px-8 lg:px-10 w-full flex flex-col relative min-w-0 bg-[#060c18]">
           {/* Main Reading Container */}
           <div
             ref={scrollContainerRef}
-            className="flex-1 px-1 py-2 md:px-4 md:py-4 relative z-10 transition-all duration-300"
+            className="flex-1 py-2 md:py-4 relative z-10 transition-all duration-300 w-full"
           >
-            <div className="w-full max-w-full">
+            <div className="w-full max-w-5xl mx-auto">
               {children}
             </div>
           </div>

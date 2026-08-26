@@ -41,7 +41,14 @@ This version has breaking changes — APIs, conventions, and file structure may 
 - **Deployment Safety Directive**: Never deploy to production (e.g. running `npm run deploy:prod` or `firebase deploy`) unless the user explicitly requests or instructs a deployment.
 - **Exclusion of Ad Banners on Utility & Compliance Pages**: Do not place or render AdSense/AdMob banner containers on contact (`/contact`), privacy policy (`/privacy`), terms of service (`/terms`), or about (`/about`) pages. Keep all utility and legal policy pages 100% clean and ad-free.
 - **Consistent Standard Footer Rule**: Always use the exact standard front page footer on all standalone project pages, subject dashboards, and lesson pages (`Nextsem Academy • Complete Free Dev Curriculum` along with `Privacy Policy`, `Terms of Service`, `Contact Support`, `About Us`, and `XML Sitemap` links).
-- **Complete Code Standard in Editor Windows**: Always write complete, fully functional HTML, CSS, JavaScript, and other code tags inside the VS Code editor windows and lesson code blocks instead of using truncated or partial placeholders.
+- **5-Point Concise Lesson & Pure HTML Standard (PERMANENT RULE)**: For all HTML lessons:
+  1. **Maximum 5 Points & Max 8 Words Per Sentence**: The conceptual explanation MUST be presented as a clean bullet or numbered list containing **at most 5 concise points**, with each sentence being **just one line long containing at most 8 words per sentence** (never large walls of text or continuous paragraphs).
+  2. **Code Directly Below**: Place the code snippet directly below the 5 points.
+  3. **Strictly Pure HTML (No CSS, No JS)**: When teaching HTML, do NOT use CSS (no `<style>` tags or inline `style="..."` attributes) or JavaScript (no `<script>` tags or JS logic) in explanations or examples. Keep all code blocks 100% pure HTML5 markup.
+  4. **1-to-1 Windows 11 Screenshot**: Include the matching authentic 🪟 Windows 11 Google Chrome screenshot directly with the code block.
+  5. **Sidebar Hidden Under Hamburger Menu**: Keep the topics/chapters sidebar hidden by default across all viewports (desktop & mobile) under a hamburger menu button (`☰ Topics`) placed inside the sub-navigation bar just below the logo.
+- **Engaging Visual Screenshot & Paragraph Flow Standard**: Every lesson step/section must feature its related authentic step-by-step Windows 11 / Google Chrome screenshot placed directly BEFORE the explanatory paragraph, with optimal readable font size (`text-base text-slate-100 font-normal leading-relaxed`) and tight paragraph margins (`my-1.5`) leaving no dead blank space between paragraphs.
+
 
 
 

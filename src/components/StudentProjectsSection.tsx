@@ -28,7 +28,7 @@ export default function StudentProjectsSection() {
       badgeBg: "bg-amber-500/10",
       badgeText: "text-amber-400",
       badgeBorder: "border-amber-500/30",
-      ctaText: "Launch Candle Lab 🕯️",
+      ctaText: "Launch Candle Lab",
       ctaHref: "/candle-flame-animation",
       previewGraphic: (
         <div className="w-full h-56 sm:h-64 bg-[#070a12] border border-slate-800 rounded-xl flex flex-col items-center justify-center relative overflow-hidden shrink-0 shadow-inner group-hover:border-amber-500/50 transition-colors">
@@ -55,7 +55,7 @@ export default function StudentProjectsSection() {
       badgeBg: "bg-emerald-500/10",
       badgeText: "text-[#04AA6D]",
       badgeBorder: "border-emerald-500/30",
-      ctaText: "Launch Matrix Rain ⚡",
+      ctaText: "Launch Matrix Rain",
       ctaHref: "/matrix-code-animation",
       previewGraphic: (
         <div className="w-full h-56 sm:h-64 bg-[#000000] border border-slate-800 rounded-xl flex items-center justify-around p-4 relative overflow-hidden shrink-0 shadow-inner group-hover:border-[#04AA6D]/50 transition-colors font-mono select-none">
@@ -83,7 +83,7 @@ export default function StudentProjectsSection() {
       badgeBg: "bg-sky-500/10",
       badgeText: "text-sky-400",
       badgeBorder: "border-sky-500/30",
-      ctaText: "Launch Rain Lab 🌧️",
+      ctaText: "Launch Rain Lab",
       ctaHref: "/rain-effect-animation",
       previewGraphic: (
         <div className="w-full h-56 sm:h-64 bg-[#070a12] border border-slate-800 rounded-xl flex flex-col items-center justify-center relative overflow-hidden shrink-0 shadow-inner group-hover:border-sky-500/50 transition-colors">
@@ -107,7 +107,7 @@ export default function StudentProjectsSection() {
       badgeBg: "bg-purple-500/10",
       badgeText: "text-purple-400",
       badgeBorder: "border-purple-500/30",
-      ctaText: "Launch Warp Speed 🚀",
+      ctaText: "Launch Warp Speed",
       ctaHref: "/warp-speed-animation",
       previewGraphic: (
         <div className="w-full h-56 sm:h-64 bg-[#04060c] border border-slate-800 rounded-xl flex items-center justify-center relative overflow-hidden shrink-0 shadow-inner group-hover:border-purple-500/50 transition-colors">
@@ -126,7 +126,7 @@ export default function StudentProjectsSection() {
       badgeBg: "bg-cyan-500/10",
       badgeText: "text-cyan-400",
       badgeBorder: "border-cyan-500/30",
-      ctaText: "Launch Neon Button ⚡",
+      ctaText: "Launch Neon Button",
       ctaHref: "/neon-button-animation",
       previewGraphic: (
         <div className="w-full h-56 sm:h-64 bg-[#080b12] border border-slate-800 rounded-xl flex items-center justify-center p-4 relative overflow-hidden shrink-0 shadow-inner group-hover:border-cyan-500/50 transition-colors">
@@ -147,7 +147,7 @@ export default function StudentProjectsSection() {
       badgeBg: "bg-pink-500/10",
       badgeText: "text-pink-400",
       badgeBorder: "border-pink-500/30",
-      ctaText: "Launch Holo Card 💳",
+      ctaText: "Launch Holo Card",
       ctaHref: "/glassmorphism-card-animation",
       previewGraphic: (
         <div className="w-full h-56 sm:h-64 bg-[#070a14] border border-slate-800 rounded-xl flex items-center justify-center p-4 relative overflow-hidden shrink-0 shadow-inner group-hover:border-pink-500/50 transition-colors">
@@ -168,7 +168,7 @@ export default function StudentProjectsSection() {
       badgeBg: "bg-teal-500/10",
       badgeText: "text-teal-400",
       badgeBorder: "border-teal-500/30",
-      ctaText: "Launch Audio Beats 🎵",
+      ctaText: "Launch Audio Beats",
       ctaHref: "/audio-spectrum-animation",
       previewGraphic: (
         <div className="w-full h-56 sm:h-64 bg-[#050912] border border-slate-800 rounded-xl flex items-center justify-center p-4 relative overflow-hidden shrink-0 shadow-inner group-hover:border-teal-500/50 transition-colors">
@@ -192,17 +192,13 @@ export default function StudentProjectsSection() {
       badgeBg: "bg-amber-500/10",
       badgeText: "text-amber-300",
       badgeBorder: "border-amber-500/30",
-      ctaText: "Launch Orbit Lab 🪐",
+      ctaText: "Launch Orbit Lab",
       ctaHref: "/solar-system-animation",
       previewGraphic: (
         <div className="w-full h-56 sm:h-64 bg-[#04060c] border border-slate-800 rounded-xl flex items-center justify-center relative overflow-hidden shrink-0 shadow-inner group-hover:border-amber-500/50 transition-colors">
-          <div className="w-14 h-14 rounded-full bg-amber-400 shadow-[0_0_35px_#f59e0b] z-10 animate-pulse flex items-center justify-center text-xl">
-            ☀️
-          </div>
+          <div className="w-10 h-10 rounded-full bg-amber-400 shadow-[0_0_35px_#f59e0b] z-10 animate-pulse" />
           <div className="absolute w-40 h-40 rounded-full border-2 border-sky-400/40 animate-spin" style={{ animationDuration: '6s' }}>
-            <div className="w-6 h-6 rounded-full bg-sky-400 shadow-[0_0_15px_#38bdf8] absolute -top-3 left-16 flex items-center justify-center text-xs">
-              🌍
-            </div>
+            <div className="w-3 h-3 rounded-full bg-sky-400 shadow-[0_0_15px_#38bdf8] absolute -top-1.5 left-18" />
           </div>
           <span className="absolute bottom-3 right-3 text-xs font-mono text-amber-300 font-extrabold bg-amber-950/80 px-2.5 py-1 rounded-md border border-amber-800/80 z-10 shadow-md">
             3D ORBIT
@@ -217,12 +213,12 @@ export default function StudentProjectsSection() {
       badgeBg: "bg-indigo-500/10",
       badgeText: "text-indigo-400",
       badgeBorder: "border-indigo-500/30",
-      ctaText: "Launch 3D Cube Lab 🧊",
+      ctaText: "Launch 3D Cube Lab",
       ctaHref: "/3d-cube-animation",
       previewGraphic: (
         <div className="w-full h-56 sm:h-64 bg-[#080b12] border border-slate-800 rounded-xl flex items-center justify-center p-4 relative overflow-hidden shrink-0 shadow-inner group-hover:border-indigo-500/50 transition-colors">
-          <div className="w-32 h-32 rounded-2xl bg-gradient-to-br from-slate-900 to-indigo-950 border-2 border-indigo-400/60 flex flex-col items-center justify-center space-y-2 shadow-2xl transform rotate-12 group-hover:rotate-0 transition-transform">
-            <span className="text-4xl">🧊</span>
+          <div className="w-28 h-28 rounded-2xl bg-gradient-to-br from-slate-900 to-indigo-950 border-2 border-indigo-400/60 flex flex-col items-center justify-center space-y-2 shadow-2xl transform rotate-12 group-hover:rotate-0 transition-transform">
+            <div className="w-10 h-10 border-2 border-indigo-400/80 rounded rotate-45" />
             <span className="text-xs font-mono font-black text-indigo-300 tracking-wider">3D CUBE</span>
           </div>
           <span className="absolute bottom-3 right-3 text-xs font-mono text-indigo-400 font-extrabold bg-indigo-950/80 px-2.5 py-1 rounded-md border border-indigo-800/80 z-10 shadow-md">
@@ -238,11 +234,10 @@ export default function StudentProjectsSection() {
       badgeBg: "bg-teal-500/10",
       badgeText: "text-teal-400",
       badgeBorder: "border-teal-500/30",
-      ctaText: "Launch Ocean Lab 🌊",
+      ctaText: "Launch Ocean Lab",
       ctaHref: "/animated-waves-animation",
       previewGraphic: (
         <div className="w-full h-56 sm:h-64 bg-[#030812] border border-slate-800 rounded-xl flex flex-col items-center justify-end relative overflow-hidden shrink-0 shadow-inner group-hover:border-teal-500/50 transition-colors">
-          <div className="text-5xl mb-10 animate-bounce z-10">⛵</div>
           <div className="w-full h-16 bg-[#04AA6D]/80 rounded-b-xl absolute bottom-0 left-0 right-0 flex items-center justify-center text-xs font-mono text-white font-black tracking-wider">
             OCEAN WAVES
           </div>
@@ -259,7 +254,7 @@ export default function StudentProjectsSection() {
       badgeBg: "bg-cyan-500/10",
       badgeText: "text-cyan-400",
       badgeBorder: "border-cyan-500/30",
-      ctaText: "Launch Glitch Lab ⚡",
+      ctaText: "Launch Glitch Lab",
       ctaHref: "/glitch-text-animation",
       previewGraphic: (
         <div className="w-full h-56 sm:h-64 bg-[#050608] border border-slate-800 rounded-xl flex flex-col items-center justify-center p-4 relative overflow-hidden shrink-0 shadow-inner group-hover:border-cyan-500/50 transition-colors font-mono select-none">
@@ -281,12 +276,12 @@ export default function StudentProjectsSection() {
       badgeBg: "bg-amber-500/10",
       badgeText: "text-amber-300",
       badgeBorder: "border-amber-500/30",
-      ctaText: "Launch Holo Card 💎",
+      ctaText: "Launch Holo Card",
       ctaHref: "/holographic-card-animation",
       previewGraphic: (
         <div className="w-full h-56 sm:h-64 bg-[#05070c] border border-slate-800 rounded-xl flex items-center justify-center p-4 relative overflow-hidden shrink-0 shadow-inner group-hover:border-amber-400/50 transition-colors">
           <div className="w-32 h-44 rounded-2xl bg-gradient-to-br from-amber-950 via-slate-900 to-black border-2 border-amber-400/80 shadow-2xl flex flex-col items-center justify-center space-y-1 transform rotate-6 group-hover:rotate-0 transition-transform">
-            <span className="text-3xl">👑</span>
+            <CreditCard size={32} className="text-amber-400" />
             <span className="text-[10px] font-mono font-black text-amber-300 tracking-wider">VIP ELITE</span>
           </div>
           <span className="absolute bottom-3 right-3 text-xs font-mono text-amber-300 font-extrabold bg-amber-950/80 px-2.5 py-1 rounded-md border border-amber-800/80 z-10 shadow-md">
@@ -302,7 +297,7 @@ export default function StudentProjectsSection() {
       badgeBg: "bg-emerald-500/10",
       badgeText: "text-emerald-400",
       badgeBorder: "border-emerald-500/30",
-      ctaText: "Launch Bio Lab 🧬",
+      ctaText: "Launch Bio Lab",
       ctaHref: "/dna-helix-animation",
       previewGraphic: (
         <div className="w-full h-56 sm:h-64 bg-[#04060a] border border-slate-800 rounded-xl flex flex-col items-center justify-center p-4 relative overflow-hidden shrink-0 shadow-inner group-hover:border-emerald-500/50 transition-colors">
@@ -331,7 +326,7 @@ export default function StudentProjectsSection() {
       badgeBg: "bg-emerald-500/10",
       badgeText: "text-emerald-400",
       badgeBorder: "border-emerald-500/30",
-      ctaText: "Launch Battery Lab 🔋",
+      ctaText: "Launch Battery Lab",
       ctaHref: "/liquid-wave-animation",
       previewGraphic: (
         <div className="w-full h-56 sm:h-64 bg-[#04060a] border border-slate-800 rounded-xl flex items-center justify-center p-4 relative overflow-hidden shrink-0 shadow-inner group-hover:border-emerald-500/50 transition-colors">
@@ -352,14 +347,12 @@ export default function StudentProjectsSection() {
       badgeBg: "bg-amber-500/10",
       badgeText: "text-amber-400",
       badgeBorder: "border-amber-500/30",
-      ctaText: "Launch Lensing Lab 🌌",
+      ctaText: "Launch Lensing Lab",
       ctaHref: "/black-hole-animation",
       previewGraphic: (
         <div className="w-full h-56 sm:h-64 bg-[#020306] border border-slate-800 rounded-xl flex items-center justify-center relative overflow-hidden shrink-0 shadow-inner group-hover:border-amber-500/50 transition-colors">
           <div className="absolute w-36 h-36 rounded-full border-2 border-amber-500/60 animate-pulse" />
-          <div className="w-16 h-16 rounded-full bg-black shadow-[0_0_25px_#ff7800,0_0_50px_#ffaa00] z-10 flex items-center justify-center text-xs">
-            🕳️
-          </div>
+          <div className="w-16 h-16 rounded-full bg-black shadow-[0_0_25px_#ff7800,0_0_50px_#ffaa00] z-10 flex items-center justify-center text-xs" />
           <span className="absolute bottom-3 right-3 text-xs font-mono text-amber-400 font-extrabold bg-amber-950/80 px-2.5 py-1 rounded-md border border-amber-800/80 z-10 shadow-md">
             BLACK HOLE
           </span>

@@ -47,7 +47,7 @@ export default function HtmlDashboardClient() {
 
   // Group lessons by units
   const modules = [
-    { id: 1, title: "Web Fundamentals & Client-Server", desc: "Internet architecture, client-server models, DNS, TCP/IP, and URLs.", range: [1, 10] },
+    { id: 1, title: "HTML Introduction & Fundamentals", desc: "What is HTML, HTML page structure, elements & tags, headings, and paragraphs.", range: [1, 10] },
     { id: 2, title: "Document Structure & Metadata", desc: "HTML skeleton, doctypes, head configurations, CSS linking, and scripts.", range: [11, 20] },
     { id: 3, title: "Structural Text & Layout Elements", desc: "Headings, paragraphs, line breaks, separators, divs, and spans.", range: [21, 30] },
     { id: 4, title: "Semantic Content & Modifications", desc: "Formatting tags, monospace code blocks, abbreviations, and notations.", range: [31, 40] },

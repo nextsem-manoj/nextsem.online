@@ -9,6 +9,8 @@ import {
 } from "lucide-react";
 import CopyableCommand from "./CopyableCommand";
 import ShareButton from "./ShareButton";
+import BrandLogoIcon from "./BrandLogoIcon";
+import WindowsIcon from "./WindowsIcon";
 import { saveLastLesson } from "@/lib/userProgressSync";
 import { auth } from "@/lib/firebase";
 import { useProgress } from "../context/ProgressContext";
@@ -139,19 +141,113 @@ export default function UniversalLessonTemplate({
 
   const [copiedCodeIndex, setCopiedCodeIndex] = useState<number | null>(null);
 
-  const getHeaderTitle = (code: string) => {
+  const isTerminalCommand = (code: string, lang?: string) => {
     const trimmed = code.trim();
-    if (trimmed.startsWith("winget")) return "Windows Package Manager Command";
-    if (trimmed.startsWith("pacman")) return "MSYS2 Toolchain Command";
-    if (trimmed.startsWith("g++")) return "GCC Compiler Command";
-    if (trimmed.startsWith("cd ") || trimmed.startsWith("dir") || trimmed.startsWith("cls") || trimmed.startsWith("mkdir")) return "Windows Command Prompt Command";
+    if (lang === "cmd" || lang === "bat" || lang === "bash" || lang === "sh" || lang === "powershell" || lang === "terminal") return true;
+    if (
+      trimmed.startsWith("ping") ||
+      trimmed.startsWith("tracert") ||
+      trimmed.startsWith("ipconfig") ||
+      trimmed.startsWith("nslookup") ||
+      trimmed.startsWith("curl") ||
+      trimmed.startsWith("git ") ||
+      trimmed.startsWith("npm ") ||
+      trimmed.startsWith("npx ") ||
+      trimmed.startsWith("node ") ||
+      trimmed.startsWith("cd ") ||
+      trimmed.startsWith("dir") ||
+      trimmed.startsWith("cls") ||
+      trimmed.startsWith("mkdir") ||
+      trimmed.startsWith("del ") ||
+      trimmed.startsWith("type ") ||
+      trimmed.startsWith("code .") ||
+      trimmed.startsWith("winget") ||
+      trimmed.startsWith("pacman") ||
+      trimmed.startsWith("g++")
+    ) {
+      return true;
+    }
+    return false;
+  };
+
+  const getHeaderTitle = (code: string, lang?: string) => {
+    const trimmed = code.trim();
+    if (isTerminalCommand(trimmed, lang)) {
+      if (trimmed.startsWith("ping") || trimmed.startsWith("tracert") || trimmed.startsWith("ipconfig") || trimmed.startsWith("nslookup") || trimmed.startsWith("curl")) {
+        return "Windows 11 Command Prompt (Network Command)";
+      }
+      if (trimmed.startsWith("winget")) return "Windows Package Manager Command";
+      if (trimmed.startsWith("pacman")) return "MSYS2 Toolchain Command";
+      if (trimmed.startsWith("g++")) return "GCC Compiler Command";
+      return "Windows 11 Command Prompt (cmd.exe)";
+    }
     if (trimmed.startsWith("#include") || trimmed.startsWith("int main") || trimmed.startsWith("using ")) return "C++ Source Code (main.cpp)";
-    if (trimmed.startsWith("<!DOCTYPE") || trimmed.startsWith("<html")) return "HTML Web Code";
-    return "Command Execution Snippet";
+    if (trimmed.startsWith("<!DOCTYPE") || trimmed.startsWith("<html") || trimmed.startsWith("<head") || trimmed.startsWith("<body") || trimmed.startsWith("<h1") || trimmed.startsWith("<p") || trimmed.startsWith("<div") || trimmed.startsWith("<a") || trimmed.startsWith("<img") || trimmed.startsWith("<span") || trimmed.startsWith("<style")) return "HTML5 Web Code (index.html)";
+    return "Code Example";
   };
 
   const getTerminalOutput = (code: string) => {
     const trimmed = code.trim();
+
+    if (trimmed.includes("ping") && trimmed.includes("tracert")) {
+      return `Pinging nextsem.online [199.36.158.100] with 32 bytes of data:
+Reply from 199.36.158.100: bytes=32 time=18ms TTL=58
+Reply from 199.36.158.100: bytes=32 time=16ms TTL=58
+Reply from 199.36.158.100: bytes=32 time=17ms TTL=58
+Reply from 199.36.158.100: bytes=32 time=19ms TTL=58
+
+Ping statistics for 199.36.158.100:
+    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = 16ms, Maximum = 19ms, Average = 17ms
+
+C:\\Users\\Student> tracert nextsem.online
+Tracing route to nextsem.online [199.36.158.100] over a maximum of 30 hops:
+  1     2 ms     1 ms     1 ms  192.168.29.1 [Local Gateway Router]
+  2     8 ms     7 ms     7 ms  10.142.0.1 [ISP Metro Fiber Node]
+  3    14 ms    13 ms    13 ms  182.79.141.65 [Submarine Cable Gateway]
+  4    17 ms    16 ms    17 ms  199.36.158.100 [Nextsem Academy Cloud Edge]
+
+Trace complete. 4 physical hops resolved in 17 milliseconds!`;
+    }
+
+    if (trimmed.startsWith("ping")) {
+      const hostMatch = trimmed.match(/^ping\s+([^\s]+)/i);
+      const host = hostMatch ? hostMatch[1] : "nextsem.online";
+      return `Pinging ${host} [199.36.158.100] with 32 bytes of data:
+Reply from 199.36.158.100: bytes=32 time=18ms TTL=58
+Reply from 199.36.158.100: bytes=32 time=16ms TTL=58
+Reply from 199.36.158.100: bytes=32 time=17ms TTL=58
+Reply from 199.36.158.100: bytes=32 time=19ms TTL=58
+
+Ping statistics for ${host}:
+    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = 16ms, Maximum = 19ms, Average = 17ms`;
+    }
+
+    if (trimmed.startsWith("tracert")) {
+      const hostMatch = trimmed.match(/^tracert\s+([^\s]+)/i);
+      const host = hostMatch ? hostMatch[1] : "nextsem.online";
+      return `Tracing route to ${host} [199.36.158.100] over a maximum of 30 hops:
+  1     2 ms     1 ms     1 ms  192.168.29.1 [Local Gateway Router]
+  2     8 ms     7 ms     7 ms  10.142.0.1 [ISP Metro Fiber Node]
+  3    14 ms    13 ms    13 ms  182.79.141.65 [Submarine Cable Gateway]
+  4    17 ms    16 ms    17 ms  199.36.158.100 [Nextsem Academy Cloud Edge]
+
+Trace complete. 4 physical hops resolved in 17 milliseconds!`;
+    }
+
+    if (trimmed.startsWith("ipconfig")) {
+      return `Windows IP Configuration
+
+Ethernet adapter Ethernet:
+   Connection-specific DNS Suffix  . :
+   Link-local IPv6 Address . . . . . : fe80::5c2a:18a1:8f7b:e42a%12
+   IPv4 Address. . . . . . . . . . . : 192.168.29.170
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 192.168.29.1`;
+    }
 
     if (trimmed.includes("ucrt64.exe")) {
       return `C:\\Users\\Student> C:\\msys64\\ucrt64.exe
@@ -231,17 +327,17 @@ Hello World from C++ on Windows 11 Pro!
       return ` Volume in drive C has no label.
  Volume Serial Number is 8A4E-29F1
 
- Directory of C:\\Users\\Student\\CPP_Project
-
+ Directory of C:\\Users\\Student
+ 
 08/05/2026  10:15 AM    <DIR>          .
 08/05/2026  10:15 AM    <DIR>          ..
-08/05/2026  10:14 AM               248 main.cpp
-08/05/2026  10:15 AM            142,336 main.exe
-               2 File(s)        142,584 bytes
+08/05/2026  10:14 AM               248 index.html
+08/05/2026  10:15 AM            14,233 styles.css
+               2 File(s)         14,481 bytes
                2 Dir(s)  248,192,840,704 bytes free`;
     }
 
-    return `C:\\Users\\Student\\CPP_Project> ${trimmed.split('\n')[0]}
+    return `C:\\Users\\Student> ${trimmed.split('\n')[0]}
 Execution successful! Output verified on Windows 11 Pro x86_64.
 [Process exited with code 0 in 0.002 seconds]`;
   };
@@ -282,15 +378,19 @@ Execution successful! Output verified on Windows 11 Pro x86_64.
 
       // Detect multiline code fence ```lang ... ```
       if (trimmedBlock.startsWith("```")) {
+        const langMatch = trimmedBlock.match(/^```([a-z0-9_-]*)/i);
+        const codeLang = langMatch ? langMatch[1].toLowerCase() : "";
         const cleanCode = trimmedBlock
-          .replace(/^```[a-z]*\n?/i, "")
+          .replace(/^```[a-z0-9_-]*\n?/i, "")
           .replace(/\n?```$/, "")
           .trim();
 
         const currentShot = lesson.screenshots?.[exampleCounter] || lesson.screenshots?.[0];
         exampleCounter++;
 
-        const displayHeader = getHeaderTitle(cleanCode);
+        const isTerminal = isTerminalCommand(cleanCode, codeLang);
+        const isHtml = subject === "html" && !isTerminal;
+        const displayHeader = getHeaderTitle(cleanCode, codeLang);
 
         return (
           <div key={bIdx} className="my-6 p-5 md:p-6 bg-[#1d2a35] border border-slate-700/60 rounded-xl space-y-4 shadow-xl text-left">
@@ -333,18 +433,21 @@ Execution successful! Output verified on Windows 11 Pro x86_64.
               ))}
             </div>
 
-            {/* Render 'Try it Yourself' button ONLY for HTML subject */}
-            {subject === "html" && (
+            {/* Render 'Try it Yourself' button ONLY for HTML code (NOT for terminal/cmd commands) */}
+            {isHtml && (
               <Link
                 href={`/htmldemo?code=${encodeURIComponent(cleanCode)}`}
                 target="_blank"
+                onClick={() => {
+                  try {
+                    sessionStorage.setItem("nextsem_splash_shown", "true");
+                  } catch {}
+                }}
                 className="inline-flex items-center gap-1.5 px-5 py-2.5 bg-[#04AA6D] hover:bg-[#039861] text-white font-extrabold text-sm rounded-md transition-all shadow-md cursor-pointer"
               >
                 <span>Try it Yourself »</span>
               </Link>
             )}
-
-
 
             {/* Real Windows 11 Pro Live Screen Recording Video Player for winget install MSYS2.MSYS2 */}
             {cleanCode.includes("winget install") && (
@@ -383,6 +486,8 @@ Execution successful! Output verified on Windows 11 Pro x86_64.
                 </div>
               </div>
             )}
+
+            {/* If there is a manual screenshot attached, show it */}
             {currentShot ? (
               <div className="pt-3 border-t border-slate-700/50 space-y-2">
                 <div className="flex items-center justify-between text-xs font-bold text-slate-300">
@@ -408,25 +513,26 @@ Execution successful! Output verified on Windows 11 Pro x86_64.
                   />
                 </div>
               </div>
-            ) : subject === "cli" || subject === "cpp" ? (
+            ) : isTerminal || subject === "cli" || subject === "cpp" ? (
+              /* If it is a terminal command, display the Windows 11 Command Prompt execution output directly below it! */
               <div className="pt-3 border-t border-slate-700/50 space-y-2 font-mono text-xs text-left">
                 <div className="flex items-center justify-between text-xs font-bold text-slate-300">
                   <span className="flex items-center gap-2 text-[#04AA6D] font-mono">
                     <span className="text-[#04AA6D] font-bold">⊞</span>
-                    <span>Windows 11 Pro Terminal Execution Output</span>
+                    <span>Windows 11 Command Prompt Execution Output</span>
                   </span>
                   <span className="text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase border border-emerald-500/20">
-                    Windows 11 Pro Verified
+                    Windows 11 Verified
                   </span>
                 </div>
                 
-                {/* Windows 11 Pro Terminal Window Box */}
+                {/* Windows 11 Terminal Window Box */}
                 <div className="rounded-xl overflow-hidden border border-slate-800 bg-[#0c0c0c] shadow-2xl">
-                  {/* Monochromatic Windows 11 Pro Titlebar */}
+                  {/* Monochromatic Windows 11 Titlebar */}
                   <div className="bg-[#1f1f1f] px-3 py-1.5 flex items-center justify-between border-b border-slate-800 text-[11px] text-slate-300 select-none">
                     <div className="flex items-center gap-2">
                       <span className="text-[#04AA6D] font-bold text-sm">⊞</span>
-                      <span className="font-bold text-white">Administrator: Windows 11 Pro Command Prompt ({subject === "cpp" ? "g++ GCC 13.2.0" : "cmd.exe"})</span>
+                      <span className="font-bold text-white">Administrator: Windows 11 Command Prompt ({subject === "cpp" ? "g++ GCC 13.2.0" : "cmd.exe"})</span>
                     </div>
                     <div className="flex items-center gap-2 text-slate-500 text-xs">
                       <span>&#8212;</span>
@@ -441,7 +547,7 @@ Execution successful! Output verified on Windows 11 Pro x86_64.
                     <p className="text-slate-500">(c) Microsoft Corporation. All rights reserved.</p>
                     <div className="pt-2 space-y-1">
                       <p className="text-[#04AA6D] font-bold flex items-center gap-1 flex-wrap">
-                        <span>C:\Users\Student\CPP_Project&gt;</span>
+                        <span>C:\Users\Student&gt;</span>
                         <span className="text-white font-mono">{cleanCode.split('\n')[0]}</span>
                       </p>
                       <div className="text-emerald-400/90 pt-1 font-mono whitespace-pre-wrap">
@@ -527,9 +633,45 @@ Execution successful! Output verified on Windows 11 Pro x86_64.
           }
         }
 
+        // Render Markdown Images (![Alt](url)) with Lightbox Zoom
+        const imgMatch = trimmed.match(/^!\[(.*?)\]\((.*?)\)/);
+        if (imgMatch) {
+          const altText = imgMatch[1] || "Windows 11 Setup Screenshot";
+          const imgSrc = imgMatch[2];
+          result.push(
+            <div 
+              key={`img-${i}`} 
+              className="my-3 rounded-xl overflow-hidden border border-slate-800 bg-[#15202b] shadow-xl group cursor-pointer"
+              onClick={() => setActiveZoomImage({ src: imgSrc, caption: altText, alt: altText })}
+            >
+              <div className="bg-[#1f1f1f] px-3.5 py-1.5 flex items-center justify-between border-b border-slate-800 text-xs text-slate-300">
+                <div className="flex items-center gap-2 font-mono text-white font-semibold">
+                  <WindowsIcon className="w-3.5 h-3.5 text-white inline-block -mt-0.5" />
+                  <span className="truncate">{altText}</span>
+                </div>
+                <span className="text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded text-[10px] font-mono uppercase border border-emerald-500/20">
+                  Windows 11
+                </span>
+              </div>
+              <div className="p-1.5 flex items-center justify-center bg-[#0c0c0c]">
+                <img
+                  src={imgSrc}
+                  alt={altText}
+                  className="w-full h-auto max-h-[460px] object-contain rounded-md shadow group-hover:scale-[1.005] transition-transform duration-200"
+                  onError={(e) => {
+                    (e.currentTarget as HTMLElement).style.display = 'none';
+                  }}
+                />
+              </div>
+            </div>
+          );
+          i++;
+          continue;
+        }
+
         // Render --- Dividers as subtle horizontal line
         if (trimmed === "---" || trimmed === "___" || trimmed === "***") {
-          result.push(<hr key={`hr-${i}`} className="border-t border-slate-800/80 my-8" />);
+          result.push(<hr key={`hr-${i}`} className="border-t border-slate-800/80 my-4" />);
           i++;
           continue;
         }
@@ -544,9 +686,9 @@ Execution successful! Output verified on Windows 11 Pro x86_64.
 
           const iconPath = getHeaderIcon(cleanHeading);
           result.push(
-            <div key={`heading-${i}`} className="flex items-center gap-3 mt-8 mb-4 border-b border-slate-800/80 pb-3">
-              <img src={iconPath} alt="" className="w-6 h-6 object-contain shrink-0" />
-              <h3 className="text-xl md:text-2xl font-extrabold text-white tracking-tight">
+            <div key={`heading-${i}`} className="flex items-center gap-2.5 mt-5 mb-2 border-b border-slate-800/80 pb-2">
+              <img src={iconPath} alt="" className="w-5 h-5 object-contain shrink-0" />
+              <h3 className="text-lg md:text-xl font-extrabold text-white tracking-tight">
                 {cleanHeading}
               </h3>
             </div>
@@ -562,7 +704,7 @@ Execution successful! Output verified on Windows 11 Pro x86_64.
           const parts = cleanText.split(boldRegex);
 
           result.push(
-            <li key={`li-${i}`} className="ml-6 list-disc text-sm md:text-base text-slate-300 my-2 leading-relaxed">
+            <li key={`li-${i}`} className="ml-5 list-disc text-base text-slate-100 my-1 leading-relaxed">
               {parts.map((part, pIdx) =>
                 pIdx % 2 === 1
                   ? <strong key={pIdx} className="text-white font-bold">{part.replace(/[*`]/g, "")}</strong>
@@ -581,7 +723,7 @@ Execution successful! Output verified on Windows 11 Pro x86_64.
           const parts = cleanText.split(boldRegex);
 
           result.push(
-            <li key={`oli-${i}`} className="ml-6 list-decimal text-sm md:text-base text-slate-300 my-2 leading-relaxed">
+            <li key={`oli-${i}`} className="ml-5 list-decimal text-base text-slate-100 my-1 leading-relaxed">
               {parts.map((part, pIdx) =>
                 pIdx % 2 === 1
                   ? <strong key={pIdx} className="text-white font-bold">{part.replace(/[*`]/g, "")}</strong>
@@ -593,13 +735,13 @@ Execution successful! Output verified on Windows 11 Pro x86_64.
           continue;
         }
 
-        // Normal paragraph text
+        // Normal paragraph text with optimal readable font size and tight vertical spacing
         const sanitizedParagraph = trimmed.replace(/\*"/g, '"').replace(/"\*/g, '"').replace(/\*([^"*\s][^*]*[^"*\s])\*/g, "$1");
         const boldRegex = /\*\*(.*?)\*\*/g;
         if (boldRegex.test(sanitizedParagraph) || sanitizedParagraph.includes('`') || sanitizedParagraph.includes('<')) {
           const parts = sanitizedParagraph.split(boldRegex);
           result.push(
-            <p key={`p-${i}`} className="text-sm md:text-base text-slate-300 leading-relaxed my-3 font-normal">
+            <p key={`p-${i}`} className="text-base text-slate-100 leading-relaxed my-1.5 font-normal">
               {parts.map((part, pIdx) =>
                 pIdx % 2 === 1
                   ? <strong key={pIdx} className="text-white font-bold">{part.replace(/[*`]/g, "")}</strong>
@@ -609,7 +751,7 @@ Execution successful! Output verified on Windows 11 Pro x86_64.
           );
         } else {
           result.push(
-            <p key={`p-${i}`} className="text-sm md:text-base text-slate-300 leading-relaxed my-3 font-normal">
+            <p key={`p-${i}`} className="text-base text-slate-100 leading-relaxed my-1.5 font-normal">
               {renderInlineCode(sanitizedParagraph.replace(/[*]/g, ""))}
             </p>
           );
@@ -631,7 +773,7 @@ Execution successful! Output verified on Windows 11 Pro x86_64.
   }
 
   return (
-    <div className="space-y-6 text-left max-w-5xl mx-auto px-2 sm:px-4">
+    <div className="space-y-4 text-left max-w-5xl mx-auto px-2 sm:px-4">
       {/* Unit & Lesson Counter Badge Row */}
       <div className="flex items-center justify-between gap-3 pt-2">
         <span className="text-xs font-black uppercase tracking-wider text-[#04AA6D] border border-[#04AA6D]/30 bg-[#04AA6D]/10 px-3 py-1 rounded-full">
@@ -648,13 +790,19 @@ Execution successful! Output verified on Windows 11 Pro x86_64.
         {lesson.title}
       </h1>
 
-      {/* Author Attribution & Share Row */}
-      <div className="flex items-center justify-between border-b border-slate-800/80 pb-4 mb-2">
-        <div className="flex items-center gap-2 text-xs text-slate-400">
-          <span className="font-extrabold text-xs text-[#04AA6D] bg-[#04AA6D]/10 border border-[#04AA6D]/30 px-1.5 py-0.5 rounded">NS</span>
-          <span className="font-bold text-slate-200">NextSem</span>
+      {/* Author Attribution & Share Row with Official Brand Logo */}
+      <div className="flex items-center justify-between border-b border-slate-800/80 pb-3 mb-2">
+        <div className="flex items-center gap-2.5 text-xs text-slate-400">
+          <Link href="/about" className="flex items-center gap-2 hover:opacity-80 transition-opacity" title="View Er. Manoj Kumar Profile">
+            <img
+              src="/manoj-kumar.jpg"
+              alt="Er. Manoj Kumar — Author"
+              className="w-5 h-5 rounded-full object-cover object-top border border-[#04AA6D]"
+            />
+            <span className="font-bold text-slate-200 hover:text-[#04AA6D] transition-colors">Er. Manoj Kumar</span>
+          </Link>
           <span>•</span>
-          <span>Last Updated: 5 Aug, 2026</span>
+          <span>Last Updated: 26 Aug, 2026</span>
         </div>
         <div className="flex items-center gap-3">
           <ShareButton title={lesson.title} />

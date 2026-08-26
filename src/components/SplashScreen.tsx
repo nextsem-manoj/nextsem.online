@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import { showAppOpenAd } from "../lib/admobHelper";
 import { Capacitor } from '@capacitor/core';
 
@@ -12,6 +13,7 @@ import { Capacitor } from '@capacitor/core';
 // 3 → Fade out → gone
 
 export default function SplashScreen() {
+  const pathname = usePathname();
   const [phase, setPhase] = useState(0);
   const [gone, setGone] = useState(true); // Default to true (hidden) for SSR/safe-guard
   const [muted, setMuted] = useState(false);
@@ -19,20 +21,45 @@ export default function SplashScreen() {
 
   // Check on client-side mount
   useEffect(() => {
-    const isShown = sessionStorage.getItem("nextsem_splash_shown");
-    setTimeout(() => {
-      if (isShown) {
-        setGone(true);
-      } else {
-        setGone(false);
-        sessionStorage.setItem("nextsem_splash_shown", "true");
-      }
-    }, 0);
-  }, []);
+    // 1. Never show splash on /htmldemo, lesson pages, or query links
+    const isHtmldemo =
+      pathname?.startsWith("/htmldemo") ||
+      (typeof window !== "undefined" && (window.location.pathname.includes("htmldemo") || window.location.search.includes("code=")));
 
-  // ── Web Audio: play a soft tech arpeggio on mount ──
+    if (isHtmldemo) {
+      setGone(true);
+      try {
+        sessionStorage.setItem("nextsem_splash_shown", "true");
+        localStorage.setItem("nextsem_splash_shown", "true");
+      } catch {}
+      return;
+    }
+
+    // 2. Only show splash on native platform or root homepage on very first visit
+    const isNative = Capacitor.isNativePlatform();
+    const isRoot = pathname === "/" || pathname === "";
+
+    if (!isNative && !isRoot) {
+      setGone(true);
+      return;
+    }
+
+    const isShown = sessionStorage.getItem("nextsem_splash_shown") || localStorage.getItem("nextsem_splash_shown");
+    if (isShown) {
+      setGone(true);
+    } else {
+      setGone(false);
+      try {
+        sessionStorage.setItem("nextsem_splash_shown", "true");
+      } catch {}
+    }
+  }, [pathname]);
+
+  // ── Web Audio: play a soft tech arpeggio on mount (only on actual splash) ──
   useEffect(() => {
     if (gone || muted) return;
+    if (pathname?.startsWith("/htmldemo")) return;
+
     try {
       const ctx = new (window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext)();
       // E minor arpeggio: E4 G4 B4 E5 G5
@@ -62,10 +89,12 @@ export default function SplashScreen() {
       masterGain.gain.linearRampToValueAtTime(0, ctx.currentTime + 2.6);
 
       return () => {
-        ctx.close();
+        try {
+          ctx.close();
+        } catch {}
       };
     } catch { /* AudioContext not available */ }
-  }, [gone, muted]);
+  }, [gone, muted, pathname]);
 
   useEffect(() => {
     if (gone) return;
@@ -85,8 +114,7 @@ export default function SplashScreen() {
     return () => timers.forEach(clearTimeout);
   }, [gone]);
 
-
-  if (gone) return null;
+  if (gone || pathname?.startsWith("/htmldemo")) return null;
 
   const G = "#39FF14"; // neon green
 

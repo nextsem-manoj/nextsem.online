@@ -2,6 +2,7 @@
 
 import React, { useRef, useState } from 'react';
 import Link from 'next/link';
+import WindowsIcon from '@/components/WindowsIcon';
 import { BookOpen, ArrowRight, ChevronLeft, ChevronRight, Code2, Terminal, Cpu, GitBranch, Map } from 'lucide-react';
 
 interface CourseItem {
@@ -30,22 +31,22 @@ export default function CourseCarouselSection() {
       badgeBg: "bg-orange-500/10",
       badgeText: "text-orange-400",
       badgeBorder: "border-orange-500/30",
-      description: "Master HTML5 tags, semantic page architecture, forms, tables, accessibility, HTTP request headers, and 🪟 Windows 11 live code previews.",
+      description: "Master HTML5 tags, semantic page architecture, forms, tables, accessibility, HTTP request headers, and Windows 11 live code previews.",
       lessonCount: "98 Lessons",
-      ctaText: "Start HTML5 Course 🧱",
+      ctaText: "Start HTML5 Course",
       ctaHref: "/html",
       icon: <Code2 size={24} className="text-orange-400" />
     },
     {
       id: "cli-course",
-      title: "🪟 Windows Command Prompt (CMD) CLI",
+      title: "Windows Command Prompt (CMD) CLI",
       category: "101+ Lessons",
       badgeBg: "bg-emerald-500/10",
       badgeText: "text-[#04AA6D]",
       badgeBorder: "border-emerald-500/30",
-      description: "Learn Windows file system trees, drive navigation, environment variables, batch scripts (`organize.bat`), and network diagnostics.",
+      description: "Learn Windows file system trees, drive navigation, environment variables, batch scripts (organize.bat), and network diagnostics.",
       lessonCount: "101 Lessons",
-      ctaText: "Start 🪟 CMD Course",
+      ctaText: "Start CMD Course",
       ctaHref: "/cli",
       icon: <Terminal size={24} className="text-[#04AA6D]" />
     },
@@ -58,7 +59,7 @@ export default function CourseCarouselSection() {
       badgeBorder: "border-sky-500/30",
       description: "Master C++ syntax, memory pointers, arrays, functions, structures, classes, inheritance, and Object-Oriented Programming.",
       lessonCount: "21 Lessons",
-      ctaText: "Start C++ Course 💻",
+      ctaText: "Start C++ Course",
       ctaHref: "/cpp",
       icon: <Cpu size={24} className="text-sky-400" />
     },
@@ -71,7 +72,7 @@ export default function CourseCarouselSection() {
       badgeBorder: "border-purple-500/30",
       description: "Learn git init, commit history, branching workflows, pull requests, merge conflict resolution, and GitHub remote repositories.",
       lessonCount: "Terminal Simulator",
-      ctaText: "Launch Git Terminal 🌿",
+      ctaText: "Launch Git Terminal",
       ctaHref: "/git",
       icon: <GitBranch size={24} className="text-purple-400" />
     },
@@ -84,7 +85,7 @@ export default function CourseCarouselSection() {
       badgeBorder: "border-amber-500/30",
       description: "Step-by-step developer roadmap combining HTML, CSS, JavaScript, React, Node.js, Express, Databases, and Cloud Deployment.",
       lessonCount: "Full Roadmap",
-      ctaText: "Explore Full Roadmap 🚀",
+      ctaText: "Explore Full Roadmap",
       ctaHref: "/full-stack-web-development-roadmap",
       icon: <Map size={24} className="text-amber-400" />
     }

@@ -7,7 +7,17 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: ['/profile', '/playground'],
+      disallow: [
+        '/profile',
+        '/playground',
+        '/logo-studio',
+        '/logo-animation',
+        '/admin',
+        '/visual-logic',
+        '/pdf-to-markdown',
+        '/lesson-preview',
+        '/*-animation',
+      ],
     },
     sitemap: 'https://nextsem.online/sitemap.xml',
   };

@@ -492,58 +492,20 @@ export default function CliLessonClient({ lesson }: CliLessonClientProps) {
         )}
       </div>
 
-      {/* ── SENIOR DEVELOPER KEY TAKEAWAYS & INDUSTRY INSIGHTS CARD ── */}
-      <div className="p-5 md:p-6 bg-[#0e1117] border border-slate-800 rounded-2xl shadow-xl text-left space-y-3">
-        <h4 className="text-base font-extrabold text-[#04AA6D]">
-          <span>Senior Developer Key Takeaways & Windows 11 Insights</span>
-        </h4>
-        <ul className="space-y-2 text-xs md:text-sm text-slate-300 font-medium leading-relaxed">
-          <li className="flex items-start gap-2">
-            <span className="text-[#04AA6D] font-bold">1.</span>
-            <span>CLI mastery allows web developers to configure build pipelines, run package managers (`npm`, `npx`), and control servers.</span>
-          </li>
-          <li className="flex items-start gap-2">
-            <span className="text-[#04AA6D] font-bold">2.</span>
-            <span>Always use standard directory conventions in Windows 11 Command Prompt to keep scripts portable across environments.</span>
-          </li>
-          <li className="flex items-start gap-2">
-            <span className="text-[#04AA6D] font-bold">3.</span>
-            <span>Leverage `help` and `/` command flags whenever working with unfamiliar CLI commands in Windows.</span>
-          </li>
-          <li className="flex items-start gap-2">
-            <span className="text-[#04AA6D] font-bold">4.</span>
-            <span>Batch scripts (`.bat`) enable one-tap execution of build, test, and cloud deployment procedures.</span>
-          </li>
-        </ul>
-        <div className="p-3 bg-[#050810] border border-slate-800 rounded-xl text-xs text-emerald-300 font-medium">
-          <strong>Developer Pro-Tip:</strong> Practice commands directly in your local Windows Command Prompt terminal (`cmd.exe`) alongside these interactive lessons!
-        </div>
-      </div>
 
-      {/* ── NEXTSEM ACADEMY CLI QUIZ CTA CARD ── */}
-      <div className="p-5 md:p-6 bg-[#0e1117] border border-[#04AA6D]/40 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xl text-left">
-        <div>
-          <h4 className="text-base font-extrabold text-white">Test Your CLI &amp; CMD Knowledge!</h4>
-          <p className="text-xs text-slate-300 mt-0.5 leading-relaxed">
-            Take the comprehensive CLI Quiz to test your understanding of Windows Command Prompt commands and terminal workflows.
-          </p>
-        </div>
-        <Link
-          href="/cli/quiz"
-          className="px-5 py-2.5 bg-[#04AA6D] hover:bg-[#039861] text-white font-extrabold text-xs rounded-xl shadow-md transition-all whitespace-nowrap cursor-pointer shrink-0 flex items-center gap-1.5"
-        >
-          <span>Start CLI Quiz »</span>
-        </Link>
-      </div>
+
+
 
       {/* ── AUTHOR ATTRIBUTION BADGE ── */}
       <div className="flex items-center justify-between flex-wrap gap-2 p-3 bg-[#0e1117]/80 border border-slate-800 rounded-xl text-xs text-slate-400">
-        <div className="flex items-center gap-2">
-          <div className="w-5 h-5 rounded-md bg-[#09101f] border border-[#04AA6D]/60 flex items-center justify-center text-[#04AA6D] font-black text-[9px] shadow-sm">
-            NS
-          </div>
-          <span>Curriculum Author: <strong className="text-white font-bold">NextSem</strong></span>
-        </div>
+        <Link href="/about" className="flex items-center gap-2 hover:opacity-80 transition-opacity" title="View Author Profile">
+          <img
+            src="/manoj-kumar.jpg"
+            alt="Er. Manoj Kumar — Curriculum Author"
+            className="w-6 h-6 rounded-full object-cover object-top border border-[#04AA6D]"
+          />
+          <span>Curriculum Author: <strong className="text-white font-bold hover:text-[#04AA6D] transition-colors">Er. Manoj Kumar</strong></span>
+        </Link>
         <div className="flex items-center gap-3">
           <Link
             href="/curriculum"

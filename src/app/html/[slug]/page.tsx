@@ -4,11 +4,16 @@ import { notFound } from "next/navigation";
 import { htmlLessons } from "@/data/htmlLessonsData";
 import HtmlLessonClient from "@/components/HtmlLessonClient";
 
+const slugAliases: Record<string, string> = {
+  "learn-html-web-free-lessons-what-is-the-internet": "html-introduction-what-is-html",
+};
+
 export async function generateStaticParams() {
   const params = htmlLessons.map((lesson) => ({
     slug: lesson.slug,
   }));
-  return [...params, { slug: "" }, { slug: "index" }];
+  const aliasParams = Object.keys(slugAliases).map((alias) => ({ slug: alias }));
+  return [...params, ...aliasParams, { slug: "" }, { slug: "index" }];
 }
 
 export async function generateMetadata({
@@ -17,22 +22,33 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const decoded = slug ? decodeURIComponent(slug).toLowerCase() : "";
-  const lesson = htmlLessons.find((l) => l.slug.toLowerCase() === decoded) || (!decoded ? htmlLessons[0] : null);
+  const rawDecoded = slug ? decodeURIComponent(slug).toLowerCase() : "";
+  const decoded = slugAliases[rawDecoded] || rawDecoded;
+  const lesson = htmlLessons.find((l) => l.slug.toLowerCase() === decoded || l.id.toString() === decoded) || (!decoded ? htmlLessons[0] : null);
 
   if (!lesson) {
     return {
-      title: "Lesson Not Found | NextSem",
-      description: "This HTML lesson was not found in our course directory.",
+      title: "Lesson Not Found | Nextsem Academy",
+      description: "This free HTML lesson was not found in our course directory.",
     };
   }
 
-  const title = `${lesson.title} | Free HTML Web Coding Lesson | NextSem`;
-  const description = `Learn ${lesson.title} step-by-step in Hindi, Hinglish, and English with interactive check tasks. Free online HTML web coding lessons at NextSem Academy.`;
+  const title = `${lesson.title} - Free HTML Lessons | Full Stack Web Development | Nextsem`;
+  const description = `Learn ${lesson.title} step-by-step with free HTML lessons, full stack web development roadmap, authentic Windows 11 VS Code screenshots, live code examples, and interactive exercises on Nextsem Academy.`;
 
   return {
     title,
     description,
+    keywords: [
+      "free html lessons",
+      "full stack web development",
+      "full stack web developer",
+      "learn html free",
+      lesson.title.toLowerCase(),
+      "html5 web development",
+      "free coding lessons",
+      "nextsem academy"
+    ],
     alternates: {
       canonical: `/html/${lesson.slug}`,
     },
@@ -41,6 +57,13 @@ export async function generateMetadata({
       description,
       url: `https://nextsem.online/html/${lesson.slug}`,
       type: "article",
+      siteName: "Nextsem Academy",
+      locale: "en_US"
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
     },
   };
 }
@@ -51,7 +74,8 @@ export default async function HtmlSlugPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const decoded = slug ? decodeURIComponent(slug).toLowerCase() : "";
+  const rawDecoded = slug ? decodeURIComponent(slug).toLowerCase() : "";
+  const decoded = slugAliases[rawDecoded] || rawDecoded;
   const lesson = htmlLessons.find(
     (l) => l.slug.toLowerCase() === decoded || l.id.toString() === decoded
   ) || (!decoded || decoded === "index" ? htmlLessons[0] : null);
@@ -60,5 +84,29 @@ export default async function HtmlSlugPage({
     notFound();
   }
 
-  return <HtmlLessonClient lesson={lesson} />;
+  // Google Educational Schema for Search Engine indexing
+  const lessonJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "LearningResource",
+    "name": `${lesson.title} - Free HTML Lesson`,
+    "description": `Free HTML lesson on ${lesson.title} covering full stack web development fundamentals, live syntax, and coding examples.`,
+    "learningResourceType": "Lesson",
+    "isAccessibleForFree": true,
+    "keywords": "free html lessons, full stack web development, learn html free",
+    "provider": {
+      "@type": "Organization",
+      "name": "Nextsem Academy",
+      "url": "https://nextsem.online"
+    }
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(lessonJsonLd) }}
+      />
+      <HtmlLessonClient lesson={lesson} />
+    </>
+  );
 }

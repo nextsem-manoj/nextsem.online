@@ -11,6 +11,26 @@ import {
 import { auth, signInWithGoogle } from '../../lib/firebase';
 import { signOut, onAuthStateChanged } from 'firebase/auth';
 
+function InstagramIcon({ size = 14, className = "" }: { size?: number; className?: string }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
+      <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+      <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+    </svg>
+  );
+}
+
 export default function AboutClient() {
   const router = useRouter();
   const [currentUser, setCurrentUser] = useState<{ name: string; email: string; photo?: string } | null>(null);
@@ -237,6 +257,58 @@ export default function AboutClient() {
               <span>See Full Course Details</span>
               <ChevronRight size={14} className="stroke-[2.5]" />
             </Link>
+          </div>
+        </section>
+
+        {/* ── FOUNDER & EDITORIAL LEAD (E-E-A-T) ── */}
+        <section id="author" className="bg-[#0c1328]/70 border border-slate-800 rounded-3xl p-8 md:p-10 space-y-6 scroll-mt-20">
+          <div className="flex flex-col sm:flex-row items-center gap-6">
+            <img
+              src="/manoj-kumar.jpg"
+              alt="Er. Manoj Kumar — Founder & Curriculum Architect"
+              className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl object-cover object-top border-2 border-[#04AA6D] shadow-xl shrink-0"
+            />
+            <div className="space-y-1.5 text-center sm:text-left">
+              <div className="inline-flex items-center gap-1.5 px-3 py-0.5 bg-emerald-500/10 border border-[#04AA6D]/30 rounded-full text-[10px] font-black uppercase tracking-widest text-[#04AA6D]">
+                <span>Founder &amp; Curriculum Architect</span>
+              </div>
+              <h3 className="text-xl md:text-2xl font-black text-white">Er. Manoj Kumar</h3>
+              <p className="text-xs text-slate-300 font-medium">
+                Full-Stack Software Engineer • Computer Science Educator • Creator of Nextsem Academy
+              </p>
+              <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 pt-1">
+                <a
+                  href="https://www.instagram.com/kumar.manoj2403"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3 py-1 bg-slate-900 hover:bg-slate-800 border border-slate-700 hover:border-[#04AA6D]/50 rounded-lg text-[11px] font-bold text-slate-200 hover:text-white transition-colors inline-flex items-center gap-1.5"
+                  title="Follow Er. Manoj Kumar on Instagram"
+                >
+                  <InstagramIcon size={13} className="text-white" />
+                  <span>@kumar.manoj2403</span>
+                </a>
+                <Link
+                  href="/contact"
+                  className="px-3 py-1 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded-lg text-[11px] font-bold text-slate-200 hover:text-white transition-colors"
+                >
+                  Contact
+                </Link>
+                <Link
+                  href="/curriculum"
+                  className="px-3 py-1 bg-emerald-500/10 hover:bg-emerald-500/20 border border-[#04AA6D]/40 rounded-lg text-[11px] font-bold text-[#04AA6D] transition-colors"
+                >
+                  Authored Curriculum
+                </Link>
+              </div>
+            </div>
+          </div>
+          <div className="border-t border-slate-800/80 pt-4 space-y-3 text-xs text-slate-300 leading-relaxed">
+            <p>
+              Nextsem Academy was conceptualized and authored by <strong className="text-white font-bold">Er. Manoj Kumar</strong> to eliminate high tuition barriers and provide Indian college students and self-taught developers with free, industry-grade software engineering curriculum.
+            </p>
+            <p>
+              Every tutorial, terminal command simulator, and Windows 11 coding lesson undergoes rigorous testing against live modern development standards (React 19+, Next.js 16+, Node.js, and modern TypeScript) before publication.
+            </p>
           </div>
         </section>
 
