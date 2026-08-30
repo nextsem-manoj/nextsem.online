@@ -8,6 +8,10 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'CSS Liquid Glass Battery & Wave Animation | Nextsem Academy',
+  robots: {
+    index: false,
+    follow: false,
+  },
   description: 'Pure HTML and CSS liquid wave battery charging animation using rotational border-radius geometry and rising bubbles.',
 };
 

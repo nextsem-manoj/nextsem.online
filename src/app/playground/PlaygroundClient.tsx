@@ -7,7 +7,6 @@ import {
   ArrowLeft, Sun, Moon, Coffee, Trash2, Plus, Sliders, Type, Grid, MousePointerClick,
   RefreshCw, Sparkles, Globe, SeparatorHorizontal, TextCursorInput, AlignLeft, Table2, Video
 } from "lucide-react";
-import AdSenseBanner from "../../components/AdSenseBanner";
  
 interface LogEntry {
   type: "log" | "error";
@@ -1121,11 +1120,6 @@ ${cls} thead tr {
                   )}
                 </div>
             )}
-          </div>
- 
-          {/* Ad Placement: Clean at the bottom of Column 1 */}
-          <div className="border-t border-white/5 pt-3 shrink-0">
-            <AdSenseBanner />
           </div>
         </div>
  

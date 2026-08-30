@@ -33,6 +33,7 @@
   4. **SEO Slugs**: All lesson URLs must be descriptive and SEO-optimized (e.g. `/cli/learn-windows-command-prompt-cmd-basics`).
   5. **AdMob/AdSense PDF Download**: Each lesson must include a "Download Lesson PDF" option.
   6. **Beginner-Friendly Full Stack Web Developer Focus**: 100% focused on pure Full Stack Web Developer pathways (HTML, CSS, JavaScript, React, Node.js, Express, Databases, Git, 🪟 Windows CMD CLI, and Cloud Deployment).
+- **Primary Mobile Framework Standard (Flutter)**: From now on, use Flutter (`mobile/`) for all mobile application development, native features, Android/iOS builds, and mobile ad/auth implementations. Keep Next.js focused on the SEO-rich responsive web platform at nextsem.online.
 - **Exclusion of Non-Coding Office Software**: Do not include or feature MS Word, MS Excel, PowerPoint, Google Docs, email writing, professional email etiquette, or resume writing topics. Keep all content strictly focused on software engineering and web development.
 - **Mobile & Desktop Unified Optimization Standard**: Always design, build, and optimize features for seamless, high-performance compatibility across both Mobile and Desktop viewports. Use responsive design standards, adaptive layouts, touch/mouse friendly interactions, and optimal platform-specific decisions without compromising either experience.
 - **Deployment Safety Directive**: Never deploy to production (e.g. running `npm run deploy:prod` or `firebase deploy`) unless the user explicitly requests or instructs a deployment.

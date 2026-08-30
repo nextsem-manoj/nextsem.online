@@ -496,14 +496,23 @@ export default function HomeClient() {
             Learn Full Stack Web Development step-by-step on <span className="inline-flex items-center gap-1.5 font-semibold text-white"><WindowsIcon className="w-4 h-4 text-white inline-block -mt-0.5" /> Windows</span>. Master HTML, CSS, JavaScript, React, and Node.js with hands-on live practice.
           </p>
 
-          {/* Action CTA: Single Prominent Start Learning Button */}
-          <div className="flex items-center justify-center pt-3">
+          {/* Action CTA: Start HTML5 or 15-Min Terminal Fast-Track */}
+          <div className="flex flex-wrap items-center justify-center gap-3 pt-3">
             <Link
               href="/html/download-install-vscode-windows-11-setup-guide"
-              className="px-10 py-4.5 bg-[#04AA6D] hover:bg-[#039861] text-white font-black text-sm sm:text-base uppercase tracking-wider rounded-2xl shadow-2xl shadow-[#04AA6D]/30 transition-all transform hover:-translate-y-1 hover:scale-105 flex items-center gap-3 cursor-pointer border border-emerald-400/40"
+              className="px-8 py-4 bg-[#04AA6D] hover:bg-[#039861] text-white font-black text-sm sm:text-base uppercase tracking-wider rounded-2xl shadow-2xl shadow-[#04AA6D]/30 transition-all transform hover:-translate-y-0.5 flex items-center gap-2.5 cursor-pointer border border-emerald-400/40"
             >
-              <Play size={20} className="fill-white" />
-              <span>Start Learning »</span>
+              <Play size={18} className="fill-white" />
+              <span>Start HTML5 Lessons »</span>
+            </Link>
+
+            <Link
+              href="/terminal-fast-track"
+              className="px-6 py-4 bg-[#141824] hover:bg-[#1a2030] text-white font-bold text-sm sm:text-base rounded-2xl border border-slate-700 hover:border-[#04AA6D] transition-all flex items-center gap-2.5 cursor-pointer shadow-lg group"
+            >
+              <Terminal size={18} className="text-[#04AA6D] group-hover:scale-110 transition-transform" />
+              <span>⚡ 15-Min Terminal Fast-Track</span>
+              <span className="text-[10px] bg-[#04AA6D]/20 text-[#04AA6D] px-2 py-0.5 rounded-full font-black uppercase">5 Commands</span>
             </Link>
           </div>
 

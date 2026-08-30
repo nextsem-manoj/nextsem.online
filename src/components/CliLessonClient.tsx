@@ -7,7 +7,7 @@ import {
   ChevronLeft, ChevronRight, BookOpen, Code, 
   HelpCircle, CheckCircle2, AlertCircle, Sparkles, Lock, ArrowLeft, X, FileText, Loader2, Bookmark, Download, Terminal, Award, ExternalLink
 } from "lucide-react";
-import { cliLessons } from "../data/cliLessonsData";
+import { cliLessons, type Lesson, type CommandItem } from "../data/cliLessonsData";
 import AdSenseBanner from "./AdSenseBanner";
 import CommandScreenshotWidget from "./CommandScreenshotWidget";
 import { useProgress } from "../context/ProgressContext";
@@ -22,11 +22,12 @@ import { saveLastLesson } from "@/lib/userProgressSync";
 import { auth } from "@/lib/firebase";
 
 interface CliLessonClientProps {
-  lesson: any;
+  lesson: Lesson;
 }
 
 const NAV_LINKS = [
   { label: "📁 CLI Hub", href: "/cli" },
+  { label: "⚡ 30-Min Fast-Track", href: "/terminal-fast-track" },
   { label: "⚡ Essential Commands", href: "/cli/essential-cmd-commands" },
   { label: "🚀 Useful Commands", href: "/cli/most-useful-cmd-commands-in-windows" },
   { label: "🧠 CLI Quiz", href: "/cli/quiz" },
@@ -368,6 +369,32 @@ export default function CliLessonClient({ lesson }: CliLessonClientProps) {
         </div>
       </div>
 
+      {/* ── FAST-TRACK BRIDGE CARD FOR WEB DEVELOPERS ── */}
+      <div className="bg-[#141824] border border-[#04AA6D]/40 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-lg text-left">
+        <div className="flex items-start gap-3">
+          <div className="w-10 h-10 rounded-xl bg-[#04AA6D]/20 border border-[#04AA6D] flex items-center justify-center text-[#04AA6D] shrink-0 mt-0.5">
+            <Terminal size={20} />
+          </div>
+          <div className="space-y-1">
+            <div className="text-[10px] font-black uppercase tracking-wider text-[#04AA6D]">
+              Fast-Track For Web Developers
+            </div>
+            <h4 className="text-sm sm:text-base font-extrabold text-white">
+              Don&apos;t want to read 30+ terminal lessons?
+            </h4>
+            <p className="text-xs text-white font-normal leading-relaxed">
+              Learn just the 5 essential commands you need to build web apps in under 15 minutes with video &amp; interactive lab.
+            </p>
+          </div>
+        </div>
+        <Link
+          href="/terminal-fast-track"
+          className="px-5 py-2.5 bg-[#04AA6D] hover:bg-[#039861] text-black font-extrabold text-xs uppercase tracking-wider rounded-xl transition-all shadow-md shrink-0 flex items-center justify-center gap-1.5 cursor-pointer self-start sm:self-auto"
+        >
+          <span>Take 15-Min Fast-Track »</span>
+        </Link>
+      </div>
+
       {/* ── MAIN CONTENT AREA (FRAMELESS / NO HEAVY OUTER BORDER) ── */}
       <div className="py-2 space-y-4">
         <article className="prose prose-invert max-w-none text-left">
@@ -378,7 +405,7 @@ export default function CliLessonClient({ lesson }: CliLessonClientProps) {
         {lesson.commands && lesson.commands.length > 0 && (
           <div className="space-y-4 pt-3 border-t border-slate-800/80">
 
-            {lesson.commands.map((item: any, cmdIdx: number) => (
+            {lesson.commands.map((item: CommandItem, cmdIdx: number) => (
               <div key={cmdIdx} className="space-y-3 text-left py-3 border-b border-slate-800/60 last:border-0">
                 {/* Description */}
                 <p className="text-xs md:text-sm text-slate-300 font-medium leading-relaxed">

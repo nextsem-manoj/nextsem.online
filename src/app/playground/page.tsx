@@ -3,7 +3,10 @@ import PlaygroundClient from './PlaygroundClient';
 
 export const metadata: Metadata = {
   title: "Code Sandbox",
-  description: "Write and run HTML, CSS, and JavaScript in a real-time browser sandbox. Practice your web development skills interactively.",
+  robots: {
+    index: false,
+    follow: false,
+  },
   alternates: { canonical: "/playground" },
   openGraph: {
     title: "Code Sandbox | Nextsem Academy",

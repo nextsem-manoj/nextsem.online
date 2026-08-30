@@ -8,7 +8,6 @@ import {
   ArrowLeft, RefreshCw, Eye, Code, FileCode, AlertCircle, 
   BookOpen, Layers, Zap, FileCheck, Image as ImageIcon, SplitSquareVertical, Columns
 } from "lucide-react";
-import AdSenseBanner from "./AdSenseBanner";
 
 declare global {
   interface Window {
@@ -690,11 +689,6 @@ export default function PdfToMarkdownConverter() {
           )}
         </div>
       )}
-
-      {/* Banner Ad */}
-      <div className="mt-10">
-        <AdSenseBanner />
-      </div>
     </div>
   );
 }

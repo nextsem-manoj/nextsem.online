@@ -18,9 +18,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/terms",
     "/disclaimer",
     "/curriculum",
+    "/guide",
     "/course",
     "/course/projects",
     "/cli",
+    "/cli/fast-track",
+    "/terminal-fast-track",
     "/cli/quiz",
     "/cli/most-useful-cmd-commands-in-windows",
     "/cli/essential-cmd-commands",
@@ -65,15 +68,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.9,
   }));
 
-  // Dynamic course chapter paths for other lessons (filter out HTML lessons)
-  const courseRoutes = searchIndex
-    .filter((chapter) => !chapter.id.startsWith("p1-"))
-    .map((chapter) => ({
-      url: `${baseUrl}/book/${chapter.id}`,
-      lastModified: new Date(),
-      changeFrequency: "monthly" as const,
-      priority: 0.8,
-    }));
-
-  return [...baseRoutes, ...cliLessonRoutes, ...htmlLessonRoutes, ...cppLessonRoutes, ...courseRoutes];
+  return [...baseRoutes, ...cliLessonRoutes, ...htmlLessonRoutes, ...cppLessonRoutes];
 }

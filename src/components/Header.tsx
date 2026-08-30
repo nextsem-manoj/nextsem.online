@@ -27,18 +27,17 @@ const Header = () => {
               Curriculum
             </Link>
             <Link
-              href="/c"
-              className="px-3 py-1.5 rounded-lg hover:text-[#04AA6D] hover:bg-slate-800/80 transition-colors flex items-center gap-1 text-cyan-400 font-semibold"
+              href="/guide"
+              className="px-3 py-1.5 rounded-lg hover:text-[#04AA6D] hover:bg-slate-800/80 transition-colors text-white font-bold flex items-center gap-1"
             >
-              <Cpu size={13} />
-              <span>C Language</span>
+              <Compass size={13} className="text-[#04AA6D]" />
+              <span>Learning Guide</span>
             </Link>
             <Link
-              href="/visual-logic"
-              className="px-3 py-1.5 rounded-lg hover:text-[#04AA6D] hover:bg-slate-800/80 transition-colors flex items-center gap-1 text-emerald-400 font-semibold"
+              href="/html"
+              className="px-3 py-1.5 rounded-lg hover:text-[#04AA6D] hover:bg-slate-800/80 transition-colors"
             >
-              <Compass size={13} />
-              <span>Visual Logic</span>
+              HTML
             </Link>
             <Link
               href="/cli"
@@ -47,10 +46,22 @@ const Header = () => {
               Windows CLI
             </Link>
             <Link
-              href="/html"
+              href="/cpp"
               className="px-3 py-1.5 rounded-lg hover:text-[#04AA6D] hover:bg-slate-800/80 transition-colors"
             >
-              HTML & CSS
+              C++
+            </Link>
+            <Link
+              href="/c"
+              className="px-3 py-1.5 rounded-lg hover:text-[#04AA6D] hover:bg-slate-800/80 transition-colors"
+            >
+              C Language
+            </Link>
+            <Link
+              href="/git"
+              className="px-3 py-1.5 rounded-lg hover:text-[#04AA6D] hover:bg-slate-800/80 transition-colors"
+            >
+              Git
             </Link>
             <Link
               href="/batch"
@@ -59,11 +70,16 @@ const Header = () => {
               Batch Scripts
             </Link>
             <Link
-              href="/candle-flame-animation"
-              className="px-3 py-1.5 rounded-lg hover:text-[#04AA6D] hover:bg-slate-800/80 transition-colors flex items-center gap-1 text-amber-400 font-semibold"
+              href="/course/projects"
+              className="px-3 py-1.5 rounded-lg hover:text-[#04AA6D] hover:bg-slate-800/80 transition-colors"
             >
-              <Sparkles size={13} />
-              <span>Physics Labs</span>
+              Projects
+            </Link>
+            <Link
+              href="/full-stack-web-development-roadmap"
+              className="px-3 py-1.5 rounded-lg hover:text-[#04AA6D] hover:bg-slate-800/80 transition-colors text-[#04AA6D] font-bold"
+            >
+              Roadmap
             </Link>
           </nav>
         </div>

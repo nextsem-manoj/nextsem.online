@@ -4,7 +4,10 @@ import PdfToMarkdownConverter from "@/components/PdfToMarkdownConverter";
 
 export const metadata: Metadata = {
   title: "PDF to Markdown (.md) Converter | NextSem Academy Tools",
-  description: "Upload any PDF file (textbook, lecture notes, syllabus, slides) and convert it into structured Markdown (.md) files for NextSem Academy curriculum.",
+  robots: {
+    index: false,
+    follow: false,
+  },
   alternates: {
     canonical: "/pdf-to-markdown"
   },

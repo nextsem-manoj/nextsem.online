@@ -21,14 +21,19 @@ interface NsSubjectNavBarProps {
 
 const SUBJECT_TABS = [
   { id: "html", label: "HTML", href: "/html", match: (p: string) => p.startsWith("/html") },
-  { id: "css", label: "CSS", href: "/book/p2-1-selectors", match: (p: string) => p.includes("p2-") },
-  { id: "js", label: "JAVASCRIPT", href: "/book/p3-1-basics", match: (p: string) => p.includes("p3-") },
-  { id: "react", label: "REACT", href: "/book/p4-1-jsx", match: (p: string) => p.includes("p4-") },
-  { id: "backend", label: "NODE.JS", href: "/book/p5-1-node", match: (p: string) => p.includes("p5-") },
+  { id: "css", label: "CSS", href: "/guide", match: (p: string) => p.includes("css") },
+  { id: "js", label: "JAVASCRIPT", href: "/guide", match: (p: string) => p.includes("javascript") || p.includes("js") },
+  { id: "react", label: "REACT", href: "/guide", match: (p: string) => p.includes("react") },
+  { id: "backend", label: "NODE.JS", href: "/guide", match: (p: string) => p.includes("node") },
   { id: "cli", label: "WINDOWS CLI", href: "/cli", match: (p: string) => p.startsWith("/cli") },
+  { id: "cpp", label: "C++", href: "/cpp", match: (p: string) => p.startsWith("/cpp") },
+  { id: "c", label: "C LANGUAGE", href: "/c", match: (p: string) => p === "/c" || p.startsWith("/c/") },
   { id: "batch", label: "BATCH FILE", href: "/batch", match: (p: string) => p.startsWith("/batch") },
   { id: "git", label: "GIT", href: "/git", match: (p: string) => p.startsWith("/git") },
-  { id: "curriculum", label: "CURRICULUM", href: "/curriculum", match: (p: string) => p.startsWith("/curriculum") }
+  { id: "projects", label: "PROJECTS", href: "/course/projects", match: (p: string) => p.startsWith("/course/projects") },
+  { id: "roadmap", label: "ROADMAP", href: "/full-stack-web-development-roadmap", match: (p: string) => p.startsWith("/full-stack-web-development-roadmap") },
+  { id: "guide", label: "LEARNING GUIDE", href: "/guide", match: (p: string) => p.startsWith("/guide") },
+  { id: "curriculum", label: "CURRICULUM", href: "/curriculum", match: (p: string) => p.startsWith("/curriculum") },
 ];
 
 export default function NsSubjectNavBar({ currentUser, onSignIn, onToggleSidebar, showSubjectBar }: NsSubjectNavBarProps) {
@@ -63,7 +68,7 @@ export default function NsSubjectNavBar({ currentUser, onSignIn, onToggleSidebar
     <>
       <header className="sticky top-0 z-40 bg-[#060c18] border-b border-slate-800/80 shadow-md select-none">
         {/* ── TOP HEADER BAR ── */}
-        <div className="max-w-7xl mx-auto px-3 sm:px-6 h-14 flex items-center justify-between gap-3">
+        <div className="w-full px-3 sm:px-6 md:px-[10%] h-14 flex items-center justify-between gap-3">
           {/* Left Section: Brand Logo */}
           <div className="flex items-center gap-3">
             <Link href="/" className="flex items-center gap-2 group">
@@ -122,8 +127,8 @@ export default function NsSubjectNavBar({ currentUser, onSignIn, onToggleSidebar
 
         {/* ── SUB NAVIGATION BAR (Placed Just Below the Logo) ── */}
         {shouldShowSubjectBar && (
-          <div className="bg-[#09101f] border-t border-slate-850 px-2 sm:px-6">
-            <div className="max-w-7xl mx-auto flex items-center gap-1.5 overflow-x-auto custom-scrollbar py-1.5 scroll-smooth">
+          <div className="bg-[#09101f] border-t border-slate-850 px-2 sm:px-6 md:px-[10%]">
+            <div className="w-full flex items-center gap-1.5 overflow-x-auto custom-scrollbar py-1.5 scroll-smooth">
               {/* Hamburger Menu Button inside Nav Bar */}
               {onToggleSidebar && (
                 <button

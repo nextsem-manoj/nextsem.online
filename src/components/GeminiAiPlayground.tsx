@@ -8,7 +8,6 @@ import {
 } from "lucide-react";
 import { askGemini } from "@/lib/gemini";
 import { queryOfflineAi } from "@/lib/offlineAiEngine";
-import AdSenseBanner from "./AdSenseBanner";
 
 interface PromptHistoryItem {
   id: string;
@@ -511,11 +510,6 @@ export default function GeminiAiPlayground() {
             )}
           </div>
         </div>
-      </div>
-
-      {/* Ad Banner */}
-      <div className="mt-10">
-        <AdSenseBanner />
       </div>
     </div>
   );

@@ -8,6 +8,10 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'CSS Solar System 3D Planet Orbit | Nextsem Academy',
+  robots: {
+    index: false,
+    follow: false,
+  },
   description: 'Pure HTML and CSS solar system planet orbit animation.',
 };
 

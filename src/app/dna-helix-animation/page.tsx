@@ -8,6 +8,10 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: '3D Rotating DNA Double Helix Animation | Nextsem Academy',
+  robots: {
+    index: false,
+    follow: false,
+  },
   description: 'Pure HTML and CSS 3D rotating DNA double helix animation with harmonic sine wave physics and staggered delays.',
 };
 

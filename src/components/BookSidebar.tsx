@@ -12,6 +12,8 @@ import {
 import { useProgress } from '../context/ProgressContext';
 import { coursePhases } from '../data/courseData';
 import { htmlLessons } from '../data/htmlLessonsData';
+import { cliLessons } from '../data/cliLessonsData';
+import { cppLessons } from '../data/cppLessonsData';
 import searchIndex from '../data/searchIndex.json';
 import { getChapterIdFromPath, getChapterUrl } from '../lib/htmlLessonsHelper';
 import BrandLogoIcon from './BrandLogoIcon';
@@ -206,10 +208,10 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, onWidthChange, isCollaps
       <aside
         style={{ width: `${effectiveWidth}px` }}
         className={`
-          fixed top-14 md:top-[88px] left-0 h-[calc(100vh-3.5rem)] md:h-[calc(100vh-5.5rem)]
-          bg-[#0d1424] text-white border-r border-slate-800/80 shadow-xl
+          fixed top-14 md:top-[102px] left-0 md:left-[10%] h-[calc(100vh-3.5rem)] md:h-[calc(100vh-102px)]
+          bg-[#0d1424] text-white border-r md:border-l border-slate-800/80 shadow-2xl
           transition-[width,transform] duration-300 z-30 overflow-y-auto overflow-x-hidden shrink-0 select-none
-          ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
+          ${isOpen ? 'translate-x-0' : '-translate-x-full'}
         `}
       >
         <div className="flex flex-col h-full py-2">
@@ -282,6 +284,103 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, onWidthChange, isCollaps
                                 </div>
                               )}
                             </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            ) : pathname.startsWith('/cli') ? (
+              /* Windows 11 CLI Lessons */
+              <div className="flex flex-col">
+                <div className="px-4 pt-2 pb-1 text-[11px] font-black uppercase tracking-wider text-[#04AA6D] border-b border-slate-800/80 mb-2 flex items-center gap-1.5">
+                  <Terminal size={13} className="text-[#04AA6D]" />
+                  <span>Windows 11 CLI ({cliLessons.length})</span>
+                </div>
+                <div className="px-3 py-1 mb-2">
+                  <Link
+                    href="/terminal-fast-track"
+                    onClick={() => {
+                      if (window.innerWidth < 768) setIsOpen(false);
+                    }}
+                    className="flex items-center gap-2 px-3 py-2 rounded-xl bg-[#04AA6D]/20 border border-[#04AA6D] text-white font-bold text-xs hover:bg-[#04AA6D]/30 transition-all shadow-sm group"
+                  >
+                    <span className="text-[#04AA6D] text-sm">⚡</span>
+                    <div className="flex flex-col text-left">
+                      <span className="text-white text-xs font-bold">30-Min Fast-Track</span>
+                      <span className="text-[10px] text-slate-300 font-normal">5 Sacred Commands</span>
+                    </div>
+                  </Link>
+                </div>
+                {Array.from(new Set(cliLessons.map((l) => l.unit))).map((unitName, uIdx) => {
+                  const unitLessons = cliLessons.filter((l) => l.unit === unitName);
+                  return (
+                    <div key={uIdx} className="mb-2">
+                      <div className="px-4 pt-2 pb-1 text-[11px] font-bold uppercase tracking-wider text-slate-400 select-none">
+                        {unitName}
+                      </div>
+                      <div className="flex flex-col">
+                        {unitLessons.map((lesson) => {
+                          const isActive = pathname.includes(lesson.slug);
+                          return (
+                            <Link
+                              key={lesson.id}
+                              href={`/cli/${lesson.slug}`}
+                              onClick={() => {
+                                if (window.innerWidth < 768) setIsOpen(false);
+                              }}
+                              className={`flex items-center justify-between px-4 py-1.5 text-[12px] sm:text-[13px] transition-colors group ${
+                                isActive
+                                  ? 'bg-[#04AA6D]/20 text-white font-bold border-l-4 border-[#04AA6D]'
+                                  : 'text-slate-200 hover:text-white hover:bg-slate-800/70 border-l-4 border-transparent'
+                              }`}
+                            >
+                              <span className="truncate flex-1 text-left">
+                                #{lesson.id}. {lesson.title.replace(/`([^`]+)`/g, '$1')}
+                              </span>
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            ) : pathname.startsWith('/cpp') ? (
+              /* C++ Systems Programming Lessons */
+              <div className="flex flex-col">
+                <div className="px-4 pt-2 pb-1 text-[11px] font-black uppercase tracking-wider text-[#04AA6D] border-b border-slate-800/80 mb-2 flex items-center gap-1.5">
+                  <Terminal size={13} className="text-[#04AA6D]" />
+                  <span>C++ Systems Lessons ({cppLessons.length})</span>
+                </div>
+                {Array.from(new Set(cppLessons.map((l) => l.unit))).map((unitName, uIdx) => {
+                  const unitLessons = cppLessons.filter((l) => l.unit === unitName);
+                  return (
+                    <div key={uIdx} className="mb-2">
+                      <div className="px-4 pt-2 pb-1 text-[11px] font-bold uppercase tracking-wider text-slate-400 select-none">
+                        {unitName}
+                      </div>
+                      <div className="flex flex-col">
+                        {unitLessons.map((lesson) => {
+                          const isActive = pathname.includes(lesson.slug);
+                          return (
+                            <Link
+                              key={lesson.id}
+                              href={`/cpp/${lesson.slug}`}
+                              onClick={() => {
+                                if (window.innerWidth < 768) setIsOpen(false);
+                              }}
+                              className={`flex items-center justify-between px-4 py-1.5 text-[12px] sm:text-[13px] transition-colors group ${
+                                isActive
+                                  ? 'bg-[#04AA6D]/20 text-white font-bold border-l-4 border-[#04AA6D]'
+                                  : 'text-slate-200 hover:text-white hover:bg-slate-800/70 border-l-4 border-transparent'
+                              }`}
+                            >
+                              <span className="truncate flex-1 text-left">
+                                #{lesson.id}. {lesson.title.replace(/`([^`]+)`/g, '$1')}
+                              </span>
+                            </Link>
                           );
                         })}
                       </div>

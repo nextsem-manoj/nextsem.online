@@ -3,7 +3,10 @@ import VisualLogicSimulator from "@/components/VisualLogicSimulator";
 
 export const metadata: Metadata = {
   title: "Visual Logic & Algorithm Simulator | NextSem Academy",
-  description: "Learn fundamental coding algorithms, sequencing, and loops with interactive visual problem-solving games — zero coding experience required.",
+  robots: {
+    index: false,
+    follow: false,
+  },
   alternates: {
     canonical: "/visual-logic",
   },

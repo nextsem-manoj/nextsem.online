@@ -8,6 +8,10 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'CSS Animated Ocean Waves & Bobbing | Nextsem Academy',
+  robots: {
+    index: false,
+    follow: false,
+  },
   description: 'Pure HTML and CSS animated ocean waves and boat bobbing animation.',
 };
 

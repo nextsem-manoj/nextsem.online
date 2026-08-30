@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { Terminal, Play, RotateCcw, CheckCircle, Sparkles, HelpCircle } from "lucide-react";
+import { Play, RotateCcw } from "lucide-react";
 
 interface CommandItem {
   input: string;
@@ -28,6 +28,7 @@ export default function CommandLineRunner({ commands = [] }: CommandLineRunnerPr
 
   const [activeCommandIndex, setActiveCommandIndex] = useState<number | null>(null);
   const [typedText, setTypedText] = useState("");
+  const [currentPrompt, setCurrentPrompt] = useState("C:\\Users\\Student>");
   const [terminalLines, setTerminalLines] = useState<string[]>([
     "Microsoft Windows [Version 10.0.22621.1702]",
     "(c) Microsoft Corporation. All rights reserved.",
@@ -35,13 +36,12 @@ export default function CommandLineRunner({ commands = [] }: CommandLineRunnerPr
     "C:\\Users\\Student> _"
   ]);
   const [isTyping, setIsTyping] = useState(false);
-  const [currentPrompt, setCurrentPrompt] = useState("C:\\Users\\Student>");
-  const terminalEndRef = useRef<HTMLDivElement>(null);
+  const terminalContainerRef = useRef<HTMLDivElement>(null);
 
-  // Scroll terminal to bottom
+  // Scroll ONLY the internal terminal container to bottom, preventing any page jumping
   useEffect(() => {
-    if (terminalEndRef.current) {
-      terminalEndRef.current.scrollIntoView({ behavior: "smooth" });
+    if (terminalContainerRef.current) {
+      terminalContainerRef.current.scrollTop = terminalContainerRef.current.scrollHeight;
     }
   }, [terminalLines, typedText]);
 
@@ -137,7 +137,7 @@ export default function CommandLineRunner({ commands = [] }: CommandLineRunnerPr
       <div className="grid grid-cols-1 lg:grid-cols-5 bg-[#050912]">
         
         {/* Terminal Screen (3/5 width) */}
-        <div className="lg:col-span-3 p-5 font-mono text-xs text-slate-350 min-h-[220px] max-h-[300px] overflow-y-auto bg-slate-950/70 relative">
+        <div ref={terminalContainerRef} className="lg:col-span-3 p-5 font-mono text-xs text-slate-350 min-h-[220px] max-h-[300px] overflow-y-auto bg-slate-950/70 relative">
           <div className="space-y-1">
             {terminalLines.map((line, idx) => (
               <div key={idx} className="whitespace-pre-wrap leading-relaxed">
@@ -155,7 +155,6 @@ export default function CommandLineRunner({ commands = [] }: CommandLineRunnerPr
                 {currentPrompt} _
               </div>
             )}
-            <div ref={terminalEndRef} />
           </div>
         </div>
 

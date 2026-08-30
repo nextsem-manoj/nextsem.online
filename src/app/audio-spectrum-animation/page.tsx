@@ -8,6 +8,10 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Audio Equalizer Waveform Spectrum Beats | Nextsem Academy',
+  robots: {
+    index: false,
+    follow: false,
+  },
   description: 'Learn how to build real-time audio waveform equalizer spectrum bars in HTML5 & CSS.',
 };
 

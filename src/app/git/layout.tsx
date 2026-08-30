@@ -71,8 +71,8 @@ function GitLayoutContent({ children }: { children: React.ReactNode }) {
     <div ref={lessonContainerRef} className="min-h-screen flex flex-col bg-[#060813] text-slate-100 font-sans selection:bg-[#04AA6D]/30 transition-colors duration-300">
       <NsSubjectNavBar currentUser={currentUser} onSignIn={handleSignIn} onToggleSidebar={() => setSidebarOpen(prev => !prev)} />
       <div
-        className="flex-1 flex flex-col md:flex-row w-full min-w-0 bg-[#060813]"
-        style={mounted && !isMobile ? { paddingLeft: `calc(5vw + ${effectiveSidebarWidth}px)`, paddingRight: '5vw' } : undefined}
+        className="flex-1 flex flex-col md:flex-row w-full min-w-0 bg-[#060813] transition-all duration-300"
+        style={mounted && !isMobile && sidebarOpen ? { paddingLeft: `calc(10% + ${effectiveSidebarWidth}px)` } : undefined}
       >
         <BookSidebar
           isOpen={sidebarOpen}

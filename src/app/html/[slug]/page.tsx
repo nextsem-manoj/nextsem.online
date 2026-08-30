@@ -6,6 +6,7 @@ import HtmlLessonClient from "@/components/HtmlLessonClient";
 
 const slugAliases: Record<string, string> = {
   "learn-html-web-free-lessons-what-is-the-internet": "html-introduction-what-is-html",
+  "html5-canvas-2d-context-javascript-drawing": "canvas-graphics-draw-shapes-context",
 };
 
 export async function generateStaticParams() {

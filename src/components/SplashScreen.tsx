@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
-import { showAppOpenAd } from "../lib/admobHelper";
 import { Capacitor } from '@capacitor/core';
 
 
@@ -104,10 +103,6 @@ export default function SplashScreen() {
       [2200, () => setPhase(3)], // start fade out
       [3000, () => {
         setGone(true);
-        // Fire App Open Ad on native after splash animation completes
-        if (Capacitor.isNativePlatform()) {
-          showAppOpenAd().catch(() => { /* silent fail — no fill is fine */ });
-        }
       }],
     ] as [number, () => void][];
     const timers = timings.map(([ms, fn]) => setTimeout(fn, ms));

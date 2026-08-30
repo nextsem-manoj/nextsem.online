@@ -3,7 +3,10 @@ import ProfileClient from './ProfileClient';
 
 export const metadata: Metadata = {
   title: "My Profile",
-  description: "Track your web development course progress, view completed chapters, and manage your Nextsem Academy student profile.",
+  robots: {
+    index: false,
+    follow: false,
+  },
   alternates: { canonical: "/profile" },
   openGraph: {
     title: "My Profile | Nextsem Academy",

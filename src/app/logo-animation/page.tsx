@@ -4,6 +4,10 @@ import Link from "next/link";
 
 export const metadata = {
   title: "Nextsem Official Animated Logo & Intro | 100% Free Full Stack Bootcamp",
+  robots: {
+    index: false,
+    follow: false,
+  },
   description:
     "Watch the official animated SVG logo reveal for Nextsem — The 100% Free Full Stack Web Development Bootcamp.",
 };

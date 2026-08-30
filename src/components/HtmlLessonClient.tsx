@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { 
   ChevronLeft, ChevronRight, BookOpen, Code, 
-  HelpCircle, CheckCircle2, AlertCircle, Sparkles, Lock, ArrowLeft, X, Bookmark, Download, Copy, Check
+  HelpCircle, CheckCircle2, AlertCircle, Sparkles, Lock, ArrowLeft, X, Bookmark, Download, Copy, Check, Terminal
 } from "lucide-react";
 import { htmlLessons, Lesson } from "../data/htmlLessonsData";
 import AdSenseBanner from "./AdSenseBanner";
@@ -905,6 +905,34 @@ function VsCodeEditorCard({ code, blockKey }: { code: string; blockKey: string }
           </div>
         </div>
       </div>
+
+      {/* ── STAGE 0 BRIDGE CARD ON HTML LESSON 0 & 1 ── */}
+      {(lesson.id === 0 || lesson.id === 1) && (
+        <div className="bg-[#141824] border border-[#04AA6D]/40 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-lg text-left">
+          <div className="flex items-start gap-3">
+            <div className="w-10 h-10 rounded-xl bg-[#04AA6D]/20 border border-[#04AA6D] flex items-center justify-center text-[#04AA6D] shrink-0 mt-0.5">
+              <Terminal size={20} />
+            </div>
+            <div className="space-y-1">
+              <div className="text-[10px] font-black uppercase tracking-wider text-[#04AA6D]">
+                Recommended First Step • Stage 0
+              </div>
+              <h4 className="text-sm sm:text-base font-extrabold text-white">
+                Need to create your website folder on 🪟 Windows 11?
+              </h4>
+              <p className="text-xs text-white font-normal leading-relaxed">
+                Take the 15-minute Terminal Fast-Track to master the 5 sacred commands (<span className="font-mono">mkdir</span>, <span className="font-mono">cd</span>, <span className="font-mono">dir</span>, <span className="font-mono">cls</span>, <span className="font-mono">code .</span>) before writing code.
+              </p>
+            </div>
+          </div>
+          <Link
+            href="/terminal-fast-track"
+            className="px-5 py-2.5 bg-[#04AA6D] hover:bg-[#039861] text-black font-extrabold text-xs uppercase tracking-wider rounded-xl transition-all shadow-md shrink-0 flex items-center justify-center gap-1.5 cursor-pointer self-start sm:self-auto"
+          >
+            <span>Run 15-Min Fast-Track »</span>
+          </Link>
+        </div>
+      )}
 
       {/* Main Content Area */}
       <div className="bg-[#10141f] border border-slate-800 p-5 md:p-8 rounded-2xl shadow-xl relative overflow-hidden">
