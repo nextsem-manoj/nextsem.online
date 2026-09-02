@@ -18,6 +18,9 @@ export default function AdSenseBanner({
 }: AdSenseBannerProps) {
   useEffect(() => {
     if (typeof window !== "undefined" && !Capacitor.isNativePlatform()) {
+      if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
+        return;
+      }
       try {
         // @ts-expect-error window.adsbygoogle is injected by Google AdSense script
         (window.adsbygoogle = window.adsbygoogle || []).push({});
@@ -44,4 +47,3 @@ export default function AdSenseBanner({
     </div>
   );
 }
-

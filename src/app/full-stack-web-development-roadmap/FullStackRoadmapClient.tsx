@@ -8,6 +8,7 @@ import ResumeLessonBanner from '@/components/ResumeLessonBanner';
 import { getLastLessonLocal, LastLesson } from '@/lib/userProgressSync';
 import { cliLessons } from '@/data/cliLessonsData';
 import { htmlLessons } from '@/data/htmlLessonsData';
+import { cssLessons } from '@/data/cssLessonsData';
 import {
   Rocket,
   TrendingUp,
@@ -20,7 +21,8 @@ import {
   Sparkles,
   ChevronRight,
   ShieldCheck,
-  Compass
+  Compass,
+  Palette
 } from 'lucide-react';
 
 export default function FullStackRoadmapClient() {
@@ -33,6 +35,7 @@ export default function FullStackRoadmapClient() {
 
   const completedCliCount = cliLessons.filter(l => completedChapters[l.slug] || completedChapters[l.id]).length;
   const completedHtmlCount = htmlLessons.filter(l => completedChapters[l.slug] || completedChapters[l.id]).length;
+  const completedCssCount = cssLessons.filter(l => completedChapters[l.slug] || completedChapters[l.id]).length;
 
   useEffect(() => {
     setMounted(true);
@@ -123,7 +126,7 @@ export default function FullStackRoadmapClient() {
             </div>
 
             {/* Subject Status Badges */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 pt-1">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-1">
               <Link
                 href="/cli"
                 className="p-3 bg-[#17181c] border border-slate-800 hover:border-[#04AA6D] rounded-xl flex items-center justify-between transition-colors group"
@@ -147,12 +150,23 @@ export default function FullStackRoadmapClient() {
               </Link>
 
               <Link
+                href="/css"
+                className="p-3 bg-[#17181c] border border-slate-800 hover:border-[#04AA6D] rounded-xl flex items-center justify-between transition-colors group"
+              >
+                <div className="space-y-0.5 min-w-0 pr-1">
+                  <div className="text-[10px] font-black text-slate-400 uppercase tracking-wider">CSS3 Modern</div>
+                  <div className="text-xs font-bold text-white group-hover:text-[#04AA6D] truncate">{completedCssCount} / {cssLessons.length} Done</div>
+                </div>
+                <CheckCircle2 size={16} className="text-[#04AA6D] shrink-0" />
+              </Link>
+
+              <Link
                 href="/course"
-                className="p-3 bg-[#17181c] border border-slate-800 hover:border-[#04AA6D] rounded-xl flex items-center justify-between transition-colors group col-span-2 sm:col-span-1"
+                className="p-3 bg-[#17181c] border border-slate-800 hover:border-[#04AA6D] rounded-xl flex items-center justify-between transition-colors group"
               >
                 <div className="space-y-0.5 min-w-0 pr-1">
                   <div className="text-[10px] font-black text-slate-400 uppercase tracking-wider">Full Syllabus</div>
-                  <div className="text-xs font-bold text-white group-hover:text-[#04AA6D] truncate">9 Core Modules</div>
+                  <div className="text-xs font-bold text-white group-hover:text-[#04AA6D] truncate">9 Modules</div>
                 </div>
                 <ChevronRight size={16} className="text-slate-500 group-hover:text-[#04AA6D] shrink-0" />
               </Link>

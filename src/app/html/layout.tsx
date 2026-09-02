@@ -165,6 +165,7 @@ function HtmlLayoutContent({ children }: { children: React.ReactNode }) {
   return (
     <div ref={lessonContainerRef} className="min-h-screen flex flex-col bg-[#060c18] text-foreground font-sans selection:bg-[#04AA6D]/30 transition-colors duration-300">
       <NsSubjectNavBar currentUser={currentUser} onSignIn={handleSignIn} onToggleSidebar={() => setSidebarOpen(prev => !prev)} />
+      <div className="h-[2px] w-full bg-[#00e676] shadow-[0_0_8px_#00e676]" />
       <div
         className="flex-1 flex flex-col md:flex-row w-full min-w-0 bg-[#17181c]"
         style={mounted && !isMobile ? { paddingLeft: `${effectiveSidebarWidth}px` } : undefined}

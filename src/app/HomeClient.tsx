@@ -333,13 +333,17 @@ export default function HomeClient() {
                       <span>💻</span>
                       <span>Code Sandbox</span>
                     </Link>
-                    <Link href="/bca" onClick={() => setExercisesDropdownOpen(false)} className="flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-[#04AA6D] text-xs font-bold transition-all">
-                      <span>🎓</span>
-                      <span>BCA Semester Hub</span>
+                    <Link href="/batch" onClick={() => setExercisesDropdownOpen(false)} className="flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-[#04AA6D] text-xs font-bold transition-all">
+                      <span>⚙️</span>
+                      <span>Batch Automation</span>
                     </Link>
-                    <Link href="/jobs" onClick={() => setExercisesDropdownOpen(false)} className="flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-blue-400 text-xs font-bold transition-all">
-                      <span>💼</span>
-                      <span>BCA/MCA/B.Tech Jobs</span>
+                    <Link href="/cpp" onClick={() => setExercisesDropdownOpen(false)} className="flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-[#04AA6D] text-xs font-bold transition-all">
+                      <span>⚡</span>
+                      <span>C++ Systems</span>
+                    </Link>
+                    <Link href="/visual-logic" onClick={() => setExercisesDropdownOpen(false)} className="flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-[#04AA6D] text-xs font-bold transition-all">
+                      <span>🧭</span>
+                      <span>Visual Logic Gates</span>
                     </Link>
                     <button onClick={() => { handleScrollToId('exercises-section'); setExercisesDropdownOpen(false); }} className="flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-[#04AA6D] text-xs font-bold transition-all text-left">
                       <span>🏆</span>
@@ -703,28 +707,28 @@ export default function HomeClient() {
           </div>
 
           {/* Step 2: CSS3 UI */}
-          <div className="p-5 bg-[#0c1328] border border-slate-800 hover:border-teal-500 rounded-2xl transition-all shadow-xl flex flex-col justify-between group">
+          <div className="p-5 bg-[#0c1328] border border-slate-800 hover:border-[#04AA6D] rounded-2xl transition-all shadow-xl flex flex-col justify-between group">
             <div className="space-y-3">
               <div className="flex items-center justify-between">
-                <span className="w-7 h-7 rounded-lg bg-teal-500/20 text-teal-400 font-black text-xs flex items-center justify-center border border-teal-500/40">02</span>
-                <span className="text-[10px] font-bold text-teal-400 bg-teal-950/60 px-2 py-0.5 rounded border border-teal-800/80">Interactive Labs</span>
+                <span className="w-7 h-7 rounded-lg bg-[#04AA6D]/20 text-[#04AA6D] font-black text-xs flex items-center justify-center border border-[#04AA6D]/40">02</span>
+                <span className="text-[10px] font-bold text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800/80">101 Lessons</span>
               </div>
               <div>
-                <h3 className="text-base font-extrabold text-white group-hover:text-teal-400 transition-colors flex items-center gap-2">
-                  <Palette size={18} className="text-teal-400" />
+                <h3 className="text-base font-extrabold text-white group-hover:text-[#04AA6D] transition-colors flex items-center gap-2">
+                  <Palette size={18} className="text-[#04AA6D]" />
                   <span>🎨 CSS3 & Modern UI</span>
                 </h3>
                 <p className="text-xs text-slate-300 mt-1.5 leading-relaxed">
-                  Flexbox layouts, CSS Grid systems, custom properties, keyframe animations, and Tailwind CSS.
+                  Flexbox layouts, CSS Grid systems, custom properties, keyframe animations, and responsive web design.
                 </p>
               </div>
             </div>
             <div className="pt-4 mt-4 border-t border-slate-800/80 flex items-center justify-between">
-              <Link href="/candle-flame-animation" className="text-xs font-bold text-teal-400 hover:text-teal-300 underline decoration-teal-400 flex items-center gap-1">
-                <span>CSS Flame Lab</span>
+              <Link href="/css" className="text-xs font-bold text-[#04AA6D] hover:text-[#039861] underline decoration-[#04AA6D] flex items-center gap-1">
+                <span>Start Module 02</span>
                 <ArrowRight size={13} />
               </Link>
-              <Link href="/course/projects" className="text-[11px] font-bold text-slate-400 hover:text-white">15 Labs ➔</Link>
+              <Link href="/course/projects" className="text-[11px] font-bold text-slate-400 hover:text-white">15 CSS Labs ➔</Link>
             </div>
           </div>
 
@@ -942,9 +946,9 @@ export default function HomeClient() {
             <ul className="space-y-2 font-medium">
               <li><Link href="/cli" className="hover:text-white">🪟 Windows Terminal</Link></li>
               <li><Link href="/git" target="_blank" className="hover:text-white">🌿 Git Simulator</Link></li>
-              <li><Link href="/playground" className="hover:text-white">💻 Code Sandbox Playground</Link></li>
+              <li><Link href="/batch" className="hover:text-white">⚙️ Windows Batch Automation</Link></li>
+              <li><Link href="/cpp" className="hover:text-white">⚡ C++ Systems Track</Link></li>
               <li><Link href="/html" className="hover:text-white">🌐 Full Stack Code Studio</Link></li>
-              <li><a href="https://ignou.nextsem.online" target="_blank" rel="noopener noreferrer" className="hover:text-white">🎓 IGNOU BCA Degree Hub</a></li>
             </ul>
           </div>
 

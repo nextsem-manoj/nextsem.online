@@ -600,11 +600,11 @@ export default function MobileHomeLayout() {
               },
               {
                 id: "css",
-                title: "Pointers and Structures (CSS3)",
+                title: "Cascading Style Sheets (CSS3)",
                 items: [
-                  { label: "🎨 CSS Selectors & Colors", path: "/book/p2-1-selectors" },
-                  { label: "📐 Flexbox Layouts", path: "/book/p2-2-flexbox" },
-                  { label: "📱 Responsive Grids", path: "/book/p2-3-responsive" },
+                  { label: "🎨 CSS Fundamentals & Selectors", path: "/css" },
+                  { label: "📐 Modern Flexbox & Grid", path: "/css/what-is-css3-cascading-style-sheets-intro" },
+                  { label: "📱 Responsive Web Design", path: "/css/mobile-first-responsive-design-viewport-meta" },
                 ]
               },
               {
@@ -641,17 +641,17 @@ export default function MobileHomeLayout() {
                 items: [
                   { label: "🪟 Windows CLI Module", path: "/cli" },
                   { label: "🌿 Git Version Control", path: "/git" },
-                  { label: "💻 Code Sandbox Playground", path: "/playground" },
-                  { label: "🎓 BCA Semester Hub", path: "/bca" },
+                  { label: "⚙️ Batch Automation Scripts", path: "/batch" },
+                  { label: "⚡ C++ Systems Programming", path: "/cpp" },
                 ]
               },
               {
                 id: "dsa",
-                title: "DSA to System Design",
+                title: "Developer Pathways",
                 badge: "Course",
                 items: [
+                  { label: "🗺️ Full-Stack Roadmap", path: "/curriculum" },
                   { label: "🏅 Claim Verified Certificate", path: "/#certificate-section" },
-                  { label: "💼 Student Developer Portfolio", path: "/jobs" },
                 ]
               }
             ].map(cat => {

@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import { cliLessons } from "../data/cliLessonsData";
 import { htmlLessons } from "../data/htmlLessonsData";
+import { cssLessons } from "../data/cssLessonsData";
 
 // ─── Curriculum Data ────────────────────────────────────────────────────────
 
@@ -40,7 +41,7 @@ const CURRICULUM: Phase[] = [
     subjects: [
       { id: "cli", name: "Windows CLI / CMD", lessons: cliLessons.length, covered: cliLessons.length, link: "/cli", priority: "critical" },
       { id: "html", name: "HTML5", lessons: htmlLessons.length, covered: htmlLessons.length, link: "/html", priority: "critical" },
-      { id: "css-basics", name: "CSS3 (Basics)", lessons: 100, covered: 0, priority: "critical" },
+      { id: "css-basics", name: "CSS3 (Basics & Modern UI)", lessons: cssLessons.length, covered: cssLessons.length, link: "/css", priority: "critical" },
       { id: "js-basics", name: "JavaScript (ES6+)", lessons: 100, covered: 0, priority: "critical" },
       { id: "git", name: "Git & GitHub", lessons: 100, covered: 0, priority: "critical" },
     ],

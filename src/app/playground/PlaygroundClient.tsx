@@ -1093,7 +1093,7 @@ ${cls} thead tr {
                           {/* Code preview */}
                           {(activeComp.jsAction?.value || activeComp.jsAction?.action === "toggle") && (
                             <div className={`rounded-lg p-2 font-mono text-[9px] leading-relaxed ${isLight ? "bg-yellow-100 text-slate-700" : "bg-slate-950 text-yellow-300"}`}>
-                              <span className="text-slate-500">// generated snippet</span><br />
+                              <span className="text-slate-500">{"// generated snippet"}</span><br />
                               <span className="text-blue-400">el.addEventListener</span>(<span className="text-green-400">&apos;{activeComp.jsAction?.event || "click"}&apos;</span>, () =&gt; {'{'}<br />
                               &nbsp;&nbsp;{activeComp.jsAction?.action === "alert" && <><span className="text-yellow-400">alert</span>(<span className="text-green-400">&apos;{activeComp.jsAction.value}&apos;</span>);</>}
                               {activeComp.jsAction?.action === "log" && <><span className="text-yellow-400">console.log</span>(<span className="text-green-400">&apos;{activeComp.jsAction?.value}&apos;</span>);</>}

@@ -80,6 +80,10 @@ export default function CourseClient() {
       router.push(`/${path}`);
     } else if (path === "cmd") {
       router.push("/cli");
+    } else if (path.startsWith("html/") || path === "html" || path === "p1") {
+      router.push("/html");
+    } else if (path.startsWith("css/") || path === "css" || path === "p2" || path === "p2-1-selectors") {
+      router.push("/css");
     } else {
       setLoadingChapterPath(path);
       setLoadingStep(0);
@@ -131,21 +135,21 @@ export default function CourseClient() {
     },
     {
       id: "p1",
-      title: "Basics of Web Dev",
+      title: "HTML5 Web Architecture",
       subtitle: "LEVEL 3 • HTML5 CORE",
       statusLabel: "Semantic HTML5 & Document Layout",
       description: "Structure accessible web documents using semantic elements, lists, tables, forms, media assets, and SEO markup.",
-      firstChapterId: "p1-1-intro-and-text",
+      firstChapterId: "html",
       color: "#04AA6D",
       renderIllustration: () => <Code size={24} className="text-[#04AA6D]" />
     },
     {
       id: "p2",
-      title: "Advanced HTML/CSS",
+      title: "CSS3 Styling & Responsive Design",
       subtitle: "LEVEL 4 • DESIGN & STYLING",
       statusLabel: "CSS3 Flexbox & Grid Systems",
       description: "Design responsive styled layouts using CSS root variables, Flexbox alignments, CSS Grid, and Keyframe animations.",
-      firstChapterId: "p2-1-selectors",
+      firstChapterId: "css",
       color: "#04AA6D",
       renderIllustration: () => <Palette size={24} className="text-[#04AA6D]" />
     },

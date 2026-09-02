@@ -1,10 +1,14 @@
 import { htmlLessons } from "../data/htmlLessonsData";
+import { cssLessons } from "../data/cssLessonsData";
 import { cliLessons } from "../data/cliLessonsData";
 
 export function getChapterIdFromPath(pathname: string): string {
   if (!pathname) return "";
   if (pathname === "/html") {
     return "p1-1-intro-and-text";
+  }
+  if (pathname === "/css") {
+    return "p2-1-selectors";
   }
   if (pathname === "/cli") {
     return "p0-2-terminal";
@@ -19,6 +23,20 @@ export function getChapterIdFromPath(pathname: string): string {
       if (lesson.id <= 40) return "p1-4-forms-and-inputs";
       if (lesson.id <= 50) return "p1-5-semantics-and-seo";
       return "p1-6-html5-tags";
+    }
+  }
+  if (pathname.startsWith("/css/")) {
+    const slug = pathname.split("/css/")[1]?.split("?")[0];
+    const lesson = cssLessons.find((l) => l.slug === slug);
+    if (lesson) {
+      if (lesson.id <= 10) return "p2-1-selectors";
+      if (lesson.id <= 20) return "p2-2-colors";
+      if (lesson.id <= 30) return "p2-3-box-model";
+      if (lesson.id <= 40) return "p2-4-positioning";
+      if (lesson.id <= 50) return "p2-5-flexbox";
+      if (lesson.id <= 60) return "p2-6-grid";
+      if (lesson.id <= 70) return "p2-7-transitions";
+      return "p2-8-variables-themes";
     }
   }
   if (pathname.startsWith("/cli/")) {
@@ -36,6 +54,11 @@ export function isHtmlLessonPath(pathname: string): boolean {
   return pathname === "/html" || pathname.startsWith("/html/");
 }
 
+export function isCssLessonPath(pathname: string): boolean {
+  if (!pathname) return false;
+  return pathname === "/css" || pathname.startsWith("/css/");
+}
+
 export function isCliLessonPath(pathname: string): boolean {
   if (!pathname) return false;
   return pathname === "/cli" || pathname.startsWith("/cli/");
@@ -43,6 +66,7 @@ export function isCliLessonPath(pathname: string): boolean {
 
 export function getChapterUrl(chapterId: string): string {
   if (chapterId === "p1-1-intro-and-text") return "/html";
+  if (chapterId === "p2-1-selectors") return "/css";
   if (chapterId === "p0-2-terminal") return "/cli";
   
   if (chapterId.startsWith("p1-")) {

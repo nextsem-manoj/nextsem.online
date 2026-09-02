@@ -5,10 +5,9 @@ import { htmlLessons } from "@/data/htmlLessonsData";
 import HtmlLessonClient from "@/components/HtmlLessonClient";
 
 export async function generateStaticParams() {
-  const params = htmlLessons.map((lesson) => ({
+  return htmlLessons.map((lesson) => ({
     slug: lesson.slug,
   }));
-  return [...params, { slug: "" }, { slug: "index" }];
 }
 
 export async function generateMetadata({

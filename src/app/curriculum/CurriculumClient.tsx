@@ -22,7 +22,8 @@ import {
   Monitor,
   FolderArchive,
   Compass,
-  Star
+  Star,
+  Palette
 } from 'lucide-react';
 
 const LEARNING_TRACKS = [
@@ -33,25 +34,36 @@ const LEARNING_TRACKS = [
     badgeColor: 'bg-emerald-50 text-emerald-700 border-emerald-200',
     icon: <Terminal size={22} className="text-emerald-600" />,
     description: 'Master directory navigation, drive switching, file creation, and command-line execution step-by-step.',
-    lessonsCount: '100+ Lessons',
+    lessonsCount: '101+ Lessons',
     href: '/cli',
     accentColor: 'group-hover:border-emerald-500'
   },
   {
     id: 'html',
-    title: 'HTML5 & Modern CSS3 Architecture',
-    badge: 'Module 02 • Frontend',
+    title: 'HTML5 Semantic Web Architecture',
+    badge: 'Module 02 • Web Structure',
     badgeColor: 'bg-blue-50 text-blue-700 border-blue-200',
     icon: <Code2 size={22} className="text-blue-600" />,
-    description: 'Build semantic web structures, CSS3 keyframe animations, responsive grid layouts, and modern UI components.',
-    lessonsCount: '98+ Lessons',
+    description: 'Build semantic web structures, document outlines, forms, accessible tables, and modern HTML5 components.',
+    lessonsCount: '100+ Lessons',
     href: '/html',
     accentColor: 'group-hover:border-blue-500'
   },
   {
+    id: 'css',
+    title: 'CSS3 & Modern Responsive Design',
+    badge: 'Module 03 • Styling & UI',
+    badgeColor: 'bg-teal-50 text-teal-700 border-teal-200',
+    icon: <Palette size={22} className="text-teal-600" />,
+    description: 'Master CSS selectors, Box Model, Flexbox layouts, CSS Grid, custom properties, animations, and responsive web design.',
+    lessonsCount: '101+ Lessons',
+    href: '/css',
+    accentColor: 'group-hover:border-teal-500'
+  },
+  {
     id: 'batch',
     title: 'Windows Batch Scripting (.bat / .cmd)',
-    badge: 'Module 03 • Automation',
+    badge: 'Module 04 • Automation',
     badgeColor: 'bg-purple-50 text-purple-700 border-purple-200',
     icon: <Zap size={22} className="text-purple-600" />,
     description: 'Automate repetitive workflows, build multi-tab browser launchers, and manage background system tasks.',
@@ -62,7 +74,7 @@ const LEARNING_TRACKS = [
   {
     id: 'cpp',
     title: 'C++ Systems Programming & Memory',
-    badge: 'Module 04 • Core Logic',
+    badge: 'Module 05 • Core Logic',
     badgeColor: 'bg-cyan-50 text-cyan-700 border-cyan-200',
     icon: <Cpu size={22} className="text-cyan-600" />,
     description: 'Learn variables, pointers, dynamic memory allocation, object-oriented architecture, and performance algorithms.',
@@ -73,7 +85,7 @@ const LEARNING_TRACKS = [
   {
     id: 'fullstack',
     title: 'React, Node.js & Full-Stack Roadmap',
-    badge: 'Module 05 • Full Stack',
+    badge: 'Module 06 • Career Pathway',
     badgeColor: 'bg-amber-50 text-amber-700 border-amber-200',
     icon: <Rocket size={22} className="text-amber-600" />,
     description: 'Complete career pathway from frontend single-page apps up to backend REST APIs and cloud deployments.',

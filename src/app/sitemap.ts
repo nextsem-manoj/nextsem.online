@@ -1,6 +1,7 @@
 import { MetadataRoute } from "next";
 import searchIndex from "../data/searchIndex.json";
 import { htmlLessons } from "../data/htmlLessonsData";
+import { cssLessons } from "../data/cssLessonsData";
 import { cppLessons } from "../data/cppLessonsData";
 
 export const dynamic = "force-static";
@@ -23,6 +24,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/batch",
     "/batch/open-browser-tabs-script",
     "/html",
+    "/css",
     "/git",
     "/cpp",
     "/full-stack-web-development-roadmap",
@@ -66,6 +68,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.9,
   }));
 
+  // Add CSS lessons
+  const cssLessonRoutes = cssLessons.map((lesson) => ({
+    url: `${baseUrl}/css/${lesson.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.9,
+  }));
+
   // Add C++ lessons
   const cppLessonRoutes = cppLessons.map((lesson) => ({
     url: `${baseUrl}/cpp/${lesson.slug}`,
@@ -74,6 +84,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.9,
   }));
 
-  return [...baseRoutes, ...courseRoutes, ...htmlLessonRoutes, ...cppLessonRoutes];
+  return [...baseRoutes, ...courseRoutes, ...htmlLessonRoutes, ...cssLessonRoutes, ...cppLessonRoutes];
 }
 

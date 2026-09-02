@@ -924,7 +924,7 @@ export default function CVisualLogicSimulator() {
                 {/* User assembled lines rendered live */}
                 {selectedSteps.length === 0 ? (
                   <div className="py-6 text-center text-slate-600 italic">
-                    // (Click statements on right to assemble program)
+                    {"// (Click statements on right to assemble program)"}
                   </div>
                 ) : (
                   selectedSteps.map((step, idx) => {

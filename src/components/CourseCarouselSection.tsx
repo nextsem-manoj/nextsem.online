@@ -2,7 +2,7 @@
 
 import React, { useRef, useState } from 'react';
 import Link from 'next/link';
-import { BookOpen, ArrowRight, ChevronLeft, ChevronRight, Code2, Terminal, Cpu, GitBranch, Map } from 'lucide-react';
+import { BookOpen, ArrowRight, ChevronLeft, ChevronRight, Code2, Terminal, Cpu, GitBranch, Map, Palette } from 'lucide-react';
 
 interface CourseItem {
   id: string;
@@ -26,15 +26,28 @@ export default function CourseCarouselSection() {
     {
       id: "html-course",
       title: "HTML5 & Web Development Architecture",
-      category: "98+ Lessons",
+      category: "100+ Lessons",
       badgeBg: "bg-orange-500/10",
       badgeText: "text-orange-400",
       badgeBorder: "border-orange-500/30",
       description: "Master HTML5 tags, semantic page architecture, forms, tables, accessibility, HTTP request headers, and 🪟 Windows 11 live code previews.",
-      lessonCount: "98 Lessons",
+      lessonCount: "100 Lessons",
       ctaText: "Start HTML5 Course 🧱",
       ctaHref: "/html",
       icon: <Code2 size={24} className="text-orange-400" />
+    },
+    {
+      id: "css-course",
+      title: "CSS3 & Modern Responsive Web Design",
+      category: "101+ Lessons",
+      badgeBg: "bg-teal-500/10",
+      badgeText: "text-[#04AA6D]",
+      badgeBorder: "border-teal-500/30",
+      description: "Master CSS selectors, Box Model, Flexbox layouts, CSS Grid, custom properties, animations, and mobile-first responsive web design.",
+      lessonCount: "101 Lessons",
+      ctaText: "Start CSS3 Course 🎨",
+      ctaHref: "/css",
+      icon: <Palette size={24} className="text-[#04AA6D]" />
     },
     {
       id: "cli-course",

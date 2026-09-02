@@ -4,9 +4,10 @@ import { doc, getDoc, setDoc, onSnapshot } from "firebase/firestore";
 export interface LastLesson {
   slug: string;
   title: string;
-  subject: string; // "cli" | "html" | "git"
+  subject: string; // "cli" | "html" | "git" | "css" | "js" | "react"
   lessonNumber: number;
   visitedAt: string;
+  totalLessons?: number;
 }
 
 /**

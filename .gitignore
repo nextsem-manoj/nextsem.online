@@ -50,3 +50,6 @@ firebase-debug.log*
 # turbo
 .turbo/
 
+# local test website
+/test_website/
+

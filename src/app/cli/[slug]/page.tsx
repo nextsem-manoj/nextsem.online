@@ -5,10 +5,9 @@ import { cliLessons } from "@/data/cliLessonsData";
 import CliLessonClient from "@/components/CliLessonClient";
 
 export async function generateStaticParams() {
-  const params = cliLessons.map((lesson) => ({
+  return cliLessons.map((lesson) => ({
     slug: lesson.slug,
   }));
-  return [...params, { slug: "" }, { slug: "index" }];
 }
 
 export async function generateMetadata({
