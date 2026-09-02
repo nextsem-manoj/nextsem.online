@@ -9,6 +9,10 @@ import Footer from '@/components/Footer';
 
 export const metadata: Metadata = {
   title: 'CSS Candle Flame Animation | Nextsem Academy',
+  robots: {
+    index: false,
+    follow: false,
+  },
   description: 'Pure HTML and CSS realistic candle flame animation.',
 };
 

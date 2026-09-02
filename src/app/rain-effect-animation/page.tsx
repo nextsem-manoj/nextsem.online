@@ -8,6 +8,10 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Realistic HTML5 Canvas Rain Droplet Effect | Nextsem Academy',
+  robots: {
+    index: false,
+    follow: false,
+  },
   description: 'Learn how to build a high-performance HTML5 Canvas rainfall particle physics effect.',
 };
 

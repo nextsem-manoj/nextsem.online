@@ -8,6 +8,10 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Holographic Glassmorphism 3D Card Physics | Nextsem Academy',
+  robots: {
+    index: false,
+    follow: false,
+  },
   description: 'Learn how to build 3D perspective glassmorphism card physics with CSS backdrop-filter.',
 };
 

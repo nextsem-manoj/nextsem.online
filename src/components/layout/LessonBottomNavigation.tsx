@@ -53,6 +53,14 @@ export default function LessonBottomNavigation({ pathname }: LessonBottomNavigat
   const [isAtBottom, setIsAtBottom] = useState<boolean>(false);
 
   useEffect(() => {
+    if (typeof window !== "undefined") {
+      const handleFs = () => setIsFullscreen(!!document.fullscreenElement);
+      document.addEventListener("fullscreenchange", handleFs);
+      return () => document.removeEventListener("fullscreenchange", handleFs);
+    }
+  }, []);
+
+  useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY || document.documentElement.scrollTop;
       const scrollHeight = document.documentElement.scrollHeight;
@@ -77,8 +85,6 @@ export default function LessonBottomNavigation({ pathname }: LessonBottomNavigat
       hideBannerAd();
     }
   }, [pathname]);
-
-  if (isFullscreen) return null;
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -190,7 +196,6 @@ export default function LessonBottomNavigation({ pathname }: LessonBottomNavigat
   let activeLessonsList: { id: number; slug: string; title: string }[] = [];
   let currentSlug = "";
   let currentLessonDisplay = "";
-  let currentUnitDisplay = "";
   const totalCourseLessons = 170; // Total course lessons across CLI, HTML, CSS, JS, React, Node, Git
   const cliCompletedCount = cliLessons.filter(l => completedChapters[l.slug] || completedChapters[l.id] || completedChapters[`cli_${l.id}`]).length;
   const htmlCompletedCount = htmlLessons.filter(l => completedChapters[l.slug] || completedChapters[l.id] || completedChapters[`html_${l.id}`]).length;
@@ -285,6 +290,8 @@ export default function LessonBottomNavigation({ pathname }: LessonBottomNavigat
     prevHref = "/";
     nextHref = "/";
   }
+
+  if (isFullscreen) return null;
 
   return (
     <>

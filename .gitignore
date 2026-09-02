@@ -53,3 +53,6 @@ firebase-debug.log*
 # local test website
 /test_website/
 
+# binaries & packages
+*.apk
+*.aab

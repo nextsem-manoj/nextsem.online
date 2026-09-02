@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BCA Student Registration Form - Nextsem Academy</title>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <h1 align="center">Nextsem University • Student Registration Portal</h1>
+        <p align="center"><strong>Academic Session: 2026–2027 | BCA 1st Semester Lab Project</strong></p>
+        <hr size="3" color="#000000">
+    </header>
+
+    <!-- Main Form Section -->
+    <main>
+        <form action="/submit-registration" method="post" enctype="multipart/form-data">
+
+            <!-- Section 1: Personal Details -->
+            <fieldset>
+                <legend><strong>Section 1: Personal Information</strong></legend>
+                <br>
+                <table border="1" cellpadding="8" cellspacing="0" width="100%">
+                    <tr>
+                        <td width="30%"><label for="full_name">Student Full Name: *</label></td>
+                        <td width="70%">
+                            <input type="text" id="full_name" name="full_name" placeholder="Enter first and last name" size="40" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="enrollment_no">Enrollment / Roll Number: *</label></td>
+                        <td>
+                            <input type="text" id="enrollment_no" name="enrollment_no" placeholder="e.g. 26BCA0109" size="30" maxlength="15" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="father_name">Father's Name: *</label></td>
+                        <td>
+                            <input type="text" id="father_name" name="father_name" placeholder="Enter father's name" size="40" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="mother_name">Mother's Name: *</label></td>
+                        <td>
+                            <input type="text" id="mother_name" name="mother_name" placeholder="Enter mother's name" size="40" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="dob">Date of Birth: *</label></td>
+                        <td>
+                            <input type="date" id="dob" name="dob" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Gender: *</td>
+                        <td>
+                            <input type="radio" id="gender_male" name="gender" value="male" required>
+                            <label for="gender_male">Male</label>
+                            &nbsp;&nbsp;
+                            <input type="radio" id="gender_female" name="gender" value="female">
+                            <label for="gender_female">Female</label>
+                            &nbsp;&nbsp;
+                            <input type="radio" id="gender_other" name="gender" value="other">
+                            <label for="gender_other">Other</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="category">Social Category: *</label></td>
+                        <td>
+                            <select id="category" name="category" required>
+                                <option value="">-- Select Category --</option>
+                                <option value="general">General</option>
+                                <option value="obc">OBC</option>
+                                <option value="sc">SC</option>
+                                <option value="st">ST</option>
+                                <option value="ews">EWS</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="blood_group">Blood Group:</label></td>
+                        <td>
+                            <select id="blood_group" name="blood_group">
+                                <option value="">-- Select Blood Group --</option>
+                                <option value="a_pos">A+</option>
+                                <option value="a_neg">A-</option>
+                                <option value="b_pos">B+</option>
+                                <option value="b_neg">B-</option>
+                                <option value="o_pos">O+</option>
+                                <option value="o_neg">O-</option>
+                                <option value="ab_pos">AB+</option>
+                                <option value="ab_neg">AB-</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+
+            <br>
+
+            <!-- Section 2: Academic Program Enrollment -->
+            <fieldset>
+                <legend><strong>Section 2: Academic Program & Semester</strong></legend>
+                <br>
+                <table border="1" cellpadding="8" cellspacing="0" width="100%">
+                    <tr>
+                        <td width="30%"><label for="course_name">Select Degree Program: *</label></td>
+                        <td width="70%">
+                            <select id="course_name" name="course_name" required>
+                                <option value="">-- Choose Program --</option>
+                                <optgroup label="Undergraduate Programs">
+                                    <option value="bca" selected>BCA (Bachelor of Computer Applications)</option>
+                                    <option value="bsc_cs">B.Sc Computer Science</option>
+                                    <option value="bsc_it">B.Sc Information Technology</option>
+                                    <option value="btech_cse">B.Tech Computer Science & Engineering</option>
+                                </optgroup>
+                                <optgroup label="Postgraduate Programs">
+                                    <option value="mca">MCA (Master of Computer Applications)</option>
+                                    <option value="msc_cs">M.Sc Computer Science</option>
+                                </optgroup>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="semester">Current Semester: *</label></td>
+                        <td>
+                            <select id="semester" name="semester" required>
+                                <option value="">-- Select Semester --</option>
+                                <option value="1" selected>Semester 1</option>
+                                <option value="2">Semester 2</option>
+                                <option value="3">Semester 3</option>
+                                <option value="4">Semester 4</option>
+                                <option value="5">Semester 5</option>
+                                <option value="6">Semester 6</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="study_center">Study Center Code: *</label></td>
+                        <td>
+                            <input type="text" id="study_center" name="study_center" placeholder="e.g. SC-07107" size="25" required>
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+
+            <br>
+
+            <!-- Section 3: Contact & Communication Details -->
+            <fieldset>
+                <legend><strong>Section 3: Contact & Communication Details</strong></legend>
+                <br>
+                <table border="1" cellpadding="8" cellspacing="0" width="100%">
+                    <tr>
+                        <td width="30%"><label for="email">Student Email Address: *</label></td>
+                        <td width="70%">
+                            <input type="email" id="email" name="email" placeholder="student@example.com" size="40" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="mobile">Mobile Number (10 Digits): *</label></td>
+                        <td>
+                            <input type="tel" id="mobile" name="mobile" placeholder="9876543210" pattern="[0-9]{10}" maxlength="10" required>
+                            <small>(Enter 10-digit number without country code)</small>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="parent_mobile">Parent / Guardian Contact:</label></td>
+                        <td>
+                            <input type="tel" id="parent_mobile" name="parent_mobile" placeholder="9876543211" pattern="[0-9]{10}" maxlength="10">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="address">Permanent Residential Address: *</label></td>
+                        <td>
+                            <textarea id="address" name="address" rows="4" cols="45" placeholder="Enter house no, street name, city, state" required></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="pincode">Postal PIN Code (6 Digits): *</label></td>
+                        <td>
+                            <input type="text" id="pincode" name="pincode" placeholder="110001" pattern="[0-9]{6}" maxlength="6" size="15" required>
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+
+            <br>
+
+            <!-- Section 4: Skills & Programming Knowledge -->
+            <fieldset>
+                <legend><strong>Section 4: Technical Skills & Electives</strong></legend>
+                <br>
+                <table border="1" cellpadding="8" cellspacing="0" width="100%">
+                    <tr>
+                        <td width="30%">Programming Languages Known:</td>
+                        <td width="70%">
+                            <input type="checkbox" id="lang_c" name="skills" value="c">
+                            <label for="lang_c">C Language</label>
+                            &nbsp;&nbsp;
+                            <input type="checkbox" id="lang_cpp" name="skills" value="cpp">
+                            <label for="lang_cpp">C++</label>
+                            &nbsp;&nbsp;
+                            <input type="checkbox" id="lang_html" name="skills" value="html" checked>
+                            <label for="lang_html">HTML5</label>
+                            &nbsp;&nbsp;
+                            <input type="checkbox" id="lang_python" name="skills" value="python">
+                            <label for="lang_python">Python</label>
+                            &nbsp;&nbsp;
+                            <input type="checkbox" id="lang_java" name="skills" value="java">
+                            <label for="lang_java">Java</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Preferred Practical Batch:</td>
+                        <td>
+                            <input type="radio" id="batch_morning" name="batch" value="morning" checked>
+                            <label for="batch_morning">Morning (09:00 AM - 12:00 PM)</label>
+                            <br>
+                            <input type="radio" id="batch_evening" name="batch" value="evening">
+                            <label for="batch_evening">Evening (02:00 PM - 05:00 PM)</label>
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+
+            <br>
+
+            <!-- Section 5: Document Uploads -->
+            <fieldset>
+                <legend><strong>Section 5: Document & Identity Upload</strong></legend>
+                <br>
+                <table border="1" cellpadding="8" cellspacing="0" width="100%">
+                    <tr>
+                        <td width="30%"><label for="photo">Passport Size Photograph: *</label></td>
+                        <td width="70%">
+                            <input type="file" id="photo" name="photo" accept="image/jpeg,image/png" required>
+                            <small>(Max size: 500 KB, JPG/PNG)</small>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="signature">Student Signature: *</label></td>
+                        <td>
+                            <input type="file" id="signature" name="signature" accept="image/jpeg,image/png" required>
+                            <small>(Max size: 200 KB, JPG/PNG)</small>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="marksheet">12th Standard / Diploma Marksheet: *</label></td>
+                        <td>
+                            <input type="file" id="marksheet" name="marksheet" accept=".pdf,image/jpeg,image/png" required>
+                            <small>(PDF or Image, Max size: 2 MB)</small>
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+
+            <br>
+
+            <!-- Section 6: Account Password -->
+            <fieldset>
+                <legend><strong>Section 6: Student Portal Credentials</strong></legend>
+                <br>
+                <table border="1" cellpadding="8" cellspacing="0" width="100%">
+                    <tr>
+                        <td width="30%"><label for="password">Create Portal Password: *</label></td>
+                        <td width="70%">
+                            <input type="password" id="password" name="password" minlength="8" placeholder="Minimum 8 characters" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="confirm_password">Confirm Portal Password: *</label></td>
+                        <td>
+                            <input type="password" id="confirm_password" name="confirm_password" minlength="8" placeholder="Re-enter password" required>
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+
+            <br>
+
+            <!-- Section 7: Declaration & Actions -->
+            <fieldset>
+                <legend><strong>Section 7: Self Declaration & Form Actions</strong></legend>
+                <br>
+                <p>
+                    <input type="checkbox" id="declaration" name="declaration" required>
+                    <label for="declaration">
+                        <strong>I hereby declare that all information submitted in this form is true, complete, and correct to the best of my knowledge.</strong>
+                    </label>
+                </p>
+                <hr>
+                <table border="0" cellpadding="10" cellspacing="0" width="100%">
+                    <tr>
+                        <td align="center">
+                            <input type="reset" value="Clear / Reset Form">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type="submit" value="Submit Student Registration »">
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+
+        </form>
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+        <br>
+        <hr size="2" color="#000000">
+        <p align="center"><small>Nextsem Academy • Complete Free Developer Curriculum | IGNOU BCA BCSL-013 Practical Project</small></p>
+    </footer>
+
+</body>
+</html>

@@ -12,19 +12,22 @@ export default function Footer() {
 
         <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs font-semibold pt-1">
           <Link href="/curriculum" className="text-slate-400 hover:text-[#04AA6D] hover:underline transition-colors">
-            📚 Curriculum
+            Curriculum
           </Link>
           <Link href="/privacy" className="text-slate-400 hover:text-[#04AA6D] hover:underline transition-colors">
-            📜 Privacy Policy
+            Privacy Policy
           </Link>
           <Link href="/terms" className="text-slate-400 hover:text-[#04AA6D] hover:underline transition-colors">
-            ⚖️ Terms of Service
+            Terms of Service
           </Link>
           <Link href="/contact" className="text-slate-400 hover:text-[#04AA6D] hover:underline transition-colors">
-            📞 Contact Support
+            Contact Support
           </Link>
           <Link href="/about" className="text-slate-400 hover:text-[#04AA6D] hover:underline transition-colors">
-            ℹ️ About Us
+            About Us
+          </Link>
+          <Link href="/disclaimer" className="text-slate-400 hover:text-[#04AA6D] hover:underline transition-colors">
+            Disclaimer
           </Link>
           <a
             href="/sitemap.xml"
@@ -32,7 +35,7 @@ export default function Footer() {
             rel="noopener noreferrer"
             className="text-[#04AA6D] hover:text-[#039861] hover:underline font-bold transition-colors"
           >
-            🗺️ XML Sitemap
+            XML Sitemap
           </a>
         </div>
       </div>

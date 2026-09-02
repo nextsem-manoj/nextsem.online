@@ -8,6 +8,10 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: '3D Holographic Foil Card Tilt Animation | Nextsem Academy',
+  robots: {
+    index: false,
+    follow: false,
+  },
   description: 'Interactive 3D Holographic Foil Card with perspective tilt, Z-axis elevation, and rainbow color-dodge shimmer.',
 };
 

@@ -72,7 +72,7 @@ export function getChapterUrl(chapterId: string): string {
   if (chapterId.startsWith("p1-")) {
     // Map phase chapter key back to the first lesson slug of that unit
     const phaseMap: Record<string, string> = {
-      "p1-1-intro-and-text": "learn-html-web-free-lessons-what-is-the-internet",
+      "p1-1-intro-and-text": "html-introduction-what-is-html",
       "p1-2-links-and-media": "doctype-html5-declaration-syntax",
       "p1-3-lists-and-tables": "html-body-tag-visible-content",
       "p1-4-forms-and-inputs": "bold-b-vs-semantic-strong-tag",

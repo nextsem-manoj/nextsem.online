@@ -73,7 +73,7 @@ export default function InteractiveChapterSimulator({ simulator, chapterId, user
   const [history, setHistory] = useState<HistoryLine[]>([]);
 
   const inputRef = useRef<HTMLInputElement>(null);
-  const terminalEndRef = useRef<HTMLDivElement>(null);
+  const terminalContainerRef = useRef<HTMLDivElement>(null);
   const lessons = simulator.lessons;
   const currentLesson: ChapterLesson = lessons[Math.min(stepIdx, lessons.length - 1)];
   const router = useRouter();
@@ -110,15 +110,16 @@ export default function InteractiveChapterSimulator({ simulator, chapterId, user
     setShowHint(false);
     setFeedbackStatus("waiting");
     setInputVal("");
-    setTimeout(() => terminalEndRef.current?.scrollIntoView({ behavior: "smooth" }), 100);
   }, [stepIdx, certified]);
 
-  // ── Auto-scroll on new history ─────────────────────────────────────────
+  // ── Auto-scroll on new history (only internal container, never window) ──
   useEffect(() => {
-    terminalEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (terminalContainerRef.current) {
+      terminalContainerRef.current.scrollTop = terminalContainerRef.current.scrollHeight;
+    }
   }, [history]);
 
-  const focusTerminal = () => inputRef.current?.focus();
+  const focusTerminal = () => inputRef.current?.focus({ preventScroll: true });
 
   const saveProgress = (step: number, pts: number, cert: boolean) => {
     localStorage.setItem(progressKey, step.toString());
@@ -420,7 +421,7 @@ export default function InteractiveChapterSimulator({ simulator, chapterId, user
           </div>
 
           {/* Terminal console */}
-          <div className="flex-1 p-4 font-mono text-[16px] overflow-y-auto space-y-1.5 flex flex-col">
+          <div ref={terminalContainerRef} className="flex-1 p-4 font-mono text-[16px] overflow-y-auto space-y-1.5 flex flex-col">
             {history.map((line, idx) => {
               if (line.type === "input")
                 return (
@@ -457,7 +458,6 @@ export default function InteractiveChapterSimulator({ simulator, chapterId, user
                 </div>
               );
             })}
-            <div ref={terminalEndRef} />
           </div>
 
           {/* Prompt row */}

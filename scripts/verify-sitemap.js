@@ -25,7 +25,7 @@ try {
     'https://nextsem.online/about',
     'https://nextsem.online/course',
     'https://nextsem.online/cli',
-    'https://nextsem.online/profile'
+    'https://nextsem.online/disclaimer'
   ];
 
   let missingCount = 0;

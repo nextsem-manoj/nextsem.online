@@ -8,7 +8,6 @@ import Link from "next/link";
 import { auth, db } from "../../../lib/firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
-import AdSenseBanner from "../../../components/AdSenseBanner";
 
 interface StepType {
   id: string;
@@ -622,12 +621,6 @@ export default function TerminalClient() {
         
         {/* ── LEFT MAIN WORKSPACE CONTENT ── */}
         <div className="flex-1 flex flex-col p-4 justify-between min-h-0 overflow-y-auto">
-          
-          {/* Ad Placement 1: Top Responsive Banner */}
-          <div className="hidden md:block w-full mb-3 shrink-0">
-            <AdSenseBanner />
-          </div>
-
           {/* Lesson guide header */}
           <div className={`border p-4 rounded-xl space-y-2 select-text ${cardBgClass}`}>
             <div className="flex items-center justify-between">

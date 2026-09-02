@@ -49,8 +49,6 @@ const BottomNavigation = () => {
     }
   }, []);
 
-  if (isFullscreen) return null;
-
   useEffect(() => {
     const native = Capacitor.isNativePlatform();
     setMounted(true);
@@ -80,7 +78,7 @@ const BottomNavigation = () => {
     setMenuOpen(false);
   }, [pathname]);
 
-  if (!mounted) return null;
+  if (!mounted || isFullscreen) return null;
   if (pathname === '/simulator') return null;
 
   const isLessonRoute = Boolean(

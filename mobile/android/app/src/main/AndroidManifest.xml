@@ -3,15 +3,15 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
-        android:label="nextsem_mobile"
+        android:label="Nextsem Academy"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:usesCleartextTraffic="true">
 
-        <!-- AdMob App ID (Using Google Test App ID for development) -->
+        <!-- Official Production Google AdMob App ID -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3940256099942544~3347511713"/>
+            android:value="ca-app-pub-5947565211927754~5718902515"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"

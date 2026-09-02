@@ -8,6 +8,10 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'CSS Black Hole Gravitational Lensing Animation | Nextsem Academy',
+  robots: {
+    index: false,
+    follow: false,
+  },
   description: 'Pure HTML and CSS Black Hole animation with conic-gradient relativistic accretion disk, photon spheres, and light bending lensing arcs.',
 };
 

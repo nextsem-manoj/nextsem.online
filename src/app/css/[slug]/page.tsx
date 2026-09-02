@@ -1,5 +1,5 @@
 import React from "react";
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { cssLessons } from "@/data/cssLessonsData";
 import CssLessonClient from "@/components/CssLessonClient";
@@ -17,17 +17,17 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const decoded = slug ? decodeURIComponent(slug).toLowerCase() : "";
-  const lesson = cssLessons.find((l) => l.slug.toLowerCase() === decoded) || (!decoded ? cssLessons[0] : null);
+  const lesson = cssLessons.find((l) => l.slug.toLowerCase() === decoded || l.id.toString() === decoded) || (!decoded ? cssLessons[0] : null);
 
   if (!lesson) {
     return {
-      title: "Lesson Not Found | NextSem",
-      description: "This CSS lesson was not found in our course directory.",
+      title: "Lesson Not Found | Nextsem Academy",
+      description: "This free CSS3 lesson was not found.",
     };
   }
 
-  const title = `${lesson.title} | Free CSS Web Coding Lesson | NextSem`;
-  const description = `Learn ${lesson.title} step-by-step in Hindi, Hinglish, and English with interactive drills. Free online CSS web coding course at NextSem Academy.`;
+  const title = `${lesson.title} - Free CSS3 Lessons | Nextsem`;
+  const description = `Learn ${lesson.title} with free CSS3 lessons, live code syntax, flexbox/grid layout demos, and responsive design techniques.`;
 
   return {
     title,

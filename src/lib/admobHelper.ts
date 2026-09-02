@@ -4,7 +4,6 @@ import { Capacitor } from '@capacitor/core';
 // Official Google AdMob Test Ad Unit IDs (Guaranteed 100% Fill Rate on BlueStacks, Emulators, & Test Devices)
 const TEST_REWARDED_ID = 'ca-app-pub-3940256099942544/5224354917';
 const TEST_INTERSTITIAL_ID = 'ca-app-pub-3940256099942544/1033173712';
-const TEST_APP_OPEN_ID = 'ca-app-pub-3940256099942544/9257395921';
 
 // Production AdMob Unit IDs — v20 (2.3.0)
 export const PROD_REWARDED_ID = 'ca-app-pub-5947565211927754/3747294963';
@@ -182,35 +181,10 @@ export async function triggerNavigationAd(): Promise<boolean> {
 }
 
 /**
- * Shows an App Open Ad when the app launches (on SplashScreen dismiss).
- * Triggers only on native platform. Silently fails if no fill.
+ * App Open Ad is permanently disabled to ensure an immediate, clean, ad-free startup experience.
  */
 export async function showAppOpenAd(): Promise<boolean> {
-  if (!Capacitor.isNativePlatform()) return false;
-
-  await ensureAdMobInitialized();
-
-  // App Open ads use the Interstitial API with the dedicated App Open ad unit
-  try {
-    await AdMob.prepareInterstitial({
-      adId: PROD_APP_OPEN_ID,
-      isTesting: false
-    });
-    await AdMob.showInterstitial();
-    return true;
-  } catch {
-    // Try test App Open ID on emulators/test builds
-    try {
-      await AdMob.prepareInterstitial({
-        adId: TEST_APP_OPEN_ID,
-        isTesting: true
-      });
-      await AdMob.showInterstitial();
-      return true;
-    } catch {
-      return false;
-    }
-  }
+  return false;
 }
 
 /**

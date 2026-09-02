@@ -500,10 +500,14 @@ export default function EssentialCmdCommandsClient() {
           </p>
 
           <div className="flex items-center justify-center gap-3 pt-2 text-xs text-slate-400 font-medium flex-wrap">
-            <span className="flex items-center gap-1.5 bg-slate-900/90 border border-slate-800 px-3 py-1 rounded-full text-white font-bold">
-              <span className="w-4 h-4 rounded-md bg-[#09101f] border border-[#04AA6D]/60 flex items-center justify-center text-[#04AA6D] font-black text-[8px]">NS</span>
-              Author: NextSem
-            </span>
+            <Link href="/about" className="flex items-center gap-2 bg-slate-900/90 hover:bg-slate-850 border border-slate-800 hover:border-[#04AA6D]/50 px-3 py-1 rounded-full text-white font-bold transition-all" title="View Author Profile">
+              <img
+                src="/manoj-kumar.jpg"
+                alt="Er. Manoj Kumar"
+                className="w-4 h-4 rounded-full object-cover object-top border border-[#04AA6D]"
+              />
+              <span className="hover:text-[#04AA6D] transition-colors">Author: Er. Manoj Kumar</span>
+            </Link>
             <Link href="/curriculum" className="bg-[#04AA6D]/10 hover:bg-[#04AA6D]/20 border border-[#04AA6D]/30 text-[#04AA6D] px-3 py-1 rounded-full font-bold transition-colors">
               Full Curriculum →
             </Link>

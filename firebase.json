@@ -6,7 +6,7 @@
     {
       "target": "production",
       "public": "out",
-      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**", "**/*.apk", "**/*.exe", "**/*.dmg"],
       "cleanUrls": true,
       "trailingSlash": true,
       "headers": [
@@ -29,14 +29,39 @@
           ]
         }
       ],
+      "redirects": [
+        {
+          "source": "/html/html5-canvas-2d-context-javascript-drawing",
+          "destination": "/html/canvas-graphics-draw-shapes-context/",
+          "type": 301
+        },
+        {
+          "source": "/book/**",
+          "destination": "/guide/",
+          "type": 301
+        }
+      ],
       "rewrites": []
     },
     {
       "target": "staging",
       "public": "out",
-      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**", "**/*.apk", "**/*.exe", "**/*.dmg"],
+
       "cleanUrls": true,
       "trailingSlash": true,
+      "redirects": [
+        {
+          "source": "/html/html5-canvas-2d-context-javascript-drawing",
+          "destination": "/html/canvas-graphics-draw-shapes-context/",
+          "type": 301
+        },
+        {
+          "source": "/book/**",
+          "destination": "/guide/",
+          "type": 301
+        }
+      ],
       "rewrites": []
     }
   ]

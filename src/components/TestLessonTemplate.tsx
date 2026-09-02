@@ -213,6 +213,11 @@ export default function TestLessonTemplate({
               <Link
                 href={`/htmldemo?code=${encodeURIComponent(cleanCode)}`}
                 target="_blank"
+                onClick={() => {
+                  try {
+                    sessionStorage.setItem("nextsem_splash_shown", "true");
+                  } catch {}
+                }}
                 className="inline-flex items-center gap-1.5 px-5 py-2.5 bg-[#04AA6D] hover:bg-[#039861] text-white font-extrabold text-sm rounded-md transition-all shadow-md cursor-pointer"
               >
                 <span>Try it Yourself »</span>

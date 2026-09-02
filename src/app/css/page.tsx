@@ -1,17 +1,17 @@
 import React from "react";
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { cssLessons } from "@/data/cssLessonsData";
 import CssLessonClient from "@/components/CssLessonClient";
 
 export const metadata: Metadata = {
-  title: "CSS3 Tutorial & Modern Responsive Web Design Course | NextSem",
-  description: "Master CSS3 from scratch: Flexbox, CSS Grid, Responsive Design, Animations, Custom Properties, and Modern Layouts with free interactive coding drills.",
+  title: "Free CSS3 Lessons: Master Modern Web Styling, Flexbox & Grid | Nextsem",
+  description: "Learn modern CSS3 styling, Flexbox, CSS Grid layouts, keyframe animations, responsive media queries, and dark mode theming with free interactive lessons.",
   alternates: {
     canonical: "/css"
   },
   openGraph: {
-    title: "CSS3 Tutorial & Modern Responsive Web Design Course | NextSem",
-    description: "Master CSS3 from scratch: Flexbox, CSS Grid, Responsive Design, Animations, Custom Properties, and Modern Layouts with free interactive coding drills.",
+    title: "Free CSS3 Lessons: Master Modern Web Styling, Flexbox & Grid | Nextsem",
+    description: "Learn modern CSS3 styling, Flexbox, CSS Grid layouts, keyframe animations, responsive media queries, and dark mode theming with free interactive lessons.",
     url: "https://nextsem.online/css",
     type: "website"
   }

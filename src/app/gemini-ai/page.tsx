@@ -4,7 +4,10 @@ import GeminiAiPlayground from "@/components/GeminiAiPlayground";
 
 export const metadata: Metadata = {
   title: "Gemini AI Prompt Studio & Playground | NextSem Academy Tools",
-  description: "Ask questions, debug JavaScript/HTML code, generate explanations, and run user prompts using Google Gemini AI.",
+  robots: {
+    index: false,
+    follow: false,
+  },
   alternates: {
     canonical: "/gemini-ai"
   },

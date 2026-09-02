@@ -8,6 +8,10 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'CSS Cyberpunk 2077 Glitch Text Animation | Nextsem Academy',
+  robots: {
+    index: false,
+    follow: false,
+  },
   description: 'Pure HTML and CSS Cyberpunk 2077 glitch text effect with clip-path slicing and RGB color split.',
 };
 

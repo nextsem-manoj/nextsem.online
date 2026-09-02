@@ -7,7 +7,7 @@ import {
   ChevronLeft, ChevronRight, BookOpen, Code, 
   HelpCircle, CheckCircle2, AlertCircle, Sparkles, Lock, ArrowLeft, X, FileText, Loader2, Bookmark, Download, Terminal, Award, ExternalLink
 } from "lucide-react";
-import { cliLessons } from "../data/cliLessonsData";
+import { cliLessons, type Lesson, type CommandItem } from "../data/cliLessonsData";
 import AdSenseBanner from "./AdSenseBanner";
 import CommandScreenshotWidget from "./CommandScreenshotWidget";
 import { useProgress } from "../context/ProgressContext";
@@ -22,16 +22,18 @@ import { saveLastLesson } from "@/lib/userProgressSync";
 import { auth } from "@/lib/firebase";
 
 interface CliLessonClientProps {
-  lesson: any;
+  lesson: Lesson;
 }
 
 const NAV_LINKS = [
   { label: "📁 CLI Hub", href: "/cli" },
+  { label: "⚡ 30-Min Fast-Track", href: "/terminal-fast-track" },
   { label: "⚡ Essential Commands", href: "/cli/essential-cmd-commands" },
   { label: "🚀 Useful Commands", href: "/cli/most-useful-cmd-commands-in-windows" },
   { label: "🧠 CLI Quiz", href: "/cli/quiz" },
-  { label: "📜 Curriculum", href: "/curriculum" },
+  { label: "🗺️ Developer Roadmap", href: "/full-stack-web-development-roadmap" },
 ];
+
 
 export default function CliLessonClient({ lesson }: CliLessonClientProps) {
   const router = useRouter();
@@ -368,6 +370,32 @@ export default function CliLessonClient({ lesson }: CliLessonClientProps) {
         </div>
       </div>
 
+      {/* ── FAST-TRACK BRIDGE CARD FOR WEB DEVELOPERS ── */}
+      <div className="bg-[#141824] border border-[#04AA6D]/40 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-lg text-left">
+        <div className="flex items-start gap-3">
+          <div className="w-10 h-10 rounded-xl bg-[#04AA6D]/20 border border-[#04AA6D] flex items-center justify-center text-[#04AA6D] shrink-0 mt-0.5">
+            <Terminal size={20} />
+          </div>
+          <div className="space-y-1">
+            <div className="text-[10px] font-black uppercase tracking-wider text-[#04AA6D]">
+              Fast-Track For Web Developers
+            </div>
+            <h4 className="text-sm sm:text-base font-extrabold text-white">
+              Don&apos;t want to read 30+ terminal lessons?
+            </h4>
+            <p className="text-xs text-white font-normal leading-relaxed">
+              Learn just the 5 essential commands you need to build web apps in under 15 minutes with video &amp; interactive lab.
+            </p>
+          </div>
+        </div>
+        <Link
+          href="/terminal-fast-track"
+          className="px-5 py-2.5 bg-[#04AA6D] hover:bg-[#039861] text-black font-extrabold text-xs uppercase tracking-wider rounded-xl transition-all shadow-md shrink-0 flex items-center justify-center gap-1.5 cursor-pointer self-start sm:self-auto"
+        >
+          <span>Take 15-Min Fast-Track »</span>
+        </Link>
+      </div>
+
       {/* ── MAIN CONTENT AREA (FRAMELESS / NO HEAVY OUTER BORDER) ── */}
       <div className="py-2 space-y-4">
         <article className="prose prose-invert max-w-none text-left">
@@ -378,7 +406,7 @@ export default function CliLessonClient({ lesson }: CliLessonClientProps) {
         {lesson.commands && lesson.commands.length > 0 && (
           <div className="space-y-4 pt-3 border-t border-slate-800/80">
 
-            {lesson.commands.map((item: any, cmdIdx: number) => (
+            {lesson.commands.map((item: CommandItem, cmdIdx: number) => (
               <div key={cmdIdx} className="space-y-3 text-left py-3 border-b border-slate-800/60 last:border-0">
                 {/* Description */}
                 <p className="text-xs md:text-sm text-slate-300 font-medium leading-relaxed">
@@ -492,58 +520,20 @@ export default function CliLessonClient({ lesson }: CliLessonClientProps) {
         )}
       </div>
 
-      {/* ── SENIOR DEVELOPER KEY TAKEAWAYS & INDUSTRY INSIGHTS CARD ── */}
-      <div className="p-5 md:p-6 bg-[#0e1117] border border-slate-800 rounded-2xl shadow-xl text-left space-y-3">
-        <h4 className="text-base font-extrabold text-[#04AA6D]">
-          <span>Senior Developer Key Takeaways & Windows 11 Insights</span>
-        </h4>
-        <ul className="space-y-2 text-xs md:text-sm text-slate-300 font-medium leading-relaxed">
-          <li className="flex items-start gap-2">
-            <span className="text-[#04AA6D] font-bold">1.</span>
-            <span>CLI mastery allows web developers to configure build pipelines, run package managers (`npm`, `npx`), and control servers.</span>
-          </li>
-          <li className="flex items-start gap-2">
-            <span className="text-[#04AA6D] font-bold">2.</span>
-            <span>Always use standard directory conventions in Windows 11 Command Prompt to keep scripts portable across environments.</span>
-          </li>
-          <li className="flex items-start gap-2">
-            <span className="text-[#04AA6D] font-bold">3.</span>
-            <span>Leverage `help` and `/` command flags whenever working with unfamiliar CLI commands in Windows.</span>
-          </li>
-          <li className="flex items-start gap-2">
-            <span className="text-[#04AA6D] font-bold">4.</span>
-            <span>Batch scripts (`.bat`) enable one-tap execution of build, test, and cloud deployment procedures.</span>
-          </li>
-        </ul>
-        <div className="p-3 bg-[#050810] border border-slate-800 rounded-xl text-xs text-emerald-300 font-medium">
-          <strong>Developer Pro-Tip:</strong> Practice commands directly in your local Windows Command Prompt terminal (`cmd.exe`) alongside these interactive lessons!
-        </div>
-      </div>
 
-      {/* ── NEXTSEM ACADEMY CLI QUIZ CTA CARD ── */}
-      <div className="p-5 md:p-6 bg-[#0e1117] border border-[#04AA6D]/40 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xl text-left">
-        <div>
-          <h4 className="text-base font-extrabold text-white">Test Your CLI &amp; CMD Knowledge!</h4>
-          <p className="text-xs text-slate-300 mt-0.5 leading-relaxed">
-            Take the comprehensive CLI Quiz to test your understanding of Windows Command Prompt commands and terminal workflows.
-          </p>
-        </div>
-        <Link
-          href="/cli/quiz"
-          className="px-5 py-2.5 bg-[#04AA6D] hover:bg-[#039861] text-white font-extrabold text-xs rounded-xl shadow-md transition-all whitespace-nowrap cursor-pointer shrink-0 flex items-center gap-1.5"
-        >
-          <span>Start CLI Quiz »</span>
-        </Link>
-      </div>
+
+
 
       {/* ── AUTHOR ATTRIBUTION BADGE ── */}
       <div className="flex items-center justify-between flex-wrap gap-2 p-3 bg-[#0e1117]/80 border border-slate-800 rounded-xl text-xs text-slate-400">
-        <div className="flex items-center gap-2">
-          <div className="w-5 h-5 rounded-md bg-[#09101f] border border-[#04AA6D]/60 flex items-center justify-center text-[#04AA6D] font-black text-[9px] shadow-sm">
-            NS
-          </div>
-          <span>Curriculum Author: <strong className="text-white font-bold">NextSem</strong></span>
-        </div>
+        <Link href="/about" className="flex items-center gap-2 hover:opacity-80 transition-opacity" title="View Author Profile">
+          <img
+            src="/manoj-kumar.jpg"
+            alt="Er. Manoj Kumar — Curriculum Author"
+            className="w-6 h-6 rounded-full object-cover object-top border border-[#04AA6D]"
+          />
+          <span>Curriculum Author: <strong className="text-white font-bold hover:text-[#04AA6D] transition-colors">Er. Manoj Kumar</strong></span>
+        </Link>
         <div className="flex items-center gap-3">
           <Link
             href="/curriculum"

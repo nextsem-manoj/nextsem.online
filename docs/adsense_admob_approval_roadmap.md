@@ -15,7 +15,9 @@
 - `[x]` **Live ads.txt File:** Published `google.com, pub-5947565211927754, DIRECT, f08c47fec0942fa0` at `https://nextsem.online/ads.txt`.
 - `[x]` **Root Layout Script & Meta Tag:** Injected AdSense publisher ID `ca-pub-5947565211927754` in `<head>` meta & scripts.
 - `[x]` **AdSense Site Ownership Verification:** Verified site ownership via `ads.txt` snippet (Status: `Your site is verified`).
-- `[x]` **Review Requested:** Submitted `nextsem.online` for site approval on 17 Aug 2026.
+- `[x]` **Complete Subdomain Removal:** Disconnected all external subdomains (`ignou`, `ncert`, `kids`) across Hostinger DNS, Firebase Hosting, and Nextsem codebase.
+- `[x]` **Sitemap & Robots Optimization:** Added 30+ CLI lessons & hubs to `sitemap.ts`, created `/disclaimer` policy page, and restricted thin animation routes.
+- `[x]` **Review Requested:** Submitted `nextsem.online` for site approval on 22 Aug 2026.
 
 ---
 
@@ -29,12 +31,12 @@
 ---
 
 ## 📌 Phase 4: Automated Background Review ⏳ (CURRENT ACTIVE STAGE)
-> **What to do:** Do not make any code changes. Let Google's automated crawler complete its scan.
+> **What to do:** Clean review in progress with 100% single-domain architecture.
 
-- `[ ]` **Step 4.1 (1 to 24 Hours):** Google's crawler (`Mediapartners-Google`) scans `https://nextsem.online/app-ads.txt` & `ads.txt`.
+- `[ ]` **Step 4.1:** Google's crawler (`Mediapartners-Google`) scans `https://nextsem.online/app-ads.txt` & `ads.txt`.
 - `[ ]` **Step 4.2:** AdMob App status changes from `Requires review` $\rightarrow$ **Ready (Green Checkmark)**.
-- `[ ]` **Step 4.3:** "Test Ad" label automatically disappears and **real live production ads start displaying**!
-- `[ ]` **Step 4.4 (1 to 7 Days):** AdSense site review completes for `nextsem.online` website ads.
+- `[ ]` **Step 4.3:** Real live production ads start serving on mobile app.
+- `[ ]` **Step 4.4:** AdSense site review completes for `nextsem.online` website ads with verified single-domain inventory.
 
 ---
 

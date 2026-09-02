@@ -8,6 +8,10 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Starfield 3D Warp Speed Velocity Engine | Nextsem Academy',
+  robots: {
+    index: false,
+    follow: false,
+  },
   description: 'Learn how to build 3D starfield hyperdrive particle acceleration using HTML5 Canvas.',
 };
 
