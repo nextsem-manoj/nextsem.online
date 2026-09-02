@@ -290,7 +290,7 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, isCollapsed }: BookSideb
                                   {isActive && (
                                     <span className="w-2 h-2 rounded-full bg-white animate-pulse shrink-0 mr-2 shadow-xs" />
                                   )}
-                                  <span className="truncate">#{lesson.id}. {lesson.title}</span>
+                                  <span className="truncate">{lesson.id}. {lesson.title}</span>
                                 </span>
                                 {isActive && (
                                   <span className="text-[9px] font-black uppercase tracking-wider bg-white text-[#04AA6D] px-1.5 py-0.5 rounded shadow-xs shrink-0 font-mono">
