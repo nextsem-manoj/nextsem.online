@@ -40,34 +40,40 @@ const Header = () => {
               HTML
             </Link>
             <Link
+              href="/css"
+              className="px-3 py-1.5 rounded-lg hover:text-[#04AA6D] hover:bg-slate-800/80 transition-colors"
+            >
+              CSS
+            </Link>
+            <Link
+              href="/js"
+              className="px-3 py-1.5 rounded-lg hover:text-[#04AA6D] hover:bg-slate-800/80 transition-colors"
+            >
+              JavaScript
+            </Link>
+            <Link
+              href="/react"
+              className="px-3 py-1.5 rounded-lg hover:text-[#04AA6D] hover:bg-slate-800/80 transition-colors"
+            >
+              React
+            </Link>
+            <Link
+              href="/nodejs"
+              className="px-3 py-1.5 rounded-lg hover:text-[#04AA6D] hover:bg-slate-800/80 transition-colors"
+            >
+              Node.js
+            </Link>
+            <Link
               href="/cli"
               className="px-3 py-1.5 rounded-lg hover:text-[#04AA6D] hover:bg-slate-800/80 transition-colors"
             >
               Windows CLI
             </Link>
             <Link
-              href="/cpp"
-              className="px-3 py-1.5 rounded-lg hover:text-[#04AA6D] hover:bg-slate-800/80 transition-colors"
-            >
-              C++
-            </Link>
-            <Link
-              href="/c"
-              className="px-3 py-1.5 rounded-lg hover:text-[#04AA6D] hover:bg-slate-800/80 transition-colors"
-            >
-              C Language
-            </Link>
-            <Link
               href="/git"
               className="px-3 py-1.5 rounded-lg hover:text-[#04AA6D] hover:bg-slate-800/80 transition-colors"
             >
               Git
-            </Link>
-            <Link
-              href="/batch"
-              className="px-3 py-1.5 rounded-lg hover:text-[#04AA6D] hover:bg-slate-800/80 transition-colors"
-            >
-              Batch Scripts
             </Link>
             <Link
               href="/course/projects"
