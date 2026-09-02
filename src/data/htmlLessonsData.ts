@@ -388,7 +388,7 @@ VS Code extensions supercharge your development workflow:
     id: 1,
     slug: "html-introduction-what-is-html",
     title: "HTML Introduction (What is HTML?)",
-    unit: "Unit 1: HTML Introduction & Fundamentals",
+    unit: "Unit 1: HTML Introduction & Web Fundamentals",
     bookRef: "W3Schools HTML Introduction & Standards Guide",
     exercise: {
       english: {
@@ -574,7 +574,7 @@ VS Code extensions supercharge your development workflow:
     id: 2,
     slug: "free-web-development-lessons-client-server-model",
     title: "Web Architecture: Client-Server, DNS, IP Addresses & TCP Handshake",
-    unit: "Unit 1: Web Fundamentals & Client-Server Architecture",
+    unit: "Unit 1: HTML Introduction & Web Fundamentals",
     bookRef: "Duckett Chapter 1 (p. 6-10) & Freeman Chapter 2 (p. 25-35)",
     exercise: {
       english: {
@@ -759,7 +759,7 @@ Network layer se le kar application layer tak web communication flow:
     id: 6,
     slug: "anatomy-of-http-request-headers-verbs",
     title: "Anatomy of an HTTP Request",
-    unit: "Unit 1: Web Fundamentals & Client-Server Architecture",
+    unit: "Unit 1: HTML Introduction & Web Fundamentals",
     bookRef: "Freeman Chapter 3 (p. 40-44)",
     exercise: {
       question: "Which HTTP verb/method is used to retrieve data from a server?",
@@ -789,7 +789,7 @@ Network layer se le kar application layer tak web communication flow:
     id: 7,
     slug: "http-response-status-codes-explained",
     title: "Anatomy of an HTTP Response",
-    unit: "Unit 1: Web Fundamentals & Client-Server Architecture",
+    unit: "Unit 1: HTML Introduction & Web Fundamentals",
     bookRef: "Freeman Chapter 3 (p. 45-50)",
     exercise: {
       question: "Which HTTP status code represents a successful page retrieval?",
@@ -1007,7 +1007,7 @@ Response packages content deliver status return karte hain:
     id: 8,
     slug: "how-to-read-url-query-parameters-path",
     title: "Anatomy of a URL",
-    unit: "Unit 1: Web Fundamentals & Client-Server Architecture",
+    unit: "Unit 1: HTML Introduction & Web Fundamentals",
     bookRef: "Freeman Chapter 3 (p. 51-55)",
     exercise: {
       question: "In the URL https://nextsem.online/html?user=amit, what does '?user=amit' represent?",
@@ -1227,7 +1227,7 @@ URL parser architecture logical parts divide karti hai:
     id: 9,
     slug: "how-browser-renders-html-dom-tree",
     title: "How Browsers Render HTML (DOM)",
-    unit: "Unit 1: Web Fundamentals & Client-Server Architecture",
+    unit: "Unit 1: HTML Introduction & Web Fundamentals",
     bookRef: "Freeman Chapter 3 (p. 56-60)",
     exercise: {
       question: "What does DOM stand for in web engineering?",
@@ -1445,7 +1445,7 @@ Browser rendering engine critical path parsing sequences calculate karta hai:
     id: 10,
     slug: "how-to-use-chrome-developer-tools-elements",
     title: "Introduction to Browser DevTools",
-    unit: "Unit 1: Web Fundamentals & Client-Server Architecture",
+    unit: "Unit 1: HTML Introduction & Web Fundamentals",
     bookRef: "Freeman Chapter 3 (p. 61-64)",
     exercise: {
       question: "Which panel in Chrome DevTools allows you to inspect and modify live HTML elements?",
