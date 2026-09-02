@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import {
-  ChevronDown, Check, ArrowLeft,
+  ChevronDown, Check, ArrowLeft, X,
   PanelLeftClose, PanelLeftOpen,
   BookOpen, Terminal, Globe, Layers, List, Award,
   GitBranch, GitCommit, GitMerge, Upload, Download, Search, Command
@@ -12,7 +12,12 @@ import {
 import { useProgress } from '../context/ProgressContext';
 import { coursePhases } from '../data/courseData';
 import { htmlLessons } from '../data/htmlLessonsData';
+import { cssLessons } from '../data/cssLessonsData';
+import { jsLessons } from '../data/jsLessonsData';
+import { reactLessons } from '../data/reactLessonsData';
+import { nodeLessons } from '../data/nodeLessonsData';
 import { cliLessons } from '../data/cliLessonsData';
+import { gitLessons } from '../data/gitLessonsData';
 import { cppLessons } from '../data/cppLessonsData';
 import searchIndex from '../data/searchIndex.json';
 import { getChapterIdFromPath, getChapterUrl } from '../lib/htmlLessonsHelper';
@@ -175,48 +180,75 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, onWidthChange, isCollaps
   const pathname = usePathname() || "";
   const router = useRouter();
   const { completedChapters } = useProgress();
+  const activeItemRef = useRef<HTMLAnchorElement | null>(null);
+  const scrollContainerRef = useRef<HTMLElement | null>(null);
 
   const activeChapterId = getChapterIdFromPath(pathname);
   const activePhaseKey = phaseGroups.find((g) =>
     g.chapters.some((c) => c.id === activeChapterId)
   )?.key ?? phaseGroups[0]?.key ?? '';
 
-  const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set(["HTML TUTORIAL"]));
-
   const effectiveWidth = isCollapsed ? 52 : sidebarWidth;
 
-  const toggleSection = (cat: string) => {
-    setExpandedSections(prev => {
-      const next = new Set(prev);
-      if (next.has(cat)) next.delete(cat);
-      else next.add(cat);
-      return next;
-    });
+  // Auto-scroll active lesson item into view when sidebar is opened or pathname changes
+  useEffect(() => {
+    if (isOpen && activeItemRef.current) {
+      setTimeout(() => {
+        activeItemRef.current?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      }, 150);
+    }
+  }, [isOpen, pathname]);
+
+  const handleLinkClick = () => {
+    if (typeof window !== 'undefined' && window.innerWidth < 768) {
+      setIsOpen(false);
+    }
   };
 
   return (
     <>
-      {/* Mobile Drawer Backdrop (No blur) */}
+      {/* Mobile Drawer Backdrop (z-40, below aside z-50) */}
       {isOpen && (
         <div
           onClick={() => setIsOpen(false)}
-          className="md:hidden fixed inset-0 bg-black/60 z-40 animate-in fade-in duration-200 cursor-pointer"
+          className="md:hidden fixed inset-0 bg-black/70 z-40 animate-in fade-in duration-200 cursor-pointer touch-manipulation"
+          aria-hidden="true"
         />
       )}
 
-      {/* ── Sidebar Panel ── */}
+      {/* ── Sidebar Panel (z-50 on mobile, z-30 on desktop) ── */}
       <aside
+        ref={scrollContainerRef}
         style={{ width: `${effectiveWidth}px` }}
         className={`
-          fixed top-14 md:top-[102px] left-0 md:left-[10%] h-[calc(100vh-3.5rem)] md:h-[calc(100vh-102px)]
-          bg-[#0d1424] text-white border-r md:border-l border-slate-800/80 shadow-2xl
-          transition-[width,transform] duration-300 z-30 overflow-y-auto overflow-x-hidden shrink-0 select-none
-          ${isOpen ? 'translate-x-0' : '-translate-x-full'}
+          fixed top-0 md:top-[98px] left-0 md:left-[10%] h-full md:h-[calc(100vh-98px)]
+          bg-[#0c1328] text-white border-r md:border-l border-slate-800 shadow-2xl
+          transition-transform duration-300 z-50 md:z-30 overflow-y-auto overflow-x-hidden shrink-0 overscroll-contain
+          ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
         `}
+        style-webkit-overflow-scrolling="touch"
       >
-        <div className="flex flex-col h-full py-2">
+        <div className="flex flex-col min-h-full py-2">
+          
+          {/* Mobile Header with Close Button */}
+          <div className="md:hidden flex items-center justify-between px-4 py-3 border-b border-slate-800 bg-[#090e1e] sticky top-0 z-10 shrink-0">
+            <div className="flex items-center gap-2">
+              <div className="w-7 h-7 rounded-lg bg-[#04AA6D]/20 border border-[#04AA6D]/40 flex items-center justify-center text-[#04AA6D] font-black text-xs">
+                NS
+              </div>
+              <span className="font-extrabold text-sm text-white">Course Topics</span>
+            </div>
+            <button
+              onClick={() => setIsOpen(false)}
+              className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors cursor-pointer"
+              aria-label="Close Topics Menu"
+            >
+              <X size={18} />
+            </button>
+          </div>
+
           {/* Navigation Items List */}
-          <nav className="flex flex-col flex-1 pb-10">
+          <nav className="flex flex-col flex-1 pb-12 pt-1">
             {pathname.startsWith('/html') ? (
               /* W3Schools Clean List Hierarchy for HTML */
               <div className="flex flex-col">
@@ -238,21 +270,20 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, onWidthChange, isCollaps
                           return (
                             <div key={tIdx}>
                               <Link
+                                ref={isActive ? activeItemRef : undefined}
                                 href={topicHref}
-                                onClick={() => {
-                                  if (window.innerWidth < 768) setIsOpen(false);
-                                }}
-                                className={`flex items-center justify-between px-4 py-1.5 text-[13px] transition-colors group ${
+                                onClick={handleLinkClick}
+                                className={`flex items-center justify-between px-4 py-2 text-[13px] transition-colors cursor-pointer touch-manipulation group ${
                                   isActive
                                     ? 'bg-[#04AA6D]/20 text-white font-bold border-l-4 border-[#04AA6D]'
-                                    : 'text-slate-200 hover:text-white hover:bg-slate-800/70 border-l-4 border-transparent'
+                                    : 'text-slate-200 hover:text-white hover:bg-slate-800/80 border-l-4 border-transparent active:bg-slate-800'
                                 }`}
                               >
-                                <span className="truncate">{topic.title}</span>
+                                <span className="truncate flex-1 text-left">{topic.title}</span>
                                 {topic.hasDropdown && (
                                   <ChevronDown
                                     size={12}
-                                    className={`shrink-0 transition-transform ${
+                                    className={`shrink-0 ml-1 transition-transform ${
                                       isActive ? 'text-[#04AA6D] rotate-180' : 'text-slate-500 group-hover:text-slate-300'
                                     }`}
                                   />
@@ -268,10 +299,8 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, onWidthChange, isCollaps
                                       <Link
                                         key={subIdx}
                                         href={sub.href}
-                                        onClick={() => {
-                                          if (window.innerWidth < 768) setIsOpen(false);
-                                        }}
-                                        className={`block pl-7 pr-4 py-1 text-[12px] transition-colors ${
+                                        onClick={handleLinkClick}
+                                        className={`block pl-7 pr-4 py-1.5 text-[12px] transition-colors cursor-pointer touch-manipulation ${
                                           isSubActive
                                             ? 'font-bold text-white bg-[#04AA6D]/25 border-l-4 border-[#04AA6D]'
                                             : 'text-slate-300 hover:text-white hover:bg-slate-800/50'
@@ -291,6 +320,162 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, onWidthChange, isCollaps
                   );
                 })}
               </div>
+            ) : pathname.startsWith('/css') ? (
+              /* CSS3 Styling Lessons */
+              <div className="flex flex-col">
+                <div className="px-4 pt-2 pb-1 text-[11px] font-black uppercase tracking-wider text-[#04AA6D] border-b border-slate-800/80 mb-2 flex items-center gap-1.5">
+                  <span>CSS3 STYLING ({cssLessons.length})</span>
+                </div>
+                {Array.from(new Set(cssLessons.map((l) => l.unit))).map((unitName, uIdx) => {
+                  const unitLessons = cssLessons.filter((l) => l.unit === unitName);
+                  return (
+                    <div key={uIdx} className="mb-2">
+                      <div className="px-4 pt-2 pb-1 text-[11px] font-bold uppercase tracking-wider text-slate-400 select-none">
+                        {unitName}
+                      </div>
+                      <div className="flex flex-col">
+                        {unitLessons.map((lesson) => {
+                          const isActive = pathname.includes(lesson.slug) || (pathname === '/css' && lesson.id === 1);
+                          return (
+                            <Link
+                              ref={isActive ? activeItemRef : undefined}
+                              key={lesson.id}
+                              href={`/css/${lesson.slug}`}
+                              onClick={handleLinkClick}
+                              className={`flex items-center justify-between px-4 py-2 text-[12px] sm:text-[13px] transition-colors cursor-pointer touch-manipulation group ${
+                                isActive
+                                  ? 'bg-[#04AA6D]/20 text-white font-bold border-l-4 border-[#04AA6D]'
+                                  : 'text-slate-200 hover:text-white hover:bg-slate-800/80 border-l-4 border-transparent'
+                              }`}
+                            >
+                              <span className="truncate flex-1 text-left">
+                                #{lesson.id}. {lesson.title}
+                              </span>
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            ) : pathname.startsWith('/js') || pathname.startsWith('/javascript') ? (
+              /* JavaScript ES6+ Lessons */
+              <div className="flex flex-col">
+                <div className="px-4 pt-2 pb-1 text-[11px] font-black uppercase tracking-wider text-[#04AA6D] border-b border-slate-800/80 mb-2 flex items-center gap-1.5">
+                  <span>JAVASCRIPT ES6+ ({jsLessons.length})</span>
+                </div>
+                {Array.from(new Set(jsLessons.map((l) => l.unit))).map((unitName, uIdx) => {
+                  const unitLessons = jsLessons.filter((l) => l.unit === unitName);
+                  return (
+                    <div key={uIdx} className="mb-2">
+                      <div className="px-4 pt-2 pb-1 text-[11px] font-bold uppercase tracking-wider text-slate-400 select-none">
+                        {unitName}
+                      </div>
+                      <div className="flex flex-col">
+                        {unitLessons.map((lesson) => {
+                          const isActive = pathname.includes(lesson.slug) || (pathname === '/js' && lesson.id === 1);
+                          return (
+                            <Link
+                              ref={isActive ? activeItemRef : undefined}
+                              key={lesson.id}
+                              href={`/js/${lesson.slug}`}
+                              onClick={handleLinkClick}
+                              className={`flex items-center justify-between px-4 py-2 text-[12px] sm:text-[13px] transition-colors cursor-pointer touch-manipulation group ${
+                                isActive
+                                  ? 'bg-[#04AA6D]/20 text-white font-bold border-l-4 border-[#04AA6D]'
+                                  : 'text-slate-200 hover:text-white hover:bg-slate-800/80 border-l-4 border-transparent'
+                              }`}
+                            >
+                              <span className="truncate flex-1 text-left">
+                                #{lesson.id}. {lesson.title}
+                              </span>
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            ) : pathname.startsWith('/react') ? (
+              /* React.js Lessons */
+              <div className="flex flex-col">
+                <div className="px-4 pt-2 pb-1 text-[11px] font-black uppercase tracking-wider text-[#04AA6D] border-b border-slate-800/80 mb-2 flex items-center gap-1.5">
+                  <span>REACT.JS ({reactLessons.length})</span>
+                </div>
+                {Array.from(new Set(reactLessons.map((l) => l.unit))).map((unitName, uIdx) => {
+                  const unitLessons = reactLessons.filter((l) => l.unit === unitName);
+                  return (
+                    <div key={uIdx} className="mb-2">
+                      <div className="px-4 pt-2 pb-1 text-[11px] font-bold uppercase tracking-wider text-slate-400 select-none">
+                        {unitName}
+                      </div>
+                      <div className="flex flex-col">
+                        {unitLessons.map((lesson) => {
+                          const isActive = pathname.includes(lesson.slug) || (pathname === '/react' && lesson.id === 1);
+                          return (
+                            <Link
+                              ref={isActive ? activeItemRef : undefined}
+                              key={lesson.id}
+                              href={`/react/${lesson.slug}`}
+                              onClick={handleLinkClick}
+                              className={`flex items-center justify-between px-4 py-2 text-[12px] sm:text-[13px] transition-colors cursor-pointer touch-manipulation group ${
+                                isActive
+                                  ? 'bg-[#04AA6D]/20 text-white font-bold border-l-4 border-[#04AA6D]'
+                                  : 'text-slate-200 hover:text-white hover:bg-slate-800/80 border-l-4 border-transparent'
+                              }`}
+                            >
+                              <span className="truncate flex-1 text-left">
+                                #{lesson.id}. {lesson.title}
+                              </span>
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            ) : pathname.startsWith('/nodejs') || pathname.startsWith('/node') ? (
+              /* Node.js & Express Lessons */
+              <div className="flex flex-col">
+                <div className="px-4 pt-2 pb-1 text-[11px] font-black uppercase tracking-wider text-[#04AA6D] border-b border-slate-800/80 mb-2 flex items-center gap-1.5">
+                  <span>NODE.JS & EXPRESS ({nodeLessons.length})</span>
+                </div>
+                {Array.from(new Set(nodeLessons.map((l) => l.unit))).map((unitName, uIdx) => {
+                  const unitLessons = nodeLessons.filter((l) => l.unit === unitName);
+                  return (
+                    <div key={uIdx} className="mb-2">
+                      <div className="px-4 pt-2 pb-1 text-[11px] font-bold uppercase tracking-wider text-slate-400 select-none">
+                        {unitName}
+                      </div>
+                      <div className="flex flex-col">
+                        {unitLessons.map((lesson) => {
+                          const isActive = pathname.includes(lesson.slug) || ((pathname === '/nodejs' || pathname === '/node') && lesson.id === 1);
+                          return (
+                            <Link
+                              ref={isActive ? activeItemRef : undefined}
+                              key={lesson.id}
+                              href={`/nodejs/${lesson.slug}`}
+                              onClick={handleLinkClick}
+                              className={`flex items-center justify-between px-4 py-2 text-[12px] sm:text-[13px] transition-colors cursor-pointer touch-manipulation group ${
+                                isActive
+                                  ? 'bg-[#04AA6D]/20 text-white font-bold border-l-4 border-[#04AA6D]'
+                                  : 'text-slate-200 hover:text-white hover:bg-slate-800/80 border-l-4 border-transparent'
+                              }`}
+                            >
+                              <span className="truncate flex-1 text-left">
+                                #{lesson.id}. {lesson.title}
+                              </span>
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
             ) : pathname.startsWith('/cli') ? (
               /* Windows 11 CLI Lessons */
               <div className="flex flex-col">
@@ -301,10 +486,8 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, onWidthChange, isCollaps
                 <div className="px-3 py-1 mb-2">
                   <Link
                     href="/terminal-fast-track"
-                    onClick={() => {
-                      if (window.innerWidth < 768) setIsOpen(false);
-                    }}
-                    className="flex items-center gap-2 px-3 py-2 rounded-xl bg-[#04AA6D]/20 border border-[#04AA6D] text-white font-bold text-xs hover:bg-[#04AA6D]/30 transition-all shadow-sm group"
+                    onClick={handleLinkClick}
+                    className="flex items-center gap-2 px-3 py-2 rounded-xl bg-[#04AA6D]/20 border border-[#04AA6D] text-white font-bold text-xs hover:bg-[#04AA6D]/30 transition-all shadow-sm group cursor-pointer"
                   >
                     <span className="text-[#04AA6D] text-sm">⚡</span>
                     <div className="flex flex-col text-left">
@@ -325,15 +508,14 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, onWidthChange, isCollaps
                           const isActive = pathname.includes(lesson.slug);
                           return (
                             <Link
+                              ref={isActive ? activeItemRef : undefined}
                               key={lesson.id}
                               href={`/cli/${lesson.slug}`}
-                              onClick={() => {
-                                if (window.innerWidth < 768) setIsOpen(false);
-                              }}
-                              className={`flex items-center justify-between px-4 py-1.5 text-[12px] sm:text-[13px] transition-colors group ${
+                              onClick={handleLinkClick}
+                              className={`flex items-center justify-between px-4 py-2 text-[12px] sm:text-[13px] transition-colors cursor-pointer touch-manipulation group ${
                                 isActive
                                   ? 'bg-[#04AA6D]/20 text-white font-bold border-l-4 border-[#04AA6D]'
-                                  : 'text-slate-200 hover:text-white hover:bg-slate-800/70 border-l-4 border-transparent'
+                                  : 'text-slate-200 hover:text-white hover:bg-slate-800/80 border-l-4 border-transparent'
                               }`}
                             >
                               <span className="truncate flex-1 text-left">
@@ -366,15 +548,14 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, onWidthChange, isCollaps
                           const isActive = pathname.includes(lesson.slug);
                           return (
                             <Link
+                              ref={isActive ? activeItemRef : undefined}
                               key={lesson.id}
                               href={`/cpp/${lesson.slug}`}
-                              onClick={() => {
-                                if (window.innerWidth < 768) setIsOpen(false);
-                              }}
-                              className={`flex items-center justify-between px-4 py-1.5 text-[12px] sm:text-[13px] transition-colors group ${
+                              onClick={handleLinkClick}
+                              className={`flex items-center justify-between px-4 py-2 text-[12px] sm:text-[13px] transition-colors cursor-pointer touch-manipulation group ${
                                 isActive
                                   ? 'bg-[#04AA6D]/20 text-white font-bold border-l-4 border-[#04AA6D]'
-                                  : 'text-slate-200 hover:text-white hover:bg-slate-800/70 border-l-4 border-transparent'
+                                  : 'text-slate-200 hover:text-white hover:bg-slate-800/80 border-l-4 border-transparent'
                               }`}
                             >
                               <span className="truncate flex-1 text-left">
@@ -389,26 +570,62 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, onWidthChange, isCollaps
                 })}
               </div>
             ) : pathname.startsWith('/git') ? (
-              /* Git Steps */
-              <div className="flex flex-col gap-0.5 text-left px-2">
-                <span className="px-2 py-1 text-[11px] font-black uppercase tracking-wider text-slate-400 border-b border-slate-800/60 mb-1 block">
-                  Git Commands (40)
-                </span>
-                {GIT_SIDEBAR_STEPS.map((step, idx) => {
-                  const Icon = step.icon;
+              /* Git & GitHub Lessons */
+              <div className="flex flex-col">
+                <div className="px-4 pt-2 pb-1 text-[11px] font-black uppercase tracking-wider text-[#04AA6D] border-b border-slate-800/80 mb-2 flex items-center gap-1.5">
+                  <GitBranch size={13} className="text-[#04AA6D]" />
+                  <span>GIT & GITHUB ({gitLessons.length})</span>
+                </div>
+                <div className="px-3 py-1 mb-2">
+                  <Link
+                    href="/git"
+                    onClick={handleLinkClick}
+                    className="flex items-center gap-2 px-3 py-2 rounded-xl bg-[#04AA6D]/20 border border-[#04AA6D] text-white font-bold text-xs hover:bg-[#04AA6D]/30 transition-all shadow-sm group cursor-pointer"
+                  >
+                    <span className="text-[#04AA6D] text-sm">⚡</span>
+                    <div className="flex flex-col text-left">
+                      <span className="text-white text-xs font-bold">Interactive Simulator</span>
+                      <span className="text-[10px] text-slate-300 font-normal">Practice Git Terminal</span>
+                    </div>
+                  </Link>
+                </div>
+                {Array.from(new Set(gitLessons.map((l) => l.unit))).map((unitName, uIdx) => {
+                  const unitLessons = gitLessons.filter((l) => l.unit === unitName);
                   return (
-                    <Link
-                      key={step.id}
-                      href="/git"
-                      onClick={() => { if (window.innerWidth < 768) setIsOpen(false); }}
-                      className="flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-semibold text-slate-300 hover:bg-slate-800/60 hover:text-white transition-all"
-                    >
-                      <Icon size={12} className="shrink-0 text-slate-500" />
-                      <span className="truncate flex-1 text-left">{idx + 1}. {step.title}</span>
-                    </Link>
+                    <div key={uIdx} className="mb-2">
+                      <div className="px-4 pt-2 pb-1 text-[11px] font-bold uppercase tracking-wider text-slate-400 select-none">
+                        {unitName}
+                      </div>
+                      <div className="flex flex-col">
+                        {unitLessons.map((lesson) => {
+                          const isActive = pathname.includes(lesson.slug) || (pathname === '/git' && lesson.id === 1);
+                          return (
+                            <Link
+                              ref={isActive ? activeItemRef : undefined}
+                              key={lesson.id}
+                              href={`/git/${lesson.slug}`}
+                              onClick={handleLinkClick}
+                              className={`flex items-center justify-between px-4 py-2 text-[12px] sm:text-[13px] transition-colors cursor-pointer touch-manipulation group ${
+                                isActive
+                                  ? 'bg-[#04AA6D]/25 text-white font-black border-l-4 border-[#04AA6D] shadow-inner'
+                                  : 'text-slate-200 hover:text-white hover:bg-slate-800/80 border-l-4 border-transparent'
+                              }`}
+                            >
+                              <span className="truncate flex-1 text-left">
+                                #{lesson.id}. {lesson.title}
+                              </span>
+                              {isActive && (
+                                <span className="w-2 h-2 rounded-full bg-[#04AA6D] shadow-[0_0_8px_#04AA6D] shrink-0 ml-1.5" />
+                              )}
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    </div>
                   );
                 })}
               </div>
+
             ) : (
               /* Phase Course Chapters */
               (() => {
@@ -419,13 +636,14 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, onWidthChange, isCollaps
                   const isCompleted = !!completedChapters[chapter.id];
                   return (
                     <Link
+                      ref={isActive ? activeItemRef : undefined}
                       key={chapter.id}
                       href={getChapterUrl(chapter.id)}
-                      onClick={() => { if (window.innerWidth < 768) setIsOpen(false); }}
-                      className={`flex items-center justify-between px-4 py-2 text-xs sm:text-[13px] font-medium transition-colors ${
+                      onClick={handleLinkClick}
+                      className={`flex items-center justify-between px-4 py-2 text-xs sm:text-[13px] font-medium transition-colors cursor-pointer touch-manipulation ${
                         isActive
                           ? 'bg-[#04AA6D]/20 text-white font-bold border-l-4 border-[#04AA6D]'
-                          : 'text-slate-300 hover:bg-slate-800/60 hover:text-white border-l-4 border-transparent'
+                          : 'text-slate-300 hover:bg-slate-800/80 hover:text-white border-l-4 border-transparent'
                       }`}
                     >
                       <span className="truncate flex-1 text-left">
@@ -447,3 +665,5 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, onWidthChange, isCollaps
 };
 
 export default BookSidebar;
+
+

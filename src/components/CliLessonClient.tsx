@@ -31,8 +31,9 @@ const NAV_LINKS = [
   { label: "⚡ Essential Commands", href: "/cli/essential-cmd-commands" },
   { label: "🚀 Useful Commands", href: "/cli/most-useful-cmd-commands-in-windows" },
   { label: "🧠 CLI Quiz", href: "/cli/quiz" },
-  { label: "📜 Curriculum", href: "/curriculum" },
+  { label: "🗺️ Developer Roadmap", href: "/full-stack-web-development-roadmap" },
 ];
+
 
 export default function CliLessonClient({ lesson }: CliLessonClientProps) {
   const router = useRouter();

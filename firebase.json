@@ -6,7 +6,7 @@
     {
       "target": "production",
       "public": "out",
-      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**", "**/*.apk", "**/*.exe", "**/*.dmg"],
       "cleanUrls": true,
       "trailingSlash": true,
       "headers": [
@@ -46,7 +46,8 @@
     {
       "target": "staging",
       "public": "out",
-      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**", "**/*.apk", "**/*.exe", "**/*.dmg"],
+
       "cleanUrls": true,
       "trailingSlash": true,
       "redirects": [
