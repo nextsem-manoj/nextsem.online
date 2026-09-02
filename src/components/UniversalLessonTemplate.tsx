@@ -773,7 +773,7 @@ Execution successful! Output verified on Windows 11 Pro x86_64.
   }
 
   return (
-    <div className="space-y-4 text-left max-w-5xl mx-auto px-2 sm:px-4">
+    <div className="space-y-4 text-left max-w-5xl mx-auto px-2 sm:px-4 pb-20 md:pb-8">
       {/* Unit & Lesson Counter Badge Row */}
       <div className="flex items-center justify-between gap-3 pt-2">
         <span className="text-xs font-black uppercase tracking-wider text-[#04AA6D] border border-[#04AA6D]/30 bg-[#04AA6D]/10 px-3 py-1 rounded-full">
@@ -783,6 +783,71 @@ Execution successful! Output verified on Windows 11 Pro x86_64.
           <CheckCircle2 size={12} />
           <span>Lesson #{lesson.id} / {totalLessonsInSubject}</span>
         </span>
+      </div>
+
+      {/* Top Desktop Navigation & Controls Bar */}
+      <div className="hidden md:flex items-center justify-between gap-3 bg-[#0e1322] border border-slate-800 rounded-xl px-4 py-2.5 shadow-md">
+        {/* Left: Previous Lesson */}
+        {prevLesson ? (
+          <Link
+            href={`${subjectDashboardUrl}/${prevLesson.slug}`}
+            onClick={async () => {
+              await triggerNavigationAd();
+            }}
+            className="px-3.5 py-1.5 bg-[#141b30] hover:bg-[#1b2542] border border-slate-700/80 hover:border-[#04AA6D]/50 text-slate-200 hover:text-white rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer shadow-xs group"
+          >
+            <ChevronLeft size={15} className="stroke-[2.5] text-[#04AA6D] group-hover:-translate-x-0.5 transition-transform" />
+            <span>Previous</span>
+          </Link>
+        ) : (
+          <div className="px-3.5 py-1.5 bg-slate-900/40 text-slate-600 rounded-lg text-xs font-bold flex items-center gap-1.5 border border-slate-850 cursor-not-allowed select-none">
+            <ChevronLeft size={15} />
+            <span>Previous</span>
+          </div>
+        )}
+
+        {/* Center: Roadmap / Dashboard Link */}
+        <Link
+          href={subjectDashboardUrl}
+          className="px-4 py-1.5 bg-[#04AA6D]/15 hover:bg-[#04AA6D]/25 border border-[#04AA6D]/40 text-[#04AA6D] hover:text-emerald-300 rounded-lg text-xs font-extrabold uppercase tracking-wider transition-all flex items-center gap-2 shadow-xs cursor-pointer"
+        >
+          <BrandLogoIcon size={14} roundedClass="rounded-xs" />
+          <span>{subjectTitle.replace(/Modern Web|Web Development|Programming/gi, '').trim()} Roadmap</span>
+        </Link>
+
+        {/* Right: Bookmark + Next Lesson */}
+        <div className="flex items-center gap-2">
+          <button
+            onClick={toggleBookmark}
+            className={`px-3 py-1.5 rounded-lg border transition-all cursor-pointer flex items-center gap-1.5 text-xs font-bold shadow-xs ${
+              isBookmarked
+                ? "bg-[#04AA6D]/20 border-[#04AA6D]/60 text-[#04AA6D]"
+                : "bg-[#141b30] border-slate-700/80 hover:border-slate-600 text-slate-300 hover:text-white"
+            }`}
+            title={isBookmarked ? "Remove Bookmark" : "Bookmark Lesson"}
+          >
+            <Bookmark size={14} className={`stroke-[2.5] ${isBookmarked ? "fill-[#04AA6D] text-[#04AA6D]" : ""}`} />
+            <span>{isBookmarked ? "Saved" : "Bookmark"}</span>
+          </button>
+
+          {nextLesson ? (
+            <Link
+              href={`${subjectDashboardUrl}/${nextLesson.slug}`}
+              onClick={async () => {
+                await triggerNavigationAd();
+              }}
+              className="px-4 py-1.5 bg-[#04AA6D] hover:bg-[#039861] text-white rounded-lg text-xs font-black uppercase tracking-wider transition-all flex items-center gap-1.5 shadow-md shadow-[#04AA6D]/20 cursor-pointer group"
+            >
+              <span>Next</span>
+              <ChevronRight size={15} className="stroke-[3] group-hover:translate-x-0.5 transition-transform" />
+            </Link>
+          ) : (
+            <div className="px-3.5 py-1.5 bg-slate-900/40 text-slate-600 rounded-lg text-xs font-bold flex items-center gap-1.5 border border-slate-850 cursor-not-allowed select-none">
+              <span>Next</span>
+              <ChevronRight size={15} />
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Main Title */}
@@ -807,7 +872,7 @@ Execution successful! Output verified on Windows 11 Pro x86_64.
         <div className="flex items-center gap-3">
           <ShareButton title={lesson.title} />
           <Link href={subjectDashboardUrl} className="text-xs font-bold text-[#04AA6D] hover:underline flex items-center gap-1">
-            <span>View Full Curriculum</span>
+            <span>View Full Roadmap</span>
             <ChevronRight size={14} />
           </Link>
         </div>
@@ -821,19 +886,33 @@ Execution successful! Output verified on Windows 11 Pro x86_64.
       </div>
 
       {/* Bottom Desktop Navigation Row */}
-      <div className="hidden md:flex items-center justify-between gap-4 border-t border-slate-800/60 pt-6 mt-8">
+      <div className="hidden md:flex items-center justify-between gap-4 border-t border-slate-800/80 pt-6 mt-8">
         {prevLesson ? (
           <Link
             href={`${subjectDashboardUrl}/${prevLesson.slug}`}
             onClick={async () => {
               await triggerNavigationAd();
             }}
-            className="px-5 py-2.5 bg-[#04AA6D] hover:bg-[#039861] text-white rounded-lg text-xs font-black uppercase tracking-wider transition-all flex items-center gap-1.5 shadow-md shadow-[#04AA6D]/20 cursor-pointer"
+            className="px-5 py-2.5 bg-[#141b30] hover:bg-[#1b2542] border border-slate-700 hover:border-[#04AA6D]/50 text-white rounded-xl text-xs font-bold tracking-wider uppercase transition-all flex items-center gap-2 shadow-md cursor-pointer group"
           >
-            <ChevronLeft size={16} className="stroke-[3]" />
+            <ChevronLeft size={16} className="stroke-[3] text-[#04AA6D] group-hover:-translate-x-1 transition-transform" />
             <span>Previous Lesson</span>
           </Link>
-        ) : <div />}
+        ) : (
+          <div className="px-5 py-2.5 bg-slate-900/40 text-slate-600 rounded-xl text-xs font-bold uppercase tracking-wider flex items-center gap-2 border border-slate-850 cursor-not-allowed select-none">
+            <ChevronLeft size={16} />
+            <span>Previous Lesson</span>
+          </div>
+        )}
+
+        {/* Center: Subject Roadmap / Dashboard Button */}
+        <Link
+          href={subjectDashboardUrl}
+          className="px-6 py-2.5 bg-[#09101f] hover:bg-[#111a33] border-2 border-[#04AA6D] text-white hover:text-[#04AA6D] rounded-xl text-xs font-extrabold uppercase tracking-wider transition-all flex items-center gap-2 shadow-lg shadow-[#04AA6D]/15 cursor-pointer"
+        >
+          <BrandLogoIcon size={16} roundedClass="rounded-xs" />
+          <span>📁 View {subjectTitle.replace(/Modern Web|Web Development|Programming/gi, '').trim()} Roadmap</span>
+        </Link>
 
         {nextLesson ? (
           <Link
@@ -841,12 +920,17 @@ Execution successful! Output verified on Windows 11 Pro x86_64.
             onClick={async () => {
               await triggerNavigationAd();
             }}
-            className="px-5 py-2.5 bg-[#04AA6D] hover:bg-[#039861] text-white rounded-lg text-xs font-black uppercase tracking-wider transition-all flex items-center gap-1.5 shadow-md shadow-[#04AA6D]/20 cursor-pointer"
+            className="px-6 py-2.5 bg-[#04AA6D] hover:bg-[#039861] text-white rounded-xl text-xs font-black uppercase tracking-wider transition-all flex items-center gap-2 shadow-lg shadow-[#04AA6D]/25 cursor-pointer group"
           >
             <span>Next Lesson</span>
-            <ChevronRight size={16} className="stroke-[3]" />
+            <ChevronRight size={16} className="stroke-[3] group-hover:translate-x-1 transition-transform" />
           </Link>
-        ) : <div />}
+        ) : (
+          <div className="px-5 py-2.5 bg-slate-900/40 text-slate-600 rounded-xl text-xs font-bold uppercase tracking-wider flex items-center gap-2 border border-slate-850 cursor-not-allowed select-none">
+            <span>Next Lesson</span>
+            <ChevronRight size={16} />
+          </div>
+        )}
       </div>
 
       {/* Lightbox Image Zoom Modal */}

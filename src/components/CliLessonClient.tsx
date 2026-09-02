@@ -18,6 +18,7 @@ import { generateAndDownloadLessonPdf } from "@/lib/pdfHelper";
 import { ensure50Sentences } from "@/lib/lessonEnricher";
 import CopyableCommand from "./CopyableCommand";
 import ShareButton from "./ShareButton";
+import BrandLogoIcon from "./BrandLogoIcon";
 import { saveLastLesson } from "@/lib/userProgressSync";
 import { auth } from "@/lib/firebase";
 
@@ -309,9 +310,53 @@ export default function CliLessonClient({ lesson }: CliLessonClientProps) {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 pb-20 md:pb-8">
       {/* Top Banner Ad */}
       <AdSenseBanner />
+
+      {/* Top Desktop Navigation & Controls Bar */}
+      <div className="hidden md:flex items-center justify-between gap-3 bg-[#0e1322] border border-slate-800 rounded-xl px-4 py-2.5 shadow-md">
+        {/* Left: Previous Lesson */}
+        {prevLesson ? (
+          <button
+            onClick={() => { window.location.href = prevLesson.id === 1 ? "/cli/introduction-to-command-line-interface-cli-basics" : `/cli/${prevLesson.slug}`; }}
+            className="px-3.5 py-1.5 bg-[#141b30] hover:bg-[#1b2542] border border-slate-700/80 hover:border-[#04AA6D]/50 text-slate-200 hover:text-white rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer shadow-xs group"
+          >
+            <ChevronLeft size={15} className="stroke-[2.5] text-[#04AA6D] group-hover:-translate-x-0.5 transition-transform" />
+            <span>Previous</span>
+          </button>
+        ) : (
+          <div className="px-3.5 py-1.5 bg-slate-900/40 text-slate-600 rounded-lg text-xs font-bold flex items-center gap-1.5 border border-slate-850 cursor-not-allowed select-none">
+            <ChevronLeft size={15} />
+            <span>Previous</span>
+          </div>
+        )}
+
+        {/* Center: Roadmap / Dashboard Link */}
+        <Link
+          href="/cli"
+          className="px-4 py-1.5 bg-[#04AA6D]/15 hover:bg-[#04AA6D]/25 border border-[#04AA6D]/40 text-[#04AA6D] hover:text-emerald-300 rounded-lg text-xs font-extrabold uppercase tracking-wider transition-all flex items-center gap-2 shadow-xs cursor-pointer"
+        >
+          <BrandLogoIcon size={14} roundedClass="rounded-xs" />
+          <span>Windows CLI Roadmap</span>
+        </Link>
+
+        {/* Right: Next Lesson */}
+        {nextLesson ? (
+          <button
+            onClick={() => { window.location.href = `/cli/${nextLesson.slug}`; }}
+            className="px-4 py-1.5 bg-[#04AA6D] hover:bg-[#039861] text-white rounded-lg text-xs font-black uppercase tracking-wider transition-all flex items-center gap-1.5 shadow-md shadow-[#04AA6D]/20 cursor-pointer group"
+          >
+            <span>Next</span>
+            <ChevronRight size={15} className="stroke-[3] group-hover:translate-x-0.5 transition-transform" />
+          </button>
+        ) : (
+          <div className="px-3.5 py-1.5 bg-slate-900/40 text-slate-600 rounded-lg text-xs font-bold flex items-center gap-1.5 border border-slate-850 cursor-not-allowed select-none">
+            <span>Next</span>
+            <ChevronRight size={15} />
+          </div>
+        )}
+      </div>
 
       {/* ── SPACIOUS LESSON TITLE & METADATA HEADER ── */}
       <div className="py-5 border-b border-slate-800/80 text-left space-y-3">
@@ -360,10 +405,10 @@ export default function CliLessonClient({ lesson }: CliLessonClientProps) {
               variant="icon"
             />
             <Link
-              href="/curriculum"
+              href="/cli"
               className="inline-flex items-center gap-1.5 text-xs font-bold text-[#04AA6D] hover:text-white transition-colors"
             >
-              <span>View Full Curriculum</span>
+              <span>View Full Roadmap</span>
               <ChevronRight size={14} />
             </Link>
           </div>
@@ -559,7 +604,48 @@ export default function CliLessonClient({ lesson }: CliLessonClientProps) {
       <div ref={bottomSentinelRef} className="h-1 w-full" />
 
       {/* ── FOOTER PAGINATION BUTTONS (visible only after user reaches end) ── */}
-      <div className={`flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-b border-slate-800/80 py-6 my-6 transition-all duration-500 ${reachedBottom ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6 pointer-events-none"}`}>
+      <div className={`hidden md:flex items-center justify-between gap-4 border-t border-slate-800/80 pt-6 mt-8 ${reachedBottom ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6 pointer-events-none"}`}>
+        {prevLesson ? (
+          <button
+            onClick={() => { window.location.href = prevLesson.id === 1 ? "/cli/introduction-to-command-line-interface-cli-basics" : `/cli/${prevLesson.slug}`; }}
+            className="px-5 py-2.5 bg-[#141b30] hover:bg-[#1b2542] border border-slate-700 hover:border-[#04AA6D]/50 text-white rounded-xl text-xs font-bold tracking-wider uppercase transition-all flex items-center gap-2 shadow-md cursor-pointer group"
+          >
+            <ChevronLeft size={16} className="stroke-[3] text-[#04AA6D] group-hover:-translate-x-1 transition-transform" />
+            <span>Previous Lesson</span>
+          </button>
+        ) : (
+          <div className="px-5 py-2.5 bg-slate-900/40 text-slate-600 rounded-xl text-xs font-bold uppercase tracking-wider flex items-center gap-2 border border-slate-850 cursor-not-allowed select-none">
+            <ChevronLeft size={16} />
+            <span>Previous Lesson</span>
+          </div>
+        )}
+
+        {/* Center: CLI Roadmap / Dashboard Button */}
+        <Link
+          href="/cli"
+          className="px-6 py-2.5 bg-[#09101f] hover:bg-[#111a33] border-2 border-[#04AA6D] text-white hover:text-[#04AA6D] rounded-xl text-xs font-extrabold uppercase tracking-wider transition-all flex items-center gap-2 shadow-lg shadow-[#04AA6D]/15 cursor-pointer"
+        >
+          <Terminal size={16} />
+          <span>📁 View Windows CLI Roadmap</span>
+        </Link>
+
+        {nextLesson ? (
+          <button
+            onClick={() => { window.location.href = `/cli/${nextLesson.slug}`; }}
+            className="px-6 py-2.5 bg-[#04AA6D] hover:bg-[#039861] text-white rounded-xl text-xs font-black uppercase tracking-wider transition-all flex items-center gap-2 shadow-lg shadow-[#04AA6D]/25 cursor-pointer group"
+          >
+            <span>Next Lesson</span>
+            <ChevronRight size={16} className="stroke-[3] group-hover:translate-x-1 transition-transform" />
+          </button>
+        ) : (
+          <div className="px-5 py-2.5 bg-slate-900/40 text-slate-600 rounded-xl text-xs font-bold uppercase tracking-wider flex items-center gap-2 border border-slate-850 cursor-not-allowed select-none">
+            <span>Next Lesson</span>
+            <ChevronRight size={16} />
+          </div>
+        )}
+      </div>
+
+      <div className={`md:hidden flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-b border-slate-800/80 py-6 my-6 transition-all duration-500 ${reachedBottom ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6 pointer-events-none"}`}>
         {prevLesson ? (
           <button
             onClick={() => { window.location.href = prevLesson.id === 1 ? "/cli/introduction-to-command-line-interface-cli-basics" : `/cli/${prevLesson.slug}`; }}
@@ -575,7 +661,6 @@ export default function CliLessonClient({ lesson }: CliLessonClientProps) {
           </div>
         )}
 
-        {/* Center Lesson Number / 1000 Square Badge + Green Tick */}
         <div className={`px-3 py-1.5 bg-[#0c1328] border rounded-lg text-white font-extrabold text-xs shadow-md flex items-center gap-1.5 ${
           completedChapters[lesson.slug] || completedChapters[lesson.id] || completedChapters[`cli_${lesson.id}`]
             ? 'border-[#04AA6D] bg-[#04AA6D]/15'
@@ -603,7 +688,6 @@ export default function CliLessonClient({ lesson }: CliLessonClientProps) {
           </div>
         )}
       </div>
-
 
       {/* Hidden print container containing the current lesson */}
       <div id="print-section" className="hidden prose prose-slate dark:prose-invert max-w-none text-left">
