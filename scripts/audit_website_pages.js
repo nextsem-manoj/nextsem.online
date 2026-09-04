@@ -55,8 +55,8 @@ const dynamicLessonRoutes = [
   '/html/download-install-vscode-windows-11-setup-guide',
   '/html/html-document-structure-boilerplate-explanation',
   // CSS
-  '/css/vscode-live-css-setup-windows-11-devtools',
-  '/css/what-is-css3-cascading-style-sheets-intro'
+  '/css/css-introduction-syntax-selectors',
+  '/css/css-colors-rgb-hex-hsl-mastery'
 ];
 
 const allRoutes = [

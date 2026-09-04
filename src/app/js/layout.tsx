@@ -58,10 +58,10 @@ function JsLayoutContent({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     setMounted(true);
+    setSidebarOpen(false);
     const checkMobile = () => {
       const mobile = window.innerWidth < 768;
       setIsMobile(mobile);
-      setSidebarOpen(!mobile);
     };
     checkMobile();
     window.addEventListener("resize", checkMobile);
@@ -74,8 +74,8 @@ function JsLayoutContent({ children }: { children: React.ReactNode }) {
     <div className="min-h-screen flex flex-col bg-[#060c18] text-foreground font-sans selection:bg-[#04AA6D]/30 transition-colors duration-300">
       <NsSubjectNavBar currentUser={currentUser} onSignIn={handleSignIn} onToggleSidebar={() => setSidebarOpen(prev => !prev)} />
       <div
-        className="flex-1 flex flex-col md:flex-row w-full min-w-0 bg-[#17181c] transition-all duration-300"
-        style={mounted && !isMobile && sidebarOpen ? { paddingLeft: `calc(10% + ${effectiveSidebarWidth}px)` } : undefined}
+        className="flex-1 flex flex-col md:flex-row w-full min-w-0 bg-[#060c18] transition-all duration-300"
+        style={mounted && !isMobile && sidebarOpen ? { paddingLeft: `${effectiveSidebarWidth}px` } : undefined}
       >
         <BookSidebar
           isOpen={sidebarOpen}
@@ -86,7 +86,7 @@ function JsLayoutContent({ children }: { children: React.ReactNode }) {
           onCollapsedChange={setSidebarCollapsed}
         />
 
-        <main className="flex-1 px-3 py-3 sm:px-6 md:px-8 lg:px-10 w-full flex flex-col relative min-w-0 bg-[#060c18]">
+        <main className="flex-1 px-3 py-3 sm:px-6 md:px-8 w-full flex flex-col relative min-w-0 bg-[#060c18]">
           <div
             ref={scrollContainerRef}
             className="flex-1 py-2 md:py-4 relative z-10 transition-all duration-300 w-full"

@@ -65,9 +65,9 @@ export function isCliLessonPath(pathname: string): boolean {
 }
 
 export function getChapterUrl(chapterId: string): string {
-  if (chapterId === "p1-1-intro-and-text") return "/html";
-  if (chapterId === "p2-1-selectors") return "/css";
-  if (chapterId === "p0-2-terminal") return "/cli";
+  if (chapterId === "p1-1-intro-and-text") return "/html/";
+  if (chapterId === "p2-1-selectors") return "/css/";
+  if (chapterId === "p0-2-terminal") return "/cli/";
   
   if (chapterId.startsWith("p1-")) {
     // Map phase chapter key back to the first lesson slug of that unit
@@ -81,16 +81,16 @@ export function getChapterUrl(chapterId: string): string {
     };
     const slug = phaseMap[chapterId];
     if (slug) {
-      if (chapterId === "p1-1-intro-and-text") return "/html";
-      return `/html/${slug}`;
+      if (chapterId === "p1-1-intro-and-text") return "/html/";
+      return `/html/${slug}/`;
     }
   }
 
   // Check if it matches a CLI lesson
   const cliLesson = cliLessons.find(l => l.originalChapterId === chapterId || l.slug === chapterId);
   if (cliLesson) {
-    return `/cli/${cliLesson.slug}`;
+    return `/cli/${cliLesson.slug}/`;
   }
 
-  return `/book/${chapterId}`;
+  return `/book/${chapterId}/`;
 }

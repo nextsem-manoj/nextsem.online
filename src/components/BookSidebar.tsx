@@ -172,10 +172,10 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, isCollapsed }: BookSideb
         ref={scrollContainerRef}
         style={{ width: `${effectiveWidth}px` }}
         className={`
-          fixed top-0 md:top-[98px] left-0 md:left-[10%] h-full md:h-[calc(100vh-98px)]
-          bg-[#0c1328] text-white border-r md:border-l border-slate-800 shadow-2xl
+          fixed top-0 md:top-[98px] left-0 h-full md:h-[calc(100vh-98px)]
+          bg-[#0c1328] text-white border-r border-slate-800 shadow-2xl
           transition-transform duration-300 z-50 md:z-30 overflow-y-auto overflow-x-hidden shrink-0 overscroll-contain
-          ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
+          ${isOpen ? 'translate-x-0' : '-translate-x-full'}
         `}
       >
         <div className="flex flex-col min-h-full py-2">
@@ -272,13 +272,14 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, isCollapsed }: BookSideb
                         <div className="flex flex-col space-y-0.5 p-1.5 bg-[#090f24]/70">
                           {filteredLessons.map((lesson) => {
                             const isActive = (lesson.slug && pathname.includes(lesson.slug)) || (pathname === '/html' && lesson.id === 0);
-                            const lessonHref = lesson.id === 0 ? '/html' : `/html/${lesson.slug}`;
+                            const lessonHref = lesson.id === 0 ? '/html/' : `/html/${lesson.slug}/`;
 
                             return (
                               <Link
                                 ref={isActive ? activeItemRef : undefined}
                                 key={lesson.id}
                                 href={lessonHref}
+                                prefetch={true}
                                 onClick={handleLinkClick}
                                 className={`flex items-center justify-between px-3 py-2 text-[12px] sm:text-[13px] rounded-lg transition-all cursor-pointer touch-manipulation group ${
                                   isActive
@@ -357,7 +358,8 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, isCollapsed }: BookSideb
                               <Link
                                 ref={isActive ? activeItemRef : undefined}
                                 key={lesson.id}
-                                href={`/css/${lesson.slug}`}
+                                href={`/css/${lesson.slug}/`}
+                                prefetch={true}
                                 onClick={handleLinkClick}
                                 className={`flex items-center justify-between px-3 py-2 text-[12px] sm:text-[13px] rounded-lg transition-all cursor-pointer touch-manipulation group ${
                                   isActive
@@ -367,7 +369,7 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, isCollapsed }: BookSideb
                               >
                                 <span className="truncate flex-1 text-left flex items-center min-w-0 mr-1.5">
                                   {isActive && <span className="w-2 h-2 rounded-full bg-white animate-pulse shrink-0 mr-2 shadow-xs" />}
-                                  <span className="truncate">#{lesson.id}. {lesson.title}</span>
+                                  <span className="truncate">{lesson.id}. {lesson.title}</span>
                                 </span>
                                 {isActive && (
                                   <span className="text-[9px] font-black uppercase tracking-wider bg-white text-[#04AA6D] px-1.5 py-0.5 rounded shadow-xs shrink-0 font-mono">
@@ -434,7 +436,8 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, isCollapsed }: BookSideb
                               <Link
                                 ref={isActive ? activeItemRef : undefined}
                                 key={lesson.id}
-                                href={`/js/${lesson.slug}`}
+                                href={`/js/${lesson.slug}/`}
+                                prefetch={true}
                                 onClick={handleLinkClick}
                                 className={`flex items-center justify-between px-3 py-2 text-[12px] sm:text-[13px] rounded-lg transition-all cursor-pointer touch-manipulation group ${
                                   isActive
@@ -444,7 +447,7 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, isCollapsed }: BookSideb
                               >
                                 <span className="truncate flex-1 text-left flex items-center min-w-0 mr-1.5">
                                   {isActive && <span className="w-2 h-2 rounded-full bg-white animate-pulse shrink-0 mr-2 shadow-xs" />}
-                                  <span className="truncate">#{lesson.id}. {lesson.title}</span>
+                                  <span className="truncate">{lesson.id}. {lesson.title}</span>
                                 </span>
                                 {isActive && (
                                   <span className="text-[9px] font-black uppercase tracking-wider bg-white text-[#04AA6D] px-1.5 py-0.5 rounded shadow-xs shrink-0 font-mono">
@@ -511,7 +514,8 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, isCollapsed }: BookSideb
                               <Link
                                 ref={isActive ? activeItemRef : undefined}
                                 key={lesson.id}
-                                href={`/react/${lesson.slug}`}
+                                href={`/react/${lesson.slug}/`}
+                                prefetch={true}
                                 onClick={handleLinkClick}
                                 className={`flex items-center justify-between px-3 py-2 text-[12px] sm:text-[13px] rounded-lg transition-all cursor-pointer touch-manipulation group ${
                                   isActive
@@ -521,7 +525,7 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, isCollapsed }: BookSideb
                               >
                                 <span className="truncate flex-1 text-left flex items-center min-w-0 mr-1.5">
                                   {isActive && <span className="w-2 h-2 rounded-full bg-white animate-pulse shrink-0 mr-2 shadow-xs" />}
-                                  <span className="truncate">#{lesson.id}. {lesson.title}</span>
+                                  <span className="truncate">{lesson.id}. {lesson.title}</span>
                                 </span>
                                 {isActive && (
                                   <span className="text-[9px] font-black uppercase tracking-wider bg-white text-[#04AA6D] px-1.5 py-0.5 rounded shadow-xs shrink-0 font-mono">
@@ -588,7 +592,8 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, isCollapsed }: BookSideb
                               <Link
                                 ref={isActive ? activeItemRef : undefined}
                                 key={lesson.id}
-                                href={`/nodejs/${lesson.slug}`}
+                                href={`/nodejs/${lesson.slug}/`}
+                                prefetch={true}
                                 onClick={handleLinkClick}
                                 className={`flex items-center justify-between px-3 py-2 text-[12px] sm:text-[13px] rounded-lg transition-all cursor-pointer touch-manipulation group ${
                                   isActive
@@ -598,7 +603,7 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, isCollapsed }: BookSideb
                               >
                                 <span className="truncate flex-1 text-left flex items-center min-w-0 mr-1.5">
                                   {isActive && <span className="w-2 h-2 rounded-full bg-white animate-pulse shrink-0 mr-2 shadow-xs" />}
-                                  <span className="truncate">#{lesson.id}. {lesson.title}</span>
+                                  <span className="truncate">{lesson.id}. {lesson.title}</span>
                                 </span>
                                 {isActive && (
                                   <span className="text-[9px] font-black uppercase tracking-wider bg-white text-[#04AA6D] px-1.5 py-0.5 rounded shadow-xs shrink-0 font-mono">
@@ -679,7 +684,8 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, isCollapsed }: BookSideb
                               <Link
                                 ref={isActive ? activeItemRef : undefined}
                                 key={lesson.id}
-                                href={`/cli/${lesson.slug}`}
+                                href={`/cli/${lesson.slug}/`}
+                                prefetch={true}
                                 onClick={handleLinkClick}
                                 className={`flex items-center justify-between px-3 py-2 text-[12px] sm:text-[13px] rounded-lg transition-all cursor-pointer touch-manipulation group ${
                                   isActive
@@ -689,7 +695,7 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, isCollapsed }: BookSideb
                               >
                                 <span className="truncate flex-1 text-left flex items-center min-w-0 mr-1.5">
                                   {isActive && <span className="w-2 h-2 rounded-full bg-white animate-pulse shrink-0 mr-2 shadow-xs" />}
-                                  <span className="truncate">#{lesson.id}. {lesson.title.replace(/`([^`]+)`/g, '$1')}</span>
+                                  <span className="truncate">{lesson.id}. {lesson.title.replace(/`([^`]+)`/g, '$1')}</span>
                                 </span>
                                 {isActive && (
                                   <span className="text-[9px] font-black uppercase tracking-wider bg-white text-[#04AA6D] px-1.5 py-0.5 rounded shadow-xs shrink-0 font-mono">
@@ -756,7 +762,8 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, isCollapsed }: BookSideb
                               <Link
                                 ref={isActive ? activeItemRef : undefined}
                                 key={lesson.id}
-                                href={`/cpp/${lesson.slug}`}
+                                href={`/cpp/${lesson.slug}/`}
+                                prefetch={true}
                                 onClick={handleLinkClick}
                                 className={`flex items-center justify-between px-3 py-2 text-[12px] sm:text-[13px] rounded-lg transition-all cursor-pointer touch-manipulation group ${
                                   isActive
@@ -766,7 +773,7 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, isCollapsed }: BookSideb
                               >
                                 <span className="truncate flex-1 text-left flex items-center min-w-0 mr-1.5">
                                   {isActive && <span className="w-2 h-2 rounded-full bg-white animate-pulse shrink-0 mr-2 shadow-xs" />}
-                                  <span className="truncate">#{lesson.id}. {lesson.title.replace(/`([^`]+)`/g, '$1')}</span>
+                                  <span className="truncate">{lesson.id}. {lesson.title.replace(/`([^`]+)`/g, '$1')}</span>
                                 </span>
                                 {isActive && (
                                   <span className="text-[9px] font-black uppercase tracking-wider bg-white text-[#04AA6D] px-1.5 py-0.5 rounded shadow-xs shrink-0 font-mono">
@@ -790,7 +797,8 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, isCollapsed }: BookSideb
 
                 <div className="px-2 py-1 mb-2">
                   <Link
-                    href="/git"
+                    href="/git/"
+                    prefetch={true}
                     onClick={handleLinkClick}
                     className="flex items-center gap-2 px-3 py-2 rounded-xl bg-[#04AA6D]/20 border border-[#04AA6D] text-white font-bold text-xs hover:bg-[#04AA6D]/30 transition-all shadow-sm group cursor-pointer"
                   >
@@ -847,7 +855,8 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, isCollapsed }: BookSideb
                               <Link
                                 ref={isActive ? activeItemRef : undefined}
                                 key={lesson.id}
-                                href={`/git/${lesson.slug}`}
+                                href={`/git/${lesson.slug}/`}
+                                prefetch={true}
                                 onClick={handleLinkClick}
                                 className={`flex items-center justify-between px-3 py-2 text-[12px] sm:text-[13px] rounded-lg transition-all cursor-pointer touch-manipulation group ${
                                   isActive
@@ -857,7 +866,7 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, isCollapsed }: BookSideb
                               >
                                 <span className="truncate flex-1 text-left flex items-center min-w-0 mr-1.5">
                                   {isActive && <span className="w-2 h-2 rounded-full bg-white animate-pulse shrink-0 mr-2 shadow-xs" />}
-                                  <span className="truncate">#{lesson.id}. {lesson.title}</span>
+                                  <span className="truncate">{lesson.id}. {lesson.title}</span>
                                 </span>
                                 {isActive && (
                                   <span className="text-[9px] font-black uppercase tracking-wider bg-white text-[#04AA6D] px-1.5 py-0.5 rounded shadow-xs shrink-0 font-mono">
@@ -894,6 +903,7 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, isCollapsed }: BookSideb
                           ref={isActive ? activeItemRef : undefined}
                           key={chapter.id}
                           href={getChapterUrl(chapter.id)}
+                          prefetch={true}
                           onClick={handleLinkClick}
                           className={`flex items-center justify-between px-3.5 py-2 text-xs sm:text-[13px] rounded-lg font-medium transition-all cursor-pointer touch-manipulation ${
                             isActive

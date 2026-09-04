@@ -8,7 +8,7 @@
       "route": "/",
       "category": "Core Hub & Legal",
       "status": 200,
-      "sizeKb": "141.8",
+      "sizeKb": "129.2",
       "isHealthy": true,
       "statusNote": "Healthy (200 OK)"
     },
@@ -16,7 +16,7 @@
       "route": "/cli",
       "category": "Core Hub & Legal",
       "status": 200,
-      "sizeKb": "113.1",
+      "sizeKb": "155.9",
       "isHealthy": true,
       "statusNote": "Healthy (200 OK)"
     },
@@ -24,7 +24,7 @@
       "route": "/html",
       "category": "Core Hub & Legal",
       "status": 200,
-      "sizeKb": "101.4",
+      "sizeKb": "164.2",
       "isHealthy": true,
       "statusNote": "Healthy (200 OK)"
     },
@@ -32,7 +32,7 @@
       "route": "/css",
       "category": "Core Hub & Legal",
       "status": 200,
-      "sizeKb": "97.0",
+      "sizeKb": "89.5",
       "isHealthy": true,
       "statusNote": "Healthy (200 OK)"
     },
@@ -40,7 +40,7 @@
       "route": "/course",
       "category": "Core Hub & Legal",
       "status": 200,
-      "sizeKb": "49.9",
+      "sizeKb": "47.9",
       "isHealthy": true,
       "statusNote": "Healthy (200 OK)"
     },
@@ -48,7 +48,7 @@
       "route": "/curriculum",
       "category": "Core Hub & Legal",
       "status": 200,
-      "sizeKb": "97.7",
+      "sizeKb": "94.8",
       "isHealthy": true,
       "statusNote": "Healthy (200 OK)"
     },
@@ -56,7 +56,7 @@
       "route": "/git",
       "category": "Core Hub & Legal",
       "status": 200,
-      "sizeKb": "80.0",
+      "sizeKb": "74.8",
       "isHealthy": true,
       "statusNote": "Healthy (200 OK)"
     },
@@ -64,7 +64,7 @@
       "route": "/batch",
       "category": "Core Hub & Legal",
       "status": 200,
-      "sizeKb": "89.5",
+      "sizeKb": "87.9",
       "isHealthy": true,
       "statusNote": "Healthy (200 OK)"
     },
@@ -72,7 +72,7 @@
       "route": "/cpp",
       "category": "Core Hub & Legal",
       "status": 200,
-      "sizeKb": "105.2",
+      "sizeKb": "103.2",
       "isHealthy": true,
       "statusNote": "Healthy (200 OK)"
     },
@@ -80,7 +80,7 @@
       "route": "/visual-logic",
       "category": "Core Hub & Legal",
       "status": 200,
-      "sizeKb": "57.4",
+      "sizeKb": "55.3",
       "isHealthy": true,
       "statusNote": "Healthy (200 OK)"
     },
@@ -88,7 +88,7 @@
       "route": "/playground",
       "category": "Core Hub & Legal",
       "status": 200,
-      "sizeKb": "79.7",
+      "sizeKb": "77.4",
       "isHealthy": true,
       "statusNote": "Healthy (200 OK)"
     },
@@ -96,7 +96,7 @@
       "route": "/profile",
       "category": "Core Hub & Legal",
       "status": 200,
-      "sizeKb": "49.5",
+      "sizeKb": "47.5",
       "isHealthy": true,
       "statusNote": "Healthy (200 OK)"
     },
@@ -104,7 +104,7 @@
       "route": "/about",
       "category": "Core Hub & Legal",
       "status": 200,
-      "sizeKb": "68.1",
+      "sizeKb": "68.7",
       "isHealthy": true,
       "statusNote": "Healthy (200 OK)"
     },
@@ -112,7 +112,7 @@
       "route": "/contact",
       "category": "Core Hub & Legal",
       "status": 200,
-      "sizeKb": "54.0",
+      "sizeKb": "52.1",
       "isHealthy": true,
       "statusNote": "Healthy (200 OK)"
     },
@@ -120,7 +120,7 @@
       "route": "/privacy",
       "category": "Core Hub & Legal",
       "status": 200,
-      "sizeKb": "59.2",
+      "sizeKb": "57.1",
       "isHealthy": true,
       "statusNote": "Healthy (200 OK)"
     },
@@ -128,7 +128,7 @@
       "route": "/terms",
       "category": "Core Hub & Legal",
       "status": 200,
-      "sizeKb": "58.1",
+      "sizeKb": "56.0",
       "isHealthy": true,
       "statusNote": "Healthy (200 OK)"
     },
@@ -136,7 +136,7 @@
       "route": "/full-stack-web-development-roadmap",
       "category": "Core Hub & Legal",
       "status": 200,
-      "sizeKb": "110.7",
+      "sizeKb": "129.8",
       "isHealthy": true,
       "statusNote": "Healthy (200 OK)"
     },
@@ -144,7 +144,7 @@
       "route": "/3d-cube-animation",
       "category": "Interactive Animation & Tool",
       "status": 200,
-      "sizeKb": "84.1",
+      "sizeKb": "79.5",
       "isHealthy": true,
       "statusNote": "Healthy (200 OK)"
     },
@@ -152,7 +152,7 @@
       "route": "/animated-waves-animation",
       "category": "Interactive Animation & Tool",
       "status": 200,
-      "sizeKb": "82.7",
+      "sizeKb": "78.1",
       "isHealthy": true,
       "statusNote": "Healthy (200 OK)"
     },
@@ -160,7 +160,7 @@
       "route": "/audio-spectrum-animation",
       "category": "Interactive Animation & Tool",
       "status": 200,
-      "sizeKb": "90.6",
+      "sizeKb": "86.0",
       "isHealthy": true,
       "statusNote": "Healthy (200 OK)"
     },
@@ -168,7 +168,7 @@
       "route": "/black-hole-animation",
       "category": "Interactive Animation & Tool",
       "status": 200,
-      "sizeKb": "97.9",
+      "sizeKb": "93.4",
       "isHealthy": true,
       "statusNote": "Healthy (200 OK)"
     },
@@ -176,7 +176,7 @@
       "route": "/candle-flame-animation",
       "category": "Interactive Animation & Tool",
       "status": 200,
-      "sizeKb": "128.2",
+      "sizeKb": "123.7",
       "isHealthy": true,
       "statusNote": "Healthy (200 OK)"
     },
@@ -184,7 +184,7 @@
       "route": "/dna-helix-animation",
       "category": "Interactive Animation & Tool",
       "status": 200,
-      "sizeKb": "100.0",
+      "sizeKb": "95.5",
       "isHealthy": true,
       "statusNote": "Healthy (200 OK)"
     },
@@ -192,7 +192,7 @@
       "route": "/glassmorphism-card-animation",
       "category": "Interactive Animation & Tool",
       "status": 200,
-      "sizeKb": "74.2",
+      "sizeKb": "69.7",
       "isHealthy": true,
       "statusNote": "Healthy (200 OK)"
     },
@@ -200,7 +200,7 @@
       "route": "/glitch-text-animation",
       "category": "Interactive Animation & Tool",
       "status": 200,
-      "sizeKb": "93.5",
+      "sizeKb": "89.0",
       "isHealthy": true,
       "statusNote": "Healthy (200 OK)"
     },
@@ -208,7 +208,7 @@
       "route": "/holographic-card-animation",
       "category": "Interactive Animation & Tool",
       "status": 200,
-      "sizeKb": "98.2",
+      "sizeKb": "93.6",
       "isHealthy": true,
       "statusNote": "Healthy (200 OK)"
     },
@@ -216,7 +216,7 @@
       "route": "/liquid-wave-animation",
       "category": "Interactive Animation & Tool",
       "status": 200,
-      "sizeKb": "100.4",
+      "sizeKb": "95.8",
       "isHealthy": true,
       "statusNote": "Healthy (200 OK)"
     },
@@ -224,7 +224,7 @@
       "route": "/logo-animation",
       "category": "Interactive Animation & Tool",
       "status": 200,
-      "sizeKb": "61.6",
+      "sizeKb": "59.0",
       "isHealthy": true,
       "statusNote": "Healthy (200 OK)"
     },
@@ -232,7 +232,7 @@
       "route": "/logo-studio",
       "category": "Interactive Animation & Tool",
       "status": 200,
-      "sizeKb": "72.6",
+      "sizeKb": "70.1",
       "isHealthy": true,
       "statusNote": "Healthy (200 OK)"
     },
@@ -240,7 +240,7 @@
       "route": "/matrix-code-animation",
       "category": "Interactive Animation & Tool",
       "status": 200,
-      "sizeKb": "89.9",
+      "sizeKb": "85.3",
       "isHealthy": true,
       "statusNote": "Healthy (200 OK)"
     },
@@ -248,7 +248,7 @@
       "route": "/neon-button-animation",
       "category": "Interactive Animation & Tool",
       "status": 200,
-      "sizeKb": "83.3",
+      "sizeKb": "78.7",
       "isHealthy": true,
       "statusNote": "Healthy (200 OK)"
     },
@@ -256,7 +256,7 @@
       "route": "/rain-effect-animation",
       "category": "Interactive Animation & Tool",
       "status": 200,
-      "sizeKb": "89.8",
+      "sizeKb": "85.2",
       "isHealthy": true,
       "statusNote": "Healthy (200 OK)"
     },
@@ -264,7 +264,7 @@
       "route": "/solar-system-animation",
       "category": "Interactive Animation & Tool",
       "status": 200,
-      "sizeKb": "83.8",
+      "sizeKb": "79.2",
       "isHealthy": true,
       "statusNote": "Healthy (200 OK)"
     },
@@ -272,7 +272,7 @@
       "route": "/warp-speed-animation",
       "category": "Interactive Animation & Tool",
       "status": 200,
-      "sizeKb": "89.2",
+      "sizeKb": "84.6",
       "isHealthy": true,
       "statusNote": "Healthy (200 OK)"
     },
@@ -280,7 +280,7 @@
       "route": "/cli/learn-windows-command-prompt-cmd-basics",
       "category": "Subject Lesson Page",
       "status": 200,
-      "sizeKb": "113.6",
+      "sizeKb": "156.7",
       "isHealthy": true,
       "statusNote": "Healthy (200 OK)"
     },
@@ -288,7 +288,7 @@
       "route": "/cli/master-cd-command-windows-cli",
       "category": "Subject Lesson Page",
       "status": 200,
-      "sizeKb": "66.8",
+      "sizeKb": "64.5",
       "isHealthy": true,
       "statusNote": "Healthy (200 OK)"
     },
@@ -296,7 +296,7 @@
       "route": "/cli/mkdir-md-create-directories-windows",
       "category": "Subject Lesson Page",
       "status": 200,
-      "sizeKb": "66.8",
+      "sizeKb": "64.5",
       "isHealthy": true,
       "statusNote": "Healthy (200 OK)"
     },
@@ -304,7 +304,7 @@
       "route": "/cli/final-windows-cli-mastery-certification-exam",
       "category": "Subject Lesson Page",
       "status": 200,
-      "sizeKb": "66.9",
+      "sizeKb": "64.6",
       "isHealthy": true,
       "statusNote": "Healthy (200 OK)"
     },
@@ -312,7 +312,7 @@
       "route": "/html/download-install-vscode-windows-11-setup-guide",
       "category": "Subject Lesson Page",
       "status": 200,
-      "sizeKb": "103.0",
+      "sizeKb": "166.6",
       "isHealthy": true,
       "statusNote": "Healthy (200 OK)"
     },
@@ -320,23 +320,23 @@
       "route": "/html/html-document-structure-boilerplate-explanation",
       "category": "Subject Lesson Page",
       "status": 200,
-      "sizeKb": "66.0",
+      "sizeKb": "63.8",
       "isHealthy": true,
       "statusNote": "Healthy (200 OK)"
     },
     {
-      "route": "/css/vscode-live-css-setup-windows-11-devtools",
+      "route": "/css/css-introduction-syntax-selectors",
       "category": "Subject Lesson Page",
       "status": 200,
-      "sizeKb": "98.4",
+      "sizeKb": "90.8",
       "isHealthy": true,
       "statusNote": "Healthy (200 OK)"
     },
     {
-      "route": "/css/what-is-css3-cascading-style-sheets-intro",
+      "route": "/css/css-colors-rgb-hex-hsl-mastery",
       "category": "Subject Lesson Page",
       "status": 200,
-      "sizeKb": "96.0",
+      "sizeKb": "63.4",
       "isHealthy": true,
       "statusNote": "Healthy (200 OK)"
     }
