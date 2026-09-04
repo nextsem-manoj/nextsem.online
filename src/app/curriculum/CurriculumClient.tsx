@@ -47,7 +47,7 @@ const LEARNING_TRACKS = [
     description: 'Build semantic web structures, document outlines, forms, accessible tables, and modern HTML5 components.',
     lessonsCount: '100+ Lessons',
     href: '/html',
-    accentColor: 'group-hover:border-blue-500'
+    accentColor: 'group-hover:border-orange-500'
   },
   {
     id: 'css',
@@ -56,39 +56,72 @@ const LEARNING_TRACKS = [
     badgeColor: 'bg-teal-50 text-teal-700 border-teal-200',
     icon: <Palette size={22} className="text-teal-600" />,
     description: 'Master CSS selectors, Box Model, Flexbox layouts, CSS Grid, custom properties, animations, and responsive web design.',
-    lessonsCount: '101+ Lessons',
+    lessonsCount: '30+ Lessons',
     href: '/css',
     accentColor: 'group-hover:border-teal-500'
   },
   {
-    id: 'batch',
-    title: 'Windows Batch Scripting (.bat / .cmd)',
-    badge: 'Module 04 • Automation',
-    badgeColor: 'bg-purple-50 text-purple-700 border-purple-200',
-    icon: <Zap size={22} className="text-purple-600" />,
-    description: 'Automate repetitive workflows, build multi-tab browser launchers, and manage background system tasks.',
-    lessonsCount: 'Interactive Recipes',
-    href: '/batch',
-    accentColor: 'group-hover:border-purple-500'
+    id: 'js',
+    title: 'JavaScript ES6+ & DOM Logic',
+    badge: 'Module 04 • Logic',
+    badgeColor: 'bg-yellow-50 text-yellow-700 border-yellow-200',
+    icon: <Sparkles size={22} className="text-yellow-600" />,
+    description: 'Learn modern ES6+ syntax, arrow functions, array methods, DOM manipulation, async/await, and fetch APIs.',
+    lessonsCount: '12+ Lessons',
+    href: '/js',
+    accentColor: 'group-hover:border-yellow-500'
+  },
+  {
+    id: 'react',
+    title: 'React.js Component Architecture',
+    badge: 'Module 05 • Frontend SPA',
+    badgeColor: 'bg-cyan-50 text-cyan-700 border-cyan-200',
+    icon: <Cpu size={22} className="text-cyan-600" />,
+    description: 'Build single-page apps with JSX, useState, useEffect, custom hooks, and Context API global state.',
+    lessonsCount: '12+ Lessons',
+    href: '/react',
+    accentColor: 'group-hover:border-cyan-500'
+  },
+  {
+    id: 'nodejs',
+    title: 'Node.js & Backend Architecture',
+    badge: 'Module 06 • Backend',
+    badgeColor: 'bg-green-50 text-green-700 border-green-200',
+    icon: <Globe size={22} className="text-green-600" />,
+    description: 'Build server-side backends with Node.js event loop, file system, HTTP server APIs, and middleware.',
+    lessonsCount: '12+ Lessons',
+    href: '/nodejs',
+    accentColor: 'group-hover:border-green-500'
+  },
+  {
+    id: 'git',
+    title: 'Git & GitHub Version Control',
+    badge: 'Module 07 • DevOps',
+    badgeColor: 'bg-red-50 text-red-700 border-red-200',
+    icon: <Terminal size={22} className="text-red-600" />,
+    description: 'Master Git installation, commit histories, branching, merge conflict resolution, and GitHub repositories.',
+    lessonsCount: '15+ Lessons',
+    href: '/git',
+    accentColor: 'group-hover:border-red-500'
   },
   {
     id: 'cpp',
     title: 'C++ Systems Programming & Memory',
-    badge: 'Module 05 • Core Logic',
-    badgeColor: 'bg-cyan-50 text-cyan-700 border-cyan-200',
-    icon: <Cpu size={22} className="text-cyan-600" />,
-    description: 'Learn variables, pointers, dynamic memory allocation, object-oriented architecture, and performance algorithms.',
+    badge: 'Module 08 • Core Logic',
+    badgeColor: 'bg-indigo-50 text-indigo-700 border-indigo-200',
+    icon: <Cpu size={22} className="text-indigo-600" />,
+    description: 'Understand low-level systems programming, pointers, memory allocation, and compilation pipelines.',
     lessonsCount: '21+ Lessons',
     href: '/cpp',
-    accentColor: 'group-hover:border-cyan-500'
+    accentColor: 'group-hover:border-indigo-500'
   },
   {
     id: 'fullstack',
-    title: 'React, Node.js & Full-Stack Roadmap',
-    badge: 'Module 06 • Career Pathway',
+    title: 'Full-Stack Developer Career Roadmap',
+    badge: 'Module 09 • Career Pathway',
     badgeColor: 'bg-amber-50 text-amber-700 border-amber-200',
     icon: <Rocket size={22} className="text-amber-600" />,
-    description: 'Complete career pathway from frontend single-page apps up to backend REST APIs and cloud deployments.',
+    description: 'Complete career pathway from beginner fundamentals to production deployments and full-stack projects.',
     lessonsCount: 'Complete Career Path',
     href: '/full-stack-web-development-roadmap',
     accentColor: 'group-hover:border-amber-500'

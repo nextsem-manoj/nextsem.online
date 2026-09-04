@@ -20,16 +20,15 @@ interface NsSubjectNavBarProps {
 }
 
 const SUBJECT_TABS = [
-  { id: "html", label: "HTML", href: "/html/", match: (p: string) => p.startsWith("/html") },
-  { id: "css", label: "CSS", href: "/css/", match: (p: string) => p.startsWith("/css") },
-  { id: "js", label: "JAVASCRIPT", href: "/js/", match: (p: string) => p.startsWith("/js") || p.startsWith("/javascript") },
-  { id: "react", label: "REACT", href: "/react/", match: (p: string) => p.startsWith("/react") },
-  { id: "backend", label: "NODE.JS", href: "/nodejs/", match: (p: string) => p.startsWith("/nodejs") || p.startsWith("/node") },
-  { id: "cli", label: "WINDOWS CLI", href: "/cli/", match: (p: string) => p.startsWith("/cli") },
-  { id: "batch", label: "BATCH FILE", href: "/batch/", match: (p: string) => p.startsWith("/batch") },
-  { id: "git", label: "GIT", href: "/git/", match: (p: string) => p.startsWith("/git") },
-  { id: "projects", label: "PROJECTS", href: "/course/projects/", match: (p: string) => p.startsWith("/course/projects") },
-  { id: "roadmap", label: "ROADMAP", href: "/full-stack-web-development-roadmap/", match: (p: string) => p.startsWith("/full-stack-web-development-roadmap") || p.startsWith("/curriculum") || p.startsWith("/guide") },
+  { id: "html", label: "HTML", href: "/html", match: (p: string) => p.startsWith("/html") },
+  { id: "css", label: "CSS", href: "/css", match: (p: string) => p.startsWith("/css") },
+  { id: "js", label: "JAVASCRIPT", href: "/js", match: (p: string) => p.startsWith("/js") || p.startsWith("/javascript") },
+  { id: "react", label: "REACT", href: "/react", match: (p: string) => p.startsWith("/react") },
+  { id: "backend", label: "NODE.JS", href: "/nodejs", match: (p: string) => p.startsWith("/nodejs") || p.startsWith("/node") },
+  { id: "cli", label: "WINDOWS CLI", href: "/cli", match: (p: string) => p.startsWith("/cli") },
+  { id: "git", label: "GIT", href: "/git", match: (p: string) => p.startsWith("/git") },
+  { id: "projects", label: "PROJECTS", href: "/course/projects", match: (p: string) => p.startsWith("/course/projects") },
+  { id: "roadmap", label: "ROADMAP", href: "/full-stack-web-development-roadmap", match: (p: string) => p.startsWith("/full-stack-web-development-roadmap") || p.startsWith("/curriculum") || p.startsWith("/guide") },
 ];
 
 

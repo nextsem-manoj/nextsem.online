@@ -7,22 +7,22 @@ android {
         applicationId "online.nextsem.app"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 30
-        versionName "3.0.0"
+        versionCode 35
+        versionName "3.5.0"
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         ndk {
             abiFilters "armeabi-v7a", "arm64-v8a"
         }
         androidResources {
-            noCompress 'png', 'jpg', 'jpeg', 'webp', 'svg', 'json', 'html', 'css', 'js'
-            ignoreAssetsPattern = '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~:BCA_NEW_Books:cli:html'
+            ignoreAssetsPattern = '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~:BCA_NEW_Books:cli:html:cpp:css:js:react:nodejs:node:javascript'
         }
         aaptOptions {
-            cruncherEnabled = false
-            noCompress 'png', 'jpg', 'jpeg', 'webp', 'svg', 'json', 'html', 'css', 'js'
-            ignoreAssetsPattern = '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~:BCA_NEW_Books:cli:html'
+            cruncherEnabled = true
+            ignoreAssetsPattern = '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~:BCA_NEW_Books:cli:html:cpp:css:js:react:nodejs:node:javascript'
         }
     }
+
     signingConfigs {
         release {
             storeFile file("nextsem-release-key.keystore")
@@ -101,11 +101,26 @@ android.applicationVariants.all { variant ->
             delete fileTree(dir: assetsDir, includes: [
                 '**/og-image.png',
                 '**/icon-512x512.png',
-                '**/favicon.png'
+                '**/favicon.png',
+                '**/*.apk',
+                '**/*.mp4',
+                '**/*.webm',
+                '**/youtube_banner.png',
+                '**/youtube_profile_avatar.png',
+                '**/manoj-kumar.jpg',
+                '**/*.jpg',
+                '**/*.jpeg',
+                '**/*.txt',
+                '**/_next/**',
+                '**/BCA_NEW_Books/**',
+                '**/recordings/**',
+                '**/screenshots/**'
             ])
+
         }
     }
     variant.mergeAssetsProvider.configure {
         finalizedBy("cleanUnusedAssetsFor${variant.name.capitalize()}")
     }
 }
+

@@ -1,37 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono, Inter, Lora, Outfit } from "next/font/google";
 
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const lora = Lora({
-  variable: "--font-lora",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const outfit = Outfit({
-  variable: "--font-outfit",
-  subsets: ["latin"],
-  display: "swap",
-});
+const geistSans = { variable: "font-sans" };
+const geistMono = { variable: "font-mono" };
+const inter = { variable: "font-inter" };
+const lora = { variable: "font-lora" };
+const outfit = { variable: "font-outfit" };
 
 export const viewport: Viewport = {
   width: "device-width",

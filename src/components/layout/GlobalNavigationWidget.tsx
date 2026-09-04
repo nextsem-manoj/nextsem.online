@@ -70,14 +70,6 @@ export default function GlobalNavigationWidget() {
           badgeColor: "bg-blue-500/10 text-blue-400 border-blue-500/20"
         },
         {
-          name: "Batch File Scripting",
-          href: "/batch",
-          desc: "Windows .bat & .cmd script automation dashboard",
-          icon: <Terminal size={14} className="text-emerald-400" />,
-          badge: "NEW",
-          badgeColor: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"
-        },
-        {
           name: "Git Terminal",
           href: "/git/terminal",
           desc: "Step-by-step Git version control tutorial",

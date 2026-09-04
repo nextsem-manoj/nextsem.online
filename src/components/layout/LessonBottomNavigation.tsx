@@ -10,7 +10,12 @@ import {
 import { mswordLessons } from "@/data/mswordLessonsData";
 import { cliLessons } from "@/data/cliLessonsData";
 import { htmlLessons } from "@/data/htmlLessonsData";
+import { cssLessons } from "@/data/cssLessonsData";
+import { jsLessons } from "@/data/jsLessonsData";
+import { reactLessons } from "@/data/reactLessonsData";
+import { nodeLessons } from "@/data/nodeLessonsData";
 import { gitLessons } from "@/data/gitLessonsData";
+import { cppLessons } from "@/data/cppLessonsData";
 
 import searchIndex from "@/data/searchIndex.json";
 import { getChapterIdFromPath, getChapterUrl } from "@/lib/htmlLessonsHelper";
@@ -247,10 +252,74 @@ export default function LessonBottomNavigation({ pathname }: LessonBottomNavigat
     currentLessonDisplay = htmlLessons[idx]?.title || "";
 
     progressText = `Lesson ${idx + 1} of ${htmlLessons.length}`;
-    prevHref = idx > 0 ? `/html/${htmlLessons[idx - 1].slug}` : null;
+    prevHref = idx > 0 ? (htmlLessons[idx - 1].id === 1 ? "/html" : `/html/${htmlLessons[idx - 1].slug}`) : null;
     nextHref = idx < htmlLessons.length - 1 ? `/html/${htmlLessons[idx + 1].slug}` : null;
   } 
-  // 4. Git Lessons (/git/<slug>)
+  // 4. CSS Lessons (/css/<slug>)
+  else if (pathname.startsWith("/css")) {
+    const raw = pathname.replace(/^\/css\/?/, "").split("/")[0].split("?")[0].replace(/\/$/, "");
+    const decoded = decodeURIComponent(raw);
+    let idx = cssLessons.findIndex((l) => l.slug === raw || l.slug === decoded || l.id === Number(raw));
+    if (idx === -1 && (!raw || raw === "/")) idx = 0;
+    dashboardHref = "/css";
+    courseTitle = "CSS3 Styling";
+    activeLessonsList = cssLessons.map(l => ({ id: l.id, slug: l.slug, title: l.title }));
+    currentSlug = cssLessons[idx]?.slug || "";
+    currentLessonDisplay = cssLessons[idx]?.title || "";
+
+    progressText = `Lesson ${idx + 1} of ${cssLessons.length}`;
+    prevHref = idx > 0 ? `/css/${cssLessons[idx - 1].slug}` : null;
+    nextHref = idx < cssLessons.length - 1 ? `/css/${cssLessons[idx + 1].slug}` : null;
+  }
+  // 5. JavaScript Lessons (/js/<slug> or /javascript/<slug>)
+  else if (pathname.startsWith("/js") || pathname.startsWith("/javascript")) {
+    const raw = pathname.replace(/^\/(?:js|javascript)\/?/, "").split("/")[0].split("?")[0].replace(/\/$/, "");
+    const decoded = decodeURIComponent(raw);
+    let idx = jsLessons.findIndex((l) => l.slug === raw || l.slug === decoded || l.id === Number(raw));
+    if (idx === -1 && (!raw || raw === "/")) idx = 0;
+    dashboardHref = "/js";
+    courseTitle = "JavaScript";
+    activeLessonsList = jsLessons.map(l => ({ id: l.id, slug: l.slug, title: l.title }));
+    currentSlug = jsLessons[idx]?.slug || "";
+    currentLessonDisplay = jsLessons[idx]?.title || "";
+
+    progressText = `Lesson ${idx + 1} of ${jsLessons.length}`;
+    prevHref = idx > 0 ? `/js/${jsLessons[idx - 1].slug}` : null;
+    nextHref = idx < jsLessons.length - 1 ? `/js/${jsLessons[idx + 1].slug}` : null;
+  }
+  // 6. React Lessons (/react/<slug>)
+  else if (pathname.startsWith("/react")) {
+    const raw = pathname.replace(/^\/react\/?/, "").split("/")[0].split("?")[0].replace(/\/$/, "");
+    const decoded = decodeURIComponent(raw);
+    let idx = reactLessons.findIndex((l) => l.slug === raw || l.slug === decoded || l.id === Number(raw));
+    if (idx === -1 && (!raw || raw === "/")) idx = 0;
+    dashboardHref = "/react";
+    courseTitle = "React.js";
+    activeLessonsList = reactLessons.map(l => ({ id: l.id, slug: l.slug, title: l.title }));
+    currentSlug = reactLessons[idx]?.slug || "";
+    currentLessonDisplay = reactLessons[idx]?.title || "";
+
+    progressText = `Lesson ${idx + 1} of ${reactLessons.length}`;
+    prevHref = idx > 0 ? `/react/${reactLessons[idx - 1].slug}` : null;
+    nextHref = idx < reactLessons.length - 1 ? `/react/${reactLessons[idx + 1].slug}` : null;
+  }
+  // 7. Node.js Lessons (/nodejs/<slug> or /node/<slug>)
+  else if (pathname.startsWith("/nodejs") || pathname.startsWith("/node")) {
+    const raw = pathname.replace(/^\/(?:nodejs|node)\/?/, "").split("/")[0].split("?")[0].replace(/\/$/, "");
+    const decoded = decodeURIComponent(raw);
+    let idx = nodeLessons.findIndex((l) => l.slug === raw || l.slug === decoded || l.id === Number(raw));
+    if (idx === -1 && (!raw || raw === "/")) idx = 0;
+    dashboardHref = "/nodejs";
+    courseTitle = "Node.js";
+    activeLessonsList = nodeLessons.map(l => ({ id: l.id, slug: l.slug, title: l.title }));
+    currentSlug = nodeLessons[idx]?.slug || "";
+    currentLessonDisplay = nodeLessons[idx]?.title || "";
+
+    progressText = `Lesson ${idx + 1} of ${nodeLessons.length}`;
+    prevHref = idx > 0 ? `/nodejs/${nodeLessons[idx - 1].slug}` : null;
+    nextHref = idx < nodeLessons.length - 1 ? `/nodejs/${nodeLessons[idx + 1].slug}` : null;
+  }
+  // 8. Git Lessons (/git/<slug>)
   else if (pathname.startsWith("/git")) {
     const raw = pathname.replace(/^\/git\/?/, "").split("/")[0].split("?")[0].replace(/\/$/, "");
     const decoded = decodeURIComponent(raw);
@@ -265,8 +334,24 @@ export default function LessonBottomNavigation({ pathname }: LessonBottomNavigat
     progressText = `Lesson ${idx + 1} of ${gitLessons.length}`;
     prevHref = idx > 0 ? `/git/${gitLessons[idx - 1].slug}` : null;
     nextHref = idx < gitLessons.length - 1 ? `/git/${gitLessons[idx + 1].slug}` : null;
-  }  
-  // 6. Textbook Book Chapters (/book/<id> or /<subject>/book/<id>)
+  }
+  // 9. C++ / C Lessons (/cpp/<slug> or /c/<slug>)
+  else if (pathname.startsWith("/cpp") || pathname.startsWith("/c")) {
+    const raw = pathname.replace(/^\/(?:cpp|c)\/?/, "").split("/")[0].split("?")[0].replace(/\/$/, "");
+    const decoded = decodeURIComponent(raw);
+    let idx = cppLessons.findIndex((l) => l.slug === raw || l.slug === decoded || l.id === Number(raw));
+    if (idx === -1 && (!raw || raw === "/")) idx = 0;
+    dashboardHref = "/cpp";
+    courseTitle = "C++ Coding";
+    activeLessonsList = cppLessons.map(l => ({ id: l.id, slug: l.slug, title: l.title }));
+    currentSlug = cppLessons[idx]?.slug || "";
+    currentLessonDisplay = cppLessons[idx]?.title || "";
+
+    progressText = `Lesson ${idx + 1} of ${cppLessons.length}`;
+    prevHref = idx > 0 ? `/cpp/${cppLessons[idx - 1].slug}` : null;
+    nextHref = idx < cppLessons.length - 1 ? `/cpp/${cppLessons[idx + 1].slug}` : null;
+  }
+  // 10. Textbook Book Chapters (/book/<id> or /<subject>/book/<id>)
   else if (pathname.includes("/book/")) {
     const chapterId = getChapterIdFromPath(pathname);
     const idx = searchIndex.findIndex((item) => item.id === chapterId);
@@ -282,7 +367,7 @@ export default function LessonBottomNavigation({ pathname }: LessonBottomNavigat
       nextHref = "/course";
     }
   }
-  // 7. General Fallback
+  // 11. General Fallback
   else {
     dashboardHref = "/";
     courseTitle = "Lessons";
@@ -632,13 +717,9 @@ export default function LessonBottomNavigation({ pathname }: LessonBottomNavigat
         </>
       )}
 
-      {/* ── FULL-WIDTH PINNED EDGE-TO-EDGE TAB BAR ── */}
+      {/* ── FULL-WIDTH PINNED EDGE-TO-EDGE TAB BAR (Mobile Viewports) ── */}
       <nav 
-        className={`fixed left-0 right-0 bottom-0 w-full z-[999] md:hidden select-none bg-[#090d22]/95 backdrop-blur-2xl border-t border-slate-800/80 shadow-[0_-8px_25px_rgba(0,0,0,0.5)] text-slate-200 transition-all duration-500 ${
-          (isAtBottom || subjectDrawerOpen || menuOpen || toolsOpen)
-            ? "translate-y-0 opacity-100"
-            : "translate-y-full opacity-0 pointer-events-none"
-        }`}
+        className="fixed left-0 right-0 bottom-0 w-full z-[999] md:hidden select-none bg-[#090d22]/95 backdrop-blur-2xl border-t border-slate-800/80 shadow-[0_-8px_25px_rgba(0,0,0,0.5)] text-slate-200 transition-all duration-300 translate-y-0 opacity-100"
         style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
       >
         <div className="px-2 py-1.5 flex items-center justify-around w-full max-w-xl mx-auto">

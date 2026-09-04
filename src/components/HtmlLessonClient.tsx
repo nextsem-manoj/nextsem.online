@@ -824,7 +824,7 @@ function VsCodeEditorCard({ code, blockKey }: { code: string; blockKey: string }
   const currentContent = rawContent;
 
   return (
-    <div className="w-full max-w-5xl mx-auto px-2 sm:px-4 md:px-6 space-y-6">
+    <div className="w-full max-w-5xl mx-auto px-2 sm:px-4 md:px-6 space-y-6 pb-20 md:pb-8">
       {/* Top Banner Ad */}
       <AdSenseBanner />
 
@@ -940,48 +940,46 @@ function VsCodeEditorCard({ code, blockKey }: { code: string; blockKey: string }
         </article>
       </div>
 
-      {/* Bottom Nextsem Academy Style Navigation Row — visible on desktop; mobile uses bottom 5-tab bar */}
-      <div className="hidden md:flex items-center justify-between gap-4 border-t border-slate-800/60 pt-6 mt-8">
+      {/* Bottom Desktop Navigation Row */}
+      <div className="hidden md:flex items-center justify-between gap-4 border-t border-slate-800/80 pt-6 mt-8">
         {prevLesson ? (
           <Link
             href={prevLesson.id === 1 ? "/html" : `/html/${prevLesson.slug}`}
-            className="px-5 py-2.5 bg-[#04AA6D] hover:bg-[#039861] text-white rounded-lg text-xs font-black uppercase tracking-wider transition-all flex items-center gap-1.5 shadow-md shadow-[#04AA6D]/20 cursor-pointer"
+            className="px-5 py-2.5 bg-[#141b30] hover:bg-[#1b2542] border border-slate-700 hover:border-[#04AA6D]/50 text-white rounded-xl text-xs font-bold tracking-wider uppercase transition-all flex items-center gap-2 shadow-md cursor-pointer group"
           >
-            <ChevronLeft size={16} className="stroke-[3]" />
-            <span>Previous</span>
+            <ChevronLeft size={16} className="stroke-[3] text-[#04AA6D] group-hover:-translate-x-1 transition-transform" />
+            <span>Previous Lesson</span>
           </Link>
         ) : (
-          <div className="px-5 py-2.5 bg-slate-900/50 text-slate-600 rounded-lg text-xs font-black uppercase tracking-wider flex items-center gap-1.5 border border-slate-800 cursor-not-allowed">
+          <div className="px-5 py-2.5 bg-slate-900/40 text-slate-600 rounded-xl text-xs font-bold uppercase tracking-wider flex items-center gap-2 border border-slate-850 cursor-not-allowed select-none">
             <ChevronLeft size={16} />
-            <span>Previous</span>
+            <span>Previous Lesson</span>
           </div>
         )}
 
-        {/* Center Track Progress Sign In Button / Badge */}
-        {userEmail === "guest" ? (
-          <button
-            onClick={() => {
-              window.dispatchEvent(new CustomEvent("nextsem_open_auth"));
-            }}
-            className="hidden sm:flex items-center gap-2 px-4 py-2 bg-slate-900/80 hover:bg-slate-800 border border-slate-700/60 text-slate-300 hover:text-white rounded-lg text-xs font-bold transition-all cursor-pointer"
-          >
-            <span>Sign in to track progress</span>
-          </button>
-        ) : (
-          <span className="hidden sm:inline text-xs font-bold text-emerald-400 bg-emerald-950/40 border border-emerald-500/20 px-3 py-1.5 rounded-lg">
-            ✓ Progress Auto-Saved
-          </span>
-        )}
+        {/* Center: Subject Roadmap / Dashboard Button */}
+        <Link
+          href="/html"
+          className="px-6 py-2.5 bg-[#09101f] hover:bg-[#111a33] border-2 border-[#04AA6D] text-white hover:text-[#04AA6D] rounded-xl text-xs font-extrabold uppercase tracking-wider transition-all flex items-center gap-2 shadow-lg shadow-[#04AA6D]/15 cursor-pointer"
+        >
+          <BrandLogoIcon size={16} roundedClass="rounded-xs" />
+          <span>📁 View HTML Developer Roadmap</span>
+        </Link>
 
         {nextLesson ? (
           <Link
             href={`/html/${nextLesson.slug}`}
-            className="px-5 py-2.5 bg-[#04AA6D] hover:bg-[#039861] text-white rounded-lg text-xs font-black uppercase tracking-wider transition-all flex items-center gap-1.5 shadow-md shadow-[#04AA6D]/20 cursor-pointer"
+            className="px-6 py-2.5 bg-[#04AA6D] hover:bg-[#039861] text-white rounded-xl text-xs font-black uppercase tracking-wider transition-all flex items-center gap-2 shadow-lg shadow-[#04AA6D]/25 cursor-pointer group"
           >
-            <span>Next</span>
-            <ChevronRight size={16} className="stroke-[3]" />
+            <span>Next Lesson</span>
+            <ChevronRight size={16} className="stroke-[3] group-hover:translate-x-1 transition-transform" />
           </Link>
-        ) : null}
+        ) : (
+          <div className="px-5 py-2.5 bg-slate-900/40 text-slate-600 rounded-xl text-xs font-bold uppercase tracking-wider flex items-center gap-2 border border-slate-850 cursor-not-allowed select-none">
+            <span>Next Lesson</span>
+            <ChevronRight size={16} />
+          </div>
+        )}
       </div>
 
       {/* Bottom Ad Banner */}

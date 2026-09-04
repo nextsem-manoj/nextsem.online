@@ -18,8 +18,9 @@ android {
         applicationId = "online.nextsem.app"
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
-        versionCode = 30
-        versionName = "3.0.0"
+        versionCode = 35
+        versionName = "3.5.0"
+
     }
 
     buildTypes {

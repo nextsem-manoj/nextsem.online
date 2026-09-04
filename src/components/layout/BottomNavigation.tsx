@@ -84,9 +84,17 @@ const BottomNavigation = () => {
   const isLessonRoute = Boolean(
     pathname && (
       pathname.startsWith('/html') ||
-      pathname.startsWith('/msword') ||
-      pathname.startsWith('/cli') ||
+      pathname.startsWith('/css') ||
+      pathname.startsWith('/js') ||
+      pathname.startsWith('/javascript') ||
+      pathname.startsWith('/react') ||
+      pathname.startsWith('/nodejs') ||
+      pathname.startsWith('/node') ||
       pathname.startsWith('/git') ||
+      pathname.startsWith('/cli') ||
+      pathname.startsWith('/cpp') ||
+      pathname.startsWith('/c') ||
+      pathname.startsWith('/msword') ||
       pathname.includes('/book/') ||
       pathname.startsWith('/bca/notes/') ||
       (pathname.startsWith('/bca/semester-') && (pathname.includes('/unit-') || pathname.includes('/lessons/')))
