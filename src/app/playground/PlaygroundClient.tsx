@@ -1,1845 +1,2579 @@
 "use client";
- 
-import React, { useState, useEffect, useRef } from "react";
+
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import Link from "next/link";
 import { 
-  Play, RotateCcw, Layout, FileCode, CheckCircle, Terminal, HelpCircle, 
-  ArrowLeft, Sun, Moon, Coffee, Trash2, Plus, Sliders, Type, Grid, MousePointerClick,
-  RefreshCw, Sparkles, Globe, SeparatorHorizontal, TextCursorInput, AlignLeft, Table2, Video
+  Play, RotateCcw, Copy, Check, ArrowLeft, 
+  Code2, Sparkles, Monitor, Tablet, Smartphone, 
+  X, Eye, EyeOff, Terminal, FileCode, Layers, 
+  CheckCircle2, RefreshCw, Files, Search, GitBranch, 
+  Settings, User, ChevronRight, ChevronDown, Split, 
+  Maximize2, Minimize2, ExternalLink, Plus, Folder, 
+  FileText, Globe, Bell, CheckSquare, ShieldCheck, Flame,
+  Bug, AlertCircle, AlertTriangle, Info, Columns, 
+  Layout, MoreHorizontal, Download, Command, 
+  FolderPlus, FilePlus, Sparkle, CornerDownLeft, Trash2, Zap,
+  Sliders, Power, Wifi, Radio
 } from "lucide-react";
- 
-interface LogEntry {
-  type: "log" | "error";
-  message: string;
-}
- 
-interface UIComponent {
-  id: string;
-  type: "div" | "h1" | "h2" | "h3" | "p" | "button" | "a" | "img" | "hr" | "input" | "textarea" | "table" | "video";
-  content: string;
-  styles: {
-    backgroundColor: string;
-    color: string;
-    borderRadius: string;
-    padding: string;
-    fontSize: string;
-    margin: string;
-    textAlign: string;
-  };
-  src?: string;
-  href?: string;
-  jsAction?: {
-    event: "click" | "mouseenter" | "mouseleave" | "change" | "focus";
-    action: "alert" | "log" | "redirect" | "toggle" | "changeText" | "custom";
-    value: string;
+import { expandEmmet, expandEmmetWithIndentation, getEmmetAbbreviationAtCursor } from "@/utils/emmetEngine";
+import { formatDocument, DEFAULT_PRETTIER_CONFIG, PrettierConfig } from "@/utils/codeFormatter";
+
+
+
+/* ── PRESET TEMPLATES ── */
+interface ProjectTemplate {
+  name: string;
+  icon: string;
+  category: string;
+  files: {
+    "index.html": string;
+    "style.css": string;
+    "script.js": string;
+    "README.md": string;
   };
 }
- 
-const EMMET_HTML = `<!DOCTYPE html>
+
+const TEMPLATES: Record<string, ProjectTemplate> = {
+  counter: {
+    name: "Interactive Counter",
+    icon: "🔢",
+    category: "Beginner",
+    files: {
+      "index.html": `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>VS Code Sandbox • Nextsem</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Hello, World!</h1>
-  <p>Start building your page here.</p>
-  <button id="btn">Click Me</button>
+
+  <div class="app-container">
+    <header class="hero">
+      <div class="tech-badge">VS Code Live Engine</div>
+      <h1>Nextsem Web IDE 🚀</h1>
+      <p>Edit HTML, CSS & JavaScript with instant live browser execution.</p>
+    </header>
+
+    <main class="interactive-card">
+      <div class="card-header">
+        <h3>Live JavaScript Counter</h3>
+        <span class="pulse-dot"></span>
+      </div>
+      
+      <div class="counter-display" id="countDisplay">0</div>
+      
+      <div class="btn-group">
+        <button id="decBtn" class="btn btn-secondary">− Decrement</button>
+        <button id="resetBtn" class="btn btn-neutral">Reset</button>
+        <button id="incBtn" class="btn btn-primary">+ Increment</button>
+      </div>
+    </main>
+  </div>
 
   <script src="script.js"></script>
 </body>
-</html>`;
-
-const EMMET_CSS = `* {
+</html>`,
+      "style.css": `/* VS Code Dark+ Theme Sandbox Styling */
+* {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
 body {
-  font-family: sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: #0d1117;
+  color: #f1f5f9;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 24px;
-  background-color: #0f172a;
-  color: #f8fafc;
 }
 
-h1 {
-  color: #3b82f6;
-  font-size: 28px;
+.app-container {
+  max-width: 520px;
+  width: 100%;
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.tech-badge {
+  display: inline-block;
+  background: rgba(4, 170, 109, 0.15);
+  color: #04AA6D;
+  border: 1px solid rgba(4, 170, 109, 0.35);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 20px;
   margin-bottom: 12px;
+  letter-spacing: 0.5px;
 }
 
-p {
+.hero h1 {
+  font-size: 26px;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 8px;
+}
+
+.hero p {
   color: #94a3b8;
-  font-size: 16px;
-  margin-bottom: 16px;
+  font-size: 14px;
 }
 
-button {
-  background: #10b981;
+.interactive-card {
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.interactive-card:hover {
+  border-color: #04AA6D;
+  transform: translateY(-2px);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #21262d;
+  padding-bottom: 12px;
+}
+
+.card-header h3 {
+  font-size: 16px;
+  color: #e2e8f0;
+}
+
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  background: #04AA6D;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #04AA6D;
+}
+
+.counter-display {
+  font-size: 56px;
+  font-weight: 900;
+  color: #04AA6D;
+  text-align: center;
+  font-family: monospace;
+  margin: 16px 0;
+  transition: transform 0.15s;
+}
+
+.btn-group {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.btn {
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  transition: all 0.15s;
+}
+
+.btn-primary {
+  background: #04AA6D;
+  color: #ffffff;
+}
+.btn-primary:hover {
+  background: #039861;
+}
+
+.btn-secondary {
+  background: #21262d;
+  color: #e2e8f0;
+  border: 1px solid #30363d;
+}
+.btn-secondary:hover {
+  background: #30363d;
+}
+
+.btn-neutral {
+  background: transparent;
+  color: #94a3b8;
+  border: 1px solid #30363d;
+}
+.btn-neutral:hover {
+  background: #21262d;
+  color: #ffffff;
+}`,
+      "script.js": `// VS Code Sandbox Script
+let count = 0;
+const countDisplay = document.getElementById("countDisplay");
+const incBtn = document.getElementById("incBtn");
+const decBtn = document.getElementById("decBtn");
+const resetBtn = document.getElementById("resetBtn");
+
+function updateCount(val) {
+  count += val;
+  if (countDisplay) {
+    countDisplay.textContent = count;
+    countDisplay.style.transform = "scale(1.2)";
+    setTimeout(() => countDisplay.style.transform = "scale(1)", 120);
+  }
+  console.log("Counter updated to:", count);
+}
+
+if (incBtn) incBtn.addEventListener("click", () => updateCount(1));
+if (decBtn) decBtn.addEventListener("click", () => updateCount(-1));
+if (resetBtn) resetBtn.addEventListener("click", () => {
+  count = 0;
+  if (countDisplay) countDisplay.textContent = count;
+  console.log("Counter reset to 0");
+});
+
+console.log("VS Code Sandbox ready • Press Ctrl+Enter to re-run! 🚀");`,
+      "README.md": `# Nextsem Visual Studio Code Sandbox
+
+Welcome to the browser-based VS Code environment!
+
+## Hotkeys:
+- **Ctrl + Enter** / **Cmd + Enter**: Run Code in Live Simple Browser
+- **Ctrl + B**: Toggle Primary Explorer Side Bar
+- **Ctrl + Shift + P** or **F1**: Open VS Code Command Palette
+- **Tab**: Indent 2 spaces
+
+## Included Files:
+- \`src/index.html\` - Core markup structure
+- \`src/style.css\` - Styling and themes
+- \`src/script.js\` - Interactive logic & DOM events
+- \`package.json\` - Project metadata`
+    }
+  },
+  todo: {
+    name: "Interactive Todo App",
+    icon: "📝",
+    category: "DOM Manipulation",
+    files: {
+      "index.html": `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Todo List • VS Code Sandbox</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="todo-app">
+    <h2>My Tasks 📋</h2>
+    <div class="input-row">
+      <input type="text" id="taskInput" placeholder="Add a new task..." autofocus>
+      <button id="addBtn">+ Add</button>
+    </div>
+    <ul id="taskList" class="task-list"></ul>
+    <div class="footer-row">
+      <span id="taskCount">0 tasks left</span>
+      <button id="clearCompletedBtn" class="text-btn">Clear Completed</button>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>`,
+      "style.css": `* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: system-ui, sans-serif;
+  background: #0f172a;
+  color: #f8fafc;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.todo-app {
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 16px;
+  padding: 24px;
+  max-width: 440px;
+  width: 100%;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+h2 { font-size: 22px; margin-bottom: 16px; color: #38bdf8; }
+.input-row { display: flex; gap: 8px; margin-bottom: 16px; }
+input {
+  flex: 1;
+  background: #0f172a;
+  border: 1px solid #475569;
+  border-radius: 8px;
+  padding: 10px 14px;
+  color: white;
+  font-size: 14px;
+  outline: none;
+}
+input:focus { border-color: #38bdf8; }
+button#addBtn {
+  background: #0284c7;
   color: white;
   border: none;
-  padding: 10px 20px;
   border-radius: 8px;
-  font-weight: bold;
+  padding: 0 16px;
+  font-weight: 700;
   cursor: pointer;
-}`;
+}
+.task-list { list-style: none; display: flex; flex-col; gap: 8px; max-height: 240px; overflow-y: auto; }
+.task-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background: #0f172a;
+  border-radius: 8px;
+  border: 1px solid #334155;
+  cursor: pointer;
+  transition: 0.15s;
+}
+.task-item.done { text-decoration: line-through; opacity: 0.5; }
+.del-btn { background: none; border: none; color: #ef4444; font-weight: bold; cursor: pointer; }
+.footer-row { display: flex; justify-content: space-between; margin-top: 16px; font-size: 12px; color: #94a3b8; }
+.text-btn { background: none; border: none; color: #38bdf8; cursor: pointer; font-size: 12px; }`,
+      "script.js": `const input = document.getElementById("taskInput");
+const addBtn = document.getElementById("addBtn");
+const list = document.getElementById("taskList");
+const countEl = document.getElementById("taskCount");
+const clearBtn = document.getElementById("clearCompletedBtn");
 
-const EMMET_JS = `console.log("Hello from script.js!");
+let tasks = [
+  { text: "Learn HTML5 Semantic Tags", done: true },
+  { text: "Master CSS Flexbox & Grid", done: false },
+  { text: "Build React App on Nextsem", done: false }
+];
 
-const btn = document.getElementById("btn");
-if (btn) {
-  btn.addEventListener("click", () => {
-    console.log("Button clicked!");
-    alert("It works!");
+function render() {
+  list.innerHTML = "";
+  tasks.forEach((t, i) => {
+    const li = document.createElement("li");
+    li.className = "task-item" + (t.done ? " done" : "");
+    li.innerHTML = '<span>' + t.text + '</span><button class="del-btn" onclick="deleteTask(' + i + ')">✕</button>';
+    li.addEventListener("click", (e) => {
+      if (e.target.tagName !== "BUTTON") {
+        tasks[i].done = !tasks[i].done;
+        render();
+      }
+    });
+    list.appendChild(li);
   });
-}`;
+  const remaining = tasks.filter(t => !t.done).length;
+  countEl.textContent = remaining + " tasks left";
+}
 
-const TEMPLATES = {
-  basic: {
-    html: EMMET_HTML,
-    css: EMMET_CSS,
-    js: EMMET_JS
+window.deleteTask = function(i) {
+  tasks.splice(i, 1);
+  render();
+};
+
+function addTask() {
+  if (!input.value.trim()) return;
+  tasks.push({ text: input.value.trim(), done: false });
+  input.value = "";
+  render();
+}
+
+addBtn.addEventListener("click", addTask);
+input.addEventListener("keydown", (e) => { if (e.key === "Enter") addTask(); });
+clearBtn.addEventListener("click", () => {
+  tasks = tasks.filter(t => !t.done);
+  render();
+});
+
+render();
+console.log("Todo App initialized! Total tasks:", tasks.length);`,
+      "README.md": `# Interactive Todo App
+A full CRUD Todo List with live item toggling and filtering.`
+    }
+  },
+  tictactoe: {
+    name: "Tic Tac Toe Game",
+    icon: "🎮",
+    category: "Game Dev",
+    files: {
+      "index.html": `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tic Tac Toe • VS Code Sandbox</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="game-card">
+    <h2>Tic Tac Toe 🎮</h2>
+    <div id="status" class="status">Player X's Turn</div>
+    <div class="grid" id="grid">
+      <button class="cell" data-i="0"></button>
+      <button class="cell" data-i="1"></button>
+      <button class="cell" data-i="2"></button>
+      <button class="cell" data-i="3"></button>
+      <button class="cell" data-i="4"></button>
+      <button class="cell" data-i="5"></button>
+      <button class="cell" data-i="6"></button>
+      <button class="cell" data-i="7"></button>
+      <button class="cell" data-i="8"></button>
+    </div>
+    <button id="restartBtn" class="restart-btn">Restart Game</button>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>`,
+      "style.css": `* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: system-ui, sans-serif;
+  background: #0f172a;
+  color: white;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.game-card {
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 16px;
+  padding: 28px;
+  text-align: center;
+}
+h2 { font-size: 24px; margin-bottom: 12px; color: #38bdf8; }
+.status { margin-bottom: 16px; font-weight: bold; font-size: 16px; color: #a855f7; }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 80px);
+  gap: 8px;
+  margin: 0 auto 20px;
+}
+.cell {
+  width: 80px;
+  height: 80px;
+  background: #0f172a;
+  border: 1px solid #475569;
+  border-radius: 8px;
+  font-size: 32px;
+  font-weight: 900;
+  color: white;
+  cursor: pointer;
+  transition: 0.1s;
+}
+.cell:hover { background: #1e293b; }
+.restart-btn {
+  background: #0284c7;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-weight: 700;
+  cursor: pointer;
+}`,
+      "script.js": `let board = Array(9).fill(null);
+let turn = "X";
+let winner = null;
+const statusEl = document.getElementById("status");
+const cells = document.querySelectorAll(".cell");
+const restartBtn = document.getElementById("restartBtn");
+
+const wins = [
+  [0,1,2], [3,4,5], [6,7,8],
+  [0,3,6], [1,4,7], [2,5,8],
+  [0,4,8], [2,4,6]
+];
+
+function checkWinner() {
+  for (let [a, b, c] of wins) {
+    if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+      return board[a];
+    }
+  }
+  return board.includes(null) ? null : "Draw";
+}
+
+cells.forEach(cell => {
+  cell.addEventListener("click", () => {
+    const i = cell.dataset.i;
+    if (board[i] || winner) return;
+    board[i] = turn;
+    cell.textContent = turn;
+    cell.style.color = turn === "X" ? "#38bdf8" : "#f43f5e";
+    winner = checkWinner();
+    if (winner) {
+      statusEl.textContent = winner === "Draw" ? "Game is a Draw! 🤝" : 'Player ' + winner + ' Wins! 🎉';
+      console.log("Game result:", statusEl.textContent);
+    } else {
+      turn = turn === "X" ? "O" : "X";
+      statusEl.textContent = "Player " + turn + "'s Turn";
+    }
+  });
+});
+
+restartBtn.addEventListener("click", () => {
+  board = Array(9).fill(null);
+  winner = null;
+  turn = "X";
+  statusEl.textContent = "Player X's Turn";
+  cells.forEach(c => { c.textContent = ""; });
+  console.log("Tic Tac Toe restarted");
+});`,
+      "README.md": `# Tic Tac Toe Game
+Classic 3x3 turn-based game with win/draw detection algorithms.`
+    }
+  },
+  glassmorphism: {
+    name: "Glassmorphism Card",
+    icon: "💎",
+    category: "CSS Showcase",
+    files: {
+      "index.html": `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Glassmorphism UI</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="bg-shape circle-1"></div>
+  <div class="bg-shape circle-2"></div>
+  <div class="glass-card">
+    <div class="card-chip">PRO</div>
+    <h3>Nextsem Developer Card</h3>
+    <p>Modern frosted-glass UI powered by CSS backdrop-filter.</p>
+    <div class="meta-row">
+      <span>Er. Manoj Kumar</span>
+      <span>⭐ 5.0 Rating</span>
+    </div>
+    <button class="glass-btn">Explore Features →</button>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>`,
+      "style.css": `* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: system-ui, sans-serif;
+  background: #090d16;
+  color: white;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+.bg-shape {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  z-index: 1;
+}
+.circle-1 { width: 280px; height: 280px; background: #04AA6D; top: 15%; left: 20%; }
+.circle-2 { width: 320px; height: 320px; background: #6366f1; bottom: 15%; right: 20%; }
+.glass-card {
+  position: relative;
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  padding: 32px;
+  max-width: 380px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s;
+}
+.glass-card:hover { transform: translateY(-6px) rotateX(4deg); }
+.card-chip {
+  display: inline-block;
+  background: rgba(4, 170, 109, 0.3);
+  border: 1px solid #04AA6D;
+  color: #04AA6D;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 2px 10px;
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+h3 { font-size: 20px; margin-bottom: 8px; }
+p { font-size: 13px; color: #cbd5e1; line-height: 1.5; margin-bottom: 20px; }
+.meta-row { display: flex; justify-content: space-between; font-size: 12px; color: #94a3b8; margin-bottom: 20px; }
+.glass-btn {
+  width: 100%;
+  background: #04AA6D;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.glass-btn:hover { background: #039861; box-shadow: 0 0 20px rgba(4, 170, 109, 0.5); }`,
+      "script.js": `console.log("Glassmorphism Card template rendered!");
+document.querySelector(".glass-btn")?.addEventListener("click", () => {
+  alert("✨ Glassmorphism UI Active!");
+});`,
+      "README.md": `# Glassmorphism Card
+Modern CSS glassmorphism UI with dynamic blur and glowing backdrop spheres.`
+    }
   }
 };
- 
-export default function PlaygroundClient() {
-  const [playTheme, setPlayTheme] = useState<"default" | "sepia" | "dark">(() => {
-    if (typeof window !== "undefined") {
-      const saved = localStorage.getItem("play_theme") as "default" | "sepia" | "dark" | null;
-      return saved || "dark";
-    }
-    return "dark";
-  });
-  const [activeTab, setActiveTab] = useState<"html" | "css" | "js">("html");
-  const [editorMode, setEditorMode] = useState<"builder" | "editor">(() => {
-    if (typeof window !== "undefined") {
-      const hasSavedCode = localStorage.getItem("nextsem_playground_html") || 
-                           localStorage.getItem("nextsem_playground_css") || 
-                           localStorage.getItem("nextsem_playground_js");
-      if (hasSavedCode) return "editor";
-    }
-    return "builder";
-  }); // Builder vs Manual Code
-  const [viewMode, setViewMode] = useState<"editor" | "preview">("editor"); // Mobile tab view
-  const [deviceMode, setDeviceMode] = useState<"desktop" | "tablet" | "mobile">("desktop");
-  
-  const [sidebarTab, setSidebarTab] = useState<"palette" | "properties">("palette");
-  const [previewType, setPreviewType] = useState<"design" | "browser">("design");
-  
-  const [htmlCode, setHtmlCode] = useState(() => {
-    if (typeof window !== "undefined") {
-      const saved = localStorage.getItem("nextsem_playground_html");
-      if (saved) return saved;
-    }
-    return TEMPLATES.basic.html;
-  });
-  const [cssCode, setCssCode] = useState(() => {
-    if (typeof window !== "undefined") {
-      const saved = localStorage.getItem("nextsem_playground_css");
-      if (saved) return saved;
-    }
-    return TEMPLATES.basic.css;
-  });
-  const [jsCode, setJsCode] = useState(() => {
-    if (typeof window !== "undefined") {
-      const saved = localStorage.getItem("nextsem_playground_js");
-      if (saved) return saved;
-    }
-    return TEMPLATES.basic.js;
-  });
-  
-  const [logs, setLogs] = useState<LogEntry[]>([]);
-  const [iframeSrcDoc, setIframeSrcDoc] = useState("");
-  const iframeRef = useRef<HTMLIFrameElement>(null);
-  const editorRef = useRef<HTMLTextAreaElement>(null);
-  const highlightRef = useRef<HTMLPreElement>(null);
-  const gutterRef = useRef<HTMLDivElement>(null);
- 
-  // DIY Canvas Components state
-  const [components, setComponents] = useState<UIComponent[]>([
-    {
-      id: "comp-1",
-      type: "h1",
-      content: "🎨 My Visual Masterpiece",
-      styles: {
-        backgroundColor: "transparent",
-        color: "#38bdf8",
-        borderRadius: "0px",
-        padding: "12px",
-        fontSize: "26px",
-        margin: "8px",
-        textAlign: "center"
-      }
-    },
-    {
-      id: "comp-2",
-      type: "p",
-      content: "This beautiful page was built by dragging, dropping, and styling elements! Try dragging a new button or clicking this text to edit its styles.",
-      styles: {
-        backgroundColor: "transparent",
-        color: "#94a3b8",
-        borderRadius: "0px",
-        padding: "8px",
-        fontSize: "14px",
-        margin: "8px",
-        textAlign: "center"
-      }
-    },
-    {
-      id: "comp-3",
-      type: "button",
-      content: "✨ Click Me!",
-      styles: {
-        backgroundColor: "#10b981",
-        color: "#ffffff",
-        borderRadius: "8px",
-        padding: "10px",
-        fontSize: "13px",
-        margin: "12px",
-        textAlign: "center"
-      }
-    }
-  ]);
-  const [activeCompId, setActiveCompId] = useState<string | null>("comp-1");
-  const [builderTab, setBuilderTab] = useState<"palette" | "canvas" | "properties">("canvas");
-  const [liveServer, setLiveServer] = useState(false);
-  const [isFormatting, setIsFormatting] = useState(false);
- 
-  // Compile and run the code
-  const compileAndRun = (html: string, css: string, js: string, theme: "default" | "sepia" | "dark" = playTheme) => {
-    setLogs([]);
-    const trimmedHtml = html.trim();
-    
-    const interceptScript = `
-      <script>
-        const _log = console.log;
-        console.log = (...args) => {
-          _log(...args);
-          const serialized = args.map(a => 
-            typeof a === 'object' ? JSON.stringify(a) : String(a)
-          ).join(' ');
-          window.parent.postMessage({ type: 'CONSOLE_LOG', message: serialized }, '*');
-        };
-        
-        window.onerror = (message, source, lineno, colno) => {
-          window.parent.postMessage({ 
-            type: 'CONSOLE_ERROR', 
-            message: message + " (Line " + lineno + ")"
-          }, '*');
-          return false;
-        };
-      </script>
-    `;
- 
-    const userScript = `
-      <script>
-        try {
-          ${js}
-        } catch(e) {
-          console.log("❌ Error: " + e.message);
-        }
-      </script>
-    `;
- 
-    const iframeBg = theme === "default" ? "#ffffff" : theme === "sepia" ? "#f7f1e5" : "#0f172a";
-    const iframeColor = theme === "default" ? "#0f172a" : theme === "sepia" ? "#433422" : "#f8fafc";
- 
-    const srcDoc = `
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <meta charset="utf-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <link rel="preconnect" href="https://fonts.googleapis.com">
-          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-          <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-          <style>
-            body {
-              font-family: 'Inter', sans-serif;
-              margin: 0;
-              padding: 24px;
-              background: ${iframeBg};
-              color: ${iframeColor};
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-              justify-content: center;
-              min-height: 80vh;
-            }
-            ${css}
-          </style>
-          ${interceptScript}
-        </head>
-          <body>
-            ${trimmedHtml}
-            ${userScript}
-          </body>
-      </html>
-    `;
-    setIframeSrcDoc(srcDoc);
-  };
- 
-  const runCode = () => {
-    if (editorMode === "builder") {
-      const generated = generateHTML(components);
-      compileAndRun(generated, cssCode, jsCode, playTheme);
-    } else {
-      compileAndRun(htmlCode, cssCode, jsCode, playTheme);
-    }
-  };
- 
-  // Run on mount
-  useEffect(() => {
-    const initialTheme = playTheme;
-    const timer = setTimeout(() => {
-      if (editorMode === "builder") {
-        const generated = generateHTML(components);
-        compileAndRun(generated, cssCode, jsCode, initialTheme);
-      } else {
-        compileAndRun(htmlCode, cssCode, jsCode, initialTheme);
-      }
-    }, 100);
-    return () => clearTimeout(timer);
-  }, [editorMode, components, playTheme]);
- 
-  // Sync components → HTML + CSS + JS code editors
-  useEffect(() => {
-    if (editorMode !== "builder") return;
-    setHtmlCode(generateHTML(components));
-    setCssCode(generateCSS(components));
-    setJsCode(generateJS(components));
-  }, [components, editorMode]); 
-  // Listen console logs
-  useEffect(() => {
-    const handleMessage = (e: MessageEvent) => {
-      if (e.data && e.data.type === "CONSOLE_LOG") {
-        setLogs((prev) => [...prev, { type: "log", message: e.data.message }]);
-      } else if (e.data && e.data.type === "CONSOLE_ERROR") {
-        setLogs((prev) => [...prev, { type: "error", message: e.data.message }]);
-      }
-    };
-    window.addEventListener("message", handleMessage);
-    return () => window.removeEventListener("message", handleMessage);
-  }, []);
- 
-  // Sync scroll positions for editor syntax highlighting and gutter
-  useEffect(() => {
-    if (editorRef.current) {
-      if (highlightRef.current) {
-        highlightRef.current.scrollTop = editorRef.current.scrollTop;
-        highlightRef.current.scrollLeft = editorRef.current.scrollLeft;
-      }
-      if (gutterRef.current) {
-        gutterRef.current.scrollTop = editorRef.current.scrollTop;
-      }
-    }
-  }, [htmlCode, cssCode, jsCode, activeTab]);
- 
-  const handleScroll = () => {
-    if (editorRef.current) {
-      if (highlightRef.current) {
-        highlightRef.current.scrollTop = editorRef.current.scrollTop;
-        highlightRef.current.scrollLeft = editorRef.current.scrollLeft;
-      }
-      if (gutterRef.current) {
-        gutterRef.current.scrollTop = editorRef.current.scrollTop;
-      }
-    }
-  };
- 
-  // Live Server Hot-Reload Debounce Effect
-  useEffect(() => {
-    if (!liveServer) return;
-    
-    const timer = setTimeout(() => {
-      if (editorMode === "builder") {
-        const generated = generateHTML(components);
-        compileAndRun(generated, cssCode, jsCode, playTheme);
-      } else {
-        compileAndRun(htmlCode, cssCode, jsCode, playTheme);
-      }
-    }, 600);
-    return () => clearTimeout(timer);
-  }, [htmlCode, cssCode, jsCode, editorMode, components, playTheme, liveServer]);
- 
-  const handleFormat = () => {
-    setIsFormatting(true);
-    setTimeout(() => {
-      if (activeTab === "html") {
-        setHtmlCode(formatHTML(htmlCode));
-      } else if (activeTab === "css") {
-        setCssCode(formatCSS(cssCode));
-      } else if (activeTab === "js") {
-        setJsCode(formatJS(jsCode));
-      }
-      setIsFormatting(false);
-    }, 300);
-  };
- 
-  function generateHTML(comps: UIComponent[]) {
-    const lines: string[] = [];
-    comps.forEach((c, i) => {
-      const cls = `el-${i}`;
-      if (c.type === "h1")       lines.push(`  <h1 class="${cls}">${c.content}</h1>`);
-      else if (c.type === "h2") lines.push(`  <h2 class="${cls}">${c.content}</h2>`);
-      else if (c.type === "h3") lines.push(`  <h3 class="${cls}">${c.content}</h3>`);
-      else if (c.type === "p")  lines.push(`  <p class="${cls}">${c.content}</p>`);
-      else if (c.type === "button") lines.push(`  <button class="${cls}" id="btn-${i}">${c.content}</button>`);
-      else if (c.type === "a")  lines.push(`  <a href="${c.href || '#'}" class="${cls}">${c.content}</a>`);
-      else if (c.type === "img") lines.push(`  <img src="${c.src || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400'}" class="${cls}" alt="Visual item">`);
-      else if (c.type === "hr") lines.push(`  <hr class="${cls}">`);
-      else if (c.type === "input") lines.push(`  <input type="text" class="${cls}" placeholder="${c.content}">`);
-      else if (c.type === "textarea") lines.push(`  <textarea class="${cls}" rows="4" placeholder="${c.content}"></textarea>`);
-      else if (c.type === "table") lines.push(`  <table class="${cls}">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Role</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr><td>Alice</td><td>Developer</td><td>Active</td></tr>
-      <tr><td>Bob</td><td>Designer</td><td>Active</td></tr>
-    </tbody>
-  </table>`);
-      else if (c.type === "video") lines.push(`  <div class="${cls} video-placeholder">
-    <span>&#9654; ${c.content}</span>
-  </div>`);
-      else lines.push(`  <div class="${cls}">${c.content}</div>`);
-    });
 
+const DEFAULT_HTML = TEMPLATES.counter.files["index.html"];
+const DEFAULT_CSS = TEMPLATES.counter.files["style.css"];
+const DEFAULT_JS = TEMPLATES.counter.files["script.js"];
+const DEFAULT_README = TEMPLATES.counter.files["README.md"];
+const DEFAULT_PACKAGE_JSON = `{
+  "name": "nextsem-workspace",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Visual Studio Code Sandbox for Full Stack Web Developers",
+  "scripts": {
+    "start": "live-server --port=5500",
+    "test": "echo 'Running test suite... 100% passed!'"
+  },
+  "dependencies": {
+    "html5": "latest",
+    "css3": "latest",
+    "javascript-es6": "latest"
+  }
+}`;
+
+export default function PlaygroundClient() {
+  /* File & Workspace States */
+  const [activeFile, setActiveFile] = useState<string>("index.html");
+  const [openTabs, setOpenTabs] = useState<string[]>(["index.html", "style.css", "script.js", "README.md"]);
+  const [htmlCode, setHtmlCode] = useState<string>(DEFAULT_HTML);
+  const [cssCode, setCssCode] = useState<string>(DEFAULT_CSS);
+  const [jsCode, setJsCode] = useState<string>(DEFAULT_JS);
+  const [readmeCode, setReadmeCode] = useState<string>(DEFAULT_README);
+  const [pkgJsonCode, setPkgJsonCode] = useState<string>(DEFAULT_PACKAGE_JSON);
+
+  /* VS Code UI Layout States */
+  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(true);
+  const [activeActivity, setActiveActivity] = useState<"explorer" | "search" | "git" | "debug" | "extensions">("explorer");
+  const [layoutMode, setLayoutMode] = useState<"top" | "split" | "hidden">("hidden");
+  const [showBottomPanel, setShowBottomPanel] = useState<boolean>(false);
+  const [activeBottomTab, setActiveBottomTab] = useState<"terminal" | "console" | "output" | "problems" | "ports">("terminal");
+  
+  /* Feature Modals & Search States */
+  const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState<boolean>(false);
+  const [paletteQuery, setPaletteQuery] = useState<string>("");
+  const [activeMenu, setActiveMenu] = useState<string | null>(null);
+  const [sidebarSearchQuery, setSidebarSearchQuery] = useState<string>("");
+  const [themeMode, setThemeMode] = useState<"dark-plus" | "high-contrast" | "monokai">("dark-plus");
+
+  /* Device & Execution States */
+  const [deviceMode, setDeviceMode] = useState<"desktop" | "tablet" | "mobile">("desktop");
+  const [consoleLogs, setConsoleLogs] = useState<string[]>([]);
+  const [terminalHistory, setTerminalHistory] = useState<string[]>([
+    "Microsoft Windows [Version 10.0.22631.4169]",
+    "(c) Microsoft Corporation. All rights reserved.",
+    "",
+    "PS C:\\Users\\nextsem\\workspace> live-server --port=5500",
+    "Serving \"C:\\Users\\nextsem\\workspace\" at http://127.0.0.1:5500",
+    "Ready for client-side JavaScript execution."
+  ]);
+  const [terminalInput, setTerminalInput] = useState<string>("");
+  const [cursorPos, setCursorPos] = useState<{ line: number; col: number }>({ line: 1, col: 1 });
+  const [copied, setCopied] = useState<boolean>(false);
+
+  /* Emmet Live Abbreviation State */
+  const [emmetSuggestion, setEmmetSuggestion] = useState<{
+    abbreviation: string;
+    expanded: string;
+    startIndex: number;
+    endIndex: number;
+  } | null>(null);
+
+  /* Prettier Code Formatter Add-on State */
+  const [prettierConfig, setPrettierConfig] = useState<PrettierConfig>(DEFAULT_PRETTIER_CONFIG);
+  const [toastNotice, setToastNotice] = useState<string | null>(null);
+
+  /* Live Server Add-on State */
+  const [isLiveServerRunning, setIsLiveServerRunning] = useState<boolean>(true);
+  const [liveServerPort, setLiveServerPort] = useState<number>(5500);
+  const [hotReloadEnabled, setHotReloadEnabled] = useState<boolean>(true);
+
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const terminalEndRef = useRef<HTMLDivElement>(null);
+
+  const showToast = (msg: string) => {
+    setToastNotice(msg);
+    setTimeout(() => setToastNotice(null), 2800);
+  };
+
+  // Format active file with Prettier
+  const formatCurrentFile = () => {
+    const code = getCurrentCode();
+    const formatted = formatDocument(code, activeFile, prettierConfig);
+    if (formatted !== code) {
+      setCurrentCode(formatted);
+    }
+    showToast(`✨ Prettier: Formatted ${activeFile}`);
+    if (isLiveServerRunning) {
+      compileAndRun();
+    }
+  };
+
+  // Toggle Live Server Add-on
+  const toggleLiveServer = () => {
+    setIsLiveServerRunning((prev) => {
+      const next = !prev;
+      if (next) {
+        setTerminalHistory((t) => [
+          ...t,
+          `PS C:\\Users\\nextsem\\workspace> live-server --port=${liveServerPort}`,
+          `[Live Server v5.7.9]: Serving at http://127.0.0.1:${liveServerPort} (Hot reload active)`
+        ]);
+        showToast(`🟢 Live Server started on Port ${liveServerPort}`);
+        compileAndRun();
+      } else {
+        setTerminalHistory((t) => [
+          ...t,
+          `[Live Server]: Server on port ${liveServerPort} stopped.`
+        ]);
+        showToast(`⚪ Live Server stopped`);
+      }
+      return next;
+    });
+  };
+
+  // Open Live Server in a new tab / external window
+  const openExternalPreview = () => {
+    const win = window.open("", "_blank");
+    if (win) {
+      win.document.open();
+      win.document.write(generateCombinedDoc());
+      win.document.close();
+      showToast(`🌐 Live Server opened in new tab`);
+    }
+  };
+
+  // Load from localStorage
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const savedHtml = localStorage.getItem("nextsem_vscode_html");
+      const savedCss = localStorage.getItem("nextsem_vscode_css");
+      const savedJs = localStorage.getItem("nextsem_vscode_js");
+      if (savedHtml) setHtmlCode(savedHtml);
+      if (savedCss) setCssCode(savedCss);
+      if (savedJs) setJsCode(savedJs);
+    }
+  }, []);
+
+  // Save to localStorage
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("nextsem_vscode_html", htmlCode);
+      localStorage.setItem("nextsem_vscode_css", cssCode);
+      localStorage.setItem("nextsem_vscode_js", jsCode);
+    }
+  }, [htmlCode, cssCode, jsCode]);
+
+  // Construct combined document
+  const generateCombinedDoc = () => {
     return `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Design</title>
-  <link rel="stylesheet" href="style.css">
+  <style>
+    ${cssCode}
+  </style>
+  <script>
+    (function() {
+      const oldLog = console.log;
+      const oldError = console.error;
+      console.log = function(...args) {
+        window.parent.postMessage({ type: 'LOG', data: args.join(' ') }, '*');
+        oldLog.apply(console, args);
+      };
+      console.error = function(...args) {
+        window.parent.postMessage({ type: 'ERROR', data: args.join(' ') }, '*');
+        oldError.apply(console, args);
+      };
+    })();
+  <\/script>
 </head>
 <body>
-${lines.join('\n')}
+  ${htmlCode.replace(/<!DOCTYPE[\s\S]*?<body[^>]*>/i, '').replace(/<\/body>[\s\S]*?<\/html>/i, '') || htmlCode}
+  <script>
+    try {
+      ${jsCode}
+    } catch(err) {
+      console.error("Runtime Error: " + err.message);
+    }
+  <\/script>
 </body>
 </html>`;
-  }
+  };
 
-  function generateCSS(comps: UIComponent[]) {
-    const rules: string[] = [
-      `* { box-sizing: border-box; margin: 0; padding: 0; }`,
-      `body {
-  font-family: sans-serif;
-  padding: 24px;
-  background-color: #0f172a;
-  color: #f8fafc;
-}`,
-      `.video-placeholder {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 120px;
-  border: 2px dashed #475569;
-  border-radius: 8px;
-  color: #64748b;
-  font-size: 14px;
-}`
-    ];
-    comps.forEach((c, i) => {
-      const cls = `.el-${i}`;
-      if (c.type === "hr") {
-        rules.push(`${cls} {
-  border: none;
-  border-top: 2px solid ${c.styles.color || '#475569'};
-  margin: ${c.styles.margin};
-}`);
-      } else if (c.type === "img") {
-        rules.push(`${cls} {
-  max-width: 100%;
-  height: auto;
-  display: block;
-  border-radius: ${c.styles.borderRadius};
-  margin: ${c.styles.margin};
-}`);
-      } else if (c.type === "input" || c.type === "textarea") {
-        rules.push(`${cls} {
-  display: block;
-  width: 100%;
-  padding: ${c.styles.padding};
-  font-size: ${c.styles.fontSize};
-  margin: ${c.styles.margin};
-  border: 1px solid #475569;
-  border-radius: ${c.styles.borderRadius};
-  background-color: ${c.styles.backgroundColor || '#1e293b'};
-  color: ${c.styles.color};
-  outline: none;
-}`);
-      } else if (c.type === "table") {
-        rules.push(`${cls} {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: ${c.styles.fontSize};
-  color: ${c.styles.color};
-  margin: ${c.styles.margin};
-}
-${cls} th, ${cls} td {
-  border: 1px solid #334155;
-  padding: 8px;
-  text-align: center;
-}
-${cls} thead tr {
-  background-color: #1e293b;
-}`);
-      } else {
-        rules.push(`${cls} {
-  background-color: ${c.styles.backgroundColor};
-  color: ${c.styles.color};
-  border-radius: ${c.styles.borderRadius};
-  padding: ${c.styles.padding};
-  font-size: ${c.styles.fontSize};
-  margin: ${c.styles.margin};
-  text-align: ${c.styles.textAlign};
-  display: block;
-}`);
+  // Compile and run in live preview
+  const compileAndRun = () => {
+    if (layoutMode === "hidden") setLayoutMode("top");
+    setTimeout(() => {
+      if (!iframeRef.current) return;
+      const doc = iframeRef.current.contentDocument || iframeRef.current.contentWindow?.document;
+      if (doc) {
+        doc.open();
+        doc.write(generateCombinedDoc());
+        doc.close();
       }
-    });
-    return rules.join('\n\n');
-  }
+    }, 50);
+  };
 
-  function generateJS(comps: UIComponent[]) {
-    const lines: string[] = [
-      `// ⚡ Auto-generated by Nextsem Visual Builder`,
-      `document.addEventListener('DOMContentLoaded', function () {`
-    ];
-    let hasActions = false;
-    comps.forEach((c, i) => {
-      if (!c.jsAction || !c.jsAction.value) return;
-      hasActions = true;
-      const { event, action, value } = c.jsAction;
-      const sel = `document.querySelector('.el-${i}')`;
-      let body = "";
-      if (action === "alert")      body = `alert(${JSON.stringify(value)});`;
-      else if (action === "log")   body = `console.log(${JSON.stringify(value)});`;
-      else if (action === "redirect") body = `window.location.href = ${JSON.stringify(value)};`;
-      else if (action === "toggle") body = `const el = ${sel}; if (el) el.style.display = el.style.display === 'none' ? '' : 'none';`;
-      else if (action === "changeText") body = `const el = ${sel}; if (el) el.textContent = ${JSON.stringify(value)};`;
-      else body = value; // custom
+  // Auto Live Reload (Hot Reload) when typing if Live Server is active
+  useEffect(() => {
+    if (!isLiveServerRunning || !hotReloadEnabled || layoutMode === "hidden") return;
+    const timer = setTimeout(() => {
+      compileAndRun();
+    }, 350);
+    return () => clearTimeout(timer);
+  }, [htmlCode, cssCode, jsCode, isLiveServerRunning, hotReloadEnabled]);
 
-      if (action === "toggle") {
-        lines.push(`  // el-${i} (${c.type}) — ${event}`);
-        lines.push(`  const el${i} = ${sel};`);
-        lines.push(`  if (el${i}) {`);
-        lines.push(`    el${i}.addEventListener('${event}', function () {`);
-        lines.push(`      ${body}`);
-        lines.push(`    });`);
-        lines.push(`  }`);
-      } else {
-        lines.push(`  // el-${i} (${c.type}) — ${event}`);
-        lines.push(`  const el${i} = ${sel};`);
-        lines.push(`  if (el${i}) {`);
-        lines.push(`    el${i}.addEventListener('${event}', function () {`);
-        lines.push(`      ${body}`);
-        lines.push(`    });`);
-        lines.push(`  }`);
+  // Console message listener
+  useEffect(() => {
+    const handleMessage = (e: MessageEvent) => {
+      if (e.data && (e.data.type === "LOG" || e.data.type === "ERROR")) {
+        setConsoleLogs((prev) => [...prev, `${e.data.type === "ERROR" ? "❌ " : "❯ "}${e.data.data}`]);
       }
-    });
-    if (!hasActions) {
-      lines.push(`  // Add JS behavior via the Property Editor → JS Behavior section`);
-      lines.push(`  console.log('Visual Builder JS loaded!');`);
+    };
+    window.addEventListener("message", handleMessage);
+    return () => window.removeEventListener("message", handleMessage);
+  }, []);
+
+  // Keyboard shortcut listener (Ctrl+Enter, Ctrl+B, Ctrl+Shift+P, F1, Ctrl+S, Shift+Alt+F)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Run Preview
+      if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+        e.preventDefault();
+        compileAndRun();
+      }
+      // Toggle Side Bar
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "b") {
+        e.preventDefault();
+        setIsSidebarOpen((prev) => !prev);
+      }
+      // Command Palette
+      if (((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === "p") || e.key === "F1") {
+        e.preventDefault();
+        setIsCommandPaletteOpen((prev) => !prev);
+      }
+      // Save & Format (Ctrl+S)
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "s") {
+        e.preventDefault();
+        if (prettierConfig.formatOnSave) {
+          formatCurrentFile();
+        } else {
+          compileAndRun();
+          showToast(`💾 Saved ${activeFile}`);
+        }
+      }
+      // Prettier Format Document (Shift + Alt + F or Ctrl + Shift + I)
+      if ((e.shiftKey && e.altKey && e.key.toLowerCase() === "f") || ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === "i")) {
+        e.preventDefault();
+        formatCurrentFile();
+      }
+      // Toggle Terminal Panel
+      if ((e.ctrlKey || e.metaKey) && e.key === "`") {
+        e.preventDefault();
+        setShowBottomPanel((prev) => !prev);
+      }
+      if (e.key === "Escape") {
+        setIsCommandPaletteOpen(false);
+        setActiveMenu(null);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [htmlCode, cssCode, jsCode, layoutMode, activeFile, prettierConfig, isLiveServerRunning]);
+
+
+  // Detect active Emmet abbreviation at cursor
+  const checkEmmetSuggestion = (codeText: string, cursorIndex: number) => {
+    const fileContext = activeFile.endsWith(".css") ? "css" : activeFile.endsWith(".js") ? "js" : "html";
+    if (fileContext === "js") {
+      setEmmetSuggestion(null);
+      return;
     }
-    lines.push(`});`);
-    return lines.join('\n');
-  }
- 
-  // Drag & drop logic
-  const handleDragStart = (e: React.DragEvent, type: UIComponent["type"]) => {
-    e.dataTransfer.setData("text/plain", type);
+    const match = getEmmetAbbreviationAtCursor(codeText, cursorIndex);
+    if (match) {
+      const expanded = expandEmmet(match.abbreviation, fileContext);
+      if (expanded) {
+        setEmmetSuggestion({
+          abbreviation: match.abbreviation,
+          expanded,
+          startIndex: match.startIndex,
+          endIndex: match.endIndex
+        });
+        return;
+      }
+    }
+    setEmmetSuggestion(null);
   };
- 
-  const handleDrop = (e: React.DragEvent) => {
+
+  // Perform Emmet expansion programmatically
+  const executeEmmetExpansion = () => {
+    if (!textareaRef.current) return;
+    const target = textareaRef.current;
+    const start = target.selectionStart;
+    const currentCode = getCurrentCode();
+    const fileContext = activeFile.endsWith(".css") ? "css" : activeFile.endsWith(".js") ? "js" : "html";
+
+    const result = expandEmmetWithIndentation(currentCode, start, fileContext);
+    if (result) {
+      setCurrentCode(result.newText);
+      setEmmetSuggestion(null);
+      setTimeout(() => {
+        target.selectionStart = target.selectionEnd = result.newCursorPos;
+        target.focus();
+        compileAndRun();
+      }, 0);
+    }
+  };
+
+  // Handle Tab key in code editor with smart Emmet expansion
+  const handleTextareaKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    const target = e.currentTarget;
+    const start = target.selectionStart;
+    const currentCode = getCurrentCode();
+    const fileContext = activeFile.endsWith(".css") ? "css" : activeFile.endsWith(".js") ? "js" : "html";
+
+    // 1. Tab Key: Expand Emmet abbreviation if found; otherwise indent 2 spaces
+    if (e.key === "Tab") {
+      e.preventDefault();
+      const result = expandEmmetWithIndentation(currentCode, start, fileContext);
+      if (result) {
+        setCurrentCode(result.newText);
+        setEmmetSuggestion(null);
+        setTimeout(() => {
+          target.selectionStart = target.selectionEnd = result.newCursorPos;
+          compileAndRun();
+        }, 0);
+        return;
+      }
+
+      // Default 2-space tab indentation
+      const end = target.selectionEnd;
+      const newCode = currentCode.substring(0, start) + "  " + currentCode.substring(end);
+      setCurrentCode(newCode);
+
+      setTimeout(() => {
+        target.selectionStart = target.selectionEnd = start + 2;
+      }, 0);
+      return;
+    }
+
+    // 2. Escape: Dismiss Emmet suggestion
+    if (e.key === "Escape") {
+      setEmmetSuggestion(null);
+    }
+  };
+
+  // Update line and col count on cursor move and check Emmet
+  const handleCursorMove = (e: React.SyntheticEvent<HTMLTextAreaElement>) => {
+    const textarea = e.currentTarget;
+    const start = textarea.selectionStart;
+    const textLines = textarea.value.substring(0, start).split("\n");
+    const line = textLines.length;
+    const col = textLines[textLines.length - 1].length + 1;
+    setCursorPos({ line, col });
+    checkEmmetSuggestion(textarea.value, start);
+  };
+
+
+  const getCurrentCode = (): string => {
+    switch (activeFile) {
+      case "index.html": return htmlCode;
+      case "style.css": return cssCode;
+      case "script.js": return jsCode;
+      case "README.md": return readmeCode;
+      case "package.json": return pkgJsonCode;
+      default: return "";
+    }
+  };
+
+  const setCurrentCode = (val: string) => {
+    switch (activeFile) {
+      case "index.html": setHtmlCode(val); break;
+      case "style.css": setCssCode(val); break;
+      case "script.js": setJsCode(val); break;
+      case "README.md": setReadmeCode(val); break;
+      case "package.json": setPkgJsonCode(val); break;
+    }
+  };
+
+  const openFile = (filename: string) => {
+    if (!openTabs.includes(filename)) {
+      setOpenTabs([...openTabs, filename]);
+    }
+    setActiveFile(filename);
+  };
+
+  const closeTab = (e: React.MouseEvent, filename: string) => {
+    e.stopPropagation();
+    const newTabs = openTabs.filter(t => t !== filename);
+    if (newTabs.length === 0) {
+      setOpenTabs(["index.html"]);
+      setActiveFile("index.html");
+    } else {
+      setOpenTabs(newTabs);
+      if (activeFile === filename) {
+        setActiveFile(newTabs[newTabs.length - 1]);
+      }
+    }
+  };
+
+  const loadTemplate = (templateKey: string) => {
+    const t = TEMPLATES[templateKey];
+    if (t) {
+      setHtmlCode(t.files["index.html"]);
+      setCssCode(t.files["style.css"]);
+      setJsCode(t.files["script.js"]);
+      setReadmeCode(t.files["README.md"]);
+      setActiveFile("index.html");
+      setConsoleLogs([]);
+      compileAndRun();
+    }
+  };
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(getCurrentCode());
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  const handleReset = () => {
+    if (confirm("Reset current project files to default VS Code templates?")) {
+      loadTemplate("counter");
+    }
+  };
+
+  // Download project as single HTML file
+  const handleDownload = () => {
+    const blob = new Blob([generateCombinedDoc()], { type: "text/html" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "nextsem-project.html";
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  // Terminal interactive commands
+  const handleTerminalSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const type = e.dataTransfer.getData("text/plain") as UIComponent["type"];
-    if (!type) return;
- 
-    const defaultContent: Record<UIComponent["type"], string> = {
-      h1: "New Header", h2: "Medium Heading", h3: "Small Heading",
-      p: "Tap to edit paragraph text", button: "🔥 Action", a: "🔗 Link Text",
-      img: "", div: "Card Box", hr: "", input: "Enter your name...",
-      textarea: "Write something here...", table: "Data Table", video: "🎬 Video Placeholder"
-    };
-    const newComp: UIComponent = {
-      id: `comp-${Date.now()}`,
-      type,
-      content: defaultContent[type] ?? "Component",
-      styles: {
-        backgroundColor: type === "button" ? "#3b82f6" : type === "div" ? "#1e293b" : "transparent",
-        color: type === "button" ? "#ffffff" : type === "a" ? "#38bdf8" : type === "hr" ? "#475569" : "#f8fafc",
-        borderRadius: type === "button" ? "8px" : type === "div" ? "12px" : "0px",
-        padding: type === "hr" ? "0px" : "10px",
-        fontSize: type === "h1" ? "22px" : type === "h2" ? "18px" : type === "h3" ? "15px" : "14px",
-        margin: "8px",
-        textAlign: "left"
-      }
-    };
-    setComponents((prev) => [...prev, newComp]);
-    setActiveCompId(newComp.id);
+    if (!terminalInput.trim()) return;
+    const cmd = terminalInput.trim();
+    const newHistory = [...terminalHistory, `PS C:\\Users\\nextsem\\workspace> ${cmd}`];
+
+    if (cmd === "clear" || cmd === "cls") {
+      setTerminalHistory([]);
+      setTerminalInput("");
+      return;
+    } else if (cmd === "run" || cmd === "npm start" || cmd === "live-server") {
+      newHistory.push("Starting Live Server on port 5500...");
+      newHistory.push("Compiled successfully with 0 errors.");
+      compileAndRun();
+    } else if (cmd === "ls" || cmd === "dir") {
+      newHistory.push("Directory: C:\\Users\\nextsem\\workspace\\src");
+      newHistory.push("Mode                Length Name");
+      newHistory.push("----                ------ ----");
+      newHistory.push("-a---                1248 index.html");
+      newHistory.push("-a---                2480 style.css");
+      newHistory.push("-a---                 960 script.js");
+      newHistory.push("-a---                 412 README.md");
+      newHistory.push("-a---                 350 package.json");
+    } else if (cmd === "node script.js" || cmd === "node") {
+      newHistory.push("Executing script.js in V8 JavaScript runtime...");
+      newHistory.push("Output: VS Code Sandbox ready • Press Ctrl+Enter to re-run! 🚀");
+    } else if (cmd === "help") {
+      newHistory.push("Available Commands:");
+      newHistory.push("  run / npm start    - Compile and launch live preview");
+      newHistory.push("  dir / ls           - List workspace files");
+      newHistory.push("  node script.js     - Run active JavaScript code");
+      newHistory.push("  clear / cls        - Clear terminal screen");
+      newHistory.push("  help               - Show this helper menu");
+    } else {
+      newHistory.push(`Command '${cmd}' recognized by Nextsem CLI. Type 'help' for available commands.`);
+    }
+
+    setTerminalHistory(newHistory);
+    setTerminalInput("");
+    setTimeout(() => {
+      terminalEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, 50);
   };
- 
-  const updateActiveCompStyle = (key: keyof UIComponent["styles"], val: string) => {
-    if (!activeCompId) return;
-    setComponents((prev) => prev.map((c) => {
-      if (c.id === activeCompId) {
-        return { ...c, styles: { ...c.styles, [key]: val } };
-      }
-      return c;
-    }));
-  };
- 
-  const updateActiveCompContent = (val: string) => {
-    if (!activeCompId) return;
-    setComponents((prev) => prev.map((c) => {
-      if (c.id === activeCompId) {
-        return { ...c, content: val };
-      }
-      return c;
-    }));
-  };
- 
-  const deleteActiveComp = () => {
-    if (!activeCompId) return;
-    setComponents((prev) => prev.filter((c) => c.id !== activeCompId));
-    setActiveCompId(null);
-  };
- 
-  const activeComp = components.find(c => c.id === activeCompId);
-  const isLight = playTheme === "default";
-  const isSepia = playTheme === "sepia";
-  const lineCount = (activeTab === "html" ? htmlCode : activeTab === "css" ? cssCode : jsCode).split("\n").length;
+
+  const lineCount = getCurrentCode().split("\n").length;
   const lineNumbers = Array.from({ length: lineCount }, (_, i) => i + 1);
- 
+
+  const getDeviceWidth = () => {
+    switch (deviceMode) {
+      case "mobile": return "max-w-[340px]";
+      case "tablet": return "max-w-[560px]";
+      default: return "w-full";
+    }
+  };
+
+  const getFileIcon = (file: string) => {
+    if (file.endsWith(".html")) return <span className="text-[#e44d26] font-bold text-[11px]">📄</span>;
+    if (file.endsWith(".css")) return <span className="text-[#42a5f5] font-bold text-[11px]">🎨</span>;
+    if (file.endsWith(".js")) return <span className="text-[#f7df1e] font-bold text-[11px]">⚡</span>;
+    if (file.endsWith(".md")) return <span className="text-[#38bdf8] font-bold text-[11px]">ℹ️</span>;
+    if (file.endsWith(".json")) return <span className="text-[#f59e0b] font-bold text-[11px]">📦</span>;
+    return <FileText size={12} className="text-[#94a3b8]" />;
+  };
+
+  // Command palette filter
+  const COMMANDS = useMemo(() => [
+    { name: "Live Preview: Run & Refresh Web Sandbox", action: () => compileAndRun(), icon: "▶" },
+    { name: "View: Toggle Primary Side Bar (Explorer)", action: () => setIsSidebarOpen(!isSidebarOpen), icon: "📁" },
+    { name: "View: Toggle Integrated Terminal Panel", action: () => setShowBottomPanel(!showBottomPanel), icon: "💻" },
+    { name: "Layout: Switch to Top Preview Drawer", action: () => setLayoutMode("top"), icon: "⬆" },
+    { name: "Layout: Switch to Split Screen (Side-by-Side)", action: () => setLayoutMode("split"), icon: "◫" },
+    { name: "File: Download Project as Single HTML File", action: () => handleDownload(), icon: "💾" },
+    { name: "File: Reset Project to Default Starter Template", action: () => handleReset(), icon: "🔄" },
+    { name: "Template: Load Interactive Counter", action: () => loadTemplate("counter"), icon: "🔢" },
+    { name: "Template: Load Interactive Todo List", action: () => loadTemplate("todo"), icon: "📝" },
+    { name: "Template: Load Tic Tac Toe Game", action: () => loadTemplate("tictactoe"), icon: "🎮" },
+    { name: "Template: Load Glassmorphism Card", action: () => loadTemplate("glassmorphism"), icon: "💎" },
+    { name: "Theme: VS Code Dark+ (Default)", action: () => setThemeMode("dark-plus"), icon: "🎨" },
+    { name: "Theme: High Contrast Dark", action: () => setThemeMode("high-contrast"), icon: "🌓" },
+    { name: "Theme: Monokai Pro", action: () => setThemeMode("monokai"), icon: "🌙" },
+  ], [isSidebarOpen, showBottomPanel, layoutMode]);
+
+  const filteredCommands = COMMANDS.filter(c => c.name.toLowerCase().includes(paletteQuery.toLowerCase()));
+
+  // Theme styling rules
+  const themeBg = themeMode === "high-contrast" ? "bg-black" : themeMode === "monokai" ? "bg-[#272822]" : "bg-[#1e1e1e]";
+  const editorBg = themeMode === "high-contrast" ? "bg-black" : themeMode === "monokai" ? "bg-[#1e1f1c]" : "bg-[#1e1e1e]";
+
   return (
-    <div className={`h-screen w-full flex flex-col font-sans overflow-hidden select-none transition-colors duration-300 px-0 md:px-[10%] ${isLight ? "bg-[#f8fafc] text-slate-900" : isSepia ? "bg-[#f4ecd8] text-[#5b4636]" : "bg-[#030712] text-white"}`}>
+    <div className={`h-screen w-screen ${themeBg} text-[#cccccc] flex flex-col font-mono overflow-hidden select-none`}>
       
-      {/* ── HEADER ── */}
-      <header className={`flex justify-between items-center px-4 py-2.5 border-b transition-colors duration-300 z-20 shrink-0 ${isLight ? "bg-white/80 border-slate-200/80 shadow-sm" : isSepia ? "bg-[#ebdcb9]/80 border-[#e6dcc8]/80" : "bg-[#090d16]/80 border-white/5 shadow-md"}`}>
-        <div className="flex items-center gap-3">
-          <Link href="/" className={`p-1.5 rounded-xl transition-all hover:scale-105 active:scale-95 ${isLight ? "bg-slate-100 hover:bg-slate-200 text-slate-600" : isSepia ? "bg-[#ebdcb9]/60 hover:bg-[#ebdcb9] text-[#705845]" : "bg-slate-900 hover:bg-slate-800 text-slate-400"}`}>
-            <ArrowLeft size={16} />
+      {/* ── 1. NATIVE VS CODE TOP TITLEBAR & MENU BAR ── */}
+      <header className="bg-[#323233] h-8 px-2 flex items-center justify-between border-b border-[#252526] text-xs text-[#cccccc] shrink-0 z-40 relative">
+        
+        {/* Left: VS Code Brand Logo + Native Dropdown Menus */}
+        <div className="flex items-center gap-1">
+          {/* VS Code Official Logo Icon */}
+          <Link
+            href="/"
+            className="flex items-center gap-1.5 px-2 py-1 text-white hover:text-[#007acc] transition-colors font-sans font-bold text-[12px] group"
+            title="Return to Nextsem Academy Home"
+          >
+            <Code2 size={16} className="text-[#007acc] group-hover:scale-110 transition-transform" />
+            <span className="font-extrabold text-white">Nextsem Code</span>
           </Link>
-          <div>
-            <h1 className="text-xs font-black uppercase tracking-wider flex items-center gap-1.5">
-              <span className="text-[#04AA6D]">✨</span>
-              <span>Nextsem DIY Simulation Sandbox</span>
-            </h1>
-            <p className={`text-[9px] hidden sm:block font-bold ${isLight ? "text-slate-500" : isSepia ? "text-[#705845]/90" : "text-slate-455"}`}>
-              Visual design canvas & code playground
-            </p>
+          
+          {/* Top Menu Dropdowns */}
+          <div className="hidden lg:flex items-center text-[11px] text-[#cccccc] font-sans">
+            
+            {/* File Menu */}
+            <div className="relative">
+              <button 
+                onClick={() => setActiveMenu(activeMenu === "file" ? null : "file")}
+                className={`px-2 py-0.5 rounded hover:bg-[#454545] cursor-pointer transition-colors ${activeMenu === "file" ? "bg-[#454545] text-white" : ""}`}
+              >
+                File
+              </button>
+              {activeMenu === "file" && (
+                <div className="absolute left-0 top-full mt-0.5 w-56 bg-[#252526] border border-[#454545] shadow-2xl rounded py-1 z-50 text-[11px] text-[#cccccc]">
+                  <button onClick={() => { openFile("index.html"); setActiveMenu(null); }} className="w-full px-3 py-1.5 hover:bg-[#04AA6D] hover:text-white flex justify-between text-left">
+                    <span>New File</span> <span className="text-[#858585]">Ctrl+N</span>
+                  </button>
+                  <button onClick={() => { compileAndRun(); setActiveMenu(null); }} className="w-full px-3 py-1.5 hover:bg-[#04AA6D] hover:text-white flex justify-between text-left">
+                    <span>Save & Run</span> <span className="text-[#858585]">Ctrl+S</span>
+                  </button>
+                  <button onClick={() => { handleDownload(); setActiveMenu(null); }} className="w-full px-3 py-1.5 hover:bg-[#04AA6D] hover:text-white flex justify-between text-left">
+                    <span>Export as HTML</span> <span className="text-[#858585]">Ctrl+E</span>
+                  </button>
+                  <div className="h-[1px] bg-[#3c3c3c] my-1" />
+                  <button onClick={() => { handleReset(); setActiveMenu(null); }} className="w-full px-3 py-1.5 hover:bg-red-600 hover:text-white flex justify-between text-left">
+                    <span>Reset Workspace</span>
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {/* Edit Menu */}
+            <div className="relative">
+              <button 
+                onClick={() => setActiveMenu(activeMenu === "edit" ? null : "edit")}
+                className={`px-2 py-0.5 rounded hover:bg-[#454545] cursor-pointer transition-colors ${activeMenu === "edit" ? "bg-[#454545] text-white" : ""}`}
+              >
+                Edit
+              </button>
+              {activeMenu === "edit" && (
+                <div className="absolute left-0 top-full mt-0.5 w-52 bg-[#252526] border border-[#454545] shadow-2xl rounded py-1 z-50 text-[11px] text-[#cccccc]">
+                  <button onClick={() => { handleCopy(); setActiveMenu(null); }} className="w-full px-3 py-1.5 hover:bg-[#04AA6D] hover:text-white flex justify-between text-left">
+                    <span>Copy All Code</span> <span className="text-[#858585]">Ctrl+C</span>
+                  </button>
+                  <button onClick={() => { setActiveActivity("search"); setIsSidebarOpen(true); setActiveMenu(null); }} className="w-full px-3 py-1.5 hover:bg-[#04AA6D] hover:text-white flex justify-between text-left">
+                    <span>Find & Replace</span> <span className="text-[#858585]">Ctrl+F</span>
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {/* View Menu */}
+            <div className="relative">
+              <button 
+                onClick={() => setActiveMenu(activeMenu === "view" ? null : "view")}
+                className={`px-2 py-0.5 rounded hover:bg-[#454545] cursor-pointer transition-colors ${activeMenu === "view" ? "bg-[#454545] text-white" : ""}`}
+              >
+                View
+              </button>
+              {activeMenu === "view" && (
+                <div className="absolute left-0 top-full mt-0.5 w-56 bg-[#252526] border border-[#454545] shadow-2xl rounded py-1 z-50 text-[11px] text-[#cccccc]">
+                  <button onClick={() => { setIsCommandPaletteOpen(true); setActiveMenu(null); }} className="w-full px-3 py-1.5 hover:bg-[#04AA6D] hover:text-white flex justify-between text-left">
+                    <span>Command Palette...</span> <span className="text-[#858585]">F1</span>
+                  </button>
+                  <button onClick={() => { setIsSidebarOpen(!isSidebarOpen); setActiveMenu(null); }} className="w-full px-3 py-1.5 hover:bg-[#04AA6D] hover:text-white flex justify-between text-left">
+                    <span>Toggle Side Bar</span> <span className="text-[#858585]">Ctrl+B</span>
+                  </button>
+                  <button onClick={() => { setShowBottomPanel(!showBottomPanel); setActiveMenu(null); }} className="w-full px-3 py-1.5 hover:bg-[#04AA6D] hover:text-white flex justify-between text-left">
+                    <span>Toggle Terminal</span> <span className="text-[#858585]">Ctrl+`</span>
+                  </button>
+                  <div className="h-[1px] bg-[#3c3c3c] my-1" />
+                  <button onClick={() => { setLayoutMode(layoutMode === "split" ? "top" : "split"); setActiveMenu(null); }} className="w-full px-3 py-1.5 hover:bg-[#04AA6D] hover:text-white flex justify-between text-left">
+                    <span>Toggle Split Layout</span>
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {/* Run Menu */}
+            <div className="relative">
+              <button 
+                onClick={() => setActiveMenu(activeMenu === "run" ? null : "run")}
+                className={`px-2 py-0.5 rounded hover:bg-[#454545] cursor-pointer transition-colors ${activeMenu === "run" ? "bg-[#454545] text-white" : ""}`}
+              >
+                Run
+              </button>
+              {activeMenu === "run" && (
+                <div className="absolute left-0 top-full mt-0.5 w-56 bg-[#252526] border border-[#454545] shadow-2xl rounded py-1 z-50 text-[11px] text-[#cccccc]">
+                  <button onClick={() => { compileAndRun(); setActiveMenu(null); }} className="w-full px-3 py-1.5 hover:bg-[#04AA6D] hover:text-white flex justify-between text-left text-[#04AA6D] font-bold">
+                    <span>▶ Start Debugging (Run)</span> <span className="text-[#858585]">Ctrl+Enter</span>
+                  </button>
+                  <button onClick={() => { setLayoutMode("top"); compileAndRun(); setActiveMenu(null); }} className="w-full px-3 py-1.5 hover:bg-[#04AA6D] hover:text-white flex justify-between text-left">
+                    <span>Run in Top Drawer</span>
+                  </button>
+                  <button onClick={() => { setLayoutMode("split"); compileAndRun(); setActiveMenu(null); }} className="w-full px-3 py-1.5 hover:bg-[#04AA6D] hover:text-white flex justify-between text-left">
+                    <span>Run in Split Right</span>
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {/* Terminal Menu */}
+            <div className="relative">
+              <button 
+                onClick={() => setActiveMenu(activeMenu === "terminal" ? null : "terminal")}
+                className={`px-2 py-0.5 rounded hover:bg-[#454545] cursor-pointer transition-colors ${activeMenu === "terminal" ? "bg-[#454545] text-white" : ""}`}
+              >
+                Terminal
+              </button>
+              {activeMenu === "terminal" && (
+                <div className="absolute left-0 top-full mt-0.5 w-52 bg-[#252526] border border-[#454545] shadow-2xl rounded py-1 z-50 text-[11px] text-[#cccccc]">
+                  <button onClick={() => { setShowBottomPanel(true); setActiveBottomTab("terminal"); setActiveMenu(null); }} className="w-full px-3 py-1.5 hover:bg-[#04AA6D] hover:text-white flex justify-between text-left">
+                    <span>New Terminal</span> <span className="text-[#858585]">Ctrl+`</span>
+                  </button>
+                  <button onClick={() => { setTerminalHistory([]); setActiveMenu(null); }} className="w-full px-3 py-1.5 hover:bg-[#04AA6D] hover:text-white flex justify-between text-left">
+                    <span>Clear Terminal</span>
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {/* Help Menu */}
+            <div className="relative">
+              <button 
+                onClick={() => setActiveMenu(activeMenu === "help" ? null : "help")}
+                className={`px-2 py-0.5 rounded hover:bg-[#454545] cursor-pointer transition-colors ${activeMenu === "help" ? "bg-[#454545] text-white" : ""}`}
+              >
+                Help
+              </button>
+              {activeMenu === "help" && (
+                <div className="absolute left-0 top-full mt-0.5 w-56 bg-[#252526] border border-[#454545] shadow-2xl rounded py-1 z-50 text-[11px] text-[#cccccc]">
+                  <Link href="/html" className="w-full px-3 py-1.5 hover:bg-[#04AA6D] hover:text-white flex justify-between text-left block">
+                    <span>HTML5 Documentation</span>
+                  </Link>
+                  <Link href="/cli" className="w-full px-3 py-1.5 hover:bg-[#04AA6D] hover:text-white flex justify-between text-left block">
+                    <span>Windows CMD CLI Lessons</span>
+                  </Link>
+                  <div className="h-[1px] bg-[#3c3c3c] my-1" />
+                  <button onClick={() => { alert("Nextsem Web IDE v1.0.0 • High-performance in-browser VS Code simulator"); setActiveMenu(null); }} className="w-full px-3 py-1.5 hover:bg-[#04AA6D] hover:text-white flex justify-between text-left">
+                    <span>About Nextsem IDE</span>
+                  </button>
+                </div>
+              )}
+            </div>
+
           </div>
         </div>
- 
-        {/* Builder / Code Editor toggle */}
-        <div className="flex items-center gap-4">
-          <div className={`flex items-center p-0.5 border rounded-xl ${isLight ? "bg-slate-100 border-slate-200" : isSepia ? "bg-[#ebdcb9]/60 border-[#e6dcc8]" : "bg-slate-950 border-white/5"}`}>
-            <button 
-              onClick={() => setEditorMode("builder")}
-              className={`px-3.5 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-wider transition-all flex items-center gap-1 cursor-pointer ${editorMode === "builder" ? "bg-blue-600 text-white shadow-sm" : "text-slate-450 hover:text-white"}`}
-            >
-              <MousePointerClick size={11} />
-              <span>Visual Builder</span>
-            </button>
-            <button 
-              onClick={() => {
-                setEditorMode("editor");
-                setHtmlCode(generateHTML(components));
-              }}
-              className={`px-3.5 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-wider transition-all flex items-center gap-1 cursor-pointer ${editorMode === "editor" ? "bg-blue-600 text-white shadow-sm" : "text-slate-455 hover:text-white"}`}
-            >
-              <FileCode size={11} />
-              <span>Code Editor</span>
-            </button>
+
+        {/* Center: Command Palette / File Quick Open Omnibar */}
+        <div 
+          onClick={() => setIsCommandPaletteOpen(true)}
+          className="flex items-center gap-2 bg-[#1e1e1e] hover:bg-[#252526] border border-[#3c3c3c] hover:border-[#04AA6D]/60 px-3 py-0.5 rounded text-[11px] text-[#858585] max-w-sm sm:max-w-md w-full justify-between shadow-inner cursor-pointer transition-all"
+          title="Open Command Palette (Ctrl+Shift+P / F1)"
+        >
+          <div className="flex items-center gap-1.5 truncate">
+            <Search size={11} className="text-[#858585]" />
+            <span className="text-[#cccccc] font-sans font-medium">nextsem-workspace</span>
+            <span className="text-[#666666]">›</span>
+            <span className="text-[#9cdcfe] font-mono">{activeFile}</span>
           </div>
- 
-          <button 
-            onClick={runCode}
-            className="flex items-center gap-1.5 px-4.5 py-1.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white rounded-xl font-black text-xs shadow-lg shadow-emerald-500/10 transition-all hover:scale-[1.02] active:scale-95 cursor-pointer"
+          <kbd className="hidden sm:inline-block bg-[#2d2d2d] text-[#858585] text-[9px] px-1.5 py-0.2 rounded border border-[#3c3c3c]">
+            Ctrl + P
+          </kbd>
+        </div>
+
+        {/* Right: Layout Switcher & Primary Action Buttons */}
+        <div className="flex items-center gap-1">
+          
+          {/* Primary Green Run Button */}
+          <button
+            onClick={compileAndRun}
+            className="px-2.5 py-0.5 bg-[#04AA6D] hover:bg-[#039861] text-white text-[11px] font-sans font-bold rounded flex items-center gap-1 cursor-pointer transition-all shadow-sm active:scale-95"
+            title="Run Code in Live Preview (Ctrl + Enter)"
           >
             <Play size={11} className="fill-white" />
-            <span>RUN</span>
+            <span className="hidden sm:inline">Run</span>
           </button>
-        </div>
-      </header>
- 
-      {/* ── WORKSPACE PANELS ── */}
-      <div className="flex-1 flex flex-col md:flex-row overflow-hidden relative pb-[104px] md:pb-0">
-        
-        {/* COLUMN 1: Sidebar Panel (Components Palette & Property Editor) */}
-        <div className={`w-full md:w-60 border-r flex flex-col p-4 space-y-3 shrink-0 transition-colors duration-300 ${
-          isLight ? "bg-slate-50 border-slate-200" : isSepia ? "bg-[#ebdcb9]/40 border-[#e6dcc8]" : "bg-slate-955/60 border-slate-900"
-        } ${
-          editorMode === "builder" && (builderTab === "palette" || builderTab === "properties") ? "flex" : "hidden md:flex"
-        }`}>
-          <div className="mb-2 shrink-0">
-            <label className="text-[8px] font-black uppercase text-slate-550 block mb-1">Editor Control Panel</label>
-            <div className="relative">
-              <select
-                value={sidebarTab}
-                onChange={(e) => setSidebarTab(e.target.value as "palette" | "properties")}
-                className={`w-full border rounded-xl px-3 py-1.5 text-xs font-black focus:outline-none appearance-none cursor-pointer pr-8 ${isLight ? "bg-white border-slate-250 text-slate-800" : isSepia ? "bg-[#f4ecd8] border-[#ebdcb9] text-[#5b4636]" : "bg-slate-900 border-slate-800 text-white"}`}
-              >
-                <option value="palette">🗂️ Components Palette</option>
-                <option value="properties">⚙️ Property Editor</option>
-              </select>
-              <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none text-slate-500">
-                <span className="text-[7px]">▼</span>
-              </div>
-            </div>
-          </div>
- 
-          <div className="flex-1 overflow-y-auto">
-            {sidebarTab === "palette" ? (
-              <div className="space-y-3">
-                <p className="text-[9px] text-slate-400 leading-relaxed mb-1">Drag these elements into the simulated browser canvas:</p>
-                
-                <div 
-                  draggable 
-                  onDragStart={(e) => handleDragStart(e, "h1")}
-                  className="p-3 bg-gradient-to-r from-blue-600/10 to-indigo-600/10 hover:from-blue-600/20 hover:to-indigo-600/20 border border-blue-500/10 hover:border-blue-500/25 rounded-xl cursor-grab flex items-center gap-2.5 text-xs font-bold text-slate-355 hover:text-white transition-all duration-200"
-                >
-                  <div className="p-1 rounded-lg bg-blue-500/10"><Type size={14} className="text-blue-400" /></div>
-                  <span>Heading 1</span>
-                </div>
 
-                <div 
-                  draggable 
-                  onDragStart={(e) => handleDragStart(e, "h2")}
-                  className="p-3 bg-gradient-to-r from-blue-600/10 to-indigo-650/10 hover:from-blue-600/20 hover:to-indigo-650/20 border border-blue-500/10 hover:border-blue-500/25 rounded-xl cursor-grab flex items-center gap-2.5 text-xs font-bold text-slate-355 hover:text-white transition-all duration-200"
-                >
-                  <div className="p-1 rounded-lg bg-blue-500/10"><Type size={13} className="text-blue-300" /></div>
-                  <span>Heading 2</span>
-                </div>
-
-                <div 
-                  draggable 
-                  onDragStart={(e) => handleDragStart(e, "h3")}
-                  className="p-3 bg-gradient-to-r from-blue-700/10 to-indigo-700/10 hover:from-blue-700/20 hover:to-indigo-700/20 border border-blue-500/10 hover:border-blue-500/25 rounded-xl cursor-grab flex items-center gap-2.5 text-xs font-bold text-slate-355 hover:text-white transition-all duration-200"
-                >
-                  <div className="p-1 rounded-lg bg-blue-500/10"><Type size={12} className="text-blue-300" /></div>
-                  <span>Heading 3</span>
-                </div>
-                
-                <div 
-                  draggable 
-                  onDragStart={(e) => handleDragStart(e, "p")}
-                  className="p-3 bg-gradient-to-r from-purple-600/10 to-fuchsia-600/10 hover:from-purple-600/20 hover:to-fuchsia-600/20 border border-purple-500/10 hover:border-purple-500/25 rounded-xl cursor-grab flex items-center gap-2.5 text-xs font-bold text-slate-355 hover:text-white transition-all duration-200"
-                >
-                  <div className="p-1 rounded-lg bg-purple-500/10"><Type size={14} className="text-purple-400" /></div>
-                  <span>Paragraph</span>
-                </div>
- 
-                <div 
-                  draggable 
-                  onDragStart={(e) => handleDragStart(e, "button")}
-                  className="p-3 bg-gradient-to-r from-emerald-600/10 to-teal-600/10 hover:from-emerald-600/20 hover:to-emerald-600/20 border border-emerald-500/10 hover:border-emerald-500/25 rounded-xl cursor-grab flex items-center gap-2.5 text-xs font-bold text-slate-355 hover:text-white transition-all duration-200"
-                >
-                  <div className="p-1 rounded-lg bg-emerald-500/10"><MousePointerClick size={14} className="text-emerald-400" /></div>
-                  <span>Button</span>
-                </div>
-
-                <div 
-                  draggable 
-                  onDragStart={(e) => handleDragStart(e, "a")}
-                  className="p-3 bg-gradient-to-r from-cyan-600/10 to-teal-600/10 hover:from-cyan-600/20 hover:to-teal-600/20 border border-cyan-500/10 hover:border-cyan-500/25 rounded-xl cursor-grab flex items-center gap-2.5 text-xs font-bold text-slate-355 hover:text-white transition-all duration-200"
-                >
-                  <div className="p-1 rounded-lg bg-cyan-500/10"><Globe size={14} className="text-cyan-400" /></div>
-                  <span>Hyperlink Link</span>
-                </div>
- 
-                <div 
-                  draggable 
-                  onDragStart={(e) => handleDragStart(e, "img")}
-                  className="p-3 bg-gradient-to-r from-amber-600/10 to-orange-600/10 hover:from-amber-600/20 hover:to-orange-600/20 border border-amber-500/10 hover:border-amber-500/25 rounded-xl cursor-grab flex items-center gap-2.5 text-xs font-bold text-slate-355 hover:text-white transition-all duration-200"
-                >
-                  <div className="p-1 rounded-lg bg-amber-500/10"><Grid size={14} className="text-amber-400" /></div>
-                  <span>Image Block</span>
-                </div>
-
-                {/* ── Step 2: Layout & Structure ── */}
-                <p className="text-[9px] text-slate-500 font-black uppercase tracking-widest mt-2 mb-0.5">Layout</p>
-
-                <div 
-                  draggable 
-                  onDragStart={(e) => handleDragStart(e, "div")}
-                  className="p-3 bg-gradient-to-r from-slate-600/10 to-zinc-600/10 hover:from-slate-600/20 hover:to-zinc-600/20 border border-slate-500/10 hover:border-slate-500/25 rounded-xl cursor-grab flex items-center gap-2.5 text-xs font-bold text-slate-355 hover:text-white transition-all duration-200"
-                >
-                  <div className="p-1 rounded-lg bg-slate-500/10"><Layout size={14} className="text-slate-400" /></div>
-                  <span>Card Box</span>
-                </div>
-
-                <div 
-                  draggable 
-                  onDragStart={(e) => handleDragStart(e, "hr")}
-                  className="p-3 bg-gradient-to-r from-slate-600/10 to-zinc-600/10 hover:from-slate-600/20 hover:to-zinc-600/20 border border-slate-500/10 hover:border-slate-500/25 rounded-xl cursor-grab flex items-center gap-2.5 text-xs font-bold text-slate-355 hover:text-white transition-all duration-200"
-                >
-                  <div className="p-1 rounded-lg bg-slate-500/10"><SeparatorHorizontal size={14} className="text-slate-400" /></div>
-                  <span>Divider Line</span>
-                </div>
-
-                {/* ── Step 3: Form Elements ── */}
-                <p className="text-[9px] text-slate-500 font-black uppercase tracking-widest mt-2 mb-0.5">Forms</p>
-
-                <div 
-                  draggable 
-                  onDragStart={(e) => handleDragStart(e, "input")}
-                  className="p-3 bg-gradient-to-r from-violet-600/10 to-purple-600/10 hover:from-violet-600/20 hover:to-purple-600/20 border border-violet-500/10 hover:border-violet-500/25 rounded-xl cursor-grab flex items-center gap-2.5 text-xs font-bold text-slate-355 hover:text-white transition-all duration-200"
-                >
-                  <div className="p-1 rounded-lg bg-violet-500/10"><TextCursorInput size={14} className="text-violet-400" /></div>
-                  <span>Input Box</span>
-                </div>
-
-                <div 
-                  draggable 
-                  onDragStart={(e) => handleDragStart(e, "textarea")}
-                  className="p-3 bg-gradient-to-r from-violet-600/10 to-fuchsia-600/10 hover:from-violet-600/20 hover:to-fuchsia-600/20 border border-violet-500/10 hover:border-violet-500/25 rounded-xl cursor-grab flex items-center gap-2.5 text-xs font-bold text-slate-355 hover:text-white transition-all duration-200"
-                >
-                  <div className="p-1 rounded-lg bg-violet-500/10"><AlignLeft size={14} className="text-violet-300" /></div>
-                  <span>Text Area</span>
-                </div>
-
-                {/* ── Step 4: Media & Data ── */}
-                <p className="text-[9px] text-slate-500 font-black uppercase tracking-widest mt-2 mb-0.5">Media & Data</p>
-
-                <div 
-                  draggable 
-                  onDragStart={(e) => handleDragStart(e, "table")}
-                  className="p-3 bg-gradient-to-r from-rose-600/10 to-pink-600/10 hover:from-rose-600/20 hover:to-pink-600/20 border border-rose-500/10 hover:border-rose-500/25 rounded-xl cursor-grab flex items-center gap-2.5 text-xs font-bold text-slate-355 hover:text-white transition-all duration-200"
-                >
-                  <div className="p-1 rounded-lg bg-rose-500/10"><Table2 size={14} className="text-rose-400" /></div>
-                  <span>Data Table</span>
-                </div>
-
-                <div 
-                  draggable 
-                  onDragStart={(e) => handleDragStart(e, "video")}
-                  className="p-3 bg-gradient-to-r from-rose-600/10 to-red-600/10 hover:from-rose-600/20 hover:to-red-600/20 border border-rose-500/10 hover:border-rose-500/25 rounded-xl cursor-grab flex items-center gap-2.5 text-xs font-bold text-slate-355 hover:text-white transition-all duration-200"
-                >
-                  <div className="p-1 rounded-lg bg-rose-500/10"><Video size={14} className="text-rose-300" /></div>
-                  <span>Video Block</span>
-                </div>
-              </div>
-            ) : (
-                <div className="space-y-4">
-                  {activeComp ? (
-                    <div className="space-y-3">
-
-                      {/* ── Component Badge ── */}
-                      <div className={`px-3 py-1.5 rounded-xl text-[9px] font-black uppercase tracking-widest text-center ${isLight ? "bg-slate-100 text-slate-600" : "bg-slate-900 text-slate-400"}`}>
-                        Editing: <span className="text-blue-400">&lt;{activeComp.type}&gt;</span>
-                      </div>
-
-                      {/* ── CONTENT / TEXT (not for hr, table, video) ── */}
-                      {!["hr", "table", "video"].includes(activeComp.type) && (
-                        <div>
-                          <span className="text-[9px] font-black uppercase text-slate-455">
-                            {activeComp.type === "input" || activeComp.type === "textarea" ? "Placeholder" : activeComp.type === "img" ? "Image URL" : "Content Text"}
-                          </span>
-                          <input
-                            type="text"
-                            value={activeComp.type === "img" ? (activeComp.src || "") : activeComp.content}
-                            onChange={(e) => {
-                              if (activeComp.type === "img") {
-                                setComponents(prev => prev.map(c => c.id === activeComp.id ? { ...c, src: e.target.value } : c));
-                              } else {
-                                updateActiveCompContent(e.target.value);
-                              }
-                            }}
-                            className={`w-full mt-1.5 px-3 py-2 border rounded-xl text-xs focus:outline-none transition-all ${isLight ? "bg-white border-slate-200 text-slate-800 focus:border-blue-500" : "bg-slate-950 border-slate-800 text-white focus:border-blue-500"}`}
-                          />
-                        </div>
-                      )}
-
-                      {/* ── HREF (only for links) ── */}
-                      {activeComp.type === "a" && (
-                        <div>
-                          <span className="text-[9px] font-black uppercase text-slate-455">Link URL (href)</span>
-                          <input
-                            type="text"
-                            value={activeComp.href || ""}
-                            onChange={(e) => setComponents(prev => prev.map(c => c.id === activeComp.id ? { ...c, href: e.target.value } : c))}
-                            placeholder="https://example.com"
-                            className={`w-full mt-1.5 px-3 py-2 border rounded-xl text-xs focus:outline-none transition-all ${isLight ? "bg-white border-slate-200 text-slate-800 focus:border-blue-500" : "bg-slate-950 border-slate-800 text-white focus:border-blue-500"}`}
-                          />
-                        </div>
-                      )}
-
-                      {/* ── VIDEO CAPTION ── */}
-                      {activeComp.type === "video" && (
-                        <div>
-                          <span className="text-[9px] font-black uppercase text-slate-455">Caption / Label</span>
-                          <input
-                            type="text"
-                            value={activeComp.content}
-                            onChange={(e) => updateActiveCompContent(e.target.value)}
-                            className={`w-full mt-1.5 px-3 py-2 border rounded-xl text-xs focus:outline-none transition-all ${isLight ? "bg-white border-slate-200 text-slate-800 focus:border-blue-500" : "bg-slate-950 border-slate-800 text-white focus:border-blue-500"}`}
-                          />
-                        </div>
-                      )}
-
-                      {/* ── TEXT COLOR (not for hr, img, video, table) ── */}
-                      {!["hr", "img", "video", "table"].includes(activeComp.type) && (
-                        <div>
-                          <span className="text-[9px] font-black uppercase text-slate-455">Text Color</span>
-                          <div className="flex flex-wrap gap-1.5 mt-1.5">
-                            {["#ffffff", "#38bdf8", "#10b981", "#fb7185", "#fbbf24", "#a78bfa", "#f97316", "#64748b"].map((c) => (
-                              <button
-                                key={c}
-                                onClick={() => updateActiveCompStyle("color", c)}
-                                style={{ backgroundColor: c }}
-                                className={`w-5 h-5 rounded-full border border-white/10 hover:scale-110 active:scale-95 transition-transform ${activeComp.styles.color === c ? "ring-2 ring-blue-500 ring-offset-2 ring-offset-slate-950" : ""}`}
-                              />
-                            ))}
-                          </div>
-                        </div>
-                      )}
-
-                      {/* ── DIVIDER COLOR (only for hr) ── */}
-                      {activeComp.type === "hr" && (
-                        <div>
-                          <span className="text-[9px] font-black uppercase text-slate-455">Line Color</span>
-                          <div className="flex flex-wrap gap-1.5 mt-1.5">
-                            {["#475569", "#3b82f6", "#10b981", "#ef4444", "#fbbf24", "#ffffff"].map((c) => (
-                              <button
-                                key={c}
-                                onClick={() => updateActiveCompStyle("color", c)}
-                                style={{ backgroundColor: c }}
-                                className={`w-5 h-5 rounded-full border border-white/10 hover:scale-110 active:scale-95 transition-transform ${activeComp.styles.color === c ? "ring-2 ring-blue-500 ring-offset-2 ring-offset-slate-950" : ""}`}
-                              />
-                            ))}
-                          </div>
-                        </div>
-                      )}
-
-                      {/* ── BACKGROUND COLOR (not for hr, img, video) ── */}
-                      {!["hr", "img", "video"].includes(activeComp.type) && (
-                        <div>
-                          <span className="text-[9px] font-black uppercase text-slate-455">Background</span>
-                          <div className="flex flex-wrap gap-1.5 mt-1.5">
-                            {["transparent", "#1e293b", "#0f172a", "#3b82f6", "#10b981", "#ef4444", "#7c3aed"].map((bg) => (
-                              <button
-                                key={bg}
-                                onClick={() => updateActiveCompStyle("backgroundColor", bg)}
-                                className={`w-5 h-5 rounded-full border border-white/10 flex items-center justify-center text-[8px] font-bold hover:scale-110 active:scale-95 transition-transform ${activeComp.styles.backgroundColor === bg ? "ring-2 ring-blue-500 ring-offset-2 ring-offset-slate-950" : ""}`}
-                                style={{ backgroundColor: bg === "transparent" ? "#64748b" : bg }}
-                              >
-                                {bg === "transparent" && "T"}
-                              </button>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-
-                      {/* ── FONT SIZE (text elements and buttons only) ── */}
-                      {["h1", "h2", "h3", "p", "a", "button", "div", "input", "textarea", "table"].includes(activeComp.type) && (
-                        <div>
-                          <span className="text-[9px] font-black uppercase text-slate-455 flex justify-between">
-                            <span>Font Size</span>
-                            <span className="font-bold text-blue-400">{activeComp.styles.fontSize}</span>
-                          </span>
-                          <input
-                            type="range" min="10" max="48"
-                            value={parseInt(activeComp.styles.fontSize) || 14}
-                            onChange={(e) => updateActiveCompStyle("fontSize", `${e.target.value}px`)}
-                            className="w-full mt-1.5 accent-blue-500 h-1 bg-slate-900 rounded-lg appearance-none cursor-pointer"
-                          />
-                        </div>
-                      )}
-
-                      {/* ── PADDING (not for hr, table) ── */}
-                      {!["hr", "table"].includes(activeComp.type) && (
-                        <div>
-                          <span className="text-[9px] font-black uppercase text-slate-455 flex justify-between">
-                            <span>Padding</span>
-                            <span className="font-bold text-blue-400">{activeComp.styles.padding}</span>
-                          </span>
-                          <input
-                            type="range" min="0" max="32"
-                            value={parseInt(activeComp.styles.padding) || 10}
-                            onChange={(e) => updateActiveCompStyle("padding", `${e.target.value}px`)}
-                            className="w-full mt-1.5 accent-blue-500 h-1 bg-slate-900 rounded-lg appearance-none cursor-pointer"
-                          />
-                        </div>
-                      )}
-
-                      {/* ── BORDER RADIUS (not for hr, table, img) ── */}
-                      {!["hr", "table", "img"].includes(activeComp.type) && (
-                        <div>
-                          <span className="text-[9px] font-black uppercase text-slate-455 flex justify-between">
-                            <span>Border Radius</span>
-                            <span className="font-bold text-blue-400">{activeComp.styles.borderRadius}</span>
-                          </span>
-                          <input
-                            type="range" min="0" max="32"
-                            value={parseInt(activeComp.styles.borderRadius) || 0}
-                            onChange={(e) => updateActiveCompStyle("borderRadius", `${e.target.value}px`)}
-                            className="w-full mt-1.5 accent-blue-500 h-1 bg-slate-900 rounded-lg appearance-none cursor-pointer"
-                          />
-                        </div>
-                      )}
-
-                      {/* ── TEXT ALIGN (text/block elements) ── */}
-                      {["h1", "h2", "h3", "p", "a", "button", "div"].includes(activeComp.type) && (
-                        <div>
-                          <span className="text-[9px] font-black uppercase text-slate-455">Alignment</span>
-                          <div className="flex gap-1.5 mt-1.5">
-                            {(["left", "center", "right"] as const).map(align => (
-                              <button
-                                key={align}
-                                onClick={() => updateActiveCompStyle("textAlign", align)}
-                                className={`flex-1 py-1 rounded-lg text-[9px] font-black uppercase transition-all cursor-pointer ${activeComp.styles.textAlign === align ? "bg-blue-600 text-white" : isLight ? "bg-slate-100 text-slate-500 hover:bg-slate-200" : "bg-slate-900 text-slate-500 hover:bg-slate-800"}`}
-                              >
-                                {align === "left" ? "⬅" : align === "center" ? "☰" : "➡"}
-                              </button>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-
-                      {/* ── MARGIN (for hr and img only) ── */}
-                      {["hr", "img"].includes(activeComp.type) && (
-                        <div>
-                          <span className="text-[9px] font-black uppercase text-slate-455 flex justify-between">
-                            <span>Margin</span>
-                            <span className="font-bold text-blue-400">{activeComp.styles.margin}</span>
-                          </span>
-                          <input
-                            type="range" min="0" max="32"
-                            value={parseInt(activeComp.styles.margin) || 8}
-                            onChange={(e) => updateActiveCompStyle("margin", `${e.target.value}px`)}
-                            className="w-full mt-1.5 accent-blue-500 h-1 bg-slate-900 rounded-lg appearance-none cursor-pointer"
-                          />
-                        </div>
-                      )}
-
-                      {/* ── JS BEHAVIOR ── */}
-                      {!["hr", "img", "table"].includes(activeComp.type) && (
-                        <div className={`rounded-xl border p-3 space-y-2.5 ${isLight ? "border-yellow-200 bg-yellow-50/50" : "border-yellow-500/10 bg-yellow-500/5"}`}>
-                          <p className="text-[9px] font-black uppercase tracking-widest text-yellow-500 flex items-center gap-1">
-                            <span>⚡</span> JS Behavior
-                          </p>
-
-                          {/* Event picker */}
-                          <div>
-                            <span className="text-[9px] font-black uppercase text-slate-455">On Event</span>
-                            <select
-                              value={activeComp.jsAction?.event || "click"}
-                              onChange={(e) => setComponents(prev => prev.map(c => c.id === activeComp.id ? {
-                                ...c,
-                                jsAction: { event: e.target.value as NonNullable<UIComponent["jsAction"]>["event"], action: c.jsAction?.action || "log", value: c.jsAction?.value || "" }
-                              } : c))}
-                              className={`w-full mt-1 px-2 py-1.5 border rounded-lg text-xs focus:outline-none ${isLight ? "bg-white border-slate-200 text-slate-800" : "bg-slate-950 border-slate-800 text-white"}`}
-                            >
-                              <option value="click">🖱️ onClick (click)</option>
-                              <option value="mouseenter">🔼 onMouseEnter (hover in)</option>
-                              <option value="mouseleave">🔽 onMouseLeave (hover out)</option>
-                              <option value="change">✏️ onChange (input change)</option>
-                              <option value="focus">🎯 onFocus (focus)</option>
-                            </select>
-                          </div>
-
-                          {/* Action picker */}
-                          <div>
-                            <span className="text-[9px] font-black uppercase text-slate-455">Do Action</span>
-                            <select
-                              value={activeComp.jsAction?.action || "log"}
-                              onChange={(e) => setComponents(prev => prev.map(c => c.id === activeComp.id ? {
-                                ...c,
-                                jsAction: { event: c.jsAction?.event || "click", action: e.target.value as NonNullable<UIComponent["jsAction"]>["action"], value: c.jsAction?.value || "" }
-                              } : c))}
-                              className={`w-full mt-1 px-2 py-1.5 border rounded-lg text-xs focus:outline-none ${isLight ? "bg-white border-slate-200 text-slate-800" : "bg-slate-950 border-slate-800 text-white"}`}
-                            >
-                              <option value="alert">💬 Show Alert</option>
-                              <option value="log">🖨️ Log to Console</option>
-                              <option value="redirect">🔗 Redirect to URL</option>
-                              <option value="toggle">👁️ Toggle Visibility</option>
-                              <option value="changeText">✏️ Change Text Content</option>
-                              <option value="custom">🧩 Custom JavaScript</option>
-                            </select>
-                          </div>
-
-                          {/* Value input */}
-                          {activeComp.jsAction?.action !== "toggle" && (
-                            <div>
-                              <span className="text-[9px] font-black uppercase text-slate-455">
-                                {activeComp.jsAction?.action === "redirect" ? "URL" :
-                                 activeComp.jsAction?.action === "custom" ? "JS Code" :
-                                 activeComp.jsAction?.action === "changeText" ? "New Text" : "Message"}
-                              </span>
-                              <input
-                                type="text"
-                                placeholder={activeComp.jsAction?.action === "redirect" ? "https://example.com" :
-                                             activeComp.jsAction?.action === "custom" ? "document.body.style.background = 'red'" :
-                                             "Hello World!"}
-                                value={activeComp.jsAction?.value || ""}
-                                onChange={(e) => setComponents(prev => prev.map(c => c.id === activeComp.id ? {
-                                  ...c,
-                                  jsAction: { event: c.jsAction?.event || "click", action: c.jsAction?.action || "log", value: e.target.value }
-                                } : c))}
-                                className={`w-full mt-1 px-2 py-1.5 border rounded-lg text-xs focus:outline-none font-mono ${isLight ? "bg-white border-slate-200 text-slate-800 focus:border-yellow-500" : "bg-slate-950 border-slate-800 text-white focus:border-yellow-500"}`}
-                              />
-                            </div>
-                          )}
-
-                          {/* Code preview */}
-                          {(activeComp.jsAction?.value || activeComp.jsAction?.action === "toggle") && (
-                            <div className={`rounded-lg p-2 font-mono text-[9px] leading-relaxed ${isLight ? "bg-yellow-100 text-slate-700" : "bg-slate-950 text-yellow-300"}`}>
-                              <span className="text-slate-500">// generated snippet</span><br />
-                              <span className="text-blue-400">el.addEventListener</span>(<span className="text-green-400">&apos;{activeComp.jsAction?.event || "click"}&apos;</span>, () =&gt; {'{'}<br />
-                              &nbsp;&nbsp;{activeComp.jsAction?.action === "alert" && <><span className="text-yellow-400">alert</span>(<span className="text-green-400">&apos;{activeComp.jsAction.value}&apos;</span>);</>}
-                              {activeComp.jsAction?.action === "log" && <><span className="text-yellow-400">console.log</span>(<span className="text-green-400">&apos;{activeComp.jsAction?.value}&apos;</span>);</>}
-                              {activeComp.jsAction?.action === "redirect" && <><span className="text-yellow-400">location.href</span> = <span className="text-green-400">&apos;{activeComp.jsAction.value}&apos;</span>;</>}
-                              {activeComp.jsAction?.action === "toggle" && <><span className="text-yellow-400">el.style.display</span> = ...</>}
-                              {activeComp.jsAction?.action === "changeText" && <><span className="text-yellow-400">el.textContent</span> = <span className="text-green-400">&apos;{activeComp.jsAction.value}&apos;</span>;</>}
-                              {activeComp.jsAction?.action === "custom" && <span className="text-slate-300">{activeComp.jsAction.value}</span>}<br />
-                              {'}'});
-                            </div>
-                          )}
-                        </div>
-                      )}
-
-                      {/* ── DELETE ── */}
-                      <button
-                        onClick={deleteActiveComp}
-                        className="w-full py-2 bg-red-955/20 hover:bg-red-955/40 border border-red-500/20 text-red-405 rounded-xl text-[11px] font-black uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 cursor-pointer mt-2"
-                      >
-                        <Trash2 size={12} />
-                        <span>Delete Component</span>
-                      </button>
-                    </div>
-                  ) : (
-                    <p className="text-[10px] text-slate-550 italic">Select any canvas component to edit its properties.</p>
-                  )}
-                </div>
-            )}
-          </div>
-        </div>
- 
-        {/* COLUMN 2: Simulated Device Preview Canvas */}
-        <div className={`flex-1 flex flex-col p-4 md:p-6 items-center justify-start overflow-y-auto border-r transition-colors duration-300 ${
-          isLight ? "bg-slate-100 border-slate-200" : isSepia ? "bg-[#f4ecd8] border-[#e6dcc8]" : "bg-[#090d16] border-slate-900"
-        } ${
-          (editorMode === "builder" && builderTab === "canvas") || (editorMode === "editor" && viewMode === "preview") ? "flex" : "hidden md:flex"
-        }`}>
-          {/* Bezel Switch Control Panel */}
-          <div className="flex flex-wrap items-center justify-between gap-3 w-full max-w-[900px] mb-5 shrink-0">
-            {/* Device switches */}
-            <div className={`flex items-center gap-1.5 p-1 rounded-xl border ${isLight ? "bg-white border-slate-200/80 shadow-sm" : isSepia ? "bg-[#ebdcb9] border-[#e6dcc8]" : "bg-slate-955 border-white/5"}`}>
-              <button 
-                onClick={() => setDeviceMode("desktop")}
-                className={`px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-wider transition-all flex items-center gap-1 cursor-pointer ${deviceMode === "desktop" ? "bg-blue-600 text-white" : "text-slate-450 hover:text-white"}`}
-              >
-                <span>Desktop View</span>
-              </button>
-              <button 
-                onClick={() => setDeviceMode("tablet")}
-                className={`px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-wider transition-all flex items-center gap-1 cursor-pointer ${deviceMode === "tablet" ? "bg-blue-600 text-white" : "text-slate-455 hover:text-white"}`}
-              >
-                <span>Tablet</span>
-              </button>
-              <button 
-                onClick={() => setDeviceMode("mobile")}
-                className={`px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-wider transition-all flex items-center gap-1 cursor-pointer ${deviceMode === "mobile" ? "bg-blue-600 text-white" : "text-slate-455 hover:text-white"}`}
-              >
-                <span>Mobile</span>
-              </button>
-            </div>
- 
-            {/* Visual Designer vs compiled browser preview */}
-            <div className={`flex items-center p-0.5 border rounded-xl ${isLight ? "bg-white border-slate-200/80 shadow-sm" : isSepia ? "bg-[#ebdcb9] border-[#e6dcc8]" : "bg-slate-955 border-white/5"}`}>
-              <button 
-                onClick={() => setPreviewType("design")}
-                className={`px-3.5 py-1 rounded-lg text-[9px] font-black uppercase tracking-wider transition-all flex items-center gap-1 cursor-pointer ${previewType === "design" ? "bg-blue-600 text-white shadow-sm" : "text-slate-455 hover:text-white"}`}
-              >
-                <span>Visual Canvas</span>
-              </button>
-              <button 
-                onClick={() => {
-                  setPreviewType("browser");
-                  runCode();
-                }}
-                className={`px-3.5 py-1 rounded-lg text-[9px] font-black uppercase tracking-wider transition-all flex items-center gap-1 cursor-pointer ${previewType === "browser" ? "bg-blue-600 text-white shadow-sm" : "text-slate-455 hover:text-white"}`}
-              >
-                <span>Live Preview</span>
-              </button>
-            </div>
-          </div>
- 
-          {/* Simulated Device bezel container */}
-          <div 
-            className={`flex flex-col border-4 border-slate-800 dark:border-slate-900 rounded-[32px] bg-slate-955 shadow-2xl transition-all duration-300 overflow-hidden relative shrink-0 ${
-              deviceMode === "mobile" ? "w-[340px] h-[580px]" : 
-              deviceMode === "tablet" ? "w-[600px] h-[640px]" : 
-              "w-full max-w-[900px] min-h-[500px] flex-1"
-            }`}
+          {/* Toggle Layout (Top Drawer vs Split Right) */}
+          <button
+            onClick={() => setLayoutMode(layoutMode === "top" ? "split" : layoutMode === "split" ? "hidden" : "top")}
+            className={`p-1 rounded hover:bg-[#454545] transition-colors ${layoutMode !== "hidden" ? "text-[#04AA6D]" : "text-[#cccccc]"}`}
+            title={`Toggle Live Preview Layout (Current: ${layoutMode.toUpperCase()})`}
           >
-            {/* Device top status notch/camera */}
-            <div className="h-6 bg-slate-900 flex items-center justify-between px-6 shrink-0 text-[9px] font-bold text-slate-550 border-b border-slate-955 select-none">
-              <div className="flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-slate-700"></span>
-                <span>sandbox.local</span>
-              </div>
-              <div className="w-16 h-3 rounded-full bg-slate-955 absolute left-1/2 -translate-x-1/2 top-1.5 animate-pulse" />
-              <div className="flex items-center gap-2">
-                <span>100% 🔋</span>
-              </div>
-            </div>
-            
-            {/* Simulated browser location bar */}
-            <div className="bg-[#0b101c] px-4 py-2 border-b border-white/5 flex items-center justify-between gap-3 text-xs shrink-0 select-none">
-              <div className="flex gap-1 shrink-0">
-                <span className="w-2.5 h-2.5 rounded-full bg-red-500/30" />
-                <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/30" />
-                <span className="w-2.5 h-2.5 rounded-full bg-green-500/30" />
-              </div>
-              <div className="flex-1 bg-slate-950 border border-white/5 text-[9px] text-slate-400 py-1 px-3 rounded-lg text-center font-mono select-all truncate">
-                {previewType === "design" ? "https://nextsem.online/sandbox/visual-page" : (liveServer ? "http://127.0.0.1:5500/index.html" : "file:///workspace/index.html")}
-              </div>
-            </div>
- 
-            {/* Content pane: renders Visual Canvas or compiled Iframe */}
-            <div className="flex-1 flex flex-col overflow-hidden bg-[#0c1222]">
-              {previewType === "design" ? (
-                <div 
-                  onDragOver={(e) => e.preventDefault()}
-                  onDrop={handleDrop}
-                  className="flex-1 p-6 overflow-y-auto flex flex-col space-y-4 items-center justify-start min-h-[300px]"
-                >
-                  {components.length === 0 ? (
-                    <div className="text-center my-auto p-8 text-slate-500 text-xs flex flex-col items-center gap-2.5">
-                      <MousePointerClick size={24} className="animate-bounce text-blue-500" />
-                      <span className="font-bold text-slate-400">Your Canvas is Ready</span>
-                      <span className="text-[10px] text-slate-550 max-w-[180px]">Drag components from the elements palette and drop them here.</span>
-                    </div>
-                  ) : (
-                    components.map((comp) => {
-                      const isActive = comp.id === activeCompId;
-                      // Base style applied to the wrapper — responsive block layout
-                      const baseStyle: React.CSSProperties = {
-                        backgroundColor: comp.styles.backgroundColor === "transparent" ? undefined : comp.styles.backgroundColor,
-                        color: comp.styles.color,
-                        borderRadius: comp.styles.borderRadius,
-                        padding: comp.styles.padding,
-                        fontSize: comp.styles.fontSize,
-                        margin: comp.styles.margin,
-                        textAlign: comp.styles.textAlign as React.CSSProperties["textAlign"],
-                        width: "100%",
-                        boxSizing: "border-box",
-                        wordBreak: "break-word",
-                        overflowWrap: "anywhere",
-                      };
+            {layoutMode === "split" ? <Columns size={13} /> : layoutMode === "top" ? <Split size={13} /> : <EyeOff size={13} />}
+          </button>
 
-                      return (
-                        <div
-                          key={comp.id}
-                          onClick={(e) => { e.stopPropagation(); setActiveCompId(comp.id); setSidebarTab("properties"); }}
-                          className={`w-full relative transition-all rounded-xl ${isActive ? "ring-2 ring-blue-500 ring-offset-2 ring-offset-slate-950 p-1" : "hover:ring-1 hover:ring-slate-700 p-1 cursor-pointer"}`}
-                        >
-                          {/* ── Headings ── */}
-                          {comp.type === "h1" && (
-                            <h1 style={baseStyle} className="font-black leading-tight w-full break-words">
-                              {comp.content}
-                            </h1>
-                          )}
-                          {comp.type === "h2" && (
-                            <h2 style={baseStyle} className="font-bold leading-tight w-full break-words">
-                              {comp.content}
-                            </h2>
-                          )}
-                          {comp.type === "h3" && (
-                            <h3 style={baseStyle} className="font-semibold leading-snug w-full break-words">
-                              {comp.content}
-                            </h3>
-                          )}
+          {/* Toggle Bottom Terminal Panel */}
+          <button
+            onClick={() => setShowBottomPanel(!showBottomPanel)}
+            className={`p-1 rounded hover:bg-[#454545] transition-colors ${showBottomPanel ? "text-[#04AA6D]" : "text-[#cccccc]"}`}
+            title="Toggle Integrated Terminal (Ctrl+`)"
+          >
+            <Terminal size={13} />
+          </button>
 
-                          {/* ── Paragraph ── */}
-                          {comp.type === "p" && (
-                            <p style={baseStyle} className="leading-relaxed w-full break-words">
-                              {comp.content}
-                            </p>
-                          )}
+          {/* Toggle Side Bar */}
+          <button
+            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+            className={`p-1 rounded hover:bg-[#454545] transition-colors ${isSidebarOpen ? "text-[#04AA6D]" : "text-[#cccccc]"}`}
+            title="Toggle Side Bar (Ctrl+B)"
+          >
+            <Layout size={13} />
+          </button>
 
-                          {/* ── Button — wraps text, full-width by default ── */}
-                          {comp.type === "button" && (
-                            <div className="w-full flex" style={{ justifyContent: comp.styles.textAlign === "right" ? "flex-end" : comp.styles.textAlign === "center" ? "center" : "flex-start" }}>
-                              <button
-                                style={{ ...baseStyle, width: "auto", minWidth: "80px", whiteSpace: "normal", lineHeight: "1.4", cursor: "default" }}
-                                className="font-black uppercase tracking-wider"
-                              >
-                                {comp.content}
-                              </button>
-                            </div>
-                          )}
+          {/* Export Project */}
+          <button
+            onClick={handleDownload}
+            className="p-1 rounded hover:bg-[#454545] text-[#cccccc] transition-colors hidden sm:block"
+            title="Download Workspace (HTML)"
+          >
+            <Download size={13} />
+          </button>
 
-                          {/* ── Link ── */}
-                          {comp.type === "a" && (
-                            <a href="#" style={baseStyle} className="underline font-bold w-full block break-words">
-                              {comp.content}
-                            </a>
-                          )}
-
-                          {/* ── Image — max-width full, height auto ── */}
-                          {comp.type === "img" && (
-                            <img
-                              src={comp.src || "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600"}
-                              style={{ borderRadius: comp.styles.borderRadius, margin: comp.styles.margin, display: "block" }}
-                              alt="visual component"
-                              className="w-full h-auto object-cover rounded-lg shadow-md"
-                            />
-                          )}
-
-                          {/* ── Card Box ── */}
-                          {comp.type === "div" && (
-                            <div
-                              style={{ ...baseStyle, border: "1px solid #334155", minHeight: "60px" }}
-                              className="rounded-xl shadow-inner w-full"
-                            >
-                              <span className="text-slate-300 text-sm break-words">{comp.content}</span>
-                            </div>
-                          )}
-
-                          {/* ── Divider ── */}
-                          {comp.type === "hr" && (
-                            <hr style={{ border: "none", borderTop: `2px solid ${comp.styles.color || "#475569"}`, margin: comp.styles.margin, width: "100%" }} />
-                          )}
-
-                          {/* ── Input — full width, auto height ── */}
-                          {comp.type === "input" && (
-                            <input
-                              readOnly
-                              placeholder={comp.content}
-                              style={{
-                                ...baseStyle,
-                                border: "1px solid #475569",
-                                outline: "none",
-                                display: "block",
-                                height: "auto",
-                                minHeight: "36px",
-                              }}
-                              className="rounded-lg text-slate-300 placeholder-slate-500 w-full"
-                            />
-                          )}
-
-                          {/* ── Textarea — resizes with content ── */}
-                          {comp.type === "textarea" && (
-                            <textarea
-                              readOnly
-                              placeholder={comp.content}
-                              rows={Math.max(3, Math.ceil(comp.content.length / 40))}
-                              style={{
-                                ...baseStyle,
-                                border: "1px solid #475569",
-                                outline: "none",
-                                display: "block",
-                                resize: "none",
-                                minHeight: "80px",
-                              }}
-                              className="rounded-lg text-slate-300 placeholder-slate-500 w-full"
-                            />
-                          )}
-
-                          {/* ── Table — horizontally scrollable on small widths ── */}
-                          {comp.type === "table" && (
-                            <div className="w-full overflow-x-auto rounded-xl">
-                              <table style={{ width: "100%", borderCollapse: "collapse", fontSize: comp.styles.fontSize, color: comp.styles.color, minWidth: "280px" }}>
-                                <thead>
-                                  <tr style={{ background: "#1e293b" }}>
-                                    {["Name", "Role", "Status"].map(h => (
-                                      <th key={h} style={{ border: "1px solid #334155", padding: "8px", whiteSpace: "nowrap" }}>{h}</th>
-                                    ))}
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  {[["Alice", "Developer", "✅ Active"], ["Bob", "Designer", "✅ Active"]].map((row, i) => (
-                                    <tr key={i}>
-                                      {row.map((cell, j) => (
-                                        <td key={j} style={{ border: "1px solid #334155", padding: "8px", textAlign: "center", whiteSpace: "nowrap" }}>{cell}</td>
-                                      ))}
-                                    </tr>
-                                  ))}
-                                </tbody>
-                              </table>
-                            </div>
-                          )}
-
-                          {/* ── Video placeholder — full width, auto height ── */}
-                          {comp.type === "video" && (
-                            <div
-                              style={{
-                                background: "#0f172a",
-                                border: "2px dashed #475569",
-                                minHeight: "120px",
-                                width: "100%",
-                                borderRadius: comp.styles.borderRadius || "10px",
-                                display: "flex",
-                                flexDirection: "column",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                gap: "8px",
-                                padding: comp.styles.padding,
-                                boxSizing: "border-box",
-                              }}
-                            >
-                              <Video size={32} className="text-slate-500 shrink-0" />
-                              <span className="text-slate-500 text-xs text-center break-words px-4">{comp.content}</span>
-                            </div>
-                          )}
-                        </div>
-                      );
-                    })
-                  )}
-                </div>
-              ) : (
-                <div className="flex-1 relative bg-white">
-                  {iframeSrcDoc ? (
-                     <iframe
-                       ref={iframeRef}
-                       title="Nextsem Code Sandbox Preview"
-                       srcDoc={iframeSrcDoc}
-                       sandbox="allow-scripts"
-                       className="w-full h-full border-none bg-white"
-                     />
-                  ) : (
-                    <div className="absolute inset-0 flex flex-col items-center justify-center text-slate-500 gap-2 bg-[#0c1222]">
-                      <Play size={32} className="animate-pulse text-indigo-555" />
-                      <span className="text-xs font-bold uppercase tracking-widest text-slate-450">Click RUN or Turn On LIVE SERVER</span>
-                    </div>
-                  )}
-                </div>
-              )}
-            </div>
-          </div>
         </div>
- 
-        {/* COLUMN 3: Code Editor & UNIX Terminal Console */}
-        <div className={`w-full md:w-[480px] flex flex-col overflow-hidden shrink-0 border-l transition-colors duration-300 ${
-          isLight ? "border-slate-200" : isSepia ? "border-[#e6dcc8]" : "border-slate-900"
-        } ${
-          editorMode === "editor" && viewMode === "editor" ? "flex" : "hidden md:flex"
-        }`}>
-          {/* Header Tab selection panel */}
-          <div className={`flex items-center justify-between px-3 py-1.5 border-b text-xs gap-1 shrink-0 transition-colors duration-300 ${isLight ? "bg-slate-50 border-slate-200" : isSepia ? "bg-[#ebdcb9]/40 border-[#e6dcc8]" : "bg-[#05080f] border-slate-900"}`}>
-            {/* Desktop file tabs */}
-            <div className="hidden sm:flex gap-1.5">
-              <button 
-                onClick={() => setActiveTab("html")} 
-                className={`flex items-center gap-1.5 px-4 py-2 text-[10px] font-black uppercase tracking-wider border-b-2 transition-all ${activeTab === "html" ? "border-orange-500 text-orange-400 bg-slate-950/30" : "text-slate-455 border-transparent hover:text-slate-250"}`}
-              >
-                <span className="w-1.5 h-1.5 rounded-full bg-orange-500" />
-                <span>index.html</span>
-              </button>
-              <button 
-                onClick={() => setActiveTab("css")} 
-                className={`flex items-center gap-1.5 px-4 py-2 text-[10px] font-black uppercase tracking-wider border-b-2 transition-all ${activeTab === "css" ? "border-blue-500 text-blue-400 bg-slate-950/30" : "text-slate-455 border-transparent hover:text-slate-250"}`}
-              >
-                <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
-                <span>style.css</span>
-              </button>
-              <button 
-                onClick={() => setActiveTab("js")} 
-                className={`flex items-center gap-1.5 px-4 py-2 text-[10px] font-black uppercase tracking-wider border-b-2 transition-all ${activeTab === "js" ? "border-yellow-500 text-yellow-400 bg-slate-950/30" : "text-slate-455 border-transparent hover:text-slate-250"}`}
-              >
-                <span className="w-1.5 h-1.5 rounded-full bg-yellow-500" />
-                <span>script.js</span>
-              </button>
-            </div>
- 
-            {/* Mobile file selector */}
-            <div className="flex sm:hidden max-w-[150px] relative py-1">
-              <select
-                value={activeTab}
-                onChange={(e) => setActiveTab(e.target.value as "html" | "css" | "js")}
-                className={`w-full border rounded-xl px-3.5 py-1 text-xs font-black focus:outline-none appearance-none cursor-pointer pr-7 ${isLight ? "bg-white border-slate-200 text-slate-800" : isSepia ? "bg-[#f4ecd8] border-[#ebdcb9] text-[#5b4636]" : "bg-slate-900 border-slate-800 text-white"}`}
-              >
-                <option value="html">📄 index.html</option>
-                <option value="css">🎨 style.css</option>
-                <option value="js">⚡ script.js</option>
-              </select>
-              <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none text-slate-455">
-                <span className="text-[7px]">▼</span>
-              </div>
-            </div>
- 
-            {/* Format code button */}
-            <button 
-              onClick={handleFormat}
-              disabled={isFormatting}
-              className={`flex items-center gap-1 px-3 py-1 rounded-md text-[10px] font-black uppercase tracking-wider transition-all border ${isFormatting ? "animate-pulse" : ""} ${isLight ? "border-slate-300 text-slate-600 hover:bg-slate-100" : isSepia ? "border-[#d2c29e] text-[#5b4636] hover:bg-[#ebdcb9]" : "border-slate-800 text-slate-400 hover:text-white hover:bg-slate-900"}`}
+
+      </header>
+
+      {/* ── 2. MAIN VS CODE WORKSPACE: ACTIVITY BAR + SIDEBAR + CODE EDITOR + LIVE SANDBOX ── */}
+      <div className="flex-1 flex min-h-0 relative">
+        
+        {/* ── A. ACTIVITY BAR (SLIM LEFT ICON STRIP) ── */}
+        <aside className="w-12 bg-[#333333] border-r border-[#252526] flex flex-col justify-between items-center py-1 shrink-0 z-20">
+          
+          {/* Top Activity Icons */}
+          <div className="flex flex-col gap-1 w-full items-center">
+            
+            {/* 1. Explorer */}
+            <button
+              onClick={() => {
+                if (activeActivity === "explorer") setIsSidebarOpen(!isSidebarOpen);
+                else { setActiveActivity("explorer"); setIsSidebarOpen(true); }
+              }}
+              className={`p-2.5 rounded hover:text-white transition-colors relative w-full flex justify-center ${
+                activeActivity === "explorer" && isSidebarOpen
+                  ? "text-white before:absolute before:left-0 before:top-1.5 before:bottom-1.5 before:w-[2px] before:bg-[#007acc]"
+                  : "text-[#858585]"
+              }`}
+              title="Explorer (Ctrl+Shift+E)"
             >
-              <Sparkles size={11} className="text-amber-500" />
-              <span>{isFormatting ? "Formatting..." : "Format Code"}</span>
+              <Files size={18} />
+            </button>
+
+            {/* 2. Search */}
+            <button
+              onClick={() => {
+                if (activeActivity === "search") setIsSidebarOpen(!isSidebarOpen);
+                else { setActiveActivity("search"); setIsSidebarOpen(true); }
+              }}
+              className={`p-2.5 rounded hover:text-white transition-colors relative w-full flex justify-center ${
+                activeActivity === "search" && isSidebarOpen
+                  ? "text-white before:absolute before:left-0 before:top-1.5 before:bottom-1.5 before:w-[2px] before:bg-[#007acc]"
+                  : "text-[#858585]"
+              }`}
+              title="Search & Replace (Ctrl+Shift+F)"
+            >
+              <Search size={18} />
+            </button>
+
+            {/* 3. Source Control (Git) */}
+            <button
+              onClick={() => {
+                if (activeActivity === "git") setIsSidebarOpen(!isSidebarOpen);
+                else { setActiveActivity("git"); setIsSidebarOpen(true); }
+              }}
+              className={`p-2.5 rounded hover:text-white transition-colors relative w-full flex justify-center ${
+                activeActivity === "git" && isSidebarOpen
+                  ? "text-white before:absolute before:left-0 before:top-1.5 before:bottom-1.5 before:w-[2px] before:bg-[#007acc]"
+                  : "text-[#858585]"
+              }`}
+              title="Source Control (Git)"
+            >
+              <div className="relative">
+                <GitBranch size={18} />
+                <span className="absolute -top-1 -right-1.5 bg-[#007acc] text-white text-[8px] font-bold px-1 rounded-full">1</span>
+              </div>
+            </button>
+
+            {/* 4. Run & Debug */}
+            <button
+              onClick={() => {
+                if (activeActivity === "debug") setIsSidebarOpen(!isSidebarOpen);
+                else { setActiveActivity("debug"); setIsSidebarOpen(true); }
+              }}
+              className={`p-2.5 rounded hover:text-white transition-colors relative w-full flex justify-center ${
+                activeActivity === "debug" && isSidebarOpen
+                  ? "text-white before:absolute before:left-0 before:top-1.5 before:bottom-1.5 before:w-[2px] before:bg-[#007acc]"
+                  : "text-[#858585]"
+              }`}
+              title="Run and Debug (Ctrl+Shift+D)"
+            >
+              <Bug size={18} />
+            </button>
+
+            {/* 5. Extensions */}
+            <button
+              onClick={() => {
+                if (activeActivity === "extensions") setIsSidebarOpen(!isSidebarOpen);
+                else { setActiveActivity("extensions"); setIsSidebarOpen(true); }
+              }}
+              className={`p-2.5 rounded hover:text-white transition-colors relative w-full flex justify-center ${
+                activeActivity === "extensions" && isSidebarOpen
+                  ? "text-white before:absolute before:left-0 before:top-1.5 before:bottom-1.5 before:w-[2px] before:bg-[#007acc]"
+                  : "text-[#858585]"
+              }`}
+              title="Extensions (Ctrl+Shift+X)"
+            >
+              <Layers size={18} />
+            </button>
+
+            {/* Live Preview Direct Trigger */}
+            <button
+              onClick={compileAndRun}
+              className="p-2.5 text-[#04AA6D] hover:text-[#20c997] transition-colors w-full flex justify-center mt-2"
+              title="Execute Live Preview (Ctrl+Enter)"
+            >
+              <Flame size={18} />
+            </button>
+
+          </div>
+
+          {/* Bottom Activity Icons: Profile & Settings */}
+          <div className="flex flex-col gap-1 w-full items-center">
+            <Link
+              href="/"
+              className="p-2.5 text-[#858585] hover:text-white transition-colors w-full flex justify-center"
+              title="Developer Account / Nextsem Home"
+            >
+              <User size={18} />
+            </Link>
+
+            <button
+              onClick={() => setIsCommandPaletteOpen(true)}
+              className="p-2.5 text-[#858585] hover:text-white transition-colors w-full flex justify-center"
+              title="Settings & Commands (Ctrl+Shift+P)"
+            >
+              <Settings size={18} />
             </button>
           </div>
- 
-          {/* Gutter + TextArea editor space */}
-          <div className="flex-1 flex overflow-hidden bg-[#090d16] font-mono relative">
-            {/* Gutter */}
-            <div 
-              ref={gutterRef}
-              className="select-none text-right pr-2.5 pl-3 border-r border-slate-800/80 text-slate-600 font-mono text-[13px] leading-[20px] bg-[#05080f] shrink-0 overflow-y-hidden select-none pointer-events-none"
-              style={{ width: '42px', userSelect: 'none', paddingTop: '2%', paddingBottom: '2%' }}
-            >
-              {lineNumbers.map((n) => (
-                <div key={n} className="h-[20px]">{n}</div>
-              ))}
-            </div>
- 
-            {/* TextArea editor */}
-            <div className="flex-1 relative overflow-hidden h-full">
-              {/* Overlay highlighter */}
-              <pre
-                ref={highlightRef}
-                className="absolute inset-0 text-slate-350 pointer-events-none whitespace-pre-wrap break-all overflow-y-auto overflow-x-hidden h-full w-full select-none"
-                style={{
-                  fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace',
-                  fontSize: '13px',
-                  lineHeight: '20px',
-                  padding: '2%',
-                  border: 'none',
-                  margin: '0',
-                  boxSizing: 'border-box',
-                  wordWrap: 'break-word',
-                  whiteSpace: 'pre-wrap',
-                  wordBreak: 'break-all'
-                }}
-                dangerouslySetInnerHTML={{
-                  __html: activeTab === "html" 
-                    ? highlightHTML(htmlCode) 
-                    : activeTab === "css" 
-                      ? highlightCSS(cssCode) 
-                      : highlightJS(jsCode)
-                }}
-              />
-              {/* Actual textarea overlay */}
-              <textarea
-                ref={editorRef}
-                value={activeTab === "html" ? htmlCode : activeTab === "css" ? cssCode : jsCode}
-                onChange={(e) => {
-                  if (activeTab === "html") setHtmlCode(e.target.value);
-                  else if (activeTab === "css") setCssCode(e.target.value);
-                  else setJsCode(e.target.value);
-                }}
-                onScroll={handleScroll}
-                className="absolute inset-0 bg-transparent focus:outline-none resize-none overflow-y-auto overflow-x-hidden text-transparent caret-white whitespace-pre-wrap break-all"
-                style={{
-                  fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace',
-                  fontSize: '13px',
-                  lineHeight: '20px',
-                  padding: '2%',
-                  border: 'none',
-                  margin: '0',
-                  boxSizing: 'border-box',
-                  wordWrap: 'break-word',
-                  whiteSpace: 'pre-wrap',
-                  wordBreak: 'break-all'
-                }}
-                spellCheck="false"
-              />
-            </div>
-          </div>
- 
-          {/* UNIX Console outputs pane */}
-          <div className="h-[30%] min-h-[140px] flex flex-col overflow-hidden shrink-0 border-t border-slate-900 bg-[#05080f]">
-            <div className="px-4 py-2 border-b border-slate-900/80 flex items-center justify-between text-xs font-black uppercase tracking-wider text-slate-455 bg-[#090d16]/30">
-              <span className="flex items-center gap-1.5">
-                <Terminal size={13} className="text-blue-400" />
-                <span>Console Outputs</span>
+
+        </aside>
+
+        {/* ── B. PRIMARY SIDE BAR (EXPLORER / SEARCH / GIT / EXTENSIONS) ── */}
+        {isSidebarOpen && (
+          <div className="w-60 sm:w-64 bg-[#252526] border-r border-[#1e1e1e] flex flex-col shrink-0 text-xs select-none z-10">
+            
+            {/* Sidebar Header Title with Actions */}
+            <div className="px-4 py-2 flex items-center justify-between text-[11px] font-sans font-bold tracking-wider text-[#bbbbbb] uppercase border-b border-[#1e1e1e]">
+              <span>
+                {activeActivity === "explorer" && "Explorer: Nextsem-Workspace"}
+                {activeActivity === "search" && "Search & Replace"}
+                {activeActivity === "git" && "Source Control: Git"}
+                {activeActivity === "debug" && "Run & Debug"}
+                {activeActivity === "extensions" && "Extensions"}
               </span>
-              <div className="flex items-center gap-3">
-                {liveServer && (
-                  <span className="text-[9px] text-emerald-400/80 font-bold tracking-normal normal-case hidden sm:inline-block">
-                    📡 Port 5500 active
-                  </span>
+              
+              <div className="flex items-center gap-1">
+                {activeActivity === "explorer" && (
+                  <>
+                    <button onClick={() => openFile("index.html")} className="p-0.5 hover:text-white text-[#858585]" title="New File">
+                      <FilePlus size={13} />
+                    </button>
+                    <button onClick={() => compileAndRun()} className="p-0.5 hover:text-white text-[#858585]" title="Refresh Workspace">
+                      <RefreshCw size={12} />
+                    </button>
+                  </>
                 )}
-                {logs.length > 0 && (
-                  <button 
-                    onClick={() => setLogs([])}
-                    className="text-[9px] font-bold text-slate-550 hover:text-white transition-colors cursor-pointer"
-                  >
-                    Clear Console
-                  </button>
-                )}
+                <button 
+                  onClick={() => setIsSidebarOpen(false)}
+                  className="p-0.5 hover:text-white text-[#858585] ml-1"
+                  title="Hide Sidebar (Ctrl+B)"
+                >
+                  <Minimize2 size={12} />
+                </button>
               </div>
             </div>
-            <div className="flex-1 p-3.5 overflow-y-auto font-mono text-[11px] leading-relaxed text-slate-350 bg-[#05080f]">
-              {logs.length === 0 ? (
-                <span className="italic text-slate-655 block pl-1">Console is active. Use console.log() to print events.</span>
-              ) : (
-                logs.map((log, idx) => (
-                  <div key={idx} className={`py-0.5 border-b border-white/5 last:border-b-0 flex items-start gap-2 ${log.type === "error" ? "text-rose-455 bg-rose-500/5 px-2 py-1 rounded" : "text-blue-300"}`}>
-                    <span className="text-slate-555 select-none">&gt;</span>
-                    <span className="whitespace-pre-wrap break-all">{log.message}</span>
+
+            {/* Sidebar Content Switcher */}
+            <div className="flex-1 overflow-y-auto custom-scrollbar p-2 space-y-3">
+              
+              {/* 1. EXPLORER VIEW */}
+              {activeActivity === "explorer" && (
+                <>
+                  {/* Open Editors Section */}
+                  <div>
+                    <div className="flex items-center gap-1 px-1 py-1 font-sans font-bold text-[10px] text-[#858585] uppercase tracking-wider">
+                      <ChevronDown size={12} />
+                      <span>OPEN EDITORS</span>
+                    </div>
+                    <div className="pl-3 space-y-0.5">
+                      {openTabs.map((tab) => (
+                        <div
+                          key={tab}
+                          onClick={() => setActiveFile(tab)}
+                          className={`flex items-center justify-between px-2 py-1 rounded cursor-pointer group transition-colors ${
+                            activeFile === tab ? "bg-[#37373d] text-white font-bold" : "hover:bg-[#2a2d2e] text-[#cccccc]"
+                          }`}
+                        >
+                          <div className="flex items-center gap-1.5 truncate">
+                            {getFileIcon(tab)}
+                            <span className="font-mono text-[11px] truncate">{tab}</span>
+                          </div>
+                          <button 
+                            onClick={(e) => closeTab(e, tab)}
+                            className="opacity-0 group-hover:opacity-100 text-[#858585] hover:text-white"
+                          >
+                            <X size={11} />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                ))
+
+                  {/* Workspace Folders Tree */}
+                  <div>
+                    <div className="flex items-center gap-1 px-1 py-1 font-sans font-bold text-[10px] text-[#858585] uppercase tracking-wider">
+                      <ChevronDown size={12} />
+                      <span>WORKSPACE</span>
+                    </div>
+
+                    <div className="pl-2 space-y-0.5">
+                      {/* src Folder */}
+                      <div className="flex items-center gap-1.5 px-2 py-1 font-sans font-semibold text-[11px] text-[#cccccc]">
+                        <ChevronDown size={12} className="text-[#858585]" />
+                        <Folder size={13} className="text-[#dcb67a]" />
+                        <span>src</span>
+                      </div>
+
+                      {/* Files under src */}
+                      <div className="pl-6 space-y-0.5">
+                        <button
+                          onClick={() => openFile("index.html")}
+                          className={`w-full flex items-center gap-2 px-2 py-1 rounded text-left transition-colors cursor-pointer ${
+                            activeFile === "index.html" ? "bg-[#37373d] text-white" : "hover:bg-[#2a2d2e] text-[#cccccc]"
+                          }`}
+                        >
+                          <span className="text-[#e44d26] text-[11px] font-bold">📄</span>
+                          <span className="truncate font-mono text-[11px]">index.html</span>
+                        </button>
+
+                        <button
+                          onClick={() => openFile("style.css")}
+                          className={`w-full flex items-center gap-2 px-2 py-1 rounded text-left transition-colors cursor-pointer ${
+                            activeFile === "style.css" ? "bg-[#37373d] text-white" : "hover:bg-[#2a2d2e] text-[#cccccc]"
+                          }`}
+                        >
+                          <span className="text-[#42a5f5] text-[11px] font-bold">🎨</span>
+                          <span className="truncate font-mono text-[11px]">style.css</span>
+                        </button>
+
+                        <button
+                          onClick={() => openFile("script.js")}
+                          className={`w-full flex items-center gap-2 px-2 py-1 rounded text-left transition-colors cursor-pointer ${
+                            activeFile === "script.js" ? "bg-[#37373d] text-white" : "hover:bg-[#2a2d2e] text-[#cccccc]"
+                          }`}
+                        >
+                          <span className="text-[#f7df1e] text-[11px] font-bold">⚡</span>
+                          <span className="truncate font-mono text-[11px]">script.js</span>
+                        </button>
+                      </div>
+
+                      {/* Root Files */}
+                      <div className="pl-4 space-y-0.5">
+                        <button
+                          onClick={() => openFile("README.md")}
+                          className={`w-full flex items-center gap-2 px-2 py-1 rounded text-left transition-colors cursor-pointer ${
+                            activeFile === "README.md" ? "bg-[#37373d] text-white" : "hover:bg-[#2a2d2e] text-[#cccccc]"
+                          }`}
+                        >
+                          <span className="text-[#38bdf8] text-[11px] font-bold">ℹ️</span>
+                          <span className="truncate font-mono text-[11px]">README.md</span>
+                        </button>
+
+                        <button
+                          onClick={() => openFile("package.json")}
+                          className={`w-full flex items-center gap-2 px-2 py-1 rounded text-left transition-colors cursor-pointer ${
+                            activeFile === "package.json" ? "bg-[#37373d] text-white" : "hover:bg-[#2a2d2e] text-[#cccccc]"
+                          }`}
+                        >
+                          <span className="text-[#f59e0b] text-[11px] font-bold">📦</span>
+                          <span className="truncate font-mono text-[11px]">package.json</span>
+                        </button>
+                      </div>
+
+                    </div>
+                  </div>
+
+                  {/* Starter Templates Accordion */}
+                  <div className="pt-2 border-t border-[#1e1e1e]">
+                    <div className="flex items-center gap-1 px-1 py-1 font-sans font-bold text-[10px] text-[#858585] uppercase tracking-wider">
+                      <Sparkles size={12} className="text-[#04AA6D]" />
+                      <span>STARTER TEMPLATES</span>
+                    </div>
+
+                    <div className="pl-2 pt-1 space-y-1">
+                      {Object.entries(TEMPLATES).map(([key, t]) => (
+                        <button
+                          key={key}
+                          onClick={() => loadTemplate(key)}
+                          className="w-full text-left px-2 py-1.5 rounded hover:bg-[#2a2d2e] flex items-center justify-between text-[11px] group transition-colors"
+                        >
+                          <div className="flex items-center gap-2 truncate">
+                            <span>{t.icon}</span>
+                            <span className="truncate font-sans text-[#e2e8f0] group-hover:text-[#04AA6D]">{t.name}</span>
+                          </div>
+                          <span className="text-[9px] bg-[#1e1e1e] text-[#858585] px-1.5 py-0.5 rounded border border-[#333333]">
+                            {t.category}
+                          </span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </>
+              )}
+
+              {/* 2. SEARCH & REPLACE VIEW */}
+              {activeActivity === "search" && (
+                <div className="space-y-3 pt-1">
+                  <div>
+                    <label className="text-[10px] text-[#858585] uppercase font-bold block mb-1">Search Workspace</label>
+                    <input
+                      type="text"
+                      value={sidebarSearchQuery}
+                      onChange={(e) => setSidebarSearchQuery(e.target.value)}
+                      placeholder="Search text in files..."
+                      className="w-full bg-[#1e1e1e] border border-[#3c3c3c] rounded px-2.5 py-1 text-xs text-white outline-none focus:border-[#007acc]"
+                    />
+                  </div>
+
+                  {sidebarSearchQuery && (
+                    <div className="space-y-1 text-[11px]">
+                      <div className="text-[#858585] text-[10px]">RESULTS:</div>
+                      {htmlCode.toLowerCase().includes(sidebarSearchQuery.toLowerCase()) && (
+                        <div onClick={() => openFile("index.html")} className="p-1.5 bg-[#1e1e1e] rounded hover:bg-[#2a2d2e] cursor-pointer flex items-center justify-between">
+                          <span>index.html</span>
+                          <span className="text-[#04AA6D] text-[10px]">match found</span>
+                        </div>
+                      )}
+                      {cssCode.toLowerCase().includes(sidebarSearchQuery.toLowerCase()) && (
+                        <div onClick={() => openFile("style.css")} className="p-1.5 bg-[#1e1e1e] rounded hover:bg-[#2a2d2e] cursor-pointer flex items-center justify-between">
+                          <span>style.css</span>
+                          <span className="text-[#04AA6D] text-[10px]">match found</span>
+                        </div>
+                      )}
+                      {jsCode.toLowerCase().includes(sidebarSearchQuery.toLowerCase()) && (
+                        <div onClick={() => openFile("script.js")} className="p-1.5 bg-[#1e1e1e] rounded hover:bg-[#2a2d2e] cursor-pointer flex items-center justify-between">
+                          <span>script.js</span>
+                          <span className="text-[#04AA6D] text-[10px]">match found</span>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* 3. SOURCE CONTROL VIEW */}
+              {activeActivity === "git" && (
+                <div className="space-y-3 pt-1 text-xs">
+                  <div className="bg-[#1e1e1e] p-2.5 rounded border border-[#3c3c3c] space-y-2">
+                    <div className="flex items-center justify-between text-[#858585] text-[11px]">
+                      <span>Branch: <strong className="text-white">main</strong></span>
+                      <span className="text-[#04AA6D]">✓ Synced</span>
+                    </div>
+                    <input
+                      type="text"
+                      placeholder="Commit message..."
+                      className="w-full bg-[#252526] border border-[#3c3c3c] rounded px-2 py-1 text-white text-xs outline-none focus:border-[#007acc]"
+                    />
+                    <button
+                      onClick={() => alert("✓ Changes committed to local workspace!")}
+                      className="w-full bg-[#007acc] hover:bg-[#0062a3] text-white py-1 rounded font-sans font-bold cursor-pointer transition-colors"
+                    >
+                      Commit & Push
+                    </button>
+                  </div>
+                  <div className="text-[#858585] text-[11px] px-1">
+                    <span>1 pending change in <code>{activeFile}</code></span>
+                  </div>
+                </div>
+              )}
+
+              {/* 4. RUN & DEBUG VIEW */}
+              {activeActivity === "debug" && (
+                <div className="space-y-3 pt-1 text-xs">
+                  <button
+                    onClick={compileAndRun}
+                    className="w-full bg-[#04AA6D] hover:bg-[#039861] text-white py-1.5 rounded font-sans font-bold flex items-center justify-center gap-1.5 cursor-pointer shadow"
+                  >
+                    <Play size={13} className="fill-white" />
+                    <span>Run and Debug Web App</span>
+                  </button>
+
+                  <div className="bg-[#1e1e1e] p-3 rounded border border-[#3c3c3c] space-y-2">
+                    <div className="text-[#858585] font-bold text-[10px] uppercase">Breakpoints:</div>
+                    <div className="text-[11px] text-[#cccccc] flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full bg-red-500" />
+                      <span>index.html: 32</span>
+                    </div>
+                    <div className="text-[11px] text-[#cccccc] flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full bg-red-500" />
+                      <span>script.js: 14</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* 5. EXTENSIONS VIEW (INTERACTIVE PRETTIER, LIVE SERVER, EMMET) */}
+              {activeActivity === "extensions" && (
+                <div className="space-y-3 pt-1 text-xs">
+                  <div className="text-[10px] text-[#858585] uppercase font-bold px-1 tracking-wider">
+                    INSTALLED EXTENSIONS ({3})
+                  </div>
+                  
+                  {/* 1. Live Server Extension Card */}
+                  <div className="bg-[#1e1e1e] p-3 rounded-lg border border-[#3c3c3c] space-y-2.5 shadow-sm">
+                    <div className="flex items-start justify-between">
+                      <div className="flex items-center gap-1.5">
+                        <Radio size={14} className={isLiveServerRunning ? "text-[#04AA6D] animate-pulse" : "text-[#858585]"} />
+                        <strong className="text-white text-[12px] font-sans font-bold">Live Server</strong>
+                      </div>
+                      <span className={`text-[9px] px-1.5 py-0.5 rounded font-bold ${isLiveServerRunning ? "bg-[#04AA6D]/20 text-[#04AA6D]" : "bg-slate-700 text-slate-300"}`}>
+                        {isLiveServerRunning ? `:${liveServerPort} Live` : "Stopped"}
+                      </span>
+                    </div>
+
+                    <p className="text-[11px] text-[#94a3b8] leading-tight font-sans">
+                      Automatically launches a local development server with instant WebSocket live-reloading.
+                    </p>
+
+                    {/* Server Action Buttons */}
+                    <div className="flex items-center gap-1.5 pt-1">
+                      <button
+                        onClick={toggleLiveServer}
+                        className={`flex-1 py-1 px-2 rounded text-[11px] font-sans font-bold flex items-center justify-center gap-1 cursor-pointer transition-colors ${
+                          isLiveServerRunning 
+                            ? "bg-rose-500/20 text-rose-300 hover:bg-rose-500/30 border border-rose-500/30" 
+                            : "bg-[#04AA6D] text-white hover:bg-[#039861]"
+                        }`}
+                      >
+                        <Power size={12} />
+                        <span>{isLiveServerRunning ? "Stop Server" : "Go Live"}</span>
+                      </button>
+
+                      <button
+                        onClick={openExternalPreview}
+                        className="py-1 px-2 bg-[#2a2d2e] hover:bg-[#37373d] text-slate-200 hover:text-white rounded border border-[#3c3c3c] text-[11px] font-sans font-semibold flex items-center gap-1 cursor-pointer transition-colors"
+                        title="Open in external browser window"
+                      >
+                        <ExternalLink size={12} />
+                        <span>Open</span>
+                      </button>
+                    </div>
+
+                    {/* Port & Hot Reload Settings */}
+                    <div className="pt-2 border-t border-[#2d2d2d] space-y-1.5 text-[11px] font-sans text-[#cccccc]">
+                      <div className="flex items-center justify-between">
+                        <span className="text-[#858585]">Server Port:</span>
+                        <div className="flex items-center gap-1">
+                          {[5500, 3000, 8080].map((port) => (
+                            <button
+                              key={port}
+                              onClick={() => {
+                                setLiveServerPort(port);
+                                showToast(`Live Server Port set to ${port}`);
+                              }}
+                              className={`px-1.5 py-0.5 rounded text-[10px] font-mono font-bold transition-colors ${
+                                liveServerPort === port
+                                  ? "bg-[#007acc] text-white"
+                                  : "bg-[#2d2d2d] text-[#858585] hover:text-white"
+                              }`}
+                            >
+                              {port}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+
+                      <label className="flex items-center justify-between cursor-pointer pt-0.5">
+                        <span className="text-[#858585]">Auto Hot-Reload:</span>
+                        <input
+                          type="checkbox"
+                          checked={hotReloadEnabled}
+                          onChange={(e) => {
+                            setHotReloadEnabled(e.target.checked);
+                            showToast(`Hot Reload ${e.target.checked ? "Enabled" : "Disabled"}`);
+                          }}
+                          className="accent-[#04AA6D] cursor-pointer"
+                        />
+                      </label>
+                    </div>
+                  </div>
+
+                  {/* 2. Prettier Code Formatter Extension Card */}
+                  <div className="bg-[#1e1e1e] p-3 rounded-lg border border-[#3c3c3c] space-y-2.5 shadow-sm">
+                    <div className="flex items-start justify-between">
+                      <div className="flex items-center gap-1.5">
+                        <Sparkles size={14} className="text-[#007acc]" />
+                        <strong className="text-white text-[12px] font-sans font-bold">Prettier Formatter</strong>
+                      </div>
+                      <span className="text-[9px] bg-[#007acc]/20 text-[#007acc] px-1.5 py-0.5 rounded font-bold">
+                        v9.12.0
+                      </span>
+                    </div>
+
+                    <p className="text-[11px] text-[#94a3b8] leading-tight font-sans">
+                      Cleans up inconsistent indentation and standardizes HTML tags, CSS rules, and JavaScript logic.
+                    </p>
+
+                    {/* Format Document Button */}
+                    <button
+                      onClick={formatCurrentFile}
+                      className="w-full py-1.5 px-2 bg-[#007acc] hover:bg-[#0062a3] text-white rounded text-[11px] font-sans font-bold flex items-center justify-center gap-1.5 cursor-pointer transition-colors shadow-sm"
+                    >
+                      <Sparkles size={12} />
+                      <span>Format Active Document</span>
+                      <kbd className="bg-black/30 text-[9px] px-1 rounded ml-1 font-mono">Shift+Alt+F</kbd>
+                    </button>
+
+                    {/* Prettier Config Options */}
+                    <div className="pt-2 border-t border-[#2d2d2d] space-y-1.5 text-[11px] font-sans text-[#cccccc]">
+                      <div className="flex items-center justify-between">
+                        <span className="text-[#858585]">Tab Width:</span>
+                        <div className="flex items-center gap-1">
+                          {[2, 4].map((width) => (
+                            <button
+                              key={width}
+                              onClick={() => {
+                                setPrettierConfig((p) => ({ ...p, tabWidth: width }));
+                                showToast(`Prettier Tab Width: ${width} spaces`);
+                              }}
+                              className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold transition-colors ${
+                                prettierConfig.tabWidth === width
+                                  ? "bg-[#04AA6D] text-white"
+                                  : "bg-[#2d2d2d] text-[#858585] hover:text-white"
+                              }`}
+                            >
+                              {width} sp
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+
+                      <label className="flex items-center justify-between cursor-pointer pt-0.5">
+                        <span className="text-[#858585]">Format on Save:</span>
+                        <input
+                          type="checkbox"
+                          checked={prettierConfig.formatOnSave}
+                          onChange={(e) => {
+                            setPrettierConfig((p) => ({ ...p, formatOnSave: e.target.checked }));
+                            showToast(`Prettier Format on Save: ${e.target.checked ? "ON" : "OFF"}`);
+                          }}
+                          className="accent-[#007acc] cursor-pointer"
+                        />
+                      </label>
+                    </div>
+                  </div>
+
+                  {/* 3. Emmet Snippet Engine Card */}
+                  <div className="bg-[#1e1e1e] p-3 rounded-lg border border-[#3c3c3c] space-y-2 shadow-sm">
+                    <div className="flex items-start justify-between">
+                      <div className="flex items-center gap-1.5">
+                        <Zap size={14} className="text-[#04AA6D] fill-[#04AA6D]" />
+                        <strong className="text-white text-[12px] font-sans font-bold">Emmet Engine</strong>
+                      </div>
+                      <span className="text-[9px] bg-[#04AA6D]/20 text-[#04AA6D] px-1.5 py-0.5 rounded font-bold">
+                        Built-in
+                      </span>
+                    </div>
+                    <p className="text-[11px] text-[#94a3b8] leading-tight font-sans">
+                      Expand abbreviations like <code className="text-[#04AA6D]">!</code>, <code className="text-[#04AA6D]">div.card&gt;h3+p</code>, <code className="text-[#04AA6D]">ul&gt;li*3</code> with <kbd className="text-[9px] bg-[#141414] px-1 py-0.5 rounded border border-[#333]">Tab</kbd>.
+                    </p>
+                  </div>
+
+                </div>
+              )}
+
+
+            </div>
+          </div>
+        )}
+
+        {/* ── C. MAIN EDITOR CONTAINER WITH TABS, BREADCRUMBS, GLOVE & PREVIEW ── */}
+        <div className={`flex-1 flex flex-col min-w-0 ${editorBg} overflow-hidden`}>
+          
+          {/* 1. Editor Tabs Bar */}
+          <div className="bg-[#252526] flex items-center justify-between border-b border-[#1e1e1e] shrink-0 overflow-x-auto select-none">
+            <div className="flex items-center">
+              {openTabs.map((tab) => (
+                <div
+                  key={tab}
+                  onClick={() => setActiveFile(tab)}
+                  className={`flex items-center gap-2 px-3 py-1.5 text-xs border-r border-[#1e1e1e] cursor-pointer group transition-colors ${
+                    activeFile === tab
+                      ? "bg-[#1e1e1e] text-white border-t-2 border-t-[#007acc] font-medium"
+                      : "bg-[#2d2d2d] text-[#969696] hover:bg-[#252526]"
+                  }`}
+                >
+                  {getFileIcon(tab)}
+                  <span className="font-mono text-[11px]">{tab}</span>
+                  <button
+                    onClick={(e) => closeTab(e, tab)}
+                    className="opacity-0 group-hover:opacity-100 hover:text-white rounded-full p-0.5 transition-opacity"
+                  >
+                    <X size={10} />
+                  </button>
+                </div>
+              ))}
+
+              {/* Add New Tab Button */}
+              <button
+                onClick={() => openFile("README.md")}
+                className="p-1.5 text-[#858585] hover:text-white transition-colors"
+                title="Open Other Files"
+              >
+                <Plus size={12} />
+              </button>
+            </div>
+
+            {/* Tab Bar Action Icons */}
+            <div className="flex items-center gap-1 px-3">
+              {/* Green Run Shortcut */}
+              <button
+                onClick={compileAndRun}
+                className="p-1 hover:bg-[#3c3c3c] rounded text-[#04AA6D] hover:text-white transition-colors"
+                title="Run in Live Preview (Ctrl+Enter)"
+              >
+                <Play size={13} className="fill-[#04AA6D]" />
+              </button>
+              
+              {/* Split Editor Toggle */}
+              <button
+                onClick={() => setLayoutMode(layoutMode === "split" ? "top" : "split")}
+                className={`p-1 hover:bg-[#3c3c3c] rounded transition-colors ${layoutMode === "split" ? "text-[#007acc]" : "text-[#cccccc]"}`}
+                title="Toggle Split Screen Live Preview"
+              >
+                <Split size={13} />
+              </button>
+
+              {/* Copy Code */}
+              <button
+                onClick={handleCopy}
+                className="p-1 hover:bg-[#3c3c3c] rounded text-[#cccccc] transition-colors"
+                title="Copy Active Code"
+              >
+                {copied ? <Check size={13} className="text-[#04AA6D]" /> : <Copy size={13} />}
+              </button>
+            </div>
+          </div>
+
+          {/* 2. Breadcrumbs Bar */}
+          <div className="bg-[#1e1e1e] px-4 py-1 text-[11px] text-[#858585] border-b border-[#252526] flex items-center gap-1.5 select-none font-sans">
+            <span className="hover:text-white cursor-pointer">nextsem-workspace</span>
+            <span>›</span>
+            <span className="hover:text-white cursor-pointer">src</span>
+            <span>›</span>
+            <span className="text-[#cccccc] font-mono">{activeFile}</span>
+            <span>›</span>
+            <span className="text-[#858585] font-mono text-[10px]">
+              {activeFile === "index.html" ? "<body>" : activeFile === "style.css" ? ".app-container" : "updateCount()"}
+            </span>
+          </div>
+
+          {/* ── 3. LIVE SANDBOX PREVIEW (TOP DRAWER MODE) ── */}
+          {layoutMode === "top" && (
+            <div className="border-b-2 border-[#04AA6D]/50 bg-[#141414] flex flex-col shrink-0 max-h-[46vh] transition-all duration-200 shadow-2xl z-10">
+              
+              {/* VS Code Simple Browser Navigation Toolbar */}
+              <div className="bg-[#2d2d2d] px-3 py-1.5 border-b border-[#1e1e1e] flex items-center justify-between text-xs select-none">
+                
+                {/* Simulated Browser URL bar */}
+                <div className="flex items-center gap-2 flex-1 min-w-0 mr-3">
+                  <span className="w-2 h-2 rounded-full bg-[#04AA6D] animate-pulse" />
+                  <div className="flex-1 bg-[#1e1e1e] border border-[#3c3c3c] px-2.5 py-0.5 rounded text-[11px] text-[#cccccc] font-mono flex items-center justify-between">
+                    <span className="truncate">http://127.0.0.1:5500/{activeFile === "README.md" ? "index.html" : activeFile}</span>
+                    <span className="text-[10px] text-[#858585] hidden sm:inline">Simple Browser</span>
+                  </div>
+                </div>
+
+                {/* Device Viewport Switcher & Window Actions */}
+                <div className="flex items-center gap-1">
+                  <button
+                    onClick={() => setDeviceMode("desktop")}
+                    className={`p-1 rounded ${deviceMode === "desktop" ? "bg-[#1e1e1e] text-[#04AA6D]" : "text-[#858585] hover:text-white"}`}
+                    title="Desktop"
+                  >
+                    <Monitor size={12} />
+                  </button>
+                  <button
+                    onClick={() => setDeviceMode("tablet")}
+                    className={`p-1 rounded ${deviceMode === "tablet" ? "bg-[#1e1e1e] text-[#04AA6D]" : "text-[#858585] hover:text-white"}`}
+                    title="Tablet (560px)"
+                  >
+                    <Tablet size={12} />
+                  </button>
+                  <button
+                    onClick={() => setDeviceMode("mobile")}
+                    className={`p-1 rounded ${deviceMode === "mobile" ? "bg-[#1e1e1e] text-[#04AA6D]" : "text-[#858585] hover:text-white"}`}
+                    title="Mobile (340px)"
+                  >
+                    <Smartphone size={12} />
+                  </button>
+
+                  <button
+                    onClick={compileAndRun}
+                    className="p-1 hover:bg-[#3c3c3c] rounded text-[#cccccc] hover:text-white ml-1"
+                    title="Refresh Live View"
+                  >
+                    <RefreshCw size={12} />
+                  </button>
+
+                  <button
+                    onClick={() => setLayoutMode("split")}
+                    className="p-1 hover:bg-[#3c3c3c] rounded text-[#cccccc] hover:text-white"
+                    title="Switch to Split Screen"
+                  >
+                    <Columns size={12} />
+                  </button>
+                  
+                  <button
+                    onClick={() => setLayoutMode("hidden")}
+                    className="p-1 hover:bg-[#3c3c3c] rounded text-[#cccccc] hover:text-white"
+                    title="Close Live Preview"
+                  >
+                    <X size={13} />
+                  </button>
+                </div>
+
+              </div>
+
+              {/* Sandboxed Live Viewport */}
+              <div className="p-2 sm:p-3 flex items-center justify-center bg-[#111111] overflow-hidden">
+                <div className={`w-full ${getDeviceWidth()} h-[210px] sm:h-[260px] transition-all duration-200 bg-white rounded shadow-inner overflow-hidden border border-[#3c3c3c]`}>
+                  <iframe
+                    ref={iframeRef}
+                    title="VS Code Live Preview"
+                    sandbox="allow-scripts allow-modals"
+                    className="w-full h-full border-0"
+                  />
+                </div>
+              </div>
+
+            </div>
+          )}
+
+          {/* ── 4. CODE EDITOR CANVAS (SUPPORTS SPLIT RIGHT IF ACTIVE) ── */}
+          <div className="flex-1 flex min-h-0 relative overflow-hidden">
+            
+            {/* Editor Text Pane with Line Numbers & Minimap */}
+            <div className="flex-1 flex min-h-0 overflow-hidden relative">
+              
+              {/* Line Numbers Gutter */}
+              <div className="w-12 py-3 bg-[#1e1e1e] border-r border-[#2d2d2d] flex flex-col text-right pr-3 font-mono text-xs text-[#858585] select-none shrink-0 leading-[1.65]">
+                {lineNumbers.map((num) => (
+                  <div key={num} className={`relative group ${num === cursorPos.line ? "text-[#c6c6c6] font-bold" : ""}`}>
+                    {/* Hover Breakpoint Dot */}
+                    <span className="hidden group-hover:inline-block absolute left-1 top-1 w-2 h-2 rounded-full bg-red-500 cursor-pointer" />
+                    <span>{num}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Code Textarea Input */}
+              <div className="flex-1 relative overflow-hidden flex bg-[#1e1e1e]">
+                <textarea
+                  ref={textareaRef}
+                  value={getCurrentCode()}
+                  onChange={(e) => {
+                    setCurrentCode(e.target.value);
+                    const start = e.target.selectionStart;
+                    checkEmmetSuggestion(e.target.value, start);
+                  }}
+                  onKeyDown={handleTextareaKeyDown}
+                  onKeyUp={handleCursorMove}
+                  onClick={handleCursorMove}
+                  spellCheck={false}
+                  autoCapitalize="none"
+                  autoCorrect="off"
+                  className="w-full h-full bg-transparent text-[#d4d4d4] font-mono text-xs sm:text-[13px] leading-[1.65] p-3 resize-none focus:outline-none selection:bg-[#264f78] custom-scrollbar border-0"
+                  placeholder={`Type HTML/CSS code or Emmet abbreviations (e.g. div.card>h3+p+button, ul>li*3, !) in ${activeFile}...`}
+                />
+
+                {/* Floating VS Code Emmet Suggestion Card */}
+                {emmetSuggestion && (
+                  <div
+                    onClick={executeEmmetExpansion}
+                    className="absolute right-4 bottom-4 z-30 bg-[#252526] border border-[#007acc] text-[#cccccc] shadow-2xl rounded-lg p-2.5 max-w-xs sm:max-w-sm text-xs cursor-pointer hover:bg-[#2a2d2e] transition-all animate-in fade-in slide-in-from-bottom-2 duration-150 select-none"
+                    title="Click or press Tab ⇥ to expand Emmet abbreviation"
+                  >
+                    <div className="flex items-center justify-between pb-1.5 border-b border-[#3c3c3c] mb-1.5">
+                      <div className="flex items-center gap-1.5 text-[#007acc] font-bold text-[11px]">
+                        <Zap size={13} className="text-[#007acc] fill-[#007acc]" />
+                        <span>Emmet Abbreviation</span>
+                      </div>
+                      <kbd className="bg-[#1e1e1e] border border-[#3c3c3c] px-1.5 py-0.5 rounded text-[10px] text-[#04AA6D] font-mono font-bold">
+                        Tab ⇥
+                      </kbd>
+                    </div>
+                    <div className="font-mono text-[11px] text-white font-semibold truncate mb-1">
+                      <span className="text-[#04AA6D] font-bold">{emmetSuggestion.abbreviation}</span>
+                      <span className="text-[#858585] text-[10px] ml-1.5 font-normal">➔ Expand snippet</span>
+                    </div>
+                    <pre className="text-[10px] text-[#9cdcfe] font-mono bg-[#181818] p-1.5 rounded border border-[#333333] max-h-24 overflow-hidden whitespace-pre-wrap leading-tight">
+                      {emmetSuggestion.expanded.length > 140 ? emmetSuggestion.expanded.substring(0, 140) + "..." : emmetSuggestion.expanded}
+                    </pre>
+                  </div>
+                )}
+              </div>
+
+              {/* Minimap Simulation on Right Edge */}
+              <div className="w-14 bg-[#1a1a1a] border-l border-[#282828] hidden md:flex flex-col py-3 px-1 select-none shrink-0 opacity-40 hover:opacity-90 transition-opacity">
+                {lineNumbers.slice(0, 45).map((n) => (
+                  <div 
+                    key={n} 
+                    className="h-1 bg-[#858585]/40 rounded-sm mb-0.5" 
+                    style={{ width: `${Math.min(100, Math.max(20, (n * 17) % 100))}%` }}
+                  />
+                ))}
+              </div>
+
+            </div>
+
+
+            {/* ── 5. SPLIT RIGHT PREVIEW MODE (IF ACTIVE) ── */}
+            {layoutMode === "split" && (
+              <div className="w-1/2 border-l border-[#2d2d2d] bg-[#141414] flex flex-col shrink-0 transition-all">
+                {/* Browser bar */}
+                <div className="bg-[#2d2d2d] px-3 py-1.5 border-b border-[#1e1e1e] flex items-center justify-between text-xs select-none">
+                  <div className="flex items-center gap-2 flex-1 min-w-0 mr-2">
+                    <span className="w-2 h-2 rounded-full bg-[#04AA6D] animate-pulse" />
+                    <span className="text-[11px] text-[#cccccc] font-mono truncate">http://127.0.0.1:5500/</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <button onClick={compileAndRun} className="p-1 hover:bg-[#3c3c3c] rounded text-[#cccccc]" title="Refresh">
+                      <RefreshCw size={12} />
+                    </button>
+                    <button onClick={() => setLayoutMode("top")} className="p-1 hover:bg-[#3c3c3c] rounded text-[#cccccc]" title="Switch to Top Drawer">
+                      <Split size={12} />
+                    </button>
+                    <button onClick={() => setLayoutMode("hidden")} className="p-1 hover:bg-[#3c3c3c] rounded text-[#cccccc]" title="Close Preview">
+                      <X size={12} />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Split Sandbox Viewport */}
+                <div className="flex-1 bg-white p-2">
+                  <iframe
+                    ref={iframeRef}
+                    title="VS Code Split Live Preview"
+                    sandbox="allow-scripts allow-modals"
+                    className="w-full h-full border-0"
+                  />
+                </div>
+              </div>
+            )}
+
+          </div>
+
+          {/* ── 6. COLLAPSIBLE BOTTOM PANEL (TERMINAL / CONSOLE / OUTPUT / PROBLEMS) ── */}
+          {showBottomPanel && (
+            <div className="h-44 bg-[#1e1e1e] border-t border-[#2d2d2d] flex flex-col shrink-0 text-xs">
+              
+              {/* Bottom Panel Tab Bar */}
+              <div className="bg-[#252526] px-4 py-1 flex items-center justify-between border-b border-[#1e1e1e]">
+                <div className="flex items-center gap-4 text-[11px] font-sans">
+                  
+                  <button
+                    onClick={() => setActiveBottomTab("problems")}
+                    className={`hover:text-white transition-colors cursor-pointer py-0.5 ${
+                      activeBottomTab === "problems" ? "text-white font-bold border-b-2 border-[#007acc]" : "text-[#858585]"
+                    }`}
+                  >
+                    PROBLEMS (0)
+                  </button>
+
+                  <button
+                    onClick={() => setActiveBottomTab("output")}
+                    className={`hover:text-white transition-colors cursor-pointer py-0.5 ${
+                      activeBottomTab === "output" ? "text-white font-bold border-b-2 border-[#007acc]" : "text-[#858585]"
+                    }`}
+                  >
+                    OUTPUT
+                  </button>
+
+                  <button
+                    onClick={() => setActiveBottomTab("console")}
+                    className={`hover:text-white transition-colors cursor-pointer py-0.5 ${
+                      activeBottomTab === "console" ? "text-white font-bold border-b-2 border-[#007acc]" : "text-[#858585]"
+                    }`}
+                  >
+                    DEBUG CONSOLE {consoleLogs.length > 0 && `(${consoleLogs.length})`}
+                  </button>
+
+                  <button
+                    onClick={() => setActiveBottomTab("terminal")}
+                    className={`hover:text-white transition-colors cursor-pointer py-0.5 ${
+                      activeBottomTab === "terminal" ? "text-white font-bold border-b-2 border-[#007acc]" : "text-[#858585]"
+                    }`}
+                  >
+                    TERMINAL (POWERSHELL)
+                  </button>
+
+                  <button
+                    onClick={() => setActiveBottomTab("ports")}
+                    className={`hover:text-white transition-colors cursor-pointer py-0.5 ${
+                      activeBottomTab === "ports" ? "text-white font-bold border-b-2 border-[#007acc]" : "text-[#858585]"
+                    }`}
+                  >
+                    PORTS (5500)
+                  </button>
+
+                </div>
+
+                <div className="flex items-center gap-2 text-[#858585]">
+                  <button onClick={() => setConsoleLogs([])} className="hover:text-white" title="Clear">
+                    <RotateCcw size={12} />
+                  </button>
+                  <button onClick={() => setShowBottomPanel(false)} className="hover:text-white" title="Close Panel">
+                    <X size={13} />
+                  </button>
+                </div>
+              </div>
+
+              {/* Panel Content Area */}
+              <div className="flex-1 p-3 overflow-y-auto font-mono text-[11px] text-[#cccccc] custom-scrollbar bg-[#181818]">
+                
+                {/* 1. Terminal Mode */}
+                {activeBottomTab === "terminal" && (
+                  <div className="space-y-1">
+                    {terminalHistory.map((line, idx) => (
+                      <div key={idx} className={line.startsWith("PS ") ? "text-cyan-400 font-bold" : line.includes("error") ? "text-red-400" : "text-[#cccccc]"}>
+                        {line}
+                      </div>
+                    ))}
+
+                    {/* Interactive Input Line */}
+                    <form onSubmit={handleTerminalSubmit} className="flex items-center gap-1.5 pt-1">
+                      <span className="text-cyan-400 font-bold shrink-0">PS C:\Users\nextsem\workspace&gt;</span>
+                      <input
+                        type="text"
+                        value={terminalInput}
+                        onChange={(e) => setTerminalInput(e.target.value)}
+                        className="flex-1 bg-transparent border-0 text-white font-mono text-[11px] outline-none"
+                        placeholder="Type 'run', 'ls', 'node script.js' or 'help'..."
+                        autoFocus
+                      />
+                    </form>
+                    <div ref={terminalEndRef} />
+                  </div>
+                )}
+
+                {/* 2. Debug Console Mode */}
+                {activeBottomTab === "console" && (
+                  <div className="space-y-0.5">
+                    {consoleLogs.length === 0 ? (
+                      <div className="text-[#858585] italic">No console logs yet. Use console.log() in script.js!</div>
+                    ) : (
+                      consoleLogs.map((log, i) => (
+                        <div key={i} className="text-emerald-400">{log}</div>
+                      ))
+                    )}
+                  </div>
+                )}
+
+                {/* 3. Output Mode */}
+                {activeBottomTab === "output" && (
+                  <div className="space-y-1 text-[#858585]">
+                    <div>[Nextsem Compiler Engine]: Build 1.0.0 initialized successfully.</div>
+                    <div>[Language Server]: HTML, CSS3, JavaScript (ES6+) IntelliSense active.</div>
+                    <div>[Live Preview]: Ready on internal localhost bridge.</div>
+                  </div>
+                )}
+
+                {/* 4. Problems Mode */}
+                {activeBottomTab === "problems" && (
+                  <div className="space-y-1 text-[#858585]">
+                    <div className="flex items-center gap-2 text-emerald-400">
+                      <ShieldCheck size={14} />
+                      <span>No syntax errors or linter problems detected.</span>
+                    </div>
+                  </div>
+                )}
+
+                {/* 5. Ports Mode */}
+                {activeBottomTab === "ports" && (
+                  <div className="space-y-2 font-sans">
+                    <div className="flex items-center justify-between bg-[#1e1e1e] p-2.5 rounded border border-[#3c3c3c]">
+                      <div className="space-y-0.5">
+                        <div className="text-white font-bold flex items-center gap-2">
+                          <span className={`w-2 h-2 rounded-full ${isLiveServerRunning ? "bg-[#04AA6D] animate-pulse" : "bg-slate-500"}`} />
+                          <span>Port {liveServerPort} • Live Server v5.7.9</span>
+                        </div>
+                        <div className="text-[#858585] text-[11px] font-mono">
+                          Local: http://127.0.0.1:{liveServerPort}/{activeFile === "README.md" ? "index.html" : activeFile}
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                        <button
+                          onClick={toggleLiveServer}
+                          className={`px-2.5 py-1 rounded text-[11px] font-bold cursor-pointer transition-colors ${
+                            isLiveServerRunning ? "bg-rose-500/20 text-rose-300 hover:bg-rose-500/30" : "bg-[#04AA6D] text-white"
+                          }`}
+                        >
+                          {isLiveServerRunning ? "Stop Port" : "Start Port"}
+                        </button>
+                        <button
+                          onClick={openExternalPreview}
+                          className="px-2.5 py-1 bg-[#2d2d2d] hover:bg-[#3c3c3c] text-white rounded text-[11px] font-bold flex items-center gap-1 cursor-pointer transition-colors border border-[#454545]"
+                        >
+                          <ExternalLink size={12} />
+                          <span>Open Window</span>
+                        </button>
+                      </div>
+                    </div>
+                    <div className="text-[#858585] text-[11px] px-1">
+                      WebSocket Protocol: <code>ws://127.0.0.1:{liveServerPort}/ws</code> • Hot-Reload: {hotReloadEnabled ? "Active (350ms)" : "Manual"}
+                    </div>
+                  </div>
+                )}
+
+              </div>
+            </div>
+          )}
+
+        </div>
+
+      </div>
+
+      {/* ── 3. NATIVE VS CODE BOTTOM STATUS BAR ── */}
+      <footer className="bg-[#007acc] text-white h-6 px-2 flex items-center justify-between text-[11px] shrink-0 select-none font-sans z-30">
+        
+        {/* Left Status Bar Items */}
+        <div className="flex items-center gap-2 sm:gap-3">
+          
+          {/* Remote WSL / Container Pill */}
+          <button 
+            onClick={() => setIsCommandPaletteOpen(true)}
+            className="bg-[#005a9e] hover:bg-[#004b85] px-2 py-0.5 rounded text-white font-extrabold flex items-center gap-1 cursor-pointer"
+            title="Open Remote Sandbox / Commands"
+          >
+            <span>&gt;&lt;</span>
+          </button>
+
+          {/* Git Branch */}
+          <div className="flex items-center gap-1 hover:bg-black/20 px-1.5 py-0.5 rounded cursor-pointer" title="Git Branch: main">
+            <GitBranch size={12} />
+            <span className="font-bold">main*</span>
+          </div>
+
+          {/* Cloud Sync Icon */}
+          <div className="hidden sm:flex items-center gap-1 hover:bg-black/20 px-1.5 py-0.5 rounded cursor-pointer" title="Synchronize Changes">
+            <RotateCcw size={11} />
+            <span>0↓ 0↑</span>
+          </div>
+
+          {/* Errors / Warnings */}
+          <div className="flex items-center gap-1.5 hover:bg-black/20 px-1.5 py-0.5 rounded cursor-pointer" title="0 Errors, 0 Warnings">
+            <ShieldCheck size={12} />
+            <span>0</span>
+          </div>
+
+          {/* Live Server Interactive Status Pill */}
+          <button
+            onClick={toggleLiveServer}
+            className={`flex items-center gap-1.5 px-2 py-0.5 rounded font-bold cursor-pointer transition-all shadow-sm ${
+              isLiveServerRunning 
+                ? "bg-[#04AA6D] hover:bg-[#039861] text-white" 
+                : "bg-black/30 hover:bg-black/50 text-white/90 border border-white/20"
+            }`}
+            title={isLiveServerRunning ? `Live Server active on Port ${liveServerPort} (Click to Stop)` : "Click to Start Live Server"}
+          >
+            <span className={`w-1.5 h-1.5 rounded-full ${isLiveServerRunning ? "bg-white animate-ping" : "bg-slate-300"}`} />
+            <span className="hidden sm:inline">{isLiveServerRunning ? `Port: ${liveServerPort} (Live)` : "Go Live"}</span>
+            <span className="sm:hidden">{isLiveServerRunning ? liveServerPort : "Go Live"}</span>
+          </button>
+
+        </div>
+
+        {/* Right Status Bar Items */}
+        <div className="flex items-center gap-2 sm:gap-3">
+          
+          {/* Toggle Terminal Button */}
+          <button 
+            onClick={() => setShowBottomPanel(!showBottomPanel)}
+            className="hover:bg-black/20 px-1.5 py-0.5 rounded flex items-center gap-1 cursor-pointer font-mono"
+            title="Toggle Integrated Terminal (Ctrl+`)"
+          >
+            <Terminal size={11} />
+            <span className="hidden sm:inline">Terminal</span>
+          </button>
+
+          {/* Line & Column Position */}
+          <span className="font-mono hidden sm:inline">
+            Ln {cursorPos.line}, Col {cursorPos.col}
+          </span>
+
+          <span className="hidden md:inline">Spaces: {prettierConfig.tabWidth}</span>
+          <span className="hidden md:inline">UTF-8</span>
+          <span className="hidden sm:inline">CRLF</span>
+
+          {/* Language Mode */}
+          <span className="font-bold font-mono px-1 py-0.5 rounded hover:bg-black/20 cursor-pointer">
+            {activeFile === "index.html" ? "HTML" : activeFile === "style.css" ? "CSS" : activeFile === "script.js" ? "JavaScript" : activeFile === "README.md" ? "Markdown" : "JSON"}
+          </span>
+
+          {/* Prettier Formatter Action Pill */}
+          <button
+            onClick={formatCurrentFile}
+            className="hover:bg-black/20 px-1.5 py-0.5 rounded cursor-pointer hidden sm:flex items-center gap-1 font-sans"
+            title="Format Document with Prettier (Shift+Alt+F)"
+          >
+            <Sparkles size={11} />
+            <span>Prettier: ✓</span>
+          </button>
+
+          {/* Emmet Status Checkmark */}
+          <span 
+            onClick={() => alert("⚡ Nextsem Emmet Engine Active: Type abbreviations like '!', 'div.card>h3+p+button.btn', 'ul>li*3', 'df', 'p20' and press Tab to expand!")}
+            className="hover:bg-black/20 px-1.5 py-0.5 rounded cursor-pointer font-bold text-emerald-300 flex items-center gap-0.5" 
+            title="Emmet Abbreviation Engine Active (Press Tab to expand)"
+          >
+            <span>Emmet: ✓</span>
+          </span>
+
+          {/* Notification Bell */}
+          <div className="hover:bg-black/20 p-1 rounded cursor-pointer" title="Notifications">
+            <Bell size={12} />
+          </div>
+
+        </div>
+
+      </footer>
+
+      {/* ── TOAST NOTIFICATION FLOATING PILL ── */}
+      {toastNotice && (
+        <div className="fixed bottom-9 right-6 z-50 bg-[#1e1e1e] border border-[#007acc] text-white px-3.5 py-2 rounded-lg shadow-2xl text-xs font-sans flex items-center gap-2 animate-in fade-in slide-in-from-bottom-2 duration-150">
+          <Sparkles size={13} className="text-[#007acc]" />
+          <span>{toastNotice}</span>
+        </div>
+      )}
+
+      {/* ── 4. FLOATING VS CODE COMMAND PALETTE MODAL (CTRL+SHIFT+P / F1) ── */}
+      {isCommandPaletteOpen && (
+        <div 
+          className="fixed inset-0 bg-black/60 z-50 flex items-start justify-center pt-10 sm:pt-14 px-4"
+          onClick={() => setIsCommandPaletteOpen(false)}
+        >
+          <div 
+            className="bg-[#252526] border border-[#454545] rounded-lg shadow-2xl max-w-xl w-full overflow-hidden text-xs"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Input Bar */}
+            <div className="p-2 border-b border-[#3c3c3c] flex items-center gap-2 bg-[#1e1e1e]">
+              <span className="text-[#007acc] font-bold text-sm">&gt;</span>
+              <input
+                type="text"
+                value={paletteQuery}
+                onChange={(e) => setPaletteQuery(e.target.value)}
+                placeholder="Type a command or action (e.g. Run, Template, Terminal, Theme)..."
+                className="w-full bg-transparent border-0 text-white font-sans text-xs outline-none"
+                autoFocus
+              />
+              <kbd className="text-[10px] text-[#858585] bg-[#2d2d2d] px-1.5 py-0.5 rounded border border-[#3c3c3c]">ESC</kbd>
+            </div>
+
+            {/* Filtered Command List */}
+            <div className="max-h-72 overflow-y-auto custom-scrollbar p-1">
+              {filteredCommands.map((cmd, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => {
+                    cmd.action();
+                    setIsCommandPaletteOpen(false);
+                  }}
+                  className="w-full px-3 py-2 text-left hover:bg-[#007acc] hover:text-white rounded flex items-center justify-between group transition-colors cursor-pointer"
+                >
+                  <div className="flex items-center gap-2">
+                    <span>{cmd.icon}</span>
+                    <span className="text-[#cccccc] group-hover:text-white font-sans">{cmd.name}</span>
+                  </div>
+                  <CornerDownLeft size={12} className="text-[#858585] group-hover:text-white opacity-0 group-hover:opacity-100" />
+                </button>
+              ))}
+
+              {filteredCommands.length === 0 && (
+                <div className="p-4 text-center text-[#858585]">
+                  No matching VS Code commands found.
+                </div>
               )}
             </div>
           </div>
         </div>
- 
-        {/* Mobile Tab switcher (only visible on mobile, positioned above BottomNavigation) */}
-        <div className={`absolute bottom-14 left-0 right-0 h-12 border-t flex items-center justify-center gap-2 px-4 z-40 md:hidden ${isLight ? "bg-white/90 border-slate-200" : isSepia ? "bg-[#ebdcb9]/90 border-[#e6dcc8]" : "bg-slate-950/90 border-slate-900"}`}>
-          {editorMode === "builder" ? (
-            <div className="flex bg-slate-900/60 p-0.5 border border-white/5 rounded-xl w-full max-w-sm justify-around">
-              <button 
-                onClick={() => { setBuilderTab("palette"); setSidebarTab("palette"); }}
-                className={`flex-1 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-wider transition-all flex flex-col items-center justify-center gap-0.5 ${builderTab === "palette" ? "bg-blue-600 text-white" : "text-slate-400 hover:text-white"}`}
-              >
-                <Grid size={11} />
-                <span>Palette</span>
-              </button>
-              <button 
-                onClick={() => setBuilderTab("canvas")}
-                className={`flex-1 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-wider transition-all flex flex-col items-center justify-center gap-0.5 ${builderTab === "canvas" ? "bg-blue-600 text-white" : "text-slate-400 hover:text-white"}`}
-              >
-                <Layout size={11} />
-                <span>Canvas</span>
-              </button>
-              <button 
-                onClick={() => { setBuilderTab("properties"); setSidebarTab("properties"); }}
-                className={`flex-1 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-wider transition-all flex flex-col items-center justify-center gap-0.5 ${builderTab === "properties" ? "bg-blue-600 text-white" : "text-slate-400 hover:text-white"}`}
-              >
-                <Sliders size={11} />
-                <span>Properties</span>
-              </button>
-            </div>
-          ) : (
-            <div className="flex bg-slate-900/60 p-0.5 border border-white/5 rounded-xl w-full max-w-sm justify-around">
-              <button 
-                onClick={() => setViewMode("editor")}
-                className={`flex-1 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-wider transition-all flex flex-col items-center justify-center gap-0.5 ${viewMode === "editor" ? "bg-blue-600 text-white" : "text-slate-400 hover:text-white"}`}
-              >
-                <FileCode size={11} />
-                <span>Source Code</span>
-              </button>
-              <button 
-                onClick={() => setViewMode("preview")}
-                className={`flex-1 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-wider transition-all flex flex-col items-center justify-center gap-0.5 ${viewMode === "preview" ? "bg-blue-600 text-white" : "text-slate-400 hover:text-white"}`}
-              >
-                <Layout size={11} />
-                <span>Preview</span>
-              </button>
-            </div>
-          )}
-        </div>
- 
-      </div>
+      )}
+
     </div>
   );
-}
- 
-// ── PRETTIER MOCK CODE FORMATTERS ──
-function formatHTML(html: string): string {
-  let formatted = "";
-  let indent = 0;
-  const cleanHtml = html
-    .replace(/>\s+</g, "><")
-    .replace(/(<[^>]+>)/g, "\n$1\n")
-    .split("\n")
-    .map(line => line.trim())
-    .filter(Boolean);
- 
-  for (const line of cleanHtml) {
-    const isClosing = line.startsWith("</");
-    const isSelfClosing = line.endsWith("/>") || /<(!DOCTYPE|meta|link|img|br|hr|input)/i.test(line);
- 
-    if (isClosing) {
-      indent = Math.max(0, indent - 1);
-    }
-    
-    formatted += "  ".repeat(indent) + line + "\n";
-    
-    if (!isClosing && !isSelfClosing && !line.startsWith("<!")) {
-      indent++;
-    }
-  }
-  return formatted.trim();
-}
- 
-function formatCSS(css: string): string {
-  let formatted = "";
-  let indent = 0;
-  const lines = css
-    .replace(/\s+/g, " ")
-    .replace(/{/g, " {\n")
-    .replace(/}/g, "\n}\n")
-    .replace(/;/g, ";\n")
-    .replace(/,/g, ", ")
-    .split("\n")
-    .map(line => line.trim())
-    .filter(Boolean);
- 
-  for (const line of lines) {
-    if (line.startsWith("}")) {
-      indent = Math.max(0, indent - 1);
-    }
-    formatted += "  ".repeat(indent) + line + "\n";
-    if (line.endsWith("{")) {
-      indent++;
-    }
-  }
-  return formatted.replace(/\n\s*\n/g, "\n\n").trim();
-}
- 
-function formatJS(js: string): string {
-  let formatted = "";
-  let indent = 0;
-  const lines = js
-    .replace(/\s+/g, " ")
-    .replace(/{/g, " {\n")
-    .replace(/}/g, "\n}\n")
-    .replace(/;/g, ";\n")
-    .split("\n")
-    .map(line => line.trim())
-    .filter(Boolean);
- 
-  for (const line of lines) {
-    if (line.startsWith("}")) {
-      indent = Math.max(0, indent - 1);
-    }
-    formatted += "  ".repeat(indent) + line + "\n";
-    if (line.endsWith("{")) {
-      indent++;
-    }
-  }
-  return formatted.replace(/\n\s*\n/g, "\n\n").trim();
-}
- 
-function escapeHtml(text: string): string {
-  return text
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
-}
- 
-// ── VS CODE SYNTAX HIGH LIGHTING ──
-function highlightHTML(code: string): string {
-  const parts = code.split(/(<!--[\s\S]*?-->|<[^>]+>)/g);
-  return parts.map(part => {
-    if (!part) return "";
-    
-    // Comment
-    if (part.startsWith("<!--") && part.endsWith("-->")) {
-      const escaped = escapeHtml(part);
-      return `<span class="text-slate-500 font-normal italic">${escaped}</span>`;
-    }
-    
-    // Tag
-    if (part.startsWith("<") && part.endsWith(">")) {
-      const isClosing = part.startsWith("</");
-      const cleanTag = part.replace(/[<>]/g, ""); // strip < and >
-      
-      // Highlight attributes inside the clean tag
-      // Attribute values: ="..." or ='...'
-      let highlighted = cleanTag.replace(/(=["'][^"']*?["'])/g, '<span class="text-amber-300">$1</span>');
-      
-      // Attributes: name=
-      highlighted = highlighted.replace(/(\s[a-zA-Z0-9\-]+)=/g, ' <span class="text-cyan-400">$1</span>=');
-      
-      // Tag name: at the start of the tag
-      if (isClosing) {
-        highlighted = highlighted.replace(/^(\/[a-zA-Z0-9\-]+)/, '<span class="text-blue-400 font-bold">$1</span>');
-      } else {
-        highlighted = highlighted.replace(/^([a-zA-Z0-9\-]+)/, '<span class="text-blue-400 font-bold">$1</span>');
-      }
-      
-      return `<span class="text-blue-400 font-bold">&lt;</span>${highlighted}<span class="text-blue-400 font-bold">&gt;</span>`;
-    }
-    
-    // Text content
-    return escapeHtml(part);
-  }).join("");
-}
- 
-function highlightCSS(code: string): string {
-  const parts = code.split(/(\/\*[\s\S]*?\*\/)/g);
-  let inRule = false;
-  
-  return parts.map(part => {
-    if (!part) return "";
-    
-    // Comment
-    if (part.startsWith("/*") && part.endsWith("*/")) {
-      return `<span class="text-slate-550 italic">${escapeHtml(part)}</span>`;
-    }
-    
-    // Split by brackets
-    const subParts = part.split(/([{}])/g);
-    return subParts.map(sub => {
-      if (sub === "{") {
-        inRule = true;
-        return '<span class="text-yellow-500 font-bold">{</span>';
-      }
-      if (sub === "}") {
-        inRule = false;
-        return '<span class="text-yellow-500 font-bold">}</span>';
-      }
-      if (!sub.trim()) return sub;
-      
-      if (!inRule) {
-        return `<span class="text-orange-400 font-bold">${escapeHtml(sub)}</span>`;
-      } else {
-        const decls = sub.split(/(;)/g);
-        return decls.map(decl => {
-          if (decl === ";") {
-            return '<span class="text-slate-400">;</span>';
-          }
-          if (!decl.trim()) return decl;
-          
-          const colonIdx = decl.indexOf(":");
-          if (colonIdx >= 0) {
-            const prop = decl.slice(0, colonIdx);
-            const val = decl.slice(colonIdx + 1);
-            return `<span class="text-cyan-400">${escapeHtml(prop)}</span>:<span class="text-emerald-400">${escapeHtml(val)}</span>`;
-          }
-          return escapeHtml(decl);
-        }).join("");
-      }
-    }).join("");
-  }).join("");
-}
- 
-function highlightJS(code: string): string {
-  const parts = code.split(/(\/\/[^\n]*|\/\*[\s\S]*?\*\/|"[^"\\]*(?:\\.[^"\\]*)*"|'[^'\\]*(?:\\.[^'\\]*)*'|`[^`\\]*(?:\\.[`\\]*)*`)/g);
-  const keywords = [
-    "const", "let", "var", "function", "return", "if", "else", "for", "while", 
-    "do", "switch", "case", "break", "continue", "new", "this", "class", "export", 
-    "import", "from", "default", "true", "false", "null", "undefined", "document", "window"
-  ];
-  
-  return parts.map(part => {
-    if (!part) return "";
-    
-    // Comments
-    if (part.startsWith("//") || part.startsWith("/*")) {
-      return `<span class="text-slate-550 italic">${escapeHtml(part)}</span>`;
-    }
-    
-    // Strings
-    if (part.startsWith('"') || part.startsWith("'") || part.startsWith("`")) {
-      return `<span class="text-amber-300">${escapeHtml(part)}</span>`;
-    }
-    
-    // Normal code
-    const escaped = escapeHtml(part);
-    let highlighted = escaped;
-    
-    highlighted = highlighted.replace(/\b(\d+)\b/g, '<span class="text-purple-400">$1</span>');
-    
-    keywords.forEach(kw => {
-      const regex = new RegExp(`\\b(${kw})\\b`, "g");
-      highlighted = highlighted.replace(regex, '<span class="text-blue-400 font-bold">$1</span>');
-    });
-    
-    highlighted = highlighted.replace(/(\.[a-zA-Z0-9_]+)(?=\()/g, '.<span class="text-yellow-400 font-bold">$1</span>');
-    
-    return highlighted;
-  }).join("");
 }

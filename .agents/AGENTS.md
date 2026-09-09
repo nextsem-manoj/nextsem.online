@@ -23,6 +23,8 @@
   * **Day 10**: Build sandbox static portfolio subdomain publishing backend.
   * Keep track of this progress inside `docs/roadmap/task.md` in the workspace directory.
 
+- **Ownership & Domain Boundary Directives (PERMANENT RULE)**: This project (`nextsem.online`) does NOT own, host, manage, or link to `ignou.nextsem.online` (or `ignou.online.nextsem`). Keep all `nextsem.online` curriculum, navigation, routes, and features strictly focused on standalone Full-Stack Software Engineering & Computer Science (HTML, CSS, JS, React, Node, Git, C/C++, Python, Windows CLI).
+
 - **Strict White Text & Emerald Green Link Styling Standard (PERMANENT RULE)**: Across all current and future pages, components, and lesson templates:
   1. **Text Color**: All body text, lesson headings (H1, H2, H3), titles, and paragraphs MUST render strictly in high-contrast pure white (`text-white` / `#ffffff` or `text-slate-100`).
   2. **Link Color**: All hyperlinks, internal navigation anchors, command bullet links, and reference URLs MUST render strictly in vibrant emerald green (`text-[#04AA6D] hover:text-[#039861] underline decoration-[#04AA6D] font-semibold`).
@@ -46,6 +48,10 @@
   4. **1-to-1 Windows 11 Screenshot**: Include the matching authentic 🪟 Windows 11 Google Chrome screenshot directly with the code block.
   5. **Sidebar Hidden Under Hamburger Menu**: Keep the topics/chapters sidebar hidden by default across all viewports (desktop & mobile) under a hamburger menu button (`☰ Topics`) placed inside the sub-navigation bar just below the logo.
 - **Engaging Visual Screenshot & Paragraph Flow Standard**: Every lesson step/section must feature its related authentic step-by-step Windows 11 / Google Chrome screenshot placed directly BEFORE the explanatory paragraph, with optimal readable font size (`text-base text-slate-100 font-normal leading-relaxed`) and tight paragraph margins (`my-1.5`) leaving no dead blank space between paragraphs.
+- **Desktop Complete Top Navbar Breadcrumb Navigation (PERMANENT RULE)**: On desktop viewports, always render the complete interactive breadcrumb navigation trail in the top navigation bar from the Home Page to the current active page (e.g., `Home` ❯ `Class X` ❯ `Subject` ❯ `Book Part` ❯ `Chapter / Page`). Every parent link must be clickable to instantly jump back to that parent level directly from the top header bar.
+- **Simulator Animation Mobile YouTube Shorts vs Desktop Wide Standard (PERMANENT RULE)**: The code compiler showcase animation (CompilerShowcaseAnimation.tsx) MUST render as a vertical YouTube Shorts video format (compact 9:16 / vertical mobile card, stacked preview drawer, and floating Shorts HUD controls) on mobile devices (< md), and as an expansive, wide landscape format with explorer sidebar, live simple browser drawer, and full-width breadcrumbs on desktop/tablet viewports (md: and above). All player controls HUD ([-10s], [Pause/Play], [+10s], [Reset]) must remain hidden by default and appear smoothly only when the user hovers over the animation (opacity-0 group-hover:opacity-100).
+- **Theme Toggle Button in Bottom Navigation Standard (IMPORTANT - PERMANENT RULE)**: On every instance, page, and mobile bottom navigation bar, always include a dedicated **Theme Toggle** button (`Moon 🌙 / Sun ☀️` with live theme switching and persistent `localStorage` synchronization across Dark and Light modes).
+
 
 
 

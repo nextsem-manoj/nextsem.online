@@ -5,7 +5,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { 
   ChevronLeft, ChevronRight, LayoutGrid, BookOpen, 
-  User, Menu, X, LogIn, LogOut, Sliders, Type, Languages, Sparkles, Code, GraduationCap, CheckCircle2
+  User, Menu, X, LogIn, LogOut, Sliders, Type, Languages, Sparkles, Code, GraduationCap, CheckCircle2,
+  ArrowLeft, RotateCcw, HelpCircle, Award
 } from "lucide-react";
 import { mswordLessons } from "@/data/mswordLessonsData";
 import { cliLessons } from "@/data/cliLessonsData";
@@ -51,6 +52,14 @@ export default function LessonBottomNavigation({ pathname }: LessonBottomNavigat
   const [subjectDrawerOpen, setSubjectDrawerOpen] = useState<boolean>(false);
   const [profileOverlayOpen, setProfileOverlayOpen] = useState<boolean>(false);
   const [completedChapters, setCompletedChapters] = useState<Record<string, boolean>>({});
+  const [quizState, setQuizState] = useState<{
+    questionIdx: number;
+    totalQuestions: number;
+    canPrev: boolean;
+    canNext: boolean;
+    courseTitle: string;
+    isFinished?: boolean;
+  } | null>(null);
 
   // 5-Tab Navigation Bar (Prev/Home/Tools/Menu/Next):
   const [navVisible] = useState<boolean>(true);
@@ -137,11 +146,27 @@ export default function LessonBottomNavigation({ pathname }: LessonBottomNavigat
         if (customEvent.detail?.fontSize) setFontSize(customEvent.detail.fontSize);
       };
 
+      const handleQuizState = (e: Event) => {
+        const customEvent = e as CustomEvent<{
+          questionIdx: number;
+          totalQuestions: number;
+          canPrev: boolean;
+          canNext: boolean;
+          courseTitle: string;
+          isFinished?: boolean;
+        }>;
+        if (customEvent.detail) {
+          setQuizState(customEvent.detail);
+        }
+      };
+
       window.addEventListener("nextsem_lesson_pref_changed", handlePrefChange);
+      window.addEventListener("nextsem_quiz_state", handleQuizState);
       return () => {
         window.removeEventListener("nextsem_auth_changed", checkAuth);
         window.removeEventListener("nextsem_progress_changed", checkProgress);
         window.removeEventListener("nextsem_lesson_pref_changed", handlePrefChange);
+        window.removeEventListener("nextsem_quiz_state", handleQuizState);
       };
     }
   }, []);
@@ -207,8 +232,21 @@ export default function LessonBottomNavigation({ pathname }: LessonBottomNavigat
   const totalCompletedCount = Object.keys(completedChapters).filter(k => completedChapters[k] === true).length;
   const overallPercent = Math.min(100, Math.round((totalCompletedCount / totalCourseLessons) * 100));
 
+  const isQuizPage = Boolean(pathname && (pathname.endsWith("/quiz") || pathname.includes("/quiz")));
+
+  // 0. Interactive Quiz Page (/html/quiz, /cli/quiz)
+  if (isQuizPage) {
+    dashboardHref = pathname.startsWith("/cli") ? "/cli" : "/html";
+    courseTitle = quizState?.courseTitle || (pathname.startsWith("/cli") ? "CLI Quiz" : "HTML Quiz");
+    activeLessonsList = (pathname.startsWith("/cli") ? cliLessons : htmlLessons).map(l => ({ id: l.id, slug: l.slug, title: l.title }));
+    progressText = quizState ? `Q${quizState.questionIdx + 1} of ${quizState.totalQuestions}` : "Interactive Quiz";
+    currentLessonDisplay = `Interactive Quiz (${progressText})`;
+    currentSlug = "quiz";
+    prevHref = null;
+    nextHref = null;
+  }
   // 1. MS Word Lessons (/msword/<slug>)
-  if (pathname.startsWith("/msword")) {
+  else if (pathname.startsWith("/msword")) {
     const raw = pathname.replace(/^\/msword\/?/, "").split("/")[0].split("?")[0].replace(/\/$/, "");
     const decoded = decodeURIComponent(raw);
     let idx = mswordLessons.findIndex((l) => l.slug === raw || l.slug === decoded || l.id === Number(raw));
@@ -651,13 +689,17 @@ export default function LessonBottomNavigation({ pathname }: LessonBottomNavigat
 
             <div className="flex flex-col items-center text-center mb-4 pb-3 border-b border-slate-800/80 relative">
               <div className="flex items-center justify-center gap-2 mb-1">
-                <BookOpen size={18} className="text-cyan-400" />
-                <h3 className="font-extrabold text-sm uppercase tracking-wider text-cyan-300 text-center">
-                  {courseTitle} Curriculum ({activeLessonsList.length || 0})
+                {isQuizPage ? (
+                  <HelpCircle size={18} className="text-[#04AA6D]" />
+                ) : (
+                  <BookOpen size={18} className="text-cyan-400" />
+                )}
+                <h3 className={`font-extrabold text-sm uppercase tracking-wider text-center ${isQuizPage ? "text-[#04AA6D]" : "text-cyan-300"}`}>
+                  {isQuizPage ? "Quiz Question Palette" : `${courseTitle} Curriculum (${activeLessonsList.length || 0})`}
                 </h3>
               </div>
               <p className="text-xs text-slate-400 text-center font-medium">
-                {progressText || "Select a lesson to navigate"}
+                {isQuizPage ? `Jump to any question (1 to ${activeLessonsList.length})` : (progressText || "Select a lesson to navigate")}
               </p>
               <button 
                 onClick={() => setSubjectDrawerOpen(false)}
@@ -670,155 +712,275 @@ export default function LessonBottomNavigation({ pathname }: LessonBottomNavigat
             <div className="space-y-3 max-h-[60vh] overflow-y-auto pr-1 custom-scrollbar">
               {/* Active Reading Position Card */}
               {currentLessonDisplay && (
-                <div className="p-3 rounded-2xl bg-gradient-to-br from-cyan-950/80 via-slate-900 to-amber-950/60 border border-cyan-500/40 text-center space-y-1 shadow-xl">
-                  <div className="text-[10px] font-black uppercase tracking-widest text-amber-400">
-                    📍 Active Lesson Position
+                <div className={`p-3 rounded-2xl border text-center space-y-1 shadow-xl ${
+                  isQuizPage
+                    ? "bg-gradient-to-br from-emerald-950/80 via-slate-900 to-emerald-950/60 border-emerald-500/40"
+                    : "bg-gradient-to-br from-cyan-950/80 via-slate-900 to-amber-950/60 border-cyan-500/40"
+                }`}>
+                  <div className="text-[10px] font-black uppercase tracking-widest text-[#04AA6D]">
+                    {isQuizPage ? "📍 Current Assessment Question" : "📍 Active Lesson Position"}
                   </div>
-                  <div className="text-xs sm:text-sm font-black text-cyan-200">
-                    {currentLessonDisplay.replace(/^(CLI\.\d+:|P\d+\.\d+:|Phase\s+\d+:)\s*/i, '').trim()}
+                  <div className="text-xs sm:text-sm font-black text-white">
+                    {isQuizPage
+                      ? `Question ${quizState ? quizState.questionIdx + 1 : 1} of ${activeLessonsList.length}`
+                      : currentLessonDisplay.replace(/^(CLI\.\d+:|P\d+\.\d+:|Phase\s+\d+:)\s*/i, '').trim()}
                   </div>
                 </div>
               )}
 
-              {/* Dynamic Lesson List */}
-              <div className="flex flex-col gap-1.5">
-                {activeLessonsList.map((item, idx) => {
-                  const targetHref = `${dashboardHref}/${item.slug}`;
-                  const isCurrent = pathname.endsWith(`/${item.slug}`) || pathname === targetHref;
-                  const isDone = completedChapters[item.slug] || completedChapters[item.id];
-                  return (
-                    <Link
-                      key={item.id || idx}
-                      href={targetHref}
-                      onClick={() => setSubjectDrawerOpen(false)}
-                      className={`flex items-center justify-between p-2.5 rounded-xl border text-xs font-semibold transition-all ${
-                        isCurrent
-                          ? 'bg-[#04AA6D]/20 border-[#04AA6D]/60 text-[#04AA6D] font-bold shadow-md'
-                          : 'bg-slate-900/60 border-slate-800/80 text-slate-300 hover:bg-slate-800/80 hover:text-white'
-                      }`}
-                    >
-                      <div className="flex items-center gap-2.5 min-w-0 flex-1 text-left">
-                        <span className={`w-5 h-5 rounded-full text-[10px] font-extrabold flex items-center justify-center shrink-0 ${
-                          isCurrent ? 'bg-[#04AA6D] text-white' : 'bg-slate-800 text-slate-400'
-                        }`}>
-                          {idx + 1}
-                        </span>
-                        <span className="truncate">{item.title.replace(/^(CLI\.\d+:|P\d+\.\d+:|Phase\s+\d+:)\s*/i, '').trim()}</span>
-                      </div>
-                      {isDone && (
-                        <CheckCircle2 size={14} className="text-[#04AA6D] shrink-0 ml-2" />
-                      )}
-                    </Link>
-                  );
-                })}
-              </div>
+              {/* Dynamic Lesson List / Quiz Question Grid */}
+              {isQuizPage ? (
+                <div className="space-y-2">
+                  <div className="text-[10px] font-black uppercase tracking-wider text-slate-400 px-1">
+                    Tap any question to jump:
+                  </div>
+                  <div className="grid grid-cols-5 sm:grid-cols-6 gap-2">
+                    {activeLessonsList.map((item, idx) => {
+                      const isCurrent = (quizState?.questionIdx ?? 0) === idx;
+                      return (
+                        <button
+                          key={item.id || idx}
+                          type="button"
+                          onClick={() => {
+                            window.dispatchEvent(new CustomEvent("nextsem_quiz_jump", { detail: { index: idx } }));
+                            setSubjectDrawerOpen(false);
+                          }}
+                          className={`h-11 rounded-xl font-mono text-xs font-bold flex flex-col items-center justify-center border transition-all cursor-pointer ${
+                            isCurrent
+                              ? "bg-[#04AA6D] border-emerald-400 text-white font-extrabold shadow-md shadow-[#04AA6D]/30 scale-105"
+                              : "bg-slate-900 border-slate-800 text-slate-300 hover:border-[#04AA6D] hover:text-white"
+                          }`}
+                        >
+                          <span className="text-[11px]">Q{idx + 1}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              ) : (
+                <div className="flex flex-col gap-1.5">
+                  {activeLessonsList.map((item, idx) => {
+                    const targetHref = `${dashboardHref}/${item.slug}`;
+                    const isCurrent = pathname.endsWith(`/${item.slug}`) || pathname === targetHref;
+                    const isDone = completedChapters[item.slug] || completedChapters[item.id];
+                    return (
+                      <Link
+                        key={item.id || idx}
+                        href={targetHref}
+                        onClick={() => setSubjectDrawerOpen(false)}
+                        className={`flex items-center justify-between p-2.5 rounded-xl border text-xs font-semibold transition-all ${
+                          isCurrent
+                            ? 'bg-[#04AA6D]/20 border-[#04AA6D]/60 text-[#04AA6D] font-bold shadow-md'
+                            : 'bg-slate-900/60 border-slate-800/80 text-slate-300 hover:bg-slate-800/80 hover:text-white'
+                        }`}
+                      >
+                        <div className="flex items-center gap-2.5 min-w-0 flex-1 text-left">
+                          <span className={`w-5 h-5 rounded-full text-[10px] font-extrabold flex items-center justify-center shrink-0 ${
+                            isCurrent ? 'bg-[#04AA6D] text-white' : 'bg-slate-800 text-slate-400'
+                          }`}>
+                            {idx + 1}
+                          </span>
+                          <span className="truncate">{item.title.replace(/^(CLI\.\d+:|P\d+\.\d+:|Phase\s+\d+:)\s*/i, '').trim()}</span>
+                        </div>
+                        {isDone && (
+                          <CheckCircle2 size={14} className="text-[#04AA6D] shrink-0 ml-2" />
+                        )}
+                      </Link>
+                    );
+                  })}
+                </div>
+              )}
             </div>
           </div>
         </>
       )}
-
       {/* ── FULL-WIDTH PINNED EDGE-TO-EDGE TAB BAR (Mobile Viewports) ── */}
       <nav 
         className="fixed left-0 right-0 bottom-0 w-full z-[999] md:hidden select-none bg-[#090d22]/95 backdrop-blur-2xl border-t border-slate-800/80 shadow-[0_-8px_25px_rgba(0,0,0,0.5)] text-slate-200 transition-all duration-300 translate-y-0 opacity-100"
         style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
       >
-        <div className="px-2 py-1.5 flex items-center justify-around w-full max-w-xl mx-auto">
-          
-          {/* TAB 1: HOME */}
-          <Link
-            href="/"
-            className="relative flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all duration-200 active:scale-90 text-slate-300 hover:text-white"
-          >
-            <div className="w-5 h-5 rounded bg-[#09101f] border border-[#04AA6D]/40 flex items-center justify-center text-[#04AA6D] font-black text-[9px] shadow-xs">
-              NS
-            </div>
-            <span className="text-[10px] font-bold tracking-tight mt-0.5">Home</span>
-          </Link>
-
-          {/* TAB 2: PREV */}
-          {prevHref ? (
-            <button
-              onClick={async () => {
-                await triggerNavigationAd();
-                window.location.href = prevHref!;
-              }}
-              className="relative flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all duration-200 active:scale-90 text-[#04AA6D] hover:text-white font-bold cursor-pointer"
+        {isQuizPage ? (
+          /* ── DEDICATED QUIZ MOBILE BOTTOM CONTROLLER ── */
+          <div className="px-3 py-1.5 flex items-center justify-between gap-1 w-full max-w-xl mx-auto">
+            {/* TAB 1: EXIT QUIZ TO DASHBOARD */}
+            <Link
+              href={dashboardHref}
+              className="relative flex flex-col items-center justify-center py-1 px-2.5 rounded-xl transition-all duration-200 active:scale-90 text-slate-300 hover:text-white"
             >
-              <ChevronLeft size={18} className="stroke-[2.5] text-[#04AA6D]" />
+              <ArrowLeft size={18} className="text-[#04AA6D]" />
+              <span className="text-[10px] font-bold tracking-tight mt-0.5">Lessons</span>
+            </Link>
+
+            {/* TAB 2: PREVIOUS QUESTION */}
+            <button
+              type="button"
+              onClick={() => {
+                window.dispatchEvent(new CustomEvent("nextsem_quiz_prev"));
+              }}
+              disabled={quizState ? !quizState.canPrev : true}
+              className={`relative flex flex-col items-center justify-center py-1 px-2.5 rounded-xl transition-all duration-200 active:scale-90 font-bold ${
+                quizState && quizState.canPrev
+                  ? "text-[#04AA6D] hover:text-white cursor-pointer"
+                  : "opacity-30 text-slate-500 cursor-not-allowed"
+              }`}
+            >
+              <ChevronLeft size={20} className="stroke-[2.5]" />
               <span className="text-[10px] font-bold tracking-tight mt-0.5">Prev</span>
             </button>
-          ) : (
-            <div className="relative flex flex-col items-center justify-center py-1 px-3 rounded-xl opacity-30 text-slate-500 cursor-not-allowed">
-              <ChevronLeft size={18} className="stroke-[1.5]" />
-              <span className="text-[10px] font-bold tracking-tight mt-0.5">Prev</span>
-            </div>
-          )}
 
-          {/* TAB 3: UNIT / SUBJECT SWITCHER */}
-          <button
-            onClick={() => {
-              setSubjectDrawerOpen(!subjectDrawerOpen);
-              setMenuOpen(false);
-              setToolsOpen(false);
-            }}
-            className={`relative flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all duration-200 active:scale-90 cursor-pointer ${
-              subjectDrawerOpen 
-                ? 'text-cyan-300 bg-cyan-500/20 border border-cyan-500/30 font-bold' 
-                : 'text-cyan-400 hover:text-cyan-200 font-bold'
-            }`}
-          >
-            <BookOpen size={18} className="stroke-[2] text-cyan-400" />
-            <span className="text-[10px] font-bold tracking-tight mt-0.5 truncate max-w-[80px]">
-              {courseTitle} ▾
-            </span>
-            {subjectDrawerOpen && (
-              <span className="absolute -top-0.5 w-1.5 h-1.5 bg-cyan-400 rounded-full" />
-            )}
-          </button>
-
-          {/* TAB 4: NEXT */}
-          {nextHref ? (
+            {/* TAB 3: QUESTION STATUS & JUMP DRAWER TRIGGER */}
             <button
-              onClick={async () => {
-                if (currentSlug) markCompleted(currentSlug);
-                await triggerNavigationAd();
-                window.location.href = nextHref!;
+              type="button"
+              onClick={() => {
+                setSubjectDrawerOpen(!subjectDrawerOpen);
               }}
-              className="relative flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all duration-200 active:scale-90 text-[#04AA6D] hover:text-white font-bold cursor-pointer"
+              className={`relative flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all duration-200 active:scale-90 cursor-pointer ${
+                subjectDrawerOpen
+                  ? "bg-[#04AA6D]/20 text-[#04AA6D] border border-[#04AA6D]/40 font-black"
+                  : "bg-slate-900 text-white border border-slate-700/80 hover:border-[#04AA6D]"
+              }`}
             >
-              <ChevronRight size={18} className="stroke-[2.5] text-[#04AA6D]" />
-              <span className="text-[10px] font-black tracking-tight mt-0.5">Next</span>
+              <div className="flex items-center gap-1">
+                <HelpCircle size={13} className="text-[#04AA6D]" />
+                <span className="text-xs font-black font-mono text-[#04AA6D]">
+                  Q{quizState ? quizState.questionIdx + 1 : 1}/{quizState?.totalQuestions || htmlLessons.length}
+                </span>
+              </div>
+              <span className="text-[9px] font-bold text-slate-400 mt-0.5">
+                Jump ▾
+              </span>
             </button>
-          ) : (
-            <div className="relative flex flex-col items-center justify-center py-1 px-3 rounded-xl opacity-30 text-slate-500 cursor-not-allowed">
-              <ChevronRight size={18} className="stroke-[1.5]" />
-              <span className="text-[10px] font-black tracking-tight mt-0.5">Next</span>
-            </div>
-          )}
 
-          {/* TAB 5: ACCOUNT OVERLAY MODAL */}
-          <button
-            onClick={() => {
-              setProfileOverlayOpen(true);
-              setMenuOpen(false);
-              setToolsOpen(false);
-              setSubjectDrawerOpen(false);
-            }}
-            className={`relative flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all duration-200 active:scale-90 cursor-pointer ${
-              profileOverlayOpen
-                ? 'text-[#04AA6D] bg-[#04AA6D]/10 border border-[#04AA6D]/30 font-bold'
-                : 'text-slate-300 hover:text-white'
-            }`}
-          >
-            {currentUser?.photo ? (
-              <img src={currentUser.photo} alt="" className="w-5 h-5 rounded-full object-cover border border-[#04AA6D]" />
+            {/* TAB 4: NEXT QUESTION */}
+            <button
+              type="button"
+              onClick={() => {
+                window.dispatchEvent(new CustomEvent("nextsem_quiz_next"));
+              }}
+              className="relative flex flex-col items-center justify-center py-1.5 px-4 bg-[#04AA6D] hover:bg-[#039861] text-white rounded-xl transition-all duration-200 active:scale-95 shadow-lg shadow-[#04AA6D]/30 border border-emerald-400/40 cursor-pointer"
+            >
+              <div className="flex items-center gap-0.5">
+                <span className="text-[11px] font-black tracking-tight">
+                  {quizState && quizState.questionIdx === (quizState.totalQuestions - 1) ? "Finish 🏆" : "Next »"}
+                </span>
+              </div>
+              <span className="text-[8px] font-black uppercase text-emerald-100/90 -mt-0.5">
+                Question
+              </span>
+            </button>
+
+            {/* TAB 5: RESTART */}
+            <button
+              type="button"
+              onClick={() => {
+                window.dispatchEvent(new CustomEvent("nextsem_quiz_restart"));
+              }}
+              className="relative flex flex-col items-center justify-center py-1 px-2.5 rounded-xl transition-all duration-200 active:scale-90 text-slate-300 hover:text-white cursor-pointer"
+              title="Restart Quiz"
+            >
+              <RotateCcw size={16} className="text-amber-400" />
+              <span className="text-[10px] font-bold tracking-tight mt-0.5">Restart</span>
+            </button>
+          </div>
+        ) : (
+          /* ── STANDARD 5-TAB BAR ── */
+          <div className="px-2 py-1.5 flex items-center justify-around w-full max-w-xl mx-auto">
+            
+            {/* TAB 1: HOME */}
+            <Link
+              href="/"
+              className="relative flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all duration-200 active:scale-90 text-slate-300 hover:text-white"
+            >
+              <div className="w-5 h-5 rounded bg-[#09101f] border border-[#04AA6D]/40 flex items-center justify-center text-[#04AA6D] font-black text-[9px] shadow-xs">
+                NS
+              </div>
+              <span className="text-[10px] font-bold tracking-tight mt-0.5">Home</span>
+            </Link>
+
+            {/* TAB 2: PREV */}
+            {prevHref ? (
+              <button
+                onClick={async () => {
+                  await triggerNavigationAd();
+                  window.location.href = prevHref!;
+                }}
+                className="relative flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all duration-200 active:scale-90 text-[#04AA6D] hover:text-white font-bold cursor-pointer"
+              >
+                <ChevronLeft size={18} className="stroke-[2.5] text-[#04AA6D]" />
+                <span className="text-[10px] font-bold tracking-tight mt-0.5">Prev</span>
+              </button>
             ) : (
-              <User size={18} className={profileOverlayOpen ? "stroke-[2.5] text-[#04AA6D]" : "stroke-[1.75]"} />
+              <div className="relative flex flex-col items-center justify-center py-1 px-3 rounded-xl opacity-30 text-slate-500 cursor-not-allowed">
+                <ChevronLeft size={18} className="stroke-[1.5]" />
+                <span className="text-[10px] font-bold tracking-tight mt-0.5">Prev</span>
+              </div>
             )}
-            <span className="text-[10px] font-bold tracking-tight mt-0.5">Account</span>
-          </button>
 
-        </div>
+            {/* TAB 3: UNIT / SUBJECT SWITCHER */}
+            <button
+              onClick={() => {
+                setSubjectDrawerOpen(!subjectDrawerOpen);
+                setMenuOpen(false);
+                setToolsOpen(false);
+              }}
+              className={`relative flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all duration-200 active:scale-90 cursor-pointer ${
+                subjectDrawerOpen 
+                  ? 'text-cyan-300 bg-cyan-500/20 border border-cyan-500/30 font-bold' 
+                  : 'text-cyan-400 hover:text-cyan-200 font-bold'
+              }`}
+            >
+              <BookOpen size={18} className="stroke-[2] text-cyan-400" />
+              <span className="text-[10px] font-bold tracking-tight mt-0.5 truncate max-w-[80px]">
+                {courseTitle} ▾
+              </span>
+              {subjectDrawerOpen && (
+                <span className="absolute -top-0.5 w-1.5 h-1.5 bg-cyan-400 rounded-full" />
+              )}
+            </button>
+
+            {/* TAB 4: NEXT */}
+            {nextHref ? (
+              <button
+                onClick={async () => {
+                  if (currentSlug) markCompleted(currentSlug);
+                  await triggerNavigationAd();
+                  window.location.href = nextHref!;
+                }}
+                className="relative flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all duration-200 active:scale-90 text-[#04AA6D] hover:text-white font-bold cursor-pointer"
+              >
+                <ChevronRight size={18} className="stroke-[2.5] text-[#04AA6D]" />
+                <span className="text-[10px] font-black tracking-tight mt-0.5">Next</span>
+              </button>
+            ) : (
+              <div className="relative flex flex-col items-center justify-center py-1 px-3 rounded-xl opacity-30 text-slate-500 cursor-not-allowed">
+                <ChevronRight size={18} className="stroke-[1.5]" />
+                <span className="text-[10px] font-black tracking-tight mt-0.5">Next</span>
+              </div>
+            )}
+
+            {/* TAB 5: ACCOUNT OVERLAY MODAL */}
+            <button
+              onClick={() => {
+                setProfileOverlayOpen(true);
+                setMenuOpen(false);
+                setToolsOpen(false);
+                setSubjectDrawerOpen(false);
+              }}
+              className={`relative flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all duration-200 active:scale-90 cursor-pointer ${
+                profileOverlayOpen
+                  ? 'text-[#04AA6D] bg-[#04AA6D]/10 border border-[#04AA6D]/30 font-bold'
+                  : 'text-slate-300 hover:text-white'
+              }`}
+            >
+              {currentUser?.photo ? (
+                <img src={currentUser.photo} alt="" className="w-5 h-5 rounded-full object-cover border border-[#04AA6D]" />
+              ) : (
+                <User size={18} className={profileOverlayOpen ? "stroke-[2.5] text-[#04AA6D]" : "stroke-[1.75]"} />
+              )}
+              <span className="text-[10px] font-bold tracking-tight mt-0.5">Account</span>
+            </button>
+          </div>
+        )}
       </nav>
 
       {/* ── PROFILE OVERLAY MODAL (NON-DISTRACTING LESSON OVERLAY) ── */}

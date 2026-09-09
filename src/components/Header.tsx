@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react';
 import Link from 'next/link';
 import { Search, Compass, BookOpen, Terminal, Sparkles, Cpu } from 'lucide-react';
@@ -25,6 +27,12 @@ const Header = () => {
               className="px-3 py-1.5 rounded-lg hover:text-[#04AA6D] hover:bg-slate-800/80 transition-colors"
             >
               Curriculum
+            </Link>
+            <Link
+              href="/tracks"
+              className="px-3 py-1.5 rounded-lg hover:text-[#04AA6D] hover:bg-slate-800/80 transition-colors text-white font-bold"
+            >
+              Tracks
             </Link>
             <Link
               href="/guide"
@@ -76,7 +84,7 @@ const Header = () => {
               Git
             </Link>
             <Link
-              href="/course/projects"
+              href="/projects"
               className="px-3 py-1.5 rounded-lg hover:text-[#04AA6D] hover:bg-slate-800/80 transition-colors"
             >
               Projects
@@ -90,14 +98,29 @@ const Header = () => {
           </nav>
         </div>
 
-        {/* Right Action: Quick Links & Action */}
-        <div className="flex items-center gap-3">
+        {/* Right Action: Search Trigger & Quick Links */}
+        <div className="flex items-center gap-2 sm:gap-3">
+          {/* Quick Search Button */}
+          <button
+            onClick={() => window.dispatchEvent(new CustomEvent("open_search", { detail: { query: "" } }))}
+            className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-800/80 hover:bg-slate-700 border border-slate-700 hover:border-slate-600 text-slate-300 hover:text-white text-xs font-semibold transition-all cursor-pointer shadow-sm"
+            title="Search Nextsem (Press /)"
+            aria-label="Open Search"
+          >
+            <Search size={14} className="text-[#04AA6D]" />
+            <span className="hidden sm:inline text-[11px]">Search</span>
+            <span className="hidden sm:inline text-[10px] font-mono text-slate-400 bg-slate-900 px-1.5 py-0.5 rounded border border-slate-700 select-none">
+              /
+            </span>
+          </button>
+
           <Link
             href="/course"
-            className="px-4 py-1.5 rounded-xl bg-[#04AA6D] hover:bg-[#039861] text-white text-xs font-extrabold shadow-sm transition-all flex items-center gap-1.5"
+            className="px-3.5 sm:px-4 py-1.5 rounded-full bg-[#04AA6D] hover:bg-[#039861] text-white text-xs font-extrabold shadow-sm transition-all flex items-center gap-1.5 whitespace-nowrap"
           >
             <BookOpen size={13} />
-            <span>Start Free Lessons</span>
+            <span className="hidden sm:inline">Start Free Lessons</span>
+            <span className="sm:hidden">Courses</span>
           </Link>
         </div>
 

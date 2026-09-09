@@ -86,7 +86,8 @@ const W3_HTML_SECTIONS: HtmlSidebarSection[] = [
   {
     category: "HTML TUTORIAL",
     topics: [
-      { title: "HTML HOME", href: "/html" },
+      { title: "📊 HTML Course Dashboard", href: "/html" },
+      { title: "🏆 Interactive HTML Quiz", href: "/html/quiz" },
       { title: "HTML Introduction", slug: "html-introduction-what-is-html", hasDropdown: true },
       { title: "HTML Editors", slug: "download-install-vscode-windows-11-setup-guide" },
       { 
@@ -264,7 +265,7 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, onWidthChange, isCollaps
                       <div className="flex flex-col">
                         {section.topics.map((topic, tIdx) => {
                           const topicHref = topic.href || (topic.slug ? `/html/${topic.slug}` : '/html');
-                          const isActive = (topic.slug && pathname.includes(topic.slug)) || (pathname === '/html' && topic.href === '/html');
+                          const isActive = (topic.slug && pathname.includes(topic.slug)) || (topic.href ? (pathname === topic.href || (topic.href !== '/html' && pathname.startsWith(topic.href))) : false);
                           const hasSub = !!topic.subItems?.length;
 
                           return (

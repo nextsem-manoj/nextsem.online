@@ -4,7 +4,7 @@ import HomeClient from './HomeClient';
 export const metadata: Metadata = {
   title: "Nextsem Academy | Complete Free Dev Curriculum",
   description: "Master full stack web development from Windows CLI and HTML basics up to React, Node.js, and Cloud deployment — free interactive developer curriculum.",
-  alternates: { canonical: "/" },
+  alternates: { canonical: "https://nextsem.online" },
   openGraph: {
     title: "Nextsem Academy | Complete Free Dev Curriculum",
     description: "Free developer curriculum for aspiring full stack engineers.",

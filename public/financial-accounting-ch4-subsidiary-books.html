@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NCERT Class 11 Financial Accounting Ch 4: Recording of Transactions - II (Special Purpose Books)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <style>
+    body { background-color: #080d1a; color: #f8fafc; font-family: system-ui, -apple-system, sans-serif; }
+    .emerald-glow { box-shadow: 0 0 25px rgba(4, 170, 109, 0.25); }
+    .correct-btn { background-color: #064e3b !important; border-color: #10b981 !important; color: #ffffff !important; }
+    .wrong-btn { background-color: #7f1d1d !important; border-color: #ef4444 !important; color: #ffffff !important; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col items-center p-3 sm:p-6 selection:bg-[#04AA6D] selection:text-black">
+
+  <!-- Header Section -->
+  <header class="w-full max-w-4xl mx-auto mb-6 bg-[#0f172a] border border-slate-800 rounded-2xl p-5 emerald-glow text-center sm:text-left flex flex-col sm:flex-row justify-between items-center gap-4">
+    <div class="space-y-1">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#04AA6D]/15 border border-[#04AA6D]/40 text-[#04AA6D] text-xs font-black uppercase tracking-wider">
+        <span>NCERT Class 11 • Financial Accounting-I • Chapter 4</span>
+      </div>
+      <h1 class="text-2xl sm:text-3xl font-black text-white tracking-tight">
+        Recording of Transactions - II <span class="text-[#04AA6D] text-lg font-bold block sm:inline">| विशेष प्रयोजन सहायक बहियाँ (Subsidiary Books)</span>
+      </h1>
+      <p class="text-xs sm:text-sm text-slate-300">Topic-by-Topic Interactive Study & MCQ Mastery (English + हिन्दी)</p>
+    </div>
+
+    <!-- Controls -->
+    <div class="flex items-center gap-2 shrink-0">
+      <button id="langToggle" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs border border-slate-700 transition-all flex items-center gap-2 cursor-pointer shadow-md">
+        <span>🌐 Language: <strong class="text-[#04AA6D]" id="langDisplay">Both</strong></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Topic Container -->
+  <main id="contentContainer" class="w-full max-w-4xl mx-auto space-y-8 pb-20"></main>
+
+  <script>
+    let currentLang = "both"; // 'both', 'en', 'hi'
+    let selectedAnswers = {};
+
+    const TOPICS = [
+      {
+        id: 1,
+        titleEn: "Topic 1: Need for Special Purpose Books (Subsidiary Books)",
+        titleHi: "विषय 1: विशेष प्रयोजन बहियों (सहायक बहियों) की आवश्यकता",
+        explanationEn: `
+          <ul class="list-disc list-inside space-y-2 text-slate-300 text-sm">
+            <li><strong>The Problem with a Single Journal:</strong> In a medium or large enterprise, thousands of transactions take place every single day. If every transaction is written in a single Journal, it becomes bulky, chaotic, prone to errors, and impossible to distribute work among multiple accountants.</li>
+            <li><strong>The Solution — Sub-division of Journal:</strong> Instead of one giant journal, the journal is divided into specialized separate books known as <strong>Subsidiary Books (Special Purpose Books / Day Books)</strong>.</li>
+            <li><strong>Classification of Subsidiary Books:</strong>
+              <ol class="list-decimal list-inside ml-4 mt-1 space-y-1 text-slate-200">
+                <li><strong>Cash Book:</strong> Records all cash and bank receipts and payments.</li>
+                <li><strong>Purchases Book:</strong> Records credit purchases of goods meant for resale.</li>
+                <li><strong>Sales Book:</strong> Records credit sales of goods.</li>
+                <li><strong>Purchases Return Book:</strong> Records returns of credit goods to suppliers.</li>
+                <li><strong>Sales Return Book:</strong> Records returns of credit goods from customers.</li>
+                <li><strong>Journal Proper:</strong> Records all other transactions that don't fit into the above books.</li>
+              </ol>
+            </li>
+          </ul>
+        `,
+        explanationHi: `
+          <ul class="list-disc list-inside space-y-2 text-slate-300 text-sm">
+            <li><strong>एकमात्र मुख्य जर्नल की सीमाएँ:</strong> जब किसी व्यापार में प्रतिदिन सैकड़ों-हजारों लेन-देन होते हैं, तो सबको एक ही जर्नल में लिखना अव्यवहारिक हो जाता है। इससे कार्य विभाजन संभव नहीं हो पाता और समय बर्बाद होता है।</li>
+            <li><strong>समाधान — जर्नल का उप-विभाजन:</strong> जर्नल को प्रकृति के आधार पर अलग-अलग विशेष बहियों में बाँट दिया जाता है जिन्हें <strong>सहायक बहियाँ (Subsidiary Books)</strong> कहा जाता है।</li>
+            <li><strong>प्रमुख सहायक बहियाँ:</strong> रोकड़ बही (Cash Book), क्रय बही (Purchases Book), विक्रय बही (Sales Book), क्रय वापसी बही (Purchases Return Book), विक्रय वापसी बही (Sales Return Book), तथा मुख्य जर्नल (Journal Proper)।</li>
+          </ul>
+        `,
+        example: `
+          <div class="p-3.5 bg-slate-900 border border-slate-700 rounded-xl text-xs sm:text-sm font-mono text-emerald-400">
+            <strong>Real-Life Business Example / व्यावहारिक उदाहरण:</strong><br>
+            A garment store "Fashion Hub" makes 500 sales a day:<br>
+            • Cash/UPI sales → Entered directly into the <strong>Cash Book</strong>.<br>
+            • Credit sales to boutique owners → Entered in the <strong>Sales Book</strong>.<br>
+            • Fabric bought on credit from mills → Entered in the <strong>Purchases Book</strong>.<br>
+            • Old shop counter sold on credit → Entered in <strong>Journal Proper</strong> (not sales book, as it is an asset, not goods!).
+          </div>
+        `,
+        mcqs: [
+          {
+            qEn: "Subdivision of the Journal into specialized books of original entry is known as:",
+            qHi: "जर्नल को विशेष प्रारंभिक प्रविष्टि बहियों में उप-विभाजित करना कहलाता है:",
+            optsEn: ["Trial Balance", "Subsidiary Books (Special Purpose Books)", "Ledger Accounts", "Balance Sheet"],
+            optsHi: ["तलपट", "सहायक बहियाँ (विशेष प्रयोजन पुस्तकें)", "खाता बही", "चिट्ठा"],
+            correct: 1,
+            exp: "Subsidiary books are subdivisions of the journal created for specific categories of transactions."
+          },
+          {
+            qEn: "Which of the following is NOT a subsidiary book?",
+            qHi: "निम्नलिखित में से कौन-सी सहायक बही नहीं है?",
+            optsEn: ["Purchases Book", "Sales Book", "Cash Book", "Trial Balance"],
+            optsHi: ["क्रय बही", "विक्रय बही", "रोकड़ बही", "तलपट (Trial Balance)"],
+            correct: 3,
+            exp: "Trial Balance is a statement of ledger balances, not a book of original entry (subsidiary book)."
+          },
+          {
+            qEn: "Credit purchase of old office furniture by a textile shop is recorded in:",
+            qHi: "कपड़ा व्यापारी द्वारा उधार खरीदे गए पुराने कार्यालय फर्नीचर का लेखा किसमें किया जाता है?",
+            optsEn: ["Purchases Book", "Cash Book", "Journal Proper", "Sales Book"],
+            optsHi: ["क्रय बही", "रोकड़ बही", "मुख्य जर्नल (Journal Proper)", "विक्रय बही"],
+            correct: 2,
+            exp: "Purchases book only records credit purchase of GOODS for resale. Purchase of fixed assets on credit goes to Journal Proper."
+          }
+        ]
+      },
+      {
+        id: 2,
+        titleEn: "Topic 2: Simple Cash Book (Single Column Cash Book)",
+        titleHi: "विषय 2: साधारण रोकड़ बही (एक-स्तंभीय रोकड़ बही)",
+        explanationEn: `
+          <ul class="list-disc list-inside space-y-2 text-slate-300 text-sm">
+            <li><strong>Purpose:</strong> A Simple Cash Book records all cash receipts and cash payments in chronological (date-wise) order.</li>
+            <li><strong>Format:</strong> Divided into two halves (T-shape):
+              <br>• <strong>Left side (Debit / Receipts side):</strong> Records all incoming cash (e.g. cash sales, cash received from debtors, capital introduced).
+              <br>• <strong>Right side (Credit / Payments side):</strong> Records all outgoing cash (e.g. cash purchases, salaries paid, rent paid, cash paid to creditors).
+            </li>
+            <li><strong>Key Rule — Always Debit Balance:</strong> A Simple Cash Book <strong>can never have a credit balance</strong>, because a business cannot pay more physical cash than it actually has in hand!</li>
+            <li><strong>Double Role:</strong> The Cash Book acts as <em>both a Subsidiary Book (Journal) and a Ledger Account</em>. Therefore, when a Cash Book is maintained, a separate Cash Account is NOT opened in the ledger.</li>
+          </ul>
+        `,
+        explanationHi: `
+          <ul class="list-disc list-inside space-y-2 text-slate-300 text-sm">
+            <li><strong>उद्देश्य:</strong> साधारण रोकड़ बही में समस्त नकद प्राप्तियों और नकद भुगतानों का तिथिवार लेखा किया जाता है।</li>
+            <li><strong>प्रारूप:</strong> बायाँ पक्ष <strong>डेबिट (प्राप्तियाँ)</strong> होता है जहाँ नकद आवक लिखी जाती है। दायाँ पक्ष <strong>क्रेडिट (भुगतान)</strong> होता है जहाँ नकद जावक लिखी जाती है।</li>
+            <li><strong>महत्वपूर्ण नियम:</strong> रोकड़ बही का हमेशा <strong>डेबिट शेष (Debit Balance)</strong> ही होता है, क्योंकि कोई भी व्यापारी हाथ में उपलब्ध नकद से अधिक भुगतान नहीं कर सकता।</li>
+            <li><strong>दोहरी भूमिका:</strong> रोकड़ बही प्रारंभिक प्रविष्टि की पुस्तक और खाता बही (लेज़र) दोनों का कार्य करती है। अतः अलग से 'रोकड़ खाता' खोलने की आवश्यकता नहीं होती।</li>
+          </ul>
+        `,
+        example: `
+          <div class="p-3.5 bg-slate-900 border border-slate-700 rounded-xl text-xs sm:text-sm font-mono text-emerald-400">
+            <strong>Simple Cash Book Format / उदाहरण:</strong><br>
+            <div class="overflow-x-auto mt-2">
+              <table class="w-full border-collapse border border-slate-700 text-[11px] text-slate-200">
+                <thead>
+                  <tr class="bg-slate-800 text-[#04AA6D]">
+                    <th class="border border-slate-700 p-1">Date</th>
+                    <th class="border border-slate-700 p-1">Receipts (Debit)</th>
+                    <th class="border border-slate-700 p-1">L.F.</th>
+                    <th class="border border-slate-700 p-1">Amount (₹)</th>
+                    <th class="border border-slate-700 p-1">Date</th>
+                    <th class="border border-slate-700 p-1">Payments (Credit)</th>
+                    <th class="border border-slate-700 p-1">L.F.</th>
+                    <th class="border border-slate-700 p-1">Amount (₹)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="border border-slate-700 p-1">2026 Jan 1</td>
+                    <td class="border border-slate-700 p-1">To Capital A/c</td>
+                    <td class="border border-slate-700 p-1"></td>
+                    <td class="border border-slate-700 p-1">50,000</td>
+                    <td class="border border-slate-700 p-1">2026 Jan 3</td>
+                    <td class="border border-slate-700 p-1">By Purchases A/c</td>
+                    <td class="border border-slate-700 p-1"></td>
+                    <td class="border border-slate-700 p-1">15,000</td>
+                  </tr>
+                  <tr>
+                    <td class="border border-slate-700 p-1">Jan 5</td>
+                    <td class="border border-slate-700 p-1">To Sales A/c</td>
+                    <td class="border border-slate-700 p-1"></td>
+                    <td class="border border-slate-700 p-1">10,000</td>
+                    <td class="border border-slate-700 p-1">Jan 10</td>
+                    <td class="border border-slate-700 p-1">By Rent A/c</td>
+                    <td class="border border-slate-700 p-1"></td>
+                    <td class="border border-slate-700 p-1">5,000</td>
+                  </tr>
+                  <tr class="font-bold text-amber-300">
+                    <td class="border border-slate-700 p-1"></td>
+                    <td class="border border-slate-700 p-1">Total</td>
+                    <td class="border border-slate-700 p-1"></td>
+                    <td class="border border-slate-700 p-1">60,000</td>
+                    <td class="border border-slate-700 p-1">Jan 31</td>
+                    <td class="border border-slate-700 p-1">By Balance c/d (₹60k - ₹20k)</td>
+                    <td class="border border-slate-700 p-1"></td>
+                    <td class="border border-slate-700 p-1">40,000</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        `,
+        mcqs: [
+          {
+            qEn: "The Simple Cash Book records:",
+            qHi: "साधारण रोकड़ बही में किसका लेखा किया जाता है?",
+            optsEn: ["Only cash receipts and payments", "All credit transactions", "Only discounts", "Purchases on credit"],
+            optsHi: ["केवल नकद प्राप्तियों और भुगतानों का", "सभी उधार लेन-देनों का", "केवल छूट का", "उधार क्रय का"],
+            correct: 0,
+            exp: "A simple cash book only records cash transactions. Credit transactions are strictly excluded."
+          },
+          {
+            qEn: "Can the Cash Book have a negative / credit balance for physical cash in hand?",
+            qHi: "क्या हाथ में उपलब्ध नकद के लिए रोकड़ बही का क्रेडिट (ऋणात्मक) शेष हो सकता है?",
+            optsEn: ["Yes, anytime", "No, never (one cannot pay more cash than available)", "Only in December", "Depends on accountant"],
+            optsHi: ["हाँ, कभी भी", "नहीं, कभी नहीं (उपलब्ध नकद से अधिक भुगतान नहीं हो सकता)", "केवल दिसंबर में", "लेखाकार पर निर्भर है"],
+            correct: 1,
+            exp: "Physical cash in hand can either be positive or zero; it can never be negative (credit balance)."
+          },
+          {
+            qEn: "When a Cash Book is maintained by a firm, which separate ledger account is NOT opened?",
+            qHi: "जब कोई फर्म रोकड़ बही बनाती है, तो खाता बही में कौन-सा अलग खाता नहीं खोला जाता?",
+            optsEn: ["Bank Account", "Cash Account", "Capital Account", "Sales Account"],
+            optsHi: ["बैंक खाता", "रोकड़ खाता (Cash Account)", "पूँजी खाता", "विक्रय खाता"],
+            correct: 1,
+            exp: "The Cash Book itself acts as the Cash Account, so a duplicate Cash Account in the ledger is unnecessary."
+          }
+        ]
+      }
+    ];
+
+    function renderContent() {
+      const container = document.getElementById("contentContainer");
+      container.innerHTML = "";
+
+      TOPICS.forEach(topic => {
+        const section = document.createElement("section");
+        section.className = "bg-[#0f172a] border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4";
+
+        let titleHtml = "";
+        let expHtml = "";
+
+        if (currentLang === "both") {
+          titleHtml = `<h2 class="text-xl font-black text-white">${topic.titleEn}</h2>
+                       <h3 class="text-sm text-[#04AA6D] font-bold">${topic.titleHi}</h3>`;
+          expHtml = `${topic.explanationEn}<hr class="border-slate-800 my-3">${topic.explanationHi}`;
+        } else if (currentLang === "en") {
+          titleHtml = `<h2 class="text-xl font-black text-white">${topic.titleEn}</h2>`;
+          expHtml = topic.explanationEn;
+        } else {
+          titleHtml = `<h2 class="text-xl font-black text-white">${topic.titleHi}</h2>`;
+          expHtml = topic.explanationHi;
+        }
+
+        let mcqSection = '<div class="space-y-4 pt-4 border-t border-slate-800">';
+        mcqSection += '<h4 class="text-sm font-bold uppercase tracking-wider text-amber-400">⚡ Check Your Understanding (MCQs):</h4>';
+
+        topic.mcqs.forEach((mcq, mIdx) => {
+          const qKey = `${topic.id}_${mIdx}`;
+          const isAnswered = selectedAnswers[qKey] !== undefined;
+          const userAns = selectedAnswers[qKey];
+
+          let qText = currentLang === "both" ? `${mcq.qEn}<div class="text-xs text-slate-400 mt-0.5">हिन्दी: ${mcq.qHi}</div>` : currentLang === "en" ? mcq.qEn : mcq.qHi;
+
+          let optsHtml = '<div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2">';
+          mcq.optsEn.forEach((optEn, oIdx) => {
+            const optHi = mcq.optsHi[oIdx];
+            let optText = currentLang === "both" ? `${optEn} (${optHi})` : currentLang === "en" ? optEn : optHi;
+
+            let btnClass = "bg-[#1e293b] hover:bg-slate-700 text-slate-200 border-slate-700";
+            if (isAnswered) {
+              if (oIdx === mcq.correct) btnClass = "correct-btn font-bold";
+              else if (oIdx === userAns) btnClass = "wrong-btn";
+              else btnClass = "bg-slate-900/40 text-slate-600 border-slate-800 cursor-not-allowed";
+            }
+
+            optsHtml += `
+              <button onclick="handleAnswer('${qKey}', ${oIdx}, ${mcq.correct})" ${isAnswered ? 'disabled' : ''} class="px-3.5 py-2.5 rounded-xl border text-xs text-left transition-all flex items-center justify-between cursor-pointer ${btnClass}">
+                <span><strong class="text-[#04AA6D] mr-1">${String.fromCharCode(65 + oIdx)}.</strong> ${optText}</span>
+                ${isAnswered && oIdx === mcq.correct ? '<span>✓</span>' : ''}
+                ${isAnswered && oIdx === userAns && userAns !== mcq.correct ? '<span>✗</span>' : ''}
+              </button>
+            `;
+          });
+          optsHtml += '</div>';
+
+          let expBox = "";
+          if (isAnswered) {
+            const isCorrect = userAns === mcq.correct;
+            expBox = `
+              <div class="p-2.5 rounded-lg text-xs mt-2 border ${isCorrect ? 'bg-emerald-950/40 border-emerald-500/30 text-emerald-300' : 'bg-rose-950/40 border-rose-500/30 text-rose-300'}">
+                <strong>${isCorrect ? '✓ Correct!' : '✗ Incorrect!'}</strong> ${mcq.exp}
+              </div>
+            `;
+          }
+
+          mcqSection += `
+            <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800/80 space-y-2">
+              <div class="text-xs sm:text-sm font-semibold text-white">Q${mIdx + 1}. ${qText}</div>
+              ${optsHtml}
+              ${expBox}
+            </div>
+          `;
+        });
+        mcqSection += '</div>';
+
+        section.innerHTML = `
+          ${titleHtml}
+          ${expHtml}
+          ${topic.example}
+          ${mcqSection}
+        `;
+
+        container.appendChild(section);
+      });
+    }
+
+    function handleAnswer(qKey, optIdx, correctIdx) {
+      if (selectedAnswers[qKey] !== undefined) return;
+      selectedAnswers[qKey] = optIdx;
+      renderContent();
+      if (optIdx === correctIdx) {
+        confetti({ particleCount: 35, spread: 50, origin: { y: 0.8 } });
+      }
+    }
+
+    document.getElementById("langToggle").addEventListener("click", () => {
+      if (currentLang === "both") currentLang = "en";
+      else if (currentLang === "en") currentLang = "hi";
+      else currentLang = "both";
+      document.getElementById("langDisplay").innerText = currentLang === "both" ? "Both" : currentLang === "en" ? "English" : "हिन्दी";
+      renderContent();
+    });
+
+    renderContent();
+  </script>
+</body>
+</html>

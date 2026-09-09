@@ -2,11 +2,21 @@ import type { Metadata, Viewport } from "next";
 
 import "./globals.css";
 
-const geistSans = { variable: "font-sans" };
-const geistMono = { variable: "font-mono" };
-const inter = { variable: "font-inter" };
-const lora = { variable: "font-lora" };
-const outfit = { variable: "font-outfit" };
+import { Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
+
+const plusJakartaSans = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  variable: "--font-plus-jakarta",
+  display: "swap",
+  weight: ["300", "400", "500", "600", "700", "800"],
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains-mono",
+  display: "swap",
+  weight: ["400", "500", "600", "700"],
+});
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -127,10 +137,10 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${plusJakartaSans.variable} ${jetbrainsMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
-      <body className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${lora.variable} ${outfit.variable} min-h-full flex flex-col bg-background text-foreground transition-colors`}>
+      <body className={`${plusJakartaSans.variable} ${jetbrainsMono.variable} font-sans min-h-full flex flex-col bg-background text-foreground transition-colors`}>
         {/* Anti-Crash Stylesheet recovery & Theme Auto-Initializer script */}
         <Script
           id="theme-anti-crash-initializer"

@@ -79,21 +79,38 @@ export default function NsSubjectNavBar({ currentUser, onSignIn, onToggleSidebar
           </div>
 
           {/* Search Input Bar (Desktop) */}
-          <form onSubmit={handleSearchSubmit} className="hidden md:flex items-center flex-1 max-w-sm mx-4">
+          <div 
+            onClick={() => window.dispatchEvent(new CustomEvent("open_search", { detail: { query: searchQuery } }))}
+            className="hidden md:flex items-center flex-1 max-w-sm mx-4 cursor-pointer"
+          >
             <div className="relative w-full">
-              <Search size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+              <Search size={14} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
+                onFocus={() => window.dispatchEvent(new CustomEvent("open_search", { detail: { query: searchQuery } }))}
                 placeholder="Search tutorials, HTML tags, CLI..."
-                className="w-full pl-9 pr-4 py-1.5 bg-slate-900/90 border border-slate-800 rounded-full text-xs text-white placeholder-slate-400 focus:outline-none focus:border-[#04AA6D] transition-all"
+                className="w-full pl-9 pr-12 py-1.5 bg-slate-900/90 hover:bg-slate-850 border border-slate-800 hover:border-slate-700 rounded-full text-xs text-white placeholder-slate-400 focus:outline-none focus:border-[#04AA6D] transition-all cursor-pointer"
               />
+              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] font-mono font-bold text-slate-500 bg-slate-800/80 px-1.5 py-0.5 rounded border border-slate-700 select-none">
+                /
+              </span>
             </div>
-          </form>
+          </div>
 
-          {/* Right Action: Sign In or User Badge */}
+          {/* Right Action: Search (Mobile) + Sign In or User Badge */}
           <div className="flex items-center gap-2">
+            {/* Mobile Quick Search Button */}
+            <button
+              onClick={() => window.dispatchEvent(new CustomEvent("open_search", { detail: { query: "" } }))}
+              className="md:hidden p-2 rounded-full bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 transition-colors"
+              title="Search Nextsem (Tap or press /)"
+              aria-label="Open Search"
+            >
+              <Search size={16} className="text-[#04AA6D]" />
+            </button>
+
             {currentUser ? (
               <Link
                 href="/profile"

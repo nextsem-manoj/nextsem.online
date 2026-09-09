@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NCERT Class 9 Science Chapter 8: Journey Inside the Atom — 50 MCQs Test</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <style>
+    body { background-color: #080d1a; color: #f8fafc; font-family: system-ui, -apple-system, sans-serif; }
+    .emerald-glow { box-shadow: 0 0 25px rgba(4, 170, 109, 0.25); }
+    .correct-btn { background-color: #064e3b !important; border-color: #10b981 !important; color: #ffffff !important; }
+    .wrong-btn { background-color: #7f1d1d !important; border-color: #ef4444 !important; color: #ffffff !important; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col items-center p-3 sm:p-6 selection:bg-[#04AA6D] selection:text-black">
+
+  <!-- Header Section -->
+  <header class="w-full max-w-4xl mx-auto mb-6 bg-[#0f172a] border border-slate-800 rounded-2xl p-5 emerald-glow text-center sm:text-left flex flex-col sm:flex-row justify-between items-center gap-4">
+    <div class="space-y-1">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#04AA6D]/15 border border-[#04AA6D]/40 text-[#04AA6D] text-xs font-black uppercase tracking-wider">
+        <span>NCERT Grade 9 • Chapter 8</span>
+      </div>
+      <h1 class="text-2xl sm:text-3xl font-black text-white tracking-tight">
+        Journey Inside the Atom <span class="text-[#04AA6D] text-lg font-bold block sm:inline">| परमाणु की आंतरिक यात्रा</span>
+      </h1>
+      <p class="text-xs sm:text-sm text-slate-300">50 Comprehensive Bilingual Multiple Choice Questions (English + हिन्दी)</p>
+    </div>
+
+    <!-- Controls: Language Toggle & Reset -->
+    <div class="flex items-center gap-2 shrink-0">
+      <button id="langToggle" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs border border-slate-700 transition-all flex items-center gap-2 cursor-pointer shadow-md">
+        <span>🌐 Language: <strong class="text-[#04AA6D]" id="langDisplay">Both</strong></span>
+      </button>
+      <button id="resetQuizBtn" class="px-3 py-2 rounded-xl bg-[#04AA6D] hover:bg-[#039861] text-black font-extrabold text-xs transition-all cursor-pointer shadow-md">
+        Restart
+      </button>
+    </div>
+  </header>
+
+  <!-- Sticky Stats Bar -->
+  <div class="w-full max-w-4xl mx-auto mb-6 bg-[#0f172a]/90 backdrop-blur-md border border-slate-800 rounded-xl p-4 sticky top-3 z-30 shadow-xl flex items-center justify-between gap-3 flex-wrap">
+    <div class="flex items-center gap-3">
+      <div class="text-xs text-slate-400">Score: <strong id="scoreCount" class="text-xl text-[#04AA6D] font-black ml-1">0</strong> / 50</div>
+      <div class="text-xs text-slate-400">Answered: <strong id="answeredCount" class="text-white font-bold ml-1">0</strong> / 50</div>
+    </div>
+    <div class="w-full sm:w-64 h-2.5 bg-slate-800 rounded-full overflow-hidden">
+      <div id="progressBar" class="h-full bg-[#04AA6D] transition-all duration-300 w-0"></div>
+    </div>
+    <!-- Topic Filter Dropdown -->
+    <select id="topicFilter" class="bg-slate-900 border border-slate-700 text-xs text-slate-200 rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-[#04AA6D]">
+      <option value="all">All Topics (1 to 10)</option>
+      <option value="1">Topic 1: Roots of Atomic Theory</option>
+      <option value="2">Topic 2: Electron & Thomson Model</option>
+      <option value="3">Topic 3: Rutherford Gold Foil</option>
+      <option value="4">Topic 4: Bohr's Model</option>
+      <option value="5">Topic 5: Neutron Discovery</option>
+      <option value="6">Topic 6: Chemical Symbols</option>
+      <option value="7">Topic 7: Atomic & Mass Number</option>
+      <option value="8">Topic 8: Electron Distribution</option>
+      <option value="9">Topic 9: Valency</option>
+      <option value="10">Topic 10: Isotopes & Isobars</option>
+    </select>
+  </div>
+
+  <!-- Questions Container -->
+  <main id="questionsContainer" class="w-full max-w-4xl mx-auto space-y-6 pb-20"></main>
+
+  <script>
+    const QUESTIONS = [
+      // Topic 1: Roots of Atomic Theory
+      {
+        topic: 1,
+        topicName: "Topic 1: Roots of Atomic Theory",
+        qEn: "Who proposed the concept of 'Parmanu' as the smallest indivisible unit of matter in ancient Indian philosophy?",
+        qHi: "प्राचीन भारतीय दर्शन में 'परमाणु' की अवधारणा किसने प्रस्तुत की?",
+        optsEn: ["Aryabhata", "Varahamihira", "Charaka", "Acharya Kanada"],
+        optsHi: ["आर्यभट्ट", "वराहमिहिर", "चरक", "महर्षि कणाद"],
+        correct: 3,
+        exp: "Acharya Kanada documented the concept of parmanu in the Sanskrit text Vaisesika Sutras."
+      },
+      {
+        topic: 1,
+        topicName: "Topic 1: Roots of Atomic Theory",
+        qEn: "What is the literal meaning of the Greek word 'Atomos'?",
+        qHi: "ग्रीक शब्द 'Atomos' का शाब्दिक अर्थ क्या है?",
+        optsEn: ["Indivisible", "Invisible", "Heavy sphere", "Fluid"],
+        optsHi: ["अविभाज्य", "अदृश्य", "भारी गोला", "तरल"],
+        correct: 0,
+        exp: "Democritus and Leucippus coined 'atomos' meaning something that cannot be cut or divided further."
+      },
+      {
+        topic: 1,
+        topicName: "Topic 1: Roots of Atomic Theory",
+        qEn: "A combination of three parmanus in Acharya Kanada's philosophy is called a:",
+        qHi: "महर्षि कणाद के अनुसार तीन परमाणुओं के संयोजन को क्या कहा जाता है?",
+        optsEn: ["Dyad", "Monad", "Triad", "Tetrad"],
+        optsHi: ["द्व्यणुक", "एकल", "त्र्यणुक", "चतुष्क"],
+        correct: 2,
+        exp: "Combinations of two parmanus form dyads, and three form triads."
+      },
+      {
+        topic: 1,
+        topicName: "Topic 1: Roots of Atomic Theory",
+        qEn: "Who published the first formal experimental scientific Atomic Theory in 1808?",
+        qHi: "1808 में पहला औपचारिक वैज्ञानिक परमाणु सिद्धांत किसने प्रतिपादित किया?",
+        optsEn: ["J. J. Thomson", "John Dalton", "Ernest Rutherford", "Niels Bohr"],
+        optsHi: ["जे. जे. थॉमसन", "जॉन डाल्टन", "रदरफोर्ड", "नील्स बोर"],
+        correct: 1,
+        exp: "John Dalton proposed that all matter is composed of indivisible atoms based on scientific experiments."
+      },
+      {
+        topic: 1,
+        topicName: "Topic 1: Roots of Atomic Theory",
+        qEn: "Early Greek ideas of the atom differed from modern science primarily because:",
+        qHi: "प्राचीन ग्रीक परमाणु विचार आधुनिक विज्ञान से मुख्य रूप से किस प्रकार भिन्न थे?",
+        optsEn: ["They had electron microscopes", "They believed atoms were alive", "They measured neutron mass", "They were based on philosophical reasoning rather than experiments"],
+        optsHi: ["उनके पास इलेक्ट्रॉन माइक्रोस्कोप थे", "वे मानते थे कि परमाणु जीवित हैं", "उन्होंने न्यूट्रॉन मापा था", "वे प्रयोगों के बजाय दार्शनिक तर्क पर आधारित थे"],
+        correct: 3,
+        exp: "The ancient concept of atom originated as an imaginary/philosophical idea rather than from experimental verification."
+      },
+
+      // Topic 2: Electron & Thomson Model
+      {
+        topic: 2,
+        topicName: "Topic 2: Electron & Thomson Model",
+        qEn: "In a cathode ray discharge tube, cathode rays travel from:",
+        qHi: "कैथोड किरण नलिका प्रयोग में किरणें किस दिशा में गमन करती हैं?",
+        optsEn: ["Cathode (-) to Anode (+)", "Anode (+) to Cathode (-)", "Nucleus to Shells", "Top to Bottom"],
+        optsHi: ["कैथोड (-) से एनोड (+)", "एनोड (+) से कैथोड (-)", "नाभिक से कोश", "ऊपर से नीचे"],
+        correct: 0,
+        exp: "Cathode rays are streams of negatively charged electrons traveling from cathode to anode."
+      },
+      {
+        topic: 2,
+        topicName: "Topic 2: Electron & Thomson Model",
+        qEn: "Who discovered the electron as the first subatomic particle in 1897?",
+        qHi: "1897 में पहले अवपरमाण्विक कण 'इलेक्ट्रॉन' की खोज किसने की?",
+        optsEn: ["James Chadwick", "Niels Bohr", "J. J. Thomson", "Eugen Goldstein"],
+        optsHi: ["जेम्स चैडविक", "नील्स बोर", "जे. जे. थॉमसन", "यूजेन गोल्डस्टीन"],
+        correct: 2,
+        exp: "J. J. Thomson received the 1906 Nobel Prize in Physics for discovering the electron."
+      },
+      {
+        topic: 2,
+        topicName: "Topic 2: Electron & Thomson Model",
+        qEn: "In Thomson's watermelon atomic model, the red edible pulp represents:",
+        qHi: "थॉमसन के तरबूज मॉडल में लाल गूदा क्या दर्शाता है?",
+        optsEn: ["Electrons", "Neutrons", "Empty space", "Positively charged matter"],
+        optsHi: ["इलेक्ट्रॉन", "न्यूट्रॉन", "खाली स्थान", "धनावेशित भाग"],
+        correct: 3,
+        exp: "The positive charge is uniformly distributed throughout the sphere like red pulp, with electrons embedded like seeds."
+      },
+      {
+        topic: 2,
+        topicName: "Topic 2: Electron & Thomson Model",
+        qEn: "The relative electrical charge assigned to an electron is:",
+        qHi: "इलेक्ट्रॉन का सापेक्ष विद्युत आवेश कितना माना जाता है?",
+        optsEn: ["+1", "-1", "0", "+2"],
+        optsHi: ["+1", "-1", "0", "+2"],
+        correct: 1,
+        exp: "Charge of an electron is -1.602 x 10^-19 C, assigned as -1 for convenience."
+      },
+      {
+        topic: 2,
+        topicName: "Topic 2: Electron & Thomson Model",
+        qEn: "The discovery of cathode rays proved that:",
+        qHi: "कैथोड किरणों की खोज ने क्या सिद्ध किया?",
+        optsEn: ["Atoms are divisible and contain subatomic particles", "Atoms are completely indivisible", "Atoms have no electric charge", "Dalton was completely right"],
+        optsHi: ["परमाणु विभाज्य हैं और अवपरमाण्विक कणों से बने हैं", "परमाणु पूरी तरह अविभाज्य हैं", "परमाणु पर कोई आवेश नहीं होता", "डाल्टन पूर्णतः सही थे"],
+        correct: 0,
+        exp: "Subatomic electrons emitted from atoms proved Dalton's indivisible atom idea wrong."
+      },
+
+      // Topic 3: Rutherford Gold Foil
+      {
+        topic: 3,
+        topicName: "Topic 3: Rutherford's Gold Foil Experiment",
+        qEn: "What are alpha (α) particles used in the gold foil experiment?",
+        qHi: "स्वर्ण पन्नी प्रयोग में प्रयुक्त अल्फा (α) कण क्या होते हैं?",
+        optsEn: ["Uncharged energy rays", "Fast moving electrons", "Doubly charged helium nuclei (He2+)", "High energy neutrons"],
+        optsHi: ["अनावेशित किरणें", "तीव्रगामी इलेक्ट्रॉन", "द्वि-आवेशित हीलियम नाभिक (He2+)", "उच्च ऊर्जा न्यूट्रॉन"],
+        correct: 2,
+        exp: "Alpha particles are helium nuclei containing 2 protons and 2 neutrons with +2 charge."
+      },
+      {
+        topic: 3,
+        topicName: "Topic 3: Rutherford's Gold Foil Experiment",
+        qEn: "What observation in the gold foil experiment proved that most of the atom is empty space?",
+        qHi: "रदरफोर्ड के प्रयोग में किस प्रेक्षण से सिद्ध हुआ कि परमाणु का अधिकांश भाग खोखला है?",
+        optsEn: ["All particles were absorbed", "Most alpha particles passed straight through without deflection", "Alpha particles turned into protons", "Some particles bounced backward"],
+        optsHi: ["सभी कण अवशोषित हो गए", "अधिकांश अल्फा कण बिना किसी विक्षेपण के सीधे निकल गए", "कण प्रोटॉन में बदल गए", "कुछ कण पीछे उछल गए"],
+        correct: 1,
+        exp: "Because majority of alpha particles passed straight without deflection, most of the atomic volume is empty space."
+      },
+      {
+        topic: 3,
+        topicName: "Topic 3: Rutherford's Gold Foil Experiment",
+        qEn: "Approximately how many times smaller is the nucleus compared to the atom?",
+        qHi: "नाभिक का आकार परमाणु के कुल आकार से लगभग कितना गुना छोटा है?",
+        optsEn: ["10 times", "1,000 times", "10^12 times", "10^5 (1 lakh) times"],
+        optsHi: ["10 गुना", "1,000 गुना", "10^12 गुना", "10^5 (1 लाख) गुना"],
+        correct: 3,
+        exp: "Atom diameter is ~10^-10 m while nucleus diameter is ~10^-15 m (10^5 times smaller)."
+      },
+      {
+        topic: 3,
+        topicName: "Topic 3: Rutherford's Gold Foil Experiment",
+        qEn: "Why is Rutherford's model called the 'Planetary Model'?",
+        qHi: "रदरफोर्ड के मॉडल को 'ग्रहीय मॉडल' क्यों कहा जाता है?",
+        optsEn: ["Electrons orbit the central positive nucleus like planets orbit the Sun", "Atom is the size of Earth", "It is made of gas", "None of these"],
+        optsHi: ["इलेक्ट्रॉन सूर्य के चारों ओर ग्रहों की तरह नाभिक की परिक्रमा करते हैं", "परमाणु पृथ्वी जितना बड़ा है", "यह गैस का बना है", "कोई नहीं"],
+        correct: 0,
+        exp: "Electrons revolving in circular orbits around the central nucleus resemble the solar system."
+      },
+      {
+        topic: 3,
+        topicName: "Topic 3: Rutherford's Gold Foil Experiment",
+        qEn: "What was the major limitation of Rutherford's nuclear model?",
+        qHi: "रदरफोर्ड के परमाणु मॉडल की मुख्य कमी क्या थी?",
+        optsEn: ["Could not explain presence of protons", "Could not detect gold foil", "Accelerating electrons should radiate energy and collapse into the nucleus", "None of these"],
+        optsHi: ["प्रोटॉन की उपस्थिति नहीं बता सका", "पन्नी को पहचान नहीं सका", "त्वरित इलेक्ट्रॉन को ऊर्जा खोकर नाभिक में गिर जाना चाहिए", "कोई नहीं"],
+        correct: 2,
+        exp: "Electromagnetic theory stated orbiting accelerating electrons must lose energy and spiral into the nucleus."
+      },
+
+      // Topic 4: Bohr's Model
+      {
+        topic: 4,
+        topicName: "Topic 4: Bohr's Model of the Atom",
+        qEn: "According to Niels Bohr, electrons do not fall into the nucleus because:",
+        qHi: "नील्स बोर के अनुसार इलेक्ट्रॉन नाभिक में क्यों नहीं गिरते?",
+        optsEn: ["They are stationary", "Nucleus repels them", "They have zero mass", "They revolve in discrete stationary energy shells without losing energy"],
+        optsHi: ["वे गति नहीं करते", "नाभिक उन्हें प्रतिकर्षित करता है", "उनका द्रव्यमान शून्य है", "वे विविक्त स्थायी ऊर्जा कोशों में बिना ऊर्जा खोए चक्कर लगाते हैं"],
+        correct: 3,
+        exp: "In stationary energy levels, the electron's energy remains constant, ensuring stability."
+      },
+      {
+        topic: 4,
+        topicName: "Topic 4: Bohr's Model of the Atom",
+        qEn: "Which energy shell is closest to the nucleus and has the lowest energy?",
+        qHi: "कौन-सा कोश नाभिक के सबसे निकट है और उसकी ऊर्जा सबसे कम है?",
+        optsEn: ["K-shell (n=1)", "L-shell (n=2)", "M-shell (n=3)", "N-shell (n=4)"],
+        optsHi: ["K-कोश (n=1)", "L-कोश (n=2)", "M-कोश (n=3)", "N-कोश (n=4)"],
+        correct: 0,
+        exp: "The K-shell (n=1) is closest to the nucleus and has minimum energy."
+      },
+      {
+        topic: 4,
+        topicName: "Topic 4: Bohr's Model of the Atom",
+        qEn: "When an electron jumps from the K-shell (n=1) to the L-shell (n=2), it must:",
+        qHi: "जब इलेक्ट्रॉन K-कोश (n=1) से L-कोश (n=2) में जाता है, तो यह:",
+        optsEn: ["Emit energy", "Absorb a fixed amount of energy", "Lose its charge", "Collapse into nucleus"],
+        optsHi: ["ऊर्जा उत्सर्जित करता है", "निश्चित मात्रा में ऊर्जा अवशोषित करता है", "आवेश खो देता है", "नाभिक में गिर जाता है"],
+        correct: 1,
+        exp: "Jumping to a higher energy shell requires absorbing energy equal to the energy difference."
+      },
+      {
+        topic: 4,
+        topicName: "Topic 4: Bohr's Model of the Atom",
+        qEn: "The shell letter notation K, L, M, N... was adopted from:",
+        qHi: "कोशों के लिए K, L, M, N... नामकरण कहाँ से अपनाया गया?",
+        optsEn: ["Dalton's codebook", "Greek alphabet list", "Charles Barkla's X-ray emission experiments", "Danish dictionary"],
+        optsHi: ["डाल्टन की पुस्तक से", "ग्रीक वर्णमाला से", "चार्ल्स बार्कला के एक्स-रे स्पेक्ट्रम प्रयोगों से", "डेनिश शब्दकोश से"],
+        correct: 2,
+        exp: "Physicist Charles Barkla designated characteristic X-ray series starting with letter K."
+      },
+      {
+        topic: 4,
+        topicName: "Topic 4: Bohr's Model of the Atom",
+        qEn: "Niels Bohr was awarded the Nobel Prize in Physics in 1922 for:",
+        qHi: "नील्स बोर को किस खोज के लिए 1922 का भौतिकी नोबेल पुरस्कार दिया गया?",
+        optsEn: ["Discovering neutron", "Splitting uranium", "Discovering cathode rays", "His investigation of the structure of atoms and their radiation"],
+        optsHi: ["न्यूट्रॉन की खोज", "यूरेनियम विखंडन", "कैथोड किरणें", "परमाणु संरचना और उनके विकिरण की जांच"],
+        correct: 3,
+        exp: "Bohr received the 1922 Nobel Prize for explaining atomic structure and stationary orbits."
+      },
+
+      // Topic 5: Neutron Discovery
+      {
+        topic: 5,
+        topicName: "Topic 5: Discovery of the Neutron",
+        qEn: "Who discovered the neutral subatomic particle 'neutron' in 1932?",
+        qHi: "1932 में अनावेशित कण 'न्यूट्रॉन' की खोज किसने की?",
+        optsEn: ["James Chadwick", "J. J. Thomson", "Ernest Rutherford", "John Dalton"],
+        optsHi: ["जेम्स चैडविक", "जे. जे. थॉमसन", "रदरफोर्ड", "जॉन डाल्टन"],
+        correct: 0,
+        exp: "James Chadwick discovered the neutron and earned the 1935 Nobel Prize in Physics."
+      },
+      {
+        topic: 5,
+        topicName: "Topic 5: Discovery of the Neutron",
+        qEn: "Which atom has NO neutrons in its nucleus?",
+        qHi: "किस परमाणु के नाभिक में एक भी न्यूट्रॉन नहीं होता?",
+        optsEn: ["Helium (4He)", "Lithium (7Li)", "Ordinary Hydrogen / Protium (1H)", "Carbon (12C)"],
+        optsHi: ["हीलियम (4He)", "लिथियम (7Li)", "साधारण हाइड्रोजन / प्रोटियम (1H)", "कार्बन (12C)"],
+        correct: 2,
+        exp: "Protium (1H) contains 1 proton and 1 electron with 0 neutrons."
+      },
+      {
+        topic: 5,
+        topicName: "Topic 5: Discovery of the Neutron",
+        qEn: "What is the relative electrical charge of a neutron?",
+        qHi: "न्यूट्रॉन का सापेक्ष विद्युत आवेश कितना होता है?",
+        optsEn: ["+1", "0 (Neutral)", "-1", "+2"],
+        optsHi: ["+1", "0 (उदासीन)", "-1", "+2"],
+        correct: 1,
+        exp: "Neutrons carry zero electrical charge."
+      },
+      {
+        topic: 5,
+        topicName: "Topic 5: Discovery of the Neutron",
+        qEn: "The mass of an atom is almost entirely determined by:",
+        qHi: "परमाणु का द्रव्यमान लगभग पूर्णतः किन कणों पर निर्भर करता है?",
+        optsEn: ["Electrons only", "Empty space", "Outer shell", "Nucleons (Protons and Neutrons)"],
+        optsHi: ["केवल इलेक्ट्रॉन", "रिक्त स्थान", "बाहरी कोश", "न्यूक्लियॉन (प्रोटॉन और न्यूट्रॉन)"],
+        correct: 3,
+        exp: "Electrons have negligible mass; protons and neutrons in the nucleus account for nearly all atomic mass."
+      },
+      {
+        topic: 5,
+        topicName: "Topic 5: Discovery of the Neutron",
+        qEn: "Neutrons help hold the nucleus together by:",
+        qHi: "न्यूट्रॉन नाभिक को एक साथ बांधे रखने में कैसे सहायता करते हैं?",
+        optsEn: ["Providing strong nuclear force and spacing protons apart", "Repelling protons", "Absorbing electrons", "Rotating fast"],
+        optsHi: ["प्रबल नाभिकीय बल प्रदान करके और प्रोटॉनों के बीच दूरी बढ़ाकर", "प्रोटॉनों को प्रतिकर्षित करके", "इलेक्ट्रॉन अवशोषित करके", "तेज घूमकर"],
+        correct: 0,
+        exp: "Neutrons reduce electrostatic repulsion and strengthen binding nuclear forces."
+      },
+
+      // Topic 6: Chemical Symbols
+      {
+        topic: 6,
+        topicName: "Topic 6: Chemical Symbols",
+        qEn: "The chemical symbol for Sodium (Na) is derived from its Latin name:",
+        qHi: "सोडियम (Na) का रासायनिक प्रतीक किस लैटिन नाम से लिया गया है?",
+        optsEn: ["Kalium", "Natrium", "Ferrum", "Argentum"],
+        optsHi: ["कैलियम (Kalium)", "नैट्रियम (Natrium)", "फेरम (Ferrum)", "अर्जेंटम (Argentum)"],
+        correct: 1,
+        exp: "Sodium is symbolized as Na from Latin Natrium."
+      },
+      {
+        topic: 6,
+        topicName: "Topic 6: Chemical Symbols",
+        qEn: "The chemical symbol for Potassium is:",
+        qHi: "पोटैशियम का रासायनिक प्रतीक क्या है?",
+        optsEn: ["P", "Po", "Pt", "K (Kalium)"],
+        optsHi: ["P", "Po", "Pt", "K (कैलियम)"],
+        correct: 3,
+        exp: "Potassium gets symbol K from Latin Kalium."
+      },
+      {
+        topic: 6,
+        topicName: "Topic 6: Chemical Symbols",
+        qEn: "Which of the following follows IUPAC symbol capitalization rules correctly?",
+        qHi: "IUPAC के नियमानुसार कौन-सा प्रतीक सही लिखा है?",
+        optsEn: ["Al", "AL", "al", "aL"],
+        optsHi: ["Al", "AL", "al", "aL"],
+        correct: 0,
+        exp: "First letter must be uppercase, second lowercase: Al (Aluminium)."
+      },
+      {
+        topic: 6,
+        topicName: "Topic 6: Chemical Symbols",
+        qEn: "The symbol 'Au' (from Aurum) stands for:",
+        qHi: "प्रतीक 'Au' (Aurum) किस तत्व को दर्शाता है?",
+        optsEn: ["Silver", "Aluminium", "Gold (Aurum)", "Argon"],
+        optsHi: ["चाँदी", "एल्युमिनियम", "सोना (Aurum)", "आर्गन"],
+        correct: 2,
+        exp: "Gold is symbolized as Au from Latin Aurum."
+      },
+      {
+        topic: 6,
+        topicName: "Topic 6: Chemical Symbols",
+        qEn: "The symbol 'W' (from German Wolfram) represents:",
+        qHi: "प्रतीक 'W' (जर्मन शब्द वोल्फ्राम) किस तत्व का है?",
+        optsEn: ["Water", "Tungsten (Wolfram)", "Titanium", "Zinc"],
+        optsHi: ["जल", "टंगस्टन (Wolfram)", "टाइटेनियम", "जिंक"],
+        correct: 1,
+        exp: "Tungsten is symbolized as W from German Wolfram."
+      },
+
+      // Topic 7: Atomic & Mass Number
+      {
+        topic: 7,
+        topicName: "Topic 7: Atomic & Mass Number",
+        qEn: "An atom has atomic number 17 and mass number 35. Number of neutrons is:",
+        qHi: "एक परमाणु का परमाणु क्रमांक 17 और द्रव्यमान संख्या 35 है। न्यूट्रॉनों की संख्या होगी:",
+        optsEn: ["17", "35", "52", "18 (35 - 17)"],
+        optsHi: ["17", "35", "52", "18 (35 - 17)"],
+        correct: 3,
+        exp: "Neutrons = Mass Number (A) - Atomic Number (Z) = 35 - 17 = 18."
+      },
+      {
+        topic: 7,
+        topicName: "Topic 7: Atomic & Mass Number",
+        qEn: "The chemical identity of an element is determined solely by its:",
+        qHi: "किसी तत्व की रासायनिक पहचान किसके द्वारा निर्धारित होती है?",
+        optsEn: ["Atomic number Z (number of protons)", "Number of neutrons", "Valency", "Physical state"],
+        optsHi: ["परमाणु क्रमांक Z (प्रोटॉनों की संख्या)", "न्यूट्रॉनों की संख्या", "संयोजकता", "भौतिक अवस्था"],
+        correct: 0,
+        exp: "Every element has a distinct atomic number Z equal to its nuclear protons."
+      },
+      {
+        topic: 7,
+        topicName: "Topic 7: Atomic & Mass Number",
+        qEn: "In the notation 14_6 C, the number of protons and neutrons are:",
+        qHi: "संकेतन 14_6 C में प्रोटॉन और न्यूट्रॉन की संख्या है:",
+        optsEn: ["6 protons, 6 neutrons", "8 protons, 6 neutrons", "6 protons, 8 neutrons", "14 protons, 0 neutrons"],
+        optsHi: ["6 प्रोटॉन, 6 न्यूट्रॉन", "8 प्रोटॉन, 6 न्यूट्रॉन", "6 प्रोटॉन, 8 न्यूट्रॉन", "14 प्रोटॉन, 0 न्यूट्रॉन"],
+        correct: 2,
+        exp: "Protons = 6 (Z), Neutrons = 14 - 6 = 8."
+      },
+      {
+        topic: 7,
+        topicName: "Topic 7: Atomic & Mass Number",
+        qEn: "Protons and neutrons together in the nucleus are called:",
+        qHi: "नाभिक में उपस्थित प्रोटॉन और न्यूट्रॉन को संयुक्त रूप से क्या कहते हैं?",
+        optsEn: ["Positrons", "Nucleons", "Isotopes", "Valence electrons"],
+        optsHi: ["पॉजिट्रॉन", "न्यूक्लियॉन", "समस्थानिक", "संयोजी इलेक्ट्रॉन"],
+        correct: 1,
+        exp: "The constituents of the nucleus (p+ + n0) are called nucleons."
+      },
+      {
+        topic: 7,
+        topicName: "Topic 7: Atomic & Mass Number",
+        qEn: "An atom 70_X has 31 electrons. How many neutrons are in its nucleus?",
+        qHi: "एक परमाणु 70_X में 31 इलेक्ट्रॉन हैं। इसके नाभिक में न्यूट्रॉनों की संख्या कितनी है?",
+        optsEn: ["39 (70 - 31)", "31", "70", "101"],
+        optsHi: ["39 (70 - 31)", "31", "70", "101"],
+        correct: 0,
+        exp: "In a neutral atom, protons = electrons = 31. Neutrons = A - Z = 70 - 31 = 39."
+      },
+
+      // Topic 8: Electron Distribution
+      {
+        topic: 8,
+        topicName: "Topic 8: Electron Distribution",
+        qEn: "What is the maximum electron capacity of the L-shell (n=2)?",
+        qHi: "L-कोश (n=2) में अधिकतम कितने इलेक्ट्रॉन रह सकते हैं?",
+        optsEn: ["2", "18", "8 (2 x 2^2)", "32"],
+        optsHi: ["2", "18", "8 (2 x 2^2)", "32"],
+        correct: 2,
+        exp: "Formula 2n^2 for n=2 gives 2 x 4 = 8 electrons."
+      },
+      {
+        topic: 8,
+        topicName: "Topic 8: Electron Distribution",
+        qEn: "What is the electronic configuration of Sodium (Z=11)?",
+        qHi: "सोडियम (Z=11) का इलेक्ट्रॉनिक विन्यास क्या है?",
+        optsEn: ["2, 9", "1, 8, 2", "2, 2, 7", "2, 8, 1"],
+        optsHi: ["2, 9", "1, 8, 2", "2, 2, 7", "2, 8, 1"],
+        correct: 3,
+        exp: "11 electrons fill as K=2, L=8, M=1."
+      },
+      {
+        topic: 8,
+        topicName: "Topic 8: Electron Distribution",
+        qEn: "What is the maximum number of electrons allowed in the outermost valence shell?",
+        qHi: "किसी परमाणु के सबसे बाहरी कोश में अधिकतम कितने इलेक्ट्रॉन हो सकते हैं?",
+        optsEn: ["2", "8", "18", "32"],
+        optsHi: ["2", "8", "18", "32"],
+        correct: 1,
+        exp: "The Bohr-Bury octet rule states outermost shell can hold at most 8 electrons."
+      },
+      {
+        topic: 8,
+        topicName: "Topic 8: Electron Distribution",
+        qEn: "Electronic configuration 2, 8, 7 belongs to:",
+        qHi: "इलेक्ट्रॉनिक विन्यास 2, 8, 7 किस तत्व का है?",
+        optsEn: ["Chlorine (Z=17)", "Fluorine (Z=9)", "Argon (Z=18)", "Sulfur (Z=16)"],
+        optsHi: ["क्लोरीन (Z=17)", "फ्लोरीन (Z=9)", "आर्गन (Z=18)", "सल्फर (Z=16)"],
+        correct: 0,
+        exp: "Total electrons = 2 + 8 + 7 = 17 (Chlorine)."
+      },
+      {
+        topic: 8,
+        topicName: "Topic 8: Electron Distribution",
+        qEn: "The electron configuration of Magnesium (Z=12) is:",
+        qHi: "मैग्नीशियम (Z=12) का इलेक्ट्रॉनिक विन्यास है:",
+        optsEn: ["2, 10", "8, 4", "2, 8, 2", "2, 6, 4"],
+        optsHi: ["2, 10", "8, 4", "2, 8, 2", "2, 6, 4"],
+        correct: 2,
+        exp: "12 electrons distribute as 2 in K, 8 in L, and 2 in M."
+      },
+
+      // Topic 9: Valency
+      {
+        topic: 9,
+        topicName: "Topic 9: Valency",
+        qEn: "The combining capacity of an atom to achieve an octet is called its:",
+        qHi: "अष्टक पूरा करने के लिए परमाणु की संयोजन क्षमता कहलाती है:",
+        optsEn: ["Atomic mass", "Isotopy", "Nucleon number", "Valency"],
+        optsHi: ["परमाणु द्रव्यमान", "समस्थानिकता", "न्यूक्लियॉन", "संयोजकता"],
+        correct: 3,
+        exp: "Valency is the number of electrons lost, gained, or shared to complete the octet."
+      },
+      {
+        topic: 9,
+        topicName: "Topic 9: Valency",
+        qEn: "What is the valency of Oxygen (Z=8, configuration 2, 6)?",
+        qHi: "ऑक्सीजन (Z=8, विन्यास 2, 6) की संयोजकता कितनी होती है?",
+        optsEn: ["2 (8 - 6)", "6", "8", "4"],
+        optsHi: ["2 (8 - 6)", "6", "8", "4"],
+        correct: 0,
+        exp: "Oxygen has 6 valence electrons; it gains 2 electrons to form an octet (Valency = 8 - 6 = 2)."
+      },
+      {
+        topic: 9,
+        topicName: "Topic 9: Valency",
+        qEn: "Why is Argon (Z=18, configuration 2, 8, 8) chemically inert with valency 0?",
+        qHi: "आर्गन (Z=18, विन्यास 2, 8, 8) शून्य संयोजकता के साथ अक्रिय क्यों है?",
+        optsEn: ["It has no protons", "It is radioactive", "Its outermost shell already has a complete octet of 8 electrons", "None"],
+        optsHi: ["प्रोटॉन नहीं हैं", "रेडियोधर्मी है", "इसका बाहरी अष्टक पूर्ण (8 इलेक्ट्रॉन) है", "कोई नहीं"],
+        correct: 2,
+        exp: "Atoms with complete octet in valence shell are chemically stable and unreactive."
+      },
+      {
+        topic: 9,
+        topicName: "Topic 9: Valency",
+        qEn: "The valency of Aluminium (Z=13, configuration 2, 8, 3) is:",
+        qHi: "एल्युमिनियम (Z=13, विन्यास 2, 8, 3) की संयोजकता है:",
+        optsEn: ["1", "3", "2", "5"],
+        optsHi: ["1", "3", "2", "5"],
+        correct: 1,
+        exp: "Aluminium loses its 3 valence electrons to achieve stable octet, so valency is 3."
+      },
+      {
+        topic: 9,
+        topicName: "Topic 9: Valency",
+        qEn: "Carbon (Z=6, configuration 2, 4) completes its octet primarily by:",
+        qHi: "कार्बन (2, 4) अपना अष्टक मुख्य रूप से कैसे पूर्ण करता है?",
+        optsEn: ["Losing 4 electrons", "Gaining 4 electrons", "Radioactive decay", "Sharing 4 electrons (tetravalent)"],
+        optsHi: ["4 इलेक्ट्रॉन त्यागकर", "4 इलेक्ट्रॉन ग्रहण करके", "रेडियोधर्मी क्षय", "4 इलेक्ट्रॉनों का साझा करके (चतुःसंयोजी)"],
+        correct: 3,
+        exp: "Carbon shares 4 valence electrons with other atoms to complete its octet."
+      },
+
+      // Topic 10: Isotopes & Isobars
+      {
+        topic: 10,
+        topicName: "Topic 10: Isotopes & Isobars",
+        qEn: "Atoms of the same element having same atomic number (Z) but different mass numbers (A) are called:",
+        qHi: "समान परमाणु क्रमांक (Z) परंतु भिन्न द्रव्यमान संख्या (A) वाले परमाणुओं को कहते हैं:",
+        optsEn: ["Isotopes", "Isobars", "Isomers", "Allotropes"],
+        optsHi: ["समस्थानिक", "समभारिक", "समावयवी", "अपररूप"],
+        correct: 0,
+        exp: "Isotopes are atoms of the same element with identical protons but different neutrons."
+      },
+      {
+        topic: 10,
+        topicName: "Topic 10: Isotopes & Isobars",
+        qEn: "Which radioactive isotope is used as fuel in nuclear power reactors?",
+        qHi: "परमाणु भट्टी में ईंधन के रूप में किस समस्थानिक का उपयोग किया जाता है?",
+        optsEn: ["Cobalt-60", "Iodine-131", "Uranium-235", "Carbon-14"],
+        optsHi: ["कोबाल्ट-60", "आयोडीन-131", "यूरेनियम-235", "कार्बन-14"],
+        correct: 2,
+        exp: "Uranium-235 (235_92 U) is fissionable fuel for nuclear electricity generation."
+      },
+      {
+        topic: 10,
+        topicName: "Topic 10: Isotopes & Isobars",
+        qEn: "Radioactive Cobalt-60 is used in the medical treatment of:",
+        qHi: "रेडियोधर्मी कोबाल्ट-60 का उपयोग किसके उपचार में होता है?",
+        optsEn: ["Goitre", "Cancer (radiation therapy)", "Diabetes", "Malaria"],
+        optsHi: ["घेंघा", "कैंसर (रेडिएशन थेरेपी)", "मधुमेह", "मलेरिया"],
+        correct: 1,
+        exp: "Cobalt-60 gamma radiation destroys cancerous tumor cells."
+      },
+      {
+        topic: 10,
+        topicName: "Topic 10: Isotopes & Isobars",
+        qEn: "40_18 Ar and 40_20 Ca are examples of:",
+        qHi: "40_18 Ar और 40_20 Ca किसके उदाहरण हैं?",
+        optsEn: ["Isotopes", "Isomers", "Allotropes", "Isobars"],
+        optsHi: ["समस्थानिक", "समावयवी", "अपररूप", "समभारिक"],
+        correct: 3,
+        exp: "Isobars are atoms of different elements (different Z) with the same mass number (A=40)."
+      },
+      {
+        topic: 10,
+        topicName: "Topic 10: Isotopes & Isobars",
+        qEn: "The weighted average atomic mass of Chlorine is 35.5 u because:",
+        qHi: "क्लोरीन का औसत परमाणु द्रव्यमान 35.5 u क्यों है?",
+        optsEn: ["It is the weighted average of natural isotopes 35Cl (75%) and 37Cl (25%)", "It has fractional protons", "It is an isobar", "None"],
+        optsHi: ["यह 35Cl (75%) और 37Cl (25%) समस्थानिकों का भारित औसत है", "इसमें भिन्नात्मक प्रोटॉन हैं", "यह समभारिक है", "कोई नहीं"],
+        correct: 0,
+        exp: "Average mass = (35 x 75/100) + (37 x 25/100) = 26.25 + 9.25 = 35.5 u."
+      }
+    ];
+
+    let currentLang = "both"; // 'both', 'en', 'hi'
+    let selectedAnswers = {};
+    let currentTopic = "all";
+
+    const langToggle = document.getElementById("langToggle");
+    const langDisplay = document.getElementById("langDisplay");
+    const topicFilter = document.getElementById("topicFilter");
+    const resetQuizBtn = document.getElementById("resetQuizBtn");
+    const questionsContainer = document.getElementById("questionsContainer");
+    const scoreCount = document.getElementById("scoreCount");
+    const answeredCount = document.getElementById("answeredCount");
+    const progressBar = document.getElementById("progressBar");
+
+    langToggle.addEventListener("click", () => {
+      if (currentLang === "both") currentLang = "en";
+      else if (currentLang === "en") currentLang = "hi";
+      else currentLang = "both";
+
+      langDisplay.innerText = currentLang === "both" ? "Both (द्विभाषी)" : currentLang === "en" ? "English" : "हिन्दी";
+      renderQuestions();
+    });
+
+    topicFilter.addEventListener("change", (e) => {
+      currentTopic = e.target.value;
+      renderQuestions();
+    });
+
+    resetQuizBtn.addEventListener("click", () => {
+      if (confirm("Restart quiz and reset your score?")) {
+        selectedAnswers = {};
+        updateStats();
+        renderQuestions();
+      }
+    });
+
+    function updateStats() {
+      const answeredKeys = Object.keys(selectedAnswers);
+      const totalAnswered = answeredKeys.length;
+      let score = 0;
+      answeredKeys.forEach(idx => {
+        if (selectedAnswers[idx] === QUESTIONS[idx].correct) score++;
+      });
+
+      scoreCount.innerText = score;
+      answeredCount.innerText = totalAnswered;
+      progressBar.style.width = `${(totalAnswered / QUESTIONS.length) * 100}%`;
+
+      if (totalAnswered === QUESTIONS.length && score >= 40) {
+        confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+      }
+    }
+
+    function handleSelectOption(qIdx, optIdx) {
+      if (selectedAnswers[qIdx] !== undefined) return; // already answered
+      selectedAnswers[qIdx] = optIdx;
+      updateStats();
+      renderQuestions();
+
+      if (optIdx === QUESTIONS[qIdx].correct) {
+        confetti({ particleCount: 30, spread: 50, origin: { y: 0.8 } });
+      }
+    }
+
+    function renderQuestions() {
+      questionsContainer.innerHTML = "";
+
+      const filtered = QUESTIONS.map((q, idx) => ({ ...q, originalIndex: idx }))
+        .filter(q => currentTopic === "all" || q.topic.toString() === currentTopic);
+
+      filtered.forEach((q, displayIdx) => {
+        const isAnswered = selectedAnswers[q.originalIndex] !== undefined;
+        const userAnswer = selectedAnswers[q.originalIndex];
+
+        const card = document.createElement("div");
+        card.className = "bg-[#0f172a] border border-slate-800 rounded-2xl p-5 sm:p-6 transition-all shadow-lg text-left space-y-4";
+
+        let qTitle = "";
+        if (currentLang === "both") {
+          qTitle = `<div class="font-bold text-white text-base sm:text-lg">Q${q.originalIndex + 1}. ${q.qEn}</div>
+                    <div class="text-slate-300 text-sm mt-1">हिन्दी: ${q.qHi}</div>`;
+        } else if (currentLang === "en") {
+          qTitle = `<div class="font-bold text-white text-base sm:text-lg">Q${q.originalIndex + 1}. ${q.qEn}</div>`;
+        } else {
+          qTitle = `<div class="font-bold text-white text-base sm:text-lg">प्र${q.originalIndex + 1}. ${q.qHi}</div>`;
+        }
+
+        let optionsHtml = '<div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-2">';
+        q.optsEn.forEach((optEn, oIdx) => {
+          const optHi = q.optsHi[oIdx];
+          let optText = currentLang === "both" ? `${optEn} (${optHi})` : currentLang === "en" ? optEn : optHi;
+
+          let btnClass = "bg-[#1e293b] hover:bg-slate-700 text-slate-200 border-slate-700";
+          if (isAnswered) {
+            if (oIdx === q.correct) {
+              btnClass = "correct-btn font-black";
+            } else if (oIdx === userAnswer && userAnswer !== q.correct) {
+              btnClass = "wrong-btn";
+            } else {
+              btnClass = "bg-slate-900/50 text-slate-600 border-slate-800 cursor-not-allowed";
+            }
+          }
+
+          optionsHtml += `
+            <button onclick="handleSelectOption(${q.originalIndex}, ${oIdx})" ${isAnswered ? 'disabled' : ''} class="px-4 py-3 rounded-xl border text-xs sm:text-sm text-left transition-all flex items-center justify-between gap-2 cursor-pointer ${btnClass}">
+              <span><strong class="text-[#04AA6D] mr-1.5">${String.fromCharCode(65 + oIdx)}.</strong> ${optText}</span>
+              ${isAnswered && oIdx === q.correct ? '<span>✓</span>' : ''}
+              ${isAnswered && oIdx === userAnswer && userAnswer !== q.correct ? '<span>✗</span>' : ''}
+            </button>
+          `;
+        });
+        optionsHtml += '</div>';
+
+        let explanationHtml = "";
+        if (isAnswered) {
+          const isCorrect = userAnswer === q.correct;
+          explanationHtml = `
+            <div class="p-3.5 rounded-xl text-xs sm:text-sm border ${isCorrect ? 'bg-emerald-950/40 border-emerald-500/30 text-emerald-300' : 'bg-rose-950/40 border-rose-500/30 text-rose-300'}">
+              <strong>${isCorrect ? '✓ Correct!' : '✗ Incorrect!'}</strong> Explanation: ${q.exp}
+            </div>
+          `;
+        }
+
+        card.innerHTML = `
+          <div class="flex items-center justify-between text-[11px] font-bold uppercase tracking-wider text-[#04AA6D]">
+            <span>${q.topicName}</span>
+            <span>Question ${q.originalIndex + 1} of 50</span>
+          </div>
+          ${qTitle}
+          ${optionsHtml}
+          ${explanationHtml}
+        `;
+
+        questionsContainer.appendChild(card);
+      });
+    }
+
+    renderQuestions();
+    updateStats();
+  </script>
+</body>
+</html>

@@ -42,11 +42,12 @@ export function isCliLessonPath(pathname: string): boolean {
 }
 
 export function getChapterUrl(chapterId: string): string {
+  if (!chapterId) return "/curriculum";
   if (chapterId === "p1-1-intro-and-text") return "/html";
   if (chapterId === "p0-2-terminal") return "/cli";
   
+  // HTML Direct slug or phase
   if (chapterId.startsWith("p1-")) {
-    // Map phase chapter key back to the first lesson slug of that unit
     const phaseMap: Record<string, string> = {
       "p1-1-intro-and-text": "html-introduction-what-is-html",
       "p1-2-links-and-media": "doctype-html5-declaration-syntax",
@@ -60,6 +61,13 @@ export function getChapterUrl(chapterId: string): string {
       if (chapterId === "p1-1-intro-and-text") return "/html";
       return `/html/${slug}`;
     }
+    return "/html";
+  }
+
+  // Check if it matches an HTML lesson slug directly
+  const htmlLesson = htmlLessons.find(l => l.slug === chapterId);
+  if (htmlLesson) {
+    return `/html/${htmlLesson.slug}`;
   }
 
   // Check if it matches a CLI lesson
@@ -68,5 +76,16 @@ export function getChapterUrl(chapterId: string): string {
     return `/cli/${cliLesson.slug}`;
   }
 
-  return `/book/${chapterId}`;
+  // Phase routing to active live hubs
+  if (chapterId.startsWith("cli-")) return "/cli";
+  if (chapterId.startsWith("p2-") || chapterId.includes("css")) return "/css";
+  if (chapterId.startsWith("p3-") || chapterId.includes("javascript") || chapterId.includes("js")) return "/js";
+  if (chapterId.startsWith("p4-") || chapterId.includes("react")) return "/react";
+  if (chapterId.startsWith("p5-") || chapterId.startsWith("fs-") || chapterId.includes("node")) return "/nodejs";
+  if (chapterId.startsWith("p6-") || chapterId.includes("project")) return "/projects";
+  if (chapterId.startsWith("p7-") || chapterId.includes("interview") || chapterId.includes("resume") || chapterId.includes("career")) return "/curriculum";
+  if (chapterId.includes("git")) return "/git";
+  if (chapterId.startsWith("p0-")) return "/html";
+
+  return "/curriculum";
 }

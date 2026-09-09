@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { 
   ChevronLeft, ChevronRight, BookOpen, Code, 
-  HelpCircle, CheckCircle2, AlertCircle, Sparkles, Lock, ArrowLeft, X, Bookmark, Download, Copy, Check, Terminal
+  HelpCircle, CheckCircle2, AlertCircle, Sparkles, Lock, ArrowLeft, X, Bookmark, Download, Copy, Check, Terminal, Search
 } from "lucide-react";
 import { htmlLessons, Lesson } from "../data/htmlLessonsData";
 import AdSenseBanner from "./AdSenseBanner";
@@ -718,7 +718,7 @@ function VsCodeEditorCard({ code, blockKey }: { code: string; blockKey: string }
       // 4. Headings
       if (trimmed.startsWith("## ")) {
         blocks.push(
-          <h2 key={`h2-${i}`} className="text-xl md:text-2xl font-extrabold text-white mt-8 mb-4 border-b border-slate-800/60 pb-2 tracking-tight">
+          <h2 key={`h2-${i}`} className="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 border-b border-slate-800/60 pb-2.5 tracking-tight">
             {trimmed.replace(/^##\s*/, "").replace(/^[#\s]+/, "").trim()}
           </h2>
         );
@@ -728,7 +728,7 @@ function VsCodeEditorCard({ code, blockKey }: { code: string; blockKey: string }
 
       if (trimmed.startsWith("###")) {
         blocks.push(
-          <h3 key={`h3-${i}`} className="text-xl sm:text-2xl font-bold text-white mt-6 mb-3 tracking-tight">
+          <h3 key={`h3-${i}`} className="text-lg sm:text-xl font-semibold text-white mt-6 mb-3 tracking-tight">
             {trimmed.replace(/^###\s*/, "").replace(/^[#\s]+/, "").trim()}
           </h3>
         );
@@ -766,7 +766,7 @@ function VsCodeEditorCard({ code, blockKey }: { code: string; blockKey: string }
       // 7. Blockquotes
       if (trimmed.startsWith("> ")) {
         blocks.push(
-          <div key={`quote-${i}`} className="my-4 p-4 rounded-xl bg-emerald-500/10 border-l-4 border-[#04AA6D] text-sm text-slate-200 leading-relaxed font-medium">
+          <div key={`quote-${i}`} className="my-4 p-4 rounded-xl bg-emerald-500/10 border-l-4 border-[#04AA6D] text-[15px] sm:text-[16px] text-slate-200 leading-[1.75] font-medium">
             {trimmed.replace(/^>\s*/, "")}
           </div>
         );
@@ -777,7 +777,7 @@ function VsCodeEditorCard({ code, blockKey }: { code: string; blockKey: string }
       // 8. Bullet & Numbered Lists
       if (trimmed.startsWith("* ") || trimmed.startsWith("- ")) {
         blocks.push(
-          <li key={`li-${i}`} className="ml-6 list-disc text-sm md:text-base text-slate-300 my-2 leading-relaxed">
+          <li key={`li-${i}`} className="ml-6 list-disc text-[15px] sm:text-[16px] text-slate-200 my-2 leading-[1.75]">
             {trimmed.replace(/^[*\-]\s+/, "").replace(/\*\*(.*?)\*\*/g, "$1").trim()}
           </li>
         );
@@ -787,7 +787,7 @@ function VsCodeEditorCard({ code, blockKey }: { code: string; blockKey: string }
 
       if (/^\d+\.\s+/.test(trimmed)) {
         blocks.push(
-          <li key={`li-num-${i}`} className="ml-6 list-decimal text-sm md:text-base text-slate-300 my-2 leading-relaxed">
+          <li key={`li-num-${i}`} className="ml-6 list-decimal text-[15px] sm:text-[16px] text-slate-200 my-2 leading-[1.75]">
             {trimmed.replace(/^\d+\.\s+/, "").replace(/\*\*(.*?)\*\*/g, "$1").trim()}
           </li>
         );
@@ -800,7 +800,7 @@ function VsCodeEditorCard({ code, blockKey }: { code: string; blockKey: string }
       if (boldRegex.test(trimmed) || trimmed.includes('`') || trimmed.includes('<')) {
         const parts = trimmed.split(boldRegex);
         blocks.push(
-          <p key={`p-${i}`} className="text-sm md:text-base text-slate-300 leading-relaxed my-3 font-normal">
+          <p key={`p-${i}`} className="text-[15.5px] sm:text-[16.5px] text-slate-200 leading-[1.75] my-3 font-normal">
             {parts.map((part, pIdx) =>
               pIdx % 2 === 1
                 ? <strong key={pIdx} className="text-white font-bold">{part}</strong>
@@ -810,7 +810,7 @@ function VsCodeEditorCard({ code, blockKey }: { code: string; blockKey: string }
         );
       } else {
         blocks.push(
-          <p key={`p-${i}`} className="text-sm md:text-base text-slate-300 leading-relaxed my-3 font-normal">
+          <p key={`p-${i}`} className="text-[15.5px] sm:text-[16.5px] text-slate-200 leading-[1.75] my-3 font-normal">
             {renderInlineCode(trimmed)}
           </p>
         );
@@ -847,8 +847,18 @@ function VsCodeEditorCard({ code, blockKey }: { code: string; blockKey: string }
             </Link>
           </div>
 
-          {/* Right: Previous, Bookmark, Next controls */}
+          {/* Right: Search, Previous, Bookmark, Next controls */}
           <div className="flex items-center gap-2 shrink-0">
+            {/* Quick Search Button */}
+            <button
+              onClick={() => window.dispatchEvent(new CustomEvent("open_search", { detail: { query: "" } }))}
+              className="px-3 py-1.5 bg-[#09101f] hover:bg-[#15203b] border border-slate-800 hover:border-slate-700 text-slate-300 hover:text-white rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer shadow-sm"
+              title="Search Lessons (Press /)"
+            >
+              <Search size={14} className="text-[#04AA6D]" />
+              <span className="hidden sm:inline">Search</span>
+            </button>
+
             {prevLesson ? (
               <Link
                 href={prevLesson.id === 1 ? "/html" : `/html/${prevLesson.slug}`}

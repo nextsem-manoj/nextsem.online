@@ -1,27 +1,17 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from 'react';
-import { useRouter } from 'next/navigation';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import Link from 'next/link';
-import { useProgress } from '@/context/ProgressContext';
+import { useRouter } from 'next/navigation';
 import { auth, signInWithGoogle } from '@/lib/firebase';
 import { signOut } from 'firebase/auth';
-import { coursePhases } from '@/data/courseData';
-import searchIndex from '@/data/searchIndex.json';
-import { getChapterSimulator } from '@/data/chapterSimulators';
-import { ThemeToggle } from '@/components/ThemeToggle';
-import FullStackRoadmap from '@/components/FullStackRoadmap';
-import StudentProjectsSection from '@/components/StudentProjectsSection';
-import CourseCarouselSection from '@/components/CourseCarouselSection';
+import CompilerShowcaseAnimation from '@/components/CompilerShowcaseAnimation';
 import Footer from '@/components/Footer';
 import WindowsIcon from '@/components/WindowsIcon';
 import BrandLogoIcon from '@/components/BrandLogoIcon';
+import searchIndexData from '@/data/searchIndex.json';
 import { 
-  Layers, Cpu, Code, Palette, Cloud, Briefcase, 
-  Rocket, BookOpen, ChevronRight, Play, CheckCircle, 
-  Zap, LogIn, LogOut, Terminal, Star, Search, Menu, X, 
-  ChevronDown, Award, ExternalLink, RefreshCw, Sparkles,
-  Database, Server, Globe, ShieldCheck, CheckCircle2, ArrowRight
+  Code, Terminal, Play, LogIn, LogOut, Search, Sparkles, ArrowRight, Rocket, X, CornerDownLeft
 } from 'lucide-react';
 
 interface UserProfile {
@@ -31,63 +21,120 @@ interface UserProfile {
   photo?: string;
 }
 
-const moduleIcons: Record<string, React.ReactNode> = {
-  "CLI": <Terminal size={18} className="text-emerald-400" />,
-  "P0": <Layers size={18} className="text-purple-400" />,
-  "P1": <Code size={18} className="text-blue-400" />,
-  "P2": <Palette size={18} className="text-teal-400" />,
-  "P3": <Cpu size={18} className="text-amber-400" />,
-  "P4": <Code size={18} className="text-red-400" />,
-  "P5": <Cloud size={18} className="text-sky-400" />,
-  "P6": <Briefcase size={18} className="text-slate-400" />,
-  "P7": <Rocket size={18} className="text-pink-400" />
+interface SearchItem {
+  id: string;
+  title: string;
+  content: string;
+  phase: string;
+  duration?: string;
+  color?: string;
+  icon?: string;
+  url?: string;
+}
+
+const searchItems = searchIndexData as SearchItem[];
+
+const AUTOCOMPLETE_DICTIONARY = [
+  "html5 semantic tags",
+  "html headings h1 to h6",
+  "html paragraph tag",
+  "html anchor tag hyperlinks",
+  "html img image tag",
+  "html tables and forms",
+  "html input types and buttons",
+  "css flexbox and grid layouts",
+  "css selectors and box model",
+  "css keyframe animations",
+  "javascript es6 functions",
+  "javascript array map filter reduce",
+  "javascript async await promises",
+  "react usestate and useeffect",
+  "react components and props",
+  "node express rest apis",
+  "windows cmd dir copy mkdir",
+  "git init commit branch merge",
+  "windows 11 command prompt terminal"
+];
+
+const highlightMatch = (text: string, query: string) => {
+  if (!query || !query.trim()) return <span>{text}</span>;
+  const terms = query.trim().toLowerCase().split(/\s+/).filter(Boolean);
+  if (terms.length === 0) return <span>{text}</span>;
+  const regex = new RegExp(`(${terms.map(t => t.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')).join('|')})`, 'gi');
+  const parts = text.split(regex);
+  return (
+    <span>
+      {parts.map((part, i) => 
+        regex.test(part) ? (
+          <mark key={i} className="bg-[#04AA6D]/30 text-[#04AA6D] font-bold px-0.5 rounded">
+            {part}
+          </mark>
+        ) : (
+          part
+        )
+      )}
+    </span>
+  );
 };
+
+const QUICK_TOPIC_PILLS = [
+  { label: "HTML5 Tags", query: "HTML5 semantic tags" },
+  { label: "CSS Flexbox", query: "CSS Flexbox & Grid" },
+  { label: "JavaScript ES6", query: "JavaScript ES6+" },
+  { label: "React Hooks", query: "React hooks useState" },
+  { label: "Node.js APIs", query: "Node Express APIs" },
+  { label: "🪟 Windows CMD", query: "dir copy mkdir" },
+  { label: "Git Branching", query: "git init commit branch" }
+];
+
+// ── NEW APP FEATURES SHOWCASE (HORIZONTAL SCROLL) ──
+const NEW_APP_FEATURES = [
+  {
+    id: "playground",
+    badge: "NEW",
+    title: "Code Playground (Emmet + Prettier Live Server)",
+    href: "/playground",
+  },
+  {
+    id: "tracks",
+    badge: "TRACKS",
+    title: "6 Structured Developer Tracks (CLI to Full Stack)",
+    href: "/tracks",
+  },
+  {
+    id: "projects",
+    badge: "15+ LABS",
+    title: "Interactive Mini-Projects & Canvas Labs",
+    href: "/projects",
+  },
+  {
+    id: "cli",
+    badge: "SIMULATOR",
+    title: "🪟 Windows 11 CLI Terminal Fast-Track",
+    href: "/cli",
+  },
+  {
+    id: "html",
+    badge: "98+ TAGS",
+    title: "HTML5 Architecture & 1-to-1 PC Screenshots",
+    href: "/html",
+  },
+  {
+    id: "git",
+    badge: "GIT FLOW",
+    title: "Git & GitHub Version Control Workflow",
+    href: "/git",
+  },
+];
 
 export default function HomeClient() {
   const router = useRouter();
-  const { completedChapters } = useProgress();
   const [currentUser, setCurrentUser] = useState<UserProfile | null>(null);
-  
-  // Navigation states
-  const [tutorialsDropdownOpen, setTutorialsDropdownOpen] = useState(false);
-  const [exercisesDropdownOpen, setExercisesDropdownOpen] = useState(false);
-  const [showAllPhases, setShowAllPhases] = useState(false);
-
-  
-  interface SearchItem {
-    id: string;
-    title: string;
-    content: string;
-    phase: string;
-    duration: string;
-    color: string;
-    icon: string;
-  }
-
-  // Search states
   const [heroSearchQuery, setHeroSearchQuery] = useState('');
-  const [navSearchQuery, setNavSearchQuery] = useState('');
-  const [heroSearchResults, setHeroSearchResults] = useState<SearchItem[]>([]);
-  const [navSearchResults, setNavSearchResults] = useState<SearchItem[]>([]);
-  
-  const [activeModuleIdx, setActiveModuleIdx] = useState(0);
-
-  const heroSearchRef = useRef<HTMLDivElement>(null);
-  const navSearchRef = useRef<HTMLDivElement>(null);
-
-  // Close dropdowns on outside click
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (heroSearchRef.current && !heroSearchRef.current.contains(event.target as Node)) {
-        setHeroSearchResults([]);
-      }
-      if (navSearchRef.current && !navSearchRef.current.contains(event.target as Node)) {
-        setNavSearchResults([]);
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(-1);
+  const searchContainerRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   // Authenticated state listener
   useEffect(() => {
@@ -96,7 +143,7 @@ export default function HomeClient() {
       if (saved) {
         try {
           setCurrentUser(JSON.parse(saved));
-        } catch (e) {
+        } catch {
           setCurrentUser(null);
         }
       } else {
@@ -106,6 +153,17 @@ export default function HomeClient() {
     handleAuthChange();
     window.addEventListener("nextsem_auth_changed", handleAuthChange);
     return () => window.removeEventListener("nextsem_auth_changed", handleAuthChange);
+  }, []);
+
+  // Close dropdown on click outside
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (searchContainerRef.current && !searchContainerRef.current.contains(e.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
   const handleSignIn = async () => {
@@ -126,624 +184,457 @@ export default function HomeClient() {
     }
   };
 
-  const handleLaunchChapter = (path: string) => {
-    let url = path.startsWith("cli/") || path.startsWith("html/") ? `/${path}` : `/book/${path}`;
-    if (path === "cmd" || path === "cli") {
-      url = "/cli";
-    } else if (path === "p0-4-git") {
-      url = "/git";
-    }
+  // Autocomplete candidate calculation (Tab to complete)
+  const autocompleteSuggestion = useMemo(() => {
+    const cleanQ = heroSearchQuery.trim().toLowerCase();
+    if (cleanQ.length < 2) return '';
 
-    const hasCode = path === "cmd" || path === "p0-4-git" || !!getChapterSimulator(path);
+    // 1. Check curated dictionary
+    const dictMatch = AUTOCOMPLETE_DICTIONARY.find(term => 
+      term.startsWith(cleanQ) && term !== cleanQ
+    );
+    if (dictMatch) return dictMatch;
 
-    if (hasCode) {
-      window.open(url, '_blank');
-    } else {
-      router.push(url);
-    }
-  };
+    // 2. Check lesson titles from search index
+    const titleMatch = searchItems.find(item => 
+      item.title.toLowerCase().startsWith(cleanQ) && item.title.toLowerCase() !== cleanQ
+    );
+    if (titleMatch) return titleMatch.title;
 
-  // Search logic
-  const performSearch = (queryStr: string, setResults: React.Dispatch<React.SetStateAction<SearchItem[]>>) => {
-    if (!queryStr.trim()) {
-      setResults([]);
-      return;
-    }
-    const cleanQuery = queryStr.toLowerCase();
-    const matches = (searchIndex as SearchItem[]).filter((item: SearchItem) => 
-      item.title.toLowerCase().includes(cleanQuery) || 
-      item.content.toLowerCase().includes(cleanQuery)
-    ).slice(0, 6);
-    setResults(matches);
-  };
-
-  useEffect(() => {
-    performSearch(heroSearchQuery, setHeroSearchResults);
+    return '';
   }, [heroSearchQuery]);
 
-  useEffect(() => {
-    performSearch(navSearchQuery, setNavSearchResults);
-  }, [navSearchQuery]);
+  // Search results ranking
+  const searchResults = useMemo(() => {
+    const cleanQ = heroSearchQuery.trim().toLowerCase();
+    if (!cleanQ) return [];
 
-  const handleHeroSearchSubmit = (e?: React.FormEvent) => {
-    if (e) e.preventDefault();
-    if (heroSearchQuery.trim()) {
-      window.dispatchEvent(new CustomEvent("open_search", { 
-        detail: { query: heroSearchQuery.trim() } 
-      }));
-      setHeroSearchQuery('');
+    const tokens = cleanQ.split(/\s+/).filter(Boolean);
+
+    const scored = searchItems.map(item => {
+      const titleLower = item.title.toLowerCase();
+      const contentLower = item.content.toLowerCase();
+      const phaseLower = (item.phase || '').toLowerCase();
+      let score = 0;
+
+      if (titleLower === cleanQ) score += 50;
+      else if (titleLower.startsWith(cleanQ)) score += 30;
+      else if (titleLower.includes(cleanQ)) score += 20;
+
+      if (phaseLower.includes(cleanQ)) score += 15;
+
+      for (const t of tokens) {
+        if (titleLower.includes(t)) score += 10;
+        if (phaseLower.includes(t)) score += 5;
+        if (contentLower.includes(t)) score += 2;
+      }
+
+      return { item, score };
+    });
+
+    return scored
+      .filter(s => s.score > 0)
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 8)
+      .map(s => s.item);
+  }, [heroSearchQuery]);
+
+  // Keyboard navigation
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    // Press Tab to autocomplete suggestion
+    if (e.key === 'Tab' && autocompleteSuggestion) {
+      e.preventDefault();
+      setHeroSearchQuery(autocompleteSuggestion);
+      return;
+    }
+
+    // Navigate down in dropdown list
+    if (e.key === 'ArrowDown' && isDropdownOpen && searchResults.length > 0) {
+      e.preventDefault();
+      setSelectedIndex(prev => (prev < searchResults.length - 1 ? prev + 1 : 0));
+      return;
+    }
+
+    // Navigate up in dropdown list
+    if (e.key === 'ArrowUp' && isDropdownOpen && searchResults.length > 0) {
+      e.preventDefault();
+      setSelectedIndex(prev => (prev > 0 ? prev - 1 : searchResults.length - 1));
+      return;
+    }
+
+    // Enter to open selected or top result
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      if (selectedIndex >= 0 && selectedIndex < searchResults.length) {
+        const targetUrl = searchResults[selectedIndex].url || '/html';
+        setIsDropdownOpen(false);
+        router.push(targetUrl);
+      } else if (searchResults.length > 0) {
+        const targetUrl = searchResults[0].url || '/html';
+        setIsDropdownOpen(false);
+        router.push(targetUrl);
+      }
+      return;
+    }
+
+    // Escape to dismiss dropdown
+    if (e.key === 'Escape') {
+      setIsDropdownOpen(false);
+      inputRef.current?.blur();
     }
   };
 
-  const handleNavSearchSubmit = (e?: React.FormEvent) => {
-    if (e) e.preventDefault();
-    if (navSearchQuery.trim()) {
-      window.dispatchEvent(new CustomEvent("open_search", { 
-        detail: { query: navSearchQuery.trim() } 
-      }));
-      setNavSearchQuery('');
-    }
-  };
-
-  const handleScrollToId = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+  const handlePillClick = (query: string) => {
+    setHeroSearchQuery(query);
+    setIsDropdownOpen(true);
+    setSelectedIndex(-1);
+    inputRef.current?.focus();
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white flex flex-col font-sans selection:bg-[#04AA6D]/30 transition-colors duration-200">
+    <div className="min-h-screen bg-[#17181c] text-white flex flex-col font-sans selection:bg-[#04AA6D]/30">
       
-      {/* ── TOP NAVIGATION BAR (Nextsem Academy Style) ── */}
-      <header className="sticky top-0 z-50 bg-white dark:bg-[#0b0f19] border-b border-slate-200 dark:border-slate-800 shadow-sm transition-colors duration-200">
-        <div className="max-w-[1400px] mx-auto px-4 md:px-6 h-[54px] flex items-center justify-between">
+      {/* ── TOP STREAMLINED NAVBAR WITH HORIZONTAL NEW FEATURES SCROLL ── */}
+      <header className="sticky top-0 z-40 bg-[#17181c]/95 backdrop-blur-md border-b border-slate-800 shadow-sm select-none">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 h-14 flex items-center justify-between gap-2 sm:gap-4">
           
-          {/* Left Side Branding and Links */}
-          <div className="flex items-center gap-4 lg:gap-6">
+          {/* Left: Brand Logo */}
+          <div className="flex items-center flex-shrink-0">
             <Link href="/" className="flex items-center gap-2.5 select-none group">
               <BrandLogoIcon className="w-8 h-8 text-xs" roundedClass="rounded-lg" />
               <div className="flex flex-col justify-center text-left">
-                <span className="font-black text-sm tracking-tight text-slate-800 dark:text-white uppercase leading-none">
-                  Nextsem<span className="text-[#04AA6D] lowercase font-bold">.online</span>
+                <span className="font-extrabold text-sm sm:text-base tracking-tight text-white uppercase leading-none">
+                  NextSem<span className="text-[#04AA6D] lowercase font-bold">.online</span>
                 </span>
-                <span className="text-[8px] font-extrabold text-[#04AA6D] tracking-wider uppercase font-mono mt-0.5 leading-none">
-                  Full Stack Web Developer
+                <span className="text-[8px] font-bold text-[#04AA6D] tracking-wider uppercase font-mono mt-0.5 leading-none">
+                  Full Stack Dev Curriculum
                 </span>
               </div>
             </Link>
-
-            {/* Desktop Navbar Links */}
-            <nav className="hidden md:flex items-center gap-1 text-sm font-bold text-slate-700 dark:text-slate-350">
-              
-              {/* Tutorials Dropdown */}
-              <div className="relative">
-                <button 
-                  onClick={() => {
-                    setTutorialsDropdownOpen(!tutorialsDropdownOpen);
-                    setExercisesDropdownOpen(false);
-                  }}
-                  className="flex items-center gap-1 px-3 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white transition-all cursor-pointer"
-                >
-                  Tutorials <ChevronDown size={14} className={`transform transition-transform ${tutorialsDropdownOpen ? 'rotate-180' : ''}`} />
-                </button>
-
-                {tutorialsDropdownOpen && (
-                  <div className="absolute top-full left-0 mt-2 bg-white/95 dark:bg-[#0f172a]/95 backdrop-blur-md border border-slate-200 dark:border-slate-800/80 rounded-2xl shadow-2xl p-4 grid grid-cols-2 gap-4 w-[420px] z-50 text-left animate-in fade-in slide-in-from-top-2 duration-150">
-                    <div>
-                      <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 block mb-2 px-1">
-                        Systems & Basics
-                      </span>
-                      <div className="flex flex-col gap-1 text-xs">
-                        <button 
-                          onClick={() => { handleScrollToId('setup-section'); setTutorialsDropdownOpen(false); }} 
-                          className="flex items-center gap-2 p-2 hover:bg-slate-100 dark:hover:bg-slate-800/60 rounded-xl hover:text-[#04AA6D] transition-all text-left font-bold"
-                        >
-                          <span>⚙️</span>
-                          <span className="truncate">Setup & Software</span>
-                        </button>
-                        <button 
-                          onClick={() => { handleScrollToId('setup-section'); setTutorialsDropdownOpen(false); }} 
-                          className="flex items-center gap-2 p-2 hover:bg-slate-100 dark:hover:bg-slate-800/60 rounded-xl hover:text-[#04AA6D] transition-all text-left font-bold"
-                        >
-                          <span>🌿</span>
-                          <span className="truncate">Git & Version Control</span>
-                        </button>
-                      </div>
-                    </div>
-                    <div>
-                      <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 block mb-2 px-1">
-                        Web Development
-                      </span>
-                      <div className="flex flex-col gap-1 text-xs">
-                        <button 
-                          onClick={() => { handleScrollToId('html-section'); setTutorialsDropdownOpen(false); }} 
-                          className="flex items-center gap-2 p-2 hover:bg-slate-100 dark:hover:bg-slate-800/60 rounded-xl hover:text-[#04AA6D] transition-all text-left font-bold"
-                        >
-                          <span>📝</span>
-                          <span className="truncate">HTML Tutorials</span>
-                        </button>
-                        <button 
-                          onClick={() => { handleScrollToId('css-section'); setTutorialsDropdownOpen(false); }} 
-                          className="flex items-center gap-2 p-2 hover:bg-slate-100 dark:hover:bg-slate-800/60 rounded-xl hover:text-[#04AA6D] transition-all text-left font-bold"
-                        >
-                          <span>🎨</span>
-                          <span className="truncate">CSS Styling & Flex</span>
-                        </button>
-                        <button 
-                          onClick={() => { handleScrollToId('js-section'); setTutorialsDropdownOpen(false); }} 
-                          className="flex items-center gap-2 p-2 hover:bg-slate-100 dark:hover:bg-slate-800/60 rounded-xl hover:text-[#04AA6D] transition-all text-left font-bold"
-                        >
-                          <span>⚡</span>
-                          <span className="truncate">JavaScript Coding</span>
-                        </button>
-                        <button 
-                          onClick={() => { handleScrollToId('react-section'); setTutorialsDropdownOpen(false); }} 
-                          className="flex items-center gap-2 p-2 hover:bg-slate-100 dark:hover:bg-slate-800/60 rounded-xl hover:text-[#04AA6D] transition-all text-left font-bold"
-                        >
-                          <span>⚛️</span>
-                          <span className="truncate">React UI Library</span>
-                        </button>
-                        <button 
-                          onClick={() => { handleScrollToId('backend-section'); setTutorialsDropdownOpen(false); }} 
-                          className="flex items-center gap-2 p-2 hover:bg-slate-100 dark:hover:bg-slate-800/60 rounded-xl hover:text-[#04AA6D] transition-all text-left font-bold col-span-2"
-                        >
-                          <span>🔌</span>
-                          <span className="truncate">Node.js & Express</span>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              {/* Exercises Dropdown */}
-              <div className="relative">
-                <button 
-                  onClick={() => {
-                    setExercisesDropdownOpen(!exercisesDropdownOpen);
-                    setTutorialsDropdownOpen(false);
-                  }}
-                  className="flex items-center gap-1 px-3 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white transition-all cursor-pointer"
-                >
-                  Exercises <ChevronDown size={14} className={`transform transition-transform ${exercisesDropdownOpen ? 'rotate-180' : ''}`} />
-                </button>
-
-                {exercisesDropdownOpen && (
-                  <div className="absolute top-full left-0 mt-2 bg-white/95 dark:bg-[#0f172a]/95 backdrop-blur-md border border-slate-200 dark:border-slate-800/80 rounded-2xl shadow-2xl p-3 flex flex-col gap-1.5 w-[240px] z-50 text-left animate-in fade-in slide-in-from-top-2 duration-150">
-                    <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 block px-2 mb-1.5">
-                      Interactive Tools
-                    </span>
-                    <Link href="/cli" onClick={() => setExercisesDropdownOpen(false)} className="flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-[#04AA6D] text-xs font-bold transition-all">
-                      <span>🪟</span>
-                      <span>Windows CLI</span>
-                    </Link>
-                    <Link href="/simulator" target="_blank" onClick={() => setExercisesDropdownOpen(false)} className="flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-[#04AA6D] text-xs font-bold transition-all">
-                      <span>🖥️</span>
-                      <span>Windows 11 Simulator</span>
-                    </Link>
-                    <Link href="/git" target="_blank" onClick={() => setExercisesDropdownOpen(false)} className="flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-[#04AA6D] text-xs font-bold transition-all">
-                      <span>🌿</span>
-                      <span>Git Simulator</span>
-                    </Link>
-                    <Link href="/playground" onClick={() => setExercisesDropdownOpen(false)} className="flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-[#04AA6D] text-xs font-bold transition-all">
-                      <span>💻</span>
-                      <span>Code Sandbox</span>
-                    </Link>
-                    <Link href="/bca" onClick={() => setExercisesDropdownOpen(false)} className="flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-[#04AA6D] text-xs font-bold transition-all">
-                      <span>🎓</span>
-                      <span>BCA Semester Hub</span>
-                    </Link>
-                    <Link href="/jobs" onClick={() => setExercisesDropdownOpen(false)} className="flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-blue-400 text-xs font-bold transition-all">
-                      <span>💼</span>
-                      <span>BCA/MCA/B.Tech Jobs</span>
-                    </Link>
-                    <button onClick={() => { handleScrollToId('exercises-section'); setExercisesDropdownOpen(false); }} className="flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-[#04AA6D] text-xs font-bold transition-all text-left">
-                      <span>🏆</span>
-                      <span>Course Quizzes</span>
-                    </button>
-                  </div>
-                )}
-              </div>
-
-              <Link href="/curriculum" className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white transition-all cursor-pointer">
-                <Rocket size={14} className="text-[#04AA6D]" />
-                <span>Curriculum</span>
-              </Link>
-              <Link href="/course" className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white transition-all cursor-pointer">
-                <BookOpen size={14} className="text-[#04AA6D]" />
-                <span>Courses</span>
-              </Link>
-
-            </nav>
           </div>
 
-          {/* Right Side Tools & Auth */}
-          <div className="flex items-center gap-3">
-            
-            {/* Header Search Box */}
-            <div ref={navSearchRef} className="relative hidden lg:block w-[180px] xl:w-[240px]">
-              <form onSubmit={handleNavSearchSubmit} className="relative">
-                <input 
-                  type="text"
-                  placeholder="Search tutorials..."
-                  value={navSearchQuery}
-                  onChange={(e) => setNavSearchQuery(e.target.value)}
-                  className="w-full h-8 pl-8 pr-3 text-xs bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/80 rounded-full focus:outline-none focus:border-[#04AA6D] focus:ring-1 focus:ring-[#04AA6D] dark:text-white"
-                />
-                <Search size={14} className="absolute left-3 top-2 text-slate-400" />
-              </form>
+          {/* Center: Horizontal Auto-Moving Features Marquee (Left to Right) */}
+          <div className="flex-1 min-w-0 relative flex items-center mx-1 sm:mx-3 overflow-hidden">
+            {/* Left Subtle Gradient Fade */}
+            <div className="absolute left-0 top-0 bottom-0 w-6 bg-gradient-to-r from-[#17181c] to-transparent z-10 pointer-events-none" />
 
-              {(navSearchResults.length > 0 || navSearchQuery.trim()) && (
-                <div className="absolute top-full right-0 mt-1.5 w-[300px] bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 rounded-xl shadow-xl max-h-[350px] overflow-y-auto z-50 text-left p-2 animate-in fade-in slide-in-from-top-1">
-                  {navSearchResults.length > 0 && (
-                    <>
-                      {navSearchResults.map((result) => (
-                        <button
-                          key={result.id}
-                          onClick={() => {
-                            handleLaunchChapter(result.id);
-                            setNavSearchQuery('');
-                          }}
-                          className="w-full p-2 hover:bg-slate-100 dark:hover:bg-slate-800/50 rounded-lg text-left transition-colors flex items-start gap-2 border-b border-slate-100 dark:border-slate-900 last:border-b-0"
-                        >
-                          <span className="text-sm mt-0.5">{result.icon || '📄'}</span>
-                          <div>
-                            <div className="text-xs font-bold text-slate-800 dark:text-white">{result.title}</div>
-                            <div className="text-[10px] text-slate-400 truncate max-w-[230px]">{result.duration || '5 min read'} • {result.phase || 'Chapter'}</div>
-                          </div>
-                        </button>
-                      ))}
-                    </>
-                  )}
+            {/* Continuous Seamless Auto-Moving Marquee Container */}
+            <div className="w-full overflow-hidden">
+              <div className="flex items-center gap-2.5 w-max animate-marquee-ltr hover:[animation-play-state:paused] py-1.5 px-2">
+                {[...NEW_APP_FEATURES, ...NEW_APP_FEATURES].map((item, idx) => (
+                  <Link
+                    key={`${item.id}-${idx}`}
+                    href={item.href}
+                    className="flex items-center gap-2 px-3 py-1 bg-[#141824] hover:bg-[#1a2030] border border-slate-700/80 hover:border-[#04AA6D] rounded-full text-xs text-slate-200 hover:text-white transition-all duration-200 flex-shrink-0 group/pill shadow-sm"
+                  >
+                    <span className="text-[9px] font-black uppercase px-1.5 py-0.5 rounded bg-[#04AA6D]/20 text-[#04AA6D] border border-[#04AA6D]/30 group-hover/pill:bg-[#04AA6D] group-hover/pill:text-white transition-colors">
+                      {item.badge}
+                    </span>
+                    <span className="font-semibold whitespace-nowrap text-[11px] sm:text-xs text-slate-200 group-hover/pill:text-white">
+                      {item.title}
+                    </span>
+                    <ArrowRight size={11} className="text-slate-500 group-hover/pill:text-[#04AA6D] group-hover/pill:translate-x-0.5 transition-all" />
+                  </Link>
+                ))}
+              </div>
+            </div>
 
-                  {navSearchQuery.trim() && (
-                    <div className="pt-1.5 border-t border-slate-150 dark:border-slate-900 mt-1">
-                      <button
-                        onClick={() => {
-                          window.open(`https://www.google.com/search?q=${encodeURIComponent(navSearchQuery.trim())}`, '_blank', 'noopener,noreferrer');
-                          setNavSearchQuery('');
-                        }}
-                        className="w-full p-2 hover:bg-blue-50 dark:hover:bg-blue-950/20 rounded-lg text-left transition-colors flex items-center gap-2 text-blue-600 dark:text-blue-400 font-bold text-xs"
-                      >
-                        <Search size={12} className="text-blue-500 shrink-0" />
-                        <span>Search &ldquo;{navSearchQuery}&rdquo; on Google Search</span>
-                      </button>
+            {/* Right Subtle Gradient Fade */}
+            <div className="absolute right-0 top-0 bottom-0 w-6 bg-gradient-to-l from-[#17181c] to-transparent z-10 pointer-events-none" />
+          </div>
+
+          {/* Right: User Authentication / Profile */}
+          <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+            {/* Auth Button */}
+            {currentUser ? (
+              <div className="flex items-center gap-2">
+                <Link
+                  href="/profile"
+                  className="flex items-center gap-2 bg-slate-800/80 border border-slate-700 px-2.5 py-1 rounded-full text-xs font-bold text-slate-200 hover:text-white transition-colors"
+                >
+                  {currentUser.photo ? (
+                    <img src={currentUser.photo} alt="" className="w-5 h-5 rounded-full object-cover" />
+                  ) : (
+                    <div className="w-5 h-5 rounded-full bg-[#04AA6D] text-white flex items-center justify-center font-black text-[9px]">
+                      {currentUser.name.charAt(0).toUpperCase()}
                     </div>
                   )}
-                </div>
-              )}
-            </div>
-
-            {/* Theme Toggle Button removed */}
-
-            {/* Streak & XP (if logged in) */}
-            {currentUser && (
-              <div className="hidden sm:flex items-center gap-3">
-                <div className="flex items-center gap-1 text-[11px] font-black text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-900 px-2.5 py-1.5 rounded-full border border-slate-200 dark:border-slate-800">
-                  <Zap size={12} className="text-amber-500 fill-amber-500 animate-pulse" />
-                  <span>🔥 5 Days</span>
-                </div>
-                <div className="flex items-center gap-1 text-[11px] font-black text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-900 px-2.5 py-1.5 rounded-full border border-slate-200 dark:border-slate-800">
-                  <Star size={12} className="text-yellow-400 fill-yellow-400" />
-                  <span>🏆 1,480 XP</span>
-                </div>
-              </div>
-            )}
-
-            {/* Sign In / User menu */}
-            <div>
-              {currentUser ? (
-                <div className="flex items-center gap-2">
-                  <div className="flex items-center gap-2 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 px-2 py-1 rounded-lg">
-                    {currentUser.photo ? (
-                      <img src={currentUser.photo} alt="" className="w-5 h-5 rounded-full object-cover border border-emerald-500/20" />
-                    ) : (
-                      <div className="w-5 h-5 rounded-full bg-[#04AA6D] text-white flex items-center justify-center font-black text-[9px]">
-                        {currentUser.name.charAt(0).toUpperCase()}
-                      </div>
-                    )}
-                    <span className="text-xs font-bold text-slate-700 dark:text-slate-200 hidden sm:inline max-w-[70px] truncate">{currentUser.name.split(" ")[0]}</span>
-                  </div>
-                  <button 
-                    onClick={handleSignOut}
-                    className="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 border border-transparent rounded-lg text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all cursor-pointer"
-                    title="Sign Out"
-                  >
-                    <LogOut size={16} />
-                  </button>
-                </div>
-              ) : (
+                  <span className="hidden sm:inline max-w-[80px] truncate">{currentUser.name.split(" ")[0]}</span>
+                </Link>
                 <button 
-                  onClick={handleSignIn}
-                  className="flex items-center gap-1.5 bg-[#04AA6D] hover:bg-[#039861] text-white px-3.5 py-1.5 rounded-full text-xs font-bold transition-all shadow-md shadow-[#04AA6D]/10 cursor-pointer"
+                  onClick={handleSignOut}
+                  className="p-1.5 text-slate-400 hover:text-white rounded-lg transition-colors cursor-pointer"
+                  title="Sign Out"
                 >
-                  <LogIn size={13} />
-                  <span>Sign In</span>
+                  <LogOut size={16} />
                 </button>
-              )}
-            </div>
-
+              </div>
+            ) : (
+              <button 
+                onClick={handleSignIn}
+                className="flex items-center gap-1.5 bg-[#04AA6D] hover:bg-[#039861] text-white px-3.5 py-1.5 rounded-full text-xs font-bold transition-all shadow-md shadow-[#04AA6D]/20 cursor-pointer flex-shrink-0"
+              >
+                <LogIn size={13} />
+                <span>Sign In</span>
+              </button>
+            )}
           </div>
         </div>
       </header>
 
-      {/* ── HERO STAGE: FULL STACK WEB DEVELOPER PATHWAY ── */}
-      <section className="bg-theme-bg text-theme-text py-10 sm:py-20 px-4 sm:px-6 relative border-b border-theme-border overflow-hidden">
-        {/* Background Radial Glow */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-6xl h-full opacity-10 pointer-events-none bg-[radial-gradient(#04AA6D_1px,transparent_1px)] [background-size:20px_20px]" />
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#04AA6D]/10 rounded-full blur-3xl pointer-events-none" />
+      {/* ── HERO SECTION WITH INLINE INSTANT SEARCH & TAB AUTOCOMPLETE ── */}
+      <section className="relative py-12 sm:py-20 px-4 sm:px-6 border-b border-slate-800 overflow-visible text-center bg-gradient-to-b from-[#17181c] via-[#1a1b22] to-[#17181c]">
+        {/* Subtle Ambient Glow */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-5xl h-full opacity-10 pointer-events-none bg-[radial-gradient(#04AA6D_1px,transparent_1px)] [background-size:24px_24px]" />
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#04AA6D]/10 rounded-full blur-3xl pointer-events-none" />
 
-        <div className="max-w-5xl mx-auto text-center relative z-10 space-y-6">
-          {/* Authentic Developer Platform Badge */}
-          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#0c1328] border border-slate-800 text-slate-300 text-xs font-semibold shadow-md hover:border-emerald-500/40 transition-colors">
-            <span className="flex h-2 w-2 relative">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#04AA6D] opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#04AA6D]"></span>
-            </span>
-            <span className="text-white font-bold tracking-tight">Nextsem Academy</span>
+        <div className="max-w-4xl mx-auto relative z-10 space-y-6">
+          {/* Badge */}
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0c1328] border border-slate-800 text-slate-300 text-xs font-semibold shadow-md">
+            <span className="w-2 h-2 rounded-full bg-[#04AA6D] animate-pulse" />
+            <span className="text-white font-bold">Nextsem Academy</span>
             <span className="text-slate-600 font-bold">•</span>
-            <span className="text-slate-300">Full Stack Web Development Curriculum</span>
+            <span>Complete Free Developer Curriculum</span>
           </div>
 
           {/* Master Heading */}
-          <h1 className="text-3xl sm:text-5xl md:text-6xl font-black uppercase tracking-tight leading-tight text-white max-w-4xl mx-auto">
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-tight text-white max-w-3xl mx-auto">
             Become a Job-Ready <span className="text-[#04AA6D]">Full Stack</span> Web Developer
           </h1>
 
-          {/* Subtitle / Crisp Developer English Guidance */}
+          {/* Subtitle */}
           <p className="text-slate-300 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed font-normal">
-            Learn Full Stack Web Development step-by-step on <span className="inline-flex items-center gap-1.5 font-semibold text-white"><WindowsIcon className="w-4 h-4 text-white inline-block -mt-0.5" /> Windows</span>. Master HTML, CSS, JavaScript, React, and Node.js with hands-on live practice.
+            Learn modern web development step-by-step on <span className="inline-flex items-center gap-1 font-semibold text-white"><WindowsIcon className="w-4 h-4 text-white inline-block -mt-0.5" /> Windows</span>. Master HTML5, CSS3, JavaScript, React, and Node.js with live coding practice.
           </p>
 
-          {/* Action CTA: Start HTML5 or 15-Min Terminal Fast-Track */}
-          <div className="flex flex-wrap items-center justify-center gap-3 pt-3">
+          {/* ── INLINE HERO SEARCH WITH TAB AUTOCOMPLETE & LIVE DROPDOWN ── */}
+          <div ref={searchContainerRef} className="max-w-2xl mx-auto pt-2 relative z-30">
+            <div className="relative flex items-center bg-[#0f1117] hover:bg-[#13161f] focus-within:bg-[#13161f] border border-slate-700/90 focus-within:border-[#04AA6D] rounded-2xl shadow-2xl transition-all">
+              <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-[#04AA6D] pointer-events-none" />
+              
+              {/* Ghost Autocomplete Text Overlay */}
+              {autocompleteSuggestion && heroSearchQuery.trim().length > 0 && autocompleteSuggestion.toLowerCase().startsWith(heroSearchQuery.toLowerCase()) && (
+                <div className="absolute left-12 right-36 top-0 bottom-0 flex items-center text-sm sm:text-base pointer-events-none overflow-hidden select-none font-sans pl-0.5">
+                  <span className="text-transparent">{heroSearchQuery}</span>
+                  <span className="text-slate-500">{autocompleteSuggestion.slice(heroSearchQuery.length)}</span>
+                </div>
+              )}
+
+              <input 
+                ref={inputRef}
+                type="text"
+                placeholder="Search 100+ HTML tags, CLI commands, React hooks, APIs..."
+                value={heroSearchQuery}
+                onChange={(e) => {
+                  setHeroSearchQuery(e.target.value);
+                  setIsDropdownOpen(true);
+                  setSelectedIndex(-1);
+                }}
+                onFocus={() => {
+                  if (heroSearchQuery.trim().length > 0) {
+                    setIsDropdownOpen(true);
+                  }
+                }}
+                onKeyDown={handleKeyDown}
+                className="relative z-10 w-full h-12 sm:h-14 pl-12 pr-32 text-sm sm:text-base bg-transparent text-white placeholder-slate-400 focus:outline-none focus:ring-0 cursor-text"
+              />
+
+              {/* Right Controls: Tab Hint Pill & Clear / Search Button */}
+              <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1.5 z-20">
+                {autocompleteSuggestion && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setHeroSearchQuery(autocompleteSuggestion);
+                      inputRef.current?.focus();
+                    }}
+                    className="hidden sm:inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-[11px] font-mono text-[#04AA6D] font-bold shadow-sm transition-all cursor-pointer select-none"
+                    title="Click or press Tab to autocomplete"
+                  >
+                    <span>Tab ⇥</span>
+                  </button>
+                )}
+
+                {heroSearchQuery && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setHeroSearchQuery('');
+                      setIsDropdownOpen(false);
+                      inputRef.current?.focus();
+                    }}
+                    className="p-1 text-slate-400 hover:text-white rounded-lg transition-colors cursor-pointer"
+                    title="Clear Search"
+                  >
+                    <X size={16} />
+                  </button>
+                )}
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (searchResults.length > 0) {
+                      const targetUrl = selectedIndex >= 0 ? searchResults[selectedIndex].url : searchResults[0].url;
+                      setIsDropdownOpen(false);
+                      router.push(targetUrl || '/html');
+                    } else if (heroSearchQuery) {
+                      setIsDropdownOpen(true);
+                    }
+                  }}
+                  className="px-3.5 py-1.5 bg-[#04AA6D] hover:bg-[#039861] text-white text-xs font-black uppercase tracking-wider rounded-xl transition-all shadow-md cursor-pointer flex items-center gap-1"
+                >
+                  <span>Search</span>
+                </button>
+              </div>
+            </div>
+
+            {/* ── INLINE SEARCH RESULTS DROPDOWN CARD ── */}
+            {isDropdownOpen && heroSearchQuery.trim().length > 0 && (
+              <div className="absolute left-0 right-0 top-full mt-2 z-50 bg-[#10131d] border border-slate-700/90 rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.9)] overflow-hidden text-left animate-in fade-in-50 zoom-in-95 duration-150">
+                
+                {/* Dropdown Header */}
+                <div className="px-3.5 py-2 bg-[#161a27] border-b border-slate-800 flex items-center justify-between text-[11px] text-slate-400 font-medium">
+                  <span className="text-white font-bold flex items-center gap-1.5">
+                    <Sparkles size={12} className="text-[#04AA6D]" />
+                    <span>{searchResults.length} Results for &ldquo;{heroSearchQuery}&rdquo;</span>
+                  </span>
+                  <span className="hidden sm:inline text-slate-400 text-[10px]">
+                    {autocompleteSuggestion ? (
+                      <span className="text-[#04AA6D] font-bold">Tip: Press Tab ⇥ to autocomplete</span>
+                    ) : (
+                      <span>↑↓ to navigate • ↵ to open • Esc to close</span>
+                    )}
+                  </span>
+                </div>
+
+                {/* Results List */}
+                {searchResults.length > 0 ? (
+                  <div className="max-h-[360px] overflow-y-auto divide-y divide-slate-800/60 p-1.5">
+                    {searchResults.map((item, idx) => {
+                      const isSelected = idx === selectedIndex;
+                      return (
+                        <Link
+                          key={item.id || idx}
+                          href={item.url || "/html"}
+                          onClick={() => setIsDropdownOpen(false)}
+                          onMouseEnter={() => setSelectedIndex(idx)}
+                          className={`flex items-start gap-3 p-2.5 rounded-xl transition-all cursor-pointer group ${
+                            isSelected 
+                              ? "bg-[#04AA6D]/20 border border-[#04AA6D]/50 shadow-sm" 
+                              : "hover:bg-[#161a28] border border-transparent"
+                          }`}
+                        >
+                          <span className="text-lg shrink-0 mt-0.5 p-1 rounded-lg bg-slate-800/80 border border-slate-700">
+                            {item.icon || "📄"}
+                          </span>
+
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-2 flex-wrap">
+                              <h4 className="text-xs sm:text-sm font-bold text-white group-hover:text-[#04AA6D] transition-colors truncate">
+                                {highlightMatch(item.title, heroSearchQuery)}
+                              </h4>
+                              {item.phase && (
+                                <span className="text-[9px] font-mono font-bold px-1.5 py-0.2 rounded-full bg-slate-800 text-emerald-400 border border-emerald-500/30">
+                                  {item.phase}
+                                </span>
+                              )}
+                            </div>
+
+                            <p className="text-[11px] text-slate-400 line-clamp-1 mt-0.5">
+                              {highlightMatch(item.content, heroSearchQuery)}
+                            </p>
+                          </div>
+
+                          <div className="flex items-center gap-1 shrink-0 text-slate-500 group-hover:text-[#04AA6D] mt-1.5">
+                            <span className="hidden sm:inline text-[10px] font-bold uppercase tracking-wider">Open</span>
+                            <ArrowRight size={12} className="group-hover:translate-x-0.5 transition-transform" />
+                          </div>
+                        </Link>
+                      );
+                    })}
+                  </div>
+                ) : (
+                  <div className="p-6 text-center text-slate-400 space-y-2">
+                    <p className="text-sm font-bold text-white">
+                      No lessons found for &ldquo;{heroSearchQuery}&rdquo;
+                    </p>
+                    <p className="text-xs text-slate-400">
+                      Try searching for <button type="button" onClick={() => handlePillClick("HTML5 semantic tags")} className="text-[#04AA6D] underline font-bold">HTML tags</button>, <button type="button" onClick={() => handlePillClick("dir copy mkdir")} className="text-[#04AA6D] underline font-bold">🪟 Windows CMD</button>, or <button type="button" onClick={() => handlePillClick("CSS Flexbox & Grid")} className="text-[#04AA6D] underline font-bold">CSS Flexbox</button>.
+                    </p>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Quick Topic Search Pills */}
+            <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 mt-3 text-xs">
+              <span className="text-slate-400 font-bold text-[11px] mr-1 hidden sm:inline">Popular:</span>
+              {QUICK_TOPIC_PILLS.map((pill, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => handlePillClick(pill.query)}
+                  className="px-2.5 py-1 rounded-full bg-slate-800/80 hover:bg-[#04AA6D]/20 border border-slate-700 hover:border-[#04AA6D]/40 text-slate-300 hover:text-white text-[11px] font-medium transition-colors cursor-pointer"
+                >
+                  {pill.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Primary Action Buttons */}
+          <div className="flex flex-wrap items-center justify-center gap-3 pt-4">
             <Link
-              href="/html/download-install-vscode-windows-11-setup-guide"
-              className="px-8 py-4 bg-[#04AA6D] hover:bg-[#039861] text-white font-black text-sm sm:text-base uppercase tracking-wider rounded-2xl shadow-2xl shadow-[#04AA6D]/30 transition-all transform hover:-translate-y-0.5 flex items-center gap-2.5 cursor-pointer border border-emerald-400/40"
+              href="/html"
+              className="px-6 sm:px-8 py-3.5 sm:py-4 bg-[#04AA6D] hover:bg-[#039861] text-white font-extrabold text-sm sm:text-base uppercase tracking-wider rounded-xl shadow-xl shadow-[#04AA6D]/25 transition-all transform hover:-translate-y-0.5 flex items-center gap-2 cursor-pointer border border-emerald-400/40"
             >
               <Play size={18} className="fill-white" />
               <span>Start HTML5 Lessons »</span>
             </Link>
 
             <Link
-              href="/terminal-fast-track"
-              className="px-6 py-4 bg-[#141824] hover:bg-[#1a2030] text-white font-bold text-sm sm:text-base rounded-2xl border border-slate-700 hover:border-[#04AA6D] transition-all flex items-center gap-2.5 cursor-pointer shadow-lg group"
+              href="/tracks"
+              className="px-5 sm:px-6 py-3.5 sm:py-4 bg-[#1e2029] hover:bg-[#252834] text-white font-bold text-sm sm:text-base rounded-xl border border-slate-700 hover:border-[#04AA6D] transition-all flex items-center gap-2 cursor-pointer shadow-lg group"
             >
-              <Terminal size={18} className="text-[#04AA6D] group-hover:scale-110 transition-transform" />
-              <span>⚡ 15-Min Terminal Fast-Track</span>
-              <span className="text-[10px] bg-[#04AA6D]/20 text-[#04AA6D] px-2 py-0.5 rounded-full font-black uppercase">5 Commands</span>
+              <Sparkles size={18} className="text-[#04AA6D] group-hover:scale-110 transition-transform" />
+              <span>🎯 Developer Tracks</span>
+            </Link>
+
+            <Link
+              href="/projects"
+              className="px-5 sm:px-6 py-3.5 sm:py-4 bg-[#1e2029] hover:bg-[#252834] text-white font-bold text-sm sm:text-base rounded-xl border border-slate-700 hover:border-[#04AA6D] transition-all flex items-center gap-2 cursor-pointer shadow-lg group"
+            >
+              <Rocket size={18} className="text-[#04AA6D] group-hover:scale-110 transition-transform" />
+              <span>🚀 15+ Mini-Projects</span>
             </Link>
           </div>
 
-          {/* Actual 🪟 Windows 11 Visual Studio Code Editor Window */}
-          <div className="max-w-3xl mx-auto mt-10 text-left rounded-xl border border-slate-700/80 bg-[#1e1e1e] shadow-[0_20px_50px_rgba(0,0,0,0.8)] overflow-hidden font-sans">
-            {/* 1. Windows 11 VS Code Title Bar */}
-            <div className="h-8 bg-[#181818] border-b border-[#2b2b2b] flex items-center justify-between px-3 select-none">
-              {/* Left: VS Code Icon & Menu Items */}
-              <div className="flex items-center gap-3 text-xs text-slate-300">
-                {/* VS Code Blue Icon */}
-                <svg viewBox="0 0 100 100" className="w-3.5 h-3.5 fill-[#007ACC]" aria-label="Visual Studio Code">
-                  <path d="M72.9 96.6c2.4 1.3 5.4.9 7.4-.9l15.8-14.7c2.1-2 3.3-4.8 3.3-7.7V26.7c0-2.9-1.2-5.7-3.3-7.7L80.3 4.3c-2-1.8-5-2.2-7.4-.9L24.4 34.6 9.7 23.2c-1.8-1.4-4.3-1.4-6.1 0-1.8 1.4-2.6 3.7-2.1 5.9l8.6 39.8-8.6 39.8c-.5 2.2.3 4.5 2.1 5.9 1.8 1.4 4.3 1.4 6.1 0l14.7-11.4 48.5 31.8zM28.4 50l40.1-29.8v59.6L28.4 50z" />
-                </svg>
-                {/* Windows VS Code Standard Menu Bar */}
-                <div className="hidden sm:flex items-center gap-2.5 text-[11px] text-[#cccccc] font-normal">
-                  <span className="hover:bg-[#333333] px-1.5 py-0.5 rounded cursor-default">File</span>
-                  <span className="hover:bg-[#333333] px-1.5 py-0.5 rounded cursor-default">Edit</span>
-                  <span className="hover:bg-[#333333] px-1.5 py-0.5 rounded cursor-default">Selection</span>
-                  <span className="hover:bg-[#333333] px-1.5 py-0.5 rounded cursor-default">View</span>
-                  <span className="hover:bg-[#333333] px-1.5 py-0.5 rounded cursor-default">Go</span>
-                  <span className="hover:bg-[#333333] px-1.5 py-0.5 rounded cursor-default">Run</span>
-                  <span className="hover:bg-[#333333] px-1.5 py-0.5 rounded cursor-default">Terminal</span>
-                  <span className="hover:bg-[#333333] px-1.5 py-0.5 rounded cursor-default">Help</span>
-                </div>
+          {/* ── 1-MIN VIDEO SHOWCASE: ONLINE COMPILER (MOBILE SHORTS VS DESKTOP WIDE) ── */}
+          <div className="max-w-[340px] sm:max-w-[380px] md:max-w-3xl lg:max-w-4xl mx-auto pt-6 text-left space-y-2.5">
+            <div className="flex flex-wrap items-center justify-between gap-2 px-1 select-none">
+              <div className="flex items-center gap-2 text-xs font-bold text-slate-300">
+                <span className="w-2 h-2 rounded-full bg-[#04AA6D] animate-pulse" />
+                <span>🌹 Fast-Track Project • Realistic Blooming Rose (HTML + CSS + JS)</span>
               </div>
-
-              {/* Center: File & Project Workspace Name */}
-              <div className="text-[11px] text-slate-400 font-mono hidden md:block truncate max-w-xs">
-                index.html - nextsem-fullstack - Visual Studio Code
-              </div>
-
-              {/* Right: Windows 11 Standard Caption Controls (Minimize, Maximize, Close) */}
-              <div className="flex items-center h-full">
-                <button className="h-8 w-10 hover:bg-[#333333] flex items-center justify-center text-slate-400 hover:text-white transition-colors">
-                  <span className="w-2.5 h-[1px] bg-current inline-block" />
-                </button>
-                <button className="h-8 w-10 hover:bg-[#333333] flex items-center justify-center text-slate-400 hover:text-white transition-colors">
-                  <span className="w-2.5 h-2.5 border border-current inline-block" />
-                </button>
-                <button className="h-8 w-11 hover:bg-[#e81123] flex items-center justify-center text-slate-400 hover:text-white transition-colors">
-                  <span className="text-xs">✕</span>
-                </button>
-              </div>
+              
+              <Link
+                href="/playground"
+                className="relative inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#04AA6D] hover:bg-[#039861] text-white font-bold text-xs tracking-wide shadow-md shadow-[#04AA6D]/20 hover:shadow-[#04AA6D]/40 hover:-translate-y-0.5 transition-all duration-200 border border-emerald-400/40 group cursor-pointer overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <Code size={13} className="group-hover:rotate-12 transition-transform duration-300 text-white" />
+                <span>Open Online Playground</span>
+                <ArrowRight size={13} className="group-hover:translate-x-0.5 transition-transform duration-200 text-white" />
+              </Link>
             </div>
 
-            {/* 2. VS Code Main Layout: Left Activity Bar + Editor Area */}
-            <div className="flex bg-[#1e1e1e]">
-              {/* Left Vertical Activity Bar (Standard VS Code width) */}
-              <div className="w-10 sm:w-11 bg-[#181818] border-r border-[#2b2b2b] flex flex-col items-center py-2 gap-4 text-slate-400 select-none">
-                {/* Active Explorer Icon */}
-                <div className="p-1.5 rounded text-white bg-[#2b2b2b]/60 border-l-2 border-[#007ACC] cursor-pointer" title="Explorer">
-                  <Layers size={16} className="text-[#04AA6D]" />
-                </div>
-                <div className="p-1.5 rounded hover:text-white cursor-pointer" title="Search">
-                  <Search size={16} />
-                </div>
-                <div className="p-1.5 rounded hover:text-white cursor-pointer" title="Source Control (Git)">
-                  <Globe size={16} />
-                </div>
-                <div className="p-1.5 rounded hover:text-white cursor-pointer" title="Extensions">
-                  <Cpu size={16} />
-                </div>
-              </div>
-
-              {/* Center & Right: Editor Tabs + Code Area */}
-              <div className="flex-1 flex flex-col min-w-0">
-                {/* Editor Tab Bar */}
-                <div className="h-8 bg-[#181818] border-b border-[#2b2b2b] flex items-center justify-between overflow-x-auto select-none">
-                  <div className="flex items-center h-full">
-                    {/* Active index.html Tab */}
-                    <div className="h-full px-3.5 bg-[#1e1e1e] border-t-2 border-[#04AA6D] border-r border-[#2b2b2b] flex items-center gap-2 text-xs font-mono text-white font-bold cursor-default">
-                      <span className="text-[#e44d26] font-extrabold text-[11px]">&lt;&gt;</span>
-                      <span>index.html</span>
-                      <span className="text-[10px] text-slate-500 hover:text-white ml-1">✕</span>
-                    </div>
-                    {/* Inactive styles.css Tab */}
-                    <div className="h-full px-3.5 bg-[#181818] hover:bg-[#1f1f1f] border-r border-[#2b2b2b] flex items-center gap-2 text-xs font-mono text-slate-400 cursor-pointer hidden sm:flex">
-                      <span className="text-[#264de4] font-extrabold text-[11px]">#</span>
-                      <span>styles.css</span>
-                    </div>
-                    {/* Inactive app.js Tab */}
-                    <div className="h-full px-3.5 bg-[#181818] hover:bg-[#1f1f1f] border-r border-[#2b2b2b] flex items-center gap-2 text-xs font-mono text-slate-400 cursor-pointer hidden sm:flex">
-                      <span className="text-[#f7df1e] font-extrabold text-[11px]">JS</span>
-                      <span>app.js</span>
-                    </div>
-                  </div>
-
-                  {/* Breadcrumb / Status Badge */}
-                  <div className="pr-3 text-[10px] font-mono text-emerald-400 flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#04AA6D] animate-pulse" />
-                    <span>🪟 Windows 11 Workstation</span>
-                  </div>
-                </div>
-
-                {/* Code Body with Line Numbers */}
-                <div className="p-4 bg-[#1e1e1e] font-mono text-xs text-slate-200 select-all overflow-x-auto leading-relaxed flex">
-                  {/* Line Numbers Column */}
-                  <div className="text-slate-600 select-none pr-4 text-right space-y-1 font-mono text-xs w-6 border-r border-[#2b2b2b] mr-4">
-                    <div>1</div>
-                    <div>2</div>
-                    <div>3</div>
-                    <div>4</div>
-                    <div>5</div>
-                    <div>6</div>
-                    <div>7</div>
-                    <div>8</div>
-                    <div>9</div>
-                    <div>10</div>
-                    <div>11</div>
-                  </div>
-
-                  {/* Code Syntax Highlighted Lines */}
-                  <div className="space-y-1 text-slate-300">
-                    <p><span className="text-[#808080]">&lt;!-- 🚀 Nextsem Full Stack Web Developer Blueprint --&gt;</span></p>
-                    <p><span className="text-[#569cd6]">&lt;!DOCTYPE</span> <span className="text-[#9cdcfe]">html</span><span className="text-[#569cd6]">&gt;</span></p>
-                    <p><span className="text-[#569cd6]">&lt;html</span> <span className="text-[#9cdcfe]">lang</span>=<span className="text-[#ce9178]">&quot;en&quot;</span><span className="text-[#569cd6]">&gt;</span></p>
-                    <p className="pl-3"><span className="text-[#569cd6]">&lt;head&gt;</span></p>
-                    <p className="pl-6"><span className="text-[#569cd6]">&lt;title&gt;</span><span className="text-white font-bold">Job-Ready Full Stack Developer</span><span className="text-[#569cd6]">&lt;/title&gt;</span></p>
-                    <p className="pl-6"><span className="text-[#569cd6]">&lt;link</span> <span className="text-[#9cdcfe]">rel</span>=<span className="text-[#ce9178]">&quot;stylesheet&quot;</span> <span className="text-[#9cdcfe]">href</span>=<span className="text-[#ce9178]">&quot;styles.css&quot;</span><span className="text-[#569cd6]">&gt;</span></p>
-                    <p className="pl-3"><span className="text-[#569cd6]">&lt;/head&gt;</span></p>
-                    <p className="pl-3"><span className="text-[#569cd6]">&lt;body&gt;</span></p>
-                    <p className="pl-6"><span className="text-[#569cd6]">&lt;h1</span> <span className="text-[#9cdcfe]">class</span>=<span className="text-[#ce9178]">&quot;text-emerald-400&quot;</span><span className="text-[#569cd6]">&gt;</span><span className="text-white font-bold">Hello World! Building Full Stack Web Apps 🚀</span><span className="text-[#569cd6]">&lt;/h1&gt;</span></p>
-                    <p className="pl-6"><span className="text-[#569cd6]">&lt;script</span> <span className="text-[#9cdcfe]">src</span>=<span className="text-[#ce9178]">&quot;app.js&quot;</span><span className="text-[#569cd6]">&gt;&lt;/script&gt;</span></p>
-                    <p className="pl-3"><span className="text-[#569cd6]">&lt;/body&gt;</span></p>
-                    <p><span className="text-[#569cd6]">&lt;/html&gt;</span></p>
-                  </div>
-                </div>
-
-                {/* 3. VS Code Bottom Status Bar (Real VS Code Blue #007acc) */}
-                <div className="h-6 bg-[#007acc] text-white flex items-center justify-between px-3 text-[11px] font-mono select-none">
-                  <div className="flex items-center gap-3">
-                    <span className="flex items-center gap-1 font-bold">
-                      <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-                      <span>Live: 5500</span>
-                    </span>
-                    <span className="hidden sm:inline opacity-80">main*</span>
-                    <span className="hidden sm:inline opacity-80">0 ⚠ 0</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <span className="hidden sm:inline">UTF-8</span>
-                    <span className="hidden sm:inline">CRLF</span>
-                    <span className="font-bold">HTML</span>
-                    <span className="bg-black/20 px-1.5 py-0.2 rounded text-[10px]">Prettier</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── FRONT PAGE CAROUSEL 1: INTERACTIVE DEVELOPER MINI-PROJECTS ── */}
-      <section className="py-8 px-4 md:px-8 max-w-[1400px] mx-auto w-full border-t border-slate-800/80">
-        <StudentProjectsSection />
-      </section>
-
-      {/* ── FRONT PAGE CAROUSEL 2: STRUCTURED SUBJECT COURSES ── */}
-      <section className="py-8 px-4 md:px-8 max-w-[1400px] mx-auto w-full border-t border-slate-800/80">
-        <CourseCarouselSection />
-      </section>
-
-      {/* ── FOOTER (Nextsem Academy style columned) ── */}
-      <footer className="bg-[#1f2029] text-white border-t border-slate-850/80 transition-colors mt-auto">
-        <div className="max-w-[1200px] mx-auto px-4 py-12 grid grid-cols-2 md:grid-cols-4 gap-8 text-left text-xs text-slate-400">
-          
-          <div className="space-y-3">
-            <h5 className="font-black uppercase text-white text-xs tracking-wider">Top Tutorials</h5>
-            <ul className="space-y-2 font-medium">
-              <li><Link href="/html" className="hover:text-white">HTML5 Tutorials</Link></li>
-              <li><Link href="/candle-flame-animation" className="hover:text-white">CSS3 Animations &amp; UI</Link></li>
-              <li><Link href="/playground" className="hover:text-white">JavaScript ES6+ Logic</Link></li>
-              <li><Link href="/curriculum" className="hover:text-white">React.js &amp; Next.js</Link></li>
-              <li><Link href="/curriculum" className="hover:text-white">Node.js REST APIs</Link></li>
-              <li><Link href="/cli" className="hover:text-white">Windows 11 CLI Commands</Link></li>
-              <li><Link href="/curriculum" className="hover:text-[#04AA6D] text-[#04AA6D] font-bold">🚀 Full Dev Curriculum</Link></li>
-            </ul>
-          </div>
-
-          <div className="space-y-3">
-            <h5 className="font-black uppercase text-white text-xs tracking-wider">Simulators &amp; Tools</h5>
-            <ul className="space-y-2 font-medium">
-              <li><Link href="/cli" className="hover:text-white flex items-center gap-1.5"><WindowsIcon className="w-3 h-3 text-slate-400" /> <span>Windows Terminal</span></Link></li>
-              <li><Link href="/git" target="_blank" className="hover:text-white">Git Simulator</Link></li>
-              <li><Link href="/playground" className="hover:text-white">Code Sandbox Playground</Link></li>
-              <li><Link href="/course" className="hover:text-white">Developer Course Modules</Link></li>
-            </ul>
-          </div>
-
-          <div className="space-y-3">
-            <h5 className="font-black uppercase text-white text-xs tracking-wider">Full Stack Pathways</h5>
-            <ul className="space-y-2 font-medium">
-              <li><Link href="/full-stack-web-development-roadmap" className="hover:text-white">Full Stack 2026 Roadmap</Link></li>
-              <li><Link href="/course/projects" className="hover:text-white">15+ Interactive Projects</Link></li>
-              <li><Link href="/playground" className="hover:text-white">Live Code Playground</Link></li>
-              <li><Link href="/html" className="hover:text-white">HTML5 Architecture</Link></li>
-              <li><Link href="/curriculum" className="hover:text-white">Full Stack Modules</Link></li>
-            </ul>
-          </div>
-
-          <div className="space-y-3">
-            <h5 className="font-black uppercase text-white text-xs tracking-wider">Legal &amp; Policy Hub</h5>
-            <ul className="space-y-2 font-medium">
-              <li><Link href="/privacy" className="hover:text-white">Privacy Policy</Link></li>
-              <li><Link href="/terms" className="hover:text-white">Terms of Service</Link></li>
-              <li><Link href="/contact" className="hover:text-white">Contact Support</Link></li>
-              <li><Link href="/about" className="hover:text-white">About Nextsem</Link></li>
-              <li><a href="/sitemap.xml" target="_blank" rel="noopener noreferrer" className="hover:text-[#04AA6D] text-[#04AA6D] font-bold">XML Sitemap</a></li>
-            </ul>
+            <CompilerShowcaseAnimation />
           </div>
 
         </div>
+      </section>
 
-        {/* Disclaimer / Nextsem Academy style */}
-        <div className="bg-[#1b1c24] text-[10px] text-slate-500 font-medium py-6 px-4 border-t border-slate-800/40">
-          <div className="max-w-[1000px] mx-auto text-center space-y-3 leading-relaxed">
-            <p>
-              Nextsem Academy is optimized for learning, testing, and training. Examples and simulations might be simplified to improve reading and basic understanding. Tutorials, references, and examples are constantly reviewed to avoid errors, but we cannot warrant full correctness of all content.
-            </p>
-            <p>
-              While using Nextsem Academy, you agree to have read and accepted our <Link href="/terms" className="underline hover:text-slate-400">terms of use</Link>, <Link href="/privacy" className="underline hover:text-slate-400">cookie and privacy policy</Link>.
-            </p>
-            <p className="pt-2 text-slate-400 font-bold uppercase tracking-wider font-sans">
-              Copyright {new Date().getFullYear()} by Nextsem Academy. All rights reserved. Powered by React, Next.js & Tailwind CSS.
-            </p>
-          </div>
-        </div>
-
-        {/* Standard Footer Bar */}
-        <Footer />
-
-      </footer>
+      {/* ── UNIFIED COMPLIANCE FOOTER ── */}
+      <Footer />
 
     </div>
   );

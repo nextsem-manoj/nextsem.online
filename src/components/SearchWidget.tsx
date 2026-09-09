@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { usePathname } from 'next/navigation';
 import { 
-  Search, ArrowLeft, X, History, Sparkles, BookOpen, Plus, 
-  Mic, Camera, UploadCloud, FileText, CheckCircle2, XCircle,
+  Search, ArrowLeft, X, History, Sparkles, BookOpen, 
+  Camera, UploadCloud, FileText, CheckCircle2, XCircle,
   ExternalLink, Code 
 } from 'lucide-react';
 import Link from 'next/link';
@@ -16,9 +16,11 @@ import { signOut, onAuthStateChanged } from 'firebase/auth';
 const SUGGESTED_SEARCHES = [
   'HTML5 semantic tags',
   'CSS Flexbox & Grid',
+  'JavaScript ES6+',
   'React hooks useState',
   'Node Express APIs',
-  'MongoDB database collections'
+  'dir copy mkdir',
+  'git init commit branch'
 ];
 
 const STOP_WORDS = new Set(['a', 'about', 'above', 'after', 'again', 'against', 'all', 'am', 'an', 'and', 'any', 'are', 'arent', 'as', 'at', 'be', 'because', 'been', 'before', 'being', 'below', 'between', 'both', 'but', 'by', 'cant', 'cannot', 'could', 'couldnt', 'did', 'didnt', 'do', 'does', 'doesnt', 'doing', 'dont', 'down', 'during', 'each', 'few', 'for', 'from', 'further', 'had', 'hadnt', 'has', 'hasnt', 'have', 'havent', 'having', 'he', 'hed', 'hell', 'hes', 'her', 'here', 'heres', 'hers', 'herself', 'him', 'himself', 'his', 'how', 'hows', 'i', 'id', 'ill', 'im', 'ive', 'if', 'in', 'into', 'is', 'isnt', 'it', 'its', 'itself', 'lets', 'me', 'more', 'most', 'mustnt', 'my', 'myself', 'no', 'nor', 'not', 'of', 'off', 'on', 'once', 'only', 'or', 'other', 'ought', 'our', 'ours', 'ourselves', 'out', 'over', 'own', 'same', 'shant', 'she', 'shed', 'shell', 'shes', 'should', 'shouldnt', 'so', 'some', 'such', 'than', 'that', 'thats', 'the', 'their', 'theirs', 'them', 'themselves', 'then', 'there', 'theres', 'these', 'they', 'theyd', 'theyll', 'theyre', 'theyve', 'this', 'those', 'through', 'to', 'too', 'under', 'until', 'up', 'very', 'was', 'wasnt', 'we', 'wed', 'well', 'were', 'weve', 'werent', 'what', 'whats', 'when', 'whens', 'where', 'wheres', 'which', 'while', 'who', 'whos', 'whom', 'why', 'whys', 'with', 'wont', 'would', 'wouldnt', 'you', 'youd', 'youll', 'youre', 'youve', 'your', 'yours', 'yourself', 'yourselves']);
@@ -56,7 +58,7 @@ const highlightText = (text: string, query: string) => {
     <span>
       {parts.map((part, index) =>
         regex.test(part) ? (
-          <mark key={index} className="bg-blue-500/20 text-blue-400 font-bold border border-blue-500/20 px-0.5 rounded">
+          <mark key={index} className="bg-[#04AA6D]/25 text-[#20c997] font-bold border border-[#04AA6D]/40 px-1 rounded">
             {part}
           </mark>
         ) : (
@@ -75,13 +77,6 @@ interface SearchItem {
   duration: string;
   color: string;
   icon: string;
-}
-
-interface AiResponse {
-  title: string;
-  summary: string;
-  code?: string;
-  chapter: string;
 }
 
 interface LensOcrResult {
@@ -114,190 +109,21 @@ interface SearchResultItem {
   duration: string;
   color: string;
   icon: string;
+  url?: string;
   score: number;
   excerpt: string;
 }
-
-const AI_RESPONSES: Record<string, { title: string; summary: string; code: string; chapter: string }> = {
-  flexbox: {
-    title: "CSS Flexbox Layout",
-    summary: "Flexbox (Flexible Box Layout) is a 1-dimensional CSS layout model designed for distributing space and aligning items inside container divs along a single axis (row or column). It makes alignment, centering, and sizing children dynamic and simple.",
-    code: `.container {\n  display: flex;\n  flex-direction: row; /* or column */\n  justify-content: center; /* horizontal alignment */\n  align-items: center; /* vertical alignment */\n}`,
-    chapter: "p2-css-practical"
-  },
-  grid: {
-    title: "CSS Grid Layout",
-    summary: "CSS Grid is a powerful 2-dimensional layout system. Unlike Flexbox, it lets you create complex, responsive layouts with BOTH columns and rows. It is ideal for structured main page templates and galleries.",
-    code: `.grid-container {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\n  gap: 16px;\n}`,
-    chapter: "p2-css-practical"
-  },
-  react: {
-    title: "React JS UI Library",
-    summary: "React is a component-based frontend library developed by Meta. It enables developers to build reusable UI elements and handles DOM updates efficiently via a Virtual DOM. You write markup in JSX and manage page states with hooks.",
-    code: `import React, { useState } from 'react';\n\nexport default function App() {\n  const [count, setCount] = useState(0);\n  return <button onClick={() => setCount(count + 1)}>Clicks: {count}</button>;\n}`,
-    chapter: "p4-react-practical"
-  },
-  usestate: {
-    title: "React useState Hook",
-    summary: "The `useState` hook allows functional React components to maintain local reactive state variables. Whenever the setter function is called, React triggers a re-render of the component to update the UI on screen.",
-    code: `const [state, setState] = useState(initialValue);\n// Call setState(newValue) to trigger render`,
-    chapter: "p4-react-practical"
-  },
-  html: {
-    title: "HTML5 Web Skeleton",
-    summary: "HTML (HyperText Markup Language) defines the document structure of web pages. It uses semantic tag elements (headers, paragraphs, sections, buttons) to represent markup blocks structurally.",
-    code: `<!DOCTYPE html>\n<html lang="en">\n<head>\n  <title>Document</title>\n</head>\n<body>\n  <h1>Welcome!</h1>\n</body>\n</html>`,
-    chapter: "p1-1-intro-and-text"
-  },
-  javascript: {
-    title: "JavaScript ES6+",
-    summary: "JavaScript is the programming language that powers web interactivity. It runs directly inside client browsers to capture click events, fetch server APIs, manipulate HTML styling, and perform logical computations.",
-    code: `const btn = document.querySelector("#btn");\nbtn.addEventListener("click", () => {\n  console.log("Button clicked!");\n});`,
-    chapter: "p3-js-practical"
-  },
-  js: {
-    title: "JavaScript ES6+",
-    summary: "JavaScript is the programming language that powers web interactivity. It runs directly inside client browsers to capture click events, fetch server APIs, manipulate HTML styling, and perform logical computations.",
-    code: `const btn = document.querySelector("#btn");\nbtn.addEventListener("click", () => {\n  console.log("Button clicked!");\n});`,
-    chapter: "p3-js-practical"
-  },
-  css: {
-    title: "CSS3 Styling Sheets",
-    summary: "CSS (Cascading Style Sheets) styles the layout visual representations of HTML. It handles grid structures, colors, hover transitions, text sizes, dark themes, and responsive design media queries.",
-    code: `body {\n  background-color: #0f172a;\n  color: #f8fafc;\n  font-family: sans-serif;\n}`,
-    chapter: "p2-css-practical"
-  },
-  node: {
-    title: "Node.js Backend runtime",
-    summary: "Node.js is an open-source, cross-platform JavaScript runtime environment that lets you execute JS code outside of web browsers. It is commonly used for building scalable server backends and REST APIs with Express.js.",
-    code: `const express = require('express');\nconst app = express();\n\napp.get('/', (req, res) => {\n  res.send('Hello from Nextsem API!');\n});\n\napp.listen(3000);`,
-    chapter: "p5-nodejs-mongodb"
-  }
-};
-
-const getLocalAiResponse = (query: string) => {
-  const normalized = query.toLowerCase().trim();
-  
-  // 1. Direct Keyword Match
-  for (const key of Object.keys(AI_RESPONSES)) {
-    if (normalized.includes(key)) {
-      return AI_RESPONSES[key];
-    }
-  }
-
-  // 2. Local RAG Fallback using search index
-  const words = normalized.split(/\s+/).filter((w) => w.length > 2);
-  let bestItem: SearchItem | null = null;
-  let highestScore = 0;
-
-  for (const item of searchIndex) {
-    let score = 0;
-    const lowerTitle = item.title.toLowerCase();
-    const lowerContent = item.content.toLowerCase();
-
-    if (lowerTitle.includes(normalized)) score += 50;
-    if (lowerContent.includes(normalized)) score += 10;
-    
-    words.forEach(word => {
-      if (lowerTitle.includes(word)) score += 20;
-      if (lowerContent.includes(word)) score += 5;
-    });
-
-    if (score > highestScore) {
-      highestScore = score;
-      bestItem = item;
-    }
-  }
-
-  if (bestItem && highestScore > 0) {
-    // Extract snippet
-    let excerpt = '';
-    const index = bestItem.content.toLowerCase().indexOf(words[0] || normalized);
-    const start = Math.max(0, index - 30);
-    const end = Math.min(bestItem.content.length, index + 150);
-    excerpt = bestItem.content.substring(start, end).replace(/\s+/g, ' ').trim() + '...';
-
-    return {
-      title: `AI Synthesis: ${bestItem.title}`,
-      summary: `Based on Nextsem's front-end developer curriculum for ${bestItem.phase}, this lesson covers: ${excerpt}`,
-      code: `// Matching topic: ${bestItem.title}\n// Duration: ${bestItem.duration}`,
-      chapter: bestItem.id
-    };
-  }
-
-  // 3. Out of Context / Dynamic Synthesized Fallback
-  if (normalized.includes("python") || normalized.includes("django") || normalized.includes("flask") || normalized.includes("fastapi")) {
-    return {
-      title: "AI Synthesis: Python (Out of Context)",
-      summary: `Python is a high-level general-purpose programming language. While Nextsem's front-end roadmap focuses exclusively on JavaScript, TypeScript, and the Node.js web ecosystem, Python is widely used for Backend APIs (via FastAPI or Django), Data Science, Machine Learning, and automation scripting.`,
-      code: `def greet(name):\n    # Python syntax is clean and indentation-based\n    return f"Hello, {name}!"\n\nprint(greet("Developer"))`,
-      chapter: "p0-1-setup"
-    };
-  }
-
-  if (normalized.includes("java") || normalized.includes("spring") || normalized.includes("kotlin")) {
-    return {
-      title: "AI Synthesis: Java & OOP (Out of Context)",
-      summary: `Java is a class-based, object-oriented programming language designed to run anywhere via the JVM. In web development, we use JavaScript/TypeScript for dynamic UI rendering. However, Java is a powerhouse for enterprise-grade backend APIs, Android application development, and large scale systems.`,
-      code: `public class Main {\n    public static void main(String[] args) {\n        // Strong typing and Object-Oriented paradigm\n        System.out.println("Hello from Java!");\n    }\n}`,
-      chapter: "p0-1-setup"
-    };
-  }
-
-  if (normalized.includes("c++") || normalized.includes("c#") || normalized.includes("dotnet") || normalized.includes("golang") || normalized.includes("rust")) {
-    return {
-      title: "AI Synthesis: Systems Languages (Out of Context)",
-      summary: `Systems programming languages (like C++, Go, Rust, or C#) are compiled languages designed for high performance, memory safety, and low-level control. Frontend web apps run JavaScript inside browsers, but systems languages are frequently used to build browser engines, databases, high-speed servers, and video games.`,
-      code: `#include <iostream>\n\nint main() {\n    // High-performance systems execution\n    std::cout << "Hello from C++!" << std::endl;\n    return 0;\n}`,
-      chapter: "p0-1-setup"
-    };
-  }
-
-  if (normalized.includes("sql") || normalized.includes("postgres") || normalized.includes("mysql") || normalized.includes("database")) {
-    return {
-      title: "AI Synthesis: Relational SQL Databases (Out of Context)",
-      summary: `SQL (Structured Query Language) is the standard language for querying relational database management systems. Our Phase 5 backend curriculum covers MongoDB (a document-based NoSQL database), but relational databases like PostgreSQL and MySQL are essential tools to master for full-stack developer roles.`,
-      code: `-- Fetch data from relational tables\nSELECT id, name, class \nFROM students \nWHERE is_active = true \nORDER BY name ASC;`,
-      chapter: "p5-3-mongodb"
-    };
-  }
-
-  if (normalized.includes("docker") || normalized.includes("kubernetes") || normalized.includes("devops") || normalized.includes("aws") || normalized.includes("github")) {
-    return {
-      title: "AI Synthesis: DevOps & Version Control (Out of Context)",
-      summary: `DevOps involves tools and practices that automate software deployment, version control (Git/GitHub), containerization (Docker, Kubernetes), and cloud infrastructure hosting (AWS, GCP). While Nextsem teaches you to write the application code, DevOps manages the automated delivery pipeline.`,
-      code: `# Sample Dockerfile structure\nFROM node:18-alpine\nWORKDIR /app\nCOPY package*.json ./\nRUN npm install\nCOPY . .\nEXPOSE 3000\nCMD ["npm", "start"]`,
-      chapter: "p0-1-setup"
-    };
-  }
-
-  // General query fallback
-  return {
-    title: `AI Synthesis: "${query}" (Out of Curriculum)`,
-    summary: `You searched for "${query}". This topic falls outside Nextsem Academy's primary web development curriculum, which is specifically designed to take you from a beginner to a job-ready Front End Developer using HTML, CSS, JavaScript, React, and Node.js. Ready to write code? Use index.html or script.js in the playground!`,
-    code: `// Tip: Try searching for standard curriculum terms like:\n// "Flexbox", "Grid", "useState", "React", or "JavaScript"`,
-    chapter: "p0-1-setup"
-  };
-};
 
 const SearchWidget = () => {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [debouncedQuery, setDebouncedQuery] = useState('');
   const [history, setHistory] = useState<string[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
-  const cseRef = useRef<HTMLDivElement>(null);
-
-  const [isAiMode, setIsAiMode] = useState(false);
-  const [autosuggestions, setAutosuggestions] = useState<string[]>([]);
-  const [isGenerating, setIsGenerating] = useState(false);
-  const [aiResponse, setAiResponse] = useState<AiResponse | null>(null);
-  const [isInputFocused, setIsInputFocused] = useState(false);
 
   // User Authentication Real States
-  const [user, setUser] = useState<{ name: string; email: string; avatar: string; photo?: string } | null>(null);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
-  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
   const [authError, setAuthError] = useState<string | null>(null);
 
   // Nextsem Lens Scanner states
@@ -308,13 +134,20 @@ const SearchWidget = () => {
   const [lensResult, setLensResult] = useState<LensResult | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-
-  // Auto-close search modal when route/pathname changes (allows bottom nav navigation to work seamlessly)
+  // Debounce input to keep typing completely smooth on mobile soft keyboards
   useEffect(() => {
-    setTimeout(() => setIsOpen(false), 0);
+    const handler = setTimeout(() => {
+      setDebouncedQuery(searchQuery);
+    }, 100);
+    return () => clearTimeout(handler);
+  }, [searchQuery]);
+
+  // Auto-close search modal when route/pathname changes
+  useEffect(() => {
+    setIsOpen(false);
   }, [pathname]);
 
-  // Lock body scroll when search modal is open to prevent mobile scroll hijacking
+  // Lock body scroll when search modal is open
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
@@ -326,14 +159,14 @@ const SearchWidget = () => {
     };
   }, [isOpen]);
 
-  // Load Search History & register shortcut keys
+  // Load Search History & register global shortcut '/'
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const savedHistory = localStorage.getItem('nextsem_search_history');
       if (savedHistory) {
         try {
           const parsed = JSON.parse(savedHistory);
-          setTimeout(() => setHistory(parsed), 0);
+          setHistory(parsed);
         } catch (e) {
           console.error(e);
         }
@@ -345,9 +178,8 @@ const SearchWidget = () => {
         e.preventDefault();
         setIsOpen(true);
         setTimeout(() => {
-          const inputEl = document.querySelector('input[type="text"]') as HTMLInputElement;
-          inputEl?.focus();
-        }, 150);
+          inputRef.current?.focus();
+        }, 80);
       }
     };
     window.addEventListener('keydown', handleGlobalKeyDown);
@@ -356,7 +188,7 @@ const SearchWidget = () => {
     };
   }, []);
 
-  // Listen to Auth State Events and update locally
+  // Listen to custom open_search & open_google_auth events
   useEffect(() => {
     const handleOpenAuth = () => {
       setIsAuthModalOpen(true);
@@ -370,7 +202,7 @@ const SearchWidget = () => {
       if (query) {
         setSearchQuery(query);
       }
-      setTimeout(() => inputRef.current?.focus(), 150);
+      setTimeout(() => inputRef.current?.focus(), 80);
     };
     window.addEventListener("open_search", handleOpenSearch as EventListener);
 
@@ -383,61 +215,34 @@ const SearchWidget = () => {
     };
     window.addEventListener("nextsem_auth_error", handleAuthError as EventListener);
 
-    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
-      if (firebaseUser) {
-        const initials = firebaseUser.displayName 
-          ? firebaseUser.displayName.split(" ").map(n => n[0]).join("").substring(0, 2)
-          : "NS";
-        
-        const userObj = {
-          name: firebaseUser.displayName || "Nextsem Student",
-          email: firebaseUser.email || "",
-          avatar: initials.toUpperCase(),
-          photo: firebaseUser.photoURL || undefined
-        };
-        setUser(userObj);
-        localStorage.setItem('nextsem_user', JSON.stringify(userObj));
-        window.dispatchEvent(new Event("nextsem_auth_changed"));
-      } else {
-        setUser(null);
-        localStorage.removeItem('nextsem_user');
-        window.dispatchEvent(new Event("nextsem_auth_changed"));
-      }
-    });
-
     return () => {
       window.removeEventListener("open_google_auth", handleOpenAuth);
       window.removeEventListener("open_search", handleOpenSearch as EventListener);
       window.removeEventListener("nextsem_auth_error", handleAuthError as EventListener);
-      unsubscribe();
     };
   }, []);
 
-  // AI Response generator trigger
-  useEffect(() => {
-    if (isAiMode && searchQuery.trim()) {
-      setTimeout(() => setIsGenerating(true), 0);
-      const timer = setTimeout(() => {
-        const response = getLocalAiResponse(searchQuery);
-        setAiResponse(response);
-        setIsGenerating(false);
-      }, 950);
-      return () => clearTimeout(timer);
-    } else {
-      setTimeout(() => {
-        setAiResponse(null);
-        setIsGenerating(false);
-      }, 0);
+  // Google authentication action
+  const handleGoogleSignIn = async () => {
+    try {
+      setIsAuthModalOpen(false);
+      await signInWithGoogle();
+    } catch (err) {
+      console.error("Google Sign-In Error: ", err);
+      const authErr = err as { code?: string; message?: string };
+      if (authErr.code === "auth/configuration-not-found") {
+        setAuthError("configuration-not-found");
+      } else {
+        alert("Failed to authenticate with Google: " + (authErr.message || String(err)));
+      }
     }
-  }, [searchQuery, isAiMode]);
-
-
+  };
 
   // Save history to localStorage
   const saveSearchToHistory = (query: string) => {
     const trimmed = query.trim();
     if (!trimmed) return;
-    const filtered = [trimmed, ...history.filter((h) => h !== trimmed)].slice(0, 5);
+    const filtered = [trimmed, ...history.filter((h) => h !== trimmed)].slice(0, 6);
     setHistory(filtered);
     localStorage.setItem('nextsem_search_history', JSON.stringify(filtered));
   };
@@ -450,30 +255,18 @@ const SearchWidget = () => {
   const handleSearchSubmit = () => {
     if (searchQuery.trim()) {
       saveSearchToHistory(searchQuery);
-      setAutosuggestions([]);
-      setIsInputFocused(false);
       inputRef.current?.blur();
     }
   };
 
-  const handleExternalGoogleSearch = () => {
-    if (typeof window !== 'undefined' && searchQuery.trim()) {
-      window.open(`https://www.google.com/search?q=${encodeURIComponent(searchQuery)}`, '_blank', 'noopener,noreferrer');
-    }
-  };
-
-  const handleFullscreenTrigger = () => {
-    // Disabled OS-level fullscreen request to prevent navigation resets on mobile
-  };
-
   const handleSelectResult = (query: string) => {
     saveSearchToHistory(query);
-    handleFullscreenTrigger();
     setIsOpen(false);
   };
 
-  const getSearchResults = (): SearchResultItem[] => {
-    const query = searchQuery.trim().toLowerCase();
+  // High-efficiency memoized search results calculation
+  const results = useMemo((): SearchResultItem[] => {
+    const query = debouncedQuery.trim().toLowerCase();
     if (!query) return [];
 
     const queryWords = query.split(/\s+/).filter(w => w.length > 1);
@@ -502,23 +295,19 @@ const SearchWidget = () => {
 
         // 3. Word matches in title & content
         wordsToSearch.forEach((word) => {
-          // Word match in title
           if (lowerTitle.includes(word)) {
             score += 100;
-            // Matches exact word in title (boundaries)
             const regex = new RegExp(`\\b${word}\\b`, 'i');
             if (regex.test(lowerTitle)) {
               score += 150;
             }
           }
 
-          // Word occurrences in content (TF-IDF approximation)
           const occurrences = lowerContent.split(word).length - 1;
           if (occurrences > 0) {
-            score += Math.min(occurrences * 15, 150); // cap TF at 150
+            score += Math.min(occurrences * 15, 150);
           }
 
-          // 4. Fuzzy word matches in title (Levenshtein distance)
           if (word.length >= 4) {
             const titleWords = lowerTitle.split(/\s+/);
             titleWords.forEach((tWord) => {
@@ -535,7 +324,7 @@ const SearchWidget = () => {
           }
         });
 
-        // 5. Word Proximity Boost
+        // 4. Word Proximity Boost
         if (wordsToSearch.length > 1) {
           let lastIndex = -1;
           let minDistance = Infinity;
@@ -550,11 +339,11 @@ const SearchWidget = () => {
             }
           });
           if (minDistance < 150) {
-            score += 100; // close proximity boost
+            score += 100;
           }
         }
 
-        // Extract a clean matched text snippet around the query
+        // Extract clean matched snippet
         let excerpt = '';
         let bestIndex = 0;
         for (const word of wordsToSearch) {
@@ -575,7 +364,7 @@ const SearchWidget = () => {
       })
       .filter((item) => item.score > 0)
       .sort((a, b) => b.score - a.score);
-  };
+  }, [debouncedQuery]);
 
   // Lens processing logic
   const startLensProcess = (fileName: string, fileSize: string) => {
@@ -603,7 +392,6 @@ const SearchWidget = () => {
           });
         }
       } else {
-        // OMR Mode
         setLensResult({
           title: fileName.includes("midterm") ? "Midterm Web Development OMR Evaluation" : "Custom OMR Grading Sheet",
           score: 16,
@@ -632,222 +420,87 @@ const SearchWidget = () => {
     }
   };
 
-  // Google authentication actions
-  const handleGoogleSignIn = async () => {
-    try {
-      setIsAuthModalOpen(false);
-      await signInWithGoogle();
-    } catch (err) {
-      console.error("Google Sign-In Error: ", err);
-      const authErr = err as { code?: string; message?: string };
-      if (authErr.code === "auth/configuration-not-found") {
-        setAuthError("configuration-not-found");
-      } else {
-        alert("Failed to authenticate with Google: " + (authErr.message || String(err)));
-      }
-    }
-  };
-
-  const handleSignOut = async () => {
-    try {
-      setIsProfileDropdownOpen(false);
-      await signOut(auth);
-    } catch (err) {
-      console.error("Sign Out Error: ", err);
-    }
-  };
-
-  const results = getSearchResults();
-
   if (pathname === '/playground') return null;
 
   return (
     <>
-      {/* YouTube Android App-style Fullscreen Search Modal */}
+      {/* High Performance Fullscreen Search Modal */}
       {isOpen && (
-        <div className="fixed inset-0 bg-background text-white z-[999] flex flex-col animate-in fade-in zoom-in-95 duration-200">
+        <div className="fixed inset-0 h-[100dvh] w-full bg-[#0b0f19] text-white z-[999] flex flex-col overscroll-contain animate-in fade-in duration-150">
           
           {/* Top Search Bar */}
-          <div className="flex items-center gap-2 p-3 bg-slate-950/80 border-b border-slate-850/50 sticky top-0 z-50">
+          <div className="flex items-center gap-2.5 p-3 sm:p-4 bg-[#080b13] border-b border-slate-800/80 sticky top-0 z-50 shrink-0">
             <button
               onClick={() => setIsOpen(false)}
-              className="p-2 hover:bg-slate-850 rounded-full transition-colors text-slate-400 hover:text-white"
+              aria-label="Back"
+              className="p-2 hover:bg-slate-800 rounded-full transition-colors text-slate-400 hover:text-white shrink-0"
             >
               <ArrowLeft size={22} />
             </button>
             
-            <div className="flex-1 bg-slate-900 rounded-full px-4 py-2 flex items-center gap-2 border border-slate-800 focus-within:border-blue-500/50 transition-colors relative">
-              <Plus 
-                size={16} 
-                className="text-slate-500 shrink-0 cursor-pointer hover:text-blue-500 hover:scale-115 transition-transform" 
-                onClick={() => {
-                  setIsOpen(false);
-                  setIsLensOpen(true);
-                }}
-              />
+            <div className="flex-1 bg-[#131926] rounded-full px-4 py-2 sm:py-2.5 flex items-center gap-2.5 border border-slate-700/60 focus-within:border-[#04AA6D] transition-colors relative shadow-inner">
+              <Search size={17} className="text-[#04AA6D] shrink-0" />
               <input
                 ref={inputRef}
-                type="text"
+                type="search"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                onFocus={() => setIsInputFocused(true)}
-                onBlur={() => setTimeout(() => setIsInputFocused(false), 200)}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter') {
                     handleSearchSubmit();
                   }
                 }}
-                placeholder="Ask Nextsem..."
-                className="flex-1 bg-transparent text-white placeholder-slate-500 font-bold focus:outline-none text-sm md:text-base"
+                autoCapitalize="none"
+                autoCorrect="off"
+                spellCheck={false}
+                inputMode="search"
+                enterKeyHint="search"
+                placeholder="Search HTML, CSS, JS, React, Node, CLI..."
+                className="flex-1 bg-transparent text-white placeholder-slate-400 font-medium focus:outline-none text-base leading-normal"
               />
               {searchQuery ? (
-                <div className="flex items-center gap-1 shrink-0">
-                  <button
-                    onClick={handleSearchSubmit}
-                    className="p-1 hover:bg-slate-800 rounded-full transition-colors text-slate-400 hover:text-blue-500 mr-0.5 cursor-pointer"
-                    title="Search"
-                  >
-                    <Search size={15} />
-                  </button>
-                  <button
-                    onClick={() => {
-                      setSearchQuery('');
-                      setAutosuggestions([]);
-                    }}
-                    className="p-1 hover:bg-slate-800 rounded-full transition-colors text-slate-400 hover:text-white cursor-pointer"
-                    title="Clear"
-                  >
-                    <X size={15} />
-                  </button>
-                </div>
+                <button
+                  onClick={() => setSearchQuery('')}
+                  className="p-1 hover:bg-slate-800 rounded-full transition-colors text-slate-400 hover:text-white shrink-0 cursor-pointer"
+                  title="Clear search"
+                  aria-label="Clear search"
+                >
+                  <X size={17} />
+                </button>
               ) : (
-                <div className="flex items-center gap-2 text-slate-500 mr-1 shrink-0">
-                  <Mic size={15} />
-                  <Camera size={15} className="hidden sm:inline" />
-                </div>
-              )}
-
-              {/* Google-like Autosuggestions & History Dropdown */}
-              {(autosuggestions.length > 0 || (isInputFocused && !searchQuery)) && (
-                <div className="absolute top-[110%] left-0 right-0 bg-[#0f172a] border border-slate-800 rounded-2xl shadow-2xl z-[100] max-h-[280px] overflow-y-auto p-2 flex flex-col text-left animate-in fade-in slide-in-from-top-1 duration-150">
-                  {searchQuery ? (
-                    // Show autosuggestions on typing
-                    autosuggestions.map((sug, i) => (
-                      <button
-                        key={i}
-                        onClick={() => {
-                          setSearchQuery(sug);
-                          setAutosuggestions([]);
-                          setIsInputFocused(false);
-                        }}
-                        className="flex items-center gap-2.5 px-3 py-2.5 hover:bg-slate-800/80 rounded-xl text-xs font-semibold text-slate-200 transition-colors text-left"
-                      >
-                        <Search size={12} className="text-slate-500 shrink-0" />
-                        <span className="truncate">{sug}</span>
-                      </button>
-                    ))
-                  ) : (
-                    // Show history and recommended topics when focused and empty
-                    <div className="space-y-3 p-1">
-                      {history.length > 0 && (
-                        <div>
-                          <span className="block text-[9px] font-black uppercase tracking-wider text-slate-500 mb-1 flex items-center gap-1">
-                            <History size={10} /> Recent Searches
-                          </span>
-                          <div className="flex flex-col">
-                            {history.slice(0, 3).map((h, i) => (
-                              <button
-                                key={i}
-                                onClick={() => {
-                                  setSearchQuery(h);
-                                  setIsInputFocused(false);
-                                }}
-                                className="flex items-center gap-2 py-2 hover:bg-slate-800/50 text-left text-xs font-semibold text-slate-300 rounded-lg px-1"
-                              >
-                                <History size={11} className="text-slate-550 shrink-0" />
-                                <span className="truncate flex-1">{h}</span>
-                              </button>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                      
-                      <div>
-                        <span className="block text-[9px] font-black uppercase tracking-wider text-slate-500 mb-1 flex items-center gap-1">
-                          <Sparkles size={10} /> Recommended Topics
-                        </span>
-                        <div className="flex flex-wrap gap-1.5">
-                          {SUGGESTED_SEARCHES.slice(0, 3).map((s, idx) => (
-                            <button
-                              key={idx}
-                              onClick={() => {
-                                setSearchQuery(s);
-                                setIsInputFocused(false);
-                              }}
-                              className="px-2.5 py-1.5 bg-slate-850 hover:bg-slate-800 border border-slate-800 rounded-full text-[10px] font-bold text-slate-300 transition-all"
-                            >
-                              {s}
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </div>
+                <button
+                  onClick={() => {
+                    setIsOpen(false);
+                    setIsLensOpen(true);
+                  }}
+                  className="p-1 text-slate-400 hover:text-[#04AA6D] rounded-full transition-colors shrink-0"
+                  title="Nextsem Lens OCR/OMR Scanner"
+                >
+                  <Camera size={17} />
+                </button>
               )}
             </div>
           </div>
 
-          {/* Mode Switcher Tabs */}
-          <div className="flex bg-slate-950 px-4 border-b border-slate-900 text-xs shrink-0 select-none overflow-x-auto custom-scrollbar">
-            <button
-              onClick={() => {
-                setIsAiMode(false);
-              }}
-              className={`flex items-center gap-1.5 px-5 py-3 font-black uppercase tracking-wider border-b-2 transition-all shrink-0 ${
-                !isAiMode
-                  ? "border-blue-500 text-white bg-slate-900/30" 
-                  : "border-transparent text-slate-400 hover:text-white"
-              }`}
-            >
-              <Search size={13} />
-              <span>Standard Results</span>
-            </button>
-            <button
-              onClick={() => {
-                setIsAiMode(true);
-                inputRef.current?.focus();
-              }}
-              className={`flex items-center gap-1.5 px-5 py-3 font-black uppercase tracking-wider border-b-2 transition-all shrink-0 ${
-                isAiMode 
-                  ? "border-emerald-500 text-emerald-400 bg-slate-900/30" 
-                  : "border-transparent text-slate-400 hover:text-white"
-              }`}
-            >
-              <Sparkles size={13} className="text-emerald-500" />
-              <span>AI Search Mode</span>
-            </button>
-          </div>
-
-          {/* Search Content Pane */}
-          <div className="flex-1 overflow-y-auto p-4 md:p-6 max-w-3xl mx-auto w-full pb-20">
+          {/* Search Content Pane (Mobile touch-friendly scroll) */}
+          <div className="flex-1 overflow-y-auto overscroll-y-contain px-4 py-4 md:p-6 max-w-3xl mx-auto w-full pb-28 [-webkit-overflow-scrolling:touch]">
             
             {/* Case A: Empty Query - Show History & Suggestions */}
-            {!searchQuery && (
+            {!debouncedQuery && (
               <div className="space-y-6">
                 
                 {/* Search History */}
                 {history.length > 0 && (
                   <div>
                     <div className="flex justify-between items-center mb-3">
-                      <span className="text-xs font-black uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
-                        <History size={14} /> Recent Searches
+                      <span className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+                        <History size={14} className="text-[#04AA6D]" /> Recent Searches
                       </span>
-                      <button onClick={clearHistory} className="text-xs font-bold text-blue-400 hover:underline">
+                      <button onClick={clearHistory} className="text-xs font-bold text-[#04AA6D] hover:underline cursor-pointer">
                         Clear All
                       </button>
                     </div>
-                    <div className="flex flex-col">
+                    <div className="flex flex-col divide-y divide-slate-800/50">
                       {history.map((h, i) => (
                         <button
                           key={i}
@@ -855,9 +508,9 @@ const SearchWidget = () => {
                             setSearchQuery(h);
                             inputRef.current?.focus();
                           }}
-                          className="flex items-center gap-3 py-3 border-b border-slate-900 hover:bg-slate-900/40 text-left text-sm font-semibold text-slate-200"
+                          className="flex items-center gap-3 py-3 hover:bg-slate-900/40 text-left text-sm font-semibold text-slate-200 transition-colors cursor-pointer"
                         >
-                          <History size={16} className="text-slate-500 shrink-0" />
+                          <History size={15} className="text-slate-500 shrink-0" />
                           <span className="flex-1 truncate">{h}</span>
                         </button>
                       ))}
@@ -867,8 +520,8 @@ const SearchWidget = () => {
 
                 {/* Suggestions */}
                 <div>
-                  <span className="block text-xs font-black uppercase tracking-wider text-slate-400 mb-3 flex items-center gap-1.5">
-                    <Sparkles size={14} /> Recommended Topics
+                  <span className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-3 flex items-center gap-1.5">
+                    <Sparkles size={14} className="text-[#04AA6D]" /> Recommended Topics
                   </span>
                   <div className="flex flex-wrap gap-2">
                     {SUGGESTED_SEARCHES.map((s, idx) => (
@@ -878,7 +531,7 @@ const SearchWidget = () => {
                           setSearchQuery(s);
                           inputRef.current?.focus();
                         }}
-                        className="px-4 py-2 bg-slate-900 hover:bg-slate-800 border border-slate-800/80 rounded-full text-xs font-bold text-slate-200 transition-all hover:scale-102 active:scale-98"
+                        className="px-3.5 py-1.5 bg-[#141b2b] hover:bg-[#1c263b] border border-slate-700/60 rounded-full text-xs font-semibold text-slate-200 transition-all hover:border-[#04AA6D]/50 cursor-pointer"
                       >
                         {s}
                       </button>
@@ -886,27 +539,55 @@ const SearchWidget = () => {
                   </div>
                 </div>
 
-                {/* Book Navigation Quick Links */}
+                {/* Quick Start Track Links */}
                 <div>
-                  <span className="block text-xs font-black uppercase tracking-wider text-slate-400 mb-3 flex items-center gap-1.5">
-                    <BookOpen size={14} /> Start Reading Quick Links
+                  <span className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-3 flex items-center gap-1.5">
+                    <BookOpen size={14} className="text-[#04AA6D]" /> Core Learning Tracks
                   </span>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                     <Link
-                      href="/book/p0-setup"
-                      onClick={() => handleSelectResult('Developer Setup')}
-                      className="flex items-center gap-3 p-3 bg-slate-900 hover:bg-slate-850 border border-slate-800/80 rounded-xl transition-all font-bold text-sm text-slate-200"
+                      href="/html"
+                      onClick={() => handleSelectResult('HTML5 Web Architecture')}
+                      className="flex items-center gap-3 p-3.5 bg-[#111726] hover:bg-[#182035] border border-slate-800 rounded-xl transition-all font-bold text-sm text-slate-200 hover:border-[#04AA6D]/50"
                     >
-                      <div className="w-8 h-8 rounded-lg bg-blue-600/20 flex items-center justify-center border border-blue-500/30">💻</div>
-                      <span>P0: OS & Developer Setup</span>
+                      <div className="w-8 h-8 rounded-lg bg-orange-500/20 text-orange-400 flex items-center justify-center border border-orange-500/30 text-sm">📄</div>
+                      <div>
+                        <span className="block">HTML5 Web Architecture</span>
+                        <span className="text-[10px] text-slate-400 font-normal">98+ Step-by-step Lessons</span>
+                      </div>
                     </Link>
                     <Link
-                      href="/book/p3-1-basics"
-                      onClick={() => handleSelectResult('JS Basics')}
-                      className="flex items-center gap-3 p-3 bg-slate-900 hover:bg-slate-850 border border-slate-800/80 rounded-xl transition-all font-bold text-sm text-slate-200"
+                      href="/cli"
+                      onClick={() => handleSelectResult('Windows CLI Terminal')}
+                      className="flex items-center gap-3 p-3.5 bg-[#111726] hover:bg-[#182035] border border-slate-800 rounded-xl transition-all font-bold text-sm text-slate-200 hover:border-[#04AA6D]/50"
                     >
-                      <div className="w-8 h-8 rounded-lg bg-amber-600/20 flex items-center justify-center border border-amber-500/30">⚡</div>
-                      <span>P3: JS Basics Course</span>
+                      <div className="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center border border-emerald-500/30 text-sm">⚡</div>
+                      <div>
+                        <span className="block">Windows 11 CLI Terminal</span>
+                        <span className="text-[10px] text-slate-400 font-normal">Command Prompt &amp; Shell</span>
+                      </div>
+                    </Link>
+                    <Link
+                      href="/tracks"
+                      onClick={() => handleSelectResult('6 Developer Learning Tracks')}
+                      className="flex items-center gap-3 p-3.5 bg-[#111726] hover:bg-[#182035] border border-slate-800 rounded-xl transition-all font-bold text-sm text-slate-200 hover:border-[#04AA6D]/50"
+                    >
+                      <div className="w-8 h-8 rounded-lg bg-[#04AA6D]/20 text-[#04AA6D] flex items-center justify-center border border-[#04AA6D]/30 text-sm">🎯</div>
+                      <div>
+                        <span className="block">6 Structured Tracks</span>
+                        <span className="text-[10px] text-slate-400 font-normal">Stage 0 to Stage 5 Full Stack</span>
+                      </div>
+                    </Link>
+                    <Link
+                      href="/projects"
+                      onClick={() => handleSelectResult('15+ Interactive Projects')}
+                      className="flex items-center gap-3 p-3.5 bg-[#111726] hover:bg-[#182035] border border-slate-800 rounded-xl transition-all font-bold text-sm text-slate-200 hover:border-[#04AA6D]/50"
+                    >
+                      <div className="w-8 h-8 rounded-lg bg-sky-500/20 text-sky-400 flex items-center justify-center border border-sky-500/30 text-sm">🚀</div>
+                      <div>
+                        <span className="block">15+ Interactive Projects</span>
+                        <span className="text-[10px] text-slate-400 font-normal">Canvas &amp; CSS Keyframes Labs</span>
+                      </div>
                     </Link>
                   </div>
                 </div>
@@ -915,169 +596,97 @@ const SearchWidget = () => {
             )}
 
             {/* Case B: Query Entered */}
-            {searchQuery && (
+            {debouncedQuery && (
               <div className="space-y-4">
 
-                {/* AI Search Mode Result Panel */}
-                {isAiMode && (
-                  <div>
-                    {isGenerating ? (
-                      /* Gemini Loading Shimmer */
-                      <div className="bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-emerald-500/20 p-[1.5px] rounded-2xl animate-pulse shadow-md max-w-2xl mx-auto my-4">
-                        <div className="bg-slate-950 p-6 rounded-[15px] space-y-4 text-left">
-                          <div className="flex items-center gap-2 text-xs font-black text-slate-400">
-                            <Sparkles size={14} className="text-purple-400 animate-spin" />
-                            <span>Nextsem AI is formulating conceptual overview...</span>
+                {/* Standard Results list */}
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between pt-1">
+                    <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
+                      Matching Lessons &amp; Topics ({results.length})
+                    </span>
+                  </div>
+
+                  {results.length > 0 ? (
+                    <div className="flex flex-col gap-3">
+                      {results.map((item) => (
+                        <Link
+                          key={item.id}
+                          href={item.url || getChapterUrl(item.id)}
+                          onClick={() => handleSelectResult(item.title)}
+                          className="flex flex-col sm:flex-row gap-3.5 p-3.5 bg-[#101626] hover:bg-[#161f36] border border-slate-800/80 rounded-2xl transition-all duration-200 group hover:border-[#04AA6D]/40 shadow-sm"
+                        >
+                          {/* Thumbnail / Icon Badge */}
+                          <div className="w-full sm:w-36 h-20 bg-[#080d18] rounded-xl flex flex-col items-center justify-center border border-slate-800/80 shadow-md relative overflow-hidden shrink-0">
+                            <div className="text-2xl font-black">{item.icon}</div>
+                            <span className="absolute bottom-1.5 right-1.5 bg-black/80 text-[9px] font-bold uppercase px-1.5 py-0.5 rounded border border-white/10 text-slate-300">
+                              {item.phase}
+                            </span>
                           </div>
-                          <div className="h-4 bg-slate-900 rounded w-3/4"></div>
-                          <div className="h-3 bg-slate-900 rounded w-5/6"></div>
-                          <div className="h-3 bg-slate-900 rounded w-2/3"></div>
-                        </div>
-                      </div>
-                    ) : (
-                      aiResponse && (
-                        /* AI Overview Card */
-                        <div className="bg-gradient-to-br from-blue-500/20 via-purple-500/20 to-emerald-500/20 p-[1.5px] rounded-2xl shadow-xl max-w-2xl mx-auto my-4 animate-in fade-in slide-in-from-bottom duration-300">
-                          <div className="bg-[#0b0f19] p-5 md:p-6 rounded-[15px] text-left">
-                            <div className="flex items-center gap-2 mb-4">
-                              <div className="p-1.5 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-lg">
-                                <Sparkles size={16} />
-                              </div>
-                              <div>
-                                <h3 className="text-sm md:text-base font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400 uppercase tracking-wide">
-                                  {aiResponse.title}
-                                </h3>
-                                <p className="text-[9px] text-slate-500 font-extrabold uppercase">AI Generated Concept Overview</p>
-                              </div>
+
+                          {/* Metadata */}
+                          <div className="flex flex-col justify-center flex-1 text-left min-w-0">
+                            <h4 className="text-sm md:text-base font-bold text-white group-hover:text-[#20c997] transition-colors mb-1">
+                              {highlightText(item.title, debouncedQuery)}
+                            </h4>
+                            
+                            <div className="flex items-center gap-2 text-[11px] text-slate-400 font-medium mb-1.5">
+                              <span>Nextsem Academy</span>
+                              <span>•</span>
+                              <span>{item.duration}</span>
                             </div>
                             
-                            <p className="text-xs md:text-sm text-slate-200 leading-relaxed font-medium mb-5">
-                              {aiResponse.summary}
+                            <p className="text-xs text-slate-300 leading-relaxed font-mono truncate sm:whitespace-normal">
+                              {highlightText(item.excerpt, debouncedQuery)}
                             </p>
-
-                            {aiResponse.code && (
-                              <div className="mb-5">
-                                <span className="block text-[9px] font-black uppercase text-slate-500 mb-1.5">Code Snippet:</span>
-                                <pre className="p-4 bg-[#050811] border border-slate-900 rounded-xl font-mono text-[10px] md:text-xs text-blue-400 overflow-x-auto leading-relaxed max-h-40 shadow-inner">
-                                  <code>{aiResponse.code}</code>
-                                </pre>
-                              </div>
-                            )}
-
-                            <div className="flex items-center justify-between border-t border-slate-900/60 pt-4">
-                              <span className="text-[10px] text-slate-500 font-bold">Source: Nextsem Curriculum</span>
-                              <Link
-                                href={getChapterUrl(aiResponse.chapter)}
-                                onClick={() => handleSelectResult(aiResponse.title)}
-                                className="inline-flex items-center gap-1.5 text-xs font-black text-emerald-400 hover:text-emerald-300 transition-colors uppercase tracking-wider"
-                              >
-                                <span>Explore Chapter</span>
-                                <span>→</span>
-                              </Link>
-                            </div>
                           </div>
-                        </div>
-                      )
-                    )}
-                  </div>
-                )}
-
-                {/* Standard Results list */}
-                <div className="space-y-6">
-                  {/* Nextsem Suggested Results */}
-                  <div className="space-y-4">
-                    <span className="block text-xs font-black uppercase tracking-wider text-slate-400 mb-4 pt-2">
-                      {isAiMode ? "Curriculum References" : "Nextsem Suggested Results"} ({results.length})
-                    </span>
-
-                    {results.length > 0 ? (
-                      <div className="flex flex-col gap-4">
-                        {results.map((item) => (
-                          <Link
-                            key={item.id}
-                            href={getChapterUrl(item.id)}
-                            onClick={() => handleSelectResult(item.title)}
-                            className="flex flex-col sm:flex-row gap-4 p-3 bg-slate-900/30 hover:bg-slate-900/80 border border-slate-850 rounded-2xl transition-all duration-300 group hover:border-blue-500/40 shadow-sm"
-                          >
-                            {/* Thumbnail */}
-                            <div className="aspect-video w-full sm:w-48 bg-slate-950 rounded-xl flex flex-col items-center justify-center border border-slate-850/80 shadow-md relative overflow-hidden shrink-0 group-hover:scale-[1.02] transition-transform duration-300">
-                              <div className={`absolute inset-0 opacity-15 bg-gradient-to-br ${item.color} blur-xl`} />
-                              
-                              <div className={`w-12 h-12 rounded-2xl ${item.color} flex items-center justify-center text-2xl font-black shadow-lg border border-white/20 relative z-10 group-hover:rotate-6 transition-transform duration-300`}>
-                                {item.icon}
-                              </div>
-                              <span className="absolute bottom-2 right-2 bg-black/80 text-[10px] font-black uppercase px-2 py-0.5 rounded border border-white/10 tracking-widest text-slate-250 z-10">
-                                {item.phase}
-                              </span>
-                            </div>
-
-                            {/* Metadata */}
-                            <div className="flex flex-col justify-center flex-1 text-left">
-                              <h4 className="text-base md:text-lg font-black text-white leading-snug group-hover:text-blue-400 transition-colors mb-1.5">
-                                {highlightText(item.title, searchQuery)}
-                              </h4>
-                              
-                              <div className="flex items-center gap-2 text-xs text-slate-400 font-bold mb-2">
-                                <span>Nextsem Academy</span>
-                                <span>•</span>
-                                <span>{item.duration}</span>
-                              </div>
-                              
-                              <p className="text-xs md:text-sm text-slate-400 font-medium leading-relaxed bg-slate-900/40 border border-slate-850/20 px-3 py-2 rounded-lg font-mono overflow-x-hidden text-ellipsis whitespace-nowrap sm:whitespace-normal">
-                                {highlightText(item.excerpt, searchQuery)}
-                              </p>
-                            </div>
-                          </Link>
-                        ))}
-                      </div>
-                    ) : (
-                      /* Only show no local results message if not generating */
-                      !isGenerating && (
-                        <div className="text-center py-10 border border-dashed border-slate-855 rounded-2xl bg-slate-900/10">
-                          <span className="block text-2xl mb-2">🔍</span>
-                          <h4 className="text-xs font-black text-slate-400 mb-1">No Matching Academy Tutorials</h4>
-                          <p className="text-[10px] text-slate-500 max-w-xs mx-auto">
-                            No internal tutorials match &quot;{searchQuery}&quot;. Please refer to the external search resources below.
-                          </p>
-                        </div>
-                      )
-                    )}
-                  </div>
+                        </Link>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="text-center py-10 border border-dashed border-slate-800 rounded-2xl bg-slate-900/20">
+                      <span className="block text-2xl mb-2">🔍</span>
+                      <h4 className="text-sm font-bold text-white mb-1">No Matching Lessons Found</h4>
+                      <p className="text-xs text-slate-400 max-w-xs mx-auto">
+                        No direct matches for &quot;{debouncedQuery}&quot;. Try our external reference links below.
+                      </p>
+                    </div>
+                  )}
                 </div>
 
               </div>
             )}
 
-            {/* External Web Search fallback shortcuts (replaces Google CSE element) */}
-            {!isAiMode && searchQuery.trim() !== '' && (
-              <div className="bg-slate-900/30 p-5 rounded-2xl border border-slate-850 text-left animate-in fade-in duration-200 mt-6">
-                <span className="block text-xs font-black uppercase tracking-wider text-slate-400 mb-3 flex items-center gap-1.5 font-bold">
-                  <ExternalLink size={13} className="text-blue-400" />
+            {/* External Web Search fallback shortcuts */}
+            {debouncedQuery.trim() !== '' && (
+              <div className="bg-[#101626] p-4 sm:p-5 rounded-2xl border border-slate-800 text-left animate-in fade-in duration-200 mt-5">
+                <span className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2 flex items-center gap-1.5">
+                  <ExternalLink size={13} className="text-[#04AA6D]" />
                   <span>Search on External Developer Resources</span>
                 </span>
-                <p className="text-[11px] text-slate-500 font-semibold mb-4 leading-relaxed">
-                  If you did not find what you were looking for in the Nextsem Academy curriculum, try searching directly on these trusted developer platforms:
+                <p className="text-xs text-slate-400 font-normal mb-3 leading-relaxed">
+                  Looking for deeper specs? Search directly across official developer platforms:
                 </p>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                   <button
-                    onClick={() => window.open(`https://www.google.com/search?q=${encodeURIComponent(searchQuery)}`, '_blank', 'noopener,noreferrer')}
-                    className="flex items-center gap-2.5 px-3 py-2.5 bg-slate-950 hover:bg-slate-900 border border-slate-855 rounded-xl text-xs font-bold text-slate-300 transition-all active:scale-97 cursor-pointer hover:border-blue-500/30"
+                    onClick={() => window.open(`https://www.google.com/search?q=${encodeURIComponent(debouncedQuery)}`, '_blank', 'noopener,noreferrer')}
+                    className="flex items-center gap-2 px-3 py-2.5 bg-[#090d18] hover:bg-[#141b2b] border border-slate-800 rounded-xl text-xs font-semibold text-slate-200 transition-all cursor-pointer hover:border-[#04AA6D]/40"
                   >
-                    <Search size={12} className="text-blue-500 shrink-0" />
+                    <Search size={12} className="text-blue-400 shrink-0" />
                     <span className="truncate">Google Search</span>
                   </button>
                   <button
-                    onClick={() => window.open(`https://developer.mozilla.org/en-US/search?q=${encodeURIComponent(searchQuery)}`, '_blank', 'noopener,noreferrer')}
-                    className="flex items-center gap-2.5 px-3 py-2.5 bg-slate-950 hover:bg-slate-900 border border-slate-855 rounded-xl text-xs font-bold text-slate-300 transition-all active:scale-97 cursor-pointer hover:border-orange-500/30"
+                    onClick={() => window.open(`https://developer.mozilla.org/en-US/search?q=${encodeURIComponent(debouncedQuery)}`, '_blank', 'noopener,noreferrer')}
+                    className="flex items-center gap-2 px-3 py-2.5 bg-[#090d18] hover:bg-[#141b2b] border border-slate-800 rounded-xl text-xs font-semibold text-slate-200 transition-all cursor-pointer hover:border-orange-400/40"
                   >
-                    <BookOpen size={12} className="text-orange-500 shrink-0" />
+                    <BookOpen size={12} className="text-orange-400 shrink-0" />
                     <span className="truncate">MDN Web Docs</span>
                   </button>
                   <button
-                    onClick={() => window.open(`https://stackoverflow.com/search?q=${encodeURIComponent(searchQuery)}`, '_blank', 'noopener,noreferrer')}
-                    className="flex items-center gap-2.5 px-3 py-2.5 bg-slate-950 hover:bg-slate-900 border border-slate-855 rounded-xl text-xs font-bold text-slate-300 transition-all active:scale-97 cursor-pointer hover:border-amber-500/30"
+                    onClick={() => window.open(`https://stackoverflow.com/search?q=${encodeURIComponent(debouncedQuery)}`, '_blank', 'noopener,noreferrer')}
+                    className="flex items-center gap-2 px-3 py-2.5 bg-[#090d18] hover:bg-[#141b2b] border border-slate-800 rounded-xl text-xs font-semibold text-slate-200 transition-all cursor-pointer hover:border-amber-400/40"
                   >
-                    <Code size={12} className="text-amber-500 shrink-0" />
+                    <Code size={12} className="text-amber-400 shrink-0" />
                     <span className="truncate">Stack Overflow</span>
                   </button>
                 </div>

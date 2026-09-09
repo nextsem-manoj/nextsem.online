@@ -1,27 +1,26 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { Metadata } from "next";
-import { htmlLessons } from "@/data/htmlLessonsData";
-import HtmlLessonClient from "@/components/HtmlLessonClient";
+import HtmlDashboardClient from "@/components/HtmlDashboardClient";
 
 export const metadata: Metadata = {
-  title: "Free HTML Lessons: Learn HTML5 & Web Development Step-by-Step | Nextsem",
-  description: "Start learning with 98+ free HTML lessons for beginners on Windows 11. Master HTML5 semantic tags, VS Code setup, forms, CSS styling, and hands-on coding exercises with zero paywalls.",
+  title: "Free HTML5 Full Stack Course & Syllabus Dashboard | Nextsem Academy",
+  description: "Master HTML5 with 98+ free interactive lessons, VS Code Windows 11 setup, live code previews, comprehensive quiz assessment, and zero paywalls.",
   keywords: [
-    "free html lessons",
-    "learn html free",
-    "free html tutorial for beginners",
+    "html dashboard",
+    "free html course",
+    "learn html5",
+    "html syllabus",
     "free web development lessons",
-    "html5 free course",
-    "html coding lessons online",
+    "html quiz assessment",
     "nextsem academy free html",
-    "visual studio code html setup"
+    "visual studio code html"
   ],
   alternates: {
     canonical: "/html"
   },
   openGraph: {
-    title: "Free HTML Lessons: Learn HTML5 & Web Development Step-by-Step | Nextsem",
-    description: "Start learning with 98+ free HTML lessons for beginners on Windows 11. Master HTML5 semantic tags, VS Code setup, forms, CSS styling, and hands-on coding exercises with zero paywalls.",
+    title: "Free HTML5 Full Stack Course & Syllabus Dashboard | Nextsem Academy",
+    description: "Master HTML5 with 98+ free interactive lessons, VS Code Windows 11 setup, live code previews, comprehensive quiz assessment, and zero paywalls.",
     url: "https://nextsem.online/html",
     type: "website",
     siteName: "Nextsem Academy",
@@ -29,14 +28,12 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free HTML Lessons: Learn HTML5 Step-by-Step | Nextsem",
+    title: "Free HTML5 Full Stack Course & Syllabus Dashboard | Nextsem",
     description: "98+ Free HTML Lessons, VS Code setups, and practical coding exercises."
   }
 };
 
 export default function HtmlRootPage() {
-  const lessonOne = htmlLessons[0];
-
   // Google Course & Educational Schema Markup for rich SEO snippets
   const jsonLd = {
     "@context": "https://schema.org",
@@ -64,7 +61,15 @@ export default function HtmlRootPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <HtmlLessonClient lesson={lessonOne} />
+      <Suspense
+        fallback={
+          <div className="min-h-screen bg-[#060c18] text-white flex items-center justify-center text-sm font-mono">
+            Loading HTML Course Dashboard...
+          </div>
+        }
+      >
+        <HtmlDashboardClient />
+      </Suspense>
     </>
   );
 }

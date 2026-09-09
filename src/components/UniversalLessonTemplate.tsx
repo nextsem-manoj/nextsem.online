@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { 
   ChevronLeft, ChevronRight, Bookmark, Download, 
-  Terminal, Monitor, Sparkles, CheckCircle2, Copy, Check
+  Terminal, Monitor, Sparkles, CheckCircle2, Copy, Check, Search
 } from "lucide-react";
 import CopyableCommand from "./CopyableCommand";
 import ShareButton from "./ShareButton";
@@ -704,7 +704,7 @@ Execution successful! Output verified on Windows 11 Pro x86_64.
           const parts = cleanText.split(boldRegex);
 
           result.push(
-            <li key={`li-${i}`} className="ml-5 list-disc text-base text-slate-100 my-1 leading-relaxed">
+            <li key={`li-${i}`} className="ml-5 list-disc text-[15px] sm:text-[16px] text-slate-200 my-1.5 leading-[1.75]">
               {parts.map((part, pIdx) =>
                 pIdx % 2 === 1
                   ? <strong key={pIdx} className="text-white font-bold">{part.replace(/[*`]/g, "")}</strong>
@@ -723,7 +723,7 @@ Execution successful! Output verified on Windows 11 Pro x86_64.
           const parts = cleanText.split(boldRegex);
 
           result.push(
-            <li key={`oli-${i}`} className="ml-5 list-decimal text-base text-slate-100 my-1 leading-relaxed">
+            <li key={`oli-${i}`} className="ml-5 list-decimal text-[15px] sm:text-[16px] text-slate-200 my-1.5 leading-[1.75]">
               {parts.map((part, pIdx) =>
                 pIdx % 2 === 1
                   ? <strong key={pIdx} className="text-white font-bold">{part.replace(/[*`]/g, "")}</strong>
@@ -741,7 +741,7 @@ Execution successful! Output verified on Windows 11 Pro x86_64.
         if (boldRegex.test(sanitizedParagraph) || sanitizedParagraph.includes('`') || sanitizedParagraph.includes('<')) {
           const parts = sanitizedParagraph.split(boldRegex);
           result.push(
-            <p key={`p-${i}`} className="text-base text-slate-100 leading-relaxed my-1.5 font-normal">
+            <p key={`p-${i}`} className="text-[15.5px] sm:text-[16.5px] text-slate-200 leading-[1.75] my-2 font-normal">
               {parts.map((part, pIdx) =>
                 pIdx % 2 === 1
                   ? <strong key={pIdx} className="text-white font-bold">{part.replace(/[*`]/g, "")}</strong>
@@ -751,7 +751,7 @@ Execution successful! Output verified on Windows 11 Pro x86_64.
           );
         } else {
           result.push(
-            <p key={`p-${i}`} className="text-base text-slate-100 leading-relaxed my-1.5 font-normal">
+            <p key={`p-${i}`} className="text-[15.5px] sm:text-[16.5px] text-slate-200 leading-[1.75] my-2 font-normal">
               {renderInlineCode(sanitizedParagraph.replace(/[*]/g, ""))}
             </p>
           );
@@ -815,8 +815,18 @@ Execution successful! Output verified on Windows 11 Pro x86_64.
           <span>{subjectTitle.replace(/Modern Web|Web Development|Programming/gi, '').trim()} Roadmap</span>
         </Link>
 
-        {/* Right: Bookmark + Next Lesson */}
+        {/* Right: Search + Bookmark + Next Lesson */}
         <div className="flex items-center gap-2">
+          {/* Quick Search Button */}
+          <button
+            onClick={() => window.dispatchEvent(new CustomEvent("open_search", { detail: { query: "" } }))}
+            className="px-3 py-1.5 rounded-lg border bg-[#141b30] border-slate-700/80 hover:border-slate-600 text-slate-300 hover:text-white transition-all cursor-pointer flex items-center gap-1.5 text-xs font-bold shadow-xs"
+            title="Search Nextsem (Press /)"
+          >
+            <Search size={14} className="text-[#04AA6D]" />
+            <span className="hidden sm:inline">Search</span>
+          </button>
+
           <button
             onClick={toggleBookmark}
             className={`px-3 py-1.5 rounded-lg border transition-all cursor-pointer flex items-center gap-1.5 text-xs font-bold shadow-xs ${

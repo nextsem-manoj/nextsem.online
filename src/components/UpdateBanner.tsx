@@ -68,7 +68,7 @@ const UpdateBanner = () => {
                 v{CURRENT_APP_VERSION}
               </span>
               <p className="text-xs font-bold truncate">
-                🚀 New Update Available! IGNOU BCA 1st Sem Multi-Subject Switcher & 5-Tab Navigation.
+                🚀 New Update Available! Interactive VS Code Simulator & 6 Full Stack Tracks.
               </p>
             </div>
             <div className="flex items-center gap-2 shrink-0">
@@ -111,7 +111,7 @@ const UpdateBanner = () => {
                     Nextsem App Update v{CURRENT_APP_VERSION}
                   </h3>
                   <p className="text-[11px] text-emerald-400 font-bold">
-                    Official IGNOU BCA 1st Semester Edition
+                    Full Stack Web Developer Edition
                   </p>
                 </div>
               </div>
@@ -126,31 +126,31 @@ const UpdateBanner = () => {
             {/* Feature Highlights */}
             <div className="space-y-3 py-1">
               <p className="text-xs font-medium text-slate-300">
-                A new major update is ready! Upgrade now to get the latest interactive study tools & notes:
+                A new major update is ready! Upgrade now to get the latest interactive coding tools & tracks:
               </p>
 
               <div className="space-y-2 bg-slate-900/80 p-3.5 rounded-2xl border border-slate-800 text-xs">
                 <div className="flex items-start gap-2.5">
                   <BookOpen size={15} className="text-amber-400 shrink-0 mt-0.5" />
                   <div>
-                    <span className="font-extrabold text-white">Multi-Subject Switcher Drawer:</span>
-                    <p className="text-[11px] text-slate-400">Switch between BCS-111, BCSL-013, BCS-012, BEGLA-136, and BEVAE-181 instantly.</p>
+                    <span className="font-extrabold text-white">Interactive Web IDE & Live Preview:</span>
+                    <p className="text-[11px] text-slate-400">Real-time live code execution with Emmet abbreviation and Prettier auto-formatting.</p>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-2.5">
                   <ShieldCheck size={15} className="text-cyan-400 shrink-0 mt-0.5" />
                   <div>
-                    <span className="font-extrabold text-white">Sticky 5-Tab Navigation Bar:</span>
-                    <p className="text-[11px] text-slate-400">Home • Prev • Unit ▾ • Next • Account right at your fingertips.</p>
+                    <span className="font-extrabold text-white">6 Structured Developer Tracks:</span>
+                    <p className="text-[11px] text-slate-400">Step-by-step pathways from 🪟 Windows 11 CLI &amp; HTML5 to React and Node.js.</p>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-2.5">
                   <Sparkles size={15} className="text-emerald-400 shrink-0 mt-0.5" />
                   <div>
-                    <span className="font-extrabold text-white">50 Micro-Lessons Grid:</span>
-                    <p className="text-[11px] text-slate-400">Fast single-tap access to all 50 micro-lessons at the top of the drawer.</p>
+                    <span className="font-extrabold text-white">15+ Mini-Projects &amp; Canvas Labs:</span>
+                    <p className="text-[11px] text-slate-400">Hands-on coding labs with 1-to-1 matching PC terminal screenshots.</p>
                   </div>
                 </div>
               </div>
