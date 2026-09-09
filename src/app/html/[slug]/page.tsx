@@ -10,11 +10,13 @@ const slugAliases: Record<string, string> = {
 };
 
 export async function generateStaticParams() {
-  const params = htmlLessons.map((lesson) => ({
-    slug: lesson.slug,
-  }));
+  const params = htmlLessons
+    .filter((lesson) => lesson.slug && lesson.slug.trim() !== "")
+    .map((lesson) => ({
+      slug: lesson.slug,
+    }));
   const aliasParams = Object.keys(slugAliases).map((alias) => ({ slug: alias }));
-  return [...params, ...aliasParams, { slug: "" }, { slug: "index" }];
+  return [...params, ...aliasParams, { slug: "index" }];
 }
 
 export async function generateMetadata({

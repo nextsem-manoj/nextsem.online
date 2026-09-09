@@ -1,0 +1,2452 @@
+[
+  {
+    "id": 31,
+    "slug": "bold-b-vs-semantic-strong-tag",
+    "title": "Presentational Bold (<b>) vs. Semantic Strong (<strong>)",
+    "unit": "Unit 4: Semantic Content & Text Modifications",
+    "bookRef": "Duckett Chapter 2 (p. 34-35)",
+    "points": {
+      "en": [
+        "* 1. <b> makes text bold visually.",
+        "* 2. <strong> indicates great structural importance.",
+        "* 3. Screen readers announce <strong> with emphasis.",
+        "* 4. <b> has no special semantic meaning.",
+        "* 5. Use <strong> for crucial warnings."
+      ],
+      "hi": [
+        "* 1. <b> टेक्स्ट को विजुअली बोल्ड बनाता है।",
+        "* 2. <strong> टेक्स्ट को मुख्य महत्व देता है।",
+        "* 3. स्क्रीन रीडर <strong> को जोर देकर पढ़ते हैं।",
+        "* 4. <b> का कोई खास अर्थ नहीं होता।",
+        "* 5. जरूरी सूचना के लिए <strong> चुनें।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Bold vs Strong</title>\n</head>\n<body>\n\n  <h1>Important Notice</h1>\n  <p>Please read this <b>carefully</b> before starting.</p>\n  <p><strong>Warning:</strong> Never share your passwords!</p>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which element conveys strong importance and is emphasized by screen readers?",
+      "options": [
+        "<strong>",
+        "<b>",
+        "<span>",
+        "<mark>"
+      ],
+      "correctAnswer": "<strong>",
+      "hint": "Use <strong> for semantic importance and <b> for purely visual styling."
+    }
+  },
+  {
+    "id": 32,
+    "slug": "italic-i-vs-semantic-emphasis-em-tag",
+    "title": "Presentational Italic (<i>) vs. Semantic Emphasis (<em>)",
+    "unit": "Unit 4: Semantic Content & Text Modifications",
+    "bookRef": "Duckett Chapter 2 (p. 35-36)",
+    "points": {
+      "en": [
+        "* 1. <i> slants text without extra meaning.",
+        "* 2. <em> adds verbal stress and emphasis.",
+        "* 3. Screen readers stress words inside <em>.",
+        "* 4. <i> is ideal for book titles.",
+        "* 5. Both render in italic font style."
+      ],
+      "hi": [
+        "* 1. <i> टेक्स्ट को तिरछा (Italic) दिखाता है।",
+        "* 2. <em> टेक्स्ट पर विशेष जोर देता है।",
+        "* 3. स्क्रीन रीडर <em> को तनाव देकर पढ़ते हैं।",
+        "* 4. <i> किताबों के नाम के लिए उपयुक्त है।",
+        "* 5. दोनों ब्राउज़र में इटैलिक दिखते हैं।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Italic vs Emphasis</title>\n</head>\n<body>\n\n  <p>I read the novel <i>The Great Gatsby</i> yesterday.</p>\n  <p>You <em>must</em> complete your assignment today!</p>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which tag adds semantic verbal stress to a sentence?",
+      "options": [
+        "<em>",
+        "<i>",
+        "<cite>",
+        "<span>"
+      ],
+      "correctAnswer": "<em>",
+      "hint": "<em> changes the meaning by adding emphasis to spoken voice."
+    }
+  },
+  {
+    "id": 33,
+    "slug": "highlight-text-mark-tag-search-results",
+    "title": "Highlighted Text (<mark>)",
+    "unit": "Unit 4: Semantic Content & Text Modifications",
+    "bookRef": "Duckett Chapter 2 (p. 37-38)",
+    "points": {
+      "en": [
+        "* 1. <mark> highlights text with yellow background.",
+        "* 2. It marks relevant or searched words.",
+        "* 3. Browsers style it like highlighter pens.",
+        "* 4. It works as an inline element.",
+        "* 5. Useful for highlighting search query results."
+      ],
+      "hi": [
+        "* 1. <mark> टेक्स्ट पर पीला बैकग्राउंड लगाता है।",
+        "* 2. यह खोजे गए शब्दों को दर्शाता है।",
+        "* 3. ब्राउज़र इसे हाइलाइटर पेन जैसा दिखाता है।",
+        "* 4. यह एक इनलाइन एलिमेंट होता है।",
+        "* 5. सर्च रिजल्ट्स हाइलाइट करने में उपयोगी है।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Mark Element</title>\n</head>\n<body>\n\n  <h1>Search Results for 'HTML'</h1>\n  <p>Learn <mark>HTML</mark> to build modern web pages.</p>\n  <p>Remember to buy <mark>fresh milk</mark> today.</p>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which HTML5 tag is used to highlight text with a yellow background by default?",
+      "options": [
+        "<mark>",
+        "<highlight>",
+        "<yellow>",
+        "<spotlight>"
+      ],
+      "correctAnswer": "<mark>",
+      "hint": "The <mark> tag represents text marked or highlighted for reference."
+    }
+  },
+  {
+    "id": 34,
+    "slug": "monospace-code-snippet-code-tag",
+    "title": "Code Snippets (<code>)",
+    "unit": "Unit 4: Semantic Content & Text Modifications",
+    "bookRef": "Duckett Chapter 2 (p. 45)",
+    "points": {
+      "en": [
+        "* 1. <code> displays inline computer code.",
+        "* 2. It uses a monospace fixed-width font.",
+        "* 3. Characters take up equal horizontal space.",
+        "* 4. Ideal for keywords, variables, and filenames.",
+        "* 5. Nest inside <pre> for multiple lines."
+      ],
+      "hi": [
+        "* 1. <code> कंप्यूटर कोड दिखाने के लिए है।",
+        "* 2. यह मोनोस्पेस फॉन्ट का उपयोग करता है।",
+        "* 3. सभी अक्षरों की चौड़ाई समान होती है।",
+        "* 4. वैरिएबल्स और फाइलनाम लिखने के लिए उपयुक्त।",
+        "* 5. मल्टी-लाइन कोड के लिए <pre> जोड़ें।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Code Element</title>\n</head>\n<body>\n\n  <h2>JavaScript Variables</h2>\n  <p>Use the <code>let</code> keyword to declare variables.</p>\n  <p>Call <code>console.log()</code> to print debug output.</p>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which tag displays inline computer code in a monospace font?",
+      "options": [
+        "<code>",
+        "<program>",
+        "<var>",
+        "<script>"
+      ],
+      "correctAnswer": "<code>",
+      "hint": "Use <code> for inline code phrases and variable names."
+    }
+  },
+  {
+    "id": 35,
+    "slug": "preformatted-text-pre-tag-spaces-tabs",
+    "title": "Preformatted Text (<pre>)",
+    "unit": "Unit 4: Semantic Content & Text Modifications",
+    "bookRef": "Duckett Chapter 2 (p. 46)",
+    "points": {
+      "en": [
+        "* 1. <pre> preserves exact spaces and linebreaks.",
+        "* 2. Normal HTML collapses multiple spaces automatically.",
+        "* 3. <pre> displays text in monospace font.",
+        "* 4. Perfect for ASCII art and poems.",
+        "* 5. Combine with <code> for code blocks."
+      ],
+      "hi": [
+        "* 1. <pre> सभी स्पेस और लाइन ब्रेक सुरक्षित रखता है।",
+        "* 2. साधारण HTML खाली स्पेस को हटा देता है।",
+        "* 3. <pre> मोनोस्पेस फॉन्ट में प्रदर्शित होता है।",
+        "* 4. ASCII आर्ट और कविताओं के लिए उत्तम है।",
+        "* 5. कोड ब्लॉक के लिए <code> के साथ मिलाएं।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Preformatted Text</title>\n</head>\n<body>\n\n  <h2>Preformatted Code Block</h2>\n  <pre>\nfunction sayHello() {\n    let message = \"Hello, World!\";\n    return message;\n}\n  </pre>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which tag preserves whitespaces and line breaks exactly as typed?",
+      "options": [
+        "<pre>",
+        "<p>",
+        "<format>",
+        "<raw>"
+      ],
+      "correctAnswer": "<pre>",
+      "hint": "The <pre> element represents preformatted text."
+    }
+  },
+  {
+    "id": 36,
+    "slug": "insert-ins-and-delete-del-tags",
+    "title": "Insertions (<ins>) & Deletions (<del>)",
+    "unit": "Unit 4: Semantic Content & Text Modifications",
+    "bookRef": "Duckett Chapter 2 (p. 48)",
+    "points": {
+      "en": [
+        "* 1. <del> marks deleted or removed text.",
+        "* 2. <del> displays text with a strikethrough.",
+        "* 3. <ins> marks newly inserted replacement text.",
+        "* 4. <ins> renders text with an underline.",
+        "* 5. Useful for document revision change tracking."
+      ],
+      "hi": [
+        "* 1. <del> हटाए गए टेक्स्ट को दर्शाता है।",
+        "* 2. <del> टेक्स्ट पर स्ट्राइकथ्रू लाइन लगाता है।",
+        "* 3. <ins> नए जोड़े गए टेक्स्ट को दिखाता है।",
+        "* 4. <ins> टेक्स्ट को अंडरलाइन करके दिखाता है।",
+        "* 5. दस्तावेज़ संशोधन ट्रैक करने में उपयोगी है।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Insert and Delete</title>\n</head>\n<body>\n\n  <h1>Shopping List Updates</h1>\n  <p>My favorite color is <del>blue</del> <ins>emerald green</ins>.</p>\n  <p>Price: <del>$100</del> <ins>$49</ins></p>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which tag is used to represent inserted text with an underline?",
+      "options": [
+        "<ins>",
+        "<add>",
+        "<u>",
+        "<new>"
+      ],
+      "correctAnswer": "<ins>",
+      "hint": "<ins> represents text inserted into the document."
+    }
+  },
+  {
+    "id": 37,
+    "slug": "strikethrough-s-tag-outdated-content",
+    "title": "Strikethrough (<s>)",
+    "unit": "Unit 4: Semantic Content & Text Modifications",
+    "bookRef": "Duckett Chapter 2 (p. 49)",
+    "points": {
+      "en": [
+        "* 1. <s> represents no longer accurate text.",
+        "* 2. It draws a line through text.",
+        "* 3. Unlike <del>, it represents outdated items.",
+        "* 4. Great for discontinued product sale prices.",
+        "* 5. It works as an inline element."
+      ],
+      "hi": [
+        "* 1. <s> पुराना या अमान्य टेक्स्ट दर्शाता है।",
+        "* 2. यह टेक्स्ट के बीच से रेखा खींचता है।",
+        "* 3. <del> से अलग, यह अप्रचलित सामग्री दिखाता है।",
+        "* 4. डिस्काउंट सेल कीमतों के लिए उत्तम है।",
+        "* 5. यह एक इनलाइन तत्व होता है।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Strikethrough Element</title>\n</head>\n<body>\n\n  <h2>Product Clearance Sale</h2>\n  <p>Original Price: <s>$80</s></p>\n  <p>Discounted Sale Price: $39</p>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which tag represents content that is no longer accurate or relevant?",
+      "options": [
+        "<s>",
+        "<strike>",
+        "<cut>",
+        "<remove>"
+      ],
+      "correctAnswer": "<s>",
+      "hint": "The <s> tag renders a strikethrough for outdated info."
+    }
+  },
+  {
+    "id": 38,
+    "slug": "abbreviation-abbr-tag-title-tooltip",
+    "title": "Abbreviations (<abbr>)",
+    "unit": "Unit 4: Semantic Content & Text Modifications",
+    "bookRef": "Duckett Chapter 2 (p. 42)",
+    "points": {
+      "en": [
+        "* 1. <abbr> defines abbreviations and acronyms.",
+        "* 2. Use the title attribute for definitions.",
+        "* 3. Hovering mouse shows full definition tooltip.",
+        "* 4. Browsers show a dotted underline style.",
+        "* 5. Helps screen readers expand short forms."
+      ],
+      "hi": [
+        "* 1. <abbr> संक्षिप्त रूपों को परिभाषित करता है।",
+        "* 2. पूरे अर्थ के लिए title अट्रिब्यूट लगाएं।",
+        "* 3. माउस ले जाने पर टूलटिप दिखाई देता है।",
+        "* 4. ब्राउज़र बिंदीदार अंडरलाइन प्रदर्शित करते हैं।",
+        "* 5. स्क्रीन रीडर्स को पूरा नाम समझने में मदद करता है।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Abbreviations</title>\n</head>\n<body>\n\n  <h2>Web Standards</h2>\n  <p>The <abbr title=\"World Wide Web\">WWW</abbr> was invented in 1989.</p>\n  <p>We write <abbr title=\"HyperText Markup Language\">HTML</abbr> daily.</p>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which attribute inside <abbr> stores the full expanded text tooltip?",
+      "options": [
+        "title",
+        "desc",
+        "tooltip",
+        "full"
+      ],
+      "correctAnswer": "title",
+      "hint": "Hovering over the <abbr title=\"...\"> displays the title value."
+    }
+  },
+  {
+    "id": 39,
+    "slug": "defining-term-dfn-tag-first-instance",
+    "title": "Defining Terms (<dfn>)",
+    "unit": "Unit 4: Semantic Content & Text Modifications",
+    "bookRef": "Duckett Chapter 2 (p. 41)",
+    "points": {
+      "en": [
+        "* 1. <dfn> marks the defining instance term.",
+        "* 2. Use it when first introducing terms.",
+        "* 3. Browsers render <dfn> in italic style.",
+        "* 4. Helps search engines build vocabulary indexes.",
+        "* 5. The nearest sentence explains the definition."
+      ],
+      "hi": [
+        "* 1. <dfn> पहली बार समझाए गए शब्द को चिह्नित करता है।",
+        "* 2. नए तकनीकी शब्दों की परिभाषा में उपयोग करें।",
+        "* 3. ब्राउज़र इसे इटैलिक स्टाइल में दिखाते हैं।",
+        "* 4. सर्च इंजन को शब्दावली इंडेक्स बनाने में मदद करता है।",
+        "* 5. आसपास का वाक्य शब्द की परिभाषा समझाता है।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Defining Terms</title>\n</head>\n<body>\n\n  <h2>Web Terminology</h2>\n  <p><dfn>HTML</dfn> is the standard language used to create webpages.</p>\n  <p><dfn>CSS</dfn> describes how HTML elements are styled on screen.</p>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which tag marks the term being defined in a dictionary or glossary sentence?",
+      "options": [
+        "<dfn>",
+        "<term>",
+        "<define>",
+        "<vocab>"
+      ],
+      "correctAnswer": "<dfn>",
+      "hint": "<dfn> represents the defining instance of a term."
+    }
+  },
+  {
+    "id": 40,
+    "slug": "superscript-sup-and-subscript-sub-tags",
+    "title": "Superscript (<sup>) & Subscript (<sub>)",
+    "unit": "Unit 4: Semantic Content & Text Modifications",
+    "bookRef": "Duckett Chapter 2 (p. 39)",
+    "points": {
+      "en": [
+        "* 1. <sup> raises text above the baseline.",
+        "* 2. <sub> lowers text below the baseline.",
+        "* 3. <sup> is used for math exponents.",
+        "* 4. <sub> is used for chemical formulas.",
+        "* 5. Both reduce the font size slightly."
+      ],
+      "hi": [
+        "* 1. <sup> टेक्स्ट को ऊपर की ओर उठाता है।",
+        "* 2. <sub> टेक्स्ट को नीचे की ओर झुकाता है।",
+        "* 3. <sup> का उपयोग गणितीय घात (exponents) के लिए होता है।",
+        "* 4. <sub> का उपयोग रासायनिक सूत्रों के लिए होता है।",
+        "* 5. दोनों फॉन्ट साइज को थोड़ा छोटा करते हैं।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Superscript and Subscript</title>\n</head>\n<body>\n\n  <h2>Science and Math Formulas</h2>\n  <p>Chemical Formula of Water: H<sub>2</sub>O</p>\n  <p>Einstein's Energy Formula: E = mc<sup>2</sup></p>\n  <p>Date: October 24<sup>th</sup>, 2026</p>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which tag is used to write chemical formulas like H2O in HTML?",
+      "options": [
+        "<sub>",
+        "<sup>",
+        "<lower>",
+        "<down>"
+      ],
+      "correctAnswer": "<sub>",
+      "hint": "<sub> renders subscript text below the normal line."
+    }
+  },
+  {
+    "id": 41,
+    "slug": "anchor-a-tag-href-hyperlinks",
+    "title": "Anchor Elements (<a>) & the href Attribute",
+    "unit": "Unit 5: Navigation & Hyperlinks",
+    "bookRef": "Duckett Chapter 4 (p. 74-76)",
+    "points": {
+      "en": [
+        "* 1. <a> creates clickable web hyperlinks.",
+        "* 2. href specifies the destination page URL.",
+        "* 3. Text between tags becomes clickable link.",
+        "* 4. Unvisited links appear blue with underline.",
+        "* 5. Visited links turn purple by default."
+      ],
+      "hi": [
+        "* 1. <a> क्लिक करने योग्य लिंक बनाता है।",
+        "* 2. href टारगेट वेबपेज का पता देता है।",
+        "* 3. टैग्स के बीच का टेक्स्ट लिंक बनता है।",
+        "* 4. बिना खुले लिंक नीले रंग में दिखते हैं।",
+        "* 5. खुले हुए लिंक बैंगनी रंग के हो जाते हैं।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Hyperlinks</title>\n</head>\n<body>\n\n  <h1>Nextsem Academy Courses</h1>\n  <p>Visit our platform: <a href=\"https://nextsem.online\">Nextsem Academy</a></p>\n  <p>Read about our mission: <a href=\"/about\">About Us Page</a></p>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which attribute inside the <a> tag specifies the target link URL?",
+      "options": [
+        "href",
+        "src",
+        "link",
+        "target"
+      ],
+      "correctAnswer": "href",
+      "hint": "href stands for Hypertext REFerence."
+    }
+  },
+  {
+    "id": 42,
+    "slug": "absolute-vs-relative-link-paths",
+    "title": "Absolute vs. Relative Paths",
+    "unit": "Unit 5: Navigation & Hyperlinks",
+    "bookRef": "Duckett Chapter 4 (p. 77-79)",
+    "points": {
+      "en": [
+        "* 1. Absolute URLs include full domain names.",
+        "* 2. Relative URLs point to local files.",
+        "* 3. Use absolute paths for external sites.",
+        "* 4. Use relative paths for internal pages.",
+        "* 5. Relative links work across server environments."
+      ],
+      "hi": [
+        "* 1. Absolute URL में पूरा डोमेन नाम होता है।",
+        "* 2. Relative URL लोकल फाइलों को जोड़ता है।",
+        "* 3. बाहरी वेबसाइटों के लिए Absolute चुनें।",
+        "* 4. अपनी वेबसाइट के पेजों के लिए Relative चुनें।",
+        "* 5. Relative लिंक्स सर्वर बदलने पर भी चलते हैं।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Link Paths</title>\n</head>\n<body>\n\n  <h2>Navigation Links</h2>\n  <!-- Absolute Link to External Website -->\n  <p><a href=\"https://www.google.com\">Google Search (Absolute)</a></p>\n\n  <!-- Relative Link to Local Page -->\n  <p><a href=\"contact.html\">Contact Us (Relative)</a></p>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which type of path includes the protocol like https:// and domain name?",
+      "options": [
+        "Absolute Path",
+        "Relative Path",
+        "Inline Path",
+        "Root Path"
+      ],
+      "correctAnswer": "Absolute Path",
+      "hint": "Absolute paths include the full web address with https://."
+    }
+  },
+  {
+    "id": 43,
+    "slug": "parent-directory-hopping-relative-paths",
+    "title": "Parent Directory Hopping (../)",
+    "unit": "Unit 5: Navigation & Hyperlinks",
+    "bookRef": "Duckett Chapter 4 (p. 80-82)",
+    "points": {
+      "en": [
+        "* 1. ../ moves up one folder level.",
+        "* 2. It navigates to the parent directory.",
+        "* 3. Useful when subfolders link to root.",
+        "* 4. Can be chained for multiple folders.",
+        "* 5. Keeps local site links completely portable."
+      ],
+      "hi": [
+        "* 1. ../ एक फोल्डर ऊपर ले जाता है।",
+        "* 2. यह पैरेंट फोल्डर में नेविगेट करता है।",
+        "* 3. सब-फोल्डर से मुख्य पेज पर जाने के काम आता है।",
+        "* 4. कई स्तर ऊपर जाने के लिए दोहराया जा सकता है।",
+        "* 5. साइट की फाइलों को पोर्टेबल रखता है।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Parent Directory Navigation</title>\n</head>\n<body>\n\n  <h1>Course Chapter 1</h1>\n  <p>Inside folder: <code>/courses/html/</code></p>\n  <p><a href=\"../index.html\">Go Back to Course Home</a></p>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which syntax moves up one folder level in relative paths?",
+      "options": [
+        "../",
+        "./",
+        "//",
+        "/.."
+      ],
+      "correctAnswer": "../",
+      "hint": "Double dot with slash (../) moves up to the parent directory."
+    }
+  },
+  {
+    "id": 44,
+    "slug": "grandparent-directory-hopping-double-slash",
+    "title": "Grandparent Directory Hopping (../../)",
+    "unit": "Unit 5: Navigation & Hyperlinks",
+    "bookRef": "Duckett Chapter 4 (p. 83-84)",
+    "points": {
+      "en": [
+        "* 1. ../../ moves up two folder levels.",
+        "* 2. It climbs out of deep folders.",
+        "* 3. Reaches grandparent folders in file trees.",
+        "* 4. Essential for deeply nested course chapters.",
+        "* 5. Helps maintain relative structure on localhost."
+      ],
+      "hi": [
+        "* 1. ../../ दो फोल्डर ऊपर ले जाता है।",
+        "* 2. गहरे फोल्डरों से बाहर आने में उपयोगी।",
+        "* 3. फाइल संरचना में ग्रैंडपैरेंट फोल्डर तक पहुंचता है।",
+        "* 4. नेस्टेड अध्यायों के लिए जरूरी है।",
+        "* 5. लोकलहोस्ट पर सही लिंक बनाए रखता है।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Grandparent Directory Navigation</title>\n</head>\n<body>\n\n  <h2>Lesson Exercise Page</h2>\n  <p>Current Path: <code>/projects/web/lesson1/</code></p>\n  <p><a href=\"../../index.html\">Back to Main Project Root</a></p>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which relative path climbs up two folder levels in the directory tree?",
+      "options": [
+        "../../",
+        "../",
+        ".../",
+        "/root/"
+      ],
+      "correctAnswer": "../../",
+      "hint": "Use ../../ to hop up two directory levels."
+    }
+  },
+  {
+    "id": 45,
+    "slug": "email-mailto-links-anchor-tag",
+    "title": "Linking to Email Addresses (mailto:)",
+    "unit": "Unit 5: Navigation & Hyperlinks",
+    "bookRef": "Duckett Chapter 4 (p. 85)",
+    "points": {
+      "en": [
+        "* 1. mailto: creates clickable email links.",
+        "* 2. Clicking opens the user's email client.",
+        "* 3. Put recipient email after mailto: prefix.",
+        "* 4. No spaces allowed after the colon.",
+        "* 5. Essential for contact and support pages."
+      ],
+      "hi": [
+        "* 1. mailto: ईमेल भेजने का लिंक बनाता है।",
+        "* 2. क्लिक करने पर ईमेल ऐप खुलती है।",
+        "* 3. mailto: के बाद ईमेल पता लिखें।",
+        "* 4. कोलन के बाद स्पेस नहीं होना चाहिए।",
+        "* 5. संपर्क और सपोर्ट पेज के लिए जरूरी है।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Email Support Link</title>\n</head>\n<body>\n\n  <h2>Contact Support</h2>\n  <p>Have questions regarding full stack lessons?</p>\n  <p>Send an email to: <a href=\"mailto:support@nextsem.online\">support@nextsem.online</a></p>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which protocol prefix is used to open an email compose client?",
+      "options": [
+        "mailto:",
+        "email:",
+        "send:",
+        "inbox:"
+      ],
+      "correctAnswer": "mailto:",
+      "hint": "Use <a href=\"mailto:user@domain.com\"> to create an email link."
+    }
+  },
+  {
+    "id": 46,
+    "slug": "telephone-dialing-tel-links-mobile",
+    "title": "Telephone Dialing Links (tel:)",
+    "unit": "Unit 5: Navigation & Hyperlinks",
+    "bookRef": "Duckett Chapter 4 (p. 86)",
+    "points": {
+      "en": [
+        "* 1. tel: creates direct phone call links.",
+        "* 2. Mobile phones open their dialer directly.",
+        "* 3. Include country code with plus prefix.",
+        "* 4. Eliminates manual dialing for mobile users.",
+        "* 5. Critical for local businesses and helpdesks."
+      ],
+      "hi": [
+        "* 1. tel: सीधे फोन कॉल का लिंक बनाता है।",
+        "* 2. मोबाइल फोन पर तुरंत डायलर खुलता है।",
+        "* 3. देश कोड के साथ + निशान लगाएं।",
+        "* 4. मोबाइल यूजर्स के लिए डायल करना आसान बनाता है।",
+        "* 5. स्थानीय व्यापार और हेल्पलाइन के लिए जरूरी है।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Telephone Links</title>\n</head>\n<body>\n\n  <h2>Nextsem Helpline</h2>\n  <p>Call our support line directly from your phone:</p>\n  <p><a href=\"tel:+18005550199\">Call Support: +1 (800) 555-0199</a></p>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which prefix is used in href to initiate a telephone call on smartphones?",
+      "options": [
+        "tel:",
+        "call:",
+        "phone:",
+        "dial:"
+      ],
+      "correctAnswer": "tel:",
+      "hint": "Use <a href=\"tel:+1234567890\"> for phone number links."
+    }
+  },
+  {
+    "id": 47,
+    "slug": "open-link-new-tab-target-blank",
+    "title": "Target Attributes (target=\"_blank\")",
+    "unit": "Unit 5: Navigation & Hyperlinks",
+    "bookRef": "Duckett Chapter 4 (p. 87)",
+    "points": {
+      "en": [
+        "* 1. target=\"_blank\" opens links in new tabs.",
+        "* 2. Keeps your original website open.",
+        "* 3. Great for external documentation references.",
+        "* 4. Default target value is \"_self\".",
+        "* 5. Always pair with rel security attributes."
+      ],
+      "hi": [
+        "* 1. target=\"_blank\" नए टैब में लिंक खोलता है।",
+        "* 2. आपकी मूल वेबसाइट खुली रहती है।",
+        "* 3. बाहरी डॉक्यूमेंटेशन लिंक के लिए उत्तम।",
+        "* 4. डिफ़ॉल्ट टारगेट मान \"_self\" होता है।",
+        "* 5. सुरक्षा के लिए rel अट्रिब्यूट जरूर लगाएं।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Open in New Tab</title>\n</head>\n<body>\n\n  <h2>External Documentation</h2>\n  <p>Read MDN documentation without leaving Nextsem:</p>\n  <p><a href=\"https://developer.mozilla.org\" target=\"_blank\">Open MDN Web Docs (New Tab)</a></p>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which target value instructs the browser to open a link in a new tab?",
+      "options": [
+        "_blank",
+        "_new",
+        "_tab",
+        "_open"
+      ],
+      "correctAnswer": "_blank",
+      "hint": "Use target=\"_blank\" to open a link in a new browser tab."
+    }
+  },
+  {
+    "id": 48,
+    "slug": "link-security-rel-noopener-noreferrer",
+    "title": "Link Security (rel=\"noopener noreferrer\")",
+    "unit": "Unit 5: Navigation & Hyperlinks",
+    "bookRef": "The Definitive Guide to HTML5 Chapter 13",
+    "points": {
+      "en": [
+        "* 1. Protects against tabnabbing phishing security exploits.",
+        "* 2. noopener stops new tab controlling opener.",
+        "* 3. noreferrer hides referrer website header info.",
+        "* 4. Essential when using target=\"_blank\".",
+        "* 5. Standard security practice for external links."
+      ],
+      "hi": [
+        "* 1. टैब-नैबिंग और फिशिंग हमलों से सुरक्षा देता है।",
+        "* 2. noopener नए टैब को पुराना पेज बदलने से रोकता है।",
+        "* 3. noreferrer रेफरर डेटा छिपाता है।",
+        "* 4. target=\"_blank\" के साथ लगाना अनिवार्य है।",
+        "* 5. बाहरी लिंक्स के लिए मानक सुरक्षा नियम है।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Secure External Links</title>\n</head>\n<body>\n\n  <h2>Secure External Links</h2>\n  <p>Learn more on external resources safely:</p>\n  <p><a href=\"https://github.com\" target=\"_blank\" rel=\"noopener noreferrer\">Visit GitHub Securely</a></p>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which rel attribute value prevents the new tab from accessing window.opener?",
+      "options": [
+        "noopener",
+        "nofollow",
+        "secure",
+        "isolate"
+      ],
+      "correctAnswer": "noopener",
+      "hint": "noopener secures external links from accessing the opening window."
+    }
+  },
+  {
+    "id": 49,
+    "slug": "hash-links-jump-to-page-sections",
+    "title": "Document Hash Links (href=\"#id\")",
+    "unit": "Unit 5: Navigation & Hyperlinks",
+    "bookRef": "Duckett Chapter 4 (p. 88-89)",
+    "points": {
+      "en": [
+        "* 1. Hash links jump to specific page sections.",
+        "* 2. Target elements must have matching id attribute.",
+        "* 3. Put # before target id name in href.",
+        "* 4. Creates instant single-page table of contents.",
+        "* 5. Smoothly navigates without page reloads."
+      ],
+      "hi": [
+        "* 1. हैश लिंक्स पेज के किसी हिस्से पर ले जाते हैं।",
+        "* 2. टारगेट तत्व में id अट्रिब्यूट होना चाहिए।",
+        "* 3. href में id नाम के आगे # लगाएं।",
+        "* 4. एक ही पेज में इंडेक्स बनाने के काम आता है।",
+        "* 5. पेज रीलोड किए बिना तुरंत स्क्रॉल करता है।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Document Hash Navigation</title>\n</head>\n<body>\n\n  <h1>Table of Contents</h1>\n  <p><a href=\"#chapter1\">Jump to Chapter 1</a></p>\n  <p><a href=\"#chapter2\">Jump to Chapter 2</a></p>\n\n  <hr>\n\n  <h2 id=\"chapter1\">Chapter 1: Getting Started</h2>\n  <p>Learn the basics of HTML elements.</p>\n\n  <h2 id=\"chapter2\">Chapter 2: Working with Links</h2>\n  <p>Learn how to connect multiple pages together.</p>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which symbol must prefix the id name in href to jump to an element on the same page?",
+      "options": [
+        "#",
+        "@",
+        "$",
+        "."
+      ],
+      "correctAnswer": "#",
+      "hint": "Use href=\"#sectionId\" to target an element with id=\"sectionId\"."
+    }
+  },
+  {
+    "id": 50,
+    "slug": "download-attribute-force-file-download",
+    "title": "Download Attribute (force download)",
+    "unit": "Unit 5: Navigation & Hyperlinks",
+    "bookRef": "The Definitive Guide to HTML5 Chapter 13",
+    "points": {
+      "en": [
+        "* 1. download forces browsers to save files directly.",
+        "* 2. Prevents browsers opening PDFs in tabs.",
+        "* 3. Can rename downloaded file in value.",
+        "* 4. Works seamlessly on local resource files.",
+        "* 5. Great for cheat sheets and certificate downloads."
+      ],
+      "hi": [
+        "* 1. download फाइल को सीधे सेव करने का निर्देश देता है।",
+        "* 2. PDF या इमेज को नए टैब में खुलने से रोकता है।",
+        "* 3. फाइल का नया नाम भी दिया जा सकता है।",
+        "* 4. लोकल फाइलों पर सहजता से काम करता है।",
+        "* 5. नोट्स और सर्टिफिकेट डाउनलोड के लिए उपयोगी है।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>File Downloads</title>\n</head>\n<body>\n\n  <h2>Course Resources</h2>\n  <p>Download our free reference guide:</p>\n  <p><a href=\"html5_cheatsheet.pdf\" download=\"Nextsem_HTML5_Guide.pdf\">Download HTML5 Cheat Sheet (PDF)</a></p>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which attribute inside <a> triggers a file download instead of navigating to the file?",
+      "options": [
+        "download",
+        "save",
+        "fetch",
+        "export"
+      ],
+      "correctAnswer": "download",
+      "hint": "Add the download attribute to force the browser to download the linked file."
+    }
+  },
+  {
+    "id": 51,
+    "slug": "image-src-alt-attributes-elements",
+    "title": "The Image Element (<img>)",
+    "unit": "Unit 6: Multimedia & Responsive Art Direction",
+    "bookRef": "Duckett Chapter 5 (p. 94-96)",
+    "points": {
+      "en": [
+        "* 1. <img> embeds images into web pages.",
+        "* 2. src provides the image file path URL.",
+        "* 3. alt provides descriptive alternative text.",
+        "* 4. Screen readers read alt text aloud.",
+        "* 5. <img> is an empty self-closing element."
+      ],
+      "hi": [
+        "* 1. <img> वेबपेज में तस्वीरें जोड़ता है।",
+        "* 2. src इमेज फाइल का पाथ देता है।",
+        "* 3. alt वैकल्पिक विवरण (alt text) देता है।",
+        "* 4. स्क्रीन रीडर alt टेक्स्ट को पढ़कर सुनाते हैं।",
+        "* 5. <img> एक सेल्फ-क्लोजिंग एलिमेंट होता है।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Image Element</title>\n</head>\n<body>\n\n  <h1>Nextsem Web Academy</h1>\n  <img src=\"/brand/logo.png\" alt=\"Nextsem Academy Official Logo\">\n  <p>Welcome to our free developer curriculum.</p>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which attribute is mandatory for accessibility and displays if an image fails to load?",
+      "options": [
+        "alt",
+        "title",
+        "name",
+        "desc"
+      ],
+      "correctAnswer": "alt",
+      "hint": "The alt attribute provides alternative text for images."
+    }
+  },
+  {
+    "id": 52,
+    "slug": "image-sizing-width-height-attributes",
+    "title": "Image Sizing (width & height)",
+    "unit": "Unit 6: Multimedia & Responsive Art Direction",
+    "bookRef": "Duckett Chapter 5 (p. 97-98)",
+    "points": {
+      "en": [
+        "* 1. width and height set image dimensions.",
+        "* 2. Values are specified in pixels without units.",
+        "* 3. Reserves layout space before images load.",
+        "* 4. Prevents Cumulative Layout Shift (CLS) glitches.",
+        "* 5. Maintains clear, crisp image aspect ratios."
+      ],
+      "hi": [
+        "* 1. width और height इमेज का आकार तय करते हैं।",
+        "* 2. मान सीधे पिक्सल में लिखे जाते हैं।",
+        "* 3. इमेज लोड होने से पहले जगह आरक्षित रखता है।",
+        "* 4. पेज हिलने (CLS लेआउट शिफ्ट) को रोकता है।",
+        "* 5. इमेज का सही अनुपात बनाए रखता है।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Image Sizing</title>\n</head>\n<body>\n\n  <h2>Developer Workspace</h2>\n  <img src=\"/screenshots/workspace.jpg\" alt=\"Developer Workspace Setup\" width=\"600\" height=\"350\">\n  <p>Optimized workstation setup with dual monitors.</p>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Why should you always define width and height attributes on <img> tags?",
+      "options": [
+        "To prevent layout shifts while loading",
+        "To compress the image file size",
+        "To turn images into clickable links",
+        "To convert images to vector format"
+      ],
+      "correctAnswer": "To prevent layout shifts while loading",
+      "hint": "Width and height reserve space and eliminate Cumulative Layout Shift (CLS)."
+    }
+  },
+  {
+    "id": 53,
+    "slug": "responsive-images-srcset-sizes-attributes",
+    "title": "Responsive Images (srcset & sizes)",
+    "unit": "Unit 6: Multimedia & Responsive Art Direction",
+    "bookRef": "Duckett Chapter 5 (p. 99-102)",
+    "points": {
+      "en": [
+        "* 1. srcset provides multiple image resolution sources.",
+        "* 2. sizes defines screen layout slot widths.",
+        "* 3. Mobile phones download smaller lightweight images.",
+        "* 4. 4K screens receive crisp high-resolution versions.",
+        "* 5. Drastically reduces mobile data network consumption."
+      ],
+      "hi": [
+        "* 1. srcset अलग-अलग रेजोल्यूशन की तस्वीरें देता है।",
+        "* 2. sizes स्क्रीन के अनुसार चौड़ाई तय करता है।",
+        "* 3. मोबाइल फोन हल्की और छोटी तस्वीरें डाउनलोड करते हैं।",
+        "* 4. बड़ी 4K स्क्रीन को हाई-क्वालिटी इमेज मिलती है।",
+        "* 5. मोबाइल इंटरनेट डेटा की भारी बचत होती है।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Responsive Images</title>\n</head>\n<body>\n\n  <h2>Responsive Nature Banner</h2>\n  <img \n    src=\"banner-small.jpg\" \n    srcset=\"banner-small.jpg 480w, banner-medium.jpg 800w, banner-large.jpg 1200w\" \n    sizes=\"(max-width: 600px) 480px, 800px\" \n    alt=\"Scenic Mountain Sunset\">\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which attribute allows specifying a list of image files with their natural widths?",
+      "options": [
+        "srcset",
+        "sources",
+        "imglist",
+        "multisrc"
+      ],
+      "correctAnswer": "srcset",
+      "hint": "srcset (source set) lists image URLs paired with width descriptors like 800w."
+    }
+  },
+  {
+    "id": 54,
+    "slug": "art-direction-picture-source-elements",
+    "title": "Art Direction with <picture> & <source>",
+    "unit": "Unit 6: Multimedia & Responsive Art Direction",
+    "bookRef": "HTML5: The Missing Manual Chapter 4",
+    "points": {
+      "en": [
+        "* 1. <picture> enables complete art direction control.",
+        "* 2. Contains multiple <source> elements inside.",
+        "* 3. Swaps cropped images based on media queries.",
+        "* 4. Serves modern AVIF and WebP formats.",
+        "* 5. Must include fallback <img> at the end."
+      ],
+      "hi": [
+        "* 1. <picture> संपूर्ण आर्ट डायरेक्शन नियंत्रण देता है।",
+        "* 2. इसके भीतर कई <source> तत्व होते हैं।",
+        "* 3. स्क्रीन साइज के अनुसार अलग क्रॉप की गई इमेज दिखाता है।",
+        "* 4. आधुनिक AVIF और WebP फॉर्मेट सर्व करता है।",
+        "* 5. अंत में एक <img> फॉलबैक टैग होना अनिवार्य है।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Art Direction Picture</title>\n</head>\n<body>\n\n  <h2>Adaptive Hero Banner</h2>\n  <picture>\n    <source media=\"(min-width: 800px)\" srcset=\"banner-wide.jpg\">\n    <source media=\"(min-width: 480px)\" srcset=\"banner-square.jpg\">\n    <img src=\"banner-mobile.jpg\" alt=\"Developer Conference 2026\">\n  </picture>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which container element wraps multiple <source> tags for art direction image swapping?",
+      "options": [
+        "<picture>",
+        "<figure>",
+        "<media>",
+        "<gallery>"
+      ],
+      "correctAnswer": "<picture>",
+      "hint": "The <picture> element contains one or more <source> tags and one <img> tag."
+    }
+  },
+  {
+    "id": 55,
+    "slug": "lazy-loading-images-loading-attribute",
+    "title": "Lazy Loading Images (loading attribute)",
+    "unit": "Unit 6: Multimedia & Responsive Art Direction",
+    "bookRef": "HTML5: The Missing Manual Chapter 4",
+    "points": {
+      "en": [
+        "* 1. loading=\"lazy\" delays loading offscreen images.",
+        "* 2. Images load only when scrolled near.",
+        "* 3. Speeds up initial page load dramatically.",
+        "* 4. Supported natively by modern web browsers.",
+        "* 5. No external JavaScript libraries required anymore."
+      ],
+      "hi": [
+        "* 1. loading=\"lazy\" स्क्रीन से बाहर की तस्वीरों की लोडिंग रोकता है।",
+        "* 2. तस्वीरें केवल स्क्रॉल करने पर लोड होती हैं।",
+        "* 3. शुरुआती पेज लोड की स्पीड काफी बढ़ा देता है।",
+        "* 4. सभी आधुनिक ब्राउज़रों में सीधे सपोर्टेड है।",
+        "* 5. किसी जावास्क्रिप्ट लाइब्रेरी की जरूरत नहीं होती।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Native Lazy Loading</title>\n</head>\n<body>\n\n  <h1>Photo Article</h1>\n  <p>Scroll down to see high resolution illustrations:</p>\n  \n  <img src=\"mountain.jpg\" loading=\"lazy\" width=\"800\" height=\"500\" alt=\"Snowy Mountain\">\n  <img src=\"ocean.jpg\" loading=\"lazy\" width=\"800\" height=\"500\" alt=\"Pacific Ocean\">\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which attribute value enables native browser deferred image loading?",
+      "options": [
+        "loading=\"lazy\"",
+        "defer=\"true\"",
+        "async=\"image\"",
+        "preload=\"none\""
+      ],
+      "correctAnswer": "loading=\"lazy\"",
+      "hint": "Use loading=\"lazy\" directly on <img> tags."
+    }
+  },
+  {
+    "id": 56,
+    "slug": "figure-figcaption-semantic-image-wrappers",
+    "title": "Semantic Image Wrappers (<figure> & <figcaption>)",
+    "unit": "Unit 6: Multimedia & Responsive Art Direction",
+    "bookRef": "Duckett Chapter 5 (p. 103-104)",
+    "points": {
+      "en": [
+        "* 1. <figure> encapsulates self-contained visual media.",
+        "* 2. <figcaption> adds a caption description.",
+        "* 3. Can be placed first or last inside.",
+        "* 4. Associates images and captions for accessibility.",
+        "* 5. Semantically superior to generic <div> tags."
+      ],
+      "hi": [
+        "* 1. <figure> विजुअल मीडिया को समेटता है।",
+        "* 2. <figcaption> फोटो का शीर्षक/कैप्शन जोड़ता है।",
+        "* 3. इसे अंदर सबसे ऊपर या नीचे रख सकते हैं।",
+        "* 4. इमेज और कैप्शन को अर्थपूर्ण तरीके से जोड़ता है।",
+        "* 5. सामान्य <div> टैग से कहीं अधिक बेहतर है।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Figure and Figcaption</title>\n</head>\n<body>\n\n  <h2>Architecture Diagrams</h2>\n  <figure>\n    <img src=\"client_server_model.png\" alt=\"Client Server Architecture Diagram\">\n    <figcaption>Figure 1.1: Standard Client-Server Communication Flow.</figcaption>\n  </figure>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which element provides a semantic caption for content inside a <figure>?",
+      "options": [
+        "<figcaption>",
+        "<caption>",
+        "<label>",
+        "<legend>"
+      ],
+      "correctAnswer": "<figcaption>",
+      "hint": "<figcaption> represents a caption or legend for a <figure>."
+    }
+  },
+  {
+    "id": 57,
+    "slug": "inline-vector-graphics-svg-element",
+    "title": "Vector Graphics (<svg>)",
+    "unit": "Unit 6: Multimedia & Responsive Art Direction",
+    "bookRef": "HTML5: The Missing Manual Chapter 6",
+    "points": {
+      "en": [
+        "* 1. <svg> draws scalable resolution-independent graphics.",
+        "* 2. Images never pixelate or blur at scale.",
+        "* 3. Built using XML markup shapes.",
+        "* 4. Includes tags like <circle>, <rect>, <path>.",
+        "* 5. Lightweight and ideal for UI icons."
+      ],
+      "hi": [
+        "* 1. <svg> स्केलेबल वेक्टर ग्राफिक्स बनाता है।",
+        "* 2. ज़ूम करने पर कभी धुंधला या पिक्सलेट नहीं होता।",
+        "* 3. XML मार्कअप और आकृतियों से बनता है।",
+        "* 4. इसमें <circle>, <rect>, <path> जैसे टैग होते हैं।",
+        "* 5. बहुत हल्का और आइकॉन्स के लिए सर्वोत्तम है।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Inline SVG Graphics</title>\n</head>\n<body>\n\n  <h2>Vector Icons</h2>\n  <!-- Green Checkmark Circle -->\n  <svg width=\"100\" height=\"100\">\n    <circle cx=\"50\" cy=\"50\" r=\"40\" stroke=\"#04AA6D\" stroke-width=\"4\" fill=\"#04AA6D\" />\n  </svg>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "What is the primary advantage of SVG images compared to PNG or JPEG?",
+      "options": [
+        "They scale infinitely without losing quality",
+        "They play audio streams natively",
+        "They only work on mobile devices",
+        "They automatically upload files to server"
+      ],
+      "correctAnswer": "They scale infinitely without losing quality",
+      "hint": "SVG graphics are vector math and never pixelate."
+    }
+  },
+  {
+    "id": 58,
+    "slug": "image-maps-map-area-coordinate-tags",
+    "title": "Image Maps (<map> & <area>)",
+    "unit": "Unit 6: Multimedia & Responsive Art Direction",
+    "bookRef": "Duckett Chapter 5 (p. 105-108)",
+    "points": {
+      "en": [
+        "* 1. <map> creates clickable hotspot zones on images.",
+        "* 2. usemap attribute on <img> links map.",
+        "* 3. <area> defines shape and pixel coordinates.",
+        "* 4. Supports shapes: rect, circle, and poly.",
+        "* 5. Useful for interactive geographical site maps."
+      ],
+      "hi": [
+        "* 1. <map> एक तस्वीर पर कई क्लिक करने वाले क्षेत्र बनाता है।",
+        "* 2. <img> का usemap अट्रिब्यूट मैप को जोड़ता है।",
+        "* 3. <area> आकृति और पिक्सल निर्देशांक (coords) तय करता है।",
+        "* 4. rect, circle, और poly आकृतियों को सपोर्ट करता है।",
+        "* 5. इंटरैक्टिव मानचित्रों और लेआउट के लिए उपयोगी है।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Image Maps</title>\n</head>\n<body>\n\n  <h2>Interactive Workstation Map</h2>\n  <img src=\"desk.jpg\" alt=\"Developer Desk\" usemap=\"#deskmap\">\n\n  <map name=\"deskmap\">\n    <area shape=\"rect\" coords=\"34,44,270,350\" alt=\"Monitor\" href=\"monitor.html\">\n    <area shape=\"circle\" coords=\"337,300,44\" alt=\"Coffee Cup\" href=\"coffee.html\">\n  </map>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which attribute on an <img> connects it to a named <map>?",
+      "options": [
+        "usemap",
+        "map",
+        "targetmap",
+        "hotspot"
+      ],
+      "correctAnswer": "usemap",
+      "hint": "usemap=\"#mapName\" links the image to <map name=\"mapName\">."
+    }
+  },
+  {
+    "id": 59,
+    "slug": "favicon-modern-format-link-types",
+    "title": "Favicon Formats & Link Configurations",
+    "unit": "Unit 6: Multimedia & Responsive Art Direction",
+    "bookRef": "Duckett Chapter 8 (p. 190)",
+    "points": {
+      "en": [
+        "* 1. Favicons display on browser tab headers.",
+        "* 2. Defined inside <head> using <link> tag.",
+        "* 3. Modern sites use SVG and PNG favicons.",
+        "* 4. Legacy browsers look for favicon.ico automatically.",
+        "* 5. Enhances brand recognition across open tabs."
+      ],
+      "hi": [
+        "* 1. फेविकॉन ब्राउज़र टैब के शीर्ष पर दिखता है।",
+        "* 2. <head> के भीतर <link> टैग से जोड़ा जाता है।",
+        "* 3. आधुनिक वेबसाइटें SVG और PNG फेविकॉन इस्तेमाल करती हैं।",
+        "* 4. पुराने ब्राउज़र favicon.ico को सीधे खोज लेते हैं।",
+        "* 5. खुले हुए टैब में ब्रांड की पहचान मजबूत करता है।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Nextsem Academy</title>\n  <!-- Modern SVG Favicon -->\n  <link rel=\"icon\" type=\"image/svg+xml\" href=\"/brand/icon.svg\">\n  <!-- Fallback ICO Favicon -->\n  <link rel=\"alternate icon\" href=\"/favicon.ico\">\n</head>\n<body>\n\n  <h1>Nextsem Academy</h1>\n  <p>Check your browser tab to see our clean brand favicon icon!</p>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which rel attribute value is used to specify a website favicon?",
+      "options": [
+        "icon",
+        "favicon",
+        "shortcut",
+        "logo"
+      ],
+      "correctAnswer": "icon",
+      "hint": "Use <link rel=\"icon\" href=\"favicon.svg\"> in the <head>."
+    }
+  },
+  {
+    "id": 60,
+    "slug": "capstone-photo-gallery-responsive",
+    "title": "Capstone Project: Responsive Photo Gallery",
+    "unit": "Unit 6: Multimedia & Responsive Art Direction",
+    "bookRef": "Nextsem Academy Project Suite",
+    "points": {
+      "en": [
+        "* 1. Combines semantic <figure>, <picture>, and <figcaption> tags.",
+        "* 2. Implements native loading=\"lazy\" on all media.",
+        "* 3. Uses descriptive alt text for accessibility.",
+        "* 4. Built with 100% pure semantic HTML5.",
+        "* 5. Serves responsive image sizes efficiently."
+      ],
+      "hi": [
+        "* 1. <figure>, <picture>, और <figcaption> का संयोजन।",
+        "* 2. सभी तस्वीरों पर native loading=\"lazy\" लागू करता है।",
+        "* 3. पूर्ण पहुंच (Accessibility) के लिए alt टेक्स्ट जोड़ता है।",
+        "* 4. 100% शुद्ध सिमेंटिक HTML5 से बना है।",
+        "* 5. सभी स्क्रीन पर सही इमेज साइज सर्व करता है।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Developer Photo Gallery</title>\n</head>\n<body>\n\n  <header>\n    <h1>Web Development Studio Gallery</h1>\n    <p>Explore our collaborative workspaces and design blueprints.</p>\n  </header>\n\n  <main>\n    <figure>\n      <img src=\"workspace1.jpg\" alt=\"Developer coding with VS Code on Windows 11\" loading=\"lazy\" width=\"600\" height=\"350\">\n      <figcaption>Figure 1: High performance dual-monitor coding setup.</figcaption>\n    </figure>\n\n    <figure>\n      <img src=\"workspace2.jpg\" alt=\"UI/UX wireframe design review\" loading=\"lazy\" width=\"600\" height=\"350\">\n      <figcaption>Figure 2: Architecture wireframing and database modeling.</figcaption>\n    </figure>\n  </main>\n\n  <footer>\n    <p>&copy; 2026 Nextsem Academy. All rights reserved.</p>\n  </footer>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "What is the recommended semantic container for images paired with captions in modern HTML5?",
+      "options": [
+        "<figure> with <figcaption>",
+        "<div> with <p>",
+        "<section> with <label>",
+        "<aside> with <span>"
+      ],
+      "correctAnswer": "<figure> with <figcaption>",
+      "hint": "<figure> and <figcaption> provide semantic grouping for captioned media."
+    }
+  },
+  {
+    "id": 61,
+    "slug": "audio-elements-src-controls-autoplay-attributes",
+    "title": "Audio Elements (src & controls)",
+    "unit": "Unit 7: Native Audio, Video & Embeds",
+    "bookRef": "Duckett Chapter 9 (p. 202-205)",
+    "points": {
+      "en": [
+        "* 1. <audio> plays audio files natively in browsers.",
+        "* 2. controls displays play pause volume buttons.",
+        "* 3. src points to sound audio files.",
+        "* 4. Text inside works as fallback message.",
+        "* 5. No third-party Flash plugins needed."
+      ],
+      "hi": [
+        "* 1. <audio> ब्राउज़र में ऑडियो फाइल चलाता है।",
+        "* 2. controls प्ले, पॉज, और वॉल्यूम बटन देता है।",
+        "* 3. src ऑडियो फाइल का पाथ देता है।",
+        "* 4. अंदर का टेक्स्ट फॉलबैक संदेश बनता है।",
+        "* 5. किसी बाहरी फ्लैश प्लगइन की जरूरत नहीं।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Audio Player</title>\n</head>\n<body>\n\n  <h2>Podcast Player</h2>\n  <audio controls>\n    <source src=\"podcast.mp3\" type=\"audio/mpeg\">\n    Your browser does not support audio playback.\n  </audio>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which attribute must be added to <audio> so users can see play and pause buttons?",
+      "options": [
+        "controls",
+        "playbar",
+        "buttons",
+        "autoplay"
+      ],
+      "correctAnswer": "controls",
+      "hint": "Without controls, the audio element remains invisible on the page."
+    }
+  },
+  {
+    "id": 62,
+    "slug": "audio-fallback-source-format-types",
+    "title": "Audio Fallback Formats & Sources",
+    "unit": "Unit 7: Native Audio, Video & Embeds",
+    "bookRef": "Duckett Chapter 9 (p. 206-208)",
+    "points": {
+      "en": [
+        "* 1. <source> provides multiple audio format alternatives.",
+        "* 2. Browsers play the first supported format.",
+        "* 3. MP3 provides universal browser playback compatibility.",
+        "* 4. OGG and WAV provide open formats.",
+        "* 5. type attribute specifies the audio MIME-type."
+      ],
+      "hi": [
+        "* 1. <source> कई ऑडियो फॉर्मेट के विकल्प देता है।",
+        "* 2. ब्राउज़र पहला समर्थित फॉर्मेट चलाता है।",
+        "* 3. MP3 सभी ब्राउज़रों में आसानी से चलता है।",
+        "* 4. OGG और WAV ओपन फॉर्मेट होते हैं।",
+        "* 5. type अट्रिब्यूट ऑडियो का MIME प्रकार बताता है।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Audio Formats</title>\n</head>\n<body>\n\n  <h2>Multi-Format Audio Player</h2>\n  <audio controls>\n    <source src=\"soundtrack.ogg\" type=\"audio/ogg\">\n    <source src=\"soundtrack.mp3\" type=\"audio/mpeg\">\n    <source src=\"soundtrack.wav\" type=\"audio/wav\">\n    Audio element unsupported on this device.\n  </audio>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "How does the browser choose which <source> to play inside an <audio> tag?",
+      "options": [
+        "It plays the first supported format in order",
+        "It plays the largest file size",
+        "It plays all formats at the same time",
+        "It prompts the user to select manually"
+      ],
+      "correctAnswer": "It plays the first supported format in order",
+      "hint": "The browser evaluates <source> tags from top to bottom."
+    }
+  },
+  {
+    "id": 63,
+    "slug": "video-elements-src-poster-preload-settings",
+    "title": "Video Elements (poster & preload)",
+    "unit": "Unit 7: Native Audio, Video & Embeds",
+    "bookRef": "Duckett Chapter 9 (p. 209-214)",
+    "points": {
+      "en": [
+        "* 1. <video> embeds video clips directly on pages.",
+        "* 2. poster specifies preview thumbnail cover image.",
+        "* 3. controls enables play seek volume controls.",
+        "* 4. width and height prevent layout reflows.",
+        "* 5. preload controls initial video buffering behavior."
+      ],
+      "hi": [
+        "* 1. <video> वेबपेज में वीडियो चलाता है।",
+        "* 2. poster वीडियो का थंबनेल कवर दिखाता है।",
+        "* 3. controls प्ले, पॉज और सीक बार देता है।",
+        "* 4. width और height लेआउट को स्थिर रखते हैं।",
+        "* 5. preload वीडियो की बफरिंग नियंत्रित करता है।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Video Player</title>\n</head>\n<body>\n\n  <h2>Full Stack Lesson Video</h2>\n  <video controls width=\"640\" height=\"360\" poster=\"poster_cover.jpg\">\n    <source src=\"lesson_demo.mp4\" type=\"video/mp4\">\n    <source src=\"lesson_demo.webm\" type=\"video/webm\">\n    Your browser does not support HTML5 video.\n  </video>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which attribute sets a preview thumbnail image before the video begins playing?",
+      "options": [
+        "poster",
+        "thumbnail",
+        "cover",
+        "preview"
+      ],
+      "correctAnswer": "poster",
+      "hint": "The poster attribute specifies an image to show while the video downloads."
+    }
+  },
+  {
+    "id": 64,
+    "slug": "video-subtitles-tracks-element",
+    "title": "Video Subtitles & Captions (<track>)",
+    "unit": "Unit 7: Native Audio, Video & Embeds",
+    "bookRef": "HTML5: The Missing Manual Chapter 5",
+    "points": {
+      "en": [
+        "* 1. <track> provides timed text captions and subtitles.",
+        "* 2. Uses standardized WebVTT (.vtt) subtitle files.",
+        "* 3. kind specifies subtitles, captions, or descriptions.",
+        "* 4. srclang sets the subtitle language code.",
+        "* 5. Essential for deaf and international accessibility."
+      ],
+      "hi": [
+        "* 1. <track> वीडियो में सबटाइटल और कैप्शन जोड़ता है।",
+        "* 2. मानक WebVTT (.vtt) फाइलों का उपयोग करता है।",
+        "* 3. kind प्रकार (subtitles/captions) तय करता है।",
+        "* 4. srclang भाषा का कोड सेट करता है।",
+        "* 5. सभी यूजर्स के लिए वीडियो को सुलभ बनाता है।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Video Subtitles</title>\n</head>\n<body>\n\n  <h2>Subtitled Tutorial</h2>\n  <video controls width=\"640\">\n    <source src=\"tutorial.mp4\" type=\"video/mp4\">\n    <track src=\"captions_en.vtt\" kind=\"subtitles\" srclang=\"en\" label=\"English\" default>\n    <track src=\"captions_hi.vtt\" kind=\"subtitles\" srclang=\"hi\" label=\"Hindi\">\n  </video>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which file format standard is used with the <track> element for subtitles?",
+      "options": [
+        "WebVTT (.vtt)",
+        "SubRip (.srt)",
+        "Text (.txt)",
+        "JSON (.json)"
+      ],
+      "correctAnswer": "WebVTT (.vtt)",
+      "hint": "The <track> element uses the WebVTT (Web Video Text Tracks) standard format."
+    }
+  },
+  {
+    "id": 65,
+    "slug": "embedding-external-sites-iframe-sandbox",
+    "title": "External Site Embedding (<iframe> & sandbox)",
+    "unit": "Unit 7: Native Audio, Video & Embeds",
+    "bookRef": "Duckett Chapter 9 (p. 215-218)",
+    "points": {
+      "en": [
+        "* 1. <iframe> embeds another HTML page inside.",
+        "* 2. src specifies embedded target website URL.",
+        "* 3. sandbox restricts scripts, forms, and popups.",
+        "* 4. title attribute provides screen reader accessibility.",
+        "* 5. Common for YouTube videos and Google Maps."
+      ],
+      "hi": [
+        "* 1. <iframe> एक पेज के अंदर दूसरा पेज खोलता है।",
+        "* 2. src टारगेट वेबसाइट का पता देता है।",
+        "* 3. sandbox सुरक्षा प्रतिबंध लगाता है।",
+        "* 4. title स्क्रीन रीडर के लिए विवरण देता है।",
+        "* 5. यूट्यूब वीडियो और मैप्स लगाने के लिए उपयोग होता है।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Iframe Embeds</title>\n</head>\n<body>\n\n  <h2>Embedded Resource</h2>\n  <iframe \n    src=\"https://example.com\" \n    width=\"600\" \n    height=\"400\" \n    title=\"Example Documentation Window\" \n    sandbox=\"allow-scripts allow-same-origin\">\n  </iframe>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which attribute applies security restrictions to untrusted content inside an <iframe>?",
+      "options": [
+        "sandbox",
+        "security",
+        "protect",
+        "isolation"
+      ],
+      "correctAnswer": "sandbox",
+      "hint": "The sandbox attribute restricts scripts, popups, and parent navigation."
+    }
+  },
+  {
+    "id": 66,
+    "slug": "plugin-insertion-embed-object-elements",
+    "title": "Plugin Insertion (<embed> & <object>)",
+    "unit": "Unit 7: Native Audio, Video & Embeds",
+    "bookRef": "Duckett Chapter 9 (p. 219-221)",
+    "points": {
+      "en": [
+        "* 1. <object> embeds general external media resources.",
+        "* 2. data attribute provides target resource URL.",
+        "* 3. Can embed PDF documents and SVG drawings.",
+        "* 4. Supports fallback content inside its tags.",
+        "* 5. <embed> is a self-closing plugin element."
+      ],
+      "hi": [
+        "* 1. <object> बाहरी मीडिया फाइलों को लोड करता है।",
+        "* 2. data अट्रिब्यूट फाइल का पाथ देता है।",
+        "* 3. PDF डॉक्यूमेंट्स और SVG ग्राफिक्स लोड कर सकता है।",
+        "* 4. अंदर फॉलबैक कंटेंट की सुविधा देता है।",
+        "* 5. <embed> एक सेल्फ-क्लोजिंग टैग होता है।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Object and Embed</title>\n</head>\n<body>\n\n  <h2>PDF Document Viewer</h2>\n  <object data=\"syllabus.pdf\" type=\"application/pdf\" width=\"600\" height=\"400\">\n    <p>Your browser cannot view PDFs. <a href=\"syllabus.pdf\">Download Syllabus PDF</a></p>\n  </object>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which attribute on <object> specifies the URL of the external document to embed?",
+      "options": [
+        "data",
+        "src",
+        "href",
+        "file"
+      ],
+      "correctAnswer": "data",
+      "hint": "The <object> element uses the data attribute to locate resources."
+    }
+  },
+  {
+    "id": 67,
+    "slug": "custom-data-attributes-data-prefix",
+    "title": "Custom Data Attributes (data-*)",
+    "unit": "Unit 7: Native Audio, Video & Embeds",
+    "bookRef": "HTML5: The Missing Manual Chapter 13",
+    "points": {
+      "en": [
+        "* 1. data-* stores custom private metadata on elements.",
+        "* 2. Prefix must always start with data-.",
+        "* 3. Does not affect visual display styling.",
+        "* 4. Readable via JavaScript dataset API object.",
+        "* 5. Keeps HTML completely valid and standardized."
+      ],
+      "hi": [
+        "* 1. data-* तत्वों पर कस्टम डेटा स्टोर करता है।",
+        "* 2. नाम हमेशा data- से शुरू होना चाहिए।",
+        "* 3. पेज के विजुअल लुक पर कोई असर नहीं पड़ता।",
+        "* 4. जावास्क्रिप्ट dataset से आसानी से पढ़ा जा सकता है।",
+        "* 5. HTML को मानक और वैध बनाए रखता है।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Custom Data Attributes</title>\n</head>\n<body>\n\n  <h1>Course Catalog</h1>\n  <article \n    id=\"course101\" \n    data-category=\"frontend\" \n    data-lessons=\"101\" \n    data-difficulty=\"beginner\">\n    <h2>HTML5 Complete Guide</h2>\n    <p>Learn web markup from scratch.</p>\n  </article>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "What must all custom HTML5 data attributes begin with?",
+      "options": [
+        "data-",
+        "custom-",
+        "var-",
+        "meta-"
+      ],
+      "correctAnswer": "data-",
+      "hint": "Custom attributes must start with the prefix data- (e.g., data-user-id)."
+    }
+  },
+  {
+    "id": 68,
+    "slug": "iframe-communication-security-headers",
+    "title": "Iframe Security & Permission Policies",
+    "unit": "Unit 7: Native Audio, Video & Embeds",
+    "bookRef": "The Definitive Guide to HTML5 Chapter 13",
+    "points": {
+      "en": [
+        "* 1. allow attribute specifies allowed hardware features.",
+        "* 2. Controls access to cameras and microphones.",
+        "* 3. sandbox prevents malicious script execution attacks.",
+        "* 4. title attribute describes iframe for accessibility.",
+        "* 5. Protects users from third-party cross-site attacks."
+      ],
+      "hi": [
+        "* 1. allow अट्रिब्यूट हार्डवेयर एक्सेस अनुमतियां देता है।",
+        "* 2. कैमरा और माइक्रोफोन एक्सेस को नियंत्रित करता है।",
+        "* 3. sandbox खतरनाक स्क्रिप्ट्स चलने से रोकता है।",
+        "* 4. title स्क्रीन रीडर्स के लिए विवरण देता है।",
+        "* 5. उपयोगकर्ताओं को सुरक्षा हमलों से बचाता है।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Iframe Security</title>\n</head>\n<body>\n\n  <h2>Secure Map Embed</h2>\n  <iframe \n    src=\"https://maps.google.com\" \n    width=\"600\" \n    height=\"350\" \n    title=\"Location Map\" \n    allow=\"geolocation\" \n    sandbox=\"allow-scripts allow-same-origin\">\n  </iframe>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which attribute specifies device features (like camera or geolocation) an iframe may use?",
+      "options": [
+        "allow",
+        "permissions",
+        "enable",
+        "access"
+      ],
+      "correctAnswer": "allow",
+      "hint": "The allow attribute defines the feature policy for an <iframe>."
+    }
+  },
+  {
+    "id": 69,
+    "slug": "html5-native-geolocation-api-details",
+    "title": "HTML5 Geolocation Semantic Structure",
+    "unit": "Unit 7: Native Audio, Video & Embeds",
+    "bookRef": "HTML5: The Missing Manual Chapter 10",
+    "points": {
+      "en": [
+        "* 1. Semantic containers hold localized user content.",
+        "* 2. Browsers request explicit user permission first.",
+        "* 3. Coordinates include latitude and longitude values.",
+        "* 4. Keeps user privacy secure by default.",
+        "* 5. Organized inside semantic <section> layout tags."
+      ],
+      "hi": [
+        "* 1. सिमेंटिक कंटेनर में लोकेशन सामग्री रखी जाती है।",
+        "* 2. ब्राउज़र पहले यूजर से अनुमति मांगता है।",
+        "* 3. निर्देशांक में अक्षांश और देशांतर होते हैं।",
+        "* 4. यूजर की प्राइवेसी को सुरक्षित रखता है।",
+        "* 5. सिमेंटिक <section> टैग में व्यवस्थित रहता है।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Local Services</title>\n</head>\n<body>\n\n  <section id=\"location-panel\">\n    <h2>Nearby Study Hubs</h2>\n    <p>Explore coding groups and bootcamps near your city.</p>\n  </section>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Can web pages access a user's location without their explicit permission?",
+      "options": [
+        "No, user permission is strictly required",
+        "Yes, any page can read coordinates silently",
+        "Only if the page uses HTTPS",
+        "Only on desktop computers"
+      ],
+      "correctAnswer": "No, user permission is strictly required",
+      "hint": "User consent is strictly required by browsers before reading coordinates."
+    }
+  },
+  {
+    "id": 70,
+    "slug": "capstone-interactive-video-player",
+    "title": "Capstone Project: Media Showcase Layout",
+    "unit": "Unit 7: Native Audio, Video & Embeds",
+    "bookRef": "Nextsem Academy Project Suite",
+    "points": {
+      "en": [
+        "* 1. Combines semantic <figure>, <video>, and <audio> tags.",
+        "* 2. Includes subtitles with native <track> elements.",
+        "* 3. Uses poster thumbnails and explicit dimensions.",
+        "* 4. Built with 100% pure standard HTML5.",
+        "* 5. Provides universal media playback across devices."
+      ],
+      "hi": [
+        "* 1. <figure>, <video>, और <audio> का संयुक्त उपयोग।",
+        "* 2. <track> टैग से सबटाइटल जोड़े गए हैं।",
+        "* 3. पोस्टर थंबनेल और सही आकार निर्धारित है।",
+        "* 4. 100% शुद्ध मानक HTML5 से निर्मित।",
+        "* 5. सभी डिवाइसेज पर मीडिया प्लेबैक सुनिश्चित करता है।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Media Showcase</title>\n</head>\n<body>\n\n  <header>\n    <h1>Nextsem Masterclass Series</h1>\n  </header>\n\n  <main>\n    <figure>\n      <video controls width=\"640\" height=\"360\" poster=\"cover.jpg\">\n        <source src=\"masterclass.mp4\" type=\"video/mp4\">\n        <track src=\"subs_en.vtt\" kind=\"subtitles\" srclang=\"en\" label=\"English\" default>\n      </video>\n      <figcaption>Full Stack Web Development Overview</figcaption>\n    </figure>\n\n    <figure>\n      <audio controls>\n        <source src=\"interview.mp3\" type=\"audio/mpeg\">\n      </audio>\n      <figcaption>Senior Developer Career Podcast</figcaption>\n    </figure>\n  </main>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which collection of semantic tags creates a complete, captioned media showcase?",
+      "options": [
+        "<figure>, <video>, <track>, and <figcaption>",
+        "<div>, <span>, and <b> only",
+        "<canvas> and <script> only",
+        "<pre> and <code> only"
+      ],
+      "correctAnswer": "<figure>, <video>, <track>, and <figcaption>",
+      "hint": "These elements provide complete semantic structure and accessible media captions."
+    }
+  },
+  {
+    "id": 71,
+    "slug": "unordered-lists-ul-li-bullet-points",
+    "title": "Unordered Lists (<ul> and <li>)",
+    "unit": "Unit 8: Lists, Tables & Layout Grids",
+    "bookRef": "Duckett Chapter 3 (p. 52-54)",
+    "points": {
+      "en": [
+        "* 1. <ul> creates bulleted unordered item lists.",
+        "* 2. <li> defines individual list items inside.",
+        "* 3. Browsers render solid disc bullet points.",
+        "* 4. Order of list items does not matter.",
+        "* 5. Foundation for website navigation menu bars."
+      ],
+      "hi": [
+        "* 1. <ul> बुलेट वाली बिना क्रम की लिस्ट बनाता है।",
+        "* 2. <li> अंदर के हर आइटम को परिभाषित करता है।",
+        "* 3. ब्राउज़र गोल बुलेट पॉइंट प्रदर्शित करते हैं।",
+        "* 4. लिस्ट के क्रम से कोई फर्क नहीं पड़ता।",
+        "* 5. वेबसाइट नेविगेशन मेन्यू की नींव होता है।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Unordered Lists</title>\n</head>\n<body>\n\n  <h2>Web Development Skills</h2>\n  <ul>\n    <li>HTML5 Structure</li>\n    <li>CSS3 Styling</li>\n    <li>JavaScript Interactivity</li>\n    <li>Git Version Control</li>\n  </ul>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which tag defines each individual item inside an unordered or ordered list?",
+      "options": [
+        "<li>",
+        "<item>",
+        "<list>",
+        "<ul>"
+      ],
+      "correctAnswer": "<li>",
+      "hint": "<li> stands for List Item."
+    }
+  },
+  {
+    "id": 72,
+    "slug": "ordered-lists-ol-li-numbered-steps",
+    "title": "Ordered Lists (<ol> and <li>)",
+    "unit": "Unit 8: Lists, Tables & Layout Grids",
+    "bookRef": "Duckett Chapter 3 (p. 55-57)",
+    "points": {
+      "en": [
+        "* 1. <ol> creates numbered sequential lists.",
+        "* 2. Browsers number items 1, 2, 3 automatically.",
+        "* 3. <li> defines each numbered step inside.",
+        "* 4. Ideal for recipes and installation guides.",
+        "* 5. Re-ordering automatically updates numbers dynamically."
+      ],
+      "hi": [
+        "* 1. <ol> नंबर वाली क्रमानुसार लिस्ट बनाता है।",
+        "* 2. ब्राउज़र 1, 2, 3 नंबर खुद लगाता है।",
+        "* 3. <li> हर क्रमबद्ध चरण को परिभाषित करता है।",
+        "* 4. स्टेप-बाय-स्टेप गाइड के लिए उत्तम है।",
+        "* 5. क्रम बदलने पर नंबर अपने आप अपडेट होते हैं।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Ordered Lists</title>\n</head>\n<body>\n\n  <h2>How to Setup VS Code on Windows 11</h2>\n  <ol>\n    <li>Download the Windows 11 User Installer.</li>\n    <li>Run the setup wizard executable.</li>\n    <li>Enable 'Add Open with Code' checkboxes.</li>\n    <li>Launch VS Code and create index.html.</li>\n  </ol>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which tag automatically creates sequentially numbered list items?",
+      "options": [
+        "<ol>",
+        "<ul>",
+        "<nl>",
+        "<dl>"
+      ],
+      "correctAnswer": "<ol>",
+      "hint": "<ol> stands for Ordered List."
+    }
+  },
+  {
+    "id": 73,
+    "slug": "ordered-list-start-reversed-indexing",
+    "title": "Ordered Lists Start & Reversed Attributes",
+    "unit": "Unit 8: Lists, Tables & Layout Grids",
+    "bookRef": "Duckett Chapter 3 (p. 58-59)",
+    "points": {
+      "en": [
+        "* 1. start attribute changes initial numbering start.",
+        "* 2. reversed attribute counts numbers in reverse.",
+        "* 3. type attribute sets letters or Roman numerals.",
+        "* 4. start=\"5\" begins numbering from five.",
+        "* 5. Great for top-10 countdown rankings."
+      ],
+      "hi": [
+        "* 1. start अट्रिब्यूट शुरुआती नंबर बदलता है।",
+        "* 2. reversed अट्रिब्यूट उल्टी गिनती (3, 2, 1) करता है।",
+        "* 3. type अट्रिब्यूट रोमन या अक्षर सेट करता है।",
+        "* 4. start=\"5\" पांच से गिनती शुरू करता है।",
+        "* 5. टॉप-10 काउंटडाउन रैंकिंग के लिए उत्तम है।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>List Attributes</title>\n</head>\n<body>\n\n  <h2>Rocket Launch Countdown</h2>\n  <ol reversed>\n    <li>Engine Ignition</li>\n    <li>Final Checklist Confirmation</li>\n    <li>Ready for Liftoff</li>\n  </ol>\n\n  <h2>Continuation Steps</h2>\n  <ol start=\"5\">\n    <li>Deploy to Staging Server</li>\n    <li>Perform End-to-End Tests</li>\n  </ol>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which attribute makes an ordered list count backwards in descending order?",
+      "options": [
+        "reversed",
+        "descending",
+        "countdown",
+        "backwards"
+      ],
+      "correctAnswer": "reversed",
+      "hint": "Add the boolean attribute reversed to <ol>."
+    }
+  },
+  {
+    "id": 74,
+    "slug": "description-lists-dl-dt-dd-glossary",
+    "title": "Definition Lists (<dl>, <dt>, and <dd>)",
+    "unit": "Unit 8: Lists, Tables & Layout Grids",
+    "bookRef": "Duckett Chapter 3 (p. 60-63)",
+    "points": {
+      "en": [
+        "* 1. <dl> creates description list glossary structures.",
+        "* 2. <dt> specifies term or name definition.",
+        "* 3. <dd> provides definition description value.",
+        "* 4. Browsers indent <dd> automatically.",
+        "* 5. Ideal for glossaries, FAQs, and dictionaries."
+      ],
+      "hi": [
+        "* 1. <dl> शब्दावली (Glossary) लिस्ट बनाता है।",
+        "* 2. <dt> शब्द या शीर्षक को परिभाषित करता है।",
+        "* 3. <dd> उस शब्द की परिभाषा या विवरण देता है।",
+        "* 4. ब्राउज़र <dd> को थोड़ा आगे खिसकाता है।",
+        "* 5. डिक्शनरी और FAQ पेज के लिए उपयुक्त है।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Description List</title>\n</head>\n<body>\n\n  <h2>Web Terms Glossary</h2>\n  <dl>\n    <dt>HTML</dt>\n    <dd>HyperText Markup Language used for web structure.</dd>\n\n    <dt>CSS</dt>\n    <dd>Cascading Style Sheets used for visual layout.</dd>\n\n    <dt>DOM</dt>\n    <dd>Document Object Model representing parsed web elements.</dd>\n  </dl>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Inside a <dl> description list, which tag specifies the term name?",
+      "options": [
+        "<dt>",
+        "<dd>",
+        "<dfn>",
+        "<term>"
+      ],
+      "correctAnswer": "<dt>",
+      "hint": "<dt> stands for Description Term."
+    }
+  },
+  {
+    "id": 75,
+    "slug": "table-container-grid-rows-columns",
+    "title": "Tables Rows & Cells (<tr>, <td>, <th>)",
+    "unit": "Unit 8: Lists, Tables & Layout Grids",
+    "bookRef": "Duckett Chapter 6 (p. 126-129)",
+    "points": {
+      "en": [
+        "* 1. <table> creates tabular data grid layouts.",
+        "* 2. <tr> defines table row containers.",
+        "* 3. <th> defines bold centered header cells.",
+        "* 4. <td> defines regular table data cells.",
+        "* 5. Organized in rows and vertical columns."
+      ],
+      "hi": [
+        "* 1. <table> डेटा ग्रिड और टेबल बनाता है।",
+        "* 2. <tr> टेबल की हर पंक्ति (Row) बनाता है।",
+        "* 3. <th> बोल्ड और केंद्रित हेडर सेल बनाता है।",
+        "* 4. <td> सामान्य डेटा सेल को परिभाषित करता है।",
+        "* 5. पंक्तियों और स्तंभों में संरचित होता है।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>HTML Tables</title>\n</head>\n<body>\n\n  <h2>Student Exam Results</h2>\n  <table border=\"1\">\n    <tr>\n      <th>Student Name</th>\n      <th>Subject</th>\n      <th>Score</th>\n    </tr>\n    <tr>\n      <td>Aarav</td>\n      <td>HTML5</td>\n      <td>98</td>\n    </tr>\n    <tr>\n      <td>Priya</td>\n      <td>CSS3</td>\n      <td>95</td>\n    </tr>\n  </table>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which tag is used to create a table header cell with bold centered text by default?",
+      "options": [
+        "<th>",
+        "<td>",
+        "<header>",
+        "<head>"
+      ],
+      "correctAnswer": "<th>",
+      "hint": "<th> stands for Table Header."
+    }
+  },
+  {
+    "id": 76,
+    "slug": "table-colspan-merge-columns",
+    "title": "Table Column Spanning (colspan & rowspan)",
+    "unit": "Unit 8: Lists, Tables & Layout Grids",
+    "bookRef": "Duckett Chapter 6 (p. 130-133)",
+    "points": {
+      "en": [
+        "* 1. colspan merges cells across multiple columns.",
+        "* 2. rowspan merges cells across multiple rows.",
+        "* 3. Value sets number of cells merged.",
+        "* 4. Eliminates redundant duplicate data cells.",
+        "* 5. Essential for complex financial reporting grids."
+      ],
+      "hi": [
+        "* 1. colspan कई कॉलम की सेल को जोड़ता है।",
+        "* 2. rowspan कई पंक्तियों (Rows) की सेल जोड़ता है।",
+        "* 3. मान जोड़ी जाने वाली सेलों की संख्या है।",
+        "* 4. एक जैसा डेटा बार-बार लिखने से बचाता है।",
+        "* 5. जटिल रिपोर्ट और टाइम-टेबल के लिए आवश्यक है।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Table Spanning</title>\n</head>\n<body>\n\n  <h2>Weekly Schedule</h2>\n  <table border=\"1\">\n    <tr>\n      <th>Day</th>\n      <th colspan=\"2\">Classes</th>\n    </tr>\n    <tr>\n      <td>Monday</td>\n      <td>Web Dev</td>\n      <td>Algorithms</td>\n    </tr>\n    <tr>\n      <td>Friday</td>\n      <td colspan=\"2\">Capstone Project Lab</td>\n    </tr>\n  </table>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which attribute allows a single table cell to span across multiple columns horizontally?",
+      "options": [
+        "colspan",
+        "rowspan",
+        "span",
+        "merge"
+      ],
+      "correctAnswer": "colspan",
+      "hint": "Use colspan=\"2\" to make a cell span across two columns."
+    }
+  },
+  {
+    "id": 77,
+    "slug": "table-thead-tbody-tfoot-semantics",
+    "title": "Table Structured Sections (<thead>, <tbody>, <tfoot>)",
+    "unit": "Unit 8: Lists, Tables & Layout Grids",
+    "bookRef": "Duckett Chapter 6 (p. 134-137)",
+    "points": {
+      "en": [
+        "* 1. <thead> groups header rows of tables.",
+        "* 2. <tbody> contains the primary data rows.",
+        "* 3. <tfoot> groups footer total calculation rows.",
+        "* 4. Enables independent table body scrolling.",
+        "* 5. Improves table printing and screen readers."
+      ],
+      "hi": [
+        "* 1. <thead> टेबल की हेडर पंक्तियों को समेटता है।",
+        "* 2. <tbody> मुख्य डेटा पंक्तियों को रखता है।",
+        "* 3. <tfoot> कुल योग और फुटर पंक्तियों के लिए है।",
+        "* 4. बॉडी को अलग से स्क्रॉल करने में मदद करता है।",
+        "* 5. प्रिंटिंग और स्क्रीन रीडर अनुभव बेहतर करता है।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Structured Table</title>\n</head>\n<body>\n\n  <h2>Course Billing Summary</h2>\n  <table border=\"1\">\n    <thead>\n      <tr>\n        <th>Item Description</th>\n        <th>Price</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <td>Full Stack Curriculum Access</td>\n        <td>$0.00</td>\n      </tr>\n      <tr>\n        <td>CLI Simulator Sandbox</td>\n        <td>$0.00</td>\n      </tr>\n    </tbody>\n    <tfoot>\n      <tr>\n        <td>Total Cost:</td>\n        <td>100% Free</td>\n      </tr>\n    </tfoot>\n  </table>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which semantic tag wraps the main body content rows of a table?",
+      "options": [
+        "<tbody>",
+        "<thead>",
+        "<tfoot>",
+        "<table>"
+      ],
+      "correctAnswer": "<tbody>",
+      "hint": "<tbody> represents the Table Body."
+    }
+  },
+  {
+    "id": 78,
+    "slug": "table-column-groups-colgroup-col-widths",
+    "title": "Table Column Groups (<colgroup> & <col>)",
+    "unit": "Unit 8: Lists, Tables & Layout Grids",
+    "bookRef": "Duckett Chapter 6 (p. 138-140)",
+    "points": {
+      "en": [
+        "* 1. <colgroup> specifies formatting for whole columns.",
+        "* 2. Contains one or more <col> elements.",
+        "* 3. span attribute sets number of columns.",
+        "* 4. Avoids repeating attributes on every cell.",
+        "* 5. Sits immediately after opening <table> tag."
+      ],
+      "hi": [
+        "* 1. <colgroup> पूरे कॉलम की फॉर्मेटिंग तय करता है।",
+        "* 2. इसके अंदर एक या अधिक <col> तत्व होते हैं।",
+        "* 3. span अट्रिब्यूट कॉलम की संख्या बताता है।",
+        "* 4. हर सेल में बार-बार स्टाइल लगाने से बचाता है।",
+        "* 5. <table> टैग के तुरंत बाद लगाया जाता है।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Column Groups</title>\n</head>\n<body>\n\n  <h2>Product Inventory</h2>\n  <table border=\"1\">\n    <colgroup>\n      <col span=\"1\">\n      <col span=\"2\">\n    </colgroup>\n    <tr>\n      <th>SKU</th>\n      <th>Item Name</th>\n      <th>In Stock</th>\n    </tr>\n    <tr>\n      <td>#101</td>\n      <td>USB-C Cable</td>\n      <td>50</td>\n    </tr>\n  </table>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Where should the <colgroup> tag be placed inside a table?",
+      "options": [
+        "Directly after the opening <table> tag",
+        "Inside the <tfoot> element",
+        "After the closing </table> tag",
+        "Inside each <td> cell"
+      ],
+      "correctAnswer": "Directly after the opening <table> tag",
+      "hint": "<colgroup> belongs at the top of the table before <thead> or <tr>."
+    }
+  },
+  {
+    "id": 79,
+    "slug": "table-borders-cellpadding-cellspacing",
+    "title": "Table Borders & Spacing Layouts",
+    "unit": "Unit 8: Lists, Tables & Layout Grids",
+    "bookRef": "Duckett Chapter 6 (p. 141-143)",
+    "points": {
+      "en": [
+        "* 1. border attribute specifies table grid lines.",
+        "* 2. Value \"1\" renders basic table borders.",
+        "* 3. Keeps data clearly separated and readable.",
+        "* 4. Modern styling uses CSS border-collapse.",
+        "* 5. Pure HTML attributes ensure universal fallback."
+      ],
+      "hi": [
+        "* 1. border अट्रिब्यूट टेबल की रेखाएं दिखाता है।",
+        "* 2. मान \"1\" साधारण बॉर्डर रेखाएं बनाता है।",
+        "* 3. डेटा को अलग-अलग और पढ़ने योग्य रखता है।",
+        "* 4. आधुनिक वेब में CSS का उपयोग होता है।",
+        "* 5. शुद्ध HTML में भी साफ लेआउट देता है।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Table Grid</title>\n</head>\n<body>\n\n  <h2>Command Reference Summary</h2>\n  <table border=\"1\">\n    <tr>\n      <th>Command</th>\n      <th>Description</th>\n      <th>OS Platform</th>\n    </tr>\n    <tr>\n      <td>dir</td>\n      <td>List directory contents</td>\n      <td>Windows 11</td>\n    </tr>\n    <tr>\n      <td>mkdir</td>\n      <td>Create new folder</td>\n      <td>Windows & Linux</td>\n    </tr>\n  </table>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which pure HTML attribute renders visible grid borders around a table without CSS?",
+      "options": [
+        "border=\"1\"",
+        "grid=\"true\"",
+        "outline=\"solid\"",
+        "lines=\"visible\""
+      ],
+      "correctAnswer": "border=\"1\"",
+      "hint": "Use border=\"1\" on <table> for basic visible grid borders."
+    }
+  },
+  {
+    "id": 80,
+    "slug": "capstone-weekly-schedule-pricing-grid",
+    "title": "Capstone Project: Dynamic Pricing Grid",
+    "unit": "Unit 8: Lists, Tables & Layout Grids",
+    "bookRef": "Nextsem Academy Project Suite",
+    "points": {
+      "en": [
+        "* 1. Combines <table>, <thead>, <tbody>, <tfoot>, and <caption>.",
+        "* 2. Implements clean column spanning for highlights.",
+        "* 3. Uses pure HTML5 semantic structure.",
+        "* 4. 100% accessible to screen reading devices.",
+        "* 5. Presents comparative pricing data cleanly."
+      ],
+      "hi": [
+        "* 1. <table>, <thead>, <tbody>, और <caption> का पूरा संगम।",
+        "* 2. मुख्य बिंदुओं के लिए colspan का सही उपयोग।",
+        "* 3. 100% शुद्ध सिमेंटिक HTML5 संरचना।",
+        "* 4. स्क्रीन रीडर के लिए पूरी तरह सुलभ।",
+        "* 5. तुलनात्मक मूल्य डेटा को साफ-साफ दिखाता है।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Nextsem Academy Plans</title>\n</head>\n<body>\n\n  <h1>Nextsem Academy Access Tiers</h1>\n\n  <table border=\"1\">\n    <caption>Complete Curriculum Access Pricing</caption>\n    <thead>\n      <tr>\n        <th>Feature Plan</th>\n        <th>Free Community</th>\n        <th>Developer Pro</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <td>Full Stack Lessons</td>\n        <td>Included</td>\n        <td>Included</td>\n      </tr>\n      <tr>\n        <td>Windows 11 Terminal CLI</td>\n        <td>Included</td>\n        <td>Included</td>\n      </tr>\n      <tr>\n        <td>Interactive MCQ Quizzes</td>\n        <td>Included</td>\n        <td>Included</td>\n      </tr>\n    </tbody>\n    <tfoot>\n      <tr>\n        <th>Monthly Subscription</th>\n        <th colspan=\"2\">$0 / Forever Free</th>\n      </tr>\n    </tfoot>\n  </table>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which tag provides an accessible title or caption for an entire table?",
+      "options": [
+        "<caption>",
+        "<title>",
+        "<header>",
+        "<label>"
+      ],
+      "correctAnswer": "<caption>",
+      "hint": "The <caption> tag must be inserted immediately after <table>."
+    }
+  },
+  {
+    "id": 81,
+    "slug": "form-action-method-attributes-processing",
+    "title": "Form Action & Method (processing basics)",
+    "unit": "Unit 9: Interactive Forms & Inputs",
+    "bookRef": "Duckett Chapter 7 (p. 144-147)",
+    "points": {
+      "en": [
+        "* 1. <form> collects user interactive input data.",
+        "* 2. action specifies server endpoint URL destination.",
+        "* 3. method=\"GET\" appends data to URL.",
+        "* 4. method=\"POST\" sends data securely inside body.",
+        "* 5. Container for inputs, checkboxes, and buttons."
+      ],
+      "hi": [
+        "* 1. <form> उपयोगकर्ता से डेटा इनपुट लेता है।",
+        "* 2. action सर्वर प्रोसेसिंग URL का पता देता है।",
+        "* 3. method=\"GET\" डेटा को URL में जोड़ता है।",
+        "* 4. method=\"POST\" डेटा को सुरक्षित बॉडी में भेजता है।",
+        "* 5. इनपुट, चेकबॉक्स और बटनों का कंटेनर है।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>HTML Form</title>\n</head>\n<body>\n\n  <h2>User Registration Form</h2>\n  <form action=\"/register-user\" method=\"post\">\n    <p>\n      <label for=\"username\">Username:</label>\n      <input type=\"text\" id=\"username\" name=\"username\">\n    </p>\n    <button type=\"submit\">Create Account</button>\n  </form>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which HTTP method sends sensitive form data securely in the request body instead of the URL?",
+      "options": [
+        "POST",
+        "GET",
+        "FETCH",
+        "SUBMIT"
+      ],
+      "correctAnswer": "POST",
+      "hint": "POST sends data inside the request payload body."
+    }
+  },
+  {
+    "id": 82,
+    "slug": "form-labeling-for-attribute-linkage",
+    "title": "Form Labels (for attribute linkage)",
+    "unit": "Unit 9: Interactive Forms & Inputs",
+    "bookRef": "Duckett Chapter 7 (p. 148-150)",
+    "points": {
+      "en": [
+        "* 1. <label> associates descriptive text with inputs.",
+        "* 2. for attribute matches the input id.",
+        "* 3. Clicking label automatically focuses the input.",
+        "* 4. Greatly enlarges touch target on mobiles.",
+        "* 5. Critical accessibility requirement for screen readers."
+      ],
+      "hi": [
+        "* 1. <label> इनपुट बॉक्स को नाम/विवरण देता है।",
+        "* 2. for अट्रिब्यूट इनपुट के id से मेल खाता है।",
+        "* 3. लेबल पर क्लिक करने से कर्सर इनपुट में आ जाता है।",
+        "* 4. मोबाइल पर टच करने की जगह बड़ी हो जाती है।",
+        "* 5. स्क्रीन रीडर्स के लिए बहुत जरूरी नियम है।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Form Labels</title>\n</head>\n<body>\n\n  <h2>Contact Information</h2>\n  <form>\n    <p>\n      <label for=\"emailInput\">Email Address:</label>\n      <input type=\"email\" id=\"emailInput\" name=\"email\">\n    </p>\n  </form>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which attribute inside <label> links it to an <input id=\"...\">?",
+      "options": [
+        "for",
+        "target",
+        "to",
+        "name"
+      ],
+      "correctAnswer": "for",
+      "hint": "The for attribute on <label> must match the id on the <input>."
+    }
+  },
+  {
+    "id": 83,
+    "slug": "text-password-inputs-type-attributes",
+    "title": "Text & Password Inputs (type=\"text\" & \"password\")",
+    "unit": "Unit 9: Interactive Forms & Inputs",
+    "bookRef": "Duckett Chapter 7 (p. 151-153)",
+    "points": {
+      "en": [
+        "* 1. <input type=\"text\"> creates single-line text inputs.",
+        "* 2. <input type=\"password\"> masks typed characters securely.",
+        "* 3. name attribute defines variable key submitted.",
+        "* 4. placeholder displays subtle hint text inside.",
+        "* 5. <input> is a self-closing empty element."
+      ],
+      "hi": [
+        "* 1. type=\"text\" साधारण एक लाइन इनपुट बनाता है।",
+        "* 2. type=\"password\" पासवर्ड के अक्षरों को छिपाता है।",
+        "* 3. name अट्रिब्यूट सर्वर पर जाने वाली की (key) है।",
+        "* 4. placeholder बॉक्स में हल्का हिंट टेक्स्ट दिखाता है।",
+        "* 5. <input> एक सेल्फ-क्लोजिंग टैग होता है।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Login Credentials</title>\n</head>\n<body>\n\n  <h2>Member Login</h2>\n  <form action=\"/login\" method=\"post\">\n    <p>\n      <label for=\"user\">Username:</label>\n      <input type=\"text\" id=\"user\" name=\"username\" placeholder=\"e.g. alex2026\">\n    </p>\n    <p>\n      <label for=\"pass\">Password:</label>\n      <input type=\"password\" id=\"pass\" name=\"password\" placeholder=\"Enter secure password\">\n    </p>\n    <button type=\"submit\">Sign In</button>\n  </form>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which input type masks characters with black dots or asterisks for privacy?",
+      "options": [
+        "type=\"password\"",
+        "type=\"secret\"",
+        "type=\"hidden\"",
+        "type=\"mask\""
+      ],
+      "correctAnswer": "type=\"password\"",
+      "hint": "type=\"password\" obscures the text typed by users."
+    }
+  },
+  {
+    "id": 84,
+    "slug": "radio-buttons-grouping-name-attribute",
+    "title": "Radio Buttons (type=\"radio\")",
+    "unit": "Unit 9: Interactive Forms & Inputs",
+    "bookRef": "Duckett Chapter 7 (p. 154-156)",
+    "points": {
+      "en": [
+        "* 1. type=\"radio\" creates single-choice option buttons.",
+        "* 2. Same name attribute groups options together.",
+        "* 3. Only one button selectable at once.",
+        "* 4. value attribute defines submitted server data.",
+        "* 5. checked attribute pre-selects default option."
+      ],
+      "hi": [
+        "* 1. type=\"radio\" केवल एक विकल्प चुनने देता है।",
+        "* 2. एक समान name अट्रिब्यूट विकल्पों का ग्रुप बनाता है।",
+        "* 3. एक समय में सिर्फ एक ही बटन चुना जा सकता है।",
+        "* 4. value सर्वर पर जाने वाला असली डेटा होता है।",
+        "* 5. checked अट्रिब्यूट पहले से चुनकर रखता है।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Radio Buttons</title>\n</head>\n<body>\n\n  <h2>Select Your Developer Track</h2>\n  <form>\n    <p>\n      <input type=\"radio\" id=\"frontend\" name=\"track\" value=\"frontend\" checked>\n      <label for=\"frontend\">Frontend Web Developer</label>\n    </p>\n    <p>\n      <input type=\"radio\" id=\"fullstack\" name=\"track\" value=\"fullstack\">\n      <label for=\"fullstack\">Full Stack Engineer</label>\n    </p>\n  </form>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "How do you group multiple radio buttons so only one can be selected at a time?",
+      "options": [
+        "Give them all the exact same name attribute",
+        "Give them all the same id attribute",
+        "Wrap them in a <div> container",
+        "Use the type=\"grouped\" attribute"
+      ],
+      "correctAnswer": "Give them all the exact same name attribute",
+      "hint": "Radio buttons sharing the same name form a mutually exclusive group."
+    }
+  },
+  {
+    "id": 85,
+    "slug": "checkboxes-prechecked-multiple-selections",
+    "title": "Checkboxes (type=\"checkbox\")",
+    "unit": "Unit 9: Interactive Forms & Inputs",
+    "bookRef": "Duckett Chapter 7 (p. 157-159)",
+    "points": {
+      "en": [
+        "* 1. type=\"checkbox\" allows selecting multiple independent options.",
+        "* 2. Users can pick zero or many.",
+        "* 3. checked attribute sets initially checked state.",
+        "* 4. Each checkbox has a distinct value.",
+        "* 5. Common for terms agreement and skills."
+      ],
+      "hi": [
+        "* 1. type=\"checkbox\" एक से अधिक विकल्प चुनने देता है।",
+        "* 2. यूजर शून्य या कई विकल्प चुन सकता है।",
+        "* 3. checked अट्रिब्यूट से टिक पहले से लगा रहता है।",
+        "* 4. हर चेकबॉक्स की अपनी अलग value होती है।",
+        "* 5. नियमों की सहमति और स्किल्स चुनने में उपयोगी है।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Checkboxes</title>\n</head>\n<body>\n\n  <h2>Select Coding Interests</h2>\n  <form>\n    <p>\n      <input type=\"checkbox\" id=\"htmlCheck\" name=\"skills\" value=\"html\" checked>\n      <label for=\"htmlCheck\">HTML5 Markup</label>\n    </p>\n    <p>\n      <input type=\"checkbox\" id=\"cssCheck\" name=\"skills\" value=\"css\" checked>\n      <label for=\"cssCheck\">CSS3 Stylesheets</label>\n    </p>\n    <p>\n      <input type=\"checkbox\" id=\"jsCheck\" name=\"skills\" value=\"js\">\n      <label for=\"jsCheck\">JavaScript ES6+</label>\n    </p>\n  </form>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which attribute marks a checkbox or radio button as selected by default?",
+      "options": [
+        "checked",
+        "selected",
+        "active",
+        "default"
+      ],
+      "correctAnswer": "checked",
+      "hint": "Add the checked attribute (e.g. <input type=\"checkbox\" checked>)."
+    }
+  },
+  {
+    "id": 86,
+    "slug": "dropdown-select-lists-option-attributes",
+    "title": "Dropdown Select Lists (<select> and <option>)",
+    "unit": "Unit 9: Interactive Forms & Inputs",
+    "bookRef": "Duckett Chapter 7 (p. 160-163)",
+    "points": {
+      "en": [
+        "* 1. <select> creates dropdown option select menus.",
+        "* 2. <option> tags define selectable items inside.",
+        "* 3. selected attribute sets default chosen option.",
+        "* 4. Saves massive screen space on forms.",
+        "* 5. multiple attribute allows picking multiple values."
+      ],
+      "hi": [
+        "* 1. <select> ड्रॉपडाउन मेन्यू सूची बनाता है।",
+        "* 2. <option> अंदर के विकल्पों को परिभाषित करता है।",
+        "* 3. selected अट्रिब्यूट से डिफ़ॉल्ट विकल्प चुना रहता है।",
+        "* 4. स्क्रीन पर बहुत कम जगह घेरता है।",
+        "* 5. multiple अट्रिब्यूट से कई मान चुन सकते हैं।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Dropdown List</title>\n</head>\n<body>\n\n  <h2>Select Your Country</h2>\n  <form>\n    <label for=\"countrySelect\">Location:</label>\n    <select id=\"countrySelect\" name=\"country\">\n      <option value=\"in\" selected>India</option>\n      <option value=\"us\">United States</option>\n      <option value=\"uk\">United Kingdom</option>\n      <option value=\"ca\">Canada</option>\n    </select>\n  </form>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which tag represents an individual selectable entry inside a <select> dropdown?",
+      "options": [
+        "<option>",
+        "<item>",
+        "<li>",
+        "<choice>"
+      ],
+      "correctAnswer": "<option>",
+      "hint": "<option> elements reside inside the <select> container."
+    }
+  },
+  {
+    "id": 87,
+    "slug": "multiline-textarea-rows-cols-settings",
+    "title": "Multi-line Input (<textarea>)",
+    "unit": "Unit 9: Interactive Forms & Inputs",
+    "bookRef": "Duckett Chapter 7 (p. 164-166)",
+    "points": {
+      "en": [
+        "* 1. <textarea> creates multi-line text input areas.",
+        "* 2. rows sets visible line height count.",
+        "* 3. cols sets visible character width count.",
+        "* 4. Default text goes between opening/closing tags.",
+        "* 5. Ideal for comments, feedback, and reviews."
+      ],
+      "hi": [
+        "* 1. <textarea> कई लाइनों का लंबा टेक्स्ट बॉक्स बनाता है।",
+        "* 2. rows दिखाई देने वाली लाइनों की ऊंचाई तय करता है।",
+        "* 3. cols दिखाई देने वाली चौड़ाई तय करता है।",
+        "* 4. डिफ़ॉल्ट टेक्स्ट टैग्स के बीच में लिखा जाता है।",
+        "* 5. फीडबैक, संदेश और समीक्षा लिखने के लिए उत्तम है।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Textarea</title>\n</head>\n<body>\n\n  <h2>Send Us Feedback</h2>\n  <form>\n    <p>\n      <label for=\"comments\">Your Message:</label><br>\n      <textarea id=\"comments\" name=\"comments\" rows=\"5\" cols=\"45\">Type your question or feedback here...</textarea>\n    </p>\n  </form>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which tag is used for multi-line text input such as comments or feedback messages?",
+      "options": [
+        "<textarea>",
+        "<input type=\"multiline\">",
+        "<textbox>",
+        "<text>"
+      ],
+      "correctAnswer": "<textarea>",
+      "hint": "Use <textarea rows=\"5\" cols=\"40\"></textarea> for multi-line text."
+    }
+  },
+  {
+    "id": 88,
+    "slug": "buttons-submit-button-reset-types",
+    "title": "Buttons (type=\"submit\", \"reset\", \"button\")",
+    "unit": "Unit 9: Interactive Forms & Inputs",
+    "bookRef": "Duckett Chapter 7 (p. 167-169)",
+    "points": {
+      "en": [
+        "* 1. <button> creates clickable interactive form buttons.",
+        "* 2. type=\"submit\" sends form data to server.",
+        "* 3. type=\"reset\" restores initial form values.",
+        "* 4. type=\"button\" creates neutral clickable button.",
+        "* 5. Can contain images and formatted text."
+      ],
+      "hi": [
+        "* 1. <button> क्लिक करने योग्य फॉर्म बटन बनाता है।",
+        "* 2. type=\"submit\" फॉर्म डेटा सर्वर को भेजता है।",
+        "* 3. type=\"reset\" फॉर्म के सारे बॉक्स खाली करता है।",
+        "* 4. type=\"button\" साधारण क्लिक बटन बनाता है।",
+        "* 5. इसके अंदर टेक्स्ट और तस्वीरें दोनों आ सकते हैं।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Form Buttons</title>\n</head>\n<body>\n\n  <h2>Complete Registration</h2>\n  <form action=\"/submit\" method=\"post\">\n    <p>\n      <label for=\"name\">Name:</label>\n      <input type=\"text\" id=\"name\" name=\"name\">\n    </p>\n    <button type=\"submit\">Submit Form</button>\n    <button type=\"reset\">Reset Form</button>\n  </form>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which button type automatically submits the form data to the server when clicked?",
+      "options": [
+        "type=\"submit\"",
+        "type=\"send\"",
+        "type=\"post\"",
+        "type=\"enter\""
+      ],
+      "correctAnswer": "type=\"submit\"",
+      "hint": "type=\"submit\" triggers the form submission action."
+    }
+  },
+  {
+    "id": 89,
+    "slug": "binding-input-labels-label-container",
+    "title": "Binding Input Labels (<label> wrapping)",
+    "unit": "Unit 9: Interactive Forms & Inputs",
+    "bookRef": "Duckett Chapter 7 (p. 170-171)",
+    "points": {
+      "en": [
+        "* 1. Wrapping inputs inside <label> binds them.",
+        "* 2. Implicit binding does not require id.",
+        "* 3. Improves code simplicity for simple checkboxes.",
+        "* 4. Clicking any label text toggles input.",
+        "* 5. Fully supported by all assistive technologies."
+      ],
+      "hi": [
+        "* 1. <label> के अंदर इनपुट रखने से दोनों जुड़ जाते हैं।",
+        "* 2. इस तरीके में id लगाने की जरूरत नहीं होती।",
+        "* 3. छोटे चेकबॉक्स के लिए कोड आसान बनाता है।",
+        "* 4. लेबल टेक्स्ट पर क्लिक करने से चेकबॉक्स टिक होता है।",
+        "* 5. सभी स्क्रीन रीडर्स इसे पूरी तरह समझते हैं।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Implicit Labeling</title>\n</head>\n<body>\n\n  <h2>Terms and Conditions</h2>\n  <form>\n    <!-- Implicit Label Association without id -->\n    <label>\n      <input type=\"checkbox\" name=\"agree\" value=\"yes\">\n      I agree to the Nextsem Academy Terms of Service\n    </label>\n  </form>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "How can you link a label and input together without specifying id and for attributes?",
+      "options": [
+        "Wrap the <input> element directly inside the <label> tags",
+        "Put them in the same row of a table",
+        "Use the link=\"true\" attribute",
+        "Group them in a <fieldset>"
+      ],
+      "correctAnswer": "Wrap the <input> element directly inside the <label> tags",
+      "hint": "Nesting the input inside <label> creates implicit association."
+    }
+  },
+  {
+    "id": 90,
+    "slug": "form-groups-fieldset-legend-elements",
+    "title": "Form Groups (<fieldset> and <legend>)",
+    "unit": "Unit 9: Interactive Forms & Inputs",
+    "bookRef": "Duckett Chapter 7 (p. 172-175)",
+    "points": {
+      "en": [
+        "* 1. <fieldset> groups related inputs with borders.",
+        "* 2. <legend> provides a caption title header.",
+        "* 3. Organizes large multi-step form structures.",
+        "* 4. Screen readers announce group purpose clearly.",
+        "* 5. Must be first child of <fieldset>."
+      ],
+      "hi": [
+        "* 1. <fieldset> संबंधित इनपुट्स को बॉर्डर में घेरता है।",
+        "* 2. <legend> उस ग्रुप का मुख्य शीर्षक बनता है।",
+        "* 3. बड़े और लंबे फॉर्म को व्यवस्थित करता है।",
+        "* 4. स्क्रीन रीडर ग्रुप का नाम स्पष्ट पढ़कर सुनाते हैं।",
+        "* 5. <fieldset> के अंदर सबसे पहला टैग होना चाहिए।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Fieldset and Legend</title>\n</head>\n<body>\n\n  <h2>User Profile Setup</h2>\n  <form>\n    <fieldset>\n      <legend>Personal Details</legend>\n      <p><label>First Name: <input type=\"text\" name=\"fname\"></label></p>\n      <p><label>Last Name: <input type=\"text\" name=\"lname\"></label></p>\n    </fieldset>\n\n    <fieldset>\n      <legend>Account Security</legend>\n      <p><label>Password: <input type=\"password\" name=\"pwd\"></label></p>\n    </fieldset>\n  </form>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which element provides a caption title for a <fieldset> form container?",
+      "options": [
+        "<legend>",
+        "<caption>",
+        "<title>",
+        "<heading>"
+      ],
+      "correctAnswer": "<legend>",
+      "hint": "<legend> must be the first child inside a <fieldset>."
+    }
+  },
+  {
+    "id": 91,
+    "slug": "form-validation-required-maxlength-minlength",
+    "title": "Form Field Required Validation",
+    "unit": "Unit 10: Advanced Semantics, Validation & APIs",
+    "bookRef": "HTML5: The Missing Manual Chapter 4",
+    "points": {
+      "en": [
+        "* 1. required prevents submitting empty form fields.",
+        "* 2. minlength sets minimum character length needed.",
+        "* 3. maxlength stops typing beyond character limit.",
+        "* 4. Browser shows native error tooltip bubbles.",
+        "* 5. 100% native validation without JavaScript."
+      ],
+      "hi": [
+        "* 1. required खाली फॉर्म सबमिट होने से रोकता है।",
+        "* 2. minlength कम से कम अक्षरों की सीमा तय करता है।",
+        "* 3. maxlength अधिकतम अक्षरों की सीमा तय करता है।",
+        "* 4. ब्राउज़र अपने आप एरर चेतावनी बबल दिखाता है।",
+        "* 5. बिना किसी जावास्क्रिप्ट के काम करता है।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Form Validation</title>\n</head>\n<body>\n\n  <h2>Create Your Account</h2>\n  <form action=\"/register\" method=\"post\">\n    <p>\n      <label for=\"uname\">Full Name (Required, 3-20 chars):</label><br>\n      <input type=\"text\" id=\"uname\" name=\"fullname\" required minlength=\"3\" maxlength=\"20\">\n    </p>\n    <button type=\"submit\">Submit Registration</button>\n  </form>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which attribute ensures a user cannot submit a form without filling in the input?",
+      "options": [
+        "required",
+        "mandatory",
+        "validate",
+        "mustfill"
+      ],
+      "correctAnswer": "required",
+      "hint": "Adding required prevents submission until valid input is entered."
+    }
+  },
+  {
+    "id": 92,
+    "slug": "regex-pattern-matching-validation",
+    "title": "Regex Pattern Matching (pattern attribute)",
+    "unit": "Unit 10: Advanced Semantics, Validation & APIs",
+    "bookRef": "HTML5: The Missing Manual Chapter 4",
+    "points": {
+      "en": [
+        "* 1. pattern checks inputs against regular expressions.",
+        "* 2. Validates PIN codes, phone formats, IDs.",
+        "* 3. Submissions blocked if pattern check fails.",
+        "* 4. Use title attribute for error instructions.",
+        "* 5. Native browser regex evaluation on submit."
+      ],
+      "hi": [
+        "* 1. pattern रेगुलर एक्सप्रेशन (Regex) से जांच करता है।",
+        "* 2. पिन कोड, फोन नंबर और आईडी का फॉर्मेट जांचता है।",
+        "* 3. फॉर्मेट गलत होने पर फॉर्म सबमिट नहीं होता।",
+        "* 4. title अट्रिब्यूट से यूजर को सही निर्देश दें।",
+        "* 5. ब्राउज़र बिना स्क्रिप्ट के खुद जांच करता है।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Pattern Validation</title>\n</head>\n<body>\n\n  <h2>Postal PIN Code Verification</h2>\n  <form>\n    <p>\n      <label for=\"pincode\">6-Digit PIN Code:</label><br>\n      <input type=\"text\" id=\"pincode\" name=\"pin\" pattern=\"[0-9]{6}\" title=\"Enter exactly 6 digits\" required>\n    </p>\n    <button type=\"submit\">Verify Code</button>\n  </form>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which attribute validates an input's value against a regular expression pattern?",
+      "options": [
+        "pattern",
+        "regex",
+        "format",
+        "mask"
+      ],
+      "correctAnswer": "pattern",
+      "hint": "Use pattern=\"[0-9]{6}\" to validate numerical format constraints."
+    }
+  },
+  {
+    "id": 93,
+    "slug": "html5-numeric-ranges-type-number-range",
+    "title": "HTML5 Numeric Ranges (type=\"number\" & \"range\")",
+    "unit": "Unit 10: Advanced Semantics, Validation & APIs",
+    "bookRef": "HTML5: The Missing Manual Chapter 4",
+    "points": {
+      "en": [
+        "* 1. type=\"number\" creates numeric spinner input boxes.",
+        "* 2. type=\"range\" creates interactive slider controls.",
+        "* 3. min and max define permitted bounds.",
+        "* 4. step specifies allowed numeric increments.",
+        "* 5. Mobile keyboards switch to number pads."
+      ],
+      "hi": [
+        "* 1. type=\"number\" नंबर टाइप करने का बॉक्स बनाता है।",
+        "* 2. type=\"range\" स्लाइडर बार कंट्रोल बनाता है।",
+        "* 3. min और max न्यूनतम और अधिकतम सीमा तय करते हैं।",
+        "* 4. step आगे बढ़ने की संख्या (इंक्रीमेंट) तय करता है।",
+        "* 5. मोबाइल में सीधे नंबर कीपैड खुलता है।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Numeric Inputs</title>\n</head>\n<body>\n\n  <h2>Developer Preferences</h2>\n  <form>\n    <p>\n      <label for=\"age\">Age (18 to 65):</label>\n      <input type=\"number\" id=\"age\" name=\"age\" min=\"18\" max=\"65\" value=\"21\">\n    </p>\n    <p>\n      <label for=\"volume\">Volume Slider (0 to 100):</label>\n      <input type=\"range\" id=\"volume\" name=\"vol\" min=\"0\" max=\"100\" value=\"75\">\n    </p>\n  </form>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which input type renders a visual slider bar on screen?",
+      "options": [
+        "type=\"range\"",
+        "type=\"slider\"",
+        "type=\"number\"",
+        "type=\"bar\""
+      ],
+      "correctAnswer": "type=\"range\"",
+      "hint": "type=\"range\" creates a slider control for selecting a number."
+    }
+  },
+  {
+    "id": 94,
+    "slug": "progress-indicators-meter-gauges",
+    "title": "Progress Indicators (<progress>) & Meter Gauges (<meter>)",
+    "unit": "Unit 10: Advanced Semantics, Validation & APIs",
+    "bookRef": "HTML5: The Missing Manual Chapter 4",
+    "points": {
+      "en": [
+        "* 1. <progress> displays task completion bar progress.",
+        "* 2. <meter> displays scalar measurement gauge values.",
+        "* 3. <progress> uses value and max attributes.",
+        "* 4. <meter> uses min, max, and optimum.",
+        "* 5. Semantic native alternatives to styled divs."
+      ],
+      "hi": [
+        "* 1. <progress> कार्य पूरा होने का प्रोग्रेस बार दिखाता है।",
+        "* 2. <meter> मापन गेज (जैसे डिस्क स्पेस) दिखाता है।",
+        "* 3. <progress> में value और max अट्रिब्यूट होते हैं।",
+        "* 4. <meter> में min, max, और optimum मान होते हैं।",
+        "* 5. सिमेंटिक और शुद्ध HTML5 तत्व हैं।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Progress and Meter</title>\n</head>\n<body>\n\n  <h2>System Dashboard</h2>\n  <p>File Download Progress:</p>\n  <progress value=\"75\" max=\"100\">75%</progress>\n\n  <p>Disk Storage Used:</p>\n  <meter value=\"0.6\" min=\"0\" max=\"1\" low=\"0.3\" high=\"0.8\" optimum=\"0.2\">60%</meter>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which tag is specifically designed to show task completion progress (e.g. downloading)?",
+      "options": [
+        "<progress>",
+        "<meter>",
+        "<gauge>",
+        "<status>"
+      ],
+      "correctAnswer": "<progress>",
+      "hint": "<progress> represents the completion progress of a task."
+    }
+  },
+  {
+    "id": 95,
+    "slug": "autocomplete-datalist-input-suggestions",
+    "title": "Autocomplete Data Lists (<datalist>)",
+    "unit": "Unit 10: Advanced Semantics, Validation & APIs",
+    "bookRef": "HTML5: The Missing Manual Chapter 4",
+    "points": {
+      "en": [
+        "* 1. <datalist> provides autocomplete suggestion dropdown lists.",
+        "* 2. Connects to input using list attribute.",
+        "* 3. Users can pick suggestion or type.",
+        "* 4. Contains <option> values inside.",
+        "* 5. Unlike <select>, allows typing custom values."
+      ],
+      "hi": [
+        "* 1. <datalist> ऑटो-कंप्लीट सुझाव सूची देता है।",
+        "* 2. input के list अट्रिब्यूट से जुड़ता है।",
+        "* 3. यूजर सुझाव चुन सकता है या खुद टाइप कर सकता है।",
+        "* 4. इसके अंदर <option> वैल्यू होती हैं।",
+        "* 5. <select> से अलग, इसमें नया टेक्स्ट भी टाइप हो सकता है।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Datalist Autocomplete</title>\n</head>\n<body>\n\n  <h2>Choose Code Editor</h2>\n  <form>\n    <label for=\"editorInput\">Your Preferred Editor:</label>\n    <input list=\"editors\" id=\"editorInput\" name=\"editor\" placeholder=\"Type or select...\">\n\n    <datalist id=\"editors\">\n      <option value=\"Visual Studio Code\">\n      <option value=\"Sublime Text\">\n      <option value=\"Vim\">\n      <option value=\"Neovim\">\n    </datalist>\n  </form>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which attribute on <input> connects it to a <datalist id=\"...\"> element?",
+      "options": [
+        "list",
+        "datalist",
+        "options",
+        "autocomplete"
+      ],
+      "correctAnswer": "list",
+      "hint": "Use <input list=\"listId\"> to bind the suggestions."
+    }
+  },
+  {
+    "id": 96,
+    "slug": "collapsible-accordions-details-summary",
+    "title": "Collapsible Accordions (<details> and <summary>)",
+    "unit": "Unit 10: Advanced Semantics, Validation & APIs",
+    "bookRef": "HTML5: The Missing Manual Chapter 4",
+    "points": {
+      "en": [
+        "* 1. <details> creates native collapsible accordion widgets.",
+        "* 2. <summary> defines clickable accordion heading label.",
+        "* 3. Clicking summary toggles content visibility smoothly.",
+        "* 4. open attribute expands accordion by default.",
+        "* 5. Zero JavaScript required for interactive accordions."
+      ],
+      "hi": [
+        "* 1. <details> अपने आप खुलने/बंद होने वाला अकॉर्डियन बनाता है।",
+        "* 2. <summary> क्लिक करने वाला शीर्षक बनता है।",
+        "* 3. क्लिक करने पर अंदर का विवरण तुरंत खुल जाता है।",
+        "* 4. open अट्रिब्यूट से पहले से खुला रहता है।",
+        "* 5. बिना किसी जावास्क्रिप्ट के काम करता है।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Accordion Details</title>\n</head>\n<body>\n\n  <h2>Frequently Asked Questions</h2>\n\n  <details open>\n    <summary>Is Nextsem Academy free?</summary>\n    <p>Yes! All curriculum, lessons, and tools are 100% free forever.</p>\n  </details>\n\n  <details>\n    <summary>Do I need prior coding experience?</summary>\n    <p>No prior coding experience is required. We start from ground zero!</p>\n  </details>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which tag defines the visible clickable header for a <details> accordion?",
+      "options": [
+        "<summary>",
+        "<header>",
+        "<title>",
+        "<accordion>"
+      ],
+      "correctAnswer": "<summary>",
+      "hint": "<summary> provides the heading that toggles the <details> disclosure."
+    }
+  },
+  {
+    "id": 97,
+    "slug": "native-modals-dialog-showmodal-methods",
+    "title": "Native Modals & Popups (<dialog>)",
+    "unit": "Unit 10: Advanced Semantics, Validation & APIs",
+    "bookRef": "HTML5: The Missing Manual Chapter 4",
+    "points": {
+      "en": [
+        "* 1. <dialog> creates native modal popup windows.",
+        "* 2. open attribute makes modal visible immediately.",
+        "* 3. <form method=\"dialog\"> closes modal natively.",
+        "* 4. Includes native backdrop behind modal popup.",
+        "* 5. Replaces complex JavaScript modal library packages."
+      ],
+      "hi": [
+        "* 1. <dialog> नेटिव पॉपअप डायलॉग विंडो बनाता है।",
+        "* 2. open अट्रिब्यूट से डायलॉग तुरंत दिखाई देता है।",
+        "* 3. <form method=\"dialog\"> डायलॉग को सीधे बंद कर देता है।",
+        "* 4. पीछे अपने आप बैकड्रॉप स्क्रीन लगाता है।",
+        "* 5. भारी जावास्क्रिप्ट लाइब्रेरियों की जरूरत खत्म करता है।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Native Dialog Modal</title>\n</head>\n<body>\n\n  <h1>Nextsem Academy Announcement</h1>\n\n  <dialog open>\n    <h2>Welcome Student!</h2>\n    <p>You are now on Lesson 97 of Full Stack Web Development.</p>\n    <form method=\"dialog\">\n      <button>Got it, continue!</button>\n    </form>\n  </dialog>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which attribute makes a <dialog> element open and visible by default on page load?",
+      "options": [
+        "open",
+        "visible",
+        "show",
+        "active"
+      ],
+      "correctAnswer": "open",
+      "hint": "Add the boolean attribute open to the <dialog> tag."
+    }
+  },
+  {
+    "id": 98,
+    "slug": "web-components-template-slot-elements",
+    "title": "Web Components Templates (<template> and <slot>)",
+    "unit": "Unit 10: Advanced Semantics, Validation & APIs",
+    "bookRef": "HTML5: The Missing Manual Chapter 13",
+    "points": {
+      "en": [
+        "* 1. <template> holds hidden client-side markup fragments.",
+        "* 2. Content is not rendered upon load.",
+        "* 3. Cloned and inserted dynamically via DOM.",
+        "* 4. <slot> creates placeholders for custom text.",
+        "* 5. Building block for reusable Web Components."
+      ],
+      "hi": [
+        "* 1. <template> छिपे हुए HTML ब्लॉक को स्टोर करता है।",
+        "* 2. पेज लोड होने पर यह स्क्रीन पर नहीं दिखता।",
+        "* 3. DOM द्वारा क्लोन करके पेज में डाला जाता है।",
+        "* 4. <slot> कस्टम टेक्स्ट के लिए खांचा (प्लेसहोल्डर) बनाता है।",
+        "* 5. रीयूजेबल वेब कंपोनेंट्स की मजबूत नींव है।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Templates</title>\n</head>\n<body>\n\n  <h2>Course Card Blueprints</h2>\n\n  <template id=\"course-card-blueprint\">\n    <article>\n      <h3>Course Heading</h3>\n      <p>Course description goes here.</p>\n    </article>\n  </template>\n\n  <p>Template stored in DOM memory without rendering on screen.</p>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Does content inside a <template> tag render visible on the screen when the page loads?",
+      "options": [
+        "No, it remains hidden until cloned and inserted via DOM",
+        "Yes, it renders as a regular <div>",
+        "Only on mobile screens",
+        "Only if open attribute is set"
+      ],
+      "correctAnswer": "No, it remains hidden until cloned and inserted via DOM",
+      "hint": "<template> contents are not rendered until instantiated."
+    }
+  },
+  {
+    "id": 99,
+    "slug": "canvas-graphics-draw-shapes-context",
+    "title": "Canvas Graphics (<canvas>)",
+    "unit": "Unit 10: Advanced Semantics, Validation & APIs",
+    "bookRef": "Duckett Chapter 9 (p. 222-226)",
+    "points": {
+      "en": [
+        "* 1. <canvas> provides bitmap drawing graphic surfaces.",
+        "* 2. width and height define pixel drawing area.",
+        "* 3. Used for games, charts, and animations.",
+        "* 4. Text inside serves as fallback message.",
+        "* 5. Graphics are drawn via 2D context."
+      ],
+      "hi": [
+        "* 1. <canvas> ग्राफिक्स और ड्रॉइंग के लिए सतह देता है।",
+        "* 2. width और height पिक्सल एरिया तय करते हैं।",
+        "* 3. 2D गेम्स, चार्ट्स, और एनिमेशन के काम आता है।",
+        "* 4. अंदर का टेक्स्ट फॉलबैक संदेश बनता है।",
+        "* 5. 2D कॉन्टेक्स्ट के माध्यम से रेंडर होता है।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>HTML5 Canvas</title>\n</head>\n<body>\n\n  <h2>Interactive Game Canvas</h2>\n  <canvas id=\"gameCanvas\" width=\"400\" height=\"200\">\n    Your browser does not support HTML5 canvas graphics.\n  </canvas>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which element provides a scriptable 2D drawing canvas for charts and games?",
+      "options": [
+        "<canvas>",
+        "<svg>",
+        "<draw>",
+        "<graphic>"
+      ],
+      "correctAnswer": "<canvas>",
+      "hint": "The <canvas> element provides a resolution-dependent bitmap canvas."
+    }
+  },
+  {
+    "id": 100,
+    "slug": "capstone-portfolio-layout-page",
+    "title": "Capstone Project: Complete Semantic Portfolio",
+    "unit": "Unit 10: Advanced Semantics, Validation & APIs",
+    "bookRef": "Nextsem Academy Project Suite",
+    "points": {
+      "en": [
+        "* 1. Combines all HTML5 semantic tags learned.",
+        "* 2. Implements header, nav, main, sections, footer.",
+        "* 3. Includes working accessible forms and tables.",
+        "* 4. 100% pure standard valid HTML5 markup.",
+        "* 5. Ready for portfolio showcase and deployment."
+      ],
+      "hi": [
+        "* 1. सीखे गए सभी HTML5 सिमेंटिक टैग्स का संगम।",
+        "* 2. header, nav, main, section, footer का सही उपयोग।",
+        "* 3. कार्यशील फॉर्म और डेटा टेबल शामिल हैं।",
+        "* 4. 100% शुद्ध और वैध HTML5 मार्कअप।",
+        "* 5. लाइव प्रोजेक्ट डिप्लॉयमेंट के लिए तैयार।"
+      ]
+    },
+    "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>Jane Doe | Full Stack Web Developer</title>\n</head>\n<body>\n\n  <header>\n    <h1>Jane Doe</h1>\n    <p>Junior Full Stack Web Developer &bull; Nextsem Academy Graduate</p>\n    <nav>\n      <ul>\n        <li><a href=\"#about\">About</a></li>\n        <li><a href=\"#skills\">Skills</a></li>\n        <li><a href=\"#projects\">Projects</a></li>\n        <li><a href=\"#contact\">Contact</a></li>\n      </ul>\n    </nav>\n  </header>\n\n  <main>\n    <section id=\"about\">\n      <h2>About Me</h2>\n      <p>I build fast, accessible, and standards-compliant web applications using pure HTML5 and modern developer workflows.</p>\n    </section>\n\n    <section id=\"skills\">\n      <h2>Technical Skills</h2>\n      <ul>\n        <li>HTML5 Semantic Architecture</li>\n        <li>Windows 11 Command Prompt (cmd.exe)</li>\n        <li>Git Version Control</li>\n      </ul>\n    </section>\n\n    <section id=\"contact\">\n      <h2>Contact Me</h2>\n      <form action=\"/send-message\" method=\"post\">\n        <p>\n          <label for=\"cname\">Your Name:</label><br>\n          <input type=\"text\" id=\"cname\" name=\"name\" required>\n        </p>\n        <p>\n          <label for=\"cemail\">Your Email:</label><br>\n          <input type=\"email\" id=\"cemail\" name=\"email\" required>\n        </p>\n        <p>\n          <label for=\"cmsg\">Message:</label><br>\n          <textarea id=\"cmsg\" name=\"message\" rows=\"4\" cols=\"40\" required></textarea>\n        </p>\n        <button type=\"submit\">Send Message</button>\n      </form>\n    </section>\n  </main>\n\n  <footer>\n    <p>&copy; 2026 Jane Doe. Built with Nextsem Academy Curriculum.</p>\n  </footer>\n\n</body>\n</html>",
+    "exercise": {
+      "question": "Which semantic structure represents the complete modern HTML5 standard layout for a personal portfolio?",
+      "options": [
+        "<header>, <nav>, <main>, <section>, and <footer>",
+        "<div> tags only with custom IDs",
+        "<frameset> and <frame>",
+        "<table> with <tr> layout cells"
+      ],
+      "correctAnswer": "<header>, <nav>, <main>, <section>, and <footer>",
+      "hint": "Modern semantic HTML5 organizes pages with header, nav, main, section, and footer."
+    }
+  }
+]

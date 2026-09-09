@@ -487,7 +487,7 @@ export default function EssentialCmdCommandsClient() {
             }`}>
               {isDone && <CheckCircle2 size={15} className="text-[#04AA6D] shrink-0" />}
               <span className="text-[#04AA6D]">Lesson #12</span>
-              <span className="text-slate-400">/ 1000</span>
+              <span className="text-slate-400">/ 100</span>
             </div>
           </div>
 
@@ -678,7 +678,7 @@ export default function EssentialCmdCommandsClient() {
             }`}>
               {isDone && <CheckCircle2 size={15} className="text-[#04AA6D] shrink-0" />}
               <span className="text-[#04AA6D]">Lesson #12</span>
-              <span className="text-slate-400">/ 1000</span>
+              <span className="text-slate-400">/ 100</span>
             </div>
 
             <Link

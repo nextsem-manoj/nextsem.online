@@ -57,10 +57,10 @@ function GitLayoutContent({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     setMounted(true);
+    setSidebarOpen(false);
     const checkMobile = () => {
       const mobile = window.innerWidth < 768;
       setIsMobile(mobile);
-      setSidebarOpen(!mobile);
     };
     checkMobile();
     window.addEventListener('resize', checkMobile);
@@ -72,7 +72,7 @@ function GitLayoutContent({ children }: { children: React.ReactNode }) {
       <NsSubjectNavBar currentUser={currentUser} onSignIn={handleSignIn} onToggleSidebar={() => setSidebarOpen(prev => !prev)} />
       <div
         className="flex-1 flex flex-col md:flex-row w-full min-w-0 bg-[#060813] transition-all duration-300"
-        style={mounted && !isMobile && sidebarOpen ? { paddingLeft: `calc(10% + ${effectiveSidebarWidth}px)` } : undefined}
+        style={mounted && !isMobile && sidebarOpen ? { paddingLeft: `${effectiveSidebarWidth}px` } : undefined}
       >
         <BookSidebar
           isOpen={sidebarOpen}

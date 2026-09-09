@@ -899,7 +899,8 @@ Execution successful! Output verified on Windows 11 Pro x86_64.
       <div className="hidden md:flex items-center justify-between gap-4 border-t border-slate-800/80 pt-6 mt-8">
         {prevLesson ? (
           <Link
-            href={`${subjectDashboardUrl}/${prevLesson.slug}`}
+            href={`${subjectDashboardUrl}/${prevLesson.slug}/`}
+            prefetch={true}
             onClick={async () => {
               await triggerNavigationAd();
             }}
@@ -926,7 +927,8 @@ Execution successful! Output verified on Windows 11 Pro x86_64.
 
         {nextLesson ? (
           <Link
-            href={`${subjectDashboardUrl}/${nextLesson.slug}`}
+            href={`${subjectDashboardUrl}/${nextLesson.slug}/`}
+            prefetch={true}
             onClick={async () => {
               await triggerNavigationAd();
             }}

@@ -1,6 +1,6 @@
 "use client";
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
+ 
 
 import React, { useState, useEffect } from "react";
 import { Code2, Terminal, FileCode, Wifi, Database, Play, AlertCircle, PlayCircle, Trash2, ArrowRight } from "lucide-react";

@@ -6,7 +6,7 @@ import { Play, Pause, SkipForward } from "lucide-react";
 interface TopicAnimationWidgetProps {
   lessonId: number;
   lessonTitle: string;
-  type: "html" | "cli";
+  type: "html" | "cli" | "css";
   lang?: "english" | "hinglish" | "hindi";
 }
 

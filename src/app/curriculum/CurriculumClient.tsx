@@ -22,7 +22,8 @@ import {
   Monitor,
   FolderArchive,
   Compass,
-  Star
+  Star,
+  Palette
 } from 'lucide-react';
 
 const LEARNING_TRACKS = [
@@ -33,31 +34,31 @@ const LEARNING_TRACKS = [
     badgeColor: 'bg-emerald-50 text-emerald-700 border-emerald-200',
     icon: <Terminal size={22} className="text-emerald-600" />,
     description: 'Master directory navigation, drive switching, file creation, and command-line execution step-by-step.',
-    lessonsCount: '100+ Lessons',
+    lessonsCount: '101+ Lessons',
     href: '/cli',
     accentColor: 'group-hover:border-emerald-500'
   },
   {
     id: 'html',
-    title: 'HTML5 & Web Architecture',
-    badge: 'Module 02 • Markup',
-    badgeColor: 'bg-orange-50 text-orange-700 border-orange-200',
-    icon: <Code2 size={22} className="text-orange-600" />,
-    description: 'Build semantic web structures, HTML5 tags, forms, tables, accessibility, and clean markup.',
-    lessonsCount: '98+ Lessons',
+    title: 'HTML5 Semantic Web Architecture',
+    badge: 'Module 02 • Web Structure',
+    badgeColor: 'bg-blue-50 text-blue-700 border-blue-200',
+    icon: <Code2 size={22} className="text-blue-600" />,
+    description: 'Build semantic web structures, document outlines, forms, accessible tables, and modern HTML5 components.',
+    lessonsCount: '100+ Lessons',
     href: '/html',
     accentColor: 'group-hover:border-orange-500'
   },
   {
     id: 'css',
-    title: 'CSS3 Styling & UI Layouts',
-    badge: 'Module 03 • Styling',
-    badgeColor: 'bg-sky-50 text-sky-700 border-sky-200',
-    icon: <Layers size={22} className="text-sky-600" />,
-    description: 'Master Flexbox, CSS Grid layouts, keyframe animations, responsive design, and modern dark mode styling.',
-    lessonsCount: '12+ Lessons',
+    title: 'CSS3 & Modern Responsive Design',
+    badge: 'Module 03 • Styling & UI',
+    badgeColor: 'bg-teal-50 text-teal-700 border-teal-200',
+    icon: <Palette size={22} className="text-teal-600" />,
+    description: 'Master CSS selectors, Box Model, Flexbox layouts, CSS Grid, custom properties, animations, and responsive web design.',
+    lessonsCount: '30+ Lessons',
     href: '/css',
-    accentColor: 'group-hover:border-sky-500'
+    accentColor: 'group-hover:border-teal-500'
   },
   {
     id: 'js',
@@ -104,9 +105,20 @@ const LEARNING_TRACKS = [
     accentColor: 'group-hover:border-red-500'
   },
   {
+    id: 'cpp',
+    title: 'C++ Systems Programming & Memory',
+    badge: 'Module 08 • Core Logic',
+    badgeColor: 'bg-indigo-50 text-indigo-700 border-indigo-200',
+    icon: <Cpu size={22} className="text-indigo-600" />,
+    description: 'Understand low-level systems programming, pointers, memory allocation, and compilation pipelines.',
+    lessonsCount: '21+ Lessons',
+    href: '/cpp',
+    accentColor: 'group-hover:border-indigo-500'
+  },
+  {
     id: 'fullstack',
-    title: 'Full-Stack Developer Roadmap',
-    badge: 'Module 08 • Career Path',
+    title: 'Full-Stack Developer Career Roadmap',
+    badge: 'Module 09 • Career Pathway',
     badgeColor: 'bg-amber-50 text-amber-700 border-amber-200',
     icon: <Rocket size={22} className="text-amber-600" />,
     description: 'Complete career pathway from beginner fundamentals to production deployments and full-stack projects.',

@@ -750,7 +750,6 @@ function VsCodeEditorCard({ code, blockKey }: { code: string; blockKey: string }
         const imgSrc = imgMatch[2];
         blocks.push(
           <div key={`img-${i}`} className="my-6 w-full text-center">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={imgSrc}
               alt={caption || "Windows 11 Visual Studio Code Step-by-Step Screenshot"}

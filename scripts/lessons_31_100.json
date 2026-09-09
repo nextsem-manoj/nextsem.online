@@ -1,0 +1,492 @@
+[
+  {
+    "id": 31,
+    "slug": "bold-b-vs-semantic-strong-tag",
+    "title": "Presentational Bold (<b>) vs. Semantic Strong (<strong>)",
+    "unit": "Unit 4: Semantic Content & Text Modifications",
+    "bookRef": "Duckett Chapter 2 (p. 34-35)"
+  },
+  {
+    "id": 32,
+    "slug": "italic-i-vs-semantic-emphasis-em-tag",
+    "title": "Presentational Italic (<i>) vs. Semantic Emphasis (<em>)",
+    "unit": "Unit 4: Semantic Content & Text Modifications",
+    "bookRef": "Duckett Chapter 2 (p. 35-36)"
+  },
+  {
+    "id": 33,
+    "slug": "highlight-text-mark-tag-search-results",
+    "title": "Highlighted Text (<mark>)",
+    "unit": "Unit 4: Semantic Content & Text Modifications",
+    "bookRef": "Duckett Chapter 2 (p. 37-38)"
+  },
+  {
+    "id": 34,
+    "slug": "monospace-code-snippet-code-tag",
+    "title": "Code Snippets (<code>)",
+    "unit": "Unit 4: Semantic Content & Text Modifications",
+    "bookRef": "Duckett Chapter 2 (p. 45)"
+  },
+  {
+    "id": 35,
+    "slug": "preformatted-text-pre-tag-spaces-tabs",
+    "title": "Preformatted Text (<pre>)",
+    "unit": "Unit 4: Semantic Content & Text Modifications",
+    "bookRef": "Duckett Chapter 2 (p. 46)"
+  },
+  {
+    "id": 36,
+    "slug": "insert-ins-and-delete-del-tags",
+    "title": "Insertions (<ins>) & Deletions (<del>)",
+    "unit": "Unit 4: Semantic Content & Text Modifications",
+    "bookRef": "Duckett Chapter 2 (p. 48)"
+  },
+  {
+    "id": 37,
+    "slug": "strikethrough-s-tag-outdated-content",
+    "title": "Strikethrough (<s>)",
+    "unit": "Unit 4: Semantic Content & Text Modifications",
+    "bookRef": "Duckett Chapter 2 (p. 49)"
+  },
+  {
+    "id": 38,
+    "slug": "abbreviation-abbr-tag-title-tooltip",
+    "title": "Abbreviations (<abbr>)",
+    "unit": "Unit 4: Semantic Content & Text Modifications",
+    "bookRef": "Duckett Chapter 2 (p. 42)"
+  },
+  {
+    "id": 39,
+    "slug": "defining-term-dfn-tag-first-instance",
+    "title": "Defining Terms (<dfn>)",
+    "unit": "Unit 4: Semantic Content & Text Modifications",
+    "bookRef": "Duckett Chapter 2 (p. 41)"
+  },
+  {
+    "id": 40,
+    "slug": "superscript-sup-and-subscript-sub-tags",
+    "title": "Superscript (<sup>) & Subscript (<sub>)",
+    "unit": "Unit 4: Semantic Content & Text Modifications",
+    "bookRef": "Duckett Chapter 2 (p. 39)"
+  },
+  {
+    "id": 41,
+    "slug": "anchor-a-tag-href-hyperlinks",
+    "title": "Anchor Elements (<a>) & the href Attribute",
+    "unit": "Unit 5: Navigation & Hyperlinks",
+    "bookRef": "Duckett Chapter 4 (p. 74-76)"
+  },
+  {
+    "id": 42,
+    "slug": "absolute-vs-relative-link-paths",
+    "title": "Absolute vs. Relative Paths",
+    "unit": "Unit 5: Navigation & Hyperlinks",
+    "bookRef": "Duckett Chapter 4 (p. 77-79)"
+  },
+  {
+    "id": 43,
+    "slug": "parent-directory-hopping-relative-paths",
+    "title": "Parent Directory Hopping (../)",
+    "unit": "Unit 5: Navigation & Hyperlinks",
+    "bookRef": "Duckett Chapter 4 (p. 80-82)"
+  },
+  {
+    "id": 44,
+    "slug": "grandparent-directory-hopping-double-slash",
+    "title": "Grandparent Directory Hopping (../../)",
+    "unit": "Unit 5: Navigation & Hyperlinks",
+    "bookRef": "Duckett Chapter 4 (p. 83-84)"
+  },
+  {
+    "id": 45,
+    "slug": "email-mailto-links-anchor-tag",
+    "title": "Linking to Email Addresses (mailto:)",
+    "unit": "Unit 5: Navigation & Hyperlinks",
+    "bookRef": "Duckett Chapter 4 (p. 85)"
+  },
+  {
+    "id": 46,
+    "slug": "telephone-dialing-tel-links-mobile",
+    "title": "Telephone Dialing Links (tel:)",
+    "unit": "Unit 5: Navigation & Hyperlinks",
+    "bookRef": "Duckett Chapter 4 (p. 86)"
+  },
+  {
+    "id": 47,
+    "slug": "open-link-new-tab-target-blank",
+    "title": "Target Targets (target=\\",
+    "unit": "Unit 5: Navigation & Hyperlinks",
+    "bookRef": "Duckett Chapter 4 (p. 87)"
+  },
+  {
+    "id": 48,
+    "slug": "link-security-rel-noopener-noreferrer",
+    "title": "Link Security (rel=\\",
+    "unit": "Unit 5: Navigation & Hyperlinks",
+    "bookRef": "The Definitive Guide to HTML5 Chapter 13"
+  },
+  {
+    "id": 49,
+    "slug": "hash-links-jump-to-page-sections",
+    "title": "Document Hash Links (href=\\",
+    "unit": "Unit 5: Navigation & Hyperlinks",
+    "bookRef": "Duckett Chapter 4 (p. 88-89)"
+  },
+  {
+    "id": 50,
+    "slug": "download-attribute-force-file-download",
+    "title": "Download Attribute (force download)",
+    "unit": "Unit 5: Navigation & Hyperlinks",
+    "bookRef": "The Definitive Guide to HTML5 Chapter 13"
+  },
+  {
+    "id": 51,
+    "slug": "image-src-alt-attributes-elements",
+    "title": "The Image Element (<img>)",
+    "unit": "Unit 6: Multimedia & Responsive Art Direction",
+    "bookRef": "Duckett Chapter 5 (p. 94-96)"
+  },
+  {
+    "id": 52,
+    "slug": "image-sizing-width-height-attributes",
+    "title": "Image Sizing (width & height)",
+    "unit": "Unit 6: Multimedia & Responsive Art Direction",
+    "bookRef": "Duckett Chapter 5 (p. 97-99)"
+  },
+  {
+    "id": 53,
+    "slug": "responsive-images-srcset-sizes-attributes",
+    "title": "Responsive Images (srcset & sizes)",
+    "unit": "Unit 6: Multimedia & Responsive Art Direction",
+    "bookRef": "The Definitive Guide to HTML5 Chapter 15"
+  },
+  {
+    "id": 54,
+    "slug": "art-direction-picture-source-elements",
+    "title": "Art Direction with <picture> & <source>",
+    "unit": "Unit 6: Multimedia & Responsive Art Direction",
+    "bookRef": "The Definitive Guide to HTML5 Chapter 15"
+  },
+  {
+    "id": 55,
+    "slug": "lazy-loading-images-loading-attribute",
+    "title": "Lazy Loading Images (loading attribute)",
+    "unit": "Unit 6: Multimedia & Responsive Art Direction",
+    "bookRef": "The Definitive Guide to HTML5 Chapter 15"
+  },
+  {
+    "id": 56,
+    "slug": "figure-figcaption-semantic-image-wrappers",
+    "title": "Semantic Image Wrappers (<figure> & <figcaption>)",
+    "unit": "Unit 6: Multimedia & Responsive Art Direction",
+    "bookRef": "Duckett Chapter 5 (p. 100-101)"
+  },
+  {
+    "id": 57,
+    "slug": "inline-vector-graphics-svg-element",
+    "title": "Vector Graphics (<svg>)",
+    "unit": "Unit 6: Multimedia & Responsive Art Direction",
+    "bookRef": "The Definitive Guide to HTML5 Chapter 16"
+  },
+  {
+    "id": 58,
+    "slug": "image-maps-map-area-coordinate-tags",
+    "title": "Image Maps (<map> & <area>)",
+    "unit": "Unit 6: Multimedia & Responsive Art Direction",
+    "bookRef": "Duckett Chapter 5 (p. 102-103)"
+  },
+  {
+    "id": 59,
+    "slug": "favicon-modern-format-link-types",
+    "title": "Favicon Formats & Link Configurations",
+    "unit": "Unit 6: Multimedia & Responsive Art Direction",
+    "bookRef": "The Definitive Guide to HTML5 Chapter 6"
+  },
+  {
+    "id": 60,
+    "slug": "capstone-photo-gallery-responsive",
+    "title": "Capstone Project: Responsive Photo Gallery",
+    "unit": "Unit 6: Multimedia & Responsive Art Direction",
+    "bookRef": "Duckett Chapter 5 & 10"
+  },
+  {
+    "id": 61,
+    "slug": "audio-elements-src-controls-autoplay-attributes",
+    "title": "Audio Elements (src & controls)",
+    "unit": "Unit 7: Native Audio, Video & Embeds",
+    "bookRef": "Duckett Chapter 9 (p. 200-202)"
+  },
+  {
+    "id": 62,
+    "slug": "audio-fallback-source-format-types",
+    "title": "Audio Fallback Formats & Sources",
+    "unit": "Unit 7: Native Audio, Video & Embeds",
+    "bookRef": "Duckett Chapter 9 (p. 203)"
+  },
+  {
+    "id": 63,
+    "slug": "video-elements-src-poster-preload-settings",
+    "title": "Video Elements (poster & preload)",
+    "unit": "Unit 7: Native Audio, Video & Embeds",
+    "bookRef": "Duckett Chapter 9 (p. 206-209)"
+  },
+  {
+    "id": 64,
+    "slug": "video-subtitles-tracks-element",
+    "title": "Video Subtitles & Captions (<track>)",
+    "unit": "Unit 7: Native Audio, Video & Embeds",
+    "bookRef": "The Definitive Guide to HTML5 Chapter 16"
+  },
+  {
+    "id": 65,
+    "slug": "embedding-external-sites-iframe-sandbox",
+    "title": "External Site Embedding (<iframe> & sandbox)",
+    "unit": "Unit 7: Native Audio, Video & Embeds",
+    "bookRef": "Duckett Chapter 9 (p. 212-214)"
+  },
+  {
+    "id": 66,
+    "slug": "plugin-insertion-embed-object-elements",
+    "title": "Plugin Insertion (<embed> & <object>)",
+    "unit": "Unit 7: Native Audio, Video & Embeds",
+    "bookRef": "The Definitive Guide to HTML5 Chapter 16"
+  },
+  {
+    "id": 67,
+    "slug": "custom-data-attributes-data-prefix",
+    "title": "Custom Data Attributes (data-*)",
+    "unit": "Unit 7: Native Audio, Video & Embeds",
+    "bookRef": "The Definitive Guide to HTML5 Chapter 25"
+  },
+  {
+    "id": 68,
+    "slug": "iframe-communication-security-headers",
+    "title": "Iframe Communication & Security Headers",
+    "unit": "Unit 7: Native Audio, Video & Embeds",
+    "bookRef": "The Definitive Guide to HTML5 Chapter 16"
+  },
+  {
+    "id": 69,
+    "slug": "html5-native-geolocation-api-details",
+    "title": "HTML5 Geolocation API Basics",
+    "unit": "Unit 7: Native Audio, Video & Embeds",
+    "bookRef": "The Definitive Guide to HTML5 Chapter 28"
+  },
+  {
+    "id": 70,
+    "slug": "capstone-interactive-video-player",
+    "title": "Capstone Project: Custom Video Player",
+    "unit": "Unit 7: Native Audio, Video & Embeds",
+    "bookRef": "The Definitive Guide to HTML5 Chapter 16"
+  },
+  {
+    "id": 71,
+    "slug": "unordered-lists-ul-li-bullet-points",
+    "title": "Unordered Lists (<ul> and <li>)",
+    "unit": "Unit 8: Lists, Tables & Layout Grids",
+    "bookRef": "Duckett Chapter 3 (p. 52-54)"
+  },
+  {
+    "id": 72,
+    "slug": "ordered-lists-ol-li-numbered-steps",
+    "title": "Ordered Lists (<ol> and <li>)",
+    "unit": "Unit 8: Lists, Tables & Layout Grids",
+    "bookRef": "Duckett Chapter 3 (p. 55-57)"
+  },
+  {
+    "id": 73,
+    "slug": "ordered-list-start-reversed-indexing",
+    "title": "Ordered Lists Start & Reversed Attributes",
+    "unit": "Unit 8: Lists, Tables & Layout Grids",
+    "bookRef": "The Definitive Guide to HTML5 Chapter 14"
+  },
+  {
+    "id": 74,
+    "slug": "description-lists-dl-dt-dd-glossary",
+    "title": "Definition Lists (<dl>, <dt>, and <dd>)",
+    "unit": "Unit 8: Lists, Tables & Layout Grids",
+    "bookRef": "Duckett Chapter 3 (p. 58-60)"
+  },
+  {
+    "id": 75,
+    "slug": "table-container-grid-rows-columns",
+    "title": "Tables Rows & Cells (<tr>, <td>, <th>)",
+    "unit": "Unit 8: Lists, Tables & Layout Grids",
+    "bookRef": "Duckett Chapter 6 (p. 126-128)"
+  },
+  {
+    "id": 76,
+    "slug": "table-colspan-merge-columns",
+    "title": "Table Column Spanning (colspan & rowspan)",
+    "unit": "Unit 8: Lists, Tables & Layout Grids",
+    "bookRef": "Duckett Chapter 6 (p. 132-135)"
+  },
+  {
+    "id": 77,
+    "slug": "table-thead-tbody-tfoot-semantics",
+    "title": "Table Structured Sections (<thead>, <tbody>, <tfoot>)",
+    "unit": "Unit 8: Lists, Tables & Layout Grids",
+    "bookRef": "Duckett Chapter 6 (p. 136-138)"
+  },
+  {
+    "id": 78,
+    "slug": "table-column-groups-colgroup-col-widths",
+    "title": "Table Column Groups (<colgroup> & <col>)",
+    "unit": "Unit 8: Lists, Tables & Layout Grids",
+    "bookRef": "The Definitive Guide to HTML5 Chapter 14"
+  },
+  {
+    "id": 79,
+    "slug": "table-borders-cellpadding-cellspacing",
+    "title": "Table Borders & Spacing Layouts",
+    "unit": "Unit 8: Lists, Tables & Layout Grids",
+    "bookRef": "Duckett Chapter 6 (p. 130)"
+  },
+  {
+    "id": 80,
+    "slug": "capstone-weekly-schedule-pricing-grid",
+    "title": "Capstone Project: Dynamic Pricing Grid",
+    "unit": "Unit 8: Lists, Tables & Layout Grids",
+    "bookRef": "Duckett Chapter 6 & 11"
+  },
+  {
+    "id": 81,
+    "slug": "form-action-method-attributes-processing",
+    "title": "Form Action & Method (processing basics)",
+    "unit": "Unit 9: Interactive Forms & Inputs",
+    "bookRef": "Duckett Chapter 7 (p. 144-146)"
+  },
+  {
+    "id": 82,
+    "slug": "form-labeling-for-attribute-linkage",
+    "title": "Form Labels (for attribute linkage)",
+    "unit": "Unit 9: Interactive Forms & Inputs",
+    "bookRef": "Duckett Chapter 7 (p. 150-152)"
+  },
+  {
+    "id": 83,
+    "slug": "text-password-inputs-type-attributes",
+    "title": "Text & Password Inputs (type=\\",
+    "unit": "Unit 9: Interactive Forms & Inputs",
+    "bookRef": "Duckett Chapter 7 (p. 147-149)"
+  },
+  {
+    "id": 84,
+    "slug": "radio-buttons-grouping-name-attribute",
+    "title": "Radio Buttons (type=\\",
+    "unit": "Unit 9: Interactive Forms & Inputs",
+    "bookRef": "Duckett Chapter 7 (p. 154-155)"
+  },
+  {
+    "id": 85,
+    "slug": "checkboxes-prechecked-multiple-selections",
+    "title": "Checkboxes (type=\\",
+    "unit": "Unit 9: Interactive Forms & Inputs",
+    "bookRef": "Duckett Chapter 7 (p. 156-157)"
+  },
+  {
+    "id": 86,
+    "slug": "dropdown-select-lists-option-attributes",
+    "title": "Dropdown Select Lists (<select> and <option>)",
+    "unit": "Unit 9: Interactive Forms & Inputs",
+    "bookRef": "Duckett Chapter 7 (p. 158-159)"
+  },
+  {
+    "id": 87,
+    "slug": "multiline-textarea-rows-cols-settings",
+    "title": "Multi-line Input (<textarea>)",
+    "unit": "Unit 9: Interactive Forms & Inputs",
+    "bookRef": "Duckett Chapter 7 (p. 160-161)"
+  },
+  {
+    "id": 88,
+    "slug": "buttons-submit-button-reset-types",
+    "title": "Buttons (type=\\",
+    "unit": "Unit 9: Interactive Forms & Inputs",
+    "bookRef": "Duckett Chapter 7 (p. 162-163)"
+  },
+  {
+    "id": 89,
+    "slug": "binding-input-labels-label-container",
+    "title": "Binding Input Labels (<label>)",
+    "unit": "Unit 9: Interactive Forms & Inputs",
+    "bookRef": "Duckett Chapter 7 (p. 150)"
+  },
+  {
+    "id": 90,
+    "slug": "form-groups-fieldset-legend-elements",
+    "title": "Form Groups (<fieldset> and <legend>)",
+    "unit": "Unit 9: Interactive Forms & Inputs",
+    "bookRef": "Duckett Chapter 7 (p. 164-165)"
+  },
+  {
+    "id": 91,
+    "slug": "form-validation-required-maxlength-minlength",
+    "title": "Form Field Required Validation",
+    "unit": "Unit 10: Advanced Semantics, Validation & APIs",
+    "bookRef": "The Definitive Guide to HTML5 Chapter 12"
+  },
+  {
+    "id": 92,
+    "slug": "regex-pattern-matching-validation",
+    "title": "Regex Pattern Matching (pattern attribute)",
+    "unit": "Unit 10: Advanced Semantics, Validation & APIs",
+    "bookRef": "The Definitive Guide to HTML5 Chapter 12"
+  },
+  {
+    "id": 93,
+    "slug": "html5-numeric-ranges-type-number-range",
+    "title": "HTML5 Numeric Ranges (type=\\",
+    "unit": "Unit 10: Advanced Semantics, Validation & APIs",
+    "bookRef": "The Definitive Guide to HTML5 Chapter 12"
+  },
+  {
+    "id": 94,
+    "slug": "progress-indicators-meter-gauges",
+    "title": "Progress Indicators (<progress>) & Meter Gauges (<meter>)",
+    "unit": "Unit 10: Advanced Semantics, Validation & APIs",
+    "bookRef": "The Definitive Guide to HTML5 Chapter 16"
+  },
+  {
+    "id": 95,
+    "slug": "autocomplete-datalist-input-suggestions",
+    "title": "Autocomplete Data Lists (<datalist>)",
+    "unit": "Unit 10: Advanced Semantics, Validation & APIs",
+    "bookRef": "The Definitive Guide to HTML5 Chapter 12"
+  },
+  {
+    "id": 96,
+    "slug": "collapsible-accordions-details-summary",
+    "title": "Collapsible Accordions (<details> and <summary>)",
+    "unit": "Unit 10: Advanced Semantics, Validation & APIs",
+    "bookRef": "The Definitive Guide to HTML5 Chapter 14"
+  },
+  {
+    "id": 97,
+    "slug": "native-modals-dialog-showmodal-methods",
+    "title": "Native Modals & Popups (<dialog>)",
+    "unit": "Unit 10: Advanced Semantics, Validation & APIs",
+    "bookRef": "The Definitive Guide to HTML5 Chapter 14"
+  },
+  {
+    "id": 98,
+    "slug": "web-components-template-slot-elements",
+    "title": "Web Components Templates (<template> and <slot>)",
+    "unit": "Unit 10: Advanced Semantics, Validation & APIs",
+    "bookRef": "The Definitive Guide to HTML5 Chapter 14"
+  },
+  {
+    "id": 99,
+    "slug": "canvas-graphics-draw-shapes-context",
+    "title": "Canvas Graphics (<canvas>)",
+    "unit": "Unit 10: Advanced Semantics, Validation & APIs",
+    "bookRef": "The Definitive Guide to HTML5 Chapter 16"
+  },
+  {
+    "id": 100,
+    "slug": "capstone-portfolio-layout-page",
+    "title": "Capstone Project: Portfolio Layout",
+    "unit": "Unit 10: Advanced Semantics, Validation & APIs",
+    "bookRef": "The Definitive Guide to HTML5"
+  }
+]

@@ -1,17 +1,16 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import {
   ChevronDown, Check, ArrowLeft, X,
-  PanelLeftClose, PanelLeftOpen,
   BookOpen, Terminal, Globe, Layers, List, Award,
-  GitBranch, GitCommit, GitMerge, Upload, Download, Search, Command
+  GitBranch, GitCommit, GitMerge, Upload, Download, Search, Sparkles, Code
 } from 'lucide-react';
 import { useProgress } from '../context/ProgressContext';
 import { coursePhases } from '../data/courseData';
-import { htmlLessons } from '../data/htmlLessonsData';
+import { htmlLessons, Lesson as HtmlLesson } from '../data/htmlLessonsData';
 import { cssLessons } from '../data/cssLessonsData';
 import { jsLessons } from '../data/jsLessonsData';
 import { reactLessons } from '../data/reactLessonsData';
@@ -21,7 +20,6 @@ import { gitLessons } from '../data/gitLessonsData';
 import { cppLessons } from '../data/cppLessonsData';
 import searchIndex from '../data/searchIndex.json';
 import { getChapterIdFromPath, getChapterUrl } from '../lib/htmlLessonsHelper';
-import BrandLogoIcon from './BrandLogoIcon';
 
 // Map phase id → color/title
 const phaseColorMap: Record<string, string> = {};
@@ -45,129 +43,6 @@ searchIndex.forEach((item) => {
   group.chapters.push({ id: item.id, title: `${item.phase}: ${item.title.split(': ').slice(1).join(': ') || item.title}`, phaseKey });
 });
 
-// Git simulator steps
-const GIT_SIDEBAR_STEPS = [
-  { id: 'init', title: 'Initialize Repo', icon: GitBranch },
-  { id: 'status', title: 'Check Status', icon: Search },
-  { id: 'add', title: 'Stage Files', icon: List },
-  { id: 'commit', title: 'Commit Changes', icon: GitCommit },
-  { id: 'branch', title: 'Rename Branch', icon: GitBranch },
-  { id: 'remote', title: 'Add Remote', icon: Globe },
-  { id: 'push', title: 'Push to Origin', icon: Upload },
-  { id: 'checkout-b', title: 'Create & Switch Branch', icon: GitBranch },
-  { id: 'merge', title: 'Merge Branches', icon: GitMerge },
-  { id: 'pull', title: 'Pull Remote Changes', icon: Download },
-  { id: 'stash', title: 'Stash Changes', icon: Layers },
-  { id: 'stash-pop', title: 'Pop Stash', icon: Layers },
-  { id: 'log', title: 'View Commit Log', icon: List },
-  { id: 'log-oneline', title: 'Compact Log', icon: List },
-  { id: 'revert', title: 'Revert Commit', icon: GitCommit },
-  { id: 'reset-soft', title: 'Soft Reset', icon: GitCommit },
-  { id: 'reset-hard', title: 'Hard Reset', icon: GitCommit },
-  { id: 'diff', title: 'View Diff', icon: List },
-  { id: 'tag', title: 'Create Tag', icon: Award },
-  { id: 'clone', title: 'Clone Repository', icon: Download },
-];
-
-interface HtmlSidebarTopic {
-  title: string;
-  slug?: string;
-  href?: string;
-  hasDropdown?: boolean;
-  subItems?: { title: string; href: string }[];
-}
-
-interface HtmlSidebarSection {
-  category: string;
-  topics: HtmlSidebarTopic[];
-}
-
-const W3_HTML_SECTIONS: HtmlSidebarSection[] = [
-  {
-    category: "HTML TUTORIAL",
-    topics: [
-      { title: "📊 HTML Course Dashboard", href: "/html" },
-      { title: "🏆 Interactive HTML Quiz", href: "/html/quiz" },
-      { title: "HTML Introduction", slug: "html-introduction-what-is-html", hasDropdown: true },
-      { title: "HTML Editors", slug: "download-install-vscode-windows-11-setup-guide" },
-      { 
-        title: "HTML Basic", 
-        slug: "doctype-html5-declaration-syntax", 
-        hasDropdown: true,
-        subItems: [
-          { title: "Basic", href: "/html/doctype-html5-declaration-syntax" },
-          { title: "Exercises", href: "/html/quiz" },
-          { title: "Code Challenge", href: "/htmldemo" }
-        ]
-      },
-      { title: "HTML Elements", slug: "html-root-element-lang-attribute", hasDropdown: true },
-      { title: "HTML Attributes", slug: "custom-data-attributes-data-prefix", hasDropdown: true },
-      { title: "HTML Headings", slug: "html-heading-tags-h1-to-h6", hasDropdown: true },
-      { title: "HTML Paragraphs", slug: "html-paragraph-tag-p-margins", hasDropdown: true },
-      { title: "HTML Styles", slug: "internal-css-styles-style-tag", hasDropdown: true },
-      { title: "HTML Formatting", slug: "bold-b-vs-semantic-strong-tag", hasDropdown: true },
-      { title: "HTML Quotations", slug: "blockquote-tag-long-quotations-cite", hasDropdown: true },
-      { title: "HTML Comments", slug: "html-introduction-what-is-html", hasDropdown: true },
-      { title: "HTML Colors", slug: "highlight-text-mark-tag-search-results" },
-      { title: "HTML CSS", slug: "linking-external-css-stylesheets-link", hasDropdown: true },
-      { title: "HTML Links", slug: "anchor-a-tag-href-hyperlinks", hasDropdown: true },
-      { title: "HTML Images", slug: "image-src-alt-attributes-elements", hasDropdown: true },
-      { title: "HTML Project", slug: "capstone-photo-gallery-responsive" },
-      { title: "HTML Favicon", slug: "adding-favicons-link-rel-icon", hasDropdown: true },
-      { title: "HTML Page Title", slug: "html-title-element-seo-importance" },
-      { title: "HTML Tables", slug: "table-container-grid-rows-columns", hasDropdown: true },
-      { title: "HTML Lists", slug: "unordered-lists-ul-li-bullet-points", hasDropdown: true },
-      { title: "HTML Block & Inline", slug: "div-tag-generic-block-level-container", hasDropdown: true },
-      { title: "HTML Classes", slug: "span-tag-generic-inline-container" },
-      { title: "HTML Id", slug: "hash-links-jump-to-page-sections" },
-      { title: "HTML Iframes", slug: "embedding-external-sites-iframe-sandbox" },
-      { title: "HTML JavaScript", slug: "script-tag-insert-javascript-code" },
-      { title: "HTML File Paths", slug: "absolute-vs-relative-link-paths" },
-      { title: "HTML Head", slug: "html-head-container-metadata" },
-      { title: "HTML Layout", slug: "capstone-portfolio-layout-page" },
-      { title: "HTML Responsive", slug: "responsive-viewport-meta-tag-mobile" },
-      { title: "HTML Computercode", slug: "monospace-code-snippet-code-tag" },
-      { title: "HTML Semantics", slug: "figure-figcaption-semantic-image-wrappers" },
-    ]
-  },
-  {
-    category: "HTML FORMS",
-    topics: [
-      { title: "HTML Forms", slug: "form-action-method-attributes-processing", hasDropdown: true },
-      { title: "HTML Form Attributes", slug: "form-labeling-for-attribute-linkage" },
-      { title: "HTML Form Elements", slug: "form-groups-fieldset-legend-elements" },
-      { title: "HTML Input Types", slug: "text-password-inputs-type-attributes", hasDropdown: true },
-      { title: "HTML Input Attributes", slug: "form-validation-required-maxlength-minlength" },
-      { title: "HTML Input Form Attributes", slug: "regex-pattern-matching-validation" }
-    ]
-  },
-  {
-    category: "HTML GRAPHICS",
-    topics: [
-      { title: "HTML Canvas", slug: "canvas-graphics-draw-shapes-context" },
-      { title: "HTML SVG", slug: "inline-vector-graphics-svg-element" }
-    ]
-  },
-  {
-    category: "HTML MEDIA",
-    topics: [
-      { title: "HTML Media", slug: "audio-elements-src-controls-autoplay-attributes" },
-      { title: "HTML Video", slug: "video-elements-src-poster-preload-settings" },
-      { title: "HTML Audio", slug: "audio-fallback-source-format-types" },
-      { title: "HTML Plug-ins", slug: "plugin-insertion-embed-object-elements" }
-    ]
-  },
-  {
-    category: "HTML APIS",
-    topics: [
-      { title: "HTML Geolocation", slug: "html5-native-geolocation-api-details" },
-      { title: "HTML Web Storage", slug: "web-components-template-slot-elements" },
-      { title: "HTML Dialog / Modals", slug: "native-modals-dialog-showmodal-methods" },
-      { title: "HTML Details / Summary", slug: "collapsible-accordions-details-summary" }
-    ]
-  }
-];
-
 interface BookSidebarProps {
   isOpen: boolean;
   setIsOpen: (open: boolean) => void;
@@ -177,12 +52,14 @@ interface BookSidebarProps {
   onCollapsedChange: (c: boolean) => void;
 }
 
-const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, onWidthChange, isCollapsed, onCollapsedChange }: BookSidebarProps) => {
+const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, isCollapsed }: BookSidebarProps) => {
   const pathname = usePathname() || "";
-  const router = useRouter();
   const { completedChapters } = useProgress();
   const activeItemRef = useRef<HTMLAnchorElement | null>(null);
   const scrollContainerRef = useRef<HTMLElement | null>(null);
+
+  const [searchQuery, setSearchQuery] = useState("");
+  const [collapsedUnits, setCollapsedUnits] = useState<Record<string, boolean>>({});
 
   const activeChapterId = getChapterIdFromPath(pathname);
   const activePhaseKey = phaseGroups.find((g) =>
@@ -191,12 +68,72 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, onWidthChange, isCollaps
 
   const effectiveWidth = isCollapsed ? 52 : sidebarWidth;
 
-  // Auto-scroll active lesson item into view when sidebar is opened or pathname changes
+  // Toggle unit expand/collapse
+  const toggleUnit = (unitName: string, e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
+    setCollapsedUnits((prev) => ({
+      ...prev,
+      [unitName]: !prev[unitName],
+    }));
+  };
+
+  // Determine active subject
+  const currentSubject = useMemo(() => {
+    if (pathname.startsWith('/html')) return 'html';
+    if (pathname.startsWith('/css')) return 'css';
+    if (pathname.startsWith('/js') || pathname.startsWith('/javascript')) return 'js';
+    if (pathname.startsWith('/react')) return 'react';
+    if (pathname.startsWith('/nodejs') || pathname.startsWith('/node')) return 'nodejs';
+    if (pathname.startsWith('/cli')) return 'cli';
+    if (pathname.startsWith('/cpp')) return 'cpp';
+    if (pathname.startsWith('/git')) return 'git';
+    return 'book';
+  }, [pathname]);
+
+  // Auto-expand the unit that contains the active lesson whenever pathname changes
   useEffect(() => {
-    if (isOpen && activeItemRef.current) {
-      setTimeout(() => {
-        activeItemRef.current?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    let activeUnit = "";
+    if (currentSubject === 'html') {
+      const active = htmlLessons.find((l) => (l.slug && pathname.includes(l.slug)) || (pathname === '/html' && l.id === 0));
+      if (active) activeUnit = active.unit;
+    } else if (currentSubject === 'css') {
+      const active = cssLessons.find((l) => pathname.includes(l.slug) || (pathname === '/css' && l.id === 1));
+      if (active) activeUnit = active.unit;
+    } else if (currentSubject === 'js') {
+      const active = jsLessons.find((l) => pathname.includes(l.slug) || (pathname === '/js' && l.id === 1));
+      if (active) activeUnit = active.unit;
+    } else if (currentSubject === 'react') {
+      const active = reactLessons.find((l) => pathname.includes(l.slug) || (pathname === '/react' && l.id === 1));
+      if (active) activeUnit = active.unit;
+    } else if (currentSubject === 'nodejs') {
+      const active = nodeLessons.find((l) => pathname.includes(l.slug) || ((pathname === '/nodejs' || pathname === '/node') && l.id === 1));
+      if (active) activeUnit = active.unit;
+    } else if (currentSubject === 'cli') {
+      const active = cliLessons.find((l) => pathname.includes(l.slug));
+      if (active) activeUnit = active.unit;
+    } else if (currentSubject === 'cpp') {
+      const active = cppLessons.find((l) => pathname.includes(l.slug));
+      if (active) activeUnit = active.unit;
+    } else if (currentSubject === 'git') {
+      const active = gitLessons.find((l) => pathname.includes(l.slug) || (pathname === '/git' && l.id === 1));
+      if (active) activeUnit = active.unit;
+    }
+
+    if (activeUnit) {
+      setCollapsedUnits((prev) => ({
+        ...prev,
+        [activeUnit]: false, // Ensure active unit is open
+      }));
+    }
+  }, [pathname, currentSubject]);
+
+  // Auto-scroll active lesson item into view smoothly
+  useEffect(() => {
+    if (activeItemRef.current) {
+      const timer = setTimeout(() => {
+        activeItemRef.current?.scrollIntoView({ block: 'center', behavior: 'smooth' });
       }, 150);
+      return () => clearTimeout(timer);
     }
   }, [isOpen, pathname]);
 
@@ -206,13 +143,26 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, onWidthChange, isCollaps
     }
   };
 
+  // Helper to render subject header badge
+  const renderSubjectHeader = (title: string, count: number, icon?: React.ReactNode) => (
+    <div className="px-3 pt-2 pb-2 mb-2 border-b border-slate-800 bg-[#090e1e]/60 rounded-lg mx-2 flex items-center justify-between">
+      <div className="flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-[#04AA6D]">
+        {icon || <BookOpen size={14} className="text-[#04AA6D]" />}
+        <span>{title}</span>
+      </div>
+      <span className="text-[10px] font-mono font-bold bg-[#04AA6D]/20 text-[#04AA6D] border border-[#04AA6D]/40 px-2 py-0.5 rounded-full">
+        {count} Lessons
+      </span>
+    </div>
+  );
+
   return (
     <>
-      {/* Mobile Drawer Backdrop (z-40, below aside z-50) */}
+      {/* Mobile Drawer Backdrop */}
       {isOpen && (
         <div
           onClick={() => setIsOpen(false)}
-          className="md:hidden fixed inset-0 bg-black/70 z-40 animate-in fade-in duration-200 cursor-pointer touch-manipulation"
+          className="md:hidden fixed inset-0 bg-black/70 z-40 animate-in fade-in duration-200 cursor-pointer touch-manipulation backdrop-blur-xs"
           aria-hidden="true"
         />
       )}
@@ -222,269 +172,460 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, onWidthChange, isCollaps
         ref={scrollContainerRef}
         style={{ width: `${effectiveWidth}px` }}
         className={`
-          fixed top-0 md:top-[98px] left-0 md:left-[10%] h-full md:h-[calc(100vh-98px)]
-          bg-[#0c1328] text-white border-r md:border-l border-slate-800 shadow-2xl
+          fixed top-0 md:top-[98px] left-0 h-full md:h-[calc(100vh-98px)]
+          bg-[#0c1328] text-white border-r border-slate-800 shadow-2xl
           transition-transform duration-300 z-50 md:z-30 overflow-y-auto overflow-x-hidden shrink-0 overscroll-contain
-          ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
+          ${isOpen ? 'translate-x-0' : '-translate-x-full'}
         `}
-        style-webkit-overflow-scrolling="touch"
       >
         <div className="flex flex-col min-h-full py-2">
           
           {/* Mobile Header with Close Button */}
-          <div className="md:hidden flex items-center justify-between px-4 py-3 border-b border-slate-800 bg-[#090e1e] sticky top-0 z-10 shrink-0">
+          <div className="md:hidden flex items-center justify-between px-4 py-3 border-b border-slate-800 bg-[#090e1e] sticky top-0 z-20 shrink-0">
             <div className="flex items-center gap-2">
               <div className="w-7 h-7 rounded-lg bg-[#04AA6D]/20 border border-[#04AA6D]/40 flex items-center justify-center text-[#04AA6D] font-black text-xs">
                 NS
               </div>
-              <span className="font-extrabold text-sm text-white">Course Topics</span>
+              <span className="font-extrabold text-sm text-white">Course Curriculum</span>
             </div>
             <button
               onClick={() => setIsOpen(false)}
               className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors cursor-pointer"
-              aria-label="Close Topics Menu"
+              aria-label="Close Menu"
             >
               <X size={18} />
             </button>
           </div>
 
+          {/* Quick Search Box inside Sidebar */}
+          <div className="px-3 pt-1 pb-2 sticky top-0 md:top-0 z-10 bg-[#0c1328] border-b border-slate-800/80">
+            <div className="relative flex items-center">
+              <Search size={13} className="absolute left-2.5 text-slate-400 pointer-events-none" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search topics / chapters..."
+                className="w-full bg-[#131d3d] border border-slate-700/80 rounded-lg pl-8 pr-7 py-1.5 text-xs text-white placeholder-slate-400 focus:outline-hidden focus:border-[#04AA6D] focus:ring-1 focus:ring-[#04AA6D] transition-all"
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery("")}
+                  className="absolute right-2 text-slate-400 hover:text-white cursor-pointer"
+                >
+                  <X size={12} />
+                </button>
+              )}
+            </div>
+          </div>
+
           {/* Navigation Items List */}
-          <nav className="flex flex-col flex-1 pb-12 pt-1">
-            {pathname.startsWith('/html') ? (
-              /* W3Schools Clean List Hierarchy for HTML */
+          <nav className="flex flex-col flex-1 pb-16 pt-2 px-1">
+            
+            {/* ── 1. HTML5 COURSE WITH FULL COLLAPSIBLE UNIT ACCORDIONS ── */}
+            {currentSubject === 'html' ? (
               <div className="flex flex-col">
-                {W3_HTML_SECTIONS.map((section, sIdx) => {
+                {renderSubjectHeader("HTML5 MASTERCLASS", htmlLessons.length, <Globe size={14} className="text-[#04AA6D]" />)}
+
+                {Array.from(new Set(htmlLessons.map((l) => l.unit))).map((unitName, uIdx) => {
+                  const unitLessons = htmlLessons.filter((l) => l.unit === unitName);
+                  const filteredLessons = searchQuery
+                    ? unitLessons.filter((l) => l.title.toLowerCase().includes(searchQuery.toLowerCase()) || l.slug.toLowerCase().includes(searchQuery.toLowerCase()))
+                    : unitLessons;
+
+                  if (searchQuery && filteredLessons.length === 0) return null;
+
+                  const isCollapsed = collapsedUnits[unitName] ?? false;
+                  const hasActiveLesson = unitLessons.some((l) => (l.slug && pathname.includes(l.slug)) || (pathname === '/html' && l.id === 0));
+
                   return (
-                    <div key={sIdx} className="mb-2">
-                      {/* Section Category Title */}
-                      <div className="px-4 pt-2.5 pb-1 text-[11px] font-bold uppercase tracking-wider text-slate-400 select-none">
-                        {section.category}
-                      </div>
+                    <div key={uIdx} className="mb-2 bg-[#0d1733]/80 rounded-xl border border-slate-800/70 overflow-hidden shadow-xs">
+                      {/* Clickable Unit Accordion Header with Rotating Chevron */}
+                      <button
+                        type="button"
+                        onClick={(e) => toggleUnit(unitName, e)}
+                        className={`w-full flex items-center justify-between px-3 py-2.5 text-[11px] font-extrabold uppercase tracking-wider transition-all text-left cursor-pointer select-none ${
+                          hasActiveLesson
+                            ? 'bg-[#04AA6D]/20 text-[#04AA6D] border-b border-[#04AA6D]/30 font-black'
+                            : 'text-slate-300 hover:text-white hover:bg-slate-800/60'
+                        }`}
+                      >
+                        <div className="flex items-center gap-1.5 truncate flex-1 min-w-0 pr-1">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#04AA6D] shrink-0" />
+                          <span className="truncate">{unitName}</span>
+                        </div>
+                        <div className="flex items-center gap-1.5 shrink-0">
+                          <span className="text-[10px] text-slate-400 font-mono font-bold">
+                            {filteredLessons.length}
+                          </span>
+                          <ChevronDown
+                            size={14}
+                            className={`transition-transform duration-200 text-[#04AA6D] ${
+                              isCollapsed ? '-rotate-90 text-slate-400' : 'rotate-0'
+                            }`}
+                          />
+                        </div>
+                      </button>
 
-                      {/* Topics */}
-                      <div className="flex flex-col">
-                        {section.topics.map((topic, tIdx) => {
-                          const topicHref = topic.href || (topic.slug ? `/html/${topic.slug}` : '/html');
-                          const isActive = (topic.slug && pathname.includes(topic.slug)) || (topic.href ? (pathname === topic.href || (topic.href !== '/html' && pathname.startsWith(topic.href))) : false);
-                          const hasSub = !!topic.subItems?.length;
+                      {/* Sub-topics & Chapters List */}
+                      {!isCollapsed && (
+                        <div className="flex flex-col space-y-0.5 p-1.5 bg-[#090f24]/70">
+                          {filteredLessons.map((lesson) => {
+                            const isActive = (lesson.slug && pathname.includes(lesson.slug)) || (pathname === '/html' && lesson.id === 0);
+                            const lessonHref = lesson.id === 0 ? '/html/' : `/html/${lesson.slug}/`;
 
-                          return (
-                            <div key={tIdx}>
+                            return (
                               <Link
                                 ref={isActive ? activeItemRef : undefined}
-                                href={topicHref}
+                                key={lesson.id}
+                                href={lessonHref}
+                                prefetch={true}
                                 onClick={handleLinkClick}
-                                className={`flex items-center justify-between px-4 py-2 text-[13px] transition-colors cursor-pointer touch-manipulation group ${
+                                className={`flex items-center justify-between px-3 py-2 text-[12px] sm:text-[13px] rounded-lg transition-all cursor-pointer touch-manipulation group ${
                                   isActive
-                                    ? 'bg-[#04AA6D]/20 text-white font-bold border-l-4 border-[#04AA6D]'
-                                    : 'text-slate-200 hover:text-white hover:bg-slate-800/80 border-l-4 border-transparent active:bg-slate-800'
+                                    ? 'bg-[#04AA6D] text-white font-black shadow-lg shadow-emerald-950/70 ring-2 ring-emerald-300/60 border-l-4 border-l-white scale-[1.01]'
+                                    : 'text-slate-200 hover:text-white hover:bg-slate-800/80 border-l-4 border-transparent'
                                 }`}
                               >
-                                <span className="truncate flex-1 text-left">{topic.title}</span>
-                                {topic.hasDropdown && (
-                                  <ChevronDown
-                                    size={12}
-                                    className={`shrink-0 ml-1 transition-transform ${
-                                      isActive ? 'text-[#04AA6D] rotate-180' : 'text-slate-500 group-hover:text-slate-300'
-                                    }`}
-                                  />
+                                <span className="truncate flex-1 text-left flex items-center min-w-0 mr-1.5">
+                                  {isActive && (
+                                    <span className="w-2 h-2 rounded-full bg-white animate-pulse shrink-0 mr-2 shadow-xs" />
+                                  )}
+                                  <span className="truncate">{lesson.id}. {lesson.title}</span>
+                                </span>
+                                {isActive && (
+                                  <span className="text-[9px] font-black uppercase tracking-wider bg-white text-[#04AA6D] px-1.5 py-0.5 rounded shadow-xs shrink-0 font-mono">
+                                    ACTIVE
+                                  </span>
                                 )}
                               </Link>
-
-                              {/* Active Sub-Items (e.g. Basic, Exercises, Code Challenge) */}
-                              {hasSub && isActive && (
-                                <div className="bg-[#080d1a] py-0.5 border-y border-slate-800/40">
-                                  {topic.subItems!.map((sub, subIdx) => {
-                                    const isSubActive = pathname === sub.href;
-                                    return (
-                                      <Link
-                                        key={subIdx}
-                                        href={sub.href}
-                                        onClick={handleLinkClick}
-                                        className={`block pl-7 pr-4 py-1.5 text-[12px] transition-colors cursor-pointer touch-manipulation ${
-                                          isSubActive
-                                            ? 'font-bold text-white bg-[#04AA6D]/25 border-l-4 border-[#04AA6D]'
-                                            : 'text-slate-300 hover:text-white hover:bg-slate-800/50'
-                                        }`}
-                                      >
-                                        {sub.title}
-                                      </Link>
-                                    );
-                                  })}
-                                </div>
-                              )}
-                            </div>
-                          );
-                        })}
-                      </div>
+                            );
+                          })}
+                        </div>
+                      )}
                     </div>
                   );
                 })}
               </div>
-            ) : pathname.startsWith('/css') ? (
-              /* CSS3 Styling Lessons */
+
+            /* ── 2. CSS3 STYLING WITH FULL COLLAPSIBLE UNIT ACCORDIONS ── */
+            ) : currentSubject === 'css' ? (
               <div className="flex flex-col">
-                <div className="px-4 pt-2 pb-1 text-[11px] font-black uppercase tracking-wider text-[#04AA6D] border-b border-slate-800/80 mb-2 flex items-center gap-1.5">
-                  <span>CSS3 STYLING ({cssLessons.length})</span>
-                </div>
+                {renderSubjectHeader("CSS3 STYLING", cssLessons.length, <Layers size={14} className="text-[#04AA6D]" />)}
+
                 {Array.from(new Set(cssLessons.map((l) => l.unit))).map((unitName, uIdx) => {
                   const unitLessons = cssLessons.filter((l) => l.unit === unitName);
+                  const filteredLessons = searchQuery
+                    ? unitLessons.filter((l) => l.title.toLowerCase().includes(searchQuery.toLowerCase()) || l.slug.toLowerCase().includes(searchQuery.toLowerCase()))
+                    : unitLessons;
+
+                  if (searchQuery && filteredLessons.length === 0) return null;
+
+                  const isCollapsed = collapsedUnits[unitName] ?? false;
+                  const hasActiveLesson = unitLessons.some((l) => pathname.includes(l.slug) || (pathname === '/css' && l.id === 1));
+
                   return (
-                    <div key={uIdx} className="mb-2">
-                      <div className="px-4 pt-2 pb-1 text-[11px] font-bold uppercase tracking-wider text-slate-400 select-none">
-                        {unitName}
-                      </div>
-                      <div className="flex flex-col">
-                        {unitLessons.map((lesson) => {
-                          const isActive = pathname.includes(lesson.slug) || (pathname === '/css' && lesson.id === 1);
-                          return (
-                            <Link
-                              ref={isActive ? activeItemRef : undefined}
-                              key={lesson.id}
-                              href={`/css/${lesson.slug}`}
-                              onClick={handleLinkClick}
-                              className={`flex items-center justify-between px-4 py-2 text-[12px] sm:text-[13px] transition-colors cursor-pointer touch-manipulation group ${
-                                isActive
-                                  ? 'bg-[#04AA6D]/20 text-white font-bold border-l-4 border-[#04AA6D]'
-                                  : 'text-slate-200 hover:text-white hover:bg-slate-800/80 border-l-4 border-transparent'
-                              }`}
-                            >
-                              <span className="truncate flex-1 text-left">
-                                #{lesson.id}. {lesson.title}
-                              </span>
-                            </Link>
-                          );
-                        })}
-                      </div>
+                    <div key={uIdx} className="mb-2 bg-[#0d1733]/80 rounded-xl border border-slate-800/70 overflow-hidden shadow-xs">
+                      <button
+                        type="button"
+                        onClick={(e) => toggleUnit(unitName, e)}
+                        className={`w-full flex items-center justify-between px-3 py-2.5 text-[11px] font-extrabold uppercase tracking-wider transition-all text-left cursor-pointer select-none ${
+                          hasActiveLesson
+                            ? 'bg-[#04AA6D]/20 text-[#04AA6D] border-b border-[#04AA6D]/30 font-black'
+                            : 'text-slate-300 hover:text-white hover:bg-slate-800/60'
+                        }`}
+                      >
+                        <div className="flex items-center gap-1.5 truncate flex-1 min-w-0 pr-1">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#04AA6D] shrink-0" />
+                          <span className="truncate">{unitName}</span>
+                        </div>
+                        <div className="flex items-center gap-1.5 shrink-0">
+                          <span className="text-[10px] text-slate-400 font-mono font-bold">{filteredLessons.length}</span>
+                          <ChevronDown
+                            size={14}
+                            className={`transition-transform duration-200 text-[#04AA6D] ${
+                              isCollapsed ? '-rotate-90 text-slate-400' : 'rotate-0'
+                            }`}
+                          />
+                        </div>
+                      </button>
+
+                      {!isCollapsed && (
+                        <div className="flex flex-col space-y-0.5 p-1.5 bg-[#090f24]/70">
+                          {filteredLessons.map((lesson) => {
+                            const isActive = pathname.includes(lesson.slug) || (pathname === '/css' && lesson.id === 1);
+                            return (
+                              <Link
+                                ref={isActive ? activeItemRef : undefined}
+                                key={lesson.id}
+                                href={`/css/${lesson.slug}/`}
+                                prefetch={true}
+                                onClick={handleLinkClick}
+                                className={`flex items-center justify-between px-3 py-2 text-[12px] sm:text-[13px] rounded-lg transition-all cursor-pointer touch-manipulation group ${
+                                  isActive
+                                    ? 'bg-[#04AA6D] text-white font-black shadow-lg shadow-emerald-950/70 ring-2 ring-emerald-300/60 border-l-4 border-l-white scale-[1.01]'
+                                    : 'text-slate-200 hover:text-white hover:bg-slate-800/80 border-l-4 border-transparent'
+                                }`}
+                              >
+                                <span className="truncate flex-1 text-left flex items-center min-w-0 mr-1.5">
+                                  {isActive && <span className="w-2 h-2 rounded-full bg-white animate-pulse shrink-0 mr-2 shadow-xs" />}
+                                  <span className="truncate">{lesson.id}. {lesson.title}</span>
+                                </span>
+                                {isActive && (
+                                  <span className="text-[9px] font-black uppercase tracking-wider bg-white text-[#04AA6D] px-1.5 py-0.5 rounded shadow-xs shrink-0 font-mono">
+                                    ACTIVE
+                                  </span>
+                                )}
+                              </Link>
+                            );
+                          })}
+                        </div>
+                      )}
                     </div>
                   );
                 })}
               </div>
-            ) : pathname.startsWith('/js') || pathname.startsWith('/javascript') ? (
-              /* JavaScript ES6+ Lessons */
+
+            /* ── 3. JAVASCRIPT ES6+ WITH COLLAPSIBLE UNIT ACCORDIONS ── */
+            ) : currentSubject === 'js' ? (
               <div className="flex flex-col">
-                <div className="px-4 pt-2 pb-1 text-[11px] font-black uppercase tracking-wider text-[#04AA6D] border-b border-slate-800/80 mb-2 flex items-center gap-1.5">
-                  <span>JAVASCRIPT ES6+ ({jsLessons.length})</span>
-                </div>
+                {renderSubjectHeader("JAVASCRIPT ES6+", jsLessons.length, <Sparkles size={14} className="text-[#04AA6D]" />)}
+
                 {Array.from(new Set(jsLessons.map((l) => l.unit))).map((unitName, uIdx) => {
                   const unitLessons = jsLessons.filter((l) => l.unit === unitName);
+                  const filteredLessons = searchQuery
+                    ? unitLessons.filter((l) => l.title.toLowerCase().includes(searchQuery.toLowerCase()) || l.slug.toLowerCase().includes(searchQuery.toLowerCase()))
+                    : unitLessons;
+
+                  if (searchQuery && filteredLessons.length === 0) return null;
+
+                  const isCollapsed = collapsedUnits[unitName] ?? false;
+                  const hasActiveLesson = unitLessons.some((l) => pathname.includes(l.slug) || (pathname === '/js' && l.id === 1));
+
                   return (
-                    <div key={uIdx} className="mb-2">
-                      <div className="px-4 pt-2 pb-1 text-[11px] font-bold uppercase tracking-wider text-slate-400 select-none">
-                        {unitName}
-                      </div>
-                      <div className="flex flex-col">
-                        {unitLessons.map((lesson) => {
-                          const isActive = pathname.includes(lesson.slug) || (pathname === '/js' && lesson.id === 1);
-                          return (
-                            <Link
-                              ref={isActive ? activeItemRef : undefined}
-                              key={lesson.id}
-                              href={`/js/${lesson.slug}`}
-                              onClick={handleLinkClick}
-                              className={`flex items-center justify-between px-4 py-2 text-[12px] sm:text-[13px] transition-colors cursor-pointer touch-manipulation group ${
-                                isActive
-                                  ? 'bg-[#04AA6D]/20 text-white font-bold border-l-4 border-[#04AA6D]'
-                                  : 'text-slate-200 hover:text-white hover:bg-slate-800/80 border-l-4 border-transparent'
-                              }`}
-                            >
-                              <span className="truncate flex-1 text-left">
-                                #{lesson.id}. {lesson.title}
-                              </span>
-                            </Link>
-                          );
-                        })}
-                      </div>
+                    <div key={uIdx} className="mb-2 bg-[#0d1733]/80 rounded-xl border border-slate-800/70 overflow-hidden shadow-xs">
+                      <button
+                        type="button"
+                        onClick={(e) => toggleUnit(unitName, e)}
+                        className={`w-full flex items-center justify-between px-3 py-2.5 text-[11px] font-extrabold uppercase tracking-wider transition-all text-left cursor-pointer select-none ${
+                          hasActiveLesson
+                            ? 'bg-[#04AA6D]/20 text-[#04AA6D] border-b border-[#04AA6D]/30 font-black'
+                            : 'text-slate-300 hover:text-white hover:bg-slate-800/60'
+                        }`}
+                      >
+                        <div className="flex items-center gap-1.5 truncate flex-1 min-w-0 pr-1">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#04AA6D] shrink-0" />
+                          <span className="truncate">{unitName}</span>
+                        </div>
+                        <div className="flex items-center gap-1.5 shrink-0">
+                          <span className="text-[10px] text-slate-400 font-mono font-bold">{filteredLessons.length}</span>
+                          <ChevronDown
+                            size={14}
+                            className={`transition-transform duration-200 text-[#04AA6D] ${
+                              isCollapsed ? '-rotate-90 text-slate-400' : 'rotate-0'
+                            }`}
+                          />
+                        </div>
+                      </button>
+
+                      {!isCollapsed && (
+                        <div className="flex flex-col space-y-0.5 p-1.5 bg-[#090f24]/70">
+                          {filteredLessons.map((lesson) => {
+                            const isActive = pathname.includes(lesson.slug) || (pathname === '/js' && lesson.id === 1);
+                            return (
+                              <Link
+                                ref={isActive ? activeItemRef : undefined}
+                                key={lesson.id}
+                                href={`/js/${lesson.slug}/`}
+                                prefetch={true}
+                                onClick={handleLinkClick}
+                                className={`flex items-center justify-between px-3 py-2 text-[12px] sm:text-[13px] rounded-lg transition-all cursor-pointer touch-manipulation group ${
+                                  isActive
+                                    ? 'bg-[#04AA6D] text-white font-black shadow-lg shadow-emerald-950/70 ring-2 ring-emerald-300/60 border-l-4 border-l-white scale-[1.01]'
+                                    : 'text-slate-200 hover:text-white hover:bg-slate-800/80 border-l-4 border-transparent'
+                                }`}
+                              >
+                                <span className="truncate flex-1 text-left flex items-center min-w-0 mr-1.5">
+                                  {isActive && <span className="w-2 h-2 rounded-full bg-white animate-pulse shrink-0 mr-2 shadow-xs" />}
+                                  <span className="truncate">{lesson.id}. {lesson.title}</span>
+                                </span>
+                                {isActive && (
+                                  <span className="text-[9px] font-black uppercase tracking-wider bg-white text-[#04AA6D] px-1.5 py-0.5 rounded shadow-xs shrink-0 font-mono">
+                                    ACTIVE
+                                  </span>
+                                )}
+                              </Link>
+                            );
+                          })}
+                        </div>
+                      )}
                     </div>
                   );
                 })}
               </div>
-            ) : pathname.startsWith('/react') ? (
-              /* React.js Lessons */
+
+            /* ── 4. REACT.JS WITH COLLAPSIBLE UNIT ACCORDIONS ── */
+            ) : currentSubject === 'react' ? (
               <div className="flex flex-col">
-                <div className="px-4 pt-2 pb-1 text-[11px] font-black uppercase tracking-wider text-[#04AA6D] border-b border-slate-800/80 mb-2 flex items-center gap-1.5">
-                  <span>REACT.JS ({reactLessons.length})</span>
-                </div>
+                {renderSubjectHeader("REACT.JS MASTERCLASS", reactLessons.length, <Code size={14} className="text-[#04AA6D]" />)}
+
                 {Array.from(new Set(reactLessons.map((l) => l.unit))).map((unitName, uIdx) => {
                   const unitLessons = reactLessons.filter((l) => l.unit === unitName);
+                  const filteredLessons = searchQuery
+                    ? unitLessons.filter((l) => l.title.toLowerCase().includes(searchQuery.toLowerCase()) || l.slug.toLowerCase().includes(searchQuery.toLowerCase()))
+                    : unitLessons;
+
+                  if (searchQuery && filteredLessons.length === 0) return null;
+
+                  const isCollapsed = collapsedUnits[unitName] ?? false;
+                  const hasActiveLesson = unitLessons.some((l) => pathname.includes(l.slug) || (pathname === '/react' && l.id === 1));
+
                   return (
-                    <div key={uIdx} className="mb-2">
-                      <div className="px-4 pt-2 pb-1 text-[11px] font-bold uppercase tracking-wider text-slate-400 select-none">
-                        {unitName}
-                      </div>
-                      <div className="flex flex-col">
-                        {unitLessons.map((lesson) => {
-                          const isActive = pathname.includes(lesson.slug) || (pathname === '/react' && lesson.id === 1);
-                          return (
-                            <Link
-                              ref={isActive ? activeItemRef : undefined}
-                              key={lesson.id}
-                              href={`/react/${lesson.slug}`}
-                              onClick={handleLinkClick}
-                              className={`flex items-center justify-between px-4 py-2 text-[12px] sm:text-[13px] transition-colors cursor-pointer touch-manipulation group ${
-                                isActive
-                                  ? 'bg-[#04AA6D]/20 text-white font-bold border-l-4 border-[#04AA6D]'
-                                  : 'text-slate-200 hover:text-white hover:bg-slate-800/80 border-l-4 border-transparent'
-                              }`}
-                            >
-                              <span className="truncate flex-1 text-left">
-                                #{lesson.id}. {lesson.title}
-                              </span>
-                            </Link>
-                          );
-                        })}
-                      </div>
+                    <div key={uIdx} className="mb-2 bg-[#0d1733]/80 rounded-xl border border-slate-800/70 overflow-hidden shadow-xs">
+                      <button
+                        type="button"
+                        onClick={(e) => toggleUnit(unitName, e)}
+                        className={`w-full flex items-center justify-between px-3 py-2.5 text-[11px] font-extrabold uppercase tracking-wider transition-all text-left cursor-pointer select-none ${
+                          hasActiveLesson
+                            ? 'bg-[#04AA6D]/20 text-[#04AA6D] border-b border-[#04AA6D]/30 font-black'
+                            : 'text-slate-300 hover:text-white hover:bg-slate-800/60'
+                        }`}
+                      >
+                        <div className="flex items-center gap-1.5 truncate flex-1 min-w-0 pr-1">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#04AA6D] shrink-0" />
+                          <span className="truncate">{unitName}</span>
+                        </div>
+                        <div className="flex items-center gap-1.5 shrink-0">
+                          <span className="text-[10px] text-slate-400 font-mono font-bold">{filteredLessons.length}</span>
+                          <ChevronDown
+                            size={14}
+                            className={`transition-transform duration-200 text-[#04AA6D] ${
+                              isCollapsed ? '-rotate-90 text-slate-400' : 'rotate-0'
+                            }`}
+                          />
+                        </div>
+                      </button>
+
+                      {!isCollapsed && (
+                        <div className="flex flex-col space-y-0.5 p-1.5 bg-[#090f24]/70">
+                          {filteredLessons.map((lesson) => {
+                            const isActive = pathname.includes(lesson.slug) || (pathname === '/react' && lesson.id === 1);
+                            return (
+                              <Link
+                                ref={isActive ? activeItemRef : undefined}
+                                key={lesson.id}
+                                href={`/react/${lesson.slug}/`}
+                                prefetch={true}
+                                onClick={handleLinkClick}
+                                className={`flex items-center justify-between px-3 py-2 text-[12px] sm:text-[13px] rounded-lg transition-all cursor-pointer touch-manipulation group ${
+                                  isActive
+                                    ? 'bg-[#04AA6D] text-white font-black shadow-lg shadow-emerald-950/70 ring-2 ring-emerald-300/60 border-l-4 border-l-white scale-[1.01]'
+                                    : 'text-slate-200 hover:text-white hover:bg-slate-800/80 border-l-4 border-transparent'
+                                }`}
+                              >
+                                <span className="truncate flex-1 text-left flex items-center min-w-0 mr-1.5">
+                                  {isActive && <span className="w-2 h-2 rounded-full bg-white animate-pulse shrink-0 mr-2 shadow-xs" />}
+                                  <span className="truncate">{lesson.id}. {lesson.title}</span>
+                                </span>
+                                {isActive && (
+                                  <span className="text-[9px] font-black uppercase tracking-wider bg-white text-[#04AA6D] px-1.5 py-0.5 rounded shadow-xs shrink-0 font-mono">
+                                    ACTIVE
+                                  </span>
+                                )}
+                              </Link>
+                            );
+                          })}
+                        </div>
+                      )}
                     </div>
                   );
                 })}
               </div>
-            ) : pathname.startsWith('/nodejs') || pathname.startsWith('/node') ? (
-              /* Node.js & Express Lessons */
+
+            /* ── 5. NODE.JS & EXPRESS WITH COLLAPSIBLE UNIT ACCORDIONS ── */
+            ) : currentSubject === 'nodejs' ? (
               <div className="flex flex-col">
-                <div className="px-4 pt-2 pb-1 text-[11px] font-black uppercase tracking-wider text-[#04AA6D] border-b border-slate-800/80 mb-2 flex items-center gap-1.5">
-                  <span>NODE.JS & EXPRESS ({nodeLessons.length})</span>
-                </div>
+                {renderSubjectHeader("NODE.JS & EXPRESS", nodeLessons.length, <Layers size={14} className="text-[#04AA6D]" />)}
+
                 {Array.from(new Set(nodeLessons.map((l) => l.unit))).map((unitName, uIdx) => {
                   const unitLessons = nodeLessons.filter((l) => l.unit === unitName);
+                  const filteredLessons = searchQuery
+                    ? unitLessons.filter((l) => l.title.toLowerCase().includes(searchQuery.toLowerCase()) || l.slug.toLowerCase().includes(searchQuery.toLowerCase()))
+                    : unitLessons;
+
+                  if (searchQuery && filteredLessons.length === 0) return null;
+
+                  const isCollapsed = collapsedUnits[unitName] ?? false;
+                  const hasActiveLesson = unitLessons.some((l) => pathname.includes(l.slug) || ((pathname === '/nodejs' || pathname === '/node') && l.id === 1));
+
                   return (
-                    <div key={uIdx} className="mb-2">
-                      <div className="px-4 pt-2 pb-1 text-[11px] font-bold uppercase tracking-wider text-slate-400 select-none">
-                        {unitName}
-                      </div>
-                      <div className="flex flex-col">
-                        {unitLessons.map((lesson) => {
-                          const isActive = pathname.includes(lesson.slug) || ((pathname === '/nodejs' || pathname === '/node') && lesson.id === 1);
-                          return (
-                            <Link
-                              ref={isActive ? activeItemRef : undefined}
-                              key={lesson.id}
-                              href={`/nodejs/${lesson.slug}`}
-                              onClick={handleLinkClick}
-                              className={`flex items-center justify-between px-4 py-2 text-[12px] sm:text-[13px] transition-colors cursor-pointer touch-manipulation group ${
-                                isActive
-                                  ? 'bg-[#04AA6D]/20 text-white font-bold border-l-4 border-[#04AA6D]'
-                                  : 'text-slate-200 hover:text-white hover:bg-slate-800/80 border-l-4 border-transparent'
-                              }`}
-                            >
-                              <span className="truncate flex-1 text-left">
-                                #{lesson.id}. {lesson.title}
-                              </span>
-                            </Link>
-                          );
-                        })}
-                      </div>
+                    <div key={uIdx} className="mb-2 bg-[#0d1733]/80 rounded-xl border border-slate-800/70 overflow-hidden shadow-xs">
+                      <button
+                        type="button"
+                        onClick={(e) => toggleUnit(unitName, e)}
+                        className={`w-full flex items-center justify-between px-3 py-2.5 text-[11px] font-extrabold uppercase tracking-wider transition-all text-left cursor-pointer select-none ${
+                          hasActiveLesson
+                            ? 'bg-[#04AA6D]/20 text-[#04AA6D] border-b border-[#04AA6D]/30 font-black'
+                            : 'text-slate-300 hover:text-white hover:bg-slate-800/60'
+                        }`}
+                      >
+                        <div className="flex items-center gap-1.5 truncate flex-1 min-w-0 pr-1">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#04AA6D] shrink-0" />
+                          <span className="truncate">{unitName}</span>
+                        </div>
+                        <div className="flex items-center gap-1.5 shrink-0">
+                          <span className="text-[10px] text-slate-400 font-mono font-bold">{filteredLessons.length}</span>
+                          <ChevronDown
+                            size={14}
+                            className={`transition-transform duration-200 text-[#04AA6D] ${
+                              isCollapsed ? '-rotate-90 text-slate-400' : 'rotate-0'
+                            }`}
+                          />
+                        </div>
+                      </button>
+
+                      {!isCollapsed && (
+                        <div className="flex flex-col space-y-0.5 p-1.5 bg-[#090f24]/70">
+                          {filteredLessons.map((lesson) => {
+                            const isActive = pathname.includes(lesson.slug) || ((pathname === '/nodejs' || pathname === '/node') && lesson.id === 1);
+                            return (
+                              <Link
+                                ref={isActive ? activeItemRef : undefined}
+                                key={lesson.id}
+                                href={`/nodejs/${lesson.slug}/`}
+                                prefetch={true}
+                                onClick={handleLinkClick}
+                                className={`flex items-center justify-between px-3 py-2 text-[12px] sm:text-[13px] rounded-lg transition-all cursor-pointer touch-manipulation group ${
+                                  isActive
+                                    ? 'bg-[#04AA6D] text-white font-black shadow-lg shadow-emerald-950/70 ring-2 ring-emerald-300/60 border-l-4 border-l-white scale-[1.01]'
+                                    : 'text-slate-200 hover:text-white hover:bg-slate-800/80 border-l-4 border-transparent'
+                                }`}
+                              >
+                                <span className="truncate flex-1 text-left flex items-center min-w-0 mr-1.5">
+                                  {isActive && <span className="w-2 h-2 rounded-full bg-white animate-pulse shrink-0 mr-2 shadow-xs" />}
+                                  <span className="truncate">{lesson.id}. {lesson.title}</span>
+                                </span>
+                                {isActive && (
+                                  <span className="text-[9px] font-black uppercase tracking-wider bg-white text-[#04AA6D] px-1.5 py-0.5 rounded shadow-xs shrink-0 font-mono">
+                                    ACTIVE
+                                  </span>
+                                )}
+                              </Link>
+                            );
+                          })}
+                        </div>
+                      )}
                     </div>
                   );
                 })}
               </div>
-            ) : pathname.startsWith('/cli') ? (
-              /* Windows 11 CLI Lessons */
+
+            /* ── 6. WINDOWS 11 CLI WITH COLLAPSIBLE UNIT ACCORDIONS ── */
+            ) : currentSubject === 'cli' ? (
               <div className="flex flex-col">
-                <div className="px-4 pt-2 pb-1 text-[11px] font-black uppercase tracking-wider text-[#04AA6D] border-b border-slate-800/80 mb-2 flex items-center gap-1.5">
-                  <Terminal size={13} className="text-[#04AA6D]" />
-                  <span>Windows 11 CLI ({cliLessons.length})</span>
-                </div>
-                <div className="px-3 py-1 mb-2">
+                {renderSubjectHeader("WINDOWS 11 CLI", cliLessons.length, <Terminal size={14} className="text-[#04AA6D]" />)}
+
+                <div className="px-2 py-1 mb-2">
                   <Link
                     href="/terminal-fast-track"
                     onClick={handleLinkClick}
@@ -497,89 +638,167 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, onWidthChange, isCollaps
                     </div>
                   </Link>
                 </div>
+
                 {Array.from(new Set(cliLessons.map((l) => l.unit))).map((unitName, uIdx) => {
                   const unitLessons = cliLessons.filter((l) => l.unit === unitName);
+                  const filteredLessons = searchQuery
+                    ? unitLessons.filter((l) => l.title.toLowerCase().includes(searchQuery.toLowerCase()) || l.slug.toLowerCase().includes(searchQuery.toLowerCase()))
+                    : unitLessons;
+
+                  if (searchQuery && filteredLessons.length === 0) return null;
+
+                  const isCollapsed = collapsedUnits[unitName] ?? false;
+                  const hasActiveLesson = unitLessons.some((l) => pathname.includes(l.slug));
+
                   return (
-                    <div key={uIdx} className="mb-2">
-                      <div className="px-4 pt-2 pb-1 text-[11px] font-bold uppercase tracking-wider text-slate-400 select-none">
-                        {unitName}
-                      </div>
-                      <div className="flex flex-col">
-                        {unitLessons.map((lesson) => {
-                          const isActive = pathname.includes(lesson.slug);
-                          return (
-                            <Link
-                              ref={isActive ? activeItemRef : undefined}
-                              key={lesson.id}
-                              href={`/cli/${lesson.slug}`}
-                              onClick={handleLinkClick}
-                              className={`flex items-center justify-between px-4 py-2 text-[12px] sm:text-[13px] transition-colors cursor-pointer touch-manipulation group ${
-                                isActive
-                                  ? 'bg-[#04AA6D]/20 text-white font-bold border-l-4 border-[#04AA6D]'
-                                  : 'text-slate-200 hover:text-white hover:bg-slate-800/80 border-l-4 border-transparent'
-                              }`}
-                            >
-                              <span className="truncate flex-1 text-left">
-                                #{lesson.id}. {lesson.title.replace(/`([^`]+)`/g, '$1')}
-                              </span>
-                            </Link>
-                          );
-                        })}
-                      </div>
+                    <div key={uIdx} className="mb-2 bg-[#0d1733]/80 rounded-xl border border-slate-800/70 overflow-hidden shadow-xs">
+                      <button
+                        type="button"
+                        onClick={(e) => toggleUnit(unitName, e)}
+                        className={`w-full flex items-center justify-between px-3 py-2.5 text-[11px] font-extrabold uppercase tracking-wider transition-all text-left cursor-pointer select-none ${
+                          hasActiveLesson
+                            ? 'bg-[#04AA6D]/20 text-[#04AA6D] border-b border-[#04AA6D]/30 font-black'
+                            : 'text-slate-300 hover:text-white hover:bg-slate-800/60'
+                        }`}
+                      >
+                        <div className="flex items-center gap-1.5 truncate flex-1 min-w-0 pr-1">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#04AA6D] shrink-0" />
+                          <span className="truncate">{unitName}</span>
+                        </div>
+                        <div className="flex items-center gap-1.5 shrink-0">
+                          <span className="text-[10px] text-slate-400 font-mono font-bold">{filteredLessons.length}</span>
+                          <ChevronDown
+                            size={14}
+                            className={`transition-transform duration-200 text-[#04AA6D] ${
+                              isCollapsed ? '-rotate-90 text-slate-400' : 'rotate-0'
+                            }`}
+                          />
+                        </div>
+                      </button>
+
+                      {!isCollapsed && (
+                        <div className="flex flex-col space-y-0.5 p-1.5 bg-[#090f24]/70">
+                          {filteredLessons.map((lesson) => {
+                            const isActive = pathname.includes(lesson.slug);
+                            return (
+                              <Link
+                                ref={isActive ? activeItemRef : undefined}
+                                key={lesson.id}
+                                href={`/cli/${lesson.slug}/`}
+                                prefetch={true}
+                                onClick={handleLinkClick}
+                                className={`flex items-center justify-between px-3 py-2 text-[12px] sm:text-[13px] rounded-lg transition-all cursor-pointer touch-manipulation group ${
+                                  isActive
+                                    ? 'bg-[#04AA6D] text-white font-black shadow-lg shadow-emerald-950/70 ring-2 ring-emerald-300/60 border-l-4 border-l-white scale-[1.01]'
+                                    : 'text-slate-200 hover:text-white hover:bg-slate-800/80 border-l-4 border-transparent'
+                                }`}
+                              >
+                                <span className="truncate flex-1 text-left flex items-center min-w-0 mr-1.5">
+                                  {isActive && <span className="w-2 h-2 rounded-full bg-white animate-pulse shrink-0 mr-2 shadow-xs" />}
+                                  <span className="truncate">{lesson.id}. {lesson.title.replace(/`([^`]+)`/g, '$1')}</span>
+                                </span>
+                                {isActive && (
+                                  <span className="text-[9px] font-black uppercase tracking-wider bg-white text-[#04AA6D] px-1.5 py-0.5 rounded shadow-xs shrink-0 font-mono">
+                                    ACTIVE
+                                  </span>
+                                )}
+                              </Link>
+                            );
+                          })}
+                        </div>
+                      )}
                     </div>
                   );
                 })}
               </div>
-            ) : pathname.startsWith('/cpp') ? (
-              /* C++ Systems Programming Lessons */
+
+            /* ── 7. C++ SYSTEMS PROGRAMMING ── */
+            ) : currentSubject === 'cpp' ? (
               <div className="flex flex-col">
-                <div className="px-4 pt-2 pb-1 text-[11px] font-black uppercase tracking-wider text-[#04AA6D] border-b border-slate-800/80 mb-2 flex items-center gap-1.5">
-                  <Terminal size={13} className="text-[#04AA6D]" />
-                  <span>C++ Systems Lessons ({cppLessons.length})</span>
-                </div>
+                {renderSubjectHeader("C++ SYSTEMS PROGRAMMING", cppLessons.length, <Terminal size={14} className="text-[#04AA6D]" />)}
+
                 {Array.from(new Set(cppLessons.map((l) => l.unit))).map((unitName, uIdx) => {
                   const unitLessons = cppLessons.filter((l) => l.unit === unitName);
+                  const filteredLessons = searchQuery
+                    ? unitLessons.filter((l) => l.title.toLowerCase().includes(searchQuery.toLowerCase()) || l.slug.toLowerCase().includes(searchQuery.toLowerCase()))
+                    : unitLessons;
+
+                  if (searchQuery && filteredLessons.length === 0) return null;
+
+                  const isCollapsed = collapsedUnits[unitName] ?? false;
+                  const hasActiveLesson = unitLessons.some((l) => pathname.includes(l.slug));
+
                   return (
-                    <div key={uIdx} className="mb-2">
-                      <div className="px-4 pt-2 pb-1 text-[11px] font-bold uppercase tracking-wider text-slate-400 select-none">
-                        {unitName}
-                      </div>
-                      <div className="flex flex-col">
-                        {unitLessons.map((lesson) => {
-                          const isActive = pathname.includes(lesson.slug);
-                          return (
-                            <Link
-                              ref={isActive ? activeItemRef : undefined}
-                              key={lesson.id}
-                              href={`/cpp/${lesson.slug}`}
-                              onClick={handleLinkClick}
-                              className={`flex items-center justify-between px-4 py-2 text-[12px] sm:text-[13px] transition-colors cursor-pointer touch-manipulation group ${
-                                isActive
-                                  ? 'bg-[#04AA6D]/20 text-white font-bold border-l-4 border-[#04AA6D]'
-                                  : 'text-slate-200 hover:text-white hover:bg-slate-800/80 border-l-4 border-transparent'
-                              }`}
-                            >
-                              <span className="truncate flex-1 text-left">
-                                #{lesson.id}. {lesson.title.replace(/`([^`]+)`/g, '$1')}
-                              </span>
-                            </Link>
-                          );
-                        })}
-                      </div>
+                    <div key={uIdx} className="mb-2 bg-[#0d1733]/80 rounded-xl border border-slate-800/70 overflow-hidden shadow-xs">
+                      <button
+                        type="button"
+                        onClick={(e) => toggleUnit(unitName, e)}
+                        className={`w-full flex items-center justify-between px-3 py-2.5 text-[11px] font-extrabold uppercase tracking-wider transition-all text-left cursor-pointer select-none ${
+                          hasActiveLesson
+                            ? 'bg-[#04AA6D]/20 text-[#04AA6D] border-b border-[#04AA6D]/30 font-black'
+                            : 'text-slate-300 hover:text-white hover:bg-slate-800/60'
+                        }`}
+                      >
+                        <div className="flex items-center gap-1.5 truncate flex-1 min-w-0 pr-1">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#04AA6D] shrink-0" />
+                          <span className="truncate">{unitName}</span>
+                        </div>
+                        <div className="flex items-center gap-1.5 shrink-0">
+                          <span className="text-[10px] text-slate-400 font-mono font-bold">{filteredLessons.length}</span>
+                          <ChevronDown
+                            size={14}
+                            className={`transition-transform duration-200 text-[#04AA6D] ${
+                              isCollapsed ? '-rotate-90 text-slate-400' : 'rotate-0'
+                            }`}
+                          />
+                        </div>
+                      </button>
+
+                      {!isCollapsed && (
+                        <div className="flex flex-col space-y-0.5 p-1.5 bg-[#090f24]/70">
+                          {filteredLessons.map((lesson) => {
+                            const isActive = pathname.includes(lesson.slug);
+                            return (
+                              <Link
+                                ref={isActive ? activeItemRef : undefined}
+                                key={lesson.id}
+                                href={`/cpp/${lesson.slug}/`}
+                                prefetch={true}
+                                onClick={handleLinkClick}
+                                className={`flex items-center justify-between px-3 py-2 text-[12px] sm:text-[13px] rounded-lg transition-all cursor-pointer touch-manipulation group ${
+                                  isActive
+                                    ? 'bg-[#04AA6D] text-white font-black shadow-lg shadow-emerald-950/70 ring-2 ring-emerald-300/60 border-l-4 border-l-white scale-[1.01]'
+                                    : 'text-slate-200 hover:text-white hover:bg-slate-800/80 border-l-4 border-transparent'
+                                }`}
+                              >
+                                <span className="truncate flex-1 text-left flex items-center min-w-0 mr-1.5">
+                                  {isActive && <span className="w-2 h-2 rounded-full bg-white animate-pulse shrink-0 mr-2 shadow-xs" />}
+                                  <span className="truncate">{lesson.id}. {lesson.title.replace(/`([^`]+)`/g, '$1')}</span>
+                                </span>
+                                {isActive && (
+                                  <span className="text-[9px] font-black uppercase tracking-wider bg-white text-[#04AA6D] px-1.5 py-0.5 rounded shadow-xs shrink-0 font-mono">
+                                    ACTIVE
+                                  </span>
+                                )}
+                              </Link>
+                            );
+                          })}
+                        </div>
+                      )}
                     </div>
                   );
                 })}
               </div>
-            ) : pathname.startsWith('/git') ? (
-              /* Git & GitHub Lessons */
+
+            /* ── 8. GIT & GITHUB ── */
+            ) : currentSubject === 'git' ? (
               <div className="flex flex-col">
-                <div className="px-4 pt-2 pb-1 text-[11px] font-black uppercase tracking-wider text-[#04AA6D] border-b border-slate-800/80 mb-2 flex items-center gap-1.5">
-                  <GitBranch size={13} className="text-[#04AA6D]" />
-                  <span>GIT & GITHUB ({gitLessons.length})</span>
-                </div>
-                <div className="px-3 py-1 mb-2">
+                {renderSubjectHeader("GIT & GITHUB", gitLessons.length, <GitBranch size={14} className="text-[#04AA6D]" />)}
+
+                <div className="px-2 py-1 mb-2">
                   <Link
-                    href="/git"
+                    href="/git/"
+                    prefetch={true}
                     onClick={handleLinkClick}
                     className="flex items-center gap-2 px-3 py-2 rounded-xl bg-[#04AA6D]/20 border border-[#04AA6D] text-white font-bold text-xs hover:bg-[#04AA6D]/30 transition-all shadow-sm group cursor-pointer"
                   >
@@ -590,72 +809,124 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, onWidthChange, isCollaps
                     </div>
                   </Link>
                 </div>
+
                 {Array.from(new Set(gitLessons.map((l) => l.unit))).map((unitName, uIdx) => {
                   const unitLessons = gitLessons.filter((l) => l.unit === unitName);
+                  const filteredLessons = searchQuery
+                    ? unitLessons.filter((l) => l.title.toLowerCase().includes(searchQuery.toLowerCase()) || l.slug.toLowerCase().includes(searchQuery.toLowerCase()))
+                    : unitLessons;
+
+                  if (searchQuery && filteredLessons.length === 0) return null;
+
+                  const isCollapsed = collapsedUnits[unitName] ?? false;
+                  const hasActiveLesson = unitLessons.some((l) => pathname.includes(l.slug) || (pathname === '/git' && l.id === 1));
+
                   return (
-                    <div key={uIdx} className="mb-2">
-                      <div className="px-4 pt-2 pb-1 text-[11px] font-bold uppercase tracking-wider text-slate-400 select-none">
-                        {unitName}
-                      </div>
-                      <div className="flex flex-col">
-                        {unitLessons.map((lesson) => {
-                          const isActive = pathname.includes(lesson.slug) || (pathname === '/git' && lesson.id === 1);
-                          return (
-                            <Link
-                              ref={isActive ? activeItemRef : undefined}
-                              key={lesson.id}
-                              href={`/git/${lesson.slug}`}
-                              onClick={handleLinkClick}
-                              className={`flex items-center justify-between px-4 py-2 text-[12px] sm:text-[13px] transition-colors cursor-pointer touch-manipulation group ${
-                                isActive
-                                  ? 'bg-[#04AA6D]/25 text-white font-black border-l-4 border-[#04AA6D] shadow-inner'
-                                  : 'text-slate-200 hover:text-white hover:bg-slate-800/80 border-l-4 border-transparent'
-                              }`}
-                            >
-                              <span className="truncate flex-1 text-left">
-                                #{lesson.id}. {lesson.title}
-                              </span>
-                              {isActive && (
-                                <span className="w-2 h-2 rounded-full bg-[#04AA6D] shadow-[0_0_8px_#04AA6D] shrink-0 ml-1.5" />
-                              )}
-                            </Link>
-                          );
-                        })}
-                      </div>
+                    <div key={uIdx} className="mb-2 bg-[#0d1733]/80 rounded-xl border border-slate-800/70 overflow-hidden shadow-xs">
+                      <button
+                        type="button"
+                        onClick={(e) => toggleUnit(unitName, e)}
+                        className={`w-full flex items-center justify-between px-3 py-2.5 text-[11px] font-extrabold uppercase tracking-wider transition-all text-left cursor-pointer select-none ${
+                          hasActiveLesson
+                            ? 'bg-[#04AA6D]/20 text-[#04AA6D] border-b border-[#04AA6D]/30 font-black'
+                            : 'text-slate-300 hover:text-white hover:bg-slate-800/60'
+                        }`}
+                      >
+                        <div className="flex items-center gap-1.5 truncate flex-1 min-w-0 pr-1">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#04AA6D] shrink-0" />
+                          <span className="truncate">{unitName}</span>
+                        </div>
+                        <div className="flex items-center gap-1.5 shrink-0">
+                          <span className="text-[10px] text-slate-400 font-mono font-bold">{filteredLessons.length}</span>
+                          <ChevronDown
+                            size={14}
+                            className={`transition-transform duration-200 text-[#04AA6D] ${
+                              isCollapsed ? '-rotate-90 text-slate-400' : 'rotate-0'
+                            }`}
+                          />
+                        </div>
+                      </button>
+
+                      {!isCollapsed && (
+                        <div className="flex flex-col space-y-0.5 p-1.5 bg-[#090f24]/70">
+                          {filteredLessons.map((lesson) => {
+                            const isActive = pathname.includes(lesson.slug) || (pathname === '/git' && lesson.id === 1);
+                            return (
+                              <Link
+                                ref={isActive ? activeItemRef : undefined}
+                                key={lesson.id}
+                                href={`/git/${lesson.slug}/`}
+                                prefetch={true}
+                                onClick={handleLinkClick}
+                                className={`flex items-center justify-between px-3 py-2 text-[12px] sm:text-[13px] rounded-lg transition-all cursor-pointer touch-manipulation group ${
+                                  isActive
+                                    ? 'bg-[#04AA6D] text-white font-black shadow-lg shadow-emerald-950/70 ring-2 ring-emerald-300/60 border-l-4 border-l-white scale-[1.01]'
+                                    : 'text-slate-200 hover:text-white hover:bg-slate-800/80 border-l-4 border-transparent'
+                                }`}
+                              >
+                                <span className="truncate flex-1 text-left flex items-center min-w-0 mr-1.5">
+                                  {isActive && <span className="w-2 h-2 rounded-full bg-white animate-pulse shrink-0 mr-2 shadow-xs" />}
+                                  <span className="truncate">{lesson.id}. {lesson.title}</span>
+                                </span>
+                                {isActive && (
+                                  <span className="text-[9px] font-black uppercase tracking-wider bg-white text-[#04AA6D] px-1.5 py-0.5 rounded shadow-xs shrink-0 font-mono">
+                                    ACTIVE
+                                  </span>
+                                )}
+                              </Link>
+                            );
+                          })}
+                        </div>
+                      )}
                     </div>
                   );
                 })}
               </div>
 
+            /* ── 9. FULL-STACK ROADMAP / BOOK CHAPTERS ── */
             ) : (
-              /* Phase Course Chapters */
               (() => {
                 const currentGroup = phaseGroups.find((g) => g.key === activePhaseKey) || phaseGroups[0];
                 if (!currentGroup) return null;
-                return currentGroup.chapters.map((chapter) => {
-                  const isActive = activeChapterId === chapter.id;
-                  const isCompleted = !!completedChapters[chapter.id];
-                  return (
-                    <Link
-                      ref={isActive ? activeItemRef : undefined}
-                      key={chapter.id}
-                      href={getChapterUrl(chapter.id)}
-                      onClick={handleLinkClick}
-                      className={`flex items-center justify-between px-4 py-2 text-xs sm:text-[13px] font-medium transition-colors cursor-pointer touch-manipulation ${
-                        isActive
-                          ? 'bg-[#04AA6D]/20 text-white font-bold border-l-4 border-[#04AA6D]'
-                          : 'text-slate-300 hover:bg-slate-800/80 hover:text-white border-l-4 border-transparent'
-                      }`}
-                    >
-                      <span className="truncate flex-1 text-left">
-                        {chapter.title.replace(/^(CLI\.\d+:|P\d+\.\d+:|Phase\s+\d+:)\s*/i, '').trim()}
-                      </span>
-                      {isCompleted && (
-                        <Check size={12} className="text-[#04AA6D] shrink-0 ml-1.5 stroke-[3]" />
-                      )}
-                    </Link>
-                  );
-                });
+                const filteredChapters = searchQuery
+                  ? currentGroup.chapters.filter((c) => c.title.toLowerCase().includes(searchQuery.toLowerCase()))
+                  : currentGroup.chapters;
+
+                return (
+                  <div className="flex flex-col space-y-1">
+                    {renderSubjectHeader(currentGroup.label, filteredChapters.length, <Layers size={14} className="text-[#04AA6D]" />)}
+                    {filteredChapters.map((chapter) => {
+                      const isActive = activeChapterId === chapter.id;
+                      const isCompleted = !!completedChapters[chapter.id];
+                      return (
+                        <Link
+                          ref={isActive ? activeItemRef : undefined}
+                          key={chapter.id}
+                          href={getChapterUrl(chapter.id)}
+                          prefetch={true}
+                          onClick={handleLinkClick}
+                          className={`flex items-center justify-between px-3.5 py-2 text-xs sm:text-[13px] rounded-lg font-medium transition-all cursor-pointer touch-manipulation ${
+                            isActive
+                              ? 'bg-[#04AA6D] text-white font-black shadow-lg shadow-emerald-950/70 ring-2 ring-emerald-300/60 border-l-4 border-l-white scale-[1.01]'
+                              : 'text-slate-300 hover:bg-slate-800/80 hover:text-white border-l-4 border-transparent'
+                          }`}
+                        >
+                          <span className="truncate flex-1 text-left flex items-center min-w-0 mr-1.5">
+                            {isActive && <span className="w-2 h-2 rounded-full bg-white animate-pulse shrink-0 mr-2 shadow-xs" />}
+                            <span className="truncate">{chapter.title.replace(/^(CLI\.\d+:|P\d+\.\d+:|Phase\s+\d+:)\s*/i, '').trim()}</span>
+                          </span>
+                          {isActive ? (
+                            <span className="text-[9px] font-black uppercase tracking-wider bg-white text-[#04AA6D] px-1.5 py-0.5 rounded shadow-xs shrink-0 font-mono">
+                              ACTIVE
+                            </span>
+                          ) : isCompleted ? (
+                            <Check size={12} className="text-[#04AA6D] shrink-0 ml-1.5 stroke-[3]" />
+                          ) : null}
+                        </Link>
+                      );
+                    })}
+                  </div>
+                );
               })()
             )}
           </nav>
@@ -666,5 +937,3 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, onWidthChange, isCollaps
 };
 
 export default BookSidebar;
-
-

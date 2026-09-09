@@ -388,7 +388,7 @@ VS Code extensions supercharge your development workflow:
     id: 1,
     slug: "html-introduction-what-is-html",
     title: "HTML Introduction (What is HTML?)",
-    unit: "Unit 1: HTML Introduction & Fundamentals",
+    unit: "Unit 1: HTML Introduction & Web Fundamentals",
     bookRef: "W3Schools HTML Introduction & Standards Guide",
     exercise: {
       english: {
@@ -574,7 +574,7 @@ VS Code extensions supercharge your development workflow:
     id: 2,
     slug: "free-web-development-lessons-client-server-model",
     title: "Web Architecture: Client-Server, DNS, IP Addresses & TCP Handshake",
-    unit: "Unit 1: Web Fundamentals & Client-Server Architecture",
+    unit: "Unit 1: HTML Introduction & Web Fundamentals",
     bookRef: "Duckett Chapter 1 (p. 6-10) & Freeman Chapter 2 (p. 25-35)",
     exercise: {
       english: {
@@ -759,7 +759,7 @@ Network layer se le kar application layer tak web communication flow:
     id: 6,
     slug: "anatomy-of-http-request-headers-verbs",
     title: "Anatomy of an HTTP Request",
-    unit: "Unit 1: Web Fundamentals & Client-Server Architecture",
+    unit: "Unit 1: HTML Introduction & Web Fundamentals",
     bookRef: "Freeman Chapter 3 (p. 40-44)",
     exercise: {
       question: "Which HTTP verb/method is used to retrieve data from a server?",
@@ -789,7 +789,7 @@ Network layer se le kar application layer tak web communication flow:
     id: 7,
     slug: "http-response-status-codes-explained",
     title: "Anatomy of an HTTP Response",
-    unit: "Unit 1: Web Fundamentals & Client-Server Architecture",
+    unit: "Unit 1: HTML Introduction & Web Fundamentals",
     bookRef: "Freeman Chapter 3 (p. 45-50)",
     exercise: {
       question: "Which HTTP status code represents a successful page retrieval?",
@@ -1007,7 +1007,7 @@ Response packages content deliver status return karte hain:
     id: 8,
     slug: "how-to-read-url-query-parameters-path",
     title: "Anatomy of a URL",
-    unit: "Unit 1: Web Fundamentals & Client-Server Architecture",
+    unit: "Unit 1: HTML Introduction & Web Fundamentals",
     bookRef: "Freeman Chapter 3 (p. 51-55)",
     exercise: {
       question: "In the URL https://nextsem.online/html?user=amit, what does '?user=amit' represent?",
@@ -1227,7 +1227,7 @@ URL parser architecture logical parts divide karti hai:
     id: 9,
     slug: "how-browser-renders-html-dom-tree",
     title: "How Browsers Render HTML (DOM)",
-    unit: "Unit 1: Web Fundamentals & Client-Server Architecture",
+    unit: "Unit 1: HTML Introduction & Web Fundamentals",
     bookRef: "Freeman Chapter 3 (p. 56-60)",
     exercise: {
       question: "What does DOM stand for in web engineering?",
@@ -1445,7 +1445,7 @@ Browser rendering engine critical path parsing sequences calculate karta hai:
     id: 10,
     slug: "how-to-use-chrome-developer-tools-elements",
     title: "Introduction to Browser DevTools",
-    unit: "Unit 1: Web Fundamentals & Client-Server Architecture",
+    unit: "Unit 1: HTML Introduction & Web Fundamentals",
     bookRef: "Freeman Chapter 3 (p. 61-64)",
     exercise: {
       question: "Which panel in Chrome DevTools allows you to inspect and modify live HTML elements?",
@@ -2235,2104 +2235,2734 @@ Modern front-end developers inspection workflows me DevTools panels master karte
       pro: "### ✉️ <address> तत्व: संपर्क जानकारी सिमेंटिक्स\n`<address>` तत्व दस्तावेज़ के लेखक या स्वामी की संपर्क जानकारी का प्रतिनिधित्व करता है:\n\n* **नियम**: इसका उपयोग केवल वास्तविक संपर्क जानकारी के लिए करें, सामान्य डाक पते के लिए नहीं।"
     }
   },
-{
-  "id": 31,
-  "slug": "bold-b-vs-semantic-strong-tag",
-  "title": "Presentational Bold (<b>) vs. Semantic Strong (<strong>)",
-  "unit": "Unit 4: Semantic Content & Text Modifications",
-  "bookRef": "Duckett Chapter 2 (p. 34-35)",
-  "exercise": {
-    "question": "Which tag is semantically designated to indicate that text has strong importance?",
-    "options": [
-      "<strong>",
-      "<b>",
-      "<bold>",
-      "<heavy>"
-    ],
-    "correctAnswer": "<strong>",
-    "hint": "While <b> just makes text bold visually, this tag tells screen readers and Google that the text is critically important!"
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Presentational Bold (<b>) vs. Semantic Strong (<strong>)!\nToday, we are looking at the **`<strong>`** tag, which represents **Strong importance** on our webpage!\n\n* **Analogy**: Imagine a **shouting warning megaphone**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<strong>This is super important!</strong>\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Presentational Bold (<b>) vs. Semantic Strong (<strong>)\nThe HTML `<strong>` element is used to represent **Strong importance** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<strong>Important Warning Text</strong>\n```\n\nConsult the standard specifications in Duckett Chapter 2 (p. 34-35) for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Presentational Bold () vs. Semantic Strong () seekhein!\nWeb development me **`<strong>`** tag ka use **Strong importance** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **shouting warning megaphone** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Presentational Bold () vs. Semantic Strong ()\n`<strong>` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Presentational Bold () vs. Semantic Strong ()!\nआज हम **`<strong>`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Strong importance** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **shouting warning megaphone** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Presentational Bold () vs. Semantic Strong ()\n`<strong>` तत्व दस्तावेज़ के पदानुक्रम में **Strong importance** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
+  {
+    id: 31,
+    slug: "bold-b-vs-semantic-strong-tag",
+    title: "Presentational Bold (<b>) vs. Semantic Strong (<strong>)",
+    unit: "Unit 4: Semantic Content & Text Modifications",
+    bookRef: "Duckett Chapter 2 (p. 34-35)",
+    exercise: {
+      english: {
+        question: "Which element conveys strong importance and is emphasized by screen readers?",
+        options: ["<strong>","<b>","<span>","<mark>"],
+        correctAnswer: "<strong>",
+        hint: "Use <strong> for semantic importance and <b> for purely visual styling."
+      },
+      hinglish: {
+        question: "Which element conveys strong importance and is emphasized by screen readers?",
+        options: ["<strong>","<b>","<span>","<mark>"],
+        correctAnswer: "<strong>",
+        hint: "Use <strong> for semantic importance and <b> for purely visual styling."
+      },
+      hindi: {
+        question: "Which element conveys strong importance and is emphasized by screen readers?",
+        options: ["<strong>","<b>","<span>","<mark>"],
+        correctAnswer: "<strong>",
+        hint: "Use <strong> for semantic importance and <b> for purely visual styling."
+      }
+    },
+    english: {
+      kid: "* 1. <b> makes text bold visually.\n* 2. <strong> indicates great structural importance.\n* 3. Screen readers announce <strong> with emphasis.\n* 4. <b> has no special semantic meaning.\n* 5. Use <strong> for crucial warnings.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Bold vs Strong</title>\n</head>\n<body>\n\n  <h1>Important Notice</h1>\n  <p>Please read this <b>carefully</b> before starting.</p>\n  <p><strong>Warning:</strong> Never share your passwords!</p>\n\n</body>\n</html>\n```",
+      pro: "* 1. <b> makes text bold visually.\n* 2. <strong> indicates great structural importance.\n* 3. Screen readers announce <strong> with emphasis.\n* 4. <b> has no special semantic meaning.\n* 5. Use <strong> for crucial warnings.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Bold vs Strong</title>\n</head>\n<body>\n\n  <h1>Important Notice</h1>\n  <p>Please read this <b>carefully</b> before starting.</p>\n  <p><strong>Warning:</strong> Never share your passwords!</p>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. <b> टेक्स्ट को विजुअली बोल्ड बनाता है।\n* 2. <strong> टेक्स्ट को मुख्य महत्व देता है।\n* 3. स्क्रीन रीडर <strong> को जोर देकर पढ़ते हैं।\n* 4. <b> का कोई खास अर्थ नहीं होता।\n* 5. जरूरी सूचना के लिए <strong> चुनें।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Bold vs Strong</title>\n</head>\n<body>\n\n  <h1>Important Notice</h1>\n  <p>Please read this <b>carefully</b> before starting.</p>\n  <p><strong>Warning:</strong> Never share your passwords!</p>\n\n</body>\n</html>\n```",
+      pro: "* 1. <b> टेक्स्ट को विजुअली बोल्ड बनाता है।\n* 2. <strong> टेक्स्ट को मुख्य महत्व देता है।\n* 3. स्क्रीन रीडर <strong> को जोर देकर पढ़ते हैं।\n* 4. <b> का कोई खास अर्थ नहीं होता।\n* 5. जरूरी सूचना के लिए <strong> चुनें।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Bold vs Strong</title>\n</head>\n<body>\n\n  <h1>Important Notice</h1>\n  <p>Please read this <b>carefully</b> before starting.</p>\n  <p><strong>Warning:</strong> Never share your passwords!</p>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. <b> टेक्स्ट को विजुअली बोल्ड बनाता है।\n* 2. <strong> टेक्स्ट को मुख्य महत्व देता है।\n* 3. स्क्रीन रीडर <strong> को जोर देकर पढ़ते हैं।\n* 4. <b> का कोई खास अर्थ नहीं होता।\n* 5. जरूरी सूचना के लिए <strong> चुनें।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Bold vs Strong</title>\n</head>\n<body>\n\n  <h1>Important Notice</h1>\n  <p>Please read this <b>carefully</b> before starting.</p>\n  <p><strong>Warning:</strong> Never share your passwords!</p>\n\n</body>\n</html>\n```",
+      pro: "* 1. <b> टेक्स्ट को विजुअली बोल्ड बनाता है।\n* 2. <strong> टेक्स्ट को मुख्य महत्व देता है।\n* 3. स्क्रीन रीडर <strong> को जोर देकर पढ़ते हैं।\n* 4. <b> का कोई खास अर्थ नहीं होता।\n* 5. जरूरी सूचना के लिए <strong> चुनें।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Bold vs Strong</title>\n</head>\n<body>\n\n  <h1>Important Notice</h1>\n  <p>Please read this <b>carefully</b> before starting.</p>\n  <p><strong>Warning:</strong> Never share your passwords!</p>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 32,
+    slug: "italic-i-vs-semantic-emphasis-em-tag",
+    title: "Presentational Italic (<i>) vs. Semantic Emphasis (<em>)",
+    unit: "Unit 4: Semantic Content & Text Modifications",
+    bookRef: "Duckett Chapter 2 (p. 35-36)",
+    exercise: {
+      english: {
+        question: "Which tag adds semantic verbal stress to a sentence?",
+        options: ["<em>","<i>","<cite>","<span>"],
+        correctAnswer: "<em>",
+        hint: "<em> changes the meaning by adding emphasis to spoken voice."
+      },
+      hinglish: {
+        question: "Which tag adds semantic verbal stress to a sentence?",
+        options: ["<em>","<i>","<cite>","<span>"],
+        correctAnswer: "<em>",
+        hint: "<em> changes the meaning by adding emphasis to spoken voice."
+      },
+      hindi: {
+        question: "Which tag adds semantic verbal stress to a sentence?",
+        options: ["<em>","<i>","<cite>","<span>"],
+        correctAnswer: "<em>",
+        hint: "<em> changes the meaning by adding emphasis to spoken voice."
+      }
+    },
+    english: {
+      kid: "* 1. <i> slants text without extra meaning.\n* 2. <em> adds verbal stress and emphasis.\n* 3. Screen readers stress words inside <em>.\n* 4. <i> is ideal for book titles.\n* 5. Both render in italic font style.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Italic vs Emphasis</title>\n</head>\n<body>\n\n  <p>I read the novel <i>The Great Gatsby</i> yesterday.</p>\n  <p>You <em>must</em> complete your assignment today!</p>\n\n</body>\n</html>\n```",
+      pro: "* 1. <i> slants text without extra meaning.\n* 2. <em> adds verbal stress and emphasis.\n* 3. Screen readers stress words inside <em>.\n* 4. <i> is ideal for book titles.\n* 5. Both render in italic font style.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Italic vs Emphasis</title>\n</head>\n<body>\n\n  <p>I read the novel <i>The Great Gatsby</i> yesterday.</p>\n  <p>You <em>must</em> complete your assignment today!</p>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. <i> टेक्स्ट को तिरछा (Italic) दिखाता है।\n* 2. <em> टेक्स्ट पर विशेष जोर देता है।\n* 3. स्क्रीन रीडर <em> को तनाव देकर पढ़ते हैं।\n* 4. <i> किताबों के नाम के लिए उपयुक्त है।\n* 5. दोनों ब्राउज़र में इटैलिक दिखते हैं।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Italic vs Emphasis</title>\n</head>\n<body>\n\n  <p>I read the novel <i>The Great Gatsby</i> yesterday.</p>\n  <p>You <em>must</em> complete your assignment today!</p>\n\n</body>\n</html>\n```",
+      pro: "* 1. <i> टेक्स्ट को तिरछा (Italic) दिखाता है।\n* 2. <em> टेक्स्ट पर विशेष जोर देता है।\n* 3. स्क्रीन रीडर <em> को तनाव देकर पढ़ते हैं।\n* 4. <i> किताबों के नाम के लिए उपयुक्त है।\n* 5. दोनों ब्राउज़र में इटैलिक दिखते हैं।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Italic vs Emphasis</title>\n</head>\n<body>\n\n  <p>I read the novel <i>The Great Gatsby</i> yesterday.</p>\n  <p>You <em>must</em> complete your assignment today!</p>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. <i> टेक्स्ट को तिरछा (Italic) दिखाता है।\n* 2. <em> टेक्स्ट पर विशेष जोर देता है।\n* 3. स्क्रीन रीडर <em> को तनाव देकर पढ़ते हैं।\n* 4. <i> किताबों के नाम के लिए उपयुक्त है।\n* 5. दोनों ब्राउज़र में इटैलिक दिखते हैं।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Italic vs Emphasis</title>\n</head>\n<body>\n\n  <p>I read the novel <i>The Great Gatsby</i> yesterday.</p>\n  <p>You <em>must</em> complete your assignment today!</p>\n\n</body>\n</html>\n```",
+      pro: "* 1. <i> टेक्स्ट को तिरछा (Italic) दिखाता है।\n* 2. <em> टेक्स्ट पर विशेष जोर देता है।\n* 3. स्क्रीन रीडर <em> को तनाव देकर पढ़ते हैं।\n* 4. <i> किताबों के नाम के लिए उपयुक्त है।\n* 5. दोनों ब्राउज़र में इटैलिक दिखते हैं।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Italic vs Emphasis</title>\n</head>\n<body>\n\n  <p>I read the novel <i>The Great Gatsby</i> yesterday.</p>\n  <p>You <em>must</em> complete your assignment today!</p>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 33,
+    slug: "highlight-text-mark-tag-search-results",
+    title: "Highlighted Text (<mark>)",
+    unit: "Unit 4: Semantic Content & Text Modifications",
+    bookRef: "Duckett Chapter 2 (p. 37-38)",
+    exercise: {
+      english: {
+        question: "Which HTML5 tag is used to highlight text with a yellow background by default?",
+        options: ["<mark>","<highlight>","<yellow>","<spotlight>"],
+        correctAnswer: "<mark>",
+        hint: "The <mark> tag represents text marked or highlighted for reference."
+      },
+      hinglish: {
+        question: "Which HTML5 tag is used to highlight text with a yellow background by default?",
+        options: ["<mark>","<highlight>","<yellow>","<spotlight>"],
+        correctAnswer: "<mark>",
+        hint: "The <mark> tag represents text marked or highlighted for reference."
+      },
+      hindi: {
+        question: "Which HTML5 tag is used to highlight text with a yellow background by default?",
+        options: ["<mark>","<highlight>","<yellow>","<spotlight>"],
+        correctAnswer: "<mark>",
+        hint: "The <mark> tag represents text marked or highlighted for reference."
+      }
+    },
+    english: {
+      kid: "* 1. <mark> highlights text with yellow background.\n* 2. It marks relevant or searched words.\n* 3. Browsers style it like highlighter pens.\n* 4. It works as an inline element.\n* 5. Useful for highlighting search query results.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Mark Element</title>\n</head>\n<body>\n\n  <h1>Search Results for 'HTML'</h1>\n  <p>Learn <mark>HTML</mark> to build modern web pages.</p>\n  <p>Remember to buy <mark>fresh milk</mark> today.</p>\n\n</body>\n</html>\n```",
+      pro: "* 1. <mark> highlights text with yellow background.\n* 2. It marks relevant or searched words.\n* 3. Browsers style it like highlighter pens.\n* 4. It works as an inline element.\n* 5. Useful for highlighting search query results.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Mark Element</title>\n</head>\n<body>\n\n  <h1>Search Results for 'HTML'</h1>\n  <p>Learn <mark>HTML</mark> to build modern web pages.</p>\n  <p>Remember to buy <mark>fresh milk</mark> today.</p>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. <mark> टेक्स्ट पर पीला बैकग्राउंड लगाता है।\n* 2. यह खोजे गए शब्दों को दर्शाता है।\n* 3. ब्राउज़र इसे हाइलाइटर पेन जैसा दिखाता है।\n* 4. यह एक इनलाइन एलिमेंट होता है।\n* 5. सर्च रिजल्ट्स हाइलाइट करने में उपयोगी है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Mark Element</title>\n</head>\n<body>\n\n  <h1>Search Results for 'HTML'</h1>\n  <p>Learn <mark>HTML</mark> to build modern web pages.</p>\n  <p>Remember to buy <mark>fresh milk</mark> today.</p>\n\n</body>\n</html>\n```",
+      pro: "* 1. <mark> टेक्स्ट पर पीला बैकग्राउंड लगाता है।\n* 2. यह खोजे गए शब्दों को दर्शाता है।\n* 3. ब्राउज़र इसे हाइलाइटर पेन जैसा दिखाता है।\n* 4. यह एक इनलाइन एलिमेंट होता है।\n* 5. सर्च रिजल्ट्स हाइलाइट करने में उपयोगी है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Mark Element</title>\n</head>\n<body>\n\n  <h1>Search Results for 'HTML'</h1>\n  <p>Learn <mark>HTML</mark> to build modern web pages.</p>\n  <p>Remember to buy <mark>fresh milk</mark> today.</p>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. <mark> टेक्स्ट पर पीला बैकग्राउंड लगाता है।\n* 2. यह खोजे गए शब्दों को दर्शाता है।\n* 3. ब्राउज़र इसे हाइलाइटर पेन जैसा दिखाता है।\n* 4. यह एक इनलाइन एलिमेंट होता है।\n* 5. सर्च रिजल्ट्स हाइलाइट करने में उपयोगी है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Mark Element</title>\n</head>\n<body>\n\n  <h1>Search Results for 'HTML'</h1>\n  <p>Learn <mark>HTML</mark> to build modern web pages.</p>\n  <p>Remember to buy <mark>fresh milk</mark> today.</p>\n\n</body>\n</html>\n```",
+      pro: "* 1. <mark> टेक्स्ट पर पीला बैकग्राउंड लगाता है।\n* 2. यह खोजे गए शब्दों को दर्शाता है।\n* 3. ब्राउज़र इसे हाइलाइटर पेन जैसा दिखाता है।\n* 4. यह एक इनलाइन एलिमेंट होता है।\n* 5. सर्च रिजल्ट्स हाइलाइट करने में उपयोगी है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Mark Element</title>\n</head>\n<body>\n\n  <h1>Search Results for 'HTML'</h1>\n  <p>Learn <mark>HTML</mark> to build modern web pages.</p>\n  <p>Remember to buy <mark>fresh milk</mark> today.</p>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 34,
+    slug: "monospace-code-snippet-code-tag",
+    title: "Code Snippets (<code>)",
+    unit: "Unit 4: Semantic Content & Text Modifications",
+    bookRef: "Duckett Chapter 2 (p. 45)",
+    exercise: {
+      english: {
+        question: "Which tag displays inline computer code in a monospace font?",
+        options: ["<code>","<program>","<var>","<script>"],
+        correctAnswer: "<code>",
+        hint: "Use <code> for inline code phrases and variable names."
+      },
+      hinglish: {
+        question: "Which tag displays inline computer code in a monospace font?",
+        options: ["<code>","<program>","<var>","<script>"],
+        correctAnswer: "<code>",
+        hint: "Use <code> for inline code phrases and variable names."
+      },
+      hindi: {
+        question: "Which tag displays inline computer code in a monospace font?",
+        options: ["<code>","<program>","<var>","<script>"],
+        correctAnswer: "<code>",
+        hint: "Use <code> for inline code phrases and variable names."
+      }
+    },
+    english: {
+      kid: "* 1. <code> displays inline computer code.\n* 2. It uses a monospace fixed-width font.\n* 3. Characters take up equal horizontal space.\n* 4. Ideal for keywords, variables, and filenames.\n* 5. Nest inside <pre> for multiple lines.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Code Element</title>\n</head>\n<body>\n\n  <h2>JavaScript Variables</h2>\n  <p>Use the <code>let</code> keyword to declare variables.</p>\n  <p>Call <code>console.log()</code> to print debug output.</p>\n\n</body>\n</html>\n```",
+      pro: "* 1. <code> displays inline computer code.\n* 2. It uses a monospace fixed-width font.\n* 3. Characters take up equal horizontal space.\n* 4. Ideal for keywords, variables, and filenames.\n* 5. Nest inside <pre> for multiple lines.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Code Element</title>\n</head>\n<body>\n\n  <h2>JavaScript Variables</h2>\n  <p>Use the <code>let</code> keyword to declare variables.</p>\n  <p>Call <code>console.log()</code> to print debug output.</p>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. <code> कंप्यूटर कोड दिखाने के लिए है।\n* 2. यह मोनोस्पेस फॉन्ट का उपयोग करता है।\n* 3. सभी अक्षरों की चौड़ाई समान होती है।\n* 4. वैरिएबल्स और फाइलनाम लिखने के लिए उपयुक्त।\n* 5. मल्टी-लाइन कोड के लिए <pre> जोड़ें।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Code Element</title>\n</head>\n<body>\n\n  <h2>JavaScript Variables</h2>\n  <p>Use the <code>let</code> keyword to declare variables.</p>\n  <p>Call <code>console.log()</code> to print debug output.</p>\n\n</body>\n</html>\n```",
+      pro: "* 1. <code> कंप्यूटर कोड दिखाने के लिए है।\n* 2. यह मोनोस्पेस फॉन्ट का उपयोग करता है।\n* 3. सभी अक्षरों की चौड़ाई समान होती है।\n* 4. वैरिएबल्स और फाइलनाम लिखने के लिए उपयुक्त।\n* 5. मल्टी-लाइन कोड के लिए <pre> जोड़ें।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Code Element</title>\n</head>\n<body>\n\n  <h2>JavaScript Variables</h2>\n  <p>Use the <code>let</code> keyword to declare variables.</p>\n  <p>Call <code>console.log()</code> to print debug output.</p>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. <code> कंप्यूटर कोड दिखाने के लिए है।\n* 2. यह मोनोस्पेस फॉन्ट का उपयोग करता है।\n* 3. सभी अक्षरों की चौड़ाई समान होती है।\n* 4. वैरिएबल्स और फाइलनाम लिखने के लिए उपयुक्त।\n* 5. मल्टी-लाइन कोड के लिए <pre> जोड़ें।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Code Element</title>\n</head>\n<body>\n\n  <h2>JavaScript Variables</h2>\n  <p>Use the <code>let</code> keyword to declare variables.</p>\n  <p>Call <code>console.log()</code> to print debug output.</p>\n\n</body>\n</html>\n```",
+      pro: "* 1. <code> कंप्यूटर कोड दिखाने के लिए है।\n* 2. यह मोनोस्पेस फॉन्ट का उपयोग करता है।\n* 3. सभी अक्षरों की चौड़ाई समान होती है।\n* 4. वैरिएबल्स और फाइलनाम लिखने के लिए उपयुक्त।\n* 5. मल्टी-लाइन कोड के लिए <pre> जोड़ें।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Code Element</title>\n</head>\n<body>\n\n  <h2>JavaScript Variables</h2>\n  <p>Use the <code>let</code> keyword to declare variables.</p>\n  <p>Call <code>console.log()</code> to print debug output.</p>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 35,
+    slug: "preformatted-text-pre-tag-spaces-tabs",
+    title: "Preformatted Text (<pre>)",
+    unit: "Unit 4: Semantic Content & Text Modifications",
+    bookRef: "Duckett Chapter 2 (p. 46)",
+    exercise: {
+      english: {
+        question: "Which tag preserves whitespaces and line breaks exactly as typed?",
+        options: ["<pre>","<p>","<format>","<raw>"],
+        correctAnswer: "<pre>",
+        hint: "The <pre> element represents preformatted text."
+      },
+      hinglish: {
+        question: "Which tag preserves whitespaces and line breaks exactly as typed?",
+        options: ["<pre>","<p>","<format>","<raw>"],
+        correctAnswer: "<pre>",
+        hint: "The <pre> element represents preformatted text."
+      },
+      hindi: {
+        question: "Which tag preserves whitespaces and line breaks exactly as typed?",
+        options: ["<pre>","<p>","<format>","<raw>"],
+        correctAnswer: "<pre>",
+        hint: "The <pre> element represents preformatted text."
+      }
+    },
+    english: {
+      kid: "* 1. <pre> preserves exact spaces and linebreaks.\n* 2. Normal HTML collapses multiple spaces automatically.\n* 3. <pre> displays text in monospace font.\n* 4. Perfect for ASCII art and poems.\n* 5. Combine with <code> for code blocks.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Preformatted Text</title>\n</head>\n<body>\n\n  <h2>Preformatted Code Block</h2>\n  <pre>\nfunction sayHello() {\n    let message = \"Hello, World!\";\n    return message;\n}\n  </pre>\n\n</body>\n</html>\n```",
+      pro: "* 1. <pre> preserves exact spaces and linebreaks.\n* 2. Normal HTML collapses multiple spaces automatically.\n* 3. <pre> displays text in monospace font.\n* 4. Perfect for ASCII art and poems.\n* 5. Combine with <code> for code blocks.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Preformatted Text</title>\n</head>\n<body>\n\n  <h2>Preformatted Code Block</h2>\n  <pre>\nfunction sayHello() {\n    let message = \"Hello, World!\";\n    return message;\n}\n  </pre>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. <pre> सभी स्पेस और लाइन ब्रेक सुरक्षित रखता है।\n* 2. साधारण HTML खाली स्पेस को हटा देता है।\n* 3. <pre> मोनोस्पेस फॉन्ट में प्रदर्शित होता है।\n* 4. ASCII आर्ट और कविताओं के लिए उत्तम है।\n* 5. कोड ब्लॉक के लिए <code> के साथ मिलाएं।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Preformatted Text</title>\n</head>\n<body>\n\n  <h2>Preformatted Code Block</h2>\n  <pre>\nfunction sayHello() {\n    let message = \"Hello, World!\";\n    return message;\n}\n  </pre>\n\n</body>\n</html>\n```",
+      pro: "* 1. <pre> सभी स्पेस और लाइन ब्रेक सुरक्षित रखता है।\n* 2. साधारण HTML खाली स्पेस को हटा देता है।\n* 3. <pre> मोनोस्पेस फॉन्ट में प्रदर्शित होता है।\n* 4. ASCII आर्ट और कविताओं के लिए उत्तम है।\n* 5. कोड ब्लॉक के लिए <code> के साथ मिलाएं।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Preformatted Text</title>\n</head>\n<body>\n\n  <h2>Preformatted Code Block</h2>\n  <pre>\nfunction sayHello() {\n    let message = \"Hello, World!\";\n    return message;\n}\n  </pre>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. <pre> सभी स्पेस और लाइन ब्रेक सुरक्षित रखता है।\n* 2. साधारण HTML खाली स्पेस को हटा देता है।\n* 3. <pre> मोनोस्पेस फॉन्ट में प्रदर्शित होता है।\n* 4. ASCII आर्ट और कविताओं के लिए उत्तम है।\n* 5. कोड ब्लॉक के लिए <code> के साथ मिलाएं।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Preformatted Text</title>\n</head>\n<body>\n\n  <h2>Preformatted Code Block</h2>\n  <pre>\nfunction sayHello() {\n    let message = \"Hello, World!\";\n    return message;\n}\n  </pre>\n\n</body>\n</html>\n```",
+      pro: "* 1. <pre> सभी स्पेस और लाइन ब्रेक सुरक्षित रखता है।\n* 2. साधारण HTML खाली स्पेस को हटा देता है।\n* 3. <pre> मोनोस्पेस फॉन्ट में प्रदर्शित होता है।\n* 4. ASCII आर्ट और कविताओं के लिए उत्तम है।\n* 5. कोड ब्लॉक के लिए <code> के साथ मिलाएं।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Preformatted Text</title>\n</head>\n<body>\n\n  <h2>Preformatted Code Block</h2>\n  <pre>\nfunction sayHello() {\n    let message = \"Hello, World!\";\n    return message;\n}\n  </pre>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 36,
+    slug: "insert-ins-and-delete-del-tags",
+    title: "Insertions (<ins>) & Deletions (<del>)",
+    unit: "Unit 4: Semantic Content & Text Modifications",
+    bookRef: "Duckett Chapter 2 (p. 48)",
+    exercise: {
+      english: {
+        question: "Which tag is used to represent inserted text with an underline?",
+        options: ["<ins>","<add>","<u>","<new>"],
+        correctAnswer: "<ins>",
+        hint: "<ins> represents text inserted into the document."
+      },
+      hinglish: {
+        question: "Which tag is used to represent inserted text with an underline?",
+        options: ["<ins>","<add>","<u>","<new>"],
+        correctAnswer: "<ins>",
+        hint: "<ins> represents text inserted into the document."
+      },
+      hindi: {
+        question: "Which tag is used to represent inserted text with an underline?",
+        options: ["<ins>","<add>","<u>","<new>"],
+        correctAnswer: "<ins>",
+        hint: "<ins> represents text inserted into the document."
+      }
+    },
+    english: {
+      kid: "* 1. <del> marks deleted or removed text.\n* 2. <del> displays text with a strikethrough.\n* 3. <ins> marks newly inserted replacement text.\n* 4. <ins> renders text with an underline.\n* 5. Useful for document revision change tracking.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Insert and Delete</title>\n</head>\n<body>\n\n  <h1>Shopping List Updates</h1>\n  <p>My favorite color is <del>blue</del> <ins>emerald green</ins>.</p>\n  <p>Price: <del>$100</del> <ins>$49</ins></p>\n\n</body>\n</html>\n```",
+      pro: "* 1. <del> marks deleted or removed text.\n* 2. <del> displays text with a strikethrough.\n* 3. <ins> marks newly inserted replacement text.\n* 4. <ins> renders text with an underline.\n* 5. Useful for document revision change tracking.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Insert and Delete</title>\n</head>\n<body>\n\n  <h1>Shopping List Updates</h1>\n  <p>My favorite color is <del>blue</del> <ins>emerald green</ins>.</p>\n  <p>Price: <del>$100</del> <ins>$49</ins></p>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. <del> हटाए गए टेक्स्ट को दर्शाता है।\n* 2. <del> टेक्स्ट पर स्ट्राइकथ्रू लाइन लगाता है।\n* 3. <ins> नए जोड़े गए टेक्स्ट को दिखाता है।\n* 4. <ins> टेक्स्ट को अंडरलाइन करके दिखाता है।\n* 5. दस्तावेज़ संशोधन ट्रैक करने में उपयोगी है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Insert and Delete</title>\n</head>\n<body>\n\n  <h1>Shopping List Updates</h1>\n  <p>My favorite color is <del>blue</del> <ins>emerald green</ins>.</p>\n  <p>Price: <del>$100</del> <ins>$49</ins></p>\n\n</body>\n</html>\n```",
+      pro: "* 1. <del> हटाए गए टेक्स्ट को दर्शाता है।\n* 2. <del> टेक्स्ट पर स्ट्राइकथ्रू लाइन लगाता है।\n* 3. <ins> नए जोड़े गए टेक्स्ट को दिखाता है।\n* 4. <ins> टेक्स्ट को अंडरलाइन करके दिखाता है।\n* 5. दस्तावेज़ संशोधन ट्रैक करने में उपयोगी है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Insert and Delete</title>\n</head>\n<body>\n\n  <h1>Shopping List Updates</h1>\n  <p>My favorite color is <del>blue</del> <ins>emerald green</ins>.</p>\n  <p>Price: <del>$100</del> <ins>$49</ins></p>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. <del> हटाए गए टेक्स्ट को दर्शाता है।\n* 2. <del> टेक्स्ट पर स्ट्राइकथ्रू लाइन लगाता है।\n* 3. <ins> नए जोड़े गए टेक्स्ट को दिखाता है।\n* 4. <ins> टेक्स्ट को अंडरलाइन करके दिखाता है।\n* 5. दस्तावेज़ संशोधन ट्रैक करने में उपयोगी है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Insert and Delete</title>\n</head>\n<body>\n\n  <h1>Shopping List Updates</h1>\n  <p>My favorite color is <del>blue</del> <ins>emerald green</ins>.</p>\n  <p>Price: <del>$100</del> <ins>$49</ins></p>\n\n</body>\n</html>\n```",
+      pro: "* 1. <del> हटाए गए टेक्स्ट को दर्शाता है।\n* 2. <del> टेक्स्ट पर स्ट्राइकथ्रू लाइन लगाता है।\n* 3. <ins> नए जोड़े गए टेक्स्ट को दिखाता है।\n* 4. <ins> टेक्स्ट को अंडरलाइन करके दिखाता है।\n* 5. दस्तावेज़ संशोधन ट्रैक करने में उपयोगी है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Insert and Delete</title>\n</head>\n<body>\n\n  <h1>Shopping List Updates</h1>\n  <p>My favorite color is <del>blue</del> <ins>emerald green</ins>.</p>\n  <p>Price: <del>$100</del> <ins>$49</ins></p>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 37,
+    slug: "strikethrough-s-tag-outdated-content",
+    title: "Strikethrough (<s>)",
+    unit: "Unit 4: Semantic Content & Text Modifications",
+    bookRef: "Duckett Chapter 2 (p. 49)",
+    exercise: {
+      english: {
+        question: "Which tag represents content that is no longer accurate or relevant?",
+        options: ["<s>","<strike>","<cut>","<remove>"],
+        correctAnswer: "<s>",
+        hint: "The <s> tag renders a strikethrough for outdated info."
+      },
+      hinglish: {
+        question: "Which tag represents content that is no longer accurate or relevant?",
+        options: ["<s>","<strike>","<cut>","<remove>"],
+        correctAnswer: "<s>",
+        hint: "The <s> tag renders a strikethrough for outdated info."
+      },
+      hindi: {
+        question: "Which tag represents content that is no longer accurate or relevant?",
+        options: ["<s>","<strike>","<cut>","<remove>"],
+        correctAnswer: "<s>",
+        hint: "The <s> tag renders a strikethrough for outdated info."
+      }
+    },
+    english: {
+      kid: "* 1. <s> represents no longer accurate text.\n* 2. It draws a line through text.\n* 3. Unlike <del>, it represents outdated items.\n* 4. Great for discontinued product sale prices.\n* 5. It works as an inline element.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Strikethrough Element</title>\n</head>\n<body>\n\n  <h2>Product Clearance Sale</h2>\n  <p>Original Price: <s>$80</s></p>\n  <p>Discounted Sale Price: $39</p>\n\n</body>\n</html>\n```",
+      pro: "* 1. <s> represents no longer accurate text.\n* 2. It draws a line through text.\n* 3. Unlike <del>, it represents outdated items.\n* 4. Great for discontinued product sale prices.\n* 5. It works as an inline element.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Strikethrough Element</title>\n</head>\n<body>\n\n  <h2>Product Clearance Sale</h2>\n  <p>Original Price: <s>$80</s></p>\n  <p>Discounted Sale Price: $39</p>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. <s> पुराना या अमान्य टेक्स्ट दर्शाता है।\n* 2. यह टेक्स्ट के बीच से रेखा खींचता है।\n* 3. <del> से अलग, यह अप्रचलित सामग्री दिखाता है।\n* 4. डिस्काउंट सेल कीमतों के लिए उत्तम है।\n* 5. यह एक इनलाइन तत्व होता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Strikethrough Element</title>\n</head>\n<body>\n\n  <h2>Product Clearance Sale</h2>\n  <p>Original Price: <s>$80</s></p>\n  <p>Discounted Sale Price: $39</p>\n\n</body>\n</html>\n```",
+      pro: "* 1. <s> पुराना या अमान्य टेक्स्ट दर्शाता है।\n* 2. यह टेक्स्ट के बीच से रेखा खींचता है।\n* 3. <del> से अलग, यह अप्रचलित सामग्री दिखाता है।\n* 4. डिस्काउंट सेल कीमतों के लिए उत्तम है।\n* 5. यह एक इनलाइन तत्व होता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Strikethrough Element</title>\n</head>\n<body>\n\n  <h2>Product Clearance Sale</h2>\n  <p>Original Price: <s>$80</s></p>\n  <p>Discounted Sale Price: $39</p>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. <s> पुराना या अमान्य टेक्स्ट दर्शाता है।\n* 2. यह टेक्स्ट के बीच से रेखा खींचता है।\n* 3. <del> से अलग, यह अप्रचलित सामग्री दिखाता है।\n* 4. डिस्काउंट सेल कीमतों के लिए उत्तम है।\n* 5. यह एक इनलाइन तत्व होता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Strikethrough Element</title>\n</head>\n<body>\n\n  <h2>Product Clearance Sale</h2>\n  <p>Original Price: <s>$80</s></p>\n  <p>Discounted Sale Price: $39</p>\n\n</body>\n</html>\n```",
+      pro: "* 1. <s> पुराना या अमान्य टेक्स्ट दर्शाता है।\n* 2. यह टेक्स्ट के बीच से रेखा खींचता है।\n* 3. <del> से अलग, यह अप्रचलित सामग्री दिखाता है।\n* 4. डिस्काउंट सेल कीमतों के लिए उत्तम है।\n* 5. यह एक इनलाइन तत्व होता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Strikethrough Element</title>\n</head>\n<body>\n\n  <h2>Product Clearance Sale</h2>\n  <p>Original Price: <s>$80</s></p>\n  <p>Discounted Sale Price: $39</p>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 38,
+    slug: "abbreviation-abbr-tag-title-tooltip",
+    title: "Abbreviations (<abbr>)",
+    unit: "Unit 4: Semantic Content & Text Modifications",
+    bookRef: "Duckett Chapter 2 (p. 42)",
+    exercise: {
+      english: {
+        question: "Which attribute inside <abbr> stores the full expanded text tooltip?",
+        options: ["title","desc","tooltip","full"],
+        correctAnswer: "title",
+        hint: "Hovering over the <abbr title=\"...\"> displays the title value."
+      },
+      hinglish: {
+        question: "Which attribute inside <abbr> stores the full expanded text tooltip?",
+        options: ["title","desc","tooltip","full"],
+        correctAnswer: "title",
+        hint: "Hovering over the <abbr title=\"...\"> displays the title value."
+      },
+      hindi: {
+        question: "Which attribute inside <abbr> stores the full expanded text tooltip?",
+        options: ["title","desc","tooltip","full"],
+        correctAnswer: "title",
+        hint: "Hovering over the <abbr title=\"...\"> displays the title value."
+      }
+    },
+    english: {
+      kid: "* 1. <abbr> defines abbreviations and acronyms.\n* 2. Use the title attribute for definitions.\n* 3. Hovering mouse shows full definition tooltip.\n* 4. Browsers show a dotted underline style.\n* 5. Helps screen readers expand short forms.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Abbreviations</title>\n</head>\n<body>\n\n  <h2>Web Standards</h2>\n  <p>The <abbr title=\"World Wide Web\">WWW</abbr> was invented in 1989.</p>\n  <p>We write <abbr title=\"HyperText Markup Language\">HTML</abbr> daily.</p>\n\n</body>\n</html>\n```",
+      pro: "* 1. <abbr> defines abbreviations and acronyms.\n* 2. Use the title attribute for definitions.\n* 3. Hovering mouse shows full definition tooltip.\n* 4. Browsers show a dotted underline style.\n* 5. Helps screen readers expand short forms.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Abbreviations</title>\n</head>\n<body>\n\n  <h2>Web Standards</h2>\n  <p>The <abbr title=\"World Wide Web\">WWW</abbr> was invented in 1989.</p>\n  <p>We write <abbr title=\"HyperText Markup Language\">HTML</abbr> daily.</p>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. <abbr> संक्षिप्त रूपों को परिभाषित करता है।\n* 2. पूरे अर्थ के लिए title अट्रिब्यूट लगाएं।\n* 3. माउस ले जाने पर टूलटिप दिखाई देता है।\n* 4. ब्राउज़र बिंदीदार अंडरलाइन प्रदर्शित करते हैं।\n* 5. स्क्रीन रीडर्स को पूरा नाम समझने में मदद करता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Abbreviations</title>\n</head>\n<body>\n\n  <h2>Web Standards</h2>\n  <p>The <abbr title=\"World Wide Web\">WWW</abbr> was invented in 1989.</p>\n  <p>We write <abbr title=\"HyperText Markup Language\">HTML</abbr> daily.</p>\n\n</body>\n</html>\n```",
+      pro: "* 1. <abbr> संक्षिप्त रूपों को परिभाषित करता है।\n* 2. पूरे अर्थ के लिए title अट्रिब्यूट लगाएं।\n* 3. माउस ले जाने पर टूलटिप दिखाई देता है।\n* 4. ब्राउज़र बिंदीदार अंडरलाइन प्रदर्शित करते हैं।\n* 5. स्क्रीन रीडर्स को पूरा नाम समझने में मदद करता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Abbreviations</title>\n</head>\n<body>\n\n  <h2>Web Standards</h2>\n  <p>The <abbr title=\"World Wide Web\">WWW</abbr> was invented in 1989.</p>\n  <p>We write <abbr title=\"HyperText Markup Language\">HTML</abbr> daily.</p>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. <abbr> संक्षिप्त रूपों को परिभाषित करता है।\n* 2. पूरे अर्थ के लिए title अट्रिब्यूट लगाएं।\n* 3. माउस ले जाने पर टूलटिप दिखाई देता है।\n* 4. ब्राउज़र बिंदीदार अंडरलाइन प्रदर्शित करते हैं।\n* 5. स्क्रीन रीडर्स को पूरा नाम समझने में मदद करता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Abbreviations</title>\n</head>\n<body>\n\n  <h2>Web Standards</h2>\n  <p>The <abbr title=\"World Wide Web\">WWW</abbr> was invented in 1989.</p>\n  <p>We write <abbr title=\"HyperText Markup Language\">HTML</abbr> daily.</p>\n\n</body>\n</html>\n```",
+      pro: "* 1. <abbr> संक्षिप्त रूपों को परिभाषित करता है।\n* 2. पूरे अर्थ के लिए title अट्रिब्यूट लगाएं।\n* 3. माउस ले जाने पर टूलटिप दिखाई देता है।\n* 4. ब्राउज़र बिंदीदार अंडरलाइन प्रदर्शित करते हैं।\n* 5. स्क्रीन रीडर्स को पूरा नाम समझने में मदद करता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Abbreviations</title>\n</head>\n<body>\n\n  <h2>Web Standards</h2>\n  <p>The <abbr title=\"World Wide Web\">WWW</abbr> was invented in 1989.</p>\n  <p>We write <abbr title=\"HyperText Markup Language\">HTML</abbr> daily.</p>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 39,
+    slug: "defining-term-dfn-tag-first-instance",
+    title: "Defining Terms (<dfn>)",
+    unit: "Unit 4: Semantic Content & Text Modifications",
+    bookRef: "Duckett Chapter 2 (p. 41)",
+    exercise: {
+      english: {
+        question: "Which tag marks the term being defined in a dictionary or glossary sentence?",
+        options: ["<dfn>","<term>","<define>","<vocab>"],
+        correctAnswer: "<dfn>",
+        hint: "<dfn> represents the defining instance of a term."
+      },
+      hinglish: {
+        question: "Which tag marks the term being defined in a dictionary or glossary sentence?",
+        options: ["<dfn>","<term>","<define>","<vocab>"],
+        correctAnswer: "<dfn>",
+        hint: "<dfn> represents the defining instance of a term."
+      },
+      hindi: {
+        question: "Which tag marks the term being defined in a dictionary or glossary sentence?",
+        options: ["<dfn>","<term>","<define>","<vocab>"],
+        correctAnswer: "<dfn>",
+        hint: "<dfn> represents the defining instance of a term."
+      }
+    },
+    english: {
+      kid: "* 1. <dfn> marks the defining instance term.\n* 2. Use it when first introducing terms.\n* 3. Browsers render <dfn> in italic style.\n* 4. Helps search engines build vocabulary indexes.\n* 5. The nearest sentence explains the definition.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Defining Terms</title>\n</head>\n<body>\n\n  <h2>Web Terminology</h2>\n  <p><dfn>HTML</dfn> is the standard language used to create webpages.</p>\n  <p><dfn>CSS</dfn> describes how HTML elements are styled on screen.</p>\n\n</body>\n</html>\n```",
+      pro: "* 1. <dfn> marks the defining instance term.\n* 2. Use it when first introducing terms.\n* 3. Browsers render <dfn> in italic style.\n* 4. Helps search engines build vocabulary indexes.\n* 5. The nearest sentence explains the definition.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Defining Terms</title>\n</head>\n<body>\n\n  <h2>Web Terminology</h2>\n  <p><dfn>HTML</dfn> is the standard language used to create webpages.</p>\n  <p><dfn>CSS</dfn> describes how HTML elements are styled on screen.</p>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. <dfn> पहली बार समझाए गए शब्द को चिह्नित करता है।\n* 2. नए तकनीकी शब्दों की परिभाषा में उपयोग करें।\n* 3. ब्राउज़र इसे इटैलिक स्टाइल में दिखाते हैं।\n* 4. सर्च इंजन को शब्दावली इंडेक्स बनाने में मदद करता है।\n* 5. आसपास का वाक्य शब्द की परिभाषा समझाता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Defining Terms</title>\n</head>\n<body>\n\n  <h2>Web Terminology</h2>\n  <p><dfn>HTML</dfn> is the standard language used to create webpages.</p>\n  <p><dfn>CSS</dfn> describes how HTML elements are styled on screen.</p>\n\n</body>\n</html>\n```",
+      pro: "* 1. <dfn> पहली बार समझाए गए शब्द को चिह्नित करता है।\n* 2. नए तकनीकी शब्दों की परिभाषा में उपयोग करें।\n* 3. ब्राउज़र इसे इटैलिक स्टाइल में दिखाते हैं।\n* 4. सर्च इंजन को शब्दावली इंडेक्स बनाने में मदद करता है।\n* 5. आसपास का वाक्य शब्द की परिभाषा समझाता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Defining Terms</title>\n</head>\n<body>\n\n  <h2>Web Terminology</h2>\n  <p><dfn>HTML</dfn> is the standard language used to create webpages.</p>\n  <p><dfn>CSS</dfn> describes how HTML elements are styled on screen.</p>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. <dfn> पहली बार समझाए गए शब्द को चिह्नित करता है।\n* 2. नए तकनीकी शब्दों की परिभाषा में उपयोग करें।\n* 3. ब्राउज़र इसे इटैलिक स्टाइल में दिखाते हैं।\n* 4. सर्च इंजन को शब्दावली इंडेक्स बनाने में मदद करता है।\n* 5. आसपास का वाक्य शब्द की परिभाषा समझाता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Defining Terms</title>\n</head>\n<body>\n\n  <h2>Web Terminology</h2>\n  <p><dfn>HTML</dfn> is the standard language used to create webpages.</p>\n  <p><dfn>CSS</dfn> describes how HTML elements are styled on screen.</p>\n\n</body>\n</html>\n```",
+      pro: "* 1. <dfn> पहली बार समझाए गए शब्द को चिह्नित करता है।\n* 2. नए तकनीकी शब्दों की परिभाषा में उपयोग करें।\n* 3. ब्राउज़र इसे इटैलिक स्टाइल में दिखाते हैं।\n* 4. सर्च इंजन को शब्दावली इंडेक्स बनाने में मदद करता है।\n* 5. आसपास का वाक्य शब्द की परिभाषा समझाता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Defining Terms</title>\n</head>\n<body>\n\n  <h2>Web Terminology</h2>\n  <p><dfn>HTML</dfn> is the standard language used to create webpages.</p>\n  <p><dfn>CSS</dfn> describes how HTML elements are styled on screen.</p>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 40,
+    slug: "superscript-sup-and-subscript-sub-tags",
+    title: "Superscript (<sup>) & Subscript (<sub>)",
+    unit: "Unit 4: Semantic Content & Text Modifications",
+    bookRef: "Duckett Chapter 2 (p. 39)",
+    exercise: {
+      english: {
+        question: "Which tag is used to write chemical formulas like H2O in HTML?",
+        options: ["<sub>","<sup>","<lower>","<down>"],
+        correctAnswer: "<sub>",
+        hint: "<sub> renders subscript text below the normal line."
+      },
+      hinglish: {
+        question: "Which tag is used to write chemical formulas like H2O in HTML?",
+        options: ["<sub>","<sup>","<lower>","<down>"],
+        correctAnswer: "<sub>",
+        hint: "<sub> renders subscript text below the normal line."
+      },
+      hindi: {
+        question: "Which tag is used to write chemical formulas like H2O in HTML?",
+        options: ["<sub>","<sup>","<lower>","<down>"],
+        correctAnswer: "<sub>",
+        hint: "<sub> renders subscript text below the normal line."
+      }
+    },
+    english: {
+      kid: "* 1. <sup> raises text above the baseline.\n* 2. <sub> lowers text below the baseline.\n* 3. <sup> is used for math exponents.\n* 4. <sub> is used for chemical formulas.\n* 5. Both reduce the font size slightly.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Superscript and Subscript</title>\n</head>\n<body>\n\n  <h2>Science and Math Formulas</h2>\n  <p>Chemical Formula of Water: H<sub>2</sub>O</p>\n  <p>Einstein's Energy Formula: E = mc<sup>2</sup></p>\n  <p>Date: October 24<sup>th</sup>, 2026</p>\n\n</body>\n</html>\n```",
+      pro: "* 1. <sup> raises text above the baseline.\n* 2. <sub> lowers text below the baseline.\n* 3. <sup> is used for math exponents.\n* 4. <sub> is used for chemical formulas.\n* 5. Both reduce the font size slightly.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Superscript and Subscript</title>\n</head>\n<body>\n\n  <h2>Science and Math Formulas</h2>\n  <p>Chemical Formula of Water: H<sub>2</sub>O</p>\n  <p>Einstein's Energy Formula: E = mc<sup>2</sup></p>\n  <p>Date: October 24<sup>th</sup>, 2026</p>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. <sup> टेक्स्ट को ऊपर की ओर उठाता है।\n* 2. <sub> टेक्स्ट को नीचे की ओर झुकाता है।\n* 3. <sup> का उपयोग गणितीय घात (exponents) के लिए होता है।\n* 4. <sub> का उपयोग रासायनिक सूत्रों के लिए होता है।\n* 5. दोनों फॉन्ट साइज को थोड़ा छोटा करते हैं।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Superscript and Subscript</title>\n</head>\n<body>\n\n  <h2>Science and Math Formulas</h2>\n  <p>Chemical Formula of Water: H<sub>2</sub>O</p>\n  <p>Einstein's Energy Formula: E = mc<sup>2</sup></p>\n  <p>Date: October 24<sup>th</sup>, 2026</p>\n\n</body>\n</html>\n```",
+      pro: "* 1. <sup> टेक्स्ट को ऊपर की ओर उठाता है।\n* 2. <sub> टेक्स्ट को नीचे की ओर झुकाता है।\n* 3. <sup> का उपयोग गणितीय घात (exponents) के लिए होता है।\n* 4. <sub> का उपयोग रासायनिक सूत्रों के लिए होता है।\n* 5. दोनों फॉन्ट साइज को थोड़ा छोटा करते हैं।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Superscript and Subscript</title>\n</head>\n<body>\n\n  <h2>Science and Math Formulas</h2>\n  <p>Chemical Formula of Water: H<sub>2</sub>O</p>\n  <p>Einstein's Energy Formula: E = mc<sup>2</sup></p>\n  <p>Date: October 24<sup>th</sup>, 2026</p>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. <sup> टेक्स्ट को ऊपर की ओर उठाता है।\n* 2. <sub> टेक्स्ट को नीचे की ओर झुकाता है।\n* 3. <sup> का उपयोग गणितीय घात (exponents) के लिए होता है।\n* 4. <sub> का उपयोग रासायनिक सूत्रों के लिए होता है।\n* 5. दोनों फॉन्ट साइज को थोड़ा छोटा करते हैं।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Superscript and Subscript</title>\n</head>\n<body>\n\n  <h2>Science and Math Formulas</h2>\n  <p>Chemical Formula of Water: H<sub>2</sub>O</p>\n  <p>Einstein's Energy Formula: E = mc<sup>2</sup></p>\n  <p>Date: October 24<sup>th</sup>, 2026</p>\n\n</body>\n</html>\n```",
+      pro: "* 1. <sup> टेक्स्ट को ऊपर की ओर उठाता है।\n* 2. <sub> टेक्स्ट को नीचे की ओर झुकाता है।\n* 3. <sup> का उपयोग गणितीय घात (exponents) के लिए होता है।\n* 4. <sub> का उपयोग रासायनिक सूत्रों के लिए होता है।\n* 5. दोनों फॉन्ट साइज को थोड़ा छोटा करते हैं।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Superscript and Subscript</title>\n</head>\n<body>\n\n  <h2>Science and Math Formulas</h2>\n  <p>Chemical Formula of Water: H<sub>2</sub>O</p>\n  <p>Einstein's Energy Formula: E = mc<sup>2</sup></p>\n  <p>Date: October 24<sup>th</sup>, 2026</p>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 41,
+    slug: "anchor-a-tag-href-hyperlinks",
+    title: "Anchor Elements (<a>) & the href Attribute",
+    unit: "Unit 5: Navigation & Hyperlinks",
+    bookRef: "Duckett Chapter 4 (p. 74-76)",
+    exercise: {
+      english: {
+        question: "Which attribute inside the <a> tag specifies the target link URL?",
+        options: ["href","src","link","target"],
+        correctAnswer: "href",
+        hint: "href stands for Hypertext REFerence."
+      },
+      hinglish: {
+        question: "Which attribute inside the <a> tag specifies the target link URL?",
+        options: ["href","src","link","target"],
+        correctAnswer: "href",
+        hint: "href stands for Hypertext REFerence."
+      },
+      hindi: {
+        question: "Which attribute inside the <a> tag specifies the target link URL?",
+        options: ["href","src","link","target"],
+        correctAnswer: "href",
+        hint: "href stands for Hypertext REFerence."
+      }
+    },
+    english: {
+      kid: "* 1. <a> creates clickable web hyperlinks.\n* 2. href specifies the destination page URL.\n* 3. Text between tags becomes clickable link.\n* 4. Unvisited links appear blue with underline.\n* 5. Visited links turn purple by default.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Hyperlinks</title>\n</head>\n<body>\n\n  <h1>Nextsem Academy Courses</h1>\n  <p>Visit our platform: <a href=\"https://nextsem.online\">Nextsem Academy</a></p>\n  <p>Read about our mission: <a href=\"/about\">About Us Page</a></p>\n\n</body>\n</html>\n```",
+      pro: "* 1. <a> creates clickable web hyperlinks.\n* 2. href specifies the destination page URL.\n* 3. Text between tags becomes clickable link.\n* 4. Unvisited links appear blue with underline.\n* 5. Visited links turn purple by default.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Hyperlinks</title>\n</head>\n<body>\n\n  <h1>Nextsem Academy Courses</h1>\n  <p>Visit our platform: <a href=\"https://nextsem.online\">Nextsem Academy</a></p>\n  <p>Read about our mission: <a href=\"/about\">About Us Page</a></p>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. <a> क्लिक करने योग्य लिंक बनाता है।\n* 2. href टारगेट वेबपेज का पता देता है।\n* 3. टैग्स के बीच का टेक्स्ट लिंक बनता है।\n* 4. बिना खुले लिंक नीले रंग में दिखते हैं।\n* 5. खुले हुए लिंक बैंगनी रंग के हो जाते हैं।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Hyperlinks</title>\n</head>\n<body>\n\n  <h1>Nextsem Academy Courses</h1>\n  <p>Visit our platform: <a href=\"https://nextsem.online\">Nextsem Academy</a></p>\n  <p>Read about our mission: <a href=\"/about\">About Us Page</a></p>\n\n</body>\n</html>\n```",
+      pro: "* 1. <a> क्लिक करने योग्य लिंक बनाता है।\n* 2. href टारगेट वेबपेज का पता देता है।\n* 3. टैग्स के बीच का टेक्स्ट लिंक बनता है।\n* 4. बिना खुले लिंक नीले रंग में दिखते हैं।\n* 5. खुले हुए लिंक बैंगनी रंग के हो जाते हैं।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Hyperlinks</title>\n</head>\n<body>\n\n  <h1>Nextsem Academy Courses</h1>\n  <p>Visit our platform: <a href=\"https://nextsem.online\">Nextsem Academy</a></p>\n  <p>Read about our mission: <a href=\"/about\">About Us Page</a></p>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. <a> क्लिक करने योग्य लिंक बनाता है।\n* 2. href टारगेट वेबपेज का पता देता है।\n* 3. टैग्स के बीच का टेक्स्ट लिंक बनता है।\n* 4. बिना खुले लिंक नीले रंग में दिखते हैं।\n* 5. खुले हुए लिंक बैंगनी रंग के हो जाते हैं।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Hyperlinks</title>\n</head>\n<body>\n\n  <h1>Nextsem Academy Courses</h1>\n  <p>Visit our platform: <a href=\"https://nextsem.online\">Nextsem Academy</a></p>\n  <p>Read about our mission: <a href=\"/about\">About Us Page</a></p>\n\n</body>\n</html>\n```",
+      pro: "* 1. <a> क्लिक करने योग्य लिंक बनाता है।\n* 2. href टारगेट वेबपेज का पता देता है।\n* 3. टैग्स के बीच का टेक्स्ट लिंक बनता है।\n* 4. बिना खुले लिंक नीले रंग में दिखते हैं।\n* 5. खुले हुए लिंक बैंगनी रंग के हो जाते हैं।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Hyperlinks</title>\n</head>\n<body>\n\n  <h1>Nextsem Academy Courses</h1>\n  <p>Visit our platform: <a href=\"https://nextsem.online\">Nextsem Academy</a></p>\n  <p>Read about our mission: <a href=\"/about\">About Us Page</a></p>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 42,
+    slug: "absolute-vs-relative-link-paths",
+    title: "Absolute vs. Relative Paths",
+    unit: "Unit 5: Navigation & Hyperlinks",
+    bookRef: "Duckett Chapter 4 (p. 77-79)",
+    exercise: {
+      english: {
+        question: "Which type of path includes the protocol like https:// and domain name?",
+        options: ["Absolute Path","Relative Path","Inline Path","Root Path"],
+        correctAnswer: "Absolute Path",
+        hint: "Absolute paths include the full web address with https://."
+      },
+      hinglish: {
+        question: "Which type of path includes the protocol like https:// and domain name?",
+        options: ["Absolute Path","Relative Path","Inline Path","Root Path"],
+        correctAnswer: "Absolute Path",
+        hint: "Absolute paths include the full web address with https://."
+      },
+      hindi: {
+        question: "Which type of path includes the protocol like https:// and domain name?",
+        options: ["Absolute Path","Relative Path","Inline Path","Root Path"],
+        correctAnswer: "Absolute Path",
+        hint: "Absolute paths include the full web address with https://."
+      }
+    },
+    english: {
+      kid: "* 1. Absolute URLs include full domain names.\n* 2. Relative URLs point to local files.\n* 3. Use absolute paths for external sites.\n* 4. Use relative paths for internal pages.\n* 5. Relative links work across server environments.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Link Paths</title>\n</head>\n<body>\n\n  <h2>Navigation Links</h2>\n  <!-- Absolute Link to External Website -->\n  <p><a href=\"https://www.google.com\">Google Search (Absolute)</a></p>\n\n  <!-- Relative Link to Local Page -->\n  <p><a href=\"contact.html\">Contact Us (Relative)</a></p>\n\n</body>\n</html>\n```",
+      pro: "* 1. Absolute URLs include full domain names.\n* 2. Relative URLs point to local files.\n* 3. Use absolute paths for external sites.\n* 4. Use relative paths for internal pages.\n* 5. Relative links work across server environments.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Link Paths</title>\n</head>\n<body>\n\n  <h2>Navigation Links</h2>\n  <!-- Absolute Link to External Website -->\n  <p><a href=\"https://www.google.com\">Google Search (Absolute)</a></p>\n\n  <!-- Relative Link to Local Page -->\n  <p><a href=\"contact.html\">Contact Us (Relative)</a></p>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. Absolute URL में पूरा डोमेन नाम होता है।\n* 2. Relative URL लोकल फाइलों को जोड़ता है।\n* 3. बाहरी वेबसाइटों के लिए Absolute चुनें।\n* 4. अपनी वेबसाइट के पेजों के लिए Relative चुनें।\n* 5. Relative लिंक्स सर्वर बदलने पर भी चलते हैं।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Link Paths</title>\n</head>\n<body>\n\n  <h2>Navigation Links</h2>\n  <!-- Absolute Link to External Website -->\n  <p><a href=\"https://www.google.com\">Google Search (Absolute)</a></p>\n\n  <!-- Relative Link to Local Page -->\n  <p><a href=\"contact.html\">Contact Us (Relative)</a></p>\n\n</body>\n</html>\n```",
+      pro: "* 1. Absolute URL में पूरा डोमेन नाम होता है।\n* 2. Relative URL लोकल फाइलों को जोड़ता है।\n* 3. बाहरी वेबसाइटों के लिए Absolute चुनें।\n* 4. अपनी वेबसाइट के पेजों के लिए Relative चुनें।\n* 5. Relative लिंक्स सर्वर बदलने पर भी चलते हैं।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Link Paths</title>\n</head>\n<body>\n\n  <h2>Navigation Links</h2>\n  <!-- Absolute Link to External Website -->\n  <p><a href=\"https://www.google.com\">Google Search (Absolute)</a></p>\n\n  <!-- Relative Link to Local Page -->\n  <p><a href=\"contact.html\">Contact Us (Relative)</a></p>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. Absolute URL में पूरा डोमेन नाम होता है।\n* 2. Relative URL लोकल फाइलों को जोड़ता है।\n* 3. बाहरी वेबसाइटों के लिए Absolute चुनें।\n* 4. अपनी वेबसाइट के पेजों के लिए Relative चुनें।\n* 5. Relative लिंक्स सर्वर बदलने पर भी चलते हैं।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Link Paths</title>\n</head>\n<body>\n\n  <h2>Navigation Links</h2>\n  <!-- Absolute Link to External Website -->\n  <p><a href=\"https://www.google.com\">Google Search (Absolute)</a></p>\n\n  <!-- Relative Link to Local Page -->\n  <p><a href=\"contact.html\">Contact Us (Relative)</a></p>\n\n</body>\n</html>\n```",
+      pro: "* 1. Absolute URL में पूरा डोमेन नाम होता है।\n* 2. Relative URL लोकल फाइलों को जोड़ता है।\n* 3. बाहरी वेबसाइटों के लिए Absolute चुनें।\n* 4. अपनी वेबसाइट के पेजों के लिए Relative चुनें।\n* 5. Relative लिंक्स सर्वर बदलने पर भी चलते हैं।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Link Paths</title>\n</head>\n<body>\n\n  <h2>Navigation Links</h2>\n  <!-- Absolute Link to External Website -->\n  <p><a href=\"https://www.google.com\">Google Search (Absolute)</a></p>\n\n  <!-- Relative Link to Local Page -->\n  <p><a href=\"contact.html\">Contact Us (Relative)</a></p>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 43,
+    slug: "parent-directory-hopping-relative-paths",
+    title: "Parent Directory Hopping (../)",
+    unit: "Unit 5: Navigation & Hyperlinks",
+    bookRef: "Duckett Chapter 4 (p. 80-82)",
+    exercise: {
+      english: {
+        question: "Which syntax moves up one folder level in relative paths?",
+        options: ["../","./","//","/.."],
+        correctAnswer: "../",
+        hint: "Double dot with slash (../) moves up to the parent directory."
+      },
+      hinglish: {
+        question: "Which syntax moves up one folder level in relative paths?",
+        options: ["../","./","//","/.."],
+        correctAnswer: "../",
+        hint: "Double dot with slash (../) moves up to the parent directory."
+      },
+      hindi: {
+        question: "Which syntax moves up one folder level in relative paths?",
+        options: ["../","./","//","/.."],
+        correctAnswer: "../",
+        hint: "Double dot with slash (../) moves up to the parent directory."
+      }
+    },
+    english: {
+      kid: "* 1. ../ moves up one folder level.\n* 2. It navigates to the parent directory.\n* 3. Useful when subfolders link to root.\n* 4. Can be chained for multiple folders.\n* 5. Keeps local site links completely portable.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Parent Directory Navigation</title>\n</head>\n<body>\n\n  <h1>Course Chapter 1</h1>\n  <p>Inside folder: <code>/courses/html/</code></p>\n  <p><a href=\"../index.html\">Go Back to Course Home</a></p>\n\n</body>\n</html>\n```",
+      pro: "* 1. ../ moves up one folder level.\n* 2. It navigates to the parent directory.\n* 3. Useful when subfolders link to root.\n* 4. Can be chained for multiple folders.\n* 5. Keeps local site links completely portable.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Parent Directory Navigation</title>\n</head>\n<body>\n\n  <h1>Course Chapter 1</h1>\n  <p>Inside folder: <code>/courses/html/</code></p>\n  <p><a href=\"../index.html\">Go Back to Course Home</a></p>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. ../ एक फोल्डर ऊपर ले जाता है।\n* 2. यह पैरेंट फोल्डर में नेविगेट करता है।\n* 3. सब-फोल्डर से मुख्य पेज पर जाने के काम आता है।\n* 4. कई स्तर ऊपर जाने के लिए दोहराया जा सकता है।\n* 5. साइट की फाइलों को पोर्टेबल रखता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Parent Directory Navigation</title>\n</head>\n<body>\n\n  <h1>Course Chapter 1</h1>\n  <p>Inside folder: <code>/courses/html/</code></p>\n  <p><a href=\"../index.html\">Go Back to Course Home</a></p>\n\n</body>\n</html>\n```",
+      pro: "* 1. ../ एक फोल्डर ऊपर ले जाता है।\n* 2. यह पैरेंट फोल्डर में नेविगेट करता है।\n* 3. सब-फोल्डर से मुख्य पेज पर जाने के काम आता है।\n* 4. कई स्तर ऊपर जाने के लिए दोहराया जा सकता है।\n* 5. साइट की फाइलों को पोर्टेबल रखता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Parent Directory Navigation</title>\n</head>\n<body>\n\n  <h1>Course Chapter 1</h1>\n  <p>Inside folder: <code>/courses/html/</code></p>\n  <p><a href=\"../index.html\">Go Back to Course Home</a></p>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. ../ एक फोल्डर ऊपर ले जाता है।\n* 2. यह पैरेंट फोल्डर में नेविगेट करता है।\n* 3. सब-फोल्डर से मुख्य पेज पर जाने के काम आता है।\n* 4. कई स्तर ऊपर जाने के लिए दोहराया जा सकता है।\n* 5. साइट की फाइलों को पोर्टेबल रखता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Parent Directory Navigation</title>\n</head>\n<body>\n\n  <h1>Course Chapter 1</h1>\n  <p>Inside folder: <code>/courses/html/</code></p>\n  <p><a href=\"../index.html\">Go Back to Course Home</a></p>\n\n</body>\n</html>\n```",
+      pro: "* 1. ../ एक फोल्डर ऊपर ले जाता है।\n* 2. यह पैरेंट फोल्डर में नेविगेट करता है।\n* 3. सब-फोल्डर से मुख्य पेज पर जाने के काम आता है।\n* 4. कई स्तर ऊपर जाने के लिए दोहराया जा सकता है।\n* 5. साइट की फाइलों को पोर्टेबल रखता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Parent Directory Navigation</title>\n</head>\n<body>\n\n  <h1>Course Chapter 1</h1>\n  <p>Inside folder: <code>/courses/html/</code></p>\n  <p><a href=\"../index.html\">Go Back to Course Home</a></p>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 44,
+    slug: "grandparent-directory-hopping-double-slash",
+    title: "Grandparent Directory Hopping (../../)",
+    unit: "Unit 5: Navigation & Hyperlinks",
+    bookRef: "Duckett Chapter 4 (p. 83-84)",
+    exercise: {
+      english: {
+        question: "Which relative path climbs up two folder levels in the directory tree?",
+        options: ["../../","../",".../","/root/"],
+        correctAnswer: "../../",
+        hint: "Use ../../ to hop up two directory levels."
+      },
+      hinglish: {
+        question: "Which relative path climbs up two folder levels in the directory tree?",
+        options: ["../../","../",".../","/root/"],
+        correctAnswer: "../../",
+        hint: "Use ../../ to hop up two directory levels."
+      },
+      hindi: {
+        question: "Which relative path climbs up two folder levels in the directory tree?",
+        options: ["../../","../",".../","/root/"],
+        correctAnswer: "../../",
+        hint: "Use ../../ to hop up two directory levels."
+      }
+    },
+    english: {
+      kid: "* 1. ../../ moves up two folder levels.\n* 2. It climbs out of deep folders.\n* 3. Reaches grandparent folders in file trees.\n* 4. Essential for deeply nested course chapters.\n* 5. Helps maintain relative structure on localhost.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Grandparent Directory Navigation</title>\n</head>\n<body>\n\n  <h2>Lesson Exercise Page</h2>\n  <p>Current Path: <code>/projects/web/lesson1/</code></p>\n  <p><a href=\"../../index.html\">Back to Main Project Root</a></p>\n\n</body>\n</html>\n```",
+      pro: "* 1. ../../ moves up two folder levels.\n* 2. It climbs out of deep folders.\n* 3. Reaches grandparent folders in file trees.\n* 4. Essential for deeply nested course chapters.\n* 5. Helps maintain relative structure on localhost.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Grandparent Directory Navigation</title>\n</head>\n<body>\n\n  <h2>Lesson Exercise Page</h2>\n  <p>Current Path: <code>/projects/web/lesson1/</code></p>\n  <p><a href=\"../../index.html\">Back to Main Project Root</a></p>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. ../../ दो फोल्डर ऊपर ले जाता है।\n* 2. गहरे फोल्डरों से बाहर आने में उपयोगी।\n* 3. फाइल संरचना में ग्रैंडपैरेंट फोल्डर तक पहुंचता है।\n* 4. नेस्टेड अध्यायों के लिए जरूरी है।\n* 5. लोकलहोस्ट पर सही लिंक बनाए रखता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Grandparent Directory Navigation</title>\n</head>\n<body>\n\n  <h2>Lesson Exercise Page</h2>\n  <p>Current Path: <code>/projects/web/lesson1/</code></p>\n  <p><a href=\"../../index.html\">Back to Main Project Root</a></p>\n\n</body>\n</html>\n```",
+      pro: "* 1. ../../ दो फोल्डर ऊपर ले जाता है।\n* 2. गहरे फोल्डरों से बाहर आने में उपयोगी।\n* 3. फाइल संरचना में ग्रैंडपैरेंट फोल्डर तक पहुंचता है।\n* 4. नेस्टेड अध्यायों के लिए जरूरी है।\n* 5. लोकलहोस्ट पर सही लिंक बनाए रखता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Grandparent Directory Navigation</title>\n</head>\n<body>\n\n  <h2>Lesson Exercise Page</h2>\n  <p>Current Path: <code>/projects/web/lesson1/</code></p>\n  <p><a href=\"../../index.html\">Back to Main Project Root</a></p>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. ../../ दो फोल्डर ऊपर ले जाता है।\n* 2. गहरे फोल्डरों से बाहर आने में उपयोगी।\n* 3. फाइल संरचना में ग्रैंडपैरेंट फोल्डर तक पहुंचता है।\n* 4. नेस्टेड अध्यायों के लिए जरूरी है।\n* 5. लोकलहोस्ट पर सही लिंक बनाए रखता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Grandparent Directory Navigation</title>\n</head>\n<body>\n\n  <h2>Lesson Exercise Page</h2>\n  <p>Current Path: <code>/projects/web/lesson1/</code></p>\n  <p><a href=\"../../index.html\">Back to Main Project Root</a></p>\n\n</body>\n</html>\n```",
+      pro: "* 1. ../../ दो फोल्डर ऊपर ले जाता है।\n* 2. गहरे फोल्डरों से बाहर आने में उपयोगी।\n* 3. फाइल संरचना में ग्रैंडपैरेंट फोल्डर तक पहुंचता है।\n* 4. नेस्टेड अध्यायों के लिए जरूरी है।\n* 5. लोकलहोस्ट पर सही लिंक बनाए रखता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Grandparent Directory Navigation</title>\n</head>\n<body>\n\n  <h2>Lesson Exercise Page</h2>\n  <p>Current Path: <code>/projects/web/lesson1/</code></p>\n  <p><a href=\"../../index.html\">Back to Main Project Root</a></p>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 45,
+    slug: "email-mailto-links-anchor-tag",
+    title: "Linking to Email Addresses (mailto:)",
+    unit: "Unit 5: Navigation & Hyperlinks",
+    bookRef: "Duckett Chapter 4 (p. 85)",
+    exercise: {
+      english: {
+        question: "Which protocol prefix is used to open an email compose client?",
+        options: ["mailto:","email:","send:","inbox:"],
+        correctAnswer: "mailto:",
+        hint: "Use <a href=\"mailto:user@domain.com\"> to create an email link."
+      },
+      hinglish: {
+        question: "Which protocol prefix is used to open an email compose client?",
+        options: ["mailto:","email:","send:","inbox:"],
+        correctAnswer: "mailto:",
+        hint: "Use <a href=\"mailto:user@domain.com\"> to create an email link."
+      },
+      hindi: {
+        question: "Which protocol prefix is used to open an email compose client?",
+        options: ["mailto:","email:","send:","inbox:"],
+        correctAnswer: "mailto:",
+        hint: "Use <a href=\"mailto:user@domain.com\"> to create an email link."
+      }
+    },
+    english: {
+      kid: "* 1. mailto: creates clickable email links.\n* 2. Clicking opens the user's email client.\n* 3. Put recipient email after mailto: prefix.\n* 4. No spaces allowed after the colon.\n* 5. Essential for contact and support pages.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Email Support Link</title>\n</head>\n<body>\n\n  <h2>Contact Support</h2>\n  <p>Have questions regarding full stack lessons?</p>\n  <p>Send an email to: <a href=\"mailto:support@nextsem.online\">support@nextsem.online</a></p>\n\n</body>\n</html>\n```",
+      pro: "* 1. mailto: creates clickable email links.\n* 2. Clicking opens the user's email client.\n* 3. Put recipient email after mailto: prefix.\n* 4. No spaces allowed after the colon.\n* 5. Essential for contact and support pages.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Email Support Link</title>\n</head>\n<body>\n\n  <h2>Contact Support</h2>\n  <p>Have questions regarding full stack lessons?</p>\n  <p>Send an email to: <a href=\"mailto:support@nextsem.online\">support@nextsem.online</a></p>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. mailto: ईमेल भेजने का लिंक बनाता है।\n* 2. क्लिक करने पर ईमेल ऐप खुलती है।\n* 3. mailto: के बाद ईमेल पता लिखें।\n* 4. कोलन के बाद स्पेस नहीं होना चाहिए।\n* 5. संपर्क और सपोर्ट पेज के लिए जरूरी है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Email Support Link</title>\n</head>\n<body>\n\n  <h2>Contact Support</h2>\n  <p>Have questions regarding full stack lessons?</p>\n  <p>Send an email to: <a href=\"mailto:support@nextsem.online\">support@nextsem.online</a></p>\n\n</body>\n</html>\n```",
+      pro: "* 1. mailto: ईमेल भेजने का लिंक बनाता है।\n* 2. क्लिक करने पर ईमेल ऐप खुलती है।\n* 3. mailto: के बाद ईमेल पता लिखें।\n* 4. कोलन के बाद स्पेस नहीं होना चाहिए।\n* 5. संपर्क और सपोर्ट पेज के लिए जरूरी है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Email Support Link</title>\n</head>\n<body>\n\n  <h2>Contact Support</h2>\n  <p>Have questions regarding full stack lessons?</p>\n  <p>Send an email to: <a href=\"mailto:support@nextsem.online\">support@nextsem.online</a></p>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. mailto: ईमेल भेजने का लिंक बनाता है।\n* 2. क्लिक करने पर ईमेल ऐप खुलती है।\n* 3. mailto: के बाद ईमेल पता लिखें।\n* 4. कोलन के बाद स्पेस नहीं होना चाहिए।\n* 5. संपर्क और सपोर्ट पेज के लिए जरूरी है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Email Support Link</title>\n</head>\n<body>\n\n  <h2>Contact Support</h2>\n  <p>Have questions regarding full stack lessons?</p>\n  <p>Send an email to: <a href=\"mailto:support@nextsem.online\">support@nextsem.online</a></p>\n\n</body>\n</html>\n```",
+      pro: "* 1. mailto: ईमेल भेजने का लिंक बनाता है।\n* 2. क्लिक करने पर ईमेल ऐप खुलती है।\n* 3. mailto: के बाद ईमेल पता लिखें।\n* 4. कोलन के बाद स्पेस नहीं होना चाहिए।\n* 5. संपर्क और सपोर्ट पेज के लिए जरूरी है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Email Support Link</title>\n</head>\n<body>\n\n  <h2>Contact Support</h2>\n  <p>Have questions regarding full stack lessons?</p>\n  <p>Send an email to: <a href=\"mailto:support@nextsem.online\">support@nextsem.online</a></p>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 46,
+    slug: "telephone-dialing-tel-links-mobile",
+    title: "Telephone Dialing Links (tel:)",
+    unit: "Unit 5: Navigation & Hyperlinks",
+    bookRef: "Duckett Chapter 4 (p. 86)",
+    exercise: {
+      english: {
+        question: "Which prefix is used in href to initiate a telephone call on smartphones?",
+        options: ["tel:","call:","phone:","dial:"],
+        correctAnswer: "tel:",
+        hint: "Use <a href=\"tel:+1234567890\"> for phone number links."
+      },
+      hinglish: {
+        question: "Which prefix is used in href to initiate a telephone call on smartphones?",
+        options: ["tel:","call:","phone:","dial:"],
+        correctAnswer: "tel:",
+        hint: "Use <a href=\"tel:+1234567890\"> for phone number links."
+      },
+      hindi: {
+        question: "Which prefix is used in href to initiate a telephone call on smartphones?",
+        options: ["tel:","call:","phone:","dial:"],
+        correctAnswer: "tel:",
+        hint: "Use <a href=\"tel:+1234567890\"> for phone number links."
+      }
+    },
+    english: {
+      kid: "* 1. tel: creates direct phone call links.\n* 2. Mobile phones open their dialer directly.\n* 3. Include country code with plus prefix.\n* 4. Eliminates manual dialing for mobile users.\n* 5. Critical for local businesses and helpdesks.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Telephone Links</title>\n</head>\n<body>\n\n  <h2>Nextsem Helpline</h2>\n  <p>Call our support line directly from your phone:</p>\n  <p><a href=\"tel:+18005550199\">Call Support: +1 (800) 555-0199</a></p>\n\n</body>\n</html>\n```",
+      pro: "* 1. tel: creates direct phone call links.\n* 2. Mobile phones open their dialer directly.\n* 3. Include country code with plus prefix.\n* 4. Eliminates manual dialing for mobile users.\n* 5. Critical for local businesses and helpdesks.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Telephone Links</title>\n</head>\n<body>\n\n  <h2>Nextsem Helpline</h2>\n  <p>Call our support line directly from your phone:</p>\n  <p><a href=\"tel:+18005550199\">Call Support: +1 (800) 555-0199</a></p>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. tel: सीधे फोन कॉल का लिंक बनाता है।\n* 2. मोबाइल फोन पर तुरंत डायलर खुलता है।\n* 3. देश कोड के साथ + निशान लगाएं।\n* 4. मोबाइल यूजर्स के लिए डायल करना आसान बनाता है।\n* 5. स्थानीय व्यापार और हेल्पलाइन के लिए जरूरी है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Telephone Links</title>\n</head>\n<body>\n\n  <h2>Nextsem Helpline</h2>\n  <p>Call our support line directly from your phone:</p>\n  <p><a href=\"tel:+18005550199\">Call Support: +1 (800) 555-0199</a></p>\n\n</body>\n</html>\n```",
+      pro: "* 1. tel: सीधे फोन कॉल का लिंक बनाता है।\n* 2. मोबाइल फोन पर तुरंत डायलर खुलता है।\n* 3. देश कोड के साथ + निशान लगाएं।\n* 4. मोबाइल यूजर्स के लिए डायल करना आसान बनाता है।\n* 5. स्थानीय व्यापार और हेल्पलाइन के लिए जरूरी है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Telephone Links</title>\n</head>\n<body>\n\n  <h2>Nextsem Helpline</h2>\n  <p>Call our support line directly from your phone:</p>\n  <p><a href=\"tel:+18005550199\">Call Support: +1 (800) 555-0199</a></p>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. tel: सीधे फोन कॉल का लिंक बनाता है।\n* 2. मोबाइल फोन पर तुरंत डायलर खुलता है।\n* 3. देश कोड के साथ + निशान लगाएं।\n* 4. मोबाइल यूजर्स के लिए डायल करना आसान बनाता है।\n* 5. स्थानीय व्यापार और हेल्पलाइन के लिए जरूरी है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Telephone Links</title>\n</head>\n<body>\n\n  <h2>Nextsem Helpline</h2>\n  <p>Call our support line directly from your phone:</p>\n  <p><a href=\"tel:+18005550199\">Call Support: +1 (800) 555-0199</a></p>\n\n</body>\n</html>\n```",
+      pro: "* 1. tel: सीधे फोन कॉल का लिंक बनाता है।\n* 2. मोबाइल फोन पर तुरंत डायलर खुलता है।\n* 3. देश कोड के साथ + निशान लगाएं।\n* 4. मोबाइल यूजर्स के लिए डायल करना आसान बनाता है।\n* 5. स्थानीय व्यापार और हेल्पलाइन के लिए जरूरी है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Telephone Links</title>\n</head>\n<body>\n\n  <h2>Nextsem Helpline</h2>\n  <p>Call our support line directly from your phone:</p>\n  <p><a href=\"tel:+18005550199\">Call Support: +1 (800) 555-0199</a></p>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 47,
+    slug: "open-link-new-tab-target-blank",
+    title: "Target Attributes (target=\"_blank\")",
+    unit: "Unit 5: Navigation & Hyperlinks",
+    bookRef: "Duckett Chapter 4 (p. 87)",
+    exercise: {
+      english: {
+        question: "Which target value instructs the browser to open a link in a new tab?",
+        options: ["_blank","_new","_tab","_open"],
+        correctAnswer: "_blank",
+        hint: "Use target=\"_blank\" to open a link in a new browser tab."
+      },
+      hinglish: {
+        question: "Which target value instructs the browser to open a link in a new tab?",
+        options: ["_blank","_new","_tab","_open"],
+        correctAnswer: "_blank",
+        hint: "Use target=\"_blank\" to open a link in a new browser tab."
+      },
+      hindi: {
+        question: "Which target value instructs the browser to open a link in a new tab?",
+        options: ["_blank","_new","_tab","_open"],
+        correctAnswer: "_blank",
+        hint: "Use target=\"_blank\" to open a link in a new browser tab."
+      }
+    },
+    english: {
+      kid: "* 1. target=\"_blank\" opens links in new tabs.\n* 2. Keeps your original website open.\n* 3. Great for external documentation references.\n* 4. Default target value is \"_self\".\n* 5. Always pair with rel security attributes.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Open in New Tab</title>\n</head>\n<body>\n\n  <h2>External Documentation</h2>\n  <p>Read MDN documentation without leaving Nextsem:</p>\n  <p><a href=\"https://developer.mozilla.org\" target=\"_blank\">Open MDN Web Docs (New Tab)</a></p>\n\n</body>\n</html>\n```",
+      pro: "* 1. target=\"_blank\" opens links in new tabs.\n* 2. Keeps your original website open.\n* 3. Great for external documentation references.\n* 4. Default target value is \"_self\".\n* 5. Always pair with rel security attributes.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Open in New Tab</title>\n</head>\n<body>\n\n  <h2>External Documentation</h2>\n  <p>Read MDN documentation without leaving Nextsem:</p>\n  <p><a href=\"https://developer.mozilla.org\" target=\"_blank\">Open MDN Web Docs (New Tab)</a></p>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. target=\"_blank\" नए टैब में लिंक खोलता है।\n* 2. आपकी मूल वेबसाइट खुली रहती है।\n* 3. बाहरी डॉक्यूमेंटेशन लिंक के लिए उत्तम।\n* 4. डिफ़ॉल्ट टारगेट मान \"_self\" होता है।\n* 5. सुरक्षा के लिए rel अट्रिब्यूट जरूर लगाएं।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Open in New Tab</title>\n</head>\n<body>\n\n  <h2>External Documentation</h2>\n  <p>Read MDN documentation without leaving Nextsem:</p>\n  <p><a href=\"https://developer.mozilla.org\" target=\"_blank\">Open MDN Web Docs (New Tab)</a></p>\n\n</body>\n</html>\n```",
+      pro: "* 1. target=\"_blank\" नए टैब में लिंक खोलता है।\n* 2. आपकी मूल वेबसाइट खुली रहती है।\n* 3. बाहरी डॉक्यूमेंटेशन लिंक के लिए उत्तम।\n* 4. डिफ़ॉल्ट टारगेट मान \"_self\" होता है।\n* 5. सुरक्षा के लिए rel अट्रिब्यूट जरूर लगाएं।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Open in New Tab</title>\n</head>\n<body>\n\n  <h2>External Documentation</h2>\n  <p>Read MDN documentation without leaving Nextsem:</p>\n  <p><a href=\"https://developer.mozilla.org\" target=\"_blank\">Open MDN Web Docs (New Tab)</a></p>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. target=\"_blank\" नए टैब में लिंक खोलता है।\n* 2. आपकी मूल वेबसाइट खुली रहती है।\n* 3. बाहरी डॉक्यूमेंटेशन लिंक के लिए उत्तम।\n* 4. डिफ़ॉल्ट टारगेट मान \"_self\" होता है।\n* 5. सुरक्षा के लिए rel अट्रिब्यूट जरूर लगाएं।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Open in New Tab</title>\n</head>\n<body>\n\n  <h2>External Documentation</h2>\n  <p>Read MDN documentation without leaving Nextsem:</p>\n  <p><a href=\"https://developer.mozilla.org\" target=\"_blank\">Open MDN Web Docs (New Tab)</a></p>\n\n</body>\n</html>\n```",
+      pro: "* 1. target=\"_blank\" नए टैब में लिंक खोलता है।\n* 2. आपकी मूल वेबसाइट खुली रहती है।\n* 3. बाहरी डॉक्यूमेंटेशन लिंक के लिए उत्तम।\n* 4. डिफ़ॉल्ट टारगेट मान \"_self\" होता है।\n* 5. सुरक्षा के लिए rel अट्रिब्यूट जरूर लगाएं।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Open in New Tab</title>\n</head>\n<body>\n\n  <h2>External Documentation</h2>\n  <p>Read MDN documentation without leaving Nextsem:</p>\n  <p><a href=\"https://developer.mozilla.org\" target=\"_blank\">Open MDN Web Docs (New Tab)</a></p>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 48,
+    slug: "link-security-rel-noopener-noreferrer",
+    title: "Link Security (rel=\"noopener noreferrer\")",
+    unit: "Unit 5: Navigation & Hyperlinks",
+    bookRef: "The Definitive Guide to HTML5 Chapter 13",
+    exercise: {
+      english: {
+        question: "Which rel attribute value prevents the new tab from accessing window.opener?",
+        options: ["noopener","nofollow","secure","isolate"],
+        correctAnswer: "noopener",
+        hint: "noopener secures external links from accessing the opening window."
+      },
+      hinglish: {
+        question: "Which rel attribute value prevents the new tab from accessing window.opener?",
+        options: ["noopener","nofollow","secure","isolate"],
+        correctAnswer: "noopener",
+        hint: "noopener secures external links from accessing the opening window."
+      },
+      hindi: {
+        question: "Which rel attribute value prevents the new tab from accessing window.opener?",
+        options: ["noopener","nofollow","secure","isolate"],
+        correctAnswer: "noopener",
+        hint: "noopener secures external links from accessing the opening window."
+      }
+    },
+    english: {
+      kid: "* 1. Protects against tabnabbing phishing security exploits.\n* 2. noopener stops new tab controlling opener.\n* 3. noreferrer hides referrer website header info.\n* 4. Essential when using target=\"_blank\".\n* 5. Standard security practice for external links.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Secure External Links</title>\n</head>\n<body>\n\n  <h2>Secure External Links</h2>\n  <p>Learn more on external resources safely:</p>\n  <p><a href=\"https://github.com\" target=\"_blank\" rel=\"noopener noreferrer\">Visit GitHub Securely</a></p>\n\n</body>\n</html>\n```",
+      pro: "* 1. Protects against tabnabbing phishing security exploits.\n* 2. noopener stops new tab controlling opener.\n* 3. noreferrer hides referrer website header info.\n* 4. Essential when using target=\"_blank\".\n* 5. Standard security practice for external links.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Secure External Links</title>\n</head>\n<body>\n\n  <h2>Secure External Links</h2>\n  <p>Learn more on external resources safely:</p>\n  <p><a href=\"https://github.com\" target=\"_blank\" rel=\"noopener noreferrer\">Visit GitHub Securely</a></p>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. टैब-नैबिंग और फिशिंग हमलों से सुरक्षा देता है।\n* 2. noopener नए टैब को पुराना पेज बदलने से रोकता है।\n* 3. noreferrer रेफरर डेटा छिपाता है।\n* 4. target=\"_blank\" के साथ लगाना अनिवार्य है।\n* 5. बाहरी लिंक्स के लिए मानक सुरक्षा नियम है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Secure External Links</title>\n</head>\n<body>\n\n  <h2>Secure External Links</h2>\n  <p>Learn more on external resources safely:</p>\n  <p><a href=\"https://github.com\" target=\"_blank\" rel=\"noopener noreferrer\">Visit GitHub Securely</a></p>\n\n</body>\n</html>\n```",
+      pro: "* 1. टैब-नैबिंग और फिशिंग हमलों से सुरक्षा देता है।\n* 2. noopener नए टैब को पुराना पेज बदलने से रोकता है।\n* 3. noreferrer रेफरर डेटा छिपाता है।\n* 4. target=\"_blank\" के साथ लगाना अनिवार्य है।\n* 5. बाहरी लिंक्स के लिए मानक सुरक्षा नियम है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Secure External Links</title>\n</head>\n<body>\n\n  <h2>Secure External Links</h2>\n  <p>Learn more on external resources safely:</p>\n  <p><a href=\"https://github.com\" target=\"_blank\" rel=\"noopener noreferrer\">Visit GitHub Securely</a></p>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. टैब-नैबिंग और फिशिंग हमलों से सुरक्षा देता है।\n* 2. noopener नए टैब को पुराना पेज बदलने से रोकता है।\n* 3. noreferrer रेफरर डेटा छिपाता है।\n* 4. target=\"_blank\" के साथ लगाना अनिवार्य है।\n* 5. बाहरी लिंक्स के लिए मानक सुरक्षा नियम है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Secure External Links</title>\n</head>\n<body>\n\n  <h2>Secure External Links</h2>\n  <p>Learn more on external resources safely:</p>\n  <p><a href=\"https://github.com\" target=\"_blank\" rel=\"noopener noreferrer\">Visit GitHub Securely</a></p>\n\n</body>\n</html>\n```",
+      pro: "* 1. टैब-नैबिंग और फिशिंग हमलों से सुरक्षा देता है।\n* 2. noopener नए टैब को पुराना पेज बदलने से रोकता है।\n* 3. noreferrer रेफरर डेटा छिपाता है।\n* 4. target=\"_blank\" के साथ लगाना अनिवार्य है।\n* 5. बाहरी लिंक्स के लिए मानक सुरक्षा नियम है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Secure External Links</title>\n</head>\n<body>\n\n  <h2>Secure External Links</h2>\n  <p>Learn more on external resources safely:</p>\n  <p><a href=\"https://github.com\" target=\"_blank\" rel=\"noopener noreferrer\">Visit GitHub Securely</a></p>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 49,
+    slug: "hash-links-jump-to-page-sections",
+    title: "Document Hash Links (href=\"#id\")",
+    unit: "Unit 5: Navigation & Hyperlinks",
+    bookRef: "Duckett Chapter 4 (p. 88-89)",
+    exercise: {
+      english: {
+        question: "Which symbol must prefix the id name in href to jump to an element on the same page?",
+        options: ["#","@","$","."],
+        correctAnswer: "#",
+        hint: "Use href=\"#sectionId\" to target an element with id=\"sectionId\"."
+      },
+      hinglish: {
+        question: "Which symbol must prefix the id name in href to jump to an element on the same page?",
+        options: ["#","@","$","."],
+        correctAnswer: "#",
+        hint: "Use href=\"#sectionId\" to target an element with id=\"sectionId\"."
+      },
+      hindi: {
+        question: "Which symbol must prefix the id name in href to jump to an element on the same page?",
+        options: ["#","@","$","."],
+        correctAnswer: "#",
+        hint: "Use href=\"#sectionId\" to target an element with id=\"sectionId\"."
+      }
+    },
+    english: {
+      kid: "* 1. Hash links jump to specific page sections.\n* 2. Target elements must have matching id attribute.\n* 3. Put # before target id name in href.\n* 4. Creates instant single-page table of contents.\n* 5. Smoothly navigates without page reloads.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Document Hash Navigation</title>\n</head>\n<body>\n\n  <h1>Table of Contents</h1>\n  <p><a href=\"#chapter1\">Jump to Chapter 1</a></p>\n  <p><a href=\"#chapter2\">Jump to Chapter 2</a></p>\n\n  <hr>\n\n  <h2 id=\"chapter1\">Chapter 1: Getting Started</h2>\n  <p>Learn the basics of HTML elements.</p>\n\n  <h2 id=\"chapter2\">Chapter 2: Working with Links</h2>\n  <p>Learn how to connect multiple pages together.</p>\n\n</body>\n</html>\n```",
+      pro: "* 1. Hash links jump to specific page sections.\n* 2. Target elements must have matching id attribute.\n* 3. Put # before target id name in href.\n* 4. Creates instant single-page table of contents.\n* 5. Smoothly navigates without page reloads.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Document Hash Navigation</title>\n</head>\n<body>\n\n  <h1>Table of Contents</h1>\n  <p><a href=\"#chapter1\">Jump to Chapter 1</a></p>\n  <p><a href=\"#chapter2\">Jump to Chapter 2</a></p>\n\n  <hr>\n\n  <h2 id=\"chapter1\">Chapter 1: Getting Started</h2>\n  <p>Learn the basics of HTML elements.</p>\n\n  <h2 id=\"chapter2\">Chapter 2: Working with Links</h2>\n  <p>Learn how to connect multiple pages together.</p>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. हैश लिंक्स पेज के किसी हिस्से पर ले जाते हैं।\n* 2. टारगेट तत्व में id अट्रिब्यूट होना चाहिए।\n* 3. href में id नाम के आगे # लगाएं।\n* 4. एक ही पेज में इंडेक्स बनाने के काम आता है।\n* 5. पेज रीलोड किए बिना तुरंत स्क्रॉल करता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Document Hash Navigation</title>\n</head>\n<body>\n\n  <h1>Table of Contents</h1>\n  <p><a href=\"#chapter1\">Jump to Chapter 1</a></p>\n  <p><a href=\"#chapter2\">Jump to Chapter 2</a></p>\n\n  <hr>\n\n  <h2 id=\"chapter1\">Chapter 1: Getting Started</h2>\n  <p>Learn the basics of HTML elements.</p>\n\n  <h2 id=\"chapter2\">Chapter 2: Working with Links</h2>\n  <p>Learn how to connect multiple pages together.</p>\n\n</body>\n</html>\n```",
+      pro: "* 1. हैश लिंक्स पेज के किसी हिस्से पर ले जाते हैं।\n* 2. टारगेट तत्व में id अट्रिब्यूट होना चाहिए।\n* 3. href में id नाम के आगे # लगाएं।\n* 4. एक ही पेज में इंडेक्स बनाने के काम आता है।\n* 5. पेज रीलोड किए बिना तुरंत स्क्रॉल करता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Document Hash Navigation</title>\n</head>\n<body>\n\n  <h1>Table of Contents</h1>\n  <p><a href=\"#chapter1\">Jump to Chapter 1</a></p>\n  <p><a href=\"#chapter2\">Jump to Chapter 2</a></p>\n\n  <hr>\n\n  <h2 id=\"chapter1\">Chapter 1: Getting Started</h2>\n  <p>Learn the basics of HTML elements.</p>\n\n  <h2 id=\"chapter2\">Chapter 2: Working with Links</h2>\n  <p>Learn how to connect multiple pages together.</p>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. हैश लिंक्स पेज के किसी हिस्से पर ले जाते हैं।\n* 2. टारगेट तत्व में id अट्रिब्यूट होना चाहिए।\n* 3. href में id नाम के आगे # लगाएं।\n* 4. एक ही पेज में इंडेक्स बनाने के काम आता है।\n* 5. पेज रीलोड किए बिना तुरंत स्क्रॉल करता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Document Hash Navigation</title>\n</head>\n<body>\n\n  <h1>Table of Contents</h1>\n  <p><a href=\"#chapter1\">Jump to Chapter 1</a></p>\n  <p><a href=\"#chapter2\">Jump to Chapter 2</a></p>\n\n  <hr>\n\n  <h2 id=\"chapter1\">Chapter 1: Getting Started</h2>\n  <p>Learn the basics of HTML elements.</p>\n\n  <h2 id=\"chapter2\">Chapter 2: Working with Links</h2>\n  <p>Learn how to connect multiple pages together.</p>\n\n</body>\n</html>\n```",
+      pro: "* 1. हैश लिंक्स पेज के किसी हिस्से पर ले जाते हैं।\n* 2. टारगेट तत्व में id अट्रिब्यूट होना चाहिए।\n* 3. href में id नाम के आगे # लगाएं।\n* 4. एक ही पेज में इंडेक्स बनाने के काम आता है।\n* 5. पेज रीलोड किए बिना तुरंत स्क्रॉल करता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Document Hash Navigation</title>\n</head>\n<body>\n\n  <h1>Table of Contents</h1>\n  <p><a href=\"#chapter1\">Jump to Chapter 1</a></p>\n  <p><a href=\"#chapter2\">Jump to Chapter 2</a></p>\n\n  <hr>\n\n  <h2 id=\"chapter1\">Chapter 1: Getting Started</h2>\n  <p>Learn the basics of HTML elements.</p>\n\n  <h2 id=\"chapter2\">Chapter 2: Working with Links</h2>\n  <p>Learn how to connect multiple pages together.</p>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 50,
+    slug: "download-attribute-force-file-download",
+    title: "Download Attribute (force download)",
+    unit: "Unit 5: Navigation & Hyperlinks",
+    bookRef: "The Definitive Guide to HTML5 Chapter 13",
+    exercise: {
+      english: {
+        question: "Which attribute inside <a> triggers a file download instead of navigating to the file?",
+        options: ["download","save","fetch","export"],
+        correctAnswer: "download",
+        hint: "Add the download attribute to force the browser to download the linked file."
+      },
+      hinglish: {
+        question: "Which attribute inside <a> triggers a file download instead of navigating to the file?",
+        options: ["download","save","fetch","export"],
+        correctAnswer: "download",
+        hint: "Add the download attribute to force the browser to download the linked file."
+      },
+      hindi: {
+        question: "Which attribute inside <a> triggers a file download instead of navigating to the file?",
+        options: ["download","save","fetch","export"],
+        correctAnswer: "download",
+        hint: "Add the download attribute to force the browser to download the linked file."
+      }
+    },
+    english: {
+      kid: "* 1. download forces browsers to save files directly.\n* 2. Prevents browsers opening PDFs in tabs.\n* 3. Can rename downloaded file in value.\n* 4. Works seamlessly on local resource files.\n* 5. Great for cheat sheets and certificate downloads.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>File Downloads</title>\n</head>\n<body>\n\n  <h2>Course Resources</h2>\n  <p>Download our free reference guide:</p>\n  <p><a href=\"html5_cheatsheet.pdf\" download=\"Nextsem_HTML5_Guide.pdf\">Download HTML5 Cheat Sheet (PDF)</a></p>\n\n</body>\n</html>\n```",
+      pro: "* 1. download forces browsers to save files directly.\n* 2. Prevents browsers opening PDFs in tabs.\n* 3. Can rename downloaded file in value.\n* 4. Works seamlessly on local resource files.\n* 5. Great for cheat sheets and certificate downloads.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>File Downloads</title>\n</head>\n<body>\n\n  <h2>Course Resources</h2>\n  <p>Download our free reference guide:</p>\n  <p><a href=\"html5_cheatsheet.pdf\" download=\"Nextsem_HTML5_Guide.pdf\">Download HTML5 Cheat Sheet (PDF)</a></p>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. download फाइल को सीधे सेव करने का निर्देश देता है।\n* 2. PDF या इमेज को नए टैब में खुलने से रोकता है।\n* 3. फाइल का नया नाम भी दिया जा सकता है।\n* 4. लोकल फाइलों पर सहजता से काम करता है।\n* 5. नोट्स और सर्टिफिकेट डाउनलोड के लिए उपयोगी है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>File Downloads</title>\n</head>\n<body>\n\n  <h2>Course Resources</h2>\n  <p>Download our free reference guide:</p>\n  <p><a href=\"html5_cheatsheet.pdf\" download=\"Nextsem_HTML5_Guide.pdf\">Download HTML5 Cheat Sheet (PDF)</a></p>\n\n</body>\n</html>\n```",
+      pro: "* 1. download फाइल को सीधे सेव करने का निर्देश देता है।\n* 2. PDF या इमेज को नए टैब में खुलने से रोकता है।\n* 3. फाइल का नया नाम भी दिया जा सकता है।\n* 4. लोकल फाइलों पर सहजता से काम करता है।\n* 5. नोट्स और सर्टिफिकेट डाउनलोड के लिए उपयोगी है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>File Downloads</title>\n</head>\n<body>\n\n  <h2>Course Resources</h2>\n  <p>Download our free reference guide:</p>\n  <p><a href=\"html5_cheatsheet.pdf\" download=\"Nextsem_HTML5_Guide.pdf\">Download HTML5 Cheat Sheet (PDF)</a></p>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. download फाइल को सीधे सेव करने का निर्देश देता है।\n* 2. PDF या इमेज को नए टैब में खुलने से रोकता है।\n* 3. फाइल का नया नाम भी दिया जा सकता है।\n* 4. लोकल फाइलों पर सहजता से काम करता है।\n* 5. नोट्स और सर्टिफिकेट डाउनलोड के लिए उपयोगी है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>File Downloads</title>\n</head>\n<body>\n\n  <h2>Course Resources</h2>\n  <p>Download our free reference guide:</p>\n  <p><a href=\"html5_cheatsheet.pdf\" download=\"Nextsem_HTML5_Guide.pdf\">Download HTML5 Cheat Sheet (PDF)</a></p>\n\n</body>\n</html>\n```",
+      pro: "* 1. download फाइल को सीधे सेव करने का निर्देश देता है।\n* 2. PDF या इमेज को नए टैब में खुलने से रोकता है।\n* 3. फाइल का नया नाम भी दिया जा सकता है।\n* 4. लोकल फाइलों पर सहजता से काम करता है।\n* 5. नोट्स और सर्टिफिकेट डाउनलोड के लिए उपयोगी है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>File Downloads</title>\n</head>\n<body>\n\n  <h2>Course Resources</h2>\n  <p>Download our free reference guide:</p>\n  <p><a href=\"html5_cheatsheet.pdf\" download=\"Nextsem_HTML5_Guide.pdf\">Download HTML5 Cheat Sheet (PDF)</a></p>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 51,
+    slug: "image-src-alt-attributes-elements",
+    title: "The Image Element (<img>)",
+    unit: "Unit 6: Multimedia & Responsive Art Direction",
+    bookRef: "Duckett Chapter 5 (p. 94-96)",
+    exercise: {
+      english: {
+        question: "Which attribute is mandatory for accessibility and displays if an image fails to load?",
+        options: ["alt","title","name","desc"],
+        correctAnswer: "alt",
+        hint: "The alt attribute provides alternative text for images."
+      },
+      hinglish: {
+        question: "Which attribute is mandatory for accessibility and displays if an image fails to load?",
+        options: ["alt","title","name","desc"],
+        correctAnswer: "alt",
+        hint: "The alt attribute provides alternative text for images."
+      },
+      hindi: {
+        question: "Which attribute is mandatory for accessibility and displays if an image fails to load?",
+        options: ["alt","title","name","desc"],
+        correctAnswer: "alt",
+        hint: "The alt attribute provides alternative text for images."
+      }
+    },
+    english: {
+      kid: "* 1. <img> embeds images into web pages.\n* 2. src provides the image file path URL.\n* 3. alt provides descriptive alternative text.\n* 4. Screen readers read alt text aloud.\n* 5. <img> is an empty self-closing element.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Image Element</title>\n</head>\n<body>\n\n  <h1>Nextsem Web Academy</h1>\n  <img src=\"/brand/logo.png\" alt=\"Nextsem Academy Official Logo\">\n  <p>Welcome to our free developer curriculum.</p>\n\n</body>\n</html>\n```",
+      pro: "* 1. <img> embeds images into web pages.\n* 2. src provides the image file path URL.\n* 3. alt provides descriptive alternative text.\n* 4. Screen readers read alt text aloud.\n* 5. <img> is an empty self-closing element.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Image Element</title>\n</head>\n<body>\n\n  <h1>Nextsem Web Academy</h1>\n  <img src=\"/brand/logo.png\" alt=\"Nextsem Academy Official Logo\">\n  <p>Welcome to our free developer curriculum.</p>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. <img> वेबपेज में तस्वीरें जोड़ता है।\n* 2. src इमेज फाइल का पाथ देता है।\n* 3. alt वैकल्पिक विवरण (alt text) देता है।\n* 4. स्क्रीन रीडर alt टेक्स्ट को पढ़कर सुनाते हैं।\n* 5. <img> एक सेल्फ-क्लोजिंग एलिमेंट होता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Image Element</title>\n</head>\n<body>\n\n  <h1>Nextsem Web Academy</h1>\n  <img src=\"/brand/logo.png\" alt=\"Nextsem Academy Official Logo\">\n  <p>Welcome to our free developer curriculum.</p>\n\n</body>\n</html>\n```",
+      pro: "* 1. <img> वेबपेज में तस्वीरें जोड़ता है।\n* 2. src इमेज फाइल का पाथ देता है।\n* 3. alt वैकल्पिक विवरण (alt text) देता है।\n* 4. स्क्रीन रीडर alt टेक्स्ट को पढ़कर सुनाते हैं।\n* 5. <img> एक सेल्फ-क्लोजिंग एलिमेंट होता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Image Element</title>\n</head>\n<body>\n\n  <h1>Nextsem Web Academy</h1>\n  <img src=\"/brand/logo.png\" alt=\"Nextsem Academy Official Logo\">\n  <p>Welcome to our free developer curriculum.</p>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. <img> वेबपेज में तस्वीरें जोड़ता है।\n* 2. src इमेज फाइल का पाथ देता है।\n* 3. alt वैकल्पिक विवरण (alt text) देता है।\n* 4. स्क्रीन रीडर alt टेक्स्ट को पढ़कर सुनाते हैं।\n* 5. <img> एक सेल्फ-क्लोजिंग एलिमेंट होता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Image Element</title>\n</head>\n<body>\n\n  <h1>Nextsem Web Academy</h1>\n  <img src=\"/brand/logo.png\" alt=\"Nextsem Academy Official Logo\">\n  <p>Welcome to our free developer curriculum.</p>\n\n</body>\n</html>\n```",
+      pro: "* 1. <img> वेबपेज में तस्वीरें जोड़ता है।\n* 2. src इमेज फाइल का पाथ देता है।\n* 3. alt वैकल्पिक विवरण (alt text) देता है।\n* 4. स्क्रीन रीडर alt टेक्स्ट को पढ़कर सुनाते हैं।\n* 5. <img> एक सेल्फ-क्लोजिंग एलिमेंट होता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Image Element</title>\n</head>\n<body>\n\n  <h1>Nextsem Web Academy</h1>\n  <img src=\"/brand/logo.png\" alt=\"Nextsem Academy Official Logo\">\n  <p>Welcome to our free developer curriculum.</p>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 52,
+    slug: "image-sizing-width-height-attributes",
+    title: "Image Sizing (width & height)",
+    unit: "Unit 6: Multimedia & Responsive Art Direction",
+    bookRef: "Duckett Chapter 5 (p. 97-98)",
+    exercise: {
+      english: {
+        question: "Why should you always define width and height attributes on <img> tags?",
+        options: ["To prevent layout shifts while loading","To compress the image file size","To turn images into clickable links","To convert images to vector format"],
+        correctAnswer: "To prevent layout shifts while loading",
+        hint: "Width and height reserve space and eliminate Cumulative Layout Shift (CLS)."
+      },
+      hinglish: {
+        question: "Why should you always define width and height attributes on <img> tags?",
+        options: ["To prevent layout shifts while loading","To compress the image file size","To turn images into clickable links","To convert images to vector format"],
+        correctAnswer: "To prevent layout shifts while loading",
+        hint: "Width and height reserve space and eliminate Cumulative Layout Shift (CLS)."
+      },
+      hindi: {
+        question: "Why should you always define width and height attributes on <img> tags?",
+        options: ["To prevent layout shifts while loading","To compress the image file size","To turn images into clickable links","To convert images to vector format"],
+        correctAnswer: "To prevent layout shifts while loading",
+        hint: "Width and height reserve space and eliminate Cumulative Layout Shift (CLS)."
+      }
+    },
+    english: {
+      kid: "* 1. width and height set image dimensions.\n* 2. Values are specified in pixels without units.\n* 3. Reserves layout space before images load.\n* 4. Prevents Cumulative Layout Shift (CLS) glitches.\n* 5. Maintains clear, crisp image aspect ratios.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Image Sizing</title>\n</head>\n<body>\n\n  <h2>Developer Workspace</h2>\n  <img src=\"/screenshots/workspace.jpg\" alt=\"Developer Workspace Setup\" width=\"600\" height=\"350\">\n  <p>Optimized workstation setup with dual monitors.</p>\n\n</body>\n</html>\n```",
+      pro: "* 1. width and height set image dimensions.\n* 2. Values are specified in pixels without units.\n* 3. Reserves layout space before images load.\n* 4. Prevents Cumulative Layout Shift (CLS) glitches.\n* 5. Maintains clear, crisp image aspect ratios.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Image Sizing</title>\n</head>\n<body>\n\n  <h2>Developer Workspace</h2>\n  <img src=\"/screenshots/workspace.jpg\" alt=\"Developer Workspace Setup\" width=\"600\" height=\"350\">\n  <p>Optimized workstation setup with dual monitors.</p>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. width और height इमेज का आकार तय करते हैं।\n* 2. मान सीधे पिक्सल में लिखे जाते हैं।\n* 3. इमेज लोड होने से पहले जगह आरक्षित रखता है।\n* 4. पेज हिलने (CLS लेआउट शिफ्ट) को रोकता है।\n* 5. इमेज का सही अनुपात बनाए रखता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Image Sizing</title>\n</head>\n<body>\n\n  <h2>Developer Workspace</h2>\n  <img src=\"/screenshots/workspace.jpg\" alt=\"Developer Workspace Setup\" width=\"600\" height=\"350\">\n  <p>Optimized workstation setup with dual monitors.</p>\n\n</body>\n</html>\n```",
+      pro: "* 1. width और height इमेज का आकार तय करते हैं।\n* 2. मान सीधे पिक्सल में लिखे जाते हैं।\n* 3. इमेज लोड होने से पहले जगह आरक्षित रखता है।\n* 4. पेज हिलने (CLS लेआउट शिफ्ट) को रोकता है।\n* 5. इमेज का सही अनुपात बनाए रखता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Image Sizing</title>\n</head>\n<body>\n\n  <h2>Developer Workspace</h2>\n  <img src=\"/screenshots/workspace.jpg\" alt=\"Developer Workspace Setup\" width=\"600\" height=\"350\">\n  <p>Optimized workstation setup with dual monitors.</p>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. width और height इमेज का आकार तय करते हैं।\n* 2. मान सीधे पिक्सल में लिखे जाते हैं।\n* 3. इमेज लोड होने से पहले जगह आरक्षित रखता है।\n* 4. पेज हिलने (CLS लेआउट शिफ्ट) को रोकता है।\n* 5. इमेज का सही अनुपात बनाए रखता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Image Sizing</title>\n</head>\n<body>\n\n  <h2>Developer Workspace</h2>\n  <img src=\"/screenshots/workspace.jpg\" alt=\"Developer Workspace Setup\" width=\"600\" height=\"350\">\n  <p>Optimized workstation setup with dual monitors.</p>\n\n</body>\n</html>\n```",
+      pro: "* 1. width और height इमेज का आकार तय करते हैं।\n* 2. मान सीधे पिक्सल में लिखे जाते हैं।\n* 3. इमेज लोड होने से पहले जगह आरक्षित रखता है।\n* 4. पेज हिलने (CLS लेआउट शिफ्ट) को रोकता है।\n* 5. इमेज का सही अनुपात बनाए रखता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Image Sizing</title>\n</head>\n<body>\n\n  <h2>Developer Workspace</h2>\n  <img src=\"/screenshots/workspace.jpg\" alt=\"Developer Workspace Setup\" width=\"600\" height=\"350\">\n  <p>Optimized workstation setup with dual monitors.</p>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 53,
+    slug: "responsive-images-srcset-sizes-attributes",
+    title: "Responsive Images (srcset & sizes)",
+    unit: "Unit 6: Multimedia & Responsive Art Direction",
+    bookRef: "Duckett Chapter 5 (p. 99-102)",
+    exercise: {
+      english: {
+        question: "Which attribute allows specifying a list of image files with their natural widths?",
+        options: ["srcset","sources","imglist","multisrc"],
+        correctAnswer: "srcset",
+        hint: "srcset (source set) lists image URLs paired with width descriptors like 800w."
+      },
+      hinglish: {
+        question: "Which attribute allows specifying a list of image files with their natural widths?",
+        options: ["srcset","sources","imglist","multisrc"],
+        correctAnswer: "srcset",
+        hint: "srcset (source set) lists image URLs paired with width descriptors like 800w."
+      },
+      hindi: {
+        question: "Which attribute allows specifying a list of image files with their natural widths?",
+        options: ["srcset","sources","imglist","multisrc"],
+        correctAnswer: "srcset",
+        hint: "srcset (source set) lists image URLs paired with width descriptors like 800w."
+      }
+    },
+    english: {
+      kid: "* 1. srcset provides multiple image resolution sources.\n* 2. sizes defines screen layout slot widths.\n* 3. Mobile phones download smaller lightweight images.\n* 4. 4K screens receive crisp high-resolution versions.\n* 5. Drastically reduces mobile data network consumption.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Responsive Images</title>\n</head>\n<body>\n\n  <h2>Responsive Nature Banner</h2>\n  <img \n    src=\"banner-small.jpg\" \n    srcset=\"banner-small.jpg 480w, banner-medium.jpg 800w, banner-large.jpg 1200w\" \n    sizes=\"(max-width: 600px) 480px, 800px\" \n    alt=\"Scenic Mountain Sunset\">\n\n</body>\n</html>\n```",
+      pro: "* 1. srcset provides multiple image resolution sources.\n* 2. sizes defines screen layout slot widths.\n* 3. Mobile phones download smaller lightweight images.\n* 4. 4K screens receive crisp high-resolution versions.\n* 5. Drastically reduces mobile data network consumption.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Responsive Images</title>\n</head>\n<body>\n\n  <h2>Responsive Nature Banner</h2>\n  <img \n    src=\"banner-small.jpg\" \n    srcset=\"banner-small.jpg 480w, banner-medium.jpg 800w, banner-large.jpg 1200w\" \n    sizes=\"(max-width: 600px) 480px, 800px\" \n    alt=\"Scenic Mountain Sunset\">\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. srcset अलग-अलग रेजोल्यूशन की तस्वीरें देता है।\n* 2. sizes स्क्रीन के अनुसार चौड़ाई तय करता है।\n* 3. मोबाइल फोन हल्की और छोटी तस्वीरें डाउनलोड करते हैं।\n* 4. बड़ी 4K स्क्रीन को हाई-क्वालिटी इमेज मिलती है।\n* 5. मोबाइल इंटरनेट डेटा की भारी बचत होती है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Responsive Images</title>\n</head>\n<body>\n\n  <h2>Responsive Nature Banner</h2>\n  <img \n    src=\"banner-small.jpg\" \n    srcset=\"banner-small.jpg 480w, banner-medium.jpg 800w, banner-large.jpg 1200w\" \n    sizes=\"(max-width: 600px) 480px, 800px\" \n    alt=\"Scenic Mountain Sunset\">\n\n</body>\n</html>\n```",
+      pro: "* 1. srcset अलग-अलग रेजोल्यूशन की तस्वीरें देता है।\n* 2. sizes स्क्रीन के अनुसार चौड़ाई तय करता है।\n* 3. मोबाइल फोन हल्की और छोटी तस्वीरें डाउनलोड करते हैं।\n* 4. बड़ी 4K स्क्रीन को हाई-क्वालिटी इमेज मिलती है।\n* 5. मोबाइल इंटरनेट डेटा की भारी बचत होती है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Responsive Images</title>\n</head>\n<body>\n\n  <h2>Responsive Nature Banner</h2>\n  <img \n    src=\"banner-small.jpg\" \n    srcset=\"banner-small.jpg 480w, banner-medium.jpg 800w, banner-large.jpg 1200w\" \n    sizes=\"(max-width: 600px) 480px, 800px\" \n    alt=\"Scenic Mountain Sunset\">\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. srcset अलग-अलग रेजोल्यूशन की तस्वीरें देता है।\n* 2. sizes स्क्रीन के अनुसार चौड़ाई तय करता है।\n* 3. मोबाइल फोन हल्की और छोटी तस्वीरें डाउनलोड करते हैं।\n* 4. बड़ी 4K स्क्रीन को हाई-क्वालिटी इमेज मिलती है।\n* 5. मोबाइल इंटरनेट डेटा की भारी बचत होती है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Responsive Images</title>\n</head>\n<body>\n\n  <h2>Responsive Nature Banner</h2>\n  <img \n    src=\"banner-small.jpg\" \n    srcset=\"banner-small.jpg 480w, banner-medium.jpg 800w, banner-large.jpg 1200w\" \n    sizes=\"(max-width: 600px) 480px, 800px\" \n    alt=\"Scenic Mountain Sunset\">\n\n</body>\n</html>\n```",
+      pro: "* 1. srcset अलग-अलग रेजोल्यूशन की तस्वीरें देता है।\n* 2. sizes स्क्रीन के अनुसार चौड़ाई तय करता है।\n* 3. मोबाइल फोन हल्की और छोटी तस्वीरें डाउनलोड करते हैं।\n* 4. बड़ी 4K स्क्रीन को हाई-क्वालिटी इमेज मिलती है।\n* 5. मोबाइल इंटरनेट डेटा की भारी बचत होती है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Responsive Images</title>\n</head>\n<body>\n\n  <h2>Responsive Nature Banner</h2>\n  <img \n    src=\"banner-small.jpg\" \n    srcset=\"banner-small.jpg 480w, banner-medium.jpg 800w, banner-large.jpg 1200w\" \n    sizes=\"(max-width: 600px) 480px, 800px\" \n    alt=\"Scenic Mountain Sunset\">\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 54,
+    slug: "art-direction-picture-source-elements",
+    title: "Art Direction with <picture> & <source>",
+    unit: "Unit 6: Multimedia & Responsive Art Direction",
+    bookRef: "HTML5: The Missing Manual Chapter 4",
+    exercise: {
+      english: {
+        question: "Which container element wraps multiple <source> tags for art direction image swapping?",
+        options: ["<picture>","<figure>","<media>","<gallery>"],
+        correctAnswer: "<picture>",
+        hint: "The <picture> element contains one or more <source> tags and one <img> tag."
+      },
+      hinglish: {
+        question: "Which container element wraps multiple <source> tags for art direction image swapping?",
+        options: ["<picture>","<figure>","<media>","<gallery>"],
+        correctAnswer: "<picture>",
+        hint: "The <picture> element contains one or more <source> tags and one <img> tag."
+      },
+      hindi: {
+        question: "Which container element wraps multiple <source> tags for art direction image swapping?",
+        options: ["<picture>","<figure>","<media>","<gallery>"],
+        correctAnswer: "<picture>",
+        hint: "The <picture> element contains one or more <source> tags and one <img> tag."
+      }
+    },
+    english: {
+      kid: "* 1. <picture> enables complete art direction control.\n* 2. Contains multiple <source> elements inside.\n* 3. Swaps cropped images based on media queries.\n* 4. Serves modern AVIF and WebP formats.\n* 5. Must include fallback <img> at the end.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Art Direction Picture</title>\n</head>\n<body>\n\n  <h2>Adaptive Hero Banner</h2>\n  <picture>\n    <source media=\"(min-width: 800px)\" srcset=\"banner-wide.jpg\">\n    <source media=\"(min-width: 480px)\" srcset=\"banner-square.jpg\">\n    <img src=\"banner-mobile.jpg\" alt=\"Developer Conference 2026\">\n  </picture>\n\n</body>\n</html>\n```",
+      pro: "* 1. <picture> enables complete art direction control.\n* 2. Contains multiple <source> elements inside.\n* 3. Swaps cropped images based on media queries.\n* 4. Serves modern AVIF and WebP formats.\n* 5. Must include fallback <img> at the end.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Art Direction Picture</title>\n</head>\n<body>\n\n  <h2>Adaptive Hero Banner</h2>\n  <picture>\n    <source media=\"(min-width: 800px)\" srcset=\"banner-wide.jpg\">\n    <source media=\"(min-width: 480px)\" srcset=\"banner-square.jpg\">\n    <img src=\"banner-mobile.jpg\" alt=\"Developer Conference 2026\">\n  </picture>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. <picture> संपूर्ण आर्ट डायरेक्शन नियंत्रण देता है।\n* 2. इसके भीतर कई <source> तत्व होते हैं।\n* 3. स्क्रीन साइज के अनुसार अलग क्रॉप की गई इमेज दिखाता है।\n* 4. आधुनिक AVIF और WebP फॉर्मेट सर्व करता है।\n* 5. अंत में एक <img> फॉलबैक टैग होना अनिवार्य है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Art Direction Picture</title>\n</head>\n<body>\n\n  <h2>Adaptive Hero Banner</h2>\n  <picture>\n    <source media=\"(min-width: 800px)\" srcset=\"banner-wide.jpg\">\n    <source media=\"(min-width: 480px)\" srcset=\"banner-square.jpg\">\n    <img src=\"banner-mobile.jpg\" alt=\"Developer Conference 2026\">\n  </picture>\n\n</body>\n</html>\n```",
+      pro: "* 1. <picture> संपूर्ण आर्ट डायरेक्शन नियंत्रण देता है।\n* 2. इसके भीतर कई <source> तत्व होते हैं।\n* 3. स्क्रीन साइज के अनुसार अलग क्रॉप की गई इमेज दिखाता है।\n* 4. आधुनिक AVIF और WebP फॉर्मेट सर्व करता है।\n* 5. अंत में एक <img> फॉलबैक टैग होना अनिवार्य है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Art Direction Picture</title>\n</head>\n<body>\n\n  <h2>Adaptive Hero Banner</h2>\n  <picture>\n    <source media=\"(min-width: 800px)\" srcset=\"banner-wide.jpg\">\n    <source media=\"(min-width: 480px)\" srcset=\"banner-square.jpg\">\n    <img src=\"banner-mobile.jpg\" alt=\"Developer Conference 2026\">\n  </picture>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. <picture> संपूर्ण आर्ट डायरेक्शन नियंत्रण देता है।\n* 2. इसके भीतर कई <source> तत्व होते हैं।\n* 3. स्क्रीन साइज के अनुसार अलग क्रॉप की गई इमेज दिखाता है।\n* 4. आधुनिक AVIF और WebP फॉर्मेट सर्व करता है।\n* 5. अंत में एक <img> फॉलबैक टैग होना अनिवार्य है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Art Direction Picture</title>\n</head>\n<body>\n\n  <h2>Adaptive Hero Banner</h2>\n  <picture>\n    <source media=\"(min-width: 800px)\" srcset=\"banner-wide.jpg\">\n    <source media=\"(min-width: 480px)\" srcset=\"banner-square.jpg\">\n    <img src=\"banner-mobile.jpg\" alt=\"Developer Conference 2026\">\n  </picture>\n\n</body>\n</html>\n```",
+      pro: "* 1. <picture> संपूर्ण आर्ट डायरेक्शन नियंत्रण देता है।\n* 2. इसके भीतर कई <source> तत्व होते हैं।\n* 3. स्क्रीन साइज के अनुसार अलग क्रॉप की गई इमेज दिखाता है।\n* 4. आधुनिक AVIF और WebP फॉर्मेट सर्व करता है।\n* 5. अंत में एक <img> फॉलबैक टैग होना अनिवार्य है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Art Direction Picture</title>\n</head>\n<body>\n\n  <h2>Adaptive Hero Banner</h2>\n  <picture>\n    <source media=\"(min-width: 800px)\" srcset=\"banner-wide.jpg\">\n    <source media=\"(min-width: 480px)\" srcset=\"banner-square.jpg\">\n    <img src=\"banner-mobile.jpg\" alt=\"Developer Conference 2026\">\n  </picture>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 55,
+    slug: "lazy-loading-images-loading-attribute",
+    title: "Lazy Loading Images (loading attribute)",
+    unit: "Unit 6: Multimedia & Responsive Art Direction",
+    bookRef: "HTML5: The Missing Manual Chapter 4",
+    exercise: {
+      english: {
+        question: "Which attribute value enables native browser deferred image loading?",
+        options: ["loading=\"lazy\"","defer=\"true\"","async=\"image\"","preload=\"none\""],
+        correctAnswer: "loading=\"lazy\"",
+        hint: "Use loading=\"lazy\" directly on <img> tags."
+      },
+      hinglish: {
+        question: "Which attribute value enables native browser deferred image loading?",
+        options: ["loading=\"lazy\"","defer=\"true\"","async=\"image\"","preload=\"none\""],
+        correctAnswer: "loading=\"lazy\"",
+        hint: "Use loading=\"lazy\" directly on <img> tags."
+      },
+      hindi: {
+        question: "Which attribute value enables native browser deferred image loading?",
+        options: ["loading=\"lazy\"","defer=\"true\"","async=\"image\"","preload=\"none\""],
+        correctAnswer: "loading=\"lazy\"",
+        hint: "Use loading=\"lazy\" directly on <img> tags."
+      }
+    },
+    english: {
+      kid: "* 1. loading=\"lazy\" delays loading offscreen images.\n* 2. Images load only when scrolled near.\n* 3. Speeds up initial page load dramatically.\n* 4. Supported natively by modern web browsers.\n* 5. No external JavaScript libraries required anymore.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Native Lazy Loading</title>\n</head>\n<body>\n\n  <h1>Photo Article</h1>\n  <p>Scroll down to see high resolution illustrations:</p>\n  \n  <img src=\"mountain.jpg\" loading=\"lazy\" width=\"800\" height=\"500\" alt=\"Snowy Mountain\">\n  <img src=\"ocean.jpg\" loading=\"lazy\" width=\"800\" height=\"500\" alt=\"Pacific Ocean\">\n\n</body>\n</html>\n```",
+      pro: "* 1. loading=\"lazy\" delays loading offscreen images.\n* 2. Images load only when scrolled near.\n* 3. Speeds up initial page load dramatically.\n* 4. Supported natively by modern web browsers.\n* 5. No external JavaScript libraries required anymore.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Native Lazy Loading</title>\n</head>\n<body>\n\n  <h1>Photo Article</h1>\n  <p>Scroll down to see high resolution illustrations:</p>\n  \n  <img src=\"mountain.jpg\" loading=\"lazy\" width=\"800\" height=\"500\" alt=\"Snowy Mountain\">\n  <img src=\"ocean.jpg\" loading=\"lazy\" width=\"800\" height=\"500\" alt=\"Pacific Ocean\">\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. loading=\"lazy\" स्क्रीन से बाहर की तस्वीरों की लोडिंग रोकता है।\n* 2. तस्वीरें केवल स्क्रॉल करने पर लोड होती हैं।\n* 3. शुरुआती पेज लोड की स्पीड काफी बढ़ा देता है।\n* 4. सभी आधुनिक ब्राउज़रों में सीधे सपोर्टेड है।\n* 5. किसी जावास्क्रिप्ट लाइब्रेरी की जरूरत नहीं होती।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Native Lazy Loading</title>\n</head>\n<body>\n\n  <h1>Photo Article</h1>\n  <p>Scroll down to see high resolution illustrations:</p>\n  \n  <img src=\"mountain.jpg\" loading=\"lazy\" width=\"800\" height=\"500\" alt=\"Snowy Mountain\">\n  <img src=\"ocean.jpg\" loading=\"lazy\" width=\"800\" height=\"500\" alt=\"Pacific Ocean\">\n\n</body>\n</html>\n```",
+      pro: "* 1. loading=\"lazy\" स्क्रीन से बाहर की तस्वीरों की लोडिंग रोकता है।\n* 2. तस्वीरें केवल स्क्रॉल करने पर लोड होती हैं।\n* 3. शुरुआती पेज लोड की स्पीड काफी बढ़ा देता है।\n* 4. सभी आधुनिक ब्राउज़रों में सीधे सपोर्टेड है।\n* 5. किसी जावास्क्रिप्ट लाइब्रेरी की जरूरत नहीं होती।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Native Lazy Loading</title>\n</head>\n<body>\n\n  <h1>Photo Article</h1>\n  <p>Scroll down to see high resolution illustrations:</p>\n  \n  <img src=\"mountain.jpg\" loading=\"lazy\" width=\"800\" height=\"500\" alt=\"Snowy Mountain\">\n  <img src=\"ocean.jpg\" loading=\"lazy\" width=\"800\" height=\"500\" alt=\"Pacific Ocean\">\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. loading=\"lazy\" स्क्रीन से बाहर की तस्वीरों की लोडिंग रोकता है।\n* 2. तस्वीरें केवल स्क्रॉल करने पर लोड होती हैं।\n* 3. शुरुआती पेज लोड की स्पीड काफी बढ़ा देता है।\n* 4. सभी आधुनिक ब्राउज़रों में सीधे सपोर्टेड है।\n* 5. किसी जावास्क्रिप्ट लाइब्रेरी की जरूरत नहीं होती।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Native Lazy Loading</title>\n</head>\n<body>\n\n  <h1>Photo Article</h1>\n  <p>Scroll down to see high resolution illustrations:</p>\n  \n  <img src=\"mountain.jpg\" loading=\"lazy\" width=\"800\" height=\"500\" alt=\"Snowy Mountain\">\n  <img src=\"ocean.jpg\" loading=\"lazy\" width=\"800\" height=\"500\" alt=\"Pacific Ocean\">\n\n</body>\n</html>\n```",
+      pro: "* 1. loading=\"lazy\" स्क्रीन से बाहर की तस्वीरों की लोडिंग रोकता है।\n* 2. तस्वीरें केवल स्क्रॉल करने पर लोड होती हैं।\n* 3. शुरुआती पेज लोड की स्पीड काफी बढ़ा देता है।\n* 4. सभी आधुनिक ब्राउज़रों में सीधे सपोर्टेड है।\n* 5. किसी जावास्क्रिप्ट लाइब्रेरी की जरूरत नहीं होती।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Native Lazy Loading</title>\n</head>\n<body>\n\n  <h1>Photo Article</h1>\n  <p>Scroll down to see high resolution illustrations:</p>\n  \n  <img src=\"mountain.jpg\" loading=\"lazy\" width=\"800\" height=\"500\" alt=\"Snowy Mountain\">\n  <img src=\"ocean.jpg\" loading=\"lazy\" width=\"800\" height=\"500\" alt=\"Pacific Ocean\">\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 56,
+    slug: "figure-figcaption-semantic-image-wrappers",
+    title: "Semantic Image Wrappers (<figure> & <figcaption>)",
+    unit: "Unit 6: Multimedia & Responsive Art Direction",
+    bookRef: "Duckett Chapter 5 (p. 103-104)",
+    exercise: {
+      english: {
+        question: "Which element provides a semantic caption for content inside a <figure>?",
+        options: ["<figcaption>","<caption>","<label>","<legend>"],
+        correctAnswer: "<figcaption>",
+        hint: "<figcaption> represents a caption or legend for a <figure>."
+      },
+      hinglish: {
+        question: "Which element provides a semantic caption for content inside a <figure>?",
+        options: ["<figcaption>","<caption>","<label>","<legend>"],
+        correctAnswer: "<figcaption>",
+        hint: "<figcaption> represents a caption or legend for a <figure>."
+      },
+      hindi: {
+        question: "Which element provides a semantic caption for content inside a <figure>?",
+        options: ["<figcaption>","<caption>","<label>","<legend>"],
+        correctAnswer: "<figcaption>",
+        hint: "<figcaption> represents a caption or legend for a <figure>."
+      }
+    },
+    english: {
+      kid: "* 1. <figure> encapsulates self-contained visual media.\n* 2. <figcaption> adds a caption description.\n* 3. Can be placed first or last inside.\n* 4. Associates images and captions for accessibility.\n* 5. Semantically superior to generic <div> tags.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Figure and Figcaption</title>\n</head>\n<body>\n\n  <h2>Architecture Diagrams</h2>\n  <figure>\n    <img src=\"client_server_model.png\" alt=\"Client Server Architecture Diagram\">\n    <figcaption>Figure 1.1: Standard Client-Server Communication Flow.</figcaption>\n  </figure>\n\n</body>\n</html>\n```",
+      pro: "* 1. <figure> encapsulates self-contained visual media.\n* 2. <figcaption> adds a caption description.\n* 3. Can be placed first or last inside.\n* 4. Associates images and captions for accessibility.\n* 5. Semantically superior to generic <div> tags.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Figure and Figcaption</title>\n</head>\n<body>\n\n  <h2>Architecture Diagrams</h2>\n  <figure>\n    <img src=\"client_server_model.png\" alt=\"Client Server Architecture Diagram\">\n    <figcaption>Figure 1.1: Standard Client-Server Communication Flow.</figcaption>\n  </figure>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. <figure> विजुअल मीडिया को समेटता है।\n* 2. <figcaption> फोटो का शीर्षक/कैप्शन जोड़ता है।\n* 3. इसे अंदर सबसे ऊपर या नीचे रख सकते हैं।\n* 4. इमेज और कैप्शन को अर्थपूर्ण तरीके से जोड़ता है।\n* 5. सामान्य <div> टैग से कहीं अधिक बेहतर है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Figure and Figcaption</title>\n</head>\n<body>\n\n  <h2>Architecture Diagrams</h2>\n  <figure>\n    <img src=\"client_server_model.png\" alt=\"Client Server Architecture Diagram\">\n    <figcaption>Figure 1.1: Standard Client-Server Communication Flow.</figcaption>\n  </figure>\n\n</body>\n</html>\n```",
+      pro: "* 1. <figure> विजुअल मीडिया को समेटता है।\n* 2. <figcaption> फोटो का शीर्षक/कैप्शन जोड़ता है।\n* 3. इसे अंदर सबसे ऊपर या नीचे रख सकते हैं।\n* 4. इमेज और कैप्शन को अर्थपूर्ण तरीके से जोड़ता है।\n* 5. सामान्य <div> टैग से कहीं अधिक बेहतर है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Figure and Figcaption</title>\n</head>\n<body>\n\n  <h2>Architecture Diagrams</h2>\n  <figure>\n    <img src=\"client_server_model.png\" alt=\"Client Server Architecture Diagram\">\n    <figcaption>Figure 1.1: Standard Client-Server Communication Flow.</figcaption>\n  </figure>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. <figure> विजुअल मीडिया को समेटता है।\n* 2. <figcaption> फोटो का शीर्षक/कैप्शन जोड़ता है।\n* 3. इसे अंदर सबसे ऊपर या नीचे रख सकते हैं।\n* 4. इमेज और कैप्शन को अर्थपूर्ण तरीके से जोड़ता है।\n* 5. सामान्य <div> टैग से कहीं अधिक बेहतर है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Figure and Figcaption</title>\n</head>\n<body>\n\n  <h2>Architecture Diagrams</h2>\n  <figure>\n    <img src=\"client_server_model.png\" alt=\"Client Server Architecture Diagram\">\n    <figcaption>Figure 1.1: Standard Client-Server Communication Flow.</figcaption>\n  </figure>\n\n</body>\n</html>\n```",
+      pro: "* 1. <figure> विजुअल मीडिया को समेटता है।\n* 2. <figcaption> फोटो का शीर्षक/कैप्शन जोड़ता है।\n* 3. इसे अंदर सबसे ऊपर या नीचे रख सकते हैं।\n* 4. इमेज और कैप्शन को अर्थपूर्ण तरीके से जोड़ता है।\n* 5. सामान्य <div> टैग से कहीं अधिक बेहतर है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Figure and Figcaption</title>\n</head>\n<body>\n\n  <h2>Architecture Diagrams</h2>\n  <figure>\n    <img src=\"client_server_model.png\" alt=\"Client Server Architecture Diagram\">\n    <figcaption>Figure 1.1: Standard Client-Server Communication Flow.</figcaption>\n  </figure>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 57,
+    slug: "inline-vector-graphics-svg-element",
+    title: "Vector Graphics (<svg>)",
+    unit: "Unit 6: Multimedia & Responsive Art Direction",
+    bookRef: "HTML5: The Missing Manual Chapter 6",
+    exercise: {
+      english: {
+        question: "What is the primary advantage of SVG images compared to PNG or JPEG?",
+        options: ["They scale infinitely without losing quality","They play audio streams natively","They only work on mobile devices","They automatically upload files to server"],
+        correctAnswer: "They scale infinitely without losing quality",
+        hint: "SVG graphics are vector math and never pixelate."
+      },
+      hinglish: {
+        question: "What is the primary advantage of SVG images compared to PNG or JPEG?",
+        options: ["They scale infinitely without losing quality","They play audio streams natively","They only work on mobile devices","They automatically upload files to server"],
+        correctAnswer: "They scale infinitely without losing quality",
+        hint: "SVG graphics are vector math and never pixelate."
+      },
+      hindi: {
+        question: "What is the primary advantage of SVG images compared to PNG or JPEG?",
+        options: ["They scale infinitely without losing quality","They play audio streams natively","They only work on mobile devices","They automatically upload files to server"],
+        correctAnswer: "They scale infinitely without losing quality",
+        hint: "SVG graphics are vector math and never pixelate."
+      }
+    },
+    english: {
+      kid: "* 1. <svg> draws scalable resolution-independent graphics.\n* 2. Images never pixelate or blur at scale.\n* 3. Built using XML markup shapes.\n* 4. Includes tags like <circle>, <rect>, <path>.\n* 5. Lightweight and ideal for UI icons.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Inline SVG Graphics</title>\n</head>\n<body>\n\n  <h2>Vector Icons</h2>\n  <!-- Green Checkmark Circle -->\n  <svg width=\"100\" height=\"100\">\n    <circle cx=\"50\" cy=\"50\" r=\"40\" stroke=\"#04AA6D\" stroke-width=\"4\" fill=\"#04AA6D\" />\n  </svg>\n\n</body>\n</html>\n```",
+      pro: "* 1. <svg> draws scalable resolution-independent graphics.\n* 2. Images never pixelate or blur at scale.\n* 3. Built using XML markup shapes.\n* 4. Includes tags like <circle>, <rect>, <path>.\n* 5. Lightweight and ideal for UI icons.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Inline SVG Graphics</title>\n</head>\n<body>\n\n  <h2>Vector Icons</h2>\n  <!-- Green Checkmark Circle -->\n  <svg width=\"100\" height=\"100\">\n    <circle cx=\"50\" cy=\"50\" r=\"40\" stroke=\"#04AA6D\" stroke-width=\"4\" fill=\"#04AA6D\" />\n  </svg>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. <svg> स्केलेबल वेक्टर ग्राफिक्स बनाता है।\n* 2. ज़ूम करने पर कभी धुंधला या पिक्सलेट नहीं होता।\n* 3. XML मार्कअप और आकृतियों से बनता है।\n* 4. इसमें <circle>, <rect>, <path> जैसे टैग होते हैं।\n* 5. बहुत हल्का और आइकॉन्स के लिए सर्वोत्तम है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Inline SVG Graphics</title>\n</head>\n<body>\n\n  <h2>Vector Icons</h2>\n  <!-- Green Checkmark Circle -->\n  <svg width=\"100\" height=\"100\">\n    <circle cx=\"50\" cy=\"50\" r=\"40\" stroke=\"#04AA6D\" stroke-width=\"4\" fill=\"#04AA6D\" />\n  </svg>\n\n</body>\n</html>\n```",
+      pro: "* 1. <svg> स्केलेबल वेक्टर ग्राफिक्स बनाता है।\n* 2. ज़ूम करने पर कभी धुंधला या पिक्सलेट नहीं होता।\n* 3. XML मार्कअप और आकृतियों से बनता है।\n* 4. इसमें <circle>, <rect>, <path> जैसे टैग होते हैं।\n* 5. बहुत हल्का और आइकॉन्स के लिए सर्वोत्तम है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Inline SVG Graphics</title>\n</head>\n<body>\n\n  <h2>Vector Icons</h2>\n  <!-- Green Checkmark Circle -->\n  <svg width=\"100\" height=\"100\">\n    <circle cx=\"50\" cy=\"50\" r=\"40\" stroke=\"#04AA6D\" stroke-width=\"4\" fill=\"#04AA6D\" />\n  </svg>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. <svg> स्केलेबल वेक्टर ग्राफिक्स बनाता है।\n* 2. ज़ूम करने पर कभी धुंधला या पिक्सलेट नहीं होता।\n* 3. XML मार्कअप और आकृतियों से बनता है।\n* 4. इसमें <circle>, <rect>, <path> जैसे टैग होते हैं।\n* 5. बहुत हल्का और आइकॉन्स के लिए सर्वोत्तम है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Inline SVG Graphics</title>\n</head>\n<body>\n\n  <h2>Vector Icons</h2>\n  <!-- Green Checkmark Circle -->\n  <svg width=\"100\" height=\"100\">\n    <circle cx=\"50\" cy=\"50\" r=\"40\" stroke=\"#04AA6D\" stroke-width=\"4\" fill=\"#04AA6D\" />\n  </svg>\n\n</body>\n</html>\n```",
+      pro: "* 1. <svg> स्केलेबल वेक्टर ग्राफिक्स बनाता है।\n* 2. ज़ूम करने पर कभी धुंधला या पिक्सलेट नहीं होता।\n* 3. XML मार्कअप और आकृतियों से बनता है।\n* 4. इसमें <circle>, <rect>, <path> जैसे टैग होते हैं।\n* 5. बहुत हल्का और आइकॉन्स के लिए सर्वोत्तम है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Inline SVG Graphics</title>\n</head>\n<body>\n\n  <h2>Vector Icons</h2>\n  <!-- Green Checkmark Circle -->\n  <svg width=\"100\" height=\"100\">\n    <circle cx=\"50\" cy=\"50\" r=\"40\" stroke=\"#04AA6D\" stroke-width=\"4\" fill=\"#04AA6D\" />\n  </svg>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 58,
+    slug: "image-maps-map-area-coordinate-tags",
+    title: "Image Maps (<map> & <area>)",
+    unit: "Unit 6: Multimedia & Responsive Art Direction",
+    bookRef: "Duckett Chapter 5 (p. 105-108)",
+    exercise: {
+      english: {
+        question: "Which attribute on an <img> connects it to a named <map>?",
+        options: ["usemap","map","targetmap","hotspot"],
+        correctAnswer: "usemap",
+        hint: "usemap=\"#mapName\" links the image to <map name=\"mapName\">."
+      },
+      hinglish: {
+        question: "Which attribute on an <img> connects it to a named <map>?",
+        options: ["usemap","map","targetmap","hotspot"],
+        correctAnswer: "usemap",
+        hint: "usemap=\"#mapName\" links the image to <map name=\"mapName\">."
+      },
+      hindi: {
+        question: "Which attribute on an <img> connects it to a named <map>?",
+        options: ["usemap","map","targetmap","hotspot"],
+        correctAnswer: "usemap",
+        hint: "usemap=\"#mapName\" links the image to <map name=\"mapName\">."
+      }
+    },
+    english: {
+      kid: "* 1. <map> creates clickable hotspot zones on images.\n* 2. usemap attribute on <img> links map.\n* 3. <area> defines shape and pixel coordinates.\n* 4. Supports shapes: rect, circle, and poly.\n* 5. Useful for interactive geographical site maps.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Image Maps</title>\n</head>\n<body>\n\n  <h2>Interactive Workstation Map</h2>\n  <img src=\"desk.jpg\" alt=\"Developer Desk\" usemap=\"#deskmap\">\n\n  <map name=\"deskmap\">\n    <area shape=\"rect\" coords=\"34,44,270,350\" alt=\"Monitor\" href=\"monitor.html\">\n    <area shape=\"circle\" coords=\"337,300,44\" alt=\"Coffee Cup\" href=\"coffee.html\">\n  </map>\n\n</body>\n</html>\n```",
+      pro: "* 1. <map> creates clickable hotspot zones on images.\n* 2. usemap attribute on <img> links map.\n* 3. <area> defines shape and pixel coordinates.\n* 4. Supports shapes: rect, circle, and poly.\n* 5. Useful for interactive geographical site maps.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Image Maps</title>\n</head>\n<body>\n\n  <h2>Interactive Workstation Map</h2>\n  <img src=\"desk.jpg\" alt=\"Developer Desk\" usemap=\"#deskmap\">\n\n  <map name=\"deskmap\">\n    <area shape=\"rect\" coords=\"34,44,270,350\" alt=\"Monitor\" href=\"monitor.html\">\n    <area shape=\"circle\" coords=\"337,300,44\" alt=\"Coffee Cup\" href=\"coffee.html\">\n  </map>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. <map> एक तस्वीर पर कई क्लिक करने वाले क्षेत्र बनाता है।\n* 2. <img> का usemap अट्रिब्यूट मैप को जोड़ता है।\n* 3. <area> आकृति और पिक्सल निर्देशांक (coords) तय करता है।\n* 4. rect, circle, और poly आकृतियों को सपोर्ट करता है।\n* 5. इंटरैक्टिव मानचित्रों और लेआउट के लिए उपयोगी है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Image Maps</title>\n</head>\n<body>\n\n  <h2>Interactive Workstation Map</h2>\n  <img src=\"desk.jpg\" alt=\"Developer Desk\" usemap=\"#deskmap\">\n\n  <map name=\"deskmap\">\n    <area shape=\"rect\" coords=\"34,44,270,350\" alt=\"Monitor\" href=\"monitor.html\">\n    <area shape=\"circle\" coords=\"337,300,44\" alt=\"Coffee Cup\" href=\"coffee.html\">\n  </map>\n\n</body>\n</html>\n```",
+      pro: "* 1. <map> एक तस्वीर पर कई क्लिक करने वाले क्षेत्र बनाता है।\n* 2. <img> का usemap अट्रिब्यूट मैप को जोड़ता है।\n* 3. <area> आकृति और पिक्सल निर्देशांक (coords) तय करता है।\n* 4. rect, circle, और poly आकृतियों को सपोर्ट करता है।\n* 5. इंटरैक्टिव मानचित्रों और लेआउट के लिए उपयोगी है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Image Maps</title>\n</head>\n<body>\n\n  <h2>Interactive Workstation Map</h2>\n  <img src=\"desk.jpg\" alt=\"Developer Desk\" usemap=\"#deskmap\">\n\n  <map name=\"deskmap\">\n    <area shape=\"rect\" coords=\"34,44,270,350\" alt=\"Monitor\" href=\"monitor.html\">\n    <area shape=\"circle\" coords=\"337,300,44\" alt=\"Coffee Cup\" href=\"coffee.html\">\n  </map>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. <map> एक तस्वीर पर कई क्लिक करने वाले क्षेत्र बनाता है।\n* 2. <img> का usemap अट्रिब्यूट मैप को जोड़ता है।\n* 3. <area> आकृति और पिक्सल निर्देशांक (coords) तय करता है।\n* 4. rect, circle, और poly आकृतियों को सपोर्ट करता है।\n* 5. इंटरैक्टिव मानचित्रों और लेआउट के लिए उपयोगी है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Image Maps</title>\n</head>\n<body>\n\n  <h2>Interactive Workstation Map</h2>\n  <img src=\"desk.jpg\" alt=\"Developer Desk\" usemap=\"#deskmap\">\n\n  <map name=\"deskmap\">\n    <area shape=\"rect\" coords=\"34,44,270,350\" alt=\"Monitor\" href=\"monitor.html\">\n    <area shape=\"circle\" coords=\"337,300,44\" alt=\"Coffee Cup\" href=\"coffee.html\">\n  </map>\n\n</body>\n</html>\n```",
+      pro: "* 1. <map> एक तस्वीर पर कई क्लिक करने वाले क्षेत्र बनाता है।\n* 2. <img> का usemap अट्रिब्यूट मैप को जोड़ता है।\n* 3. <area> आकृति और पिक्सल निर्देशांक (coords) तय करता है।\n* 4. rect, circle, और poly आकृतियों को सपोर्ट करता है।\n* 5. इंटरैक्टिव मानचित्रों और लेआउट के लिए उपयोगी है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Image Maps</title>\n</head>\n<body>\n\n  <h2>Interactive Workstation Map</h2>\n  <img src=\"desk.jpg\" alt=\"Developer Desk\" usemap=\"#deskmap\">\n\n  <map name=\"deskmap\">\n    <area shape=\"rect\" coords=\"34,44,270,350\" alt=\"Monitor\" href=\"monitor.html\">\n    <area shape=\"circle\" coords=\"337,300,44\" alt=\"Coffee Cup\" href=\"coffee.html\">\n  </map>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 59,
+    slug: "favicon-modern-format-link-types",
+    title: "Favicon Formats & Link Configurations",
+    unit: "Unit 6: Multimedia & Responsive Art Direction",
+    bookRef: "Duckett Chapter 8 (p. 190)",
+    exercise: {
+      english: {
+        question: "Which rel attribute value is used to specify a website favicon?",
+        options: ["icon","favicon","shortcut","logo"],
+        correctAnswer: "icon",
+        hint: "Use <link rel=\"icon\" href=\"favicon.svg\"> in the <head>."
+      },
+      hinglish: {
+        question: "Which rel attribute value is used to specify a website favicon?",
+        options: ["icon","favicon","shortcut","logo"],
+        correctAnswer: "icon",
+        hint: "Use <link rel=\"icon\" href=\"favicon.svg\"> in the <head>."
+      },
+      hindi: {
+        question: "Which rel attribute value is used to specify a website favicon?",
+        options: ["icon","favicon","shortcut","logo"],
+        correctAnswer: "icon",
+        hint: "Use <link rel=\"icon\" href=\"favicon.svg\"> in the <head>."
+      }
+    },
+    english: {
+      kid: "* 1. Favicons display on browser tab headers.\n* 2. Defined inside <head> using <link> tag.\n* 3. Modern sites use SVG and PNG favicons.\n* 4. Legacy browsers look for favicon.ico automatically.\n* 5. Enhances brand recognition across open tabs.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Nextsem Academy</title>\n  <!-- Modern SVG Favicon -->\n  <link rel=\"icon\" type=\"image/svg+xml\" href=\"/brand/icon.svg\">\n  <!-- Fallback ICO Favicon -->\n  <link rel=\"alternate icon\" href=\"/favicon.ico\">\n</head>\n<body>\n\n  <h1>Nextsem Academy</h1>\n  <p>Check your browser tab to see our clean brand favicon icon!</p>\n\n</body>\n</html>\n```",
+      pro: "* 1. Favicons display on browser tab headers.\n* 2. Defined inside <head> using <link> tag.\n* 3. Modern sites use SVG and PNG favicons.\n* 4. Legacy browsers look for favicon.ico automatically.\n* 5. Enhances brand recognition across open tabs.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Nextsem Academy</title>\n  <!-- Modern SVG Favicon -->\n  <link rel=\"icon\" type=\"image/svg+xml\" href=\"/brand/icon.svg\">\n  <!-- Fallback ICO Favicon -->\n  <link rel=\"alternate icon\" href=\"/favicon.ico\">\n</head>\n<body>\n\n  <h1>Nextsem Academy</h1>\n  <p>Check your browser tab to see our clean brand favicon icon!</p>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. फेविकॉन ब्राउज़र टैब के शीर्ष पर दिखता है।\n* 2. <head> के भीतर <link> टैग से जोड़ा जाता है।\n* 3. आधुनिक वेबसाइटें SVG और PNG फेविकॉन इस्तेमाल करती हैं।\n* 4. पुराने ब्राउज़र favicon.ico को सीधे खोज लेते हैं।\n* 5. खुले हुए टैब में ब्रांड की पहचान मजबूत करता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Nextsem Academy</title>\n  <!-- Modern SVG Favicon -->\n  <link rel=\"icon\" type=\"image/svg+xml\" href=\"/brand/icon.svg\">\n  <!-- Fallback ICO Favicon -->\n  <link rel=\"alternate icon\" href=\"/favicon.ico\">\n</head>\n<body>\n\n  <h1>Nextsem Academy</h1>\n  <p>Check your browser tab to see our clean brand favicon icon!</p>\n\n</body>\n</html>\n```",
+      pro: "* 1. फेविकॉन ब्राउज़र टैब के शीर्ष पर दिखता है।\n* 2. <head> के भीतर <link> टैग से जोड़ा जाता है।\n* 3. आधुनिक वेबसाइटें SVG और PNG फेविकॉन इस्तेमाल करती हैं।\n* 4. पुराने ब्राउज़र favicon.ico को सीधे खोज लेते हैं।\n* 5. खुले हुए टैब में ब्रांड की पहचान मजबूत करता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Nextsem Academy</title>\n  <!-- Modern SVG Favicon -->\n  <link rel=\"icon\" type=\"image/svg+xml\" href=\"/brand/icon.svg\">\n  <!-- Fallback ICO Favicon -->\n  <link rel=\"alternate icon\" href=\"/favicon.ico\">\n</head>\n<body>\n\n  <h1>Nextsem Academy</h1>\n  <p>Check your browser tab to see our clean brand favicon icon!</p>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. फेविकॉन ब्राउज़र टैब के शीर्ष पर दिखता है।\n* 2. <head> के भीतर <link> टैग से जोड़ा जाता है।\n* 3. आधुनिक वेबसाइटें SVG और PNG फेविकॉन इस्तेमाल करती हैं।\n* 4. पुराने ब्राउज़र favicon.ico को सीधे खोज लेते हैं।\n* 5. खुले हुए टैब में ब्रांड की पहचान मजबूत करता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Nextsem Academy</title>\n  <!-- Modern SVG Favicon -->\n  <link rel=\"icon\" type=\"image/svg+xml\" href=\"/brand/icon.svg\">\n  <!-- Fallback ICO Favicon -->\n  <link rel=\"alternate icon\" href=\"/favicon.ico\">\n</head>\n<body>\n\n  <h1>Nextsem Academy</h1>\n  <p>Check your browser tab to see our clean brand favicon icon!</p>\n\n</body>\n</html>\n```",
+      pro: "* 1. फेविकॉन ब्राउज़र टैब के शीर्ष पर दिखता है।\n* 2. <head> के भीतर <link> टैग से जोड़ा जाता है।\n* 3. आधुनिक वेबसाइटें SVG और PNG फेविकॉन इस्तेमाल करती हैं।\n* 4. पुराने ब्राउज़र favicon.ico को सीधे खोज लेते हैं।\n* 5. खुले हुए टैब में ब्रांड की पहचान मजबूत करता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Nextsem Academy</title>\n  <!-- Modern SVG Favicon -->\n  <link rel=\"icon\" type=\"image/svg+xml\" href=\"/brand/icon.svg\">\n  <!-- Fallback ICO Favicon -->\n  <link rel=\"alternate icon\" href=\"/favicon.ico\">\n</head>\n<body>\n\n  <h1>Nextsem Academy</h1>\n  <p>Check your browser tab to see our clean brand favicon icon!</p>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 60,
+    slug: "capstone-photo-gallery-responsive",
+    title: "Capstone Project: Responsive Photo Gallery",
+    unit: "Unit 6: Multimedia & Responsive Art Direction",
+    bookRef: "Nextsem Academy Project Suite",
+    exercise: {
+      english: {
+        question: "What is the recommended semantic container for images paired with captions in modern HTML5?",
+        options: ["<figure> with <figcaption>","<div> with <p>","<section> with <label>","<aside> with <span>"],
+        correctAnswer: "<figure> with <figcaption>",
+        hint: "<figure> and <figcaption> provide semantic grouping for captioned media."
+      },
+      hinglish: {
+        question: "What is the recommended semantic container for images paired with captions in modern HTML5?",
+        options: ["<figure> with <figcaption>","<div> with <p>","<section> with <label>","<aside> with <span>"],
+        correctAnswer: "<figure> with <figcaption>",
+        hint: "<figure> and <figcaption> provide semantic grouping for captioned media."
+      },
+      hindi: {
+        question: "What is the recommended semantic container for images paired with captions in modern HTML5?",
+        options: ["<figure> with <figcaption>","<div> with <p>","<section> with <label>","<aside> with <span>"],
+        correctAnswer: "<figure> with <figcaption>",
+        hint: "<figure> and <figcaption> provide semantic grouping for captioned media."
+      }
+    },
+    english: {
+      kid: "* 1. Combines semantic <figure>, <picture>, and <figcaption> tags.\n* 2. Implements native loading=\"lazy\" on all media.\n* 3. Uses descriptive alt text for accessibility.\n* 4. Built with 100% pure semantic HTML5.\n* 5. Serves responsive image sizes efficiently.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Developer Photo Gallery</title>\n</head>\n<body>\n\n  <header>\n    <h1>Web Development Studio Gallery</h1>\n    <p>Explore our collaborative workspaces and design blueprints.</p>\n  </header>\n\n  <main>\n    <figure>\n      <img src=\"workspace1.jpg\" alt=\"Developer coding with VS Code on Windows 11\" loading=\"lazy\" width=\"600\" height=\"350\">\n      <figcaption>Figure 1: High performance dual-monitor coding setup.</figcaption>\n    </figure>\n\n    <figure>\n      <img src=\"workspace2.jpg\" alt=\"UI/UX wireframe design review\" loading=\"lazy\" width=\"600\" height=\"350\">\n      <figcaption>Figure 2: Architecture wireframing and database modeling.</figcaption>\n    </figure>\n  </main>\n\n  <footer>\n    <p>&copy; 2026 Nextsem Academy. All rights reserved.</p>\n  </footer>\n\n</body>\n</html>\n```",
+      pro: "* 1. Combines semantic <figure>, <picture>, and <figcaption> tags.\n* 2. Implements native loading=\"lazy\" on all media.\n* 3. Uses descriptive alt text for accessibility.\n* 4. Built with 100% pure semantic HTML5.\n* 5. Serves responsive image sizes efficiently.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Developer Photo Gallery</title>\n</head>\n<body>\n\n  <header>\n    <h1>Web Development Studio Gallery</h1>\n    <p>Explore our collaborative workspaces and design blueprints.</p>\n  </header>\n\n  <main>\n    <figure>\n      <img src=\"workspace1.jpg\" alt=\"Developer coding with VS Code on Windows 11\" loading=\"lazy\" width=\"600\" height=\"350\">\n      <figcaption>Figure 1: High performance dual-monitor coding setup.</figcaption>\n    </figure>\n\n    <figure>\n      <img src=\"workspace2.jpg\" alt=\"UI/UX wireframe design review\" loading=\"lazy\" width=\"600\" height=\"350\">\n      <figcaption>Figure 2: Architecture wireframing and database modeling.</figcaption>\n    </figure>\n  </main>\n\n  <footer>\n    <p>&copy; 2026 Nextsem Academy. All rights reserved.</p>\n  </footer>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. <figure>, <picture>, और <figcaption> का संयोजन।\n* 2. सभी तस्वीरों पर native loading=\"lazy\" लागू करता है।\n* 3. पूर्ण पहुंच (Accessibility) के लिए alt टेक्स्ट जोड़ता है।\n* 4. 100% शुद्ध सिमेंटिक HTML5 से बना है।\n* 5. सभी स्क्रीन पर सही इमेज साइज सर्व करता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Developer Photo Gallery</title>\n</head>\n<body>\n\n  <header>\n    <h1>Web Development Studio Gallery</h1>\n    <p>Explore our collaborative workspaces and design blueprints.</p>\n  </header>\n\n  <main>\n    <figure>\n      <img src=\"workspace1.jpg\" alt=\"Developer coding with VS Code on Windows 11\" loading=\"lazy\" width=\"600\" height=\"350\">\n      <figcaption>Figure 1: High performance dual-monitor coding setup.</figcaption>\n    </figure>\n\n    <figure>\n      <img src=\"workspace2.jpg\" alt=\"UI/UX wireframe design review\" loading=\"lazy\" width=\"600\" height=\"350\">\n      <figcaption>Figure 2: Architecture wireframing and database modeling.</figcaption>\n    </figure>\n  </main>\n\n  <footer>\n    <p>&copy; 2026 Nextsem Academy. All rights reserved.</p>\n  </footer>\n\n</body>\n</html>\n```",
+      pro: "* 1. <figure>, <picture>, और <figcaption> का संयोजन।\n* 2. सभी तस्वीरों पर native loading=\"lazy\" लागू करता है।\n* 3. पूर्ण पहुंच (Accessibility) के लिए alt टेक्स्ट जोड़ता है।\n* 4. 100% शुद्ध सिमेंटिक HTML5 से बना है।\n* 5. सभी स्क्रीन पर सही इमेज साइज सर्व करता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Developer Photo Gallery</title>\n</head>\n<body>\n\n  <header>\n    <h1>Web Development Studio Gallery</h1>\n    <p>Explore our collaborative workspaces and design blueprints.</p>\n  </header>\n\n  <main>\n    <figure>\n      <img src=\"workspace1.jpg\" alt=\"Developer coding with VS Code on Windows 11\" loading=\"lazy\" width=\"600\" height=\"350\">\n      <figcaption>Figure 1: High performance dual-monitor coding setup.</figcaption>\n    </figure>\n\n    <figure>\n      <img src=\"workspace2.jpg\" alt=\"UI/UX wireframe design review\" loading=\"lazy\" width=\"600\" height=\"350\">\n      <figcaption>Figure 2: Architecture wireframing and database modeling.</figcaption>\n    </figure>\n  </main>\n\n  <footer>\n    <p>&copy; 2026 Nextsem Academy. All rights reserved.</p>\n  </footer>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. <figure>, <picture>, और <figcaption> का संयोजन।\n* 2. सभी तस्वीरों पर native loading=\"lazy\" लागू करता है।\n* 3. पूर्ण पहुंच (Accessibility) के लिए alt टेक्स्ट जोड़ता है।\n* 4. 100% शुद्ध सिमेंटिक HTML5 से बना है।\n* 5. सभी स्क्रीन पर सही इमेज साइज सर्व करता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Developer Photo Gallery</title>\n</head>\n<body>\n\n  <header>\n    <h1>Web Development Studio Gallery</h1>\n    <p>Explore our collaborative workspaces and design blueprints.</p>\n  </header>\n\n  <main>\n    <figure>\n      <img src=\"workspace1.jpg\" alt=\"Developer coding with VS Code on Windows 11\" loading=\"lazy\" width=\"600\" height=\"350\">\n      <figcaption>Figure 1: High performance dual-monitor coding setup.</figcaption>\n    </figure>\n\n    <figure>\n      <img src=\"workspace2.jpg\" alt=\"UI/UX wireframe design review\" loading=\"lazy\" width=\"600\" height=\"350\">\n      <figcaption>Figure 2: Architecture wireframing and database modeling.</figcaption>\n    </figure>\n  </main>\n\n  <footer>\n    <p>&copy; 2026 Nextsem Academy. All rights reserved.</p>\n  </footer>\n\n</body>\n</html>\n```",
+      pro: "* 1. <figure>, <picture>, और <figcaption> का संयोजन।\n* 2. सभी तस्वीरों पर native loading=\"lazy\" लागू करता है।\n* 3. पूर्ण पहुंच (Accessibility) के लिए alt टेक्स्ट जोड़ता है।\n* 4. 100% शुद्ध सिमेंटिक HTML5 से बना है।\n* 5. सभी स्क्रीन पर सही इमेज साइज सर्व करता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Developer Photo Gallery</title>\n</head>\n<body>\n\n  <header>\n    <h1>Web Development Studio Gallery</h1>\n    <p>Explore our collaborative workspaces and design blueprints.</p>\n  </header>\n\n  <main>\n    <figure>\n      <img src=\"workspace1.jpg\" alt=\"Developer coding with VS Code on Windows 11\" loading=\"lazy\" width=\"600\" height=\"350\">\n      <figcaption>Figure 1: High performance dual-monitor coding setup.</figcaption>\n    </figure>\n\n    <figure>\n      <img src=\"workspace2.jpg\" alt=\"UI/UX wireframe design review\" loading=\"lazy\" width=\"600\" height=\"350\">\n      <figcaption>Figure 2: Architecture wireframing and database modeling.</figcaption>\n    </figure>\n  </main>\n\n  <footer>\n    <p>&copy; 2026 Nextsem Academy. All rights reserved.</p>\n  </footer>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 61,
+    slug: "audio-elements-src-controls-autoplay-attributes",
+    title: "Audio Elements (src & controls)",
+    unit: "Unit 7: Native Audio, Video & Embeds",
+    bookRef: "Duckett Chapter 9 (p. 202-205)",
+    exercise: {
+      english: {
+        question: "Which attribute must be added to <audio> so users can see play and pause buttons?",
+        options: ["controls","playbar","buttons","autoplay"],
+        correctAnswer: "controls",
+        hint: "Without controls, the audio element remains invisible on the page."
+      },
+      hinglish: {
+        question: "Which attribute must be added to <audio> so users can see play and pause buttons?",
+        options: ["controls","playbar","buttons","autoplay"],
+        correctAnswer: "controls",
+        hint: "Without controls, the audio element remains invisible on the page."
+      },
+      hindi: {
+        question: "Which attribute must be added to <audio> so users can see play and pause buttons?",
+        options: ["controls","playbar","buttons","autoplay"],
+        correctAnswer: "controls",
+        hint: "Without controls, the audio element remains invisible on the page."
+      }
+    },
+    english: {
+      kid: "* 1. <audio> plays audio files natively in browsers.\n* 2. controls displays play pause volume buttons.\n* 3. src points to sound audio files.\n* 4. Text inside works as fallback message.\n* 5. No third-party Flash plugins needed.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Audio Player</title>\n</head>\n<body>\n\n  <h2>Podcast Player</h2>\n  <audio controls>\n    <source src=\"podcast.mp3\" type=\"audio/mpeg\">\n    Your browser does not support audio playback.\n  </audio>\n\n</body>\n</html>\n```",
+      pro: "* 1. <audio> plays audio files natively in browsers.\n* 2. controls displays play pause volume buttons.\n* 3. src points to sound audio files.\n* 4. Text inside works as fallback message.\n* 5. No third-party Flash plugins needed.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Audio Player</title>\n</head>\n<body>\n\n  <h2>Podcast Player</h2>\n  <audio controls>\n    <source src=\"podcast.mp3\" type=\"audio/mpeg\">\n    Your browser does not support audio playback.\n  </audio>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. <audio> ब्राउज़र में ऑडियो फाइल चलाता है।\n* 2. controls प्ले, पॉज, और वॉल्यूम बटन देता है।\n* 3. src ऑडियो फाइल का पाथ देता है।\n* 4. अंदर का टेक्स्ट फॉलबैक संदेश बनता है।\n* 5. किसी बाहरी फ्लैश प्लगइन की जरूरत नहीं।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Audio Player</title>\n</head>\n<body>\n\n  <h2>Podcast Player</h2>\n  <audio controls>\n    <source src=\"podcast.mp3\" type=\"audio/mpeg\">\n    Your browser does not support audio playback.\n  </audio>\n\n</body>\n</html>\n```",
+      pro: "* 1. <audio> ब्राउज़र में ऑडियो फाइल चलाता है।\n* 2. controls प्ले, पॉज, और वॉल्यूम बटन देता है।\n* 3. src ऑडियो फाइल का पाथ देता है।\n* 4. अंदर का टेक्स्ट फॉलबैक संदेश बनता है।\n* 5. किसी बाहरी फ्लैश प्लगइन की जरूरत नहीं।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Audio Player</title>\n</head>\n<body>\n\n  <h2>Podcast Player</h2>\n  <audio controls>\n    <source src=\"podcast.mp3\" type=\"audio/mpeg\">\n    Your browser does not support audio playback.\n  </audio>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. <audio> ब्राउज़र में ऑडियो फाइल चलाता है।\n* 2. controls प्ले, पॉज, और वॉल्यूम बटन देता है।\n* 3. src ऑडियो फाइल का पाथ देता है।\n* 4. अंदर का टेक्स्ट फॉलबैक संदेश बनता है।\n* 5. किसी बाहरी फ्लैश प्लगइन की जरूरत नहीं।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Audio Player</title>\n</head>\n<body>\n\n  <h2>Podcast Player</h2>\n  <audio controls>\n    <source src=\"podcast.mp3\" type=\"audio/mpeg\">\n    Your browser does not support audio playback.\n  </audio>\n\n</body>\n</html>\n```",
+      pro: "* 1. <audio> ब्राउज़र में ऑडियो फाइल चलाता है।\n* 2. controls प्ले, पॉज, और वॉल्यूम बटन देता है।\n* 3. src ऑडियो फाइल का पाथ देता है।\n* 4. अंदर का टेक्स्ट फॉलबैक संदेश बनता है।\n* 5. किसी बाहरी फ्लैश प्लगइन की जरूरत नहीं।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Audio Player</title>\n</head>\n<body>\n\n  <h2>Podcast Player</h2>\n  <audio controls>\n    <source src=\"podcast.mp3\" type=\"audio/mpeg\">\n    Your browser does not support audio playback.\n  </audio>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 62,
+    slug: "audio-fallback-source-format-types",
+    title: "Audio Fallback Formats & Sources",
+    unit: "Unit 7: Native Audio, Video & Embeds",
+    bookRef: "Duckett Chapter 9 (p. 206-208)",
+    exercise: {
+      english: {
+        question: "How does the browser choose which <source> to play inside an <audio> tag?",
+        options: ["It plays the first supported format in order","It plays the largest file size","It plays all formats at the same time","It prompts the user to select manually"],
+        correctAnswer: "It plays the first supported format in order",
+        hint: "The browser evaluates <source> tags from top to bottom."
+      },
+      hinglish: {
+        question: "How does the browser choose which <source> to play inside an <audio> tag?",
+        options: ["It plays the first supported format in order","It plays the largest file size","It plays all formats at the same time","It prompts the user to select manually"],
+        correctAnswer: "It plays the first supported format in order",
+        hint: "The browser evaluates <source> tags from top to bottom."
+      },
+      hindi: {
+        question: "How does the browser choose which <source> to play inside an <audio> tag?",
+        options: ["It plays the first supported format in order","It plays the largest file size","It plays all formats at the same time","It prompts the user to select manually"],
+        correctAnswer: "It plays the first supported format in order",
+        hint: "The browser evaluates <source> tags from top to bottom."
+      }
+    },
+    english: {
+      kid: "* 1. <source> provides multiple audio format alternatives.\n* 2. Browsers play the first supported format.\n* 3. MP3 provides universal browser playback compatibility.\n* 4. OGG and WAV provide open formats.\n* 5. type attribute specifies the audio MIME-type.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Audio Formats</title>\n</head>\n<body>\n\n  <h2>Multi-Format Audio Player</h2>\n  <audio controls>\n    <source src=\"soundtrack.ogg\" type=\"audio/ogg\">\n    <source src=\"soundtrack.mp3\" type=\"audio/mpeg\">\n    <source src=\"soundtrack.wav\" type=\"audio/wav\">\n    Audio element unsupported on this device.\n  </audio>\n\n</body>\n</html>\n```",
+      pro: "* 1. <source> provides multiple audio format alternatives.\n* 2. Browsers play the first supported format.\n* 3. MP3 provides universal browser playback compatibility.\n* 4. OGG and WAV provide open formats.\n* 5. type attribute specifies the audio MIME-type.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Audio Formats</title>\n</head>\n<body>\n\n  <h2>Multi-Format Audio Player</h2>\n  <audio controls>\n    <source src=\"soundtrack.ogg\" type=\"audio/ogg\">\n    <source src=\"soundtrack.mp3\" type=\"audio/mpeg\">\n    <source src=\"soundtrack.wav\" type=\"audio/wav\">\n    Audio element unsupported on this device.\n  </audio>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. <source> कई ऑडियो फॉर्मेट के विकल्प देता है।\n* 2. ब्राउज़र पहला समर्थित फॉर्मेट चलाता है।\n* 3. MP3 सभी ब्राउज़रों में आसानी से चलता है।\n* 4. OGG और WAV ओपन फॉर्मेट होते हैं।\n* 5. type अट्रिब्यूट ऑडियो का MIME प्रकार बताता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Audio Formats</title>\n</head>\n<body>\n\n  <h2>Multi-Format Audio Player</h2>\n  <audio controls>\n    <source src=\"soundtrack.ogg\" type=\"audio/ogg\">\n    <source src=\"soundtrack.mp3\" type=\"audio/mpeg\">\n    <source src=\"soundtrack.wav\" type=\"audio/wav\">\n    Audio element unsupported on this device.\n  </audio>\n\n</body>\n</html>\n```",
+      pro: "* 1. <source> कई ऑडियो फॉर्मेट के विकल्प देता है।\n* 2. ब्राउज़र पहला समर्थित फॉर्मेट चलाता है।\n* 3. MP3 सभी ब्राउज़रों में आसानी से चलता है।\n* 4. OGG और WAV ओपन फॉर्मेट होते हैं।\n* 5. type अट्रिब्यूट ऑडियो का MIME प्रकार बताता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Audio Formats</title>\n</head>\n<body>\n\n  <h2>Multi-Format Audio Player</h2>\n  <audio controls>\n    <source src=\"soundtrack.ogg\" type=\"audio/ogg\">\n    <source src=\"soundtrack.mp3\" type=\"audio/mpeg\">\n    <source src=\"soundtrack.wav\" type=\"audio/wav\">\n    Audio element unsupported on this device.\n  </audio>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. <source> कई ऑडियो फॉर्मेट के विकल्प देता है।\n* 2. ब्राउज़र पहला समर्थित फॉर्मेट चलाता है।\n* 3. MP3 सभी ब्राउज़रों में आसानी से चलता है।\n* 4. OGG और WAV ओपन फॉर्मेट होते हैं।\n* 5. type अट्रिब्यूट ऑडियो का MIME प्रकार बताता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Audio Formats</title>\n</head>\n<body>\n\n  <h2>Multi-Format Audio Player</h2>\n  <audio controls>\n    <source src=\"soundtrack.ogg\" type=\"audio/ogg\">\n    <source src=\"soundtrack.mp3\" type=\"audio/mpeg\">\n    <source src=\"soundtrack.wav\" type=\"audio/wav\">\n    Audio element unsupported on this device.\n  </audio>\n\n</body>\n</html>\n```",
+      pro: "* 1. <source> कई ऑडियो फॉर्मेट के विकल्प देता है।\n* 2. ब्राउज़र पहला समर्थित फॉर्मेट चलाता है।\n* 3. MP3 सभी ब्राउज़रों में आसानी से चलता है।\n* 4. OGG और WAV ओपन फॉर्मेट होते हैं।\n* 5. type अट्रिब्यूट ऑडियो का MIME प्रकार बताता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Audio Formats</title>\n</head>\n<body>\n\n  <h2>Multi-Format Audio Player</h2>\n  <audio controls>\n    <source src=\"soundtrack.ogg\" type=\"audio/ogg\">\n    <source src=\"soundtrack.mp3\" type=\"audio/mpeg\">\n    <source src=\"soundtrack.wav\" type=\"audio/wav\">\n    Audio element unsupported on this device.\n  </audio>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 63,
+    slug: "video-elements-src-poster-preload-settings",
+    title: "Video Elements (poster & preload)",
+    unit: "Unit 7: Native Audio, Video & Embeds",
+    bookRef: "Duckett Chapter 9 (p. 209-214)",
+    exercise: {
+      english: {
+        question: "Which attribute sets a preview thumbnail image before the video begins playing?",
+        options: ["poster","thumbnail","cover","preview"],
+        correctAnswer: "poster",
+        hint: "The poster attribute specifies an image to show while the video downloads."
+      },
+      hinglish: {
+        question: "Which attribute sets a preview thumbnail image before the video begins playing?",
+        options: ["poster","thumbnail","cover","preview"],
+        correctAnswer: "poster",
+        hint: "The poster attribute specifies an image to show while the video downloads."
+      },
+      hindi: {
+        question: "Which attribute sets a preview thumbnail image before the video begins playing?",
+        options: ["poster","thumbnail","cover","preview"],
+        correctAnswer: "poster",
+        hint: "The poster attribute specifies an image to show while the video downloads."
+      }
+    },
+    english: {
+      kid: "* 1. <video> embeds video clips directly on pages.\n* 2. poster specifies preview thumbnail cover image.\n* 3. controls enables play seek volume controls.\n* 4. width and height prevent layout reflows.\n* 5. preload controls initial video buffering behavior.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Video Player</title>\n</head>\n<body>\n\n  <h2>Full Stack Lesson Video</h2>\n  <video controls width=\"640\" height=\"360\" poster=\"poster_cover.jpg\">\n    <source src=\"lesson_demo.mp4\" type=\"video/mp4\">\n    <source src=\"lesson_demo.webm\" type=\"video/webm\">\n    Your browser does not support HTML5 video.\n  </video>\n\n</body>\n</html>\n```",
+      pro: "* 1. <video> embeds video clips directly on pages.\n* 2. poster specifies preview thumbnail cover image.\n* 3. controls enables play seek volume controls.\n* 4. width and height prevent layout reflows.\n* 5. preload controls initial video buffering behavior.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Video Player</title>\n</head>\n<body>\n\n  <h2>Full Stack Lesson Video</h2>\n  <video controls width=\"640\" height=\"360\" poster=\"poster_cover.jpg\">\n    <source src=\"lesson_demo.mp4\" type=\"video/mp4\">\n    <source src=\"lesson_demo.webm\" type=\"video/webm\">\n    Your browser does not support HTML5 video.\n  </video>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. <video> वेबपेज में वीडियो चलाता है।\n* 2. poster वीडियो का थंबनेल कवर दिखाता है।\n* 3. controls प्ले, पॉज और सीक बार देता है।\n* 4. width और height लेआउट को स्थिर रखते हैं।\n* 5. preload वीडियो की बफरिंग नियंत्रित करता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Video Player</title>\n</head>\n<body>\n\n  <h2>Full Stack Lesson Video</h2>\n  <video controls width=\"640\" height=\"360\" poster=\"poster_cover.jpg\">\n    <source src=\"lesson_demo.mp4\" type=\"video/mp4\">\n    <source src=\"lesson_demo.webm\" type=\"video/webm\">\n    Your browser does not support HTML5 video.\n  </video>\n\n</body>\n</html>\n```",
+      pro: "* 1. <video> वेबपेज में वीडियो चलाता है।\n* 2. poster वीडियो का थंबनेल कवर दिखाता है।\n* 3. controls प्ले, पॉज और सीक बार देता है।\n* 4. width और height लेआउट को स्थिर रखते हैं।\n* 5. preload वीडियो की बफरिंग नियंत्रित करता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Video Player</title>\n</head>\n<body>\n\n  <h2>Full Stack Lesson Video</h2>\n  <video controls width=\"640\" height=\"360\" poster=\"poster_cover.jpg\">\n    <source src=\"lesson_demo.mp4\" type=\"video/mp4\">\n    <source src=\"lesson_demo.webm\" type=\"video/webm\">\n    Your browser does not support HTML5 video.\n  </video>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. <video> वेबपेज में वीडियो चलाता है।\n* 2. poster वीडियो का थंबनेल कवर दिखाता है।\n* 3. controls प्ले, पॉज और सीक बार देता है।\n* 4. width और height लेआउट को स्थिर रखते हैं।\n* 5. preload वीडियो की बफरिंग नियंत्रित करता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Video Player</title>\n</head>\n<body>\n\n  <h2>Full Stack Lesson Video</h2>\n  <video controls width=\"640\" height=\"360\" poster=\"poster_cover.jpg\">\n    <source src=\"lesson_demo.mp4\" type=\"video/mp4\">\n    <source src=\"lesson_demo.webm\" type=\"video/webm\">\n    Your browser does not support HTML5 video.\n  </video>\n\n</body>\n</html>\n```",
+      pro: "* 1. <video> वेबपेज में वीडियो चलाता है।\n* 2. poster वीडियो का थंबनेल कवर दिखाता है।\n* 3. controls प्ले, पॉज और सीक बार देता है।\n* 4. width और height लेआउट को स्थिर रखते हैं।\n* 5. preload वीडियो की बफरिंग नियंत्रित करता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Video Player</title>\n</head>\n<body>\n\n  <h2>Full Stack Lesson Video</h2>\n  <video controls width=\"640\" height=\"360\" poster=\"poster_cover.jpg\">\n    <source src=\"lesson_demo.mp4\" type=\"video/mp4\">\n    <source src=\"lesson_demo.webm\" type=\"video/webm\">\n    Your browser does not support HTML5 video.\n  </video>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 64,
+    slug: "video-subtitles-tracks-element",
+    title: "Video Subtitles & Captions (<track>)",
+    unit: "Unit 7: Native Audio, Video & Embeds",
+    bookRef: "HTML5: The Missing Manual Chapter 5",
+    exercise: {
+      english: {
+        question: "Which file format standard is used with the <track> element for subtitles?",
+        options: ["WebVTT (.vtt)","SubRip (.srt)","Text (.txt)","JSON (.json)"],
+        correctAnswer: "WebVTT (.vtt)",
+        hint: "The <track> element uses the WebVTT (Web Video Text Tracks) standard format."
+      },
+      hinglish: {
+        question: "Which file format standard is used with the <track> element for subtitles?",
+        options: ["WebVTT (.vtt)","SubRip (.srt)","Text (.txt)","JSON (.json)"],
+        correctAnswer: "WebVTT (.vtt)",
+        hint: "The <track> element uses the WebVTT (Web Video Text Tracks) standard format."
+      },
+      hindi: {
+        question: "Which file format standard is used with the <track> element for subtitles?",
+        options: ["WebVTT (.vtt)","SubRip (.srt)","Text (.txt)","JSON (.json)"],
+        correctAnswer: "WebVTT (.vtt)",
+        hint: "The <track> element uses the WebVTT (Web Video Text Tracks) standard format."
+      }
+    },
+    english: {
+      kid: "* 1. <track> provides timed text captions and subtitles.\n* 2. Uses standardized WebVTT (.vtt) subtitle files.\n* 3. kind specifies subtitles, captions, or descriptions.\n* 4. srclang sets the subtitle language code.\n* 5. Essential for deaf and international accessibility.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Video Subtitles</title>\n</head>\n<body>\n\n  <h2>Subtitled Tutorial</h2>\n  <video controls width=\"640\">\n    <source src=\"tutorial.mp4\" type=\"video/mp4\">\n    <track src=\"captions_en.vtt\" kind=\"subtitles\" srclang=\"en\" label=\"English\" default>\n    <track src=\"captions_hi.vtt\" kind=\"subtitles\" srclang=\"hi\" label=\"Hindi\">\n  </video>\n\n</body>\n</html>\n```",
+      pro: "* 1. <track> provides timed text captions and subtitles.\n* 2. Uses standardized WebVTT (.vtt) subtitle files.\n* 3. kind specifies subtitles, captions, or descriptions.\n* 4. srclang sets the subtitle language code.\n* 5. Essential for deaf and international accessibility.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Video Subtitles</title>\n</head>\n<body>\n\n  <h2>Subtitled Tutorial</h2>\n  <video controls width=\"640\">\n    <source src=\"tutorial.mp4\" type=\"video/mp4\">\n    <track src=\"captions_en.vtt\" kind=\"subtitles\" srclang=\"en\" label=\"English\" default>\n    <track src=\"captions_hi.vtt\" kind=\"subtitles\" srclang=\"hi\" label=\"Hindi\">\n  </video>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. <track> वीडियो में सबटाइटल और कैप्शन जोड़ता है।\n* 2. मानक WebVTT (.vtt) फाइलों का उपयोग करता है।\n* 3. kind प्रकार (subtitles/captions) तय करता है।\n* 4. srclang भाषा का कोड सेट करता है।\n* 5. सभी यूजर्स के लिए वीडियो को सुलभ बनाता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Video Subtitles</title>\n</head>\n<body>\n\n  <h2>Subtitled Tutorial</h2>\n  <video controls width=\"640\">\n    <source src=\"tutorial.mp4\" type=\"video/mp4\">\n    <track src=\"captions_en.vtt\" kind=\"subtitles\" srclang=\"en\" label=\"English\" default>\n    <track src=\"captions_hi.vtt\" kind=\"subtitles\" srclang=\"hi\" label=\"Hindi\">\n  </video>\n\n</body>\n</html>\n```",
+      pro: "* 1. <track> वीडियो में सबटाइटल और कैप्शन जोड़ता है।\n* 2. मानक WebVTT (.vtt) फाइलों का उपयोग करता है।\n* 3. kind प्रकार (subtitles/captions) तय करता है।\n* 4. srclang भाषा का कोड सेट करता है।\n* 5. सभी यूजर्स के लिए वीडियो को सुलभ बनाता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Video Subtitles</title>\n</head>\n<body>\n\n  <h2>Subtitled Tutorial</h2>\n  <video controls width=\"640\">\n    <source src=\"tutorial.mp4\" type=\"video/mp4\">\n    <track src=\"captions_en.vtt\" kind=\"subtitles\" srclang=\"en\" label=\"English\" default>\n    <track src=\"captions_hi.vtt\" kind=\"subtitles\" srclang=\"hi\" label=\"Hindi\">\n  </video>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. <track> वीडियो में सबटाइटल और कैप्शन जोड़ता है।\n* 2. मानक WebVTT (.vtt) फाइलों का उपयोग करता है।\n* 3. kind प्रकार (subtitles/captions) तय करता है।\n* 4. srclang भाषा का कोड सेट करता है।\n* 5. सभी यूजर्स के लिए वीडियो को सुलभ बनाता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Video Subtitles</title>\n</head>\n<body>\n\n  <h2>Subtitled Tutorial</h2>\n  <video controls width=\"640\">\n    <source src=\"tutorial.mp4\" type=\"video/mp4\">\n    <track src=\"captions_en.vtt\" kind=\"subtitles\" srclang=\"en\" label=\"English\" default>\n    <track src=\"captions_hi.vtt\" kind=\"subtitles\" srclang=\"hi\" label=\"Hindi\">\n  </video>\n\n</body>\n</html>\n```",
+      pro: "* 1. <track> वीडियो में सबटाइटल और कैप्शन जोड़ता है।\n* 2. मानक WebVTT (.vtt) फाइलों का उपयोग करता है।\n* 3. kind प्रकार (subtitles/captions) तय करता है।\n* 4. srclang भाषा का कोड सेट करता है।\n* 5. सभी यूजर्स के लिए वीडियो को सुलभ बनाता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Video Subtitles</title>\n</head>\n<body>\n\n  <h2>Subtitled Tutorial</h2>\n  <video controls width=\"640\">\n    <source src=\"tutorial.mp4\" type=\"video/mp4\">\n    <track src=\"captions_en.vtt\" kind=\"subtitles\" srclang=\"en\" label=\"English\" default>\n    <track src=\"captions_hi.vtt\" kind=\"subtitles\" srclang=\"hi\" label=\"Hindi\">\n  </video>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 65,
+    slug: "embedding-external-sites-iframe-sandbox",
+    title: "External Site Embedding (<iframe> & sandbox)",
+    unit: "Unit 7: Native Audio, Video & Embeds",
+    bookRef: "Duckett Chapter 9 (p. 215-218)",
+    exercise: {
+      english: {
+        question: "Which attribute applies security restrictions to untrusted content inside an <iframe>?",
+        options: ["sandbox","security","protect","isolation"],
+        correctAnswer: "sandbox",
+        hint: "The sandbox attribute restricts scripts, popups, and parent navigation."
+      },
+      hinglish: {
+        question: "Which attribute applies security restrictions to untrusted content inside an <iframe>?",
+        options: ["sandbox","security","protect","isolation"],
+        correctAnswer: "sandbox",
+        hint: "The sandbox attribute restricts scripts, popups, and parent navigation."
+      },
+      hindi: {
+        question: "Which attribute applies security restrictions to untrusted content inside an <iframe>?",
+        options: ["sandbox","security","protect","isolation"],
+        correctAnswer: "sandbox",
+        hint: "The sandbox attribute restricts scripts, popups, and parent navigation."
+      }
+    },
+    english: {
+      kid: "* 1. <iframe> embeds another HTML page inside.\n* 2. src specifies embedded target website URL.\n* 3. sandbox restricts scripts, forms, and popups.\n* 4. title attribute provides screen reader accessibility.\n* 5. Common for YouTube videos and Google Maps.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Iframe Embeds</title>\n</head>\n<body>\n\n  <h2>Embedded Resource</h2>\n  <iframe \n    src=\"https://example.com\" \n    width=\"600\" \n    height=\"400\" \n    title=\"Example Documentation Window\" \n    sandbox=\"allow-scripts allow-same-origin\">\n  </iframe>\n\n</body>\n</html>\n```",
+      pro: "* 1. <iframe> embeds another HTML page inside.\n* 2. src specifies embedded target website URL.\n* 3. sandbox restricts scripts, forms, and popups.\n* 4. title attribute provides screen reader accessibility.\n* 5. Common for YouTube videos and Google Maps.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Iframe Embeds</title>\n</head>\n<body>\n\n  <h2>Embedded Resource</h2>\n  <iframe \n    src=\"https://example.com\" \n    width=\"600\" \n    height=\"400\" \n    title=\"Example Documentation Window\" \n    sandbox=\"allow-scripts allow-same-origin\">\n  </iframe>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. <iframe> एक पेज के अंदर दूसरा पेज खोलता है।\n* 2. src टारगेट वेबसाइट का पता देता है।\n* 3. sandbox सुरक्षा प्रतिबंध लगाता है।\n* 4. title स्क्रीन रीडर के लिए विवरण देता है।\n* 5. यूट्यूब वीडियो और मैप्स लगाने के लिए उपयोग होता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Iframe Embeds</title>\n</head>\n<body>\n\n  <h2>Embedded Resource</h2>\n  <iframe \n    src=\"https://example.com\" \n    width=\"600\" \n    height=\"400\" \n    title=\"Example Documentation Window\" \n    sandbox=\"allow-scripts allow-same-origin\">\n  </iframe>\n\n</body>\n</html>\n```",
+      pro: "* 1. <iframe> एक पेज के अंदर दूसरा पेज खोलता है।\n* 2. src टारगेट वेबसाइट का पता देता है।\n* 3. sandbox सुरक्षा प्रतिबंध लगाता है।\n* 4. title स्क्रीन रीडर के लिए विवरण देता है।\n* 5. यूट्यूब वीडियो और मैप्स लगाने के लिए उपयोग होता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Iframe Embeds</title>\n</head>\n<body>\n\n  <h2>Embedded Resource</h2>\n  <iframe \n    src=\"https://example.com\" \n    width=\"600\" \n    height=\"400\" \n    title=\"Example Documentation Window\" \n    sandbox=\"allow-scripts allow-same-origin\">\n  </iframe>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. <iframe> एक पेज के अंदर दूसरा पेज खोलता है।\n* 2. src टारगेट वेबसाइट का पता देता है।\n* 3. sandbox सुरक्षा प्रतिबंध लगाता है।\n* 4. title स्क्रीन रीडर के लिए विवरण देता है।\n* 5. यूट्यूब वीडियो और मैप्स लगाने के लिए उपयोग होता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Iframe Embeds</title>\n</head>\n<body>\n\n  <h2>Embedded Resource</h2>\n  <iframe \n    src=\"https://example.com\" \n    width=\"600\" \n    height=\"400\" \n    title=\"Example Documentation Window\" \n    sandbox=\"allow-scripts allow-same-origin\">\n  </iframe>\n\n</body>\n</html>\n```",
+      pro: "* 1. <iframe> एक पेज के अंदर दूसरा पेज खोलता है।\n* 2. src टारगेट वेबसाइट का पता देता है।\n* 3. sandbox सुरक्षा प्रतिबंध लगाता है।\n* 4. title स्क्रीन रीडर के लिए विवरण देता है।\n* 5. यूट्यूब वीडियो और मैप्स लगाने के लिए उपयोग होता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Iframe Embeds</title>\n</head>\n<body>\n\n  <h2>Embedded Resource</h2>\n  <iframe \n    src=\"https://example.com\" \n    width=\"600\" \n    height=\"400\" \n    title=\"Example Documentation Window\" \n    sandbox=\"allow-scripts allow-same-origin\">\n  </iframe>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 66,
+    slug: "plugin-insertion-embed-object-elements",
+    title: "Plugin Insertion (<embed> & <object>)",
+    unit: "Unit 7: Native Audio, Video & Embeds",
+    bookRef: "Duckett Chapter 9 (p. 219-221)",
+    exercise: {
+      english: {
+        question: "Which attribute on <object> specifies the URL of the external document to embed?",
+        options: ["data","src","href","file"],
+        correctAnswer: "data",
+        hint: "The <object> element uses the data attribute to locate resources."
+      },
+      hinglish: {
+        question: "Which attribute on <object> specifies the URL of the external document to embed?",
+        options: ["data","src","href","file"],
+        correctAnswer: "data",
+        hint: "The <object> element uses the data attribute to locate resources."
+      },
+      hindi: {
+        question: "Which attribute on <object> specifies the URL of the external document to embed?",
+        options: ["data","src","href","file"],
+        correctAnswer: "data",
+        hint: "The <object> element uses the data attribute to locate resources."
+      }
+    },
+    english: {
+      kid: "* 1. <object> embeds general external media resources.\n* 2. data attribute provides target resource URL.\n* 3. Can embed PDF documents and SVG drawings.\n* 4. Supports fallback content inside its tags.\n* 5. <embed> is a self-closing plugin element.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Object and Embed</title>\n</head>\n<body>\n\n  <h2>PDF Document Viewer</h2>\n  <object data=\"syllabus.pdf\" type=\"application/pdf\" width=\"600\" height=\"400\">\n    <p>Your browser cannot view PDFs. <a href=\"syllabus.pdf\">Download Syllabus PDF</a></p>\n  </object>\n\n</body>\n</html>\n```",
+      pro: "* 1. <object> embeds general external media resources.\n* 2. data attribute provides target resource URL.\n* 3. Can embed PDF documents and SVG drawings.\n* 4. Supports fallback content inside its tags.\n* 5. <embed> is a self-closing plugin element.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Object and Embed</title>\n</head>\n<body>\n\n  <h2>PDF Document Viewer</h2>\n  <object data=\"syllabus.pdf\" type=\"application/pdf\" width=\"600\" height=\"400\">\n    <p>Your browser cannot view PDFs. <a href=\"syllabus.pdf\">Download Syllabus PDF</a></p>\n  </object>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. <object> बाहरी मीडिया फाइलों को लोड करता है।\n* 2. data अट्रिब्यूट फाइल का पाथ देता है।\n* 3. PDF डॉक्यूमेंट्स और SVG ग्राफिक्स लोड कर सकता है।\n* 4. अंदर फॉलबैक कंटेंट की सुविधा देता है।\n* 5. <embed> एक सेल्फ-क्लोजिंग टैग होता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Object and Embed</title>\n</head>\n<body>\n\n  <h2>PDF Document Viewer</h2>\n  <object data=\"syllabus.pdf\" type=\"application/pdf\" width=\"600\" height=\"400\">\n    <p>Your browser cannot view PDFs. <a href=\"syllabus.pdf\">Download Syllabus PDF</a></p>\n  </object>\n\n</body>\n</html>\n```",
+      pro: "* 1. <object> बाहरी मीडिया फाइलों को लोड करता है।\n* 2. data अट्रिब्यूट फाइल का पाथ देता है।\n* 3. PDF डॉक्यूमेंट्स और SVG ग्राफिक्स लोड कर सकता है।\n* 4. अंदर फॉलबैक कंटेंट की सुविधा देता है।\n* 5. <embed> एक सेल्फ-क्लोजिंग टैग होता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Object and Embed</title>\n</head>\n<body>\n\n  <h2>PDF Document Viewer</h2>\n  <object data=\"syllabus.pdf\" type=\"application/pdf\" width=\"600\" height=\"400\">\n    <p>Your browser cannot view PDFs. <a href=\"syllabus.pdf\">Download Syllabus PDF</a></p>\n  </object>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. <object> बाहरी मीडिया फाइलों को लोड करता है।\n* 2. data अट्रिब्यूट फाइल का पाथ देता है।\n* 3. PDF डॉक्यूमेंट्स और SVG ग्राफिक्स लोड कर सकता है।\n* 4. अंदर फॉलबैक कंटेंट की सुविधा देता है।\n* 5. <embed> एक सेल्फ-क्लोजिंग टैग होता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Object and Embed</title>\n</head>\n<body>\n\n  <h2>PDF Document Viewer</h2>\n  <object data=\"syllabus.pdf\" type=\"application/pdf\" width=\"600\" height=\"400\">\n    <p>Your browser cannot view PDFs. <a href=\"syllabus.pdf\">Download Syllabus PDF</a></p>\n  </object>\n\n</body>\n</html>\n```",
+      pro: "* 1. <object> बाहरी मीडिया फाइलों को लोड करता है।\n* 2. data अट्रिब्यूट फाइल का पाथ देता है।\n* 3. PDF डॉक्यूमेंट्स और SVG ग्राफिक्स लोड कर सकता है।\n* 4. अंदर फॉलबैक कंटेंट की सुविधा देता है।\n* 5. <embed> एक सेल्फ-क्लोजिंग टैग होता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Object and Embed</title>\n</head>\n<body>\n\n  <h2>PDF Document Viewer</h2>\n  <object data=\"syllabus.pdf\" type=\"application/pdf\" width=\"600\" height=\"400\">\n    <p>Your browser cannot view PDFs. <a href=\"syllabus.pdf\">Download Syllabus PDF</a></p>\n  </object>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 67,
+    slug: "custom-data-attributes-data-prefix",
+    title: "Custom Data Attributes (data-*)",
+    unit: "Unit 7: Native Audio, Video & Embeds",
+    bookRef: "HTML5: The Missing Manual Chapter 13",
+    exercise: {
+      english: {
+        question: "What must all custom HTML5 data attributes begin with?",
+        options: ["data-","custom-","var-","meta-"],
+        correctAnswer: "data-",
+        hint: "Custom attributes must start with the prefix data- (e.g., data-user-id)."
+      },
+      hinglish: {
+        question: "What must all custom HTML5 data attributes begin with?",
+        options: ["data-","custom-","var-","meta-"],
+        correctAnswer: "data-",
+        hint: "Custom attributes must start with the prefix data- (e.g., data-user-id)."
+      },
+      hindi: {
+        question: "What must all custom HTML5 data attributes begin with?",
+        options: ["data-","custom-","var-","meta-"],
+        correctAnswer: "data-",
+        hint: "Custom attributes must start with the prefix data- (e.g., data-user-id)."
+      }
+    },
+    english: {
+      kid: "* 1. data-* stores custom private metadata on elements.\n* 2. Prefix must always start with data-.\n* 3. Does not affect visual display styling.\n* 4. Readable via JavaScript dataset API object.\n* 5. Keeps HTML completely valid and standardized.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Custom Data Attributes</title>\n</head>\n<body>\n\n  <h1>Course Catalog</h1>\n  <article \n    id=\"course101\" \n    data-category=\"frontend\" \n    data-lessons=\"101\" \n    data-difficulty=\"beginner\">\n    <h2>HTML5 Complete Guide</h2>\n    <p>Learn web markup from scratch.</p>\n  </article>\n\n</body>\n</html>\n```",
+      pro: "* 1. data-* stores custom private metadata on elements.\n* 2. Prefix must always start with data-.\n* 3. Does not affect visual display styling.\n* 4. Readable via JavaScript dataset API object.\n* 5. Keeps HTML completely valid and standardized.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Custom Data Attributes</title>\n</head>\n<body>\n\n  <h1>Course Catalog</h1>\n  <article \n    id=\"course101\" \n    data-category=\"frontend\" \n    data-lessons=\"101\" \n    data-difficulty=\"beginner\">\n    <h2>HTML5 Complete Guide</h2>\n    <p>Learn web markup from scratch.</p>\n  </article>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. data-* तत्वों पर कस्टम डेटा स्टोर करता है।\n* 2. नाम हमेशा data- से शुरू होना चाहिए।\n* 3. पेज के विजुअल लुक पर कोई असर नहीं पड़ता।\n* 4. जावास्क्रिप्ट dataset से आसानी से पढ़ा जा सकता है।\n* 5. HTML को मानक और वैध बनाए रखता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Custom Data Attributes</title>\n</head>\n<body>\n\n  <h1>Course Catalog</h1>\n  <article \n    id=\"course101\" \n    data-category=\"frontend\" \n    data-lessons=\"101\" \n    data-difficulty=\"beginner\">\n    <h2>HTML5 Complete Guide</h2>\n    <p>Learn web markup from scratch.</p>\n  </article>\n\n</body>\n</html>\n```",
+      pro: "* 1. data-* तत्वों पर कस्टम डेटा स्टोर करता है।\n* 2. नाम हमेशा data- से शुरू होना चाहिए।\n* 3. पेज के विजुअल लुक पर कोई असर नहीं पड़ता।\n* 4. जावास्क्रिप्ट dataset से आसानी से पढ़ा जा सकता है।\n* 5. HTML को मानक और वैध बनाए रखता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Custom Data Attributes</title>\n</head>\n<body>\n\n  <h1>Course Catalog</h1>\n  <article \n    id=\"course101\" \n    data-category=\"frontend\" \n    data-lessons=\"101\" \n    data-difficulty=\"beginner\">\n    <h2>HTML5 Complete Guide</h2>\n    <p>Learn web markup from scratch.</p>\n  </article>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. data-* तत्वों पर कस्टम डेटा स्टोर करता है।\n* 2. नाम हमेशा data- से शुरू होना चाहिए।\n* 3. पेज के विजुअल लुक पर कोई असर नहीं पड़ता।\n* 4. जावास्क्रिप्ट dataset से आसानी से पढ़ा जा सकता है।\n* 5. HTML को मानक और वैध बनाए रखता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Custom Data Attributes</title>\n</head>\n<body>\n\n  <h1>Course Catalog</h1>\n  <article \n    id=\"course101\" \n    data-category=\"frontend\" \n    data-lessons=\"101\" \n    data-difficulty=\"beginner\">\n    <h2>HTML5 Complete Guide</h2>\n    <p>Learn web markup from scratch.</p>\n  </article>\n\n</body>\n</html>\n```",
+      pro: "* 1. data-* तत्वों पर कस्टम डेटा स्टोर करता है।\n* 2. नाम हमेशा data- से शुरू होना चाहिए।\n* 3. पेज के विजुअल लुक पर कोई असर नहीं पड़ता।\n* 4. जावास्क्रिप्ट dataset से आसानी से पढ़ा जा सकता है।\n* 5. HTML को मानक और वैध बनाए रखता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Custom Data Attributes</title>\n</head>\n<body>\n\n  <h1>Course Catalog</h1>\n  <article \n    id=\"course101\" \n    data-category=\"frontend\" \n    data-lessons=\"101\" \n    data-difficulty=\"beginner\">\n    <h2>HTML5 Complete Guide</h2>\n    <p>Learn web markup from scratch.</p>\n  </article>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 68,
+    slug: "iframe-communication-security-headers",
+    title: "Iframe Security & Permission Policies",
+    unit: "Unit 7: Native Audio, Video & Embeds",
+    bookRef: "The Definitive Guide to HTML5 Chapter 13",
+    exercise: {
+      english: {
+        question: "Which attribute specifies device features (like camera or geolocation) an iframe may use?",
+        options: ["allow","permissions","enable","access"],
+        correctAnswer: "allow",
+        hint: "The allow attribute defines the feature policy for an <iframe>."
+      },
+      hinglish: {
+        question: "Which attribute specifies device features (like camera or geolocation) an iframe may use?",
+        options: ["allow","permissions","enable","access"],
+        correctAnswer: "allow",
+        hint: "The allow attribute defines the feature policy for an <iframe>."
+      },
+      hindi: {
+        question: "Which attribute specifies device features (like camera or geolocation) an iframe may use?",
+        options: ["allow","permissions","enable","access"],
+        correctAnswer: "allow",
+        hint: "The allow attribute defines the feature policy for an <iframe>."
+      }
+    },
+    english: {
+      kid: "* 1. allow attribute specifies allowed hardware features.\n* 2. Controls access to cameras and microphones.\n* 3. sandbox prevents malicious script execution attacks.\n* 4. title attribute describes iframe for accessibility.\n* 5. Protects users from third-party cross-site attacks.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Iframe Security</title>\n</head>\n<body>\n\n  <h2>Secure Map Embed</h2>\n  <iframe \n    src=\"https://maps.google.com\" \n    width=\"600\" \n    height=\"350\" \n    title=\"Location Map\" \n    allow=\"geolocation\" \n    sandbox=\"allow-scripts allow-same-origin\">\n  </iframe>\n\n</body>\n</html>\n```",
+      pro: "* 1. allow attribute specifies allowed hardware features.\n* 2. Controls access to cameras and microphones.\n* 3. sandbox prevents malicious script execution attacks.\n* 4. title attribute describes iframe for accessibility.\n* 5. Protects users from third-party cross-site attacks.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Iframe Security</title>\n</head>\n<body>\n\n  <h2>Secure Map Embed</h2>\n  <iframe \n    src=\"https://maps.google.com\" \n    width=\"600\" \n    height=\"350\" \n    title=\"Location Map\" \n    allow=\"geolocation\" \n    sandbox=\"allow-scripts allow-same-origin\">\n  </iframe>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. allow अट्रिब्यूट हार्डवेयर एक्सेस अनुमतियां देता है।\n* 2. कैमरा और माइक्रोफोन एक्सेस को नियंत्रित करता है।\n* 3. sandbox खतरनाक स्क्रिप्ट्स चलने से रोकता है।\n* 4. title स्क्रीन रीडर्स के लिए विवरण देता है।\n* 5. उपयोगकर्ताओं को सुरक्षा हमलों से बचाता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Iframe Security</title>\n</head>\n<body>\n\n  <h2>Secure Map Embed</h2>\n  <iframe \n    src=\"https://maps.google.com\" \n    width=\"600\" \n    height=\"350\" \n    title=\"Location Map\" \n    allow=\"geolocation\" \n    sandbox=\"allow-scripts allow-same-origin\">\n  </iframe>\n\n</body>\n</html>\n```",
+      pro: "* 1. allow अट्रिब्यूट हार्डवेयर एक्सेस अनुमतियां देता है।\n* 2. कैमरा और माइक्रोफोन एक्सेस को नियंत्रित करता है।\n* 3. sandbox खतरनाक स्क्रिप्ट्स चलने से रोकता है।\n* 4. title स्क्रीन रीडर्स के लिए विवरण देता है।\n* 5. उपयोगकर्ताओं को सुरक्षा हमलों से बचाता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Iframe Security</title>\n</head>\n<body>\n\n  <h2>Secure Map Embed</h2>\n  <iframe \n    src=\"https://maps.google.com\" \n    width=\"600\" \n    height=\"350\" \n    title=\"Location Map\" \n    allow=\"geolocation\" \n    sandbox=\"allow-scripts allow-same-origin\">\n  </iframe>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. allow अट्रिब्यूट हार्डवेयर एक्सेस अनुमतियां देता है।\n* 2. कैमरा और माइक्रोफोन एक्सेस को नियंत्रित करता है।\n* 3. sandbox खतरनाक स्क्रिप्ट्स चलने से रोकता है।\n* 4. title स्क्रीन रीडर्स के लिए विवरण देता है।\n* 5. उपयोगकर्ताओं को सुरक्षा हमलों से बचाता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Iframe Security</title>\n</head>\n<body>\n\n  <h2>Secure Map Embed</h2>\n  <iframe \n    src=\"https://maps.google.com\" \n    width=\"600\" \n    height=\"350\" \n    title=\"Location Map\" \n    allow=\"geolocation\" \n    sandbox=\"allow-scripts allow-same-origin\">\n  </iframe>\n\n</body>\n</html>\n```",
+      pro: "* 1. allow अट्रिब्यूट हार्डवेयर एक्सेस अनुमतियां देता है।\n* 2. कैमरा और माइक्रोफोन एक्सेस को नियंत्रित करता है।\n* 3. sandbox खतरनाक स्क्रिप्ट्स चलने से रोकता है।\n* 4. title स्क्रीन रीडर्स के लिए विवरण देता है।\n* 5. उपयोगकर्ताओं को सुरक्षा हमलों से बचाता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Iframe Security</title>\n</head>\n<body>\n\n  <h2>Secure Map Embed</h2>\n  <iframe \n    src=\"https://maps.google.com\" \n    width=\"600\" \n    height=\"350\" \n    title=\"Location Map\" \n    allow=\"geolocation\" \n    sandbox=\"allow-scripts allow-same-origin\">\n  </iframe>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 69,
+    slug: "html5-native-geolocation-api-details",
+    title: "HTML5 Geolocation Semantic Structure",
+    unit: "Unit 7: Native Audio, Video & Embeds",
+    bookRef: "HTML5: The Missing Manual Chapter 10",
+    exercise: {
+      english: {
+        question: "Can web pages access a user's location without their explicit permission?",
+        options: ["No, user permission is strictly required","Yes, any page can read coordinates silently","Only if the page uses HTTPS","Only on desktop computers"],
+        correctAnswer: "No, user permission is strictly required",
+        hint: "User consent is strictly required by browsers before reading coordinates."
+      },
+      hinglish: {
+        question: "Can web pages access a user's location without their explicit permission?",
+        options: ["No, user permission is strictly required","Yes, any page can read coordinates silently","Only if the page uses HTTPS","Only on desktop computers"],
+        correctAnswer: "No, user permission is strictly required",
+        hint: "User consent is strictly required by browsers before reading coordinates."
+      },
+      hindi: {
+        question: "Can web pages access a user's location without their explicit permission?",
+        options: ["No, user permission is strictly required","Yes, any page can read coordinates silently","Only if the page uses HTTPS","Only on desktop computers"],
+        correctAnswer: "No, user permission is strictly required",
+        hint: "User consent is strictly required by browsers before reading coordinates."
+      }
+    },
+    english: {
+      kid: "* 1. Semantic containers hold localized user content.\n* 2. Browsers request explicit user permission first.\n* 3. Coordinates include latitude and longitude values.\n* 4. Keeps user privacy secure by default.\n* 5. Organized inside semantic <section> layout tags.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Local Services</title>\n</head>\n<body>\n\n  <section id=\"location-panel\">\n    <h2>Nearby Study Hubs</h2>\n    <p>Explore coding groups and bootcamps near your city.</p>\n  </section>\n\n</body>\n</html>\n```",
+      pro: "* 1. Semantic containers hold localized user content.\n* 2. Browsers request explicit user permission first.\n* 3. Coordinates include latitude and longitude values.\n* 4. Keeps user privacy secure by default.\n* 5. Organized inside semantic <section> layout tags.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Local Services</title>\n</head>\n<body>\n\n  <section id=\"location-panel\">\n    <h2>Nearby Study Hubs</h2>\n    <p>Explore coding groups and bootcamps near your city.</p>\n  </section>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. सिमेंटिक कंटेनर में लोकेशन सामग्री रखी जाती है।\n* 2. ब्राउज़र पहले यूजर से अनुमति मांगता है।\n* 3. निर्देशांक में अक्षांश और देशांतर होते हैं।\n* 4. यूजर की प्राइवेसी को सुरक्षित रखता है।\n* 5. सिमेंटिक <section> टैग में व्यवस्थित रहता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Local Services</title>\n</head>\n<body>\n\n  <section id=\"location-panel\">\n    <h2>Nearby Study Hubs</h2>\n    <p>Explore coding groups and bootcamps near your city.</p>\n  </section>\n\n</body>\n</html>\n```",
+      pro: "* 1. सिमेंटिक कंटेनर में लोकेशन सामग्री रखी जाती है।\n* 2. ब्राउज़र पहले यूजर से अनुमति मांगता है।\n* 3. निर्देशांक में अक्षांश और देशांतर होते हैं।\n* 4. यूजर की प्राइवेसी को सुरक्षित रखता है।\n* 5. सिमेंटिक <section> टैग में व्यवस्थित रहता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Local Services</title>\n</head>\n<body>\n\n  <section id=\"location-panel\">\n    <h2>Nearby Study Hubs</h2>\n    <p>Explore coding groups and bootcamps near your city.</p>\n  </section>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. सिमेंटिक कंटेनर में लोकेशन सामग्री रखी जाती है।\n* 2. ब्राउज़र पहले यूजर से अनुमति मांगता है।\n* 3. निर्देशांक में अक्षांश और देशांतर होते हैं।\n* 4. यूजर की प्राइवेसी को सुरक्षित रखता है।\n* 5. सिमेंटिक <section> टैग में व्यवस्थित रहता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Local Services</title>\n</head>\n<body>\n\n  <section id=\"location-panel\">\n    <h2>Nearby Study Hubs</h2>\n    <p>Explore coding groups and bootcamps near your city.</p>\n  </section>\n\n</body>\n</html>\n```",
+      pro: "* 1. सिमेंटिक कंटेनर में लोकेशन सामग्री रखी जाती है।\n* 2. ब्राउज़र पहले यूजर से अनुमति मांगता है।\n* 3. निर्देशांक में अक्षांश और देशांतर होते हैं।\n* 4. यूजर की प्राइवेसी को सुरक्षित रखता है।\n* 5. सिमेंटिक <section> टैग में व्यवस्थित रहता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Local Services</title>\n</head>\n<body>\n\n  <section id=\"location-panel\">\n    <h2>Nearby Study Hubs</h2>\n    <p>Explore coding groups and bootcamps near your city.</p>\n  </section>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 70,
+    slug: "capstone-interactive-video-player",
+    title: "Capstone Project: Media Showcase Layout",
+    unit: "Unit 7: Native Audio, Video & Embeds",
+    bookRef: "Nextsem Academy Project Suite",
+    exercise: {
+      english: {
+        question: "Which collection of semantic tags creates a complete, captioned media showcase?",
+        options: ["<figure>, <video>, <track>, and <figcaption>","<div>, <span>, and <b> only","<canvas> and <script> only","<pre> and <code> only"],
+        correctAnswer: "<figure>, <video>, <track>, and <figcaption>",
+        hint: "These elements provide complete semantic structure and accessible media captions."
+      },
+      hinglish: {
+        question: "Which collection of semantic tags creates a complete, captioned media showcase?",
+        options: ["<figure>, <video>, <track>, and <figcaption>","<div>, <span>, and <b> only","<canvas> and <script> only","<pre> and <code> only"],
+        correctAnswer: "<figure>, <video>, <track>, and <figcaption>",
+        hint: "These elements provide complete semantic structure and accessible media captions."
+      },
+      hindi: {
+        question: "Which collection of semantic tags creates a complete, captioned media showcase?",
+        options: ["<figure>, <video>, <track>, and <figcaption>","<div>, <span>, and <b> only","<canvas> and <script> only","<pre> and <code> only"],
+        correctAnswer: "<figure>, <video>, <track>, and <figcaption>",
+        hint: "These elements provide complete semantic structure and accessible media captions."
+      }
+    },
+    english: {
+      kid: "* 1. Combines semantic <figure>, <video>, and <audio> tags.\n* 2. Includes subtitles with native <track> elements.\n* 3. Uses poster thumbnails and explicit dimensions.\n* 4. Built with 100% pure standard HTML5.\n* 5. Provides universal media playback across devices.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Media Showcase</title>\n</head>\n<body>\n\n  <header>\n    <h1>Nextsem Masterclass Series</h1>\n  </header>\n\n  <main>\n    <figure>\n      <video controls width=\"640\" height=\"360\" poster=\"cover.jpg\">\n        <source src=\"masterclass.mp4\" type=\"video/mp4\">\n        <track src=\"subs_en.vtt\" kind=\"subtitles\" srclang=\"en\" label=\"English\" default>\n      </video>\n      <figcaption>Full Stack Web Development Overview</figcaption>\n    </figure>\n\n    <figure>\n      <audio controls>\n        <source src=\"interview.mp3\" type=\"audio/mpeg\">\n      </audio>\n      <figcaption>Senior Developer Career Podcast</figcaption>\n    </figure>\n  </main>\n\n</body>\n</html>\n```",
+      pro: "* 1. Combines semantic <figure>, <video>, and <audio> tags.\n* 2. Includes subtitles with native <track> elements.\n* 3. Uses poster thumbnails and explicit dimensions.\n* 4. Built with 100% pure standard HTML5.\n* 5. Provides universal media playback across devices.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Media Showcase</title>\n</head>\n<body>\n\n  <header>\n    <h1>Nextsem Masterclass Series</h1>\n  </header>\n\n  <main>\n    <figure>\n      <video controls width=\"640\" height=\"360\" poster=\"cover.jpg\">\n        <source src=\"masterclass.mp4\" type=\"video/mp4\">\n        <track src=\"subs_en.vtt\" kind=\"subtitles\" srclang=\"en\" label=\"English\" default>\n      </video>\n      <figcaption>Full Stack Web Development Overview</figcaption>\n    </figure>\n\n    <figure>\n      <audio controls>\n        <source src=\"interview.mp3\" type=\"audio/mpeg\">\n      </audio>\n      <figcaption>Senior Developer Career Podcast</figcaption>\n    </figure>\n  </main>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. <figure>, <video>, और <audio> का संयुक्त उपयोग।\n* 2. <track> टैग से सबटाइटल जोड़े गए हैं।\n* 3. पोस्टर थंबनेल और सही आकार निर्धारित है।\n* 4. 100% शुद्ध मानक HTML5 से निर्मित।\n* 5. सभी डिवाइसेज पर मीडिया प्लेबैक सुनिश्चित करता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Media Showcase</title>\n</head>\n<body>\n\n  <header>\n    <h1>Nextsem Masterclass Series</h1>\n  </header>\n\n  <main>\n    <figure>\n      <video controls width=\"640\" height=\"360\" poster=\"cover.jpg\">\n        <source src=\"masterclass.mp4\" type=\"video/mp4\">\n        <track src=\"subs_en.vtt\" kind=\"subtitles\" srclang=\"en\" label=\"English\" default>\n      </video>\n      <figcaption>Full Stack Web Development Overview</figcaption>\n    </figure>\n\n    <figure>\n      <audio controls>\n        <source src=\"interview.mp3\" type=\"audio/mpeg\">\n      </audio>\n      <figcaption>Senior Developer Career Podcast</figcaption>\n    </figure>\n  </main>\n\n</body>\n</html>\n```",
+      pro: "* 1. <figure>, <video>, और <audio> का संयुक्त उपयोग।\n* 2. <track> टैग से सबटाइटल जोड़े गए हैं।\n* 3. पोस्टर थंबनेल और सही आकार निर्धारित है।\n* 4. 100% शुद्ध मानक HTML5 से निर्मित।\n* 5. सभी डिवाइसेज पर मीडिया प्लेबैक सुनिश्चित करता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Media Showcase</title>\n</head>\n<body>\n\n  <header>\n    <h1>Nextsem Masterclass Series</h1>\n  </header>\n\n  <main>\n    <figure>\n      <video controls width=\"640\" height=\"360\" poster=\"cover.jpg\">\n        <source src=\"masterclass.mp4\" type=\"video/mp4\">\n        <track src=\"subs_en.vtt\" kind=\"subtitles\" srclang=\"en\" label=\"English\" default>\n      </video>\n      <figcaption>Full Stack Web Development Overview</figcaption>\n    </figure>\n\n    <figure>\n      <audio controls>\n        <source src=\"interview.mp3\" type=\"audio/mpeg\">\n      </audio>\n      <figcaption>Senior Developer Career Podcast</figcaption>\n    </figure>\n  </main>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. <figure>, <video>, और <audio> का संयुक्त उपयोग।\n* 2. <track> टैग से सबटाइटल जोड़े गए हैं।\n* 3. पोस्टर थंबनेल और सही आकार निर्धारित है।\n* 4. 100% शुद्ध मानक HTML5 से निर्मित।\n* 5. सभी डिवाइसेज पर मीडिया प्लेबैक सुनिश्चित करता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Media Showcase</title>\n</head>\n<body>\n\n  <header>\n    <h1>Nextsem Masterclass Series</h1>\n  </header>\n\n  <main>\n    <figure>\n      <video controls width=\"640\" height=\"360\" poster=\"cover.jpg\">\n        <source src=\"masterclass.mp4\" type=\"video/mp4\">\n        <track src=\"subs_en.vtt\" kind=\"subtitles\" srclang=\"en\" label=\"English\" default>\n      </video>\n      <figcaption>Full Stack Web Development Overview</figcaption>\n    </figure>\n\n    <figure>\n      <audio controls>\n        <source src=\"interview.mp3\" type=\"audio/mpeg\">\n      </audio>\n      <figcaption>Senior Developer Career Podcast</figcaption>\n    </figure>\n  </main>\n\n</body>\n</html>\n```",
+      pro: "* 1. <figure>, <video>, और <audio> का संयुक्त उपयोग।\n* 2. <track> टैग से सबटाइटल जोड़े गए हैं।\n* 3. पोस्टर थंबनेल और सही आकार निर्धारित है।\n* 4. 100% शुद्ध मानक HTML5 से निर्मित।\n* 5. सभी डिवाइसेज पर मीडिया प्लेबैक सुनिश्चित करता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Media Showcase</title>\n</head>\n<body>\n\n  <header>\n    <h1>Nextsem Masterclass Series</h1>\n  </header>\n\n  <main>\n    <figure>\n      <video controls width=\"640\" height=\"360\" poster=\"cover.jpg\">\n        <source src=\"masterclass.mp4\" type=\"video/mp4\">\n        <track src=\"subs_en.vtt\" kind=\"subtitles\" srclang=\"en\" label=\"English\" default>\n      </video>\n      <figcaption>Full Stack Web Development Overview</figcaption>\n    </figure>\n\n    <figure>\n      <audio controls>\n        <source src=\"interview.mp3\" type=\"audio/mpeg\">\n      </audio>\n      <figcaption>Senior Developer Career Podcast</figcaption>\n    </figure>\n  </main>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 71,
+    slug: "unordered-lists-ul-li-bullet-points",
+    title: "Unordered Lists (<ul> and <li>)",
+    unit: "Unit 8: Lists, Tables & Layout Grids",
+    bookRef: "Duckett Chapter 3 (p. 52-54)",
+    exercise: {
+      english: {
+        question: "Which tag defines each individual item inside an unordered or ordered list?",
+        options: ["<li>","<item>","<list>","<ul>"],
+        correctAnswer: "<li>",
+        hint: "<li> stands for List Item."
+      },
+      hinglish: {
+        question: "Which tag defines each individual item inside an unordered or ordered list?",
+        options: ["<li>","<item>","<list>","<ul>"],
+        correctAnswer: "<li>",
+        hint: "<li> stands for List Item."
+      },
+      hindi: {
+        question: "Which tag defines each individual item inside an unordered or ordered list?",
+        options: ["<li>","<item>","<list>","<ul>"],
+        correctAnswer: "<li>",
+        hint: "<li> stands for List Item."
+      }
+    },
+    english: {
+      kid: "* 1. <ul> creates bulleted unordered item lists.\n* 2. <li> defines individual list items inside.\n* 3. Browsers render solid disc bullet points.\n* 4. Order of list items does not matter.\n* 5. Foundation for website navigation menu bars.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Unordered Lists</title>\n</head>\n<body>\n\n  <h2>Web Development Skills</h2>\n  <ul>\n    <li>HTML5 Structure</li>\n    <li>CSS3 Styling</li>\n    <li>JavaScript Interactivity</li>\n    <li>Git Version Control</li>\n  </ul>\n\n</body>\n</html>\n```",
+      pro: "* 1. <ul> creates bulleted unordered item lists.\n* 2. <li> defines individual list items inside.\n* 3. Browsers render solid disc bullet points.\n* 4. Order of list items does not matter.\n* 5. Foundation for website navigation menu bars.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Unordered Lists</title>\n</head>\n<body>\n\n  <h2>Web Development Skills</h2>\n  <ul>\n    <li>HTML5 Structure</li>\n    <li>CSS3 Styling</li>\n    <li>JavaScript Interactivity</li>\n    <li>Git Version Control</li>\n  </ul>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. <ul> बुलेट वाली बिना क्रम की लिस्ट बनाता है।\n* 2. <li> अंदर के हर आइटम को परिभाषित करता है।\n* 3. ब्राउज़र गोल बुलेट पॉइंट प्रदर्शित करते हैं।\n* 4. लिस्ट के क्रम से कोई फर्क नहीं पड़ता।\n* 5. वेबसाइट नेविगेशन मेन्यू की नींव होता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Unordered Lists</title>\n</head>\n<body>\n\n  <h2>Web Development Skills</h2>\n  <ul>\n    <li>HTML5 Structure</li>\n    <li>CSS3 Styling</li>\n    <li>JavaScript Interactivity</li>\n    <li>Git Version Control</li>\n  </ul>\n\n</body>\n</html>\n```",
+      pro: "* 1. <ul> बुलेट वाली बिना क्रम की लिस्ट बनाता है।\n* 2. <li> अंदर के हर आइटम को परिभाषित करता है।\n* 3. ब्राउज़र गोल बुलेट पॉइंट प्रदर्शित करते हैं।\n* 4. लिस्ट के क्रम से कोई फर्क नहीं पड़ता।\n* 5. वेबसाइट नेविगेशन मेन्यू की नींव होता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Unordered Lists</title>\n</head>\n<body>\n\n  <h2>Web Development Skills</h2>\n  <ul>\n    <li>HTML5 Structure</li>\n    <li>CSS3 Styling</li>\n    <li>JavaScript Interactivity</li>\n    <li>Git Version Control</li>\n  </ul>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. <ul> बुलेट वाली बिना क्रम की लिस्ट बनाता है।\n* 2. <li> अंदर के हर आइटम को परिभाषित करता है।\n* 3. ब्राउज़र गोल बुलेट पॉइंट प्रदर्शित करते हैं।\n* 4. लिस्ट के क्रम से कोई फर्क नहीं पड़ता।\n* 5. वेबसाइट नेविगेशन मेन्यू की नींव होता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Unordered Lists</title>\n</head>\n<body>\n\n  <h2>Web Development Skills</h2>\n  <ul>\n    <li>HTML5 Structure</li>\n    <li>CSS3 Styling</li>\n    <li>JavaScript Interactivity</li>\n    <li>Git Version Control</li>\n  </ul>\n\n</body>\n</html>\n```",
+      pro: "* 1. <ul> बुलेट वाली बिना क्रम की लिस्ट बनाता है।\n* 2. <li> अंदर के हर आइटम को परिभाषित करता है।\n* 3. ब्राउज़र गोल बुलेट पॉइंट प्रदर्शित करते हैं।\n* 4. लिस्ट के क्रम से कोई फर्क नहीं पड़ता।\n* 5. वेबसाइट नेविगेशन मेन्यू की नींव होता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Unordered Lists</title>\n</head>\n<body>\n\n  <h2>Web Development Skills</h2>\n  <ul>\n    <li>HTML5 Structure</li>\n    <li>CSS3 Styling</li>\n    <li>JavaScript Interactivity</li>\n    <li>Git Version Control</li>\n  </ul>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 72,
+    slug: "ordered-lists-ol-li-numbered-steps",
+    title: "Ordered Lists (<ol> and <li>)",
+    unit: "Unit 8: Lists, Tables & Layout Grids",
+    bookRef: "Duckett Chapter 3 (p. 55-57)",
+    exercise: {
+      english: {
+        question: "Which tag automatically creates sequentially numbered list items?",
+        options: ["<ol>","<ul>","<nl>","<dl>"],
+        correctAnswer: "<ol>",
+        hint: "<ol> stands for Ordered List."
+      },
+      hinglish: {
+        question: "Which tag automatically creates sequentially numbered list items?",
+        options: ["<ol>","<ul>","<nl>","<dl>"],
+        correctAnswer: "<ol>",
+        hint: "<ol> stands for Ordered List."
+      },
+      hindi: {
+        question: "Which tag automatically creates sequentially numbered list items?",
+        options: ["<ol>","<ul>","<nl>","<dl>"],
+        correctAnswer: "<ol>",
+        hint: "<ol> stands for Ordered List."
+      }
+    },
+    english: {
+      kid: "* 1. <ol> creates numbered sequential lists.\n* 2. Browsers number items 1, 2, 3 automatically.\n* 3. <li> defines each numbered step inside.\n* 4. Ideal for recipes and installation guides.\n* 5. Re-ordering automatically updates numbers dynamically.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Ordered Lists</title>\n</head>\n<body>\n\n  <h2>How to Setup VS Code on Windows 11</h2>\n  <ol>\n    <li>Download the Windows 11 User Installer.</li>\n    <li>Run the setup wizard executable.</li>\n    <li>Enable 'Add Open with Code' checkboxes.</li>\n    <li>Launch VS Code and create index.html.</li>\n  </ol>\n\n</body>\n</html>\n```",
+      pro: "* 1. <ol> creates numbered sequential lists.\n* 2. Browsers number items 1, 2, 3 automatically.\n* 3. <li> defines each numbered step inside.\n* 4. Ideal for recipes and installation guides.\n* 5. Re-ordering automatically updates numbers dynamically.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Ordered Lists</title>\n</head>\n<body>\n\n  <h2>How to Setup VS Code on Windows 11</h2>\n  <ol>\n    <li>Download the Windows 11 User Installer.</li>\n    <li>Run the setup wizard executable.</li>\n    <li>Enable 'Add Open with Code' checkboxes.</li>\n    <li>Launch VS Code and create index.html.</li>\n  </ol>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. <ol> नंबर वाली क्रमानुसार लिस्ट बनाता है।\n* 2. ब्राउज़र 1, 2, 3 नंबर खुद लगाता है।\n* 3. <li> हर क्रमबद्ध चरण को परिभाषित करता है।\n* 4. स्टेप-बाय-स्टेप गाइड के लिए उत्तम है।\n* 5. क्रम बदलने पर नंबर अपने आप अपडेट होते हैं।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Ordered Lists</title>\n</head>\n<body>\n\n  <h2>How to Setup VS Code on Windows 11</h2>\n  <ol>\n    <li>Download the Windows 11 User Installer.</li>\n    <li>Run the setup wizard executable.</li>\n    <li>Enable 'Add Open with Code' checkboxes.</li>\n    <li>Launch VS Code and create index.html.</li>\n  </ol>\n\n</body>\n</html>\n```",
+      pro: "* 1. <ol> नंबर वाली क्रमानुसार लिस्ट बनाता है।\n* 2. ब्राउज़र 1, 2, 3 नंबर खुद लगाता है।\n* 3. <li> हर क्रमबद्ध चरण को परिभाषित करता है।\n* 4. स्टेप-बाय-स्टेप गाइड के लिए उत्तम है।\n* 5. क्रम बदलने पर नंबर अपने आप अपडेट होते हैं।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Ordered Lists</title>\n</head>\n<body>\n\n  <h2>How to Setup VS Code on Windows 11</h2>\n  <ol>\n    <li>Download the Windows 11 User Installer.</li>\n    <li>Run the setup wizard executable.</li>\n    <li>Enable 'Add Open with Code' checkboxes.</li>\n    <li>Launch VS Code and create index.html.</li>\n  </ol>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. <ol> नंबर वाली क्रमानुसार लिस्ट बनाता है।\n* 2. ब्राउज़र 1, 2, 3 नंबर खुद लगाता है।\n* 3. <li> हर क्रमबद्ध चरण को परिभाषित करता है।\n* 4. स्टेप-बाय-स्टेप गाइड के लिए उत्तम है।\n* 5. क्रम बदलने पर नंबर अपने आप अपडेट होते हैं।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Ordered Lists</title>\n</head>\n<body>\n\n  <h2>How to Setup VS Code on Windows 11</h2>\n  <ol>\n    <li>Download the Windows 11 User Installer.</li>\n    <li>Run the setup wizard executable.</li>\n    <li>Enable 'Add Open with Code' checkboxes.</li>\n    <li>Launch VS Code and create index.html.</li>\n  </ol>\n\n</body>\n</html>\n```",
+      pro: "* 1. <ol> नंबर वाली क्रमानुसार लिस्ट बनाता है।\n* 2. ब्राउज़र 1, 2, 3 नंबर खुद लगाता है।\n* 3. <li> हर क्रमबद्ध चरण को परिभाषित करता है।\n* 4. स्टेप-बाय-स्टेप गाइड के लिए उत्तम है।\n* 5. क्रम बदलने पर नंबर अपने आप अपडेट होते हैं।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Ordered Lists</title>\n</head>\n<body>\n\n  <h2>How to Setup VS Code on Windows 11</h2>\n  <ol>\n    <li>Download the Windows 11 User Installer.</li>\n    <li>Run the setup wizard executable.</li>\n    <li>Enable 'Add Open with Code' checkboxes.</li>\n    <li>Launch VS Code and create index.html.</li>\n  </ol>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 73,
+    slug: "ordered-list-start-reversed-indexing",
+    title: "Ordered Lists Start & Reversed Attributes",
+    unit: "Unit 8: Lists, Tables & Layout Grids",
+    bookRef: "Duckett Chapter 3 (p. 58-59)",
+    exercise: {
+      english: {
+        question: "Which attribute makes an ordered list count backwards in descending order?",
+        options: ["reversed","descending","countdown","backwards"],
+        correctAnswer: "reversed",
+        hint: "Add the boolean attribute reversed to <ol>."
+      },
+      hinglish: {
+        question: "Which attribute makes an ordered list count backwards in descending order?",
+        options: ["reversed","descending","countdown","backwards"],
+        correctAnswer: "reversed",
+        hint: "Add the boolean attribute reversed to <ol>."
+      },
+      hindi: {
+        question: "Which attribute makes an ordered list count backwards in descending order?",
+        options: ["reversed","descending","countdown","backwards"],
+        correctAnswer: "reversed",
+        hint: "Add the boolean attribute reversed to <ol>."
+      }
+    },
+    english: {
+      kid: "* 1. start attribute changes initial numbering start.\n* 2. reversed attribute counts numbers in reverse.\n* 3. type attribute sets letters or Roman numerals.\n* 4. start=\"5\" begins numbering from five.\n* 5. Great for top-10 countdown rankings.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>List Attributes</title>\n</head>\n<body>\n\n  <h2>Rocket Launch Countdown</h2>\n  <ol reversed>\n    <li>Engine Ignition</li>\n    <li>Final Checklist Confirmation</li>\n    <li>Ready for Liftoff</li>\n  </ol>\n\n  <h2>Continuation Steps</h2>\n  <ol start=\"5\">\n    <li>Deploy to Staging Server</li>\n    <li>Perform End-to-End Tests</li>\n  </ol>\n\n</body>\n</html>\n```",
+      pro: "* 1. start attribute changes initial numbering start.\n* 2. reversed attribute counts numbers in reverse.\n* 3. type attribute sets letters or Roman numerals.\n* 4. start=\"5\" begins numbering from five.\n* 5. Great for top-10 countdown rankings.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>List Attributes</title>\n</head>\n<body>\n\n  <h2>Rocket Launch Countdown</h2>\n  <ol reversed>\n    <li>Engine Ignition</li>\n    <li>Final Checklist Confirmation</li>\n    <li>Ready for Liftoff</li>\n  </ol>\n\n  <h2>Continuation Steps</h2>\n  <ol start=\"5\">\n    <li>Deploy to Staging Server</li>\n    <li>Perform End-to-End Tests</li>\n  </ol>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. start अट्रिब्यूट शुरुआती नंबर बदलता है।\n* 2. reversed अट्रिब्यूट उल्टी गिनती (3, 2, 1) करता है।\n* 3. type अट्रिब्यूट रोमन या अक्षर सेट करता है।\n* 4. start=\"5\" पांच से गिनती शुरू करता है।\n* 5. टॉप-10 काउंटडाउन रैंकिंग के लिए उत्तम है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>List Attributes</title>\n</head>\n<body>\n\n  <h2>Rocket Launch Countdown</h2>\n  <ol reversed>\n    <li>Engine Ignition</li>\n    <li>Final Checklist Confirmation</li>\n    <li>Ready for Liftoff</li>\n  </ol>\n\n  <h2>Continuation Steps</h2>\n  <ol start=\"5\">\n    <li>Deploy to Staging Server</li>\n    <li>Perform End-to-End Tests</li>\n  </ol>\n\n</body>\n</html>\n```",
+      pro: "* 1. start अट्रिब्यूट शुरुआती नंबर बदलता है।\n* 2. reversed अट्रिब्यूट उल्टी गिनती (3, 2, 1) करता है।\n* 3. type अट्रिब्यूट रोमन या अक्षर सेट करता है।\n* 4. start=\"5\" पांच से गिनती शुरू करता है।\n* 5. टॉप-10 काउंटडाउन रैंकिंग के लिए उत्तम है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>List Attributes</title>\n</head>\n<body>\n\n  <h2>Rocket Launch Countdown</h2>\n  <ol reversed>\n    <li>Engine Ignition</li>\n    <li>Final Checklist Confirmation</li>\n    <li>Ready for Liftoff</li>\n  </ol>\n\n  <h2>Continuation Steps</h2>\n  <ol start=\"5\">\n    <li>Deploy to Staging Server</li>\n    <li>Perform End-to-End Tests</li>\n  </ol>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. start अट्रिब्यूट शुरुआती नंबर बदलता है।\n* 2. reversed अट्रिब्यूट उल्टी गिनती (3, 2, 1) करता है।\n* 3. type अट्रिब्यूट रोमन या अक्षर सेट करता है।\n* 4. start=\"5\" पांच से गिनती शुरू करता है।\n* 5. टॉप-10 काउंटडाउन रैंकिंग के लिए उत्तम है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>List Attributes</title>\n</head>\n<body>\n\n  <h2>Rocket Launch Countdown</h2>\n  <ol reversed>\n    <li>Engine Ignition</li>\n    <li>Final Checklist Confirmation</li>\n    <li>Ready for Liftoff</li>\n  </ol>\n\n  <h2>Continuation Steps</h2>\n  <ol start=\"5\">\n    <li>Deploy to Staging Server</li>\n    <li>Perform End-to-End Tests</li>\n  </ol>\n\n</body>\n</html>\n```",
+      pro: "* 1. start अट्रिब्यूट शुरुआती नंबर बदलता है।\n* 2. reversed अट्रिब्यूट उल्टी गिनती (3, 2, 1) करता है।\n* 3. type अट्रिब्यूट रोमन या अक्षर सेट करता है।\n* 4. start=\"5\" पांच से गिनती शुरू करता है।\n* 5. टॉप-10 काउंटडाउन रैंकिंग के लिए उत्तम है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>List Attributes</title>\n</head>\n<body>\n\n  <h2>Rocket Launch Countdown</h2>\n  <ol reversed>\n    <li>Engine Ignition</li>\n    <li>Final Checklist Confirmation</li>\n    <li>Ready for Liftoff</li>\n  </ol>\n\n  <h2>Continuation Steps</h2>\n  <ol start=\"5\">\n    <li>Deploy to Staging Server</li>\n    <li>Perform End-to-End Tests</li>\n  </ol>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 74,
+    slug: "description-lists-dl-dt-dd-glossary",
+    title: "Definition Lists (<dl>, <dt>, and <dd>)",
+    unit: "Unit 8: Lists, Tables & Layout Grids",
+    bookRef: "Duckett Chapter 3 (p. 60-63)",
+    exercise: {
+      english: {
+        question: "Inside a <dl> description list, which tag specifies the term name?",
+        options: ["<dt>","<dd>","<dfn>","<term>"],
+        correctAnswer: "<dt>",
+        hint: "<dt> stands for Description Term."
+      },
+      hinglish: {
+        question: "Inside a <dl> description list, which tag specifies the term name?",
+        options: ["<dt>","<dd>","<dfn>","<term>"],
+        correctAnswer: "<dt>",
+        hint: "<dt> stands for Description Term."
+      },
+      hindi: {
+        question: "Inside a <dl> description list, which tag specifies the term name?",
+        options: ["<dt>","<dd>","<dfn>","<term>"],
+        correctAnswer: "<dt>",
+        hint: "<dt> stands for Description Term."
+      }
+    },
+    english: {
+      kid: "* 1. <dl> creates description list glossary structures.\n* 2. <dt> specifies term or name definition.\n* 3. <dd> provides definition description value.\n* 4. Browsers indent <dd> automatically.\n* 5. Ideal for glossaries, FAQs, and dictionaries.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Description List</title>\n</head>\n<body>\n\n  <h2>Web Terms Glossary</h2>\n  <dl>\n    <dt>HTML</dt>\n    <dd>HyperText Markup Language used for web structure.</dd>\n\n    <dt>CSS</dt>\n    <dd>Cascading Style Sheets used for visual layout.</dd>\n\n    <dt>DOM</dt>\n    <dd>Document Object Model representing parsed web elements.</dd>\n  </dl>\n\n</body>\n</html>\n```",
+      pro: "* 1. <dl> creates description list glossary structures.\n* 2. <dt> specifies term or name definition.\n* 3. <dd> provides definition description value.\n* 4. Browsers indent <dd> automatically.\n* 5. Ideal for glossaries, FAQs, and dictionaries.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Description List</title>\n</head>\n<body>\n\n  <h2>Web Terms Glossary</h2>\n  <dl>\n    <dt>HTML</dt>\n    <dd>HyperText Markup Language used for web structure.</dd>\n\n    <dt>CSS</dt>\n    <dd>Cascading Style Sheets used for visual layout.</dd>\n\n    <dt>DOM</dt>\n    <dd>Document Object Model representing parsed web elements.</dd>\n  </dl>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. <dl> शब्दावली (Glossary) लिस्ट बनाता है।\n* 2. <dt> शब्द या शीर्षक को परिभाषित करता है।\n* 3. <dd> उस शब्द की परिभाषा या विवरण देता है।\n* 4. ब्राउज़र <dd> को थोड़ा आगे खिसकाता है।\n* 5. डिक्शनरी और FAQ पेज के लिए उपयुक्त है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Description List</title>\n</head>\n<body>\n\n  <h2>Web Terms Glossary</h2>\n  <dl>\n    <dt>HTML</dt>\n    <dd>HyperText Markup Language used for web structure.</dd>\n\n    <dt>CSS</dt>\n    <dd>Cascading Style Sheets used for visual layout.</dd>\n\n    <dt>DOM</dt>\n    <dd>Document Object Model representing parsed web elements.</dd>\n  </dl>\n\n</body>\n</html>\n```",
+      pro: "* 1. <dl> शब्दावली (Glossary) लिस्ट बनाता है।\n* 2. <dt> शब्द या शीर्षक को परिभाषित करता है।\n* 3. <dd> उस शब्द की परिभाषा या विवरण देता है।\n* 4. ब्राउज़र <dd> को थोड़ा आगे खिसकाता है।\n* 5. डिक्शनरी और FAQ पेज के लिए उपयुक्त है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Description List</title>\n</head>\n<body>\n\n  <h2>Web Terms Glossary</h2>\n  <dl>\n    <dt>HTML</dt>\n    <dd>HyperText Markup Language used for web structure.</dd>\n\n    <dt>CSS</dt>\n    <dd>Cascading Style Sheets used for visual layout.</dd>\n\n    <dt>DOM</dt>\n    <dd>Document Object Model representing parsed web elements.</dd>\n  </dl>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. <dl> शब्दावली (Glossary) लिस्ट बनाता है।\n* 2. <dt> शब्द या शीर्षक को परिभाषित करता है।\n* 3. <dd> उस शब्द की परिभाषा या विवरण देता है।\n* 4. ब्राउज़र <dd> को थोड़ा आगे खिसकाता है।\n* 5. डिक्शनरी और FAQ पेज के लिए उपयुक्त है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Description List</title>\n</head>\n<body>\n\n  <h2>Web Terms Glossary</h2>\n  <dl>\n    <dt>HTML</dt>\n    <dd>HyperText Markup Language used for web structure.</dd>\n\n    <dt>CSS</dt>\n    <dd>Cascading Style Sheets used for visual layout.</dd>\n\n    <dt>DOM</dt>\n    <dd>Document Object Model representing parsed web elements.</dd>\n  </dl>\n\n</body>\n</html>\n```",
+      pro: "* 1. <dl> शब्दावली (Glossary) लिस्ट बनाता है।\n* 2. <dt> शब्द या शीर्षक को परिभाषित करता है।\n* 3. <dd> उस शब्द की परिभाषा या विवरण देता है।\n* 4. ब्राउज़र <dd> को थोड़ा आगे खिसकाता है।\n* 5. डिक्शनरी और FAQ पेज के लिए उपयुक्त है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Description List</title>\n</head>\n<body>\n\n  <h2>Web Terms Glossary</h2>\n  <dl>\n    <dt>HTML</dt>\n    <dd>HyperText Markup Language used for web structure.</dd>\n\n    <dt>CSS</dt>\n    <dd>Cascading Style Sheets used for visual layout.</dd>\n\n    <dt>DOM</dt>\n    <dd>Document Object Model representing parsed web elements.</dd>\n  </dl>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 75,
+    slug: "table-container-grid-rows-columns",
+    title: "Tables Rows & Cells (<tr>, <td>, <th>)",
+    unit: "Unit 8: Lists, Tables & Layout Grids",
+    bookRef: "Duckett Chapter 6 (p. 126-129)",
+    exercise: {
+      english: {
+        question: "Which tag is used to create a table header cell with bold centered text by default?",
+        options: ["<th>","<td>","<header>","<head>"],
+        correctAnswer: "<th>",
+        hint: "<th> stands for Table Header."
+      },
+      hinglish: {
+        question: "Which tag is used to create a table header cell with bold centered text by default?",
+        options: ["<th>","<td>","<header>","<head>"],
+        correctAnswer: "<th>",
+        hint: "<th> stands for Table Header."
+      },
+      hindi: {
+        question: "Which tag is used to create a table header cell with bold centered text by default?",
+        options: ["<th>","<td>","<header>","<head>"],
+        correctAnswer: "<th>",
+        hint: "<th> stands for Table Header."
+      }
+    },
+    english: {
+      kid: "* 1. <table> creates tabular data grid layouts.\n* 2. <tr> defines table row containers.\n* 3. <th> defines bold centered header cells.\n* 4. <td> defines regular table data cells.\n* 5. Organized in rows and vertical columns.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>HTML Tables</title>\n</head>\n<body>\n\n  <h2>Student Exam Results</h2>\n  <table border=\"1\">\n    <tr>\n      <th>Student Name</th>\n      <th>Subject</th>\n      <th>Score</th>\n    </tr>\n    <tr>\n      <td>Aarav</td>\n      <td>HTML5</td>\n      <td>98</td>\n    </tr>\n    <tr>\n      <td>Priya</td>\n      <td>CSS3</td>\n      <td>95</td>\n    </tr>\n  </table>\n\n</body>\n</html>\n```",
+      pro: "* 1. <table> creates tabular data grid layouts.\n* 2. <tr> defines table row containers.\n* 3. <th> defines bold centered header cells.\n* 4. <td> defines regular table data cells.\n* 5. Organized in rows and vertical columns.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>HTML Tables</title>\n</head>\n<body>\n\n  <h2>Student Exam Results</h2>\n  <table border=\"1\">\n    <tr>\n      <th>Student Name</th>\n      <th>Subject</th>\n      <th>Score</th>\n    </tr>\n    <tr>\n      <td>Aarav</td>\n      <td>HTML5</td>\n      <td>98</td>\n    </tr>\n    <tr>\n      <td>Priya</td>\n      <td>CSS3</td>\n      <td>95</td>\n    </tr>\n  </table>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. <table> डेटा ग्रिड और टेबल बनाता है।\n* 2. <tr> टेबल की हर पंक्ति (Row) बनाता है।\n* 3. <th> बोल्ड और केंद्रित हेडर सेल बनाता है।\n* 4. <td> सामान्य डेटा सेल को परिभाषित करता है।\n* 5. पंक्तियों और स्तंभों में संरचित होता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>HTML Tables</title>\n</head>\n<body>\n\n  <h2>Student Exam Results</h2>\n  <table border=\"1\">\n    <tr>\n      <th>Student Name</th>\n      <th>Subject</th>\n      <th>Score</th>\n    </tr>\n    <tr>\n      <td>Aarav</td>\n      <td>HTML5</td>\n      <td>98</td>\n    </tr>\n    <tr>\n      <td>Priya</td>\n      <td>CSS3</td>\n      <td>95</td>\n    </tr>\n  </table>\n\n</body>\n</html>\n```",
+      pro: "* 1. <table> डेटा ग्रिड और टेबल बनाता है।\n* 2. <tr> टेबल की हर पंक्ति (Row) बनाता है।\n* 3. <th> बोल्ड और केंद्रित हेडर सेल बनाता है।\n* 4. <td> सामान्य डेटा सेल को परिभाषित करता है।\n* 5. पंक्तियों और स्तंभों में संरचित होता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>HTML Tables</title>\n</head>\n<body>\n\n  <h2>Student Exam Results</h2>\n  <table border=\"1\">\n    <tr>\n      <th>Student Name</th>\n      <th>Subject</th>\n      <th>Score</th>\n    </tr>\n    <tr>\n      <td>Aarav</td>\n      <td>HTML5</td>\n      <td>98</td>\n    </tr>\n    <tr>\n      <td>Priya</td>\n      <td>CSS3</td>\n      <td>95</td>\n    </tr>\n  </table>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. <table> डेटा ग्रिड और टेबल बनाता है।\n* 2. <tr> टेबल की हर पंक्ति (Row) बनाता है।\n* 3. <th> बोल्ड और केंद्रित हेडर सेल बनाता है।\n* 4. <td> सामान्य डेटा सेल को परिभाषित करता है।\n* 5. पंक्तियों और स्तंभों में संरचित होता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>HTML Tables</title>\n</head>\n<body>\n\n  <h2>Student Exam Results</h2>\n  <table border=\"1\">\n    <tr>\n      <th>Student Name</th>\n      <th>Subject</th>\n      <th>Score</th>\n    </tr>\n    <tr>\n      <td>Aarav</td>\n      <td>HTML5</td>\n      <td>98</td>\n    </tr>\n    <tr>\n      <td>Priya</td>\n      <td>CSS3</td>\n      <td>95</td>\n    </tr>\n  </table>\n\n</body>\n</html>\n```",
+      pro: "* 1. <table> डेटा ग्रिड और टेबल बनाता है।\n* 2. <tr> टेबल की हर पंक्ति (Row) बनाता है।\n* 3. <th> बोल्ड और केंद्रित हेडर सेल बनाता है।\n* 4. <td> सामान्य डेटा सेल को परिभाषित करता है।\n* 5. पंक्तियों और स्तंभों में संरचित होता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>HTML Tables</title>\n</head>\n<body>\n\n  <h2>Student Exam Results</h2>\n  <table border=\"1\">\n    <tr>\n      <th>Student Name</th>\n      <th>Subject</th>\n      <th>Score</th>\n    </tr>\n    <tr>\n      <td>Aarav</td>\n      <td>HTML5</td>\n      <td>98</td>\n    </tr>\n    <tr>\n      <td>Priya</td>\n      <td>CSS3</td>\n      <td>95</td>\n    </tr>\n  </table>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 76,
+    slug: "table-colspan-merge-columns",
+    title: "Table Column Spanning (colspan & rowspan)",
+    unit: "Unit 8: Lists, Tables & Layout Grids",
+    bookRef: "Duckett Chapter 6 (p. 130-133)",
+    exercise: {
+      english: {
+        question: "Which attribute allows a single table cell to span across multiple columns horizontally?",
+        options: ["colspan","rowspan","span","merge"],
+        correctAnswer: "colspan",
+        hint: "Use colspan=\"2\" to make a cell span across two columns."
+      },
+      hinglish: {
+        question: "Which attribute allows a single table cell to span across multiple columns horizontally?",
+        options: ["colspan","rowspan","span","merge"],
+        correctAnswer: "colspan",
+        hint: "Use colspan=\"2\" to make a cell span across two columns."
+      },
+      hindi: {
+        question: "Which attribute allows a single table cell to span across multiple columns horizontally?",
+        options: ["colspan","rowspan","span","merge"],
+        correctAnswer: "colspan",
+        hint: "Use colspan=\"2\" to make a cell span across two columns."
+      }
+    },
+    english: {
+      kid: "* 1. colspan merges cells across multiple columns.\n* 2. rowspan merges cells across multiple rows.\n* 3. Value sets number of cells merged.\n* 4. Eliminates redundant duplicate data cells.\n* 5. Essential for complex financial reporting grids.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Table Spanning</title>\n</head>\n<body>\n\n  <h2>Weekly Schedule</h2>\n  <table border=\"1\">\n    <tr>\n      <th>Day</th>\n      <th colspan=\"2\">Classes</th>\n    </tr>\n    <tr>\n      <td>Monday</td>\n      <td>Web Dev</td>\n      <td>Algorithms</td>\n    </tr>\n    <tr>\n      <td>Friday</td>\n      <td colspan=\"2\">Capstone Project Lab</td>\n    </tr>\n  </table>\n\n</body>\n</html>\n```",
+      pro: "* 1. colspan merges cells across multiple columns.\n* 2. rowspan merges cells across multiple rows.\n* 3. Value sets number of cells merged.\n* 4. Eliminates redundant duplicate data cells.\n* 5. Essential for complex financial reporting grids.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Table Spanning</title>\n</head>\n<body>\n\n  <h2>Weekly Schedule</h2>\n  <table border=\"1\">\n    <tr>\n      <th>Day</th>\n      <th colspan=\"2\">Classes</th>\n    </tr>\n    <tr>\n      <td>Monday</td>\n      <td>Web Dev</td>\n      <td>Algorithms</td>\n    </tr>\n    <tr>\n      <td>Friday</td>\n      <td colspan=\"2\">Capstone Project Lab</td>\n    </tr>\n  </table>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. colspan कई कॉलम की सेल को जोड़ता है।\n* 2. rowspan कई पंक्तियों (Rows) की सेल जोड़ता है।\n* 3. मान जोड़ी जाने वाली सेलों की संख्या है।\n* 4. एक जैसा डेटा बार-बार लिखने से बचाता है।\n* 5. जटिल रिपोर्ट और टाइम-टेबल के लिए आवश्यक है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Table Spanning</title>\n</head>\n<body>\n\n  <h2>Weekly Schedule</h2>\n  <table border=\"1\">\n    <tr>\n      <th>Day</th>\n      <th colspan=\"2\">Classes</th>\n    </tr>\n    <tr>\n      <td>Monday</td>\n      <td>Web Dev</td>\n      <td>Algorithms</td>\n    </tr>\n    <tr>\n      <td>Friday</td>\n      <td colspan=\"2\">Capstone Project Lab</td>\n    </tr>\n  </table>\n\n</body>\n</html>\n```",
+      pro: "* 1. colspan कई कॉलम की सेल को जोड़ता है।\n* 2. rowspan कई पंक्तियों (Rows) की सेल जोड़ता है।\n* 3. मान जोड़ी जाने वाली सेलों की संख्या है।\n* 4. एक जैसा डेटा बार-बार लिखने से बचाता है।\n* 5. जटिल रिपोर्ट और टाइम-टेबल के लिए आवश्यक है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Table Spanning</title>\n</head>\n<body>\n\n  <h2>Weekly Schedule</h2>\n  <table border=\"1\">\n    <tr>\n      <th>Day</th>\n      <th colspan=\"2\">Classes</th>\n    </tr>\n    <tr>\n      <td>Monday</td>\n      <td>Web Dev</td>\n      <td>Algorithms</td>\n    </tr>\n    <tr>\n      <td>Friday</td>\n      <td colspan=\"2\">Capstone Project Lab</td>\n    </tr>\n  </table>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. colspan कई कॉलम की सेल को जोड़ता है।\n* 2. rowspan कई पंक्तियों (Rows) की सेल जोड़ता है।\n* 3. मान जोड़ी जाने वाली सेलों की संख्या है।\n* 4. एक जैसा डेटा बार-बार लिखने से बचाता है।\n* 5. जटिल रिपोर्ट और टाइम-टेबल के लिए आवश्यक है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Table Spanning</title>\n</head>\n<body>\n\n  <h2>Weekly Schedule</h2>\n  <table border=\"1\">\n    <tr>\n      <th>Day</th>\n      <th colspan=\"2\">Classes</th>\n    </tr>\n    <tr>\n      <td>Monday</td>\n      <td>Web Dev</td>\n      <td>Algorithms</td>\n    </tr>\n    <tr>\n      <td>Friday</td>\n      <td colspan=\"2\">Capstone Project Lab</td>\n    </tr>\n  </table>\n\n</body>\n</html>\n```",
+      pro: "* 1. colspan कई कॉलम की सेल को जोड़ता है।\n* 2. rowspan कई पंक्तियों (Rows) की सेल जोड़ता है।\n* 3. मान जोड़ी जाने वाली सेलों की संख्या है।\n* 4. एक जैसा डेटा बार-बार लिखने से बचाता है।\n* 5. जटिल रिपोर्ट और टाइम-टेबल के लिए आवश्यक है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Table Spanning</title>\n</head>\n<body>\n\n  <h2>Weekly Schedule</h2>\n  <table border=\"1\">\n    <tr>\n      <th>Day</th>\n      <th colspan=\"2\">Classes</th>\n    </tr>\n    <tr>\n      <td>Monday</td>\n      <td>Web Dev</td>\n      <td>Algorithms</td>\n    </tr>\n    <tr>\n      <td>Friday</td>\n      <td colspan=\"2\">Capstone Project Lab</td>\n    </tr>\n  </table>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 77,
+    slug: "table-thead-tbody-tfoot-semantics",
+    title: "Table Structured Sections (<thead>, <tbody>, <tfoot>)",
+    unit: "Unit 8: Lists, Tables & Layout Grids",
+    bookRef: "Duckett Chapter 6 (p. 134-137)",
+    exercise: {
+      english: {
+        question: "Which semantic tag wraps the main body content rows of a table?",
+        options: ["<tbody>","<thead>","<tfoot>","<table>"],
+        correctAnswer: "<tbody>",
+        hint: "<tbody> represents the Table Body."
+      },
+      hinglish: {
+        question: "Which semantic tag wraps the main body content rows of a table?",
+        options: ["<tbody>","<thead>","<tfoot>","<table>"],
+        correctAnswer: "<tbody>",
+        hint: "<tbody> represents the Table Body."
+      },
+      hindi: {
+        question: "Which semantic tag wraps the main body content rows of a table?",
+        options: ["<tbody>","<thead>","<tfoot>","<table>"],
+        correctAnswer: "<tbody>",
+        hint: "<tbody> represents the Table Body."
+      }
+    },
+    english: {
+      kid: "* 1. <thead> groups header rows of tables.\n* 2. <tbody> contains the primary data rows.\n* 3. <tfoot> groups footer total calculation rows.\n* 4. Enables independent table body scrolling.\n* 5. Improves table printing and screen readers.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Structured Table</title>\n</head>\n<body>\n\n  <h2>Course Billing Summary</h2>\n  <table border=\"1\">\n    <thead>\n      <tr>\n        <th>Item Description</th>\n        <th>Price</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <td>Full Stack Curriculum Access</td>\n        <td>$0.00</td>\n      </tr>\n      <tr>\n        <td>CLI Simulator Sandbox</td>\n        <td>$0.00</td>\n      </tr>\n    </tbody>\n    <tfoot>\n      <tr>\n        <td>Total Cost:</td>\n        <td>100% Free</td>\n      </tr>\n    </tfoot>\n  </table>\n\n</body>\n</html>\n```",
+      pro: "* 1. <thead> groups header rows of tables.\n* 2. <tbody> contains the primary data rows.\n* 3. <tfoot> groups footer total calculation rows.\n* 4. Enables independent table body scrolling.\n* 5. Improves table printing and screen readers.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Structured Table</title>\n</head>\n<body>\n\n  <h2>Course Billing Summary</h2>\n  <table border=\"1\">\n    <thead>\n      <tr>\n        <th>Item Description</th>\n        <th>Price</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <td>Full Stack Curriculum Access</td>\n        <td>$0.00</td>\n      </tr>\n      <tr>\n        <td>CLI Simulator Sandbox</td>\n        <td>$0.00</td>\n      </tr>\n    </tbody>\n    <tfoot>\n      <tr>\n        <td>Total Cost:</td>\n        <td>100% Free</td>\n      </tr>\n    </tfoot>\n  </table>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. <thead> टेबल की हेडर पंक्तियों को समेटता है।\n* 2. <tbody> मुख्य डेटा पंक्तियों को रखता है।\n* 3. <tfoot> कुल योग और फुटर पंक्तियों के लिए है।\n* 4. बॉडी को अलग से स्क्रॉल करने में मदद करता है।\n* 5. प्रिंटिंग और स्क्रीन रीडर अनुभव बेहतर करता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Structured Table</title>\n</head>\n<body>\n\n  <h2>Course Billing Summary</h2>\n  <table border=\"1\">\n    <thead>\n      <tr>\n        <th>Item Description</th>\n        <th>Price</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <td>Full Stack Curriculum Access</td>\n        <td>$0.00</td>\n      </tr>\n      <tr>\n        <td>CLI Simulator Sandbox</td>\n        <td>$0.00</td>\n      </tr>\n    </tbody>\n    <tfoot>\n      <tr>\n        <td>Total Cost:</td>\n        <td>100% Free</td>\n      </tr>\n    </tfoot>\n  </table>\n\n</body>\n</html>\n```",
+      pro: "* 1. <thead> टेबल की हेडर पंक्तियों को समेटता है।\n* 2. <tbody> मुख्य डेटा पंक्तियों को रखता है।\n* 3. <tfoot> कुल योग और फुटर पंक्तियों के लिए है।\n* 4. बॉडी को अलग से स्क्रॉल करने में मदद करता है।\n* 5. प्रिंटिंग और स्क्रीन रीडर अनुभव बेहतर करता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Structured Table</title>\n</head>\n<body>\n\n  <h2>Course Billing Summary</h2>\n  <table border=\"1\">\n    <thead>\n      <tr>\n        <th>Item Description</th>\n        <th>Price</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <td>Full Stack Curriculum Access</td>\n        <td>$0.00</td>\n      </tr>\n      <tr>\n        <td>CLI Simulator Sandbox</td>\n        <td>$0.00</td>\n      </tr>\n    </tbody>\n    <tfoot>\n      <tr>\n        <td>Total Cost:</td>\n        <td>100% Free</td>\n      </tr>\n    </tfoot>\n  </table>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. <thead> टेबल की हेडर पंक्तियों को समेटता है।\n* 2. <tbody> मुख्य डेटा पंक्तियों को रखता है।\n* 3. <tfoot> कुल योग और फुटर पंक्तियों के लिए है।\n* 4. बॉडी को अलग से स्क्रॉल करने में मदद करता है।\n* 5. प्रिंटिंग और स्क्रीन रीडर अनुभव बेहतर करता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Structured Table</title>\n</head>\n<body>\n\n  <h2>Course Billing Summary</h2>\n  <table border=\"1\">\n    <thead>\n      <tr>\n        <th>Item Description</th>\n        <th>Price</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <td>Full Stack Curriculum Access</td>\n        <td>$0.00</td>\n      </tr>\n      <tr>\n        <td>CLI Simulator Sandbox</td>\n        <td>$0.00</td>\n      </tr>\n    </tbody>\n    <tfoot>\n      <tr>\n        <td>Total Cost:</td>\n        <td>100% Free</td>\n      </tr>\n    </tfoot>\n  </table>\n\n</body>\n</html>\n```",
+      pro: "* 1. <thead> टेबल की हेडर पंक्तियों को समेटता है।\n* 2. <tbody> मुख्य डेटा पंक्तियों को रखता है।\n* 3. <tfoot> कुल योग और फुटर पंक्तियों के लिए है।\n* 4. बॉडी को अलग से स्क्रॉल करने में मदद करता है।\n* 5. प्रिंटिंग और स्क्रीन रीडर अनुभव बेहतर करता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Structured Table</title>\n</head>\n<body>\n\n  <h2>Course Billing Summary</h2>\n  <table border=\"1\">\n    <thead>\n      <tr>\n        <th>Item Description</th>\n        <th>Price</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <td>Full Stack Curriculum Access</td>\n        <td>$0.00</td>\n      </tr>\n      <tr>\n        <td>CLI Simulator Sandbox</td>\n        <td>$0.00</td>\n      </tr>\n    </tbody>\n    <tfoot>\n      <tr>\n        <td>Total Cost:</td>\n        <td>100% Free</td>\n      </tr>\n    </tfoot>\n  </table>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 78,
+    slug: "table-column-groups-colgroup-col-widths",
+    title: "Table Column Groups (<colgroup> & <col>)",
+    unit: "Unit 8: Lists, Tables & Layout Grids",
+    bookRef: "Duckett Chapter 6 (p. 138-140)",
+    exercise: {
+      english: {
+        question: "Where should the <colgroup> tag be placed inside a table?",
+        options: ["Directly after the opening <table> tag","Inside the <tfoot> element","After the closing </table> tag","Inside each <td> cell"],
+        correctAnswer: "Directly after the opening <table> tag",
+        hint: "<colgroup> belongs at the top of the table before <thead> or <tr>."
+      },
+      hinglish: {
+        question: "Where should the <colgroup> tag be placed inside a table?",
+        options: ["Directly after the opening <table> tag","Inside the <tfoot> element","After the closing </table> tag","Inside each <td> cell"],
+        correctAnswer: "Directly after the opening <table> tag",
+        hint: "<colgroup> belongs at the top of the table before <thead> or <tr>."
+      },
+      hindi: {
+        question: "Where should the <colgroup> tag be placed inside a table?",
+        options: ["Directly after the opening <table> tag","Inside the <tfoot> element","After the closing </table> tag","Inside each <td> cell"],
+        correctAnswer: "Directly after the opening <table> tag",
+        hint: "<colgroup> belongs at the top of the table before <thead> or <tr>."
+      }
+    },
+    english: {
+      kid: "* 1. <colgroup> specifies formatting for whole columns.\n* 2. Contains one or more <col> elements.\n* 3. span attribute sets number of columns.\n* 4. Avoids repeating attributes on every cell.\n* 5. Sits immediately after opening <table> tag.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Column Groups</title>\n</head>\n<body>\n\n  <h2>Product Inventory</h2>\n  <table border=\"1\">\n    <colgroup>\n      <col span=\"1\">\n      <col span=\"2\">\n    </colgroup>\n    <tr>\n      <th>SKU</th>\n      <th>Item Name</th>\n      <th>In Stock</th>\n    </tr>\n    <tr>\n      <td>#101</td>\n      <td>USB-C Cable</td>\n      <td>50</td>\n    </tr>\n  </table>\n\n</body>\n</html>\n```",
+      pro: "* 1. <colgroup> specifies formatting for whole columns.\n* 2. Contains one or more <col> elements.\n* 3. span attribute sets number of columns.\n* 4. Avoids repeating attributes on every cell.\n* 5. Sits immediately after opening <table> tag.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Column Groups</title>\n</head>\n<body>\n\n  <h2>Product Inventory</h2>\n  <table border=\"1\">\n    <colgroup>\n      <col span=\"1\">\n      <col span=\"2\">\n    </colgroup>\n    <tr>\n      <th>SKU</th>\n      <th>Item Name</th>\n      <th>In Stock</th>\n    </tr>\n    <tr>\n      <td>#101</td>\n      <td>USB-C Cable</td>\n      <td>50</td>\n    </tr>\n  </table>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. <colgroup> पूरे कॉलम की फॉर्मेटिंग तय करता है।\n* 2. इसके अंदर एक या अधिक <col> तत्व होते हैं।\n* 3. span अट्रिब्यूट कॉलम की संख्या बताता है।\n* 4. हर सेल में बार-बार स्टाइल लगाने से बचाता है।\n* 5. <table> टैग के तुरंत बाद लगाया जाता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Column Groups</title>\n</head>\n<body>\n\n  <h2>Product Inventory</h2>\n  <table border=\"1\">\n    <colgroup>\n      <col span=\"1\">\n      <col span=\"2\">\n    </colgroup>\n    <tr>\n      <th>SKU</th>\n      <th>Item Name</th>\n      <th>In Stock</th>\n    </tr>\n    <tr>\n      <td>#101</td>\n      <td>USB-C Cable</td>\n      <td>50</td>\n    </tr>\n  </table>\n\n</body>\n</html>\n```",
+      pro: "* 1. <colgroup> पूरे कॉलम की फॉर्मेटिंग तय करता है।\n* 2. इसके अंदर एक या अधिक <col> तत्व होते हैं।\n* 3. span अट्रिब्यूट कॉलम की संख्या बताता है।\n* 4. हर सेल में बार-बार स्टाइल लगाने से बचाता है।\n* 5. <table> टैग के तुरंत बाद लगाया जाता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Column Groups</title>\n</head>\n<body>\n\n  <h2>Product Inventory</h2>\n  <table border=\"1\">\n    <colgroup>\n      <col span=\"1\">\n      <col span=\"2\">\n    </colgroup>\n    <tr>\n      <th>SKU</th>\n      <th>Item Name</th>\n      <th>In Stock</th>\n    </tr>\n    <tr>\n      <td>#101</td>\n      <td>USB-C Cable</td>\n      <td>50</td>\n    </tr>\n  </table>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. <colgroup> पूरे कॉलम की फॉर्मेटिंग तय करता है।\n* 2. इसके अंदर एक या अधिक <col> तत्व होते हैं।\n* 3. span अट्रिब्यूट कॉलम की संख्या बताता है।\n* 4. हर सेल में बार-बार स्टाइल लगाने से बचाता है।\n* 5. <table> टैग के तुरंत बाद लगाया जाता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Column Groups</title>\n</head>\n<body>\n\n  <h2>Product Inventory</h2>\n  <table border=\"1\">\n    <colgroup>\n      <col span=\"1\">\n      <col span=\"2\">\n    </colgroup>\n    <tr>\n      <th>SKU</th>\n      <th>Item Name</th>\n      <th>In Stock</th>\n    </tr>\n    <tr>\n      <td>#101</td>\n      <td>USB-C Cable</td>\n      <td>50</td>\n    </tr>\n  </table>\n\n</body>\n</html>\n```",
+      pro: "* 1. <colgroup> पूरे कॉलम की फॉर्मेटिंग तय करता है।\n* 2. इसके अंदर एक या अधिक <col> तत्व होते हैं।\n* 3. span अट्रिब्यूट कॉलम की संख्या बताता है।\n* 4. हर सेल में बार-बार स्टाइल लगाने से बचाता है।\n* 5. <table> टैग के तुरंत बाद लगाया जाता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Column Groups</title>\n</head>\n<body>\n\n  <h2>Product Inventory</h2>\n  <table border=\"1\">\n    <colgroup>\n      <col span=\"1\">\n      <col span=\"2\">\n    </colgroup>\n    <tr>\n      <th>SKU</th>\n      <th>Item Name</th>\n      <th>In Stock</th>\n    </tr>\n    <tr>\n      <td>#101</td>\n      <td>USB-C Cable</td>\n      <td>50</td>\n    </tr>\n  </table>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 79,
+    slug: "table-borders-cellpadding-cellspacing",
+    title: "Table Borders & Spacing Layouts",
+    unit: "Unit 8: Lists, Tables & Layout Grids",
+    bookRef: "Duckett Chapter 6 (p. 141-143)",
+    exercise: {
+      english: {
+        question: "Which pure HTML attribute renders visible grid borders around a table without CSS?",
+        options: ["border=\"1\"","grid=\"true\"","outline=\"solid\"","lines=\"visible\""],
+        correctAnswer: "border=\"1\"",
+        hint: "Use border=\"1\" on <table> for basic visible grid borders."
+      },
+      hinglish: {
+        question: "Which pure HTML attribute renders visible grid borders around a table without CSS?",
+        options: ["border=\"1\"","grid=\"true\"","outline=\"solid\"","lines=\"visible\""],
+        correctAnswer: "border=\"1\"",
+        hint: "Use border=\"1\" on <table> for basic visible grid borders."
+      },
+      hindi: {
+        question: "Which pure HTML attribute renders visible grid borders around a table without CSS?",
+        options: ["border=\"1\"","grid=\"true\"","outline=\"solid\"","lines=\"visible\""],
+        correctAnswer: "border=\"1\"",
+        hint: "Use border=\"1\" on <table> for basic visible grid borders."
+      }
+    },
+    english: {
+      kid: "* 1. border attribute specifies table grid lines.\n* 2. Value \"1\" renders basic table borders.\n* 3. Keeps data clearly separated and readable.\n* 4. Modern styling uses CSS border-collapse.\n* 5. Pure HTML attributes ensure universal fallback.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Table Grid</title>\n</head>\n<body>\n\n  <h2>Command Reference Summary</h2>\n  <table border=\"1\">\n    <tr>\n      <th>Command</th>\n      <th>Description</th>\n      <th>OS Platform</th>\n    </tr>\n    <tr>\n      <td>dir</td>\n      <td>List directory contents</td>\n      <td>Windows 11</td>\n    </tr>\n    <tr>\n      <td>mkdir</td>\n      <td>Create new folder</td>\n      <td>Windows & Linux</td>\n    </tr>\n  </table>\n\n</body>\n</html>\n```",
+      pro: "* 1. border attribute specifies table grid lines.\n* 2. Value \"1\" renders basic table borders.\n* 3. Keeps data clearly separated and readable.\n* 4. Modern styling uses CSS border-collapse.\n* 5. Pure HTML attributes ensure universal fallback.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Table Grid</title>\n</head>\n<body>\n\n  <h2>Command Reference Summary</h2>\n  <table border=\"1\">\n    <tr>\n      <th>Command</th>\n      <th>Description</th>\n      <th>OS Platform</th>\n    </tr>\n    <tr>\n      <td>dir</td>\n      <td>List directory contents</td>\n      <td>Windows 11</td>\n    </tr>\n    <tr>\n      <td>mkdir</td>\n      <td>Create new folder</td>\n      <td>Windows & Linux</td>\n    </tr>\n  </table>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. border अट्रिब्यूट टेबल की रेखाएं दिखाता है।\n* 2. मान \"1\" साधारण बॉर्डर रेखाएं बनाता है।\n* 3. डेटा को अलग-अलग और पढ़ने योग्य रखता है।\n* 4. आधुनिक वेब में CSS का उपयोग होता है।\n* 5. शुद्ध HTML में भी साफ लेआउट देता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Table Grid</title>\n</head>\n<body>\n\n  <h2>Command Reference Summary</h2>\n  <table border=\"1\">\n    <tr>\n      <th>Command</th>\n      <th>Description</th>\n      <th>OS Platform</th>\n    </tr>\n    <tr>\n      <td>dir</td>\n      <td>List directory contents</td>\n      <td>Windows 11</td>\n    </tr>\n    <tr>\n      <td>mkdir</td>\n      <td>Create new folder</td>\n      <td>Windows & Linux</td>\n    </tr>\n  </table>\n\n</body>\n</html>\n```",
+      pro: "* 1. border अट्रिब्यूट टेबल की रेखाएं दिखाता है।\n* 2. मान \"1\" साधारण बॉर्डर रेखाएं बनाता है।\n* 3. डेटा को अलग-अलग और पढ़ने योग्य रखता है।\n* 4. आधुनिक वेब में CSS का उपयोग होता है।\n* 5. शुद्ध HTML में भी साफ लेआउट देता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Table Grid</title>\n</head>\n<body>\n\n  <h2>Command Reference Summary</h2>\n  <table border=\"1\">\n    <tr>\n      <th>Command</th>\n      <th>Description</th>\n      <th>OS Platform</th>\n    </tr>\n    <tr>\n      <td>dir</td>\n      <td>List directory contents</td>\n      <td>Windows 11</td>\n    </tr>\n    <tr>\n      <td>mkdir</td>\n      <td>Create new folder</td>\n      <td>Windows & Linux</td>\n    </tr>\n  </table>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. border अट्रिब्यूट टेबल की रेखाएं दिखाता है।\n* 2. मान \"1\" साधारण बॉर्डर रेखाएं बनाता है।\n* 3. डेटा को अलग-अलग और पढ़ने योग्य रखता है।\n* 4. आधुनिक वेब में CSS का उपयोग होता है।\n* 5. शुद्ध HTML में भी साफ लेआउट देता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Table Grid</title>\n</head>\n<body>\n\n  <h2>Command Reference Summary</h2>\n  <table border=\"1\">\n    <tr>\n      <th>Command</th>\n      <th>Description</th>\n      <th>OS Platform</th>\n    </tr>\n    <tr>\n      <td>dir</td>\n      <td>List directory contents</td>\n      <td>Windows 11</td>\n    </tr>\n    <tr>\n      <td>mkdir</td>\n      <td>Create new folder</td>\n      <td>Windows & Linux</td>\n    </tr>\n  </table>\n\n</body>\n</html>\n```",
+      pro: "* 1. border अट्रिब्यूट टेबल की रेखाएं दिखाता है।\n* 2. मान \"1\" साधारण बॉर्डर रेखाएं बनाता है।\n* 3. डेटा को अलग-अलग और पढ़ने योग्य रखता है।\n* 4. आधुनिक वेब में CSS का उपयोग होता है।\n* 5. शुद्ध HTML में भी साफ लेआउट देता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Table Grid</title>\n</head>\n<body>\n\n  <h2>Command Reference Summary</h2>\n  <table border=\"1\">\n    <tr>\n      <th>Command</th>\n      <th>Description</th>\n      <th>OS Platform</th>\n    </tr>\n    <tr>\n      <td>dir</td>\n      <td>List directory contents</td>\n      <td>Windows 11</td>\n    </tr>\n    <tr>\n      <td>mkdir</td>\n      <td>Create new folder</td>\n      <td>Windows & Linux</td>\n    </tr>\n  </table>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 80,
+    slug: "capstone-weekly-schedule-pricing-grid",
+    title: "Capstone Project: Dynamic Pricing Grid",
+    unit: "Unit 8: Lists, Tables & Layout Grids",
+    bookRef: "Nextsem Academy Project Suite",
+    exercise: {
+      english: {
+        question: "Which tag provides an accessible title or caption for an entire table?",
+        options: ["<caption>","<title>","<header>","<label>"],
+        correctAnswer: "<caption>",
+        hint: "The <caption> tag must be inserted immediately after <table>."
+      },
+      hinglish: {
+        question: "Which tag provides an accessible title or caption for an entire table?",
+        options: ["<caption>","<title>","<header>","<label>"],
+        correctAnswer: "<caption>",
+        hint: "The <caption> tag must be inserted immediately after <table>."
+      },
+      hindi: {
+        question: "Which tag provides an accessible title or caption for an entire table?",
+        options: ["<caption>","<title>","<header>","<label>"],
+        correctAnswer: "<caption>",
+        hint: "The <caption> tag must be inserted immediately after <table>."
+      }
+    },
+    english: {
+      kid: "* 1. Combines <table>, <thead>, <tbody>, <tfoot>, and <caption>.\n* 2. Implements clean column spanning for highlights.\n* 3. Uses pure HTML5 semantic structure.\n* 4. 100% accessible to screen reading devices.\n* 5. Presents comparative pricing data cleanly.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Nextsem Academy Plans</title>\n</head>\n<body>\n\n  <h1>Nextsem Academy Access Tiers</h1>\n\n  <table border=\"1\">\n    <caption>Complete Curriculum Access Pricing</caption>\n    <thead>\n      <tr>\n        <th>Feature Plan</th>\n        <th>Free Community</th>\n        <th>Developer Pro</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <td>Full Stack Lessons</td>\n        <td>Included</td>\n        <td>Included</td>\n      </tr>\n      <tr>\n        <td>Windows 11 Terminal CLI</td>\n        <td>Included</td>\n        <td>Included</td>\n      </tr>\n      <tr>\n        <td>Interactive MCQ Quizzes</td>\n        <td>Included</td>\n        <td>Included</td>\n      </tr>\n    </tbody>\n    <tfoot>\n      <tr>\n        <th>Monthly Subscription</th>\n        <th colspan=\"2\">$0 / Forever Free</th>\n      </tr>\n    </tfoot>\n  </table>\n\n</body>\n</html>\n```",
+      pro: "* 1. Combines <table>, <thead>, <tbody>, <tfoot>, and <caption>.\n* 2. Implements clean column spanning for highlights.\n* 3. Uses pure HTML5 semantic structure.\n* 4. 100% accessible to screen reading devices.\n* 5. Presents comparative pricing data cleanly.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Nextsem Academy Plans</title>\n</head>\n<body>\n\n  <h1>Nextsem Academy Access Tiers</h1>\n\n  <table border=\"1\">\n    <caption>Complete Curriculum Access Pricing</caption>\n    <thead>\n      <tr>\n        <th>Feature Plan</th>\n        <th>Free Community</th>\n        <th>Developer Pro</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <td>Full Stack Lessons</td>\n        <td>Included</td>\n        <td>Included</td>\n      </tr>\n      <tr>\n        <td>Windows 11 Terminal CLI</td>\n        <td>Included</td>\n        <td>Included</td>\n      </tr>\n      <tr>\n        <td>Interactive MCQ Quizzes</td>\n        <td>Included</td>\n        <td>Included</td>\n      </tr>\n    </tbody>\n    <tfoot>\n      <tr>\n        <th>Monthly Subscription</th>\n        <th colspan=\"2\">$0 / Forever Free</th>\n      </tr>\n    </tfoot>\n  </table>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. <table>, <thead>, <tbody>, और <caption> का पूरा संगम।\n* 2. मुख्य बिंदुओं के लिए colspan का सही उपयोग।\n* 3. 100% शुद्ध सिमेंटिक HTML5 संरचना।\n* 4. स्क्रीन रीडर के लिए पूरी तरह सुलभ।\n* 5. तुलनात्मक मूल्य डेटा को साफ-साफ दिखाता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Nextsem Academy Plans</title>\n</head>\n<body>\n\n  <h1>Nextsem Academy Access Tiers</h1>\n\n  <table border=\"1\">\n    <caption>Complete Curriculum Access Pricing</caption>\n    <thead>\n      <tr>\n        <th>Feature Plan</th>\n        <th>Free Community</th>\n        <th>Developer Pro</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <td>Full Stack Lessons</td>\n        <td>Included</td>\n        <td>Included</td>\n      </tr>\n      <tr>\n        <td>Windows 11 Terminal CLI</td>\n        <td>Included</td>\n        <td>Included</td>\n      </tr>\n      <tr>\n        <td>Interactive MCQ Quizzes</td>\n        <td>Included</td>\n        <td>Included</td>\n      </tr>\n    </tbody>\n    <tfoot>\n      <tr>\n        <th>Monthly Subscription</th>\n        <th colspan=\"2\">$0 / Forever Free</th>\n      </tr>\n    </tfoot>\n  </table>\n\n</body>\n</html>\n```",
+      pro: "* 1. <table>, <thead>, <tbody>, और <caption> का पूरा संगम।\n* 2. मुख्य बिंदुओं के लिए colspan का सही उपयोग।\n* 3. 100% शुद्ध सिमेंटिक HTML5 संरचना।\n* 4. स्क्रीन रीडर के लिए पूरी तरह सुलभ।\n* 5. तुलनात्मक मूल्य डेटा को साफ-साफ दिखाता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Nextsem Academy Plans</title>\n</head>\n<body>\n\n  <h1>Nextsem Academy Access Tiers</h1>\n\n  <table border=\"1\">\n    <caption>Complete Curriculum Access Pricing</caption>\n    <thead>\n      <tr>\n        <th>Feature Plan</th>\n        <th>Free Community</th>\n        <th>Developer Pro</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <td>Full Stack Lessons</td>\n        <td>Included</td>\n        <td>Included</td>\n      </tr>\n      <tr>\n        <td>Windows 11 Terminal CLI</td>\n        <td>Included</td>\n        <td>Included</td>\n      </tr>\n      <tr>\n        <td>Interactive MCQ Quizzes</td>\n        <td>Included</td>\n        <td>Included</td>\n      </tr>\n    </tbody>\n    <tfoot>\n      <tr>\n        <th>Monthly Subscription</th>\n        <th colspan=\"2\">$0 / Forever Free</th>\n      </tr>\n    </tfoot>\n  </table>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. <table>, <thead>, <tbody>, और <caption> का पूरा संगम।\n* 2. मुख्य बिंदुओं के लिए colspan का सही उपयोग।\n* 3. 100% शुद्ध सिमेंटिक HTML5 संरचना।\n* 4. स्क्रीन रीडर के लिए पूरी तरह सुलभ।\n* 5. तुलनात्मक मूल्य डेटा को साफ-साफ दिखाता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Nextsem Academy Plans</title>\n</head>\n<body>\n\n  <h1>Nextsem Academy Access Tiers</h1>\n\n  <table border=\"1\">\n    <caption>Complete Curriculum Access Pricing</caption>\n    <thead>\n      <tr>\n        <th>Feature Plan</th>\n        <th>Free Community</th>\n        <th>Developer Pro</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <td>Full Stack Lessons</td>\n        <td>Included</td>\n        <td>Included</td>\n      </tr>\n      <tr>\n        <td>Windows 11 Terminal CLI</td>\n        <td>Included</td>\n        <td>Included</td>\n      </tr>\n      <tr>\n        <td>Interactive MCQ Quizzes</td>\n        <td>Included</td>\n        <td>Included</td>\n      </tr>\n    </tbody>\n    <tfoot>\n      <tr>\n        <th>Monthly Subscription</th>\n        <th colspan=\"2\">$0 / Forever Free</th>\n      </tr>\n    </tfoot>\n  </table>\n\n</body>\n</html>\n```",
+      pro: "* 1. <table>, <thead>, <tbody>, और <caption> का पूरा संगम।\n* 2. मुख्य बिंदुओं के लिए colspan का सही उपयोग।\n* 3. 100% शुद्ध सिमेंटिक HTML5 संरचना।\n* 4. स्क्रीन रीडर के लिए पूरी तरह सुलभ।\n* 5. तुलनात्मक मूल्य डेटा को साफ-साफ दिखाता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Nextsem Academy Plans</title>\n</head>\n<body>\n\n  <h1>Nextsem Academy Access Tiers</h1>\n\n  <table border=\"1\">\n    <caption>Complete Curriculum Access Pricing</caption>\n    <thead>\n      <tr>\n        <th>Feature Plan</th>\n        <th>Free Community</th>\n        <th>Developer Pro</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <td>Full Stack Lessons</td>\n        <td>Included</td>\n        <td>Included</td>\n      </tr>\n      <tr>\n        <td>Windows 11 Terminal CLI</td>\n        <td>Included</td>\n        <td>Included</td>\n      </tr>\n      <tr>\n        <td>Interactive MCQ Quizzes</td>\n        <td>Included</td>\n        <td>Included</td>\n      </tr>\n    </tbody>\n    <tfoot>\n      <tr>\n        <th>Monthly Subscription</th>\n        <th colspan=\"2\">$0 / Forever Free</th>\n      </tr>\n    </tfoot>\n  </table>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 81,
+    slug: "form-action-method-attributes-processing",
+    title: "Form Action & Method (processing basics)",
+    unit: "Unit 9: Interactive Forms & Inputs",
+    bookRef: "Duckett Chapter 7 (p. 144-147)",
+    exercise: {
+      english: {
+        question: "Which HTTP method sends sensitive form data securely in the request body instead of the URL?",
+        options: ["POST","GET","FETCH","SUBMIT"],
+        correctAnswer: "POST",
+        hint: "POST sends data inside the request payload body."
+      },
+      hinglish: {
+        question: "Which HTTP method sends sensitive form data securely in the request body instead of the URL?",
+        options: ["POST","GET","FETCH","SUBMIT"],
+        correctAnswer: "POST",
+        hint: "POST sends data inside the request payload body."
+      },
+      hindi: {
+        question: "Which HTTP method sends sensitive form data securely in the request body instead of the URL?",
+        options: ["POST","GET","FETCH","SUBMIT"],
+        correctAnswer: "POST",
+        hint: "POST sends data inside the request payload body."
+      }
+    },
+    english: {
+      kid: "* 1. <form> collects user interactive input data.\n* 2. action specifies server endpoint URL destination.\n* 3. method=\"GET\" appends data to URL.\n* 4. method=\"POST\" sends data securely inside body.\n* 5. Container for inputs, checkboxes, and buttons.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>HTML Form</title>\n</head>\n<body>\n\n  <h2>User Registration Form</h2>\n  <form action=\"/register-user\" method=\"post\">\n    <p>\n      <label for=\"username\">Username:</label>\n      <input type=\"text\" id=\"username\" name=\"username\">\n    </p>\n    <button type=\"submit\">Create Account</button>\n  </form>\n\n</body>\n</html>\n```",
+      pro: "* 1. <form> collects user interactive input data.\n* 2. action specifies server endpoint URL destination.\n* 3. method=\"GET\" appends data to URL.\n* 4. method=\"POST\" sends data securely inside body.\n* 5. Container for inputs, checkboxes, and buttons.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>HTML Form</title>\n</head>\n<body>\n\n  <h2>User Registration Form</h2>\n  <form action=\"/register-user\" method=\"post\">\n    <p>\n      <label for=\"username\">Username:</label>\n      <input type=\"text\" id=\"username\" name=\"username\">\n    </p>\n    <button type=\"submit\">Create Account</button>\n  </form>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. <form> उपयोगकर्ता से डेटा इनपुट लेता है।\n* 2. action सर्वर प्रोसेसिंग URL का पता देता है।\n* 3. method=\"GET\" डेटा को URL में जोड़ता है।\n* 4. method=\"POST\" डेटा को सुरक्षित बॉडी में भेजता है।\n* 5. इनपुट, चेकबॉक्स और बटनों का कंटेनर है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>HTML Form</title>\n</head>\n<body>\n\n  <h2>User Registration Form</h2>\n  <form action=\"/register-user\" method=\"post\">\n    <p>\n      <label for=\"username\">Username:</label>\n      <input type=\"text\" id=\"username\" name=\"username\">\n    </p>\n    <button type=\"submit\">Create Account</button>\n  </form>\n\n</body>\n</html>\n```",
+      pro: "* 1. <form> उपयोगकर्ता से डेटा इनपुट लेता है।\n* 2. action सर्वर प्रोसेसिंग URL का पता देता है।\n* 3. method=\"GET\" डेटा को URL में जोड़ता है।\n* 4. method=\"POST\" डेटा को सुरक्षित बॉडी में भेजता है।\n* 5. इनपुट, चेकबॉक्स और बटनों का कंटेनर है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>HTML Form</title>\n</head>\n<body>\n\n  <h2>User Registration Form</h2>\n  <form action=\"/register-user\" method=\"post\">\n    <p>\n      <label for=\"username\">Username:</label>\n      <input type=\"text\" id=\"username\" name=\"username\">\n    </p>\n    <button type=\"submit\">Create Account</button>\n  </form>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. <form> उपयोगकर्ता से डेटा इनपुट लेता है।\n* 2. action सर्वर प्रोसेसिंग URL का पता देता है।\n* 3. method=\"GET\" डेटा को URL में जोड़ता है।\n* 4. method=\"POST\" डेटा को सुरक्षित बॉडी में भेजता है।\n* 5. इनपुट, चेकबॉक्स और बटनों का कंटेनर है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>HTML Form</title>\n</head>\n<body>\n\n  <h2>User Registration Form</h2>\n  <form action=\"/register-user\" method=\"post\">\n    <p>\n      <label for=\"username\">Username:</label>\n      <input type=\"text\" id=\"username\" name=\"username\">\n    </p>\n    <button type=\"submit\">Create Account</button>\n  </form>\n\n</body>\n</html>\n```",
+      pro: "* 1. <form> उपयोगकर्ता से डेटा इनपुट लेता है।\n* 2. action सर्वर प्रोसेसिंग URL का पता देता है।\n* 3. method=\"GET\" डेटा को URL में जोड़ता है।\n* 4. method=\"POST\" डेटा को सुरक्षित बॉडी में भेजता है।\n* 5. इनपुट, चेकबॉक्स और बटनों का कंटेनर है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>HTML Form</title>\n</head>\n<body>\n\n  <h2>User Registration Form</h2>\n  <form action=\"/register-user\" method=\"post\">\n    <p>\n      <label for=\"username\">Username:</label>\n      <input type=\"text\" id=\"username\" name=\"username\">\n    </p>\n    <button type=\"submit\">Create Account</button>\n  </form>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 82,
+    slug: "form-labeling-for-attribute-linkage",
+    title: "Form Labels (for attribute linkage)",
+    unit: "Unit 9: Interactive Forms & Inputs",
+    bookRef: "Duckett Chapter 7 (p. 148-150)",
+    exercise: {
+      english: {
+        question: "Which attribute inside <label> links it to an <input id=\"...\">?",
+        options: ["for","target","to","name"],
+        correctAnswer: "for",
+        hint: "The for attribute on <label> must match the id on the <input>."
+      },
+      hinglish: {
+        question: "Which attribute inside <label> links it to an <input id=\"...\">?",
+        options: ["for","target","to","name"],
+        correctAnswer: "for",
+        hint: "The for attribute on <label> must match the id on the <input>."
+      },
+      hindi: {
+        question: "Which attribute inside <label> links it to an <input id=\"...\">?",
+        options: ["for","target","to","name"],
+        correctAnswer: "for",
+        hint: "The for attribute on <label> must match the id on the <input>."
+      }
+    },
+    english: {
+      kid: "* 1. <label> associates descriptive text with inputs.\n* 2. for attribute matches the input id.\n* 3. Clicking label automatically focuses the input.\n* 4. Greatly enlarges touch target on mobiles.\n* 5. Critical accessibility requirement for screen readers.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Form Labels</title>\n</head>\n<body>\n\n  <h2>Contact Information</h2>\n  <form>\n    <p>\n      <label for=\"emailInput\">Email Address:</label>\n      <input type=\"email\" id=\"emailInput\" name=\"email\">\n    </p>\n  </form>\n\n</body>\n</html>\n```",
+      pro: "* 1. <label> associates descriptive text with inputs.\n* 2. for attribute matches the input id.\n* 3. Clicking label automatically focuses the input.\n* 4. Greatly enlarges touch target on mobiles.\n* 5. Critical accessibility requirement for screen readers.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Form Labels</title>\n</head>\n<body>\n\n  <h2>Contact Information</h2>\n  <form>\n    <p>\n      <label for=\"emailInput\">Email Address:</label>\n      <input type=\"email\" id=\"emailInput\" name=\"email\">\n    </p>\n  </form>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. <label> इनपुट बॉक्स को नाम/विवरण देता है।\n* 2. for अट्रिब्यूट इनपुट के id से मेल खाता है।\n* 3. लेबल पर क्लिक करने से कर्सर इनपुट में आ जाता है।\n* 4. मोबाइल पर टच करने की जगह बड़ी हो जाती है।\n* 5. स्क्रीन रीडर्स के लिए बहुत जरूरी नियम है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Form Labels</title>\n</head>\n<body>\n\n  <h2>Contact Information</h2>\n  <form>\n    <p>\n      <label for=\"emailInput\">Email Address:</label>\n      <input type=\"email\" id=\"emailInput\" name=\"email\">\n    </p>\n  </form>\n\n</body>\n</html>\n```",
+      pro: "* 1. <label> इनपुट बॉक्स को नाम/विवरण देता है।\n* 2. for अट्रिब्यूट इनपुट के id से मेल खाता है।\n* 3. लेबल पर क्लिक करने से कर्सर इनपुट में आ जाता है।\n* 4. मोबाइल पर टच करने की जगह बड़ी हो जाती है।\n* 5. स्क्रीन रीडर्स के लिए बहुत जरूरी नियम है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Form Labels</title>\n</head>\n<body>\n\n  <h2>Contact Information</h2>\n  <form>\n    <p>\n      <label for=\"emailInput\">Email Address:</label>\n      <input type=\"email\" id=\"emailInput\" name=\"email\">\n    </p>\n  </form>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. <label> इनपुट बॉक्स को नाम/विवरण देता है।\n* 2. for अट्रिब्यूट इनपुट के id से मेल खाता है।\n* 3. लेबल पर क्लिक करने से कर्सर इनपुट में आ जाता है।\n* 4. मोबाइल पर टच करने की जगह बड़ी हो जाती है।\n* 5. स्क्रीन रीडर्स के लिए बहुत जरूरी नियम है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Form Labels</title>\n</head>\n<body>\n\n  <h2>Contact Information</h2>\n  <form>\n    <p>\n      <label for=\"emailInput\">Email Address:</label>\n      <input type=\"email\" id=\"emailInput\" name=\"email\">\n    </p>\n  </form>\n\n</body>\n</html>\n```",
+      pro: "* 1. <label> इनपुट बॉक्स को नाम/विवरण देता है।\n* 2. for अट्रिब्यूट इनपुट के id से मेल खाता है।\n* 3. लेबल पर क्लिक करने से कर्सर इनपुट में आ जाता है।\n* 4. मोबाइल पर टच करने की जगह बड़ी हो जाती है।\n* 5. स्क्रीन रीडर्स के लिए बहुत जरूरी नियम है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Form Labels</title>\n</head>\n<body>\n\n  <h2>Contact Information</h2>\n  <form>\n    <p>\n      <label for=\"emailInput\">Email Address:</label>\n      <input type=\"email\" id=\"emailInput\" name=\"email\">\n    </p>\n  </form>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 83,
+    slug: "text-password-inputs-type-attributes",
+    title: "Text & Password Inputs (type=\"text\" & \"password\")",
+    unit: "Unit 9: Interactive Forms & Inputs",
+    bookRef: "Duckett Chapter 7 (p. 151-153)",
+    exercise: {
+      english: {
+        question: "Which input type masks characters with black dots or asterisks for privacy?",
+        options: ["type=\"password\"","type=\"secret\"","type=\"hidden\"","type=\"mask\""],
+        correctAnswer: "type=\"password\"",
+        hint: "type=\"password\" obscures the text typed by users."
+      },
+      hinglish: {
+        question: "Which input type masks characters with black dots or asterisks for privacy?",
+        options: ["type=\"password\"","type=\"secret\"","type=\"hidden\"","type=\"mask\""],
+        correctAnswer: "type=\"password\"",
+        hint: "type=\"password\" obscures the text typed by users."
+      },
+      hindi: {
+        question: "Which input type masks characters with black dots or asterisks for privacy?",
+        options: ["type=\"password\"","type=\"secret\"","type=\"hidden\"","type=\"mask\""],
+        correctAnswer: "type=\"password\"",
+        hint: "type=\"password\" obscures the text typed by users."
+      }
+    },
+    english: {
+      kid: "* 1. <input type=\"text\"> creates single-line text inputs.\n* 2. <input type=\"password\"> masks typed characters securely.\n* 3. name attribute defines variable key submitted.\n* 4. placeholder displays subtle hint text inside.\n* 5. <input> is a self-closing empty element.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Login Credentials</title>\n</head>\n<body>\n\n  <h2>Member Login</h2>\n  <form action=\"/login\" method=\"post\">\n    <p>\n      <label for=\"user\">Username:</label>\n      <input type=\"text\" id=\"user\" name=\"username\" placeholder=\"e.g. alex2026\">\n    </p>\n    <p>\n      <label for=\"pass\">Password:</label>\n      <input type=\"password\" id=\"pass\" name=\"password\" placeholder=\"Enter secure password\">\n    </p>\n    <button type=\"submit\">Sign In</button>\n  </form>\n\n</body>\n</html>\n```",
+      pro: "* 1. <input type=\"text\"> creates single-line text inputs.\n* 2. <input type=\"password\"> masks typed characters securely.\n* 3. name attribute defines variable key submitted.\n* 4. placeholder displays subtle hint text inside.\n* 5. <input> is a self-closing empty element.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Login Credentials</title>\n</head>\n<body>\n\n  <h2>Member Login</h2>\n  <form action=\"/login\" method=\"post\">\n    <p>\n      <label for=\"user\">Username:</label>\n      <input type=\"text\" id=\"user\" name=\"username\" placeholder=\"e.g. alex2026\">\n    </p>\n    <p>\n      <label for=\"pass\">Password:</label>\n      <input type=\"password\" id=\"pass\" name=\"password\" placeholder=\"Enter secure password\">\n    </p>\n    <button type=\"submit\">Sign In</button>\n  </form>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. type=\"text\" साधारण एक लाइन इनपुट बनाता है।\n* 2. type=\"password\" पासवर्ड के अक्षरों को छिपाता है।\n* 3. name अट्रिब्यूट सर्वर पर जाने वाली की (key) है।\n* 4. placeholder बॉक्स में हल्का हिंट टेक्स्ट दिखाता है।\n* 5. <input> एक सेल्फ-क्लोजिंग टैग होता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Login Credentials</title>\n</head>\n<body>\n\n  <h2>Member Login</h2>\n  <form action=\"/login\" method=\"post\">\n    <p>\n      <label for=\"user\">Username:</label>\n      <input type=\"text\" id=\"user\" name=\"username\" placeholder=\"e.g. alex2026\">\n    </p>\n    <p>\n      <label for=\"pass\">Password:</label>\n      <input type=\"password\" id=\"pass\" name=\"password\" placeholder=\"Enter secure password\">\n    </p>\n    <button type=\"submit\">Sign In</button>\n  </form>\n\n</body>\n</html>\n```",
+      pro: "* 1. type=\"text\" साधारण एक लाइन इनपुट बनाता है।\n* 2. type=\"password\" पासवर्ड के अक्षरों को छिपाता है।\n* 3. name अट्रिब्यूट सर्वर पर जाने वाली की (key) है।\n* 4. placeholder बॉक्स में हल्का हिंट टेक्स्ट दिखाता है।\n* 5. <input> एक सेल्फ-क्लोजिंग टैग होता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Login Credentials</title>\n</head>\n<body>\n\n  <h2>Member Login</h2>\n  <form action=\"/login\" method=\"post\">\n    <p>\n      <label for=\"user\">Username:</label>\n      <input type=\"text\" id=\"user\" name=\"username\" placeholder=\"e.g. alex2026\">\n    </p>\n    <p>\n      <label for=\"pass\">Password:</label>\n      <input type=\"password\" id=\"pass\" name=\"password\" placeholder=\"Enter secure password\">\n    </p>\n    <button type=\"submit\">Sign In</button>\n  </form>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. type=\"text\" साधारण एक लाइन इनपुट बनाता है।\n* 2. type=\"password\" पासवर्ड के अक्षरों को छिपाता है।\n* 3. name अट्रिब्यूट सर्वर पर जाने वाली की (key) है।\n* 4. placeholder बॉक्स में हल्का हिंट टेक्स्ट दिखाता है।\n* 5. <input> एक सेल्फ-क्लोजिंग टैग होता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Login Credentials</title>\n</head>\n<body>\n\n  <h2>Member Login</h2>\n  <form action=\"/login\" method=\"post\">\n    <p>\n      <label for=\"user\">Username:</label>\n      <input type=\"text\" id=\"user\" name=\"username\" placeholder=\"e.g. alex2026\">\n    </p>\n    <p>\n      <label for=\"pass\">Password:</label>\n      <input type=\"password\" id=\"pass\" name=\"password\" placeholder=\"Enter secure password\">\n    </p>\n    <button type=\"submit\">Sign In</button>\n  </form>\n\n</body>\n</html>\n```",
+      pro: "* 1. type=\"text\" साधारण एक लाइन इनपुट बनाता है।\n* 2. type=\"password\" पासवर्ड के अक्षरों को छिपाता है।\n* 3. name अट्रिब्यूट सर्वर पर जाने वाली की (key) है।\n* 4. placeholder बॉक्स में हल्का हिंट टेक्स्ट दिखाता है।\n* 5. <input> एक सेल्फ-क्लोजिंग टैग होता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Login Credentials</title>\n</head>\n<body>\n\n  <h2>Member Login</h2>\n  <form action=\"/login\" method=\"post\">\n    <p>\n      <label for=\"user\">Username:</label>\n      <input type=\"text\" id=\"user\" name=\"username\" placeholder=\"e.g. alex2026\">\n    </p>\n    <p>\n      <label for=\"pass\">Password:</label>\n      <input type=\"password\" id=\"pass\" name=\"password\" placeholder=\"Enter secure password\">\n    </p>\n    <button type=\"submit\">Sign In</button>\n  </form>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 84,
+    slug: "radio-buttons-grouping-name-attribute",
+    title: "Radio Buttons (type=\"radio\")",
+    unit: "Unit 9: Interactive Forms & Inputs",
+    bookRef: "Duckett Chapter 7 (p. 154-156)",
+    exercise: {
+      english: {
+        question: "How do you group multiple radio buttons so only one can be selected at a time?",
+        options: ["Give them all the exact same name attribute","Give them all the same id attribute","Wrap them in a <div> container","Use the type=\"grouped\" attribute"],
+        correctAnswer: "Give them all the exact same name attribute",
+        hint: "Radio buttons sharing the same name form a mutually exclusive group."
+      },
+      hinglish: {
+        question: "How do you group multiple radio buttons so only one can be selected at a time?",
+        options: ["Give them all the exact same name attribute","Give them all the same id attribute","Wrap them in a <div> container","Use the type=\"grouped\" attribute"],
+        correctAnswer: "Give them all the exact same name attribute",
+        hint: "Radio buttons sharing the same name form a mutually exclusive group."
+      },
+      hindi: {
+        question: "How do you group multiple radio buttons so only one can be selected at a time?",
+        options: ["Give them all the exact same name attribute","Give them all the same id attribute","Wrap them in a <div> container","Use the type=\"grouped\" attribute"],
+        correctAnswer: "Give them all the exact same name attribute",
+        hint: "Radio buttons sharing the same name form a mutually exclusive group."
+      }
+    },
+    english: {
+      kid: "* 1. type=\"radio\" creates single-choice option buttons.\n* 2. Same name attribute groups options together.\n* 3. Only one button selectable at once.\n* 4. value attribute defines submitted server data.\n* 5. checked attribute pre-selects default option.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Radio Buttons</title>\n</head>\n<body>\n\n  <h2>Select Your Developer Track</h2>\n  <form>\n    <p>\n      <input type=\"radio\" id=\"frontend\" name=\"track\" value=\"frontend\" checked>\n      <label for=\"frontend\">Frontend Web Developer</label>\n    </p>\n    <p>\n      <input type=\"radio\" id=\"fullstack\" name=\"track\" value=\"fullstack\">\n      <label for=\"fullstack\">Full Stack Engineer</label>\n    </p>\n  </form>\n\n</body>\n</html>\n```",
+      pro: "* 1. type=\"radio\" creates single-choice option buttons.\n* 2. Same name attribute groups options together.\n* 3. Only one button selectable at once.\n* 4. value attribute defines submitted server data.\n* 5. checked attribute pre-selects default option.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Radio Buttons</title>\n</head>\n<body>\n\n  <h2>Select Your Developer Track</h2>\n  <form>\n    <p>\n      <input type=\"radio\" id=\"frontend\" name=\"track\" value=\"frontend\" checked>\n      <label for=\"frontend\">Frontend Web Developer</label>\n    </p>\n    <p>\n      <input type=\"radio\" id=\"fullstack\" name=\"track\" value=\"fullstack\">\n      <label for=\"fullstack\">Full Stack Engineer</label>\n    </p>\n  </form>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. type=\"radio\" केवल एक विकल्प चुनने देता है।\n* 2. एक समान name अट्रिब्यूट विकल्पों का ग्रुप बनाता है।\n* 3. एक समय में सिर्फ एक ही बटन चुना जा सकता है।\n* 4. value सर्वर पर जाने वाला असली डेटा होता है।\n* 5. checked अट्रिब्यूट पहले से चुनकर रखता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Radio Buttons</title>\n</head>\n<body>\n\n  <h2>Select Your Developer Track</h2>\n  <form>\n    <p>\n      <input type=\"radio\" id=\"frontend\" name=\"track\" value=\"frontend\" checked>\n      <label for=\"frontend\">Frontend Web Developer</label>\n    </p>\n    <p>\n      <input type=\"radio\" id=\"fullstack\" name=\"track\" value=\"fullstack\">\n      <label for=\"fullstack\">Full Stack Engineer</label>\n    </p>\n  </form>\n\n</body>\n</html>\n```",
+      pro: "* 1. type=\"radio\" केवल एक विकल्प चुनने देता है।\n* 2. एक समान name अट्रिब्यूट विकल्पों का ग्रुप बनाता है।\n* 3. एक समय में सिर्फ एक ही बटन चुना जा सकता है।\n* 4. value सर्वर पर जाने वाला असली डेटा होता है।\n* 5. checked अट्रिब्यूट पहले से चुनकर रखता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Radio Buttons</title>\n</head>\n<body>\n\n  <h2>Select Your Developer Track</h2>\n  <form>\n    <p>\n      <input type=\"radio\" id=\"frontend\" name=\"track\" value=\"frontend\" checked>\n      <label for=\"frontend\">Frontend Web Developer</label>\n    </p>\n    <p>\n      <input type=\"radio\" id=\"fullstack\" name=\"track\" value=\"fullstack\">\n      <label for=\"fullstack\">Full Stack Engineer</label>\n    </p>\n  </form>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. type=\"radio\" केवल एक विकल्प चुनने देता है।\n* 2. एक समान name अट्रिब्यूट विकल्पों का ग्रुप बनाता है।\n* 3. एक समय में सिर्फ एक ही बटन चुना जा सकता है।\n* 4. value सर्वर पर जाने वाला असली डेटा होता है।\n* 5. checked अट्रिब्यूट पहले से चुनकर रखता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Radio Buttons</title>\n</head>\n<body>\n\n  <h2>Select Your Developer Track</h2>\n  <form>\n    <p>\n      <input type=\"radio\" id=\"frontend\" name=\"track\" value=\"frontend\" checked>\n      <label for=\"frontend\">Frontend Web Developer</label>\n    </p>\n    <p>\n      <input type=\"radio\" id=\"fullstack\" name=\"track\" value=\"fullstack\">\n      <label for=\"fullstack\">Full Stack Engineer</label>\n    </p>\n  </form>\n\n</body>\n</html>\n```",
+      pro: "* 1. type=\"radio\" केवल एक विकल्प चुनने देता है।\n* 2. एक समान name अट्रिब्यूट विकल्पों का ग्रुप बनाता है।\n* 3. एक समय में सिर्फ एक ही बटन चुना जा सकता है।\n* 4. value सर्वर पर जाने वाला असली डेटा होता है।\n* 5. checked अट्रिब्यूट पहले से चुनकर रखता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Radio Buttons</title>\n</head>\n<body>\n\n  <h2>Select Your Developer Track</h2>\n  <form>\n    <p>\n      <input type=\"radio\" id=\"frontend\" name=\"track\" value=\"frontend\" checked>\n      <label for=\"frontend\">Frontend Web Developer</label>\n    </p>\n    <p>\n      <input type=\"radio\" id=\"fullstack\" name=\"track\" value=\"fullstack\">\n      <label for=\"fullstack\">Full Stack Engineer</label>\n    </p>\n  </form>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 85,
+    slug: "checkboxes-prechecked-multiple-selections",
+    title: "Checkboxes (type=\"checkbox\")",
+    unit: "Unit 9: Interactive Forms & Inputs",
+    bookRef: "Duckett Chapter 7 (p. 157-159)",
+    exercise: {
+      english: {
+        question: "Which attribute marks a checkbox or radio button as selected by default?",
+        options: ["checked","selected","active","default"],
+        correctAnswer: "checked",
+        hint: "Add the checked attribute (e.g. <input type=\"checkbox\" checked>)."
+      },
+      hinglish: {
+        question: "Which attribute marks a checkbox or radio button as selected by default?",
+        options: ["checked","selected","active","default"],
+        correctAnswer: "checked",
+        hint: "Add the checked attribute (e.g. <input type=\"checkbox\" checked>)."
+      },
+      hindi: {
+        question: "Which attribute marks a checkbox or radio button as selected by default?",
+        options: ["checked","selected","active","default"],
+        correctAnswer: "checked",
+        hint: "Add the checked attribute (e.g. <input type=\"checkbox\" checked>)."
+      }
+    },
+    english: {
+      kid: "* 1. type=\"checkbox\" allows selecting multiple independent options.\n* 2. Users can pick zero or many.\n* 3. checked attribute sets initially checked state.\n* 4. Each checkbox has a distinct value.\n* 5. Common for terms agreement and skills.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Checkboxes</title>\n</head>\n<body>\n\n  <h2>Select Coding Interests</h2>\n  <form>\n    <p>\n      <input type=\"checkbox\" id=\"htmlCheck\" name=\"skills\" value=\"html\" checked>\n      <label for=\"htmlCheck\">HTML5 Markup</label>\n    </p>\n    <p>\n      <input type=\"checkbox\" id=\"cssCheck\" name=\"skills\" value=\"css\" checked>\n      <label for=\"cssCheck\">CSS3 Stylesheets</label>\n    </p>\n    <p>\n      <input type=\"checkbox\" id=\"jsCheck\" name=\"skills\" value=\"js\">\n      <label for=\"jsCheck\">JavaScript ES6+</label>\n    </p>\n  </form>\n\n</body>\n</html>\n```",
+      pro: "* 1. type=\"checkbox\" allows selecting multiple independent options.\n* 2. Users can pick zero or many.\n* 3. checked attribute sets initially checked state.\n* 4. Each checkbox has a distinct value.\n* 5. Common for terms agreement and skills.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Checkboxes</title>\n</head>\n<body>\n\n  <h2>Select Coding Interests</h2>\n  <form>\n    <p>\n      <input type=\"checkbox\" id=\"htmlCheck\" name=\"skills\" value=\"html\" checked>\n      <label for=\"htmlCheck\">HTML5 Markup</label>\n    </p>\n    <p>\n      <input type=\"checkbox\" id=\"cssCheck\" name=\"skills\" value=\"css\" checked>\n      <label for=\"cssCheck\">CSS3 Stylesheets</label>\n    </p>\n    <p>\n      <input type=\"checkbox\" id=\"jsCheck\" name=\"skills\" value=\"js\">\n      <label for=\"jsCheck\">JavaScript ES6+</label>\n    </p>\n  </form>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. type=\"checkbox\" एक से अधिक विकल्प चुनने देता है।\n* 2. यूजर शून्य या कई विकल्प चुन सकता है।\n* 3. checked अट्रिब्यूट से टिक पहले से लगा रहता है।\n* 4. हर चेकबॉक्स की अपनी अलग value होती है।\n* 5. नियमों की सहमति और स्किल्स चुनने में उपयोगी है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Checkboxes</title>\n</head>\n<body>\n\n  <h2>Select Coding Interests</h2>\n  <form>\n    <p>\n      <input type=\"checkbox\" id=\"htmlCheck\" name=\"skills\" value=\"html\" checked>\n      <label for=\"htmlCheck\">HTML5 Markup</label>\n    </p>\n    <p>\n      <input type=\"checkbox\" id=\"cssCheck\" name=\"skills\" value=\"css\" checked>\n      <label for=\"cssCheck\">CSS3 Stylesheets</label>\n    </p>\n    <p>\n      <input type=\"checkbox\" id=\"jsCheck\" name=\"skills\" value=\"js\">\n      <label for=\"jsCheck\">JavaScript ES6+</label>\n    </p>\n  </form>\n\n</body>\n</html>\n```",
+      pro: "* 1. type=\"checkbox\" एक से अधिक विकल्प चुनने देता है।\n* 2. यूजर शून्य या कई विकल्प चुन सकता है।\n* 3. checked अट्रिब्यूट से टिक पहले से लगा रहता है।\n* 4. हर चेकबॉक्स की अपनी अलग value होती है।\n* 5. नियमों की सहमति और स्किल्स चुनने में उपयोगी है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Checkboxes</title>\n</head>\n<body>\n\n  <h2>Select Coding Interests</h2>\n  <form>\n    <p>\n      <input type=\"checkbox\" id=\"htmlCheck\" name=\"skills\" value=\"html\" checked>\n      <label for=\"htmlCheck\">HTML5 Markup</label>\n    </p>\n    <p>\n      <input type=\"checkbox\" id=\"cssCheck\" name=\"skills\" value=\"css\" checked>\n      <label for=\"cssCheck\">CSS3 Stylesheets</label>\n    </p>\n    <p>\n      <input type=\"checkbox\" id=\"jsCheck\" name=\"skills\" value=\"js\">\n      <label for=\"jsCheck\">JavaScript ES6+</label>\n    </p>\n  </form>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. type=\"checkbox\" एक से अधिक विकल्प चुनने देता है।\n* 2. यूजर शून्य या कई विकल्प चुन सकता है।\n* 3. checked अट्रिब्यूट से टिक पहले से लगा रहता है।\n* 4. हर चेकबॉक्स की अपनी अलग value होती है।\n* 5. नियमों की सहमति और स्किल्स चुनने में उपयोगी है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Checkboxes</title>\n</head>\n<body>\n\n  <h2>Select Coding Interests</h2>\n  <form>\n    <p>\n      <input type=\"checkbox\" id=\"htmlCheck\" name=\"skills\" value=\"html\" checked>\n      <label for=\"htmlCheck\">HTML5 Markup</label>\n    </p>\n    <p>\n      <input type=\"checkbox\" id=\"cssCheck\" name=\"skills\" value=\"css\" checked>\n      <label for=\"cssCheck\">CSS3 Stylesheets</label>\n    </p>\n    <p>\n      <input type=\"checkbox\" id=\"jsCheck\" name=\"skills\" value=\"js\">\n      <label for=\"jsCheck\">JavaScript ES6+</label>\n    </p>\n  </form>\n\n</body>\n</html>\n```",
+      pro: "* 1. type=\"checkbox\" एक से अधिक विकल्प चुनने देता है।\n* 2. यूजर शून्य या कई विकल्प चुन सकता है।\n* 3. checked अट्रिब्यूट से टिक पहले से लगा रहता है।\n* 4. हर चेकबॉक्स की अपनी अलग value होती है।\n* 5. नियमों की सहमति और स्किल्स चुनने में उपयोगी है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Checkboxes</title>\n</head>\n<body>\n\n  <h2>Select Coding Interests</h2>\n  <form>\n    <p>\n      <input type=\"checkbox\" id=\"htmlCheck\" name=\"skills\" value=\"html\" checked>\n      <label for=\"htmlCheck\">HTML5 Markup</label>\n    </p>\n    <p>\n      <input type=\"checkbox\" id=\"cssCheck\" name=\"skills\" value=\"css\" checked>\n      <label for=\"cssCheck\">CSS3 Stylesheets</label>\n    </p>\n    <p>\n      <input type=\"checkbox\" id=\"jsCheck\" name=\"skills\" value=\"js\">\n      <label for=\"jsCheck\">JavaScript ES6+</label>\n    </p>\n  </form>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 86,
+    slug: "dropdown-select-lists-option-attributes",
+    title: "Dropdown Select Lists (<select> and <option>)",
+    unit: "Unit 9: Interactive Forms & Inputs",
+    bookRef: "Duckett Chapter 7 (p. 160-163)",
+    exercise: {
+      english: {
+        question: "Which tag represents an individual selectable entry inside a <select> dropdown?",
+        options: ["<option>","<item>","<li>","<choice>"],
+        correctAnswer: "<option>",
+        hint: "<option> elements reside inside the <select> container."
+      },
+      hinglish: {
+        question: "Which tag represents an individual selectable entry inside a <select> dropdown?",
+        options: ["<option>","<item>","<li>","<choice>"],
+        correctAnswer: "<option>",
+        hint: "<option> elements reside inside the <select> container."
+      },
+      hindi: {
+        question: "Which tag represents an individual selectable entry inside a <select> dropdown?",
+        options: ["<option>","<item>","<li>","<choice>"],
+        correctAnswer: "<option>",
+        hint: "<option> elements reside inside the <select> container."
+      }
+    },
+    english: {
+      kid: "* 1. <select> creates dropdown option select menus.\n* 2. <option> tags define selectable items inside.\n* 3. selected attribute sets default chosen option.\n* 4. Saves massive screen space on forms.\n* 5. multiple attribute allows picking multiple values.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Dropdown List</title>\n</head>\n<body>\n\n  <h2>Select Your Country</h2>\n  <form>\n    <label for=\"countrySelect\">Location:</label>\n    <select id=\"countrySelect\" name=\"country\">\n      <option value=\"in\" selected>India</option>\n      <option value=\"us\">United States</option>\n      <option value=\"uk\">United Kingdom</option>\n      <option value=\"ca\">Canada</option>\n    </select>\n  </form>\n\n</body>\n</html>\n```",
+      pro: "* 1. <select> creates dropdown option select menus.\n* 2. <option> tags define selectable items inside.\n* 3. selected attribute sets default chosen option.\n* 4. Saves massive screen space on forms.\n* 5. multiple attribute allows picking multiple values.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Dropdown List</title>\n</head>\n<body>\n\n  <h2>Select Your Country</h2>\n  <form>\n    <label for=\"countrySelect\">Location:</label>\n    <select id=\"countrySelect\" name=\"country\">\n      <option value=\"in\" selected>India</option>\n      <option value=\"us\">United States</option>\n      <option value=\"uk\">United Kingdom</option>\n      <option value=\"ca\">Canada</option>\n    </select>\n  </form>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. <select> ड्रॉपडाउन मेन्यू सूची बनाता है।\n* 2. <option> अंदर के विकल्पों को परिभाषित करता है।\n* 3. selected अट्रिब्यूट से डिफ़ॉल्ट विकल्प चुना रहता है।\n* 4. स्क्रीन पर बहुत कम जगह घेरता है।\n* 5. multiple अट्रिब्यूट से कई मान चुन सकते हैं।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Dropdown List</title>\n</head>\n<body>\n\n  <h2>Select Your Country</h2>\n  <form>\n    <label for=\"countrySelect\">Location:</label>\n    <select id=\"countrySelect\" name=\"country\">\n      <option value=\"in\" selected>India</option>\n      <option value=\"us\">United States</option>\n      <option value=\"uk\">United Kingdom</option>\n      <option value=\"ca\">Canada</option>\n    </select>\n  </form>\n\n</body>\n</html>\n```",
+      pro: "* 1. <select> ड्रॉपडाउन मेन्यू सूची बनाता है।\n* 2. <option> अंदर के विकल्पों को परिभाषित करता है।\n* 3. selected अट्रिब्यूट से डिफ़ॉल्ट विकल्प चुना रहता है।\n* 4. स्क्रीन पर बहुत कम जगह घेरता है।\n* 5. multiple अट्रिब्यूट से कई मान चुन सकते हैं।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Dropdown List</title>\n</head>\n<body>\n\n  <h2>Select Your Country</h2>\n  <form>\n    <label for=\"countrySelect\">Location:</label>\n    <select id=\"countrySelect\" name=\"country\">\n      <option value=\"in\" selected>India</option>\n      <option value=\"us\">United States</option>\n      <option value=\"uk\">United Kingdom</option>\n      <option value=\"ca\">Canada</option>\n    </select>\n  </form>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. <select> ड्रॉपडाउन मेन्यू सूची बनाता है।\n* 2. <option> अंदर के विकल्पों को परिभाषित करता है।\n* 3. selected अट्रिब्यूट से डिफ़ॉल्ट विकल्प चुना रहता है।\n* 4. स्क्रीन पर बहुत कम जगह घेरता है।\n* 5. multiple अट्रिब्यूट से कई मान चुन सकते हैं।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Dropdown List</title>\n</head>\n<body>\n\n  <h2>Select Your Country</h2>\n  <form>\n    <label for=\"countrySelect\">Location:</label>\n    <select id=\"countrySelect\" name=\"country\">\n      <option value=\"in\" selected>India</option>\n      <option value=\"us\">United States</option>\n      <option value=\"uk\">United Kingdom</option>\n      <option value=\"ca\">Canada</option>\n    </select>\n  </form>\n\n</body>\n</html>\n```",
+      pro: "* 1. <select> ड्रॉपडाउन मेन्यू सूची बनाता है।\n* 2. <option> अंदर के विकल्पों को परिभाषित करता है।\n* 3. selected अट्रिब्यूट से डिफ़ॉल्ट विकल्प चुना रहता है।\n* 4. स्क्रीन पर बहुत कम जगह घेरता है।\n* 5. multiple अट्रिब्यूट से कई मान चुन सकते हैं।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Dropdown List</title>\n</head>\n<body>\n\n  <h2>Select Your Country</h2>\n  <form>\n    <label for=\"countrySelect\">Location:</label>\n    <select id=\"countrySelect\" name=\"country\">\n      <option value=\"in\" selected>India</option>\n      <option value=\"us\">United States</option>\n      <option value=\"uk\">United Kingdom</option>\n      <option value=\"ca\">Canada</option>\n    </select>\n  </form>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 87,
+    slug: "multiline-textarea-rows-cols-settings",
+    title: "Multi-line Input (<textarea>)",
+    unit: "Unit 9: Interactive Forms & Inputs",
+    bookRef: "Duckett Chapter 7 (p. 164-166)",
+    exercise: {
+      english: {
+        question: "Which tag is used for multi-line text input such as comments or feedback messages?",
+        options: ["<textarea>","<input type=\"multiline\">","<textbox>","<text>"],
+        correctAnswer: "<textarea>",
+        hint: "Use <textarea rows=\"5\" cols=\"40\"></textarea> for multi-line text."
+      },
+      hinglish: {
+        question: "Which tag is used for multi-line text input such as comments or feedback messages?",
+        options: ["<textarea>","<input type=\"multiline\">","<textbox>","<text>"],
+        correctAnswer: "<textarea>",
+        hint: "Use <textarea rows=\"5\" cols=\"40\"></textarea> for multi-line text."
+      },
+      hindi: {
+        question: "Which tag is used for multi-line text input such as comments or feedback messages?",
+        options: ["<textarea>","<input type=\"multiline\">","<textbox>","<text>"],
+        correctAnswer: "<textarea>",
+        hint: "Use <textarea rows=\"5\" cols=\"40\"></textarea> for multi-line text."
+      }
+    },
+    english: {
+      kid: "* 1. <textarea> creates multi-line text input areas.\n* 2. rows sets visible line height count.\n* 3. cols sets visible character width count.\n* 4. Default text goes between opening/closing tags.\n* 5. Ideal for comments, feedback, and reviews.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Textarea</title>\n</head>\n<body>\n\n  <h2>Send Us Feedback</h2>\n  <form>\n    <p>\n      <label for=\"comments\">Your Message:</label><br>\n      <textarea id=\"comments\" name=\"comments\" rows=\"5\" cols=\"45\">Type your question or feedback here...</textarea>\n    </p>\n  </form>\n\n</body>\n</html>\n```",
+      pro: "* 1. <textarea> creates multi-line text input areas.\n* 2. rows sets visible line height count.\n* 3. cols sets visible character width count.\n* 4. Default text goes between opening/closing tags.\n* 5. Ideal for comments, feedback, and reviews.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Textarea</title>\n</head>\n<body>\n\n  <h2>Send Us Feedback</h2>\n  <form>\n    <p>\n      <label for=\"comments\">Your Message:</label><br>\n      <textarea id=\"comments\" name=\"comments\" rows=\"5\" cols=\"45\">Type your question or feedback here...</textarea>\n    </p>\n  </form>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. <textarea> कई लाइनों का लंबा टेक्स्ट बॉक्स बनाता है।\n* 2. rows दिखाई देने वाली लाइनों की ऊंचाई तय करता है।\n* 3. cols दिखाई देने वाली चौड़ाई तय करता है।\n* 4. डिफ़ॉल्ट टेक्स्ट टैग्स के बीच में लिखा जाता है।\n* 5. फीडबैक, संदेश और समीक्षा लिखने के लिए उत्तम है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Textarea</title>\n</head>\n<body>\n\n  <h2>Send Us Feedback</h2>\n  <form>\n    <p>\n      <label for=\"comments\">Your Message:</label><br>\n      <textarea id=\"comments\" name=\"comments\" rows=\"5\" cols=\"45\">Type your question or feedback here...</textarea>\n    </p>\n  </form>\n\n</body>\n</html>\n```",
+      pro: "* 1. <textarea> कई लाइनों का लंबा टेक्स्ट बॉक्स बनाता है।\n* 2. rows दिखाई देने वाली लाइनों की ऊंचाई तय करता है।\n* 3. cols दिखाई देने वाली चौड़ाई तय करता है।\n* 4. डिफ़ॉल्ट टेक्स्ट टैग्स के बीच में लिखा जाता है।\n* 5. फीडबैक, संदेश और समीक्षा लिखने के लिए उत्तम है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Textarea</title>\n</head>\n<body>\n\n  <h2>Send Us Feedback</h2>\n  <form>\n    <p>\n      <label for=\"comments\">Your Message:</label><br>\n      <textarea id=\"comments\" name=\"comments\" rows=\"5\" cols=\"45\">Type your question or feedback here...</textarea>\n    </p>\n  </form>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. <textarea> कई लाइनों का लंबा टेक्स्ट बॉक्स बनाता है।\n* 2. rows दिखाई देने वाली लाइनों की ऊंचाई तय करता है।\n* 3. cols दिखाई देने वाली चौड़ाई तय करता है।\n* 4. डिफ़ॉल्ट टेक्स्ट टैग्स के बीच में लिखा जाता है।\n* 5. फीडबैक, संदेश और समीक्षा लिखने के लिए उत्तम है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Textarea</title>\n</head>\n<body>\n\n  <h2>Send Us Feedback</h2>\n  <form>\n    <p>\n      <label for=\"comments\">Your Message:</label><br>\n      <textarea id=\"comments\" name=\"comments\" rows=\"5\" cols=\"45\">Type your question or feedback here...</textarea>\n    </p>\n  </form>\n\n</body>\n</html>\n```",
+      pro: "* 1. <textarea> कई लाइनों का लंबा टेक्स्ट बॉक्स बनाता है।\n* 2. rows दिखाई देने वाली लाइनों की ऊंचाई तय करता है।\n* 3. cols दिखाई देने वाली चौड़ाई तय करता है।\n* 4. डिफ़ॉल्ट टेक्स्ट टैग्स के बीच में लिखा जाता है।\n* 5. फीडबैक, संदेश और समीक्षा लिखने के लिए उत्तम है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Textarea</title>\n</head>\n<body>\n\n  <h2>Send Us Feedback</h2>\n  <form>\n    <p>\n      <label for=\"comments\">Your Message:</label><br>\n      <textarea id=\"comments\" name=\"comments\" rows=\"5\" cols=\"45\">Type your question or feedback here...</textarea>\n    </p>\n  </form>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 88,
+    slug: "buttons-submit-button-reset-types",
+    title: "Buttons (type=\"submit\", \"reset\", \"button\")",
+    unit: "Unit 9: Interactive Forms & Inputs",
+    bookRef: "Duckett Chapter 7 (p. 167-169)",
+    exercise: {
+      english: {
+        question: "Which button type automatically submits the form data to the server when clicked?",
+        options: ["type=\"submit\"","type=\"send\"","type=\"post\"","type=\"enter\""],
+        correctAnswer: "type=\"submit\"",
+        hint: "type=\"submit\" triggers the form submission action."
+      },
+      hinglish: {
+        question: "Which button type automatically submits the form data to the server when clicked?",
+        options: ["type=\"submit\"","type=\"send\"","type=\"post\"","type=\"enter\""],
+        correctAnswer: "type=\"submit\"",
+        hint: "type=\"submit\" triggers the form submission action."
+      },
+      hindi: {
+        question: "Which button type automatically submits the form data to the server when clicked?",
+        options: ["type=\"submit\"","type=\"send\"","type=\"post\"","type=\"enter\""],
+        correctAnswer: "type=\"submit\"",
+        hint: "type=\"submit\" triggers the form submission action."
+      }
+    },
+    english: {
+      kid: "* 1. <button> creates clickable interactive form buttons.\n* 2. type=\"submit\" sends form data to server.\n* 3. type=\"reset\" restores initial form values.\n* 4. type=\"button\" creates neutral clickable button.\n* 5. Can contain images and formatted text.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Form Buttons</title>\n</head>\n<body>\n\n  <h2>Complete Registration</h2>\n  <form action=\"/submit\" method=\"post\">\n    <p>\n      <label for=\"name\">Name:</label>\n      <input type=\"text\" id=\"name\" name=\"name\">\n    </p>\n    <button type=\"submit\">Submit Form</button>\n    <button type=\"reset\">Reset Form</button>\n  </form>\n\n</body>\n</html>\n```",
+      pro: "* 1. <button> creates clickable interactive form buttons.\n* 2. type=\"submit\" sends form data to server.\n* 3. type=\"reset\" restores initial form values.\n* 4. type=\"button\" creates neutral clickable button.\n* 5. Can contain images and formatted text.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Form Buttons</title>\n</head>\n<body>\n\n  <h2>Complete Registration</h2>\n  <form action=\"/submit\" method=\"post\">\n    <p>\n      <label for=\"name\">Name:</label>\n      <input type=\"text\" id=\"name\" name=\"name\">\n    </p>\n    <button type=\"submit\">Submit Form</button>\n    <button type=\"reset\">Reset Form</button>\n  </form>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. <button> क्लिक करने योग्य फॉर्म बटन बनाता है।\n* 2. type=\"submit\" फॉर्म डेटा सर्वर को भेजता है।\n* 3. type=\"reset\" फॉर्म के सारे बॉक्स खाली करता है।\n* 4. type=\"button\" साधारण क्लिक बटन बनाता है।\n* 5. इसके अंदर टेक्स्ट और तस्वीरें दोनों आ सकते हैं।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Form Buttons</title>\n</head>\n<body>\n\n  <h2>Complete Registration</h2>\n  <form action=\"/submit\" method=\"post\">\n    <p>\n      <label for=\"name\">Name:</label>\n      <input type=\"text\" id=\"name\" name=\"name\">\n    </p>\n    <button type=\"submit\">Submit Form</button>\n    <button type=\"reset\">Reset Form</button>\n  </form>\n\n</body>\n</html>\n```",
+      pro: "* 1. <button> क्लिक करने योग्य फॉर्म बटन बनाता है।\n* 2. type=\"submit\" फॉर्म डेटा सर्वर को भेजता है।\n* 3. type=\"reset\" फॉर्म के सारे बॉक्स खाली करता है।\n* 4. type=\"button\" साधारण क्लिक बटन बनाता है।\n* 5. इसके अंदर टेक्स्ट और तस्वीरें दोनों आ सकते हैं।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Form Buttons</title>\n</head>\n<body>\n\n  <h2>Complete Registration</h2>\n  <form action=\"/submit\" method=\"post\">\n    <p>\n      <label for=\"name\">Name:</label>\n      <input type=\"text\" id=\"name\" name=\"name\">\n    </p>\n    <button type=\"submit\">Submit Form</button>\n    <button type=\"reset\">Reset Form</button>\n  </form>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. <button> क्लिक करने योग्य फॉर्म बटन बनाता है।\n* 2. type=\"submit\" फॉर्म डेटा सर्वर को भेजता है।\n* 3. type=\"reset\" फॉर्म के सारे बॉक्स खाली करता है।\n* 4. type=\"button\" साधारण क्लिक बटन बनाता है।\n* 5. इसके अंदर टेक्स्ट और तस्वीरें दोनों आ सकते हैं।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Form Buttons</title>\n</head>\n<body>\n\n  <h2>Complete Registration</h2>\n  <form action=\"/submit\" method=\"post\">\n    <p>\n      <label for=\"name\">Name:</label>\n      <input type=\"text\" id=\"name\" name=\"name\">\n    </p>\n    <button type=\"submit\">Submit Form</button>\n    <button type=\"reset\">Reset Form</button>\n  </form>\n\n</body>\n</html>\n```",
+      pro: "* 1. <button> क्लिक करने योग्य फॉर्म बटन बनाता है।\n* 2. type=\"submit\" फॉर्म डेटा सर्वर को भेजता है।\n* 3. type=\"reset\" फॉर्म के सारे बॉक्स खाली करता है।\n* 4. type=\"button\" साधारण क्लिक बटन बनाता है।\n* 5. इसके अंदर टेक्स्ट और तस्वीरें दोनों आ सकते हैं।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Form Buttons</title>\n</head>\n<body>\n\n  <h2>Complete Registration</h2>\n  <form action=\"/submit\" method=\"post\">\n    <p>\n      <label for=\"name\">Name:</label>\n      <input type=\"text\" id=\"name\" name=\"name\">\n    </p>\n    <button type=\"submit\">Submit Form</button>\n    <button type=\"reset\">Reset Form</button>\n  </form>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 89,
+    slug: "binding-input-labels-label-container",
+    title: "Binding Input Labels (<label> wrapping)",
+    unit: "Unit 9: Interactive Forms & Inputs",
+    bookRef: "Duckett Chapter 7 (p. 170-171)",
+    exercise: {
+      english: {
+        question: "How can you link a label and input together without specifying id and for attributes?",
+        options: ["Wrap the <input> element directly inside the <label> tags","Put them in the same row of a table","Use the link=\"true\" attribute","Group them in a <fieldset>"],
+        correctAnswer: "Wrap the <input> element directly inside the <label> tags",
+        hint: "Nesting the input inside <label> creates implicit association."
+      },
+      hinglish: {
+        question: "How can you link a label and input together without specifying id and for attributes?",
+        options: ["Wrap the <input> element directly inside the <label> tags","Put them in the same row of a table","Use the link=\"true\" attribute","Group them in a <fieldset>"],
+        correctAnswer: "Wrap the <input> element directly inside the <label> tags",
+        hint: "Nesting the input inside <label> creates implicit association."
+      },
+      hindi: {
+        question: "How can you link a label and input together without specifying id and for attributes?",
+        options: ["Wrap the <input> element directly inside the <label> tags","Put them in the same row of a table","Use the link=\"true\" attribute","Group them in a <fieldset>"],
+        correctAnswer: "Wrap the <input> element directly inside the <label> tags",
+        hint: "Nesting the input inside <label> creates implicit association."
+      }
+    },
+    english: {
+      kid: "* 1. Wrapping inputs inside <label> binds them.\n* 2. Implicit binding does not require id.\n* 3. Improves code simplicity for simple checkboxes.\n* 4. Clicking any label text toggles input.\n* 5. Fully supported by all assistive technologies.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Implicit Labeling</title>\n</head>\n<body>\n\n  <h2>Terms and Conditions</h2>\n  <form>\n    <!-- Implicit Label Association without id -->\n    <label>\n      <input type=\"checkbox\" name=\"agree\" value=\"yes\">\n      I agree to the Nextsem Academy Terms of Service\n    </label>\n  </form>\n\n</body>\n</html>\n```",
+      pro: "* 1. Wrapping inputs inside <label> binds them.\n* 2. Implicit binding does not require id.\n* 3. Improves code simplicity for simple checkboxes.\n* 4. Clicking any label text toggles input.\n* 5. Fully supported by all assistive technologies.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Implicit Labeling</title>\n</head>\n<body>\n\n  <h2>Terms and Conditions</h2>\n  <form>\n    <!-- Implicit Label Association without id -->\n    <label>\n      <input type=\"checkbox\" name=\"agree\" value=\"yes\">\n      I agree to the Nextsem Academy Terms of Service\n    </label>\n  </form>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. <label> के अंदर इनपुट रखने से दोनों जुड़ जाते हैं।\n* 2. इस तरीके में id लगाने की जरूरत नहीं होती।\n* 3. छोटे चेकबॉक्स के लिए कोड आसान बनाता है।\n* 4. लेबल टेक्स्ट पर क्लिक करने से चेकबॉक्स टिक होता है।\n* 5. सभी स्क्रीन रीडर्स इसे पूरी तरह समझते हैं।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Implicit Labeling</title>\n</head>\n<body>\n\n  <h2>Terms and Conditions</h2>\n  <form>\n    <!-- Implicit Label Association without id -->\n    <label>\n      <input type=\"checkbox\" name=\"agree\" value=\"yes\">\n      I agree to the Nextsem Academy Terms of Service\n    </label>\n  </form>\n\n</body>\n</html>\n```",
+      pro: "* 1. <label> के अंदर इनपुट रखने से दोनों जुड़ जाते हैं।\n* 2. इस तरीके में id लगाने की जरूरत नहीं होती।\n* 3. छोटे चेकबॉक्स के लिए कोड आसान बनाता है।\n* 4. लेबल टेक्स्ट पर क्लिक करने से चेकबॉक्स टिक होता है।\n* 5. सभी स्क्रीन रीडर्स इसे पूरी तरह समझते हैं।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Implicit Labeling</title>\n</head>\n<body>\n\n  <h2>Terms and Conditions</h2>\n  <form>\n    <!-- Implicit Label Association without id -->\n    <label>\n      <input type=\"checkbox\" name=\"agree\" value=\"yes\">\n      I agree to the Nextsem Academy Terms of Service\n    </label>\n  </form>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. <label> के अंदर इनपुट रखने से दोनों जुड़ जाते हैं।\n* 2. इस तरीके में id लगाने की जरूरत नहीं होती।\n* 3. छोटे चेकबॉक्स के लिए कोड आसान बनाता है।\n* 4. लेबल टेक्स्ट पर क्लिक करने से चेकबॉक्स टिक होता है।\n* 5. सभी स्क्रीन रीडर्स इसे पूरी तरह समझते हैं।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Implicit Labeling</title>\n</head>\n<body>\n\n  <h2>Terms and Conditions</h2>\n  <form>\n    <!-- Implicit Label Association without id -->\n    <label>\n      <input type=\"checkbox\" name=\"agree\" value=\"yes\">\n      I agree to the Nextsem Academy Terms of Service\n    </label>\n  </form>\n\n</body>\n</html>\n```",
+      pro: "* 1. <label> के अंदर इनपुट रखने से दोनों जुड़ जाते हैं।\n* 2. इस तरीके में id लगाने की जरूरत नहीं होती।\n* 3. छोटे चेकबॉक्स के लिए कोड आसान बनाता है।\n* 4. लेबल टेक्स्ट पर क्लिक करने से चेकबॉक्स टिक होता है।\n* 5. सभी स्क्रीन रीडर्स इसे पूरी तरह समझते हैं।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Implicit Labeling</title>\n</head>\n<body>\n\n  <h2>Terms and Conditions</h2>\n  <form>\n    <!-- Implicit Label Association without id -->\n    <label>\n      <input type=\"checkbox\" name=\"agree\" value=\"yes\">\n      I agree to the Nextsem Academy Terms of Service\n    </label>\n  </form>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 90,
+    slug: "form-groups-fieldset-legend-elements",
+    title: "Form Groups (<fieldset> and <legend>)",
+    unit: "Unit 9: Interactive Forms & Inputs",
+    bookRef: "Duckett Chapter 7 (p. 172-175)",
+    exercise: {
+      english: {
+        question: "Which element provides a caption title for a <fieldset> form container?",
+        options: ["<legend>","<caption>","<title>","<heading>"],
+        correctAnswer: "<legend>",
+        hint: "<legend> must be the first child inside a <fieldset>."
+      },
+      hinglish: {
+        question: "Which element provides a caption title for a <fieldset> form container?",
+        options: ["<legend>","<caption>","<title>","<heading>"],
+        correctAnswer: "<legend>",
+        hint: "<legend> must be the first child inside a <fieldset>."
+      },
+      hindi: {
+        question: "Which element provides a caption title for a <fieldset> form container?",
+        options: ["<legend>","<caption>","<title>","<heading>"],
+        correctAnswer: "<legend>",
+        hint: "<legend> must be the first child inside a <fieldset>."
+      }
+    },
+    english: {
+      kid: "* 1. <fieldset> groups related inputs with borders.\n* 2. <legend> provides a caption title header.\n* 3. Organizes large multi-step form structures.\n* 4. Screen readers announce group purpose clearly.\n* 5. Must be first child of <fieldset>.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Fieldset and Legend</title>\n</head>\n<body>\n\n  <h2>User Profile Setup</h2>\n  <form>\n    <fieldset>\n      <legend>Personal Details</legend>\n      <p><label>First Name: <input type=\"text\" name=\"fname\"></label></p>\n      <p><label>Last Name: <input type=\"text\" name=\"lname\"></label></p>\n    </fieldset>\n\n    <fieldset>\n      <legend>Account Security</legend>\n      <p><label>Password: <input type=\"password\" name=\"pwd\"></label></p>\n    </fieldset>\n  </form>\n\n</body>\n</html>\n```",
+      pro: "* 1. <fieldset> groups related inputs with borders.\n* 2. <legend> provides a caption title header.\n* 3. Organizes large multi-step form structures.\n* 4. Screen readers announce group purpose clearly.\n* 5. Must be first child of <fieldset>.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Fieldset and Legend</title>\n</head>\n<body>\n\n  <h2>User Profile Setup</h2>\n  <form>\n    <fieldset>\n      <legend>Personal Details</legend>\n      <p><label>First Name: <input type=\"text\" name=\"fname\"></label></p>\n      <p><label>Last Name: <input type=\"text\" name=\"lname\"></label></p>\n    </fieldset>\n\n    <fieldset>\n      <legend>Account Security</legend>\n      <p><label>Password: <input type=\"password\" name=\"pwd\"></label></p>\n    </fieldset>\n  </form>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. <fieldset> संबंधित इनपुट्स को बॉर्डर में घेरता है।\n* 2. <legend> उस ग्रुप का मुख्य शीर्षक बनता है।\n* 3. बड़े और लंबे फॉर्म को व्यवस्थित करता है।\n* 4. स्क्रीन रीडर ग्रुप का नाम स्पष्ट पढ़कर सुनाते हैं।\n* 5. <fieldset> के अंदर सबसे पहला टैग होना चाहिए।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Fieldset and Legend</title>\n</head>\n<body>\n\n  <h2>User Profile Setup</h2>\n  <form>\n    <fieldset>\n      <legend>Personal Details</legend>\n      <p><label>First Name: <input type=\"text\" name=\"fname\"></label></p>\n      <p><label>Last Name: <input type=\"text\" name=\"lname\"></label></p>\n    </fieldset>\n\n    <fieldset>\n      <legend>Account Security</legend>\n      <p><label>Password: <input type=\"password\" name=\"pwd\"></label></p>\n    </fieldset>\n  </form>\n\n</body>\n</html>\n```",
+      pro: "* 1. <fieldset> संबंधित इनपुट्स को बॉर्डर में घेरता है।\n* 2. <legend> उस ग्रुप का मुख्य शीर्षक बनता है।\n* 3. बड़े और लंबे फॉर्म को व्यवस्थित करता है।\n* 4. स्क्रीन रीडर ग्रुप का नाम स्पष्ट पढ़कर सुनाते हैं।\n* 5. <fieldset> के अंदर सबसे पहला टैग होना चाहिए।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Fieldset and Legend</title>\n</head>\n<body>\n\n  <h2>User Profile Setup</h2>\n  <form>\n    <fieldset>\n      <legend>Personal Details</legend>\n      <p><label>First Name: <input type=\"text\" name=\"fname\"></label></p>\n      <p><label>Last Name: <input type=\"text\" name=\"lname\"></label></p>\n    </fieldset>\n\n    <fieldset>\n      <legend>Account Security</legend>\n      <p><label>Password: <input type=\"password\" name=\"pwd\"></label></p>\n    </fieldset>\n  </form>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. <fieldset> संबंधित इनपुट्स को बॉर्डर में घेरता है।\n* 2. <legend> उस ग्रुप का मुख्य शीर्षक बनता है।\n* 3. बड़े और लंबे फॉर्म को व्यवस्थित करता है।\n* 4. स्क्रीन रीडर ग्रुप का नाम स्पष्ट पढ़कर सुनाते हैं।\n* 5. <fieldset> के अंदर सबसे पहला टैग होना चाहिए।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Fieldset and Legend</title>\n</head>\n<body>\n\n  <h2>User Profile Setup</h2>\n  <form>\n    <fieldset>\n      <legend>Personal Details</legend>\n      <p><label>First Name: <input type=\"text\" name=\"fname\"></label></p>\n      <p><label>Last Name: <input type=\"text\" name=\"lname\"></label></p>\n    </fieldset>\n\n    <fieldset>\n      <legend>Account Security</legend>\n      <p><label>Password: <input type=\"password\" name=\"pwd\"></label></p>\n    </fieldset>\n  </form>\n\n</body>\n</html>\n```",
+      pro: "* 1. <fieldset> संबंधित इनपुट्स को बॉर्डर में घेरता है।\n* 2. <legend> उस ग्रुप का मुख्य शीर्षक बनता है।\n* 3. बड़े और लंबे फॉर्म को व्यवस्थित करता है।\n* 4. स्क्रीन रीडर ग्रुप का नाम स्पष्ट पढ़कर सुनाते हैं।\n* 5. <fieldset> के अंदर सबसे पहला टैग होना चाहिए।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Fieldset and Legend</title>\n</head>\n<body>\n\n  <h2>User Profile Setup</h2>\n  <form>\n    <fieldset>\n      <legend>Personal Details</legend>\n      <p><label>First Name: <input type=\"text\" name=\"fname\"></label></p>\n      <p><label>Last Name: <input type=\"text\" name=\"lname\"></label></p>\n    </fieldset>\n\n    <fieldset>\n      <legend>Account Security</legend>\n      <p><label>Password: <input type=\"password\" name=\"pwd\"></label></p>\n    </fieldset>\n  </form>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 91,
+    slug: "form-validation-required-maxlength-minlength",
+    title: "Form Field Required Validation",
+    unit: "Unit 10: Advanced Semantics, Validation & APIs",
+    bookRef: "HTML5: The Missing Manual Chapter 4",
+    exercise: {
+      english: {
+        question: "Which attribute ensures a user cannot submit a form without filling in the input?",
+        options: ["required","mandatory","validate","mustfill"],
+        correctAnswer: "required",
+        hint: "Adding required prevents submission until valid input is entered."
+      },
+      hinglish: {
+        question: "Which attribute ensures a user cannot submit a form without filling in the input?",
+        options: ["required","mandatory","validate","mustfill"],
+        correctAnswer: "required",
+        hint: "Adding required prevents submission until valid input is entered."
+      },
+      hindi: {
+        question: "Which attribute ensures a user cannot submit a form without filling in the input?",
+        options: ["required","mandatory","validate","mustfill"],
+        correctAnswer: "required",
+        hint: "Adding required prevents submission until valid input is entered."
+      }
+    },
+    english: {
+      kid: "* 1. required prevents submitting empty form fields.\n* 2. minlength sets minimum character length needed.\n* 3. maxlength stops typing beyond character limit.\n* 4. Browser shows native error tooltip bubbles.\n* 5. 100% native validation without JavaScript.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Form Validation</title>\n</head>\n<body>\n\n  <h2>Create Your Account</h2>\n  <form action=\"/register\" method=\"post\">\n    <p>\n      <label for=\"uname\">Full Name (Required, 3-20 chars):</label><br>\n      <input type=\"text\" id=\"uname\" name=\"fullname\" required minlength=\"3\" maxlength=\"20\">\n    </p>\n    <button type=\"submit\">Submit Registration</button>\n  </form>\n\n</body>\n</html>\n```",
+      pro: "* 1. required prevents submitting empty form fields.\n* 2. minlength sets minimum character length needed.\n* 3. maxlength stops typing beyond character limit.\n* 4. Browser shows native error tooltip bubbles.\n* 5. 100% native validation without JavaScript.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Form Validation</title>\n</head>\n<body>\n\n  <h2>Create Your Account</h2>\n  <form action=\"/register\" method=\"post\">\n    <p>\n      <label for=\"uname\">Full Name (Required, 3-20 chars):</label><br>\n      <input type=\"text\" id=\"uname\" name=\"fullname\" required minlength=\"3\" maxlength=\"20\">\n    </p>\n    <button type=\"submit\">Submit Registration</button>\n  </form>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. required खाली फॉर्म सबमिट होने से रोकता है।\n* 2. minlength कम से कम अक्षरों की सीमा तय करता है।\n* 3. maxlength अधिकतम अक्षरों की सीमा तय करता है।\n* 4. ब्राउज़र अपने आप एरर चेतावनी बबल दिखाता है।\n* 5. बिना किसी जावास्क्रिप्ट के काम करता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Form Validation</title>\n</head>\n<body>\n\n  <h2>Create Your Account</h2>\n  <form action=\"/register\" method=\"post\">\n    <p>\n      <label for=\"uname\">Full Name (Required, 3-20 chars):</label><br>\n      <input type=\"text\" id=\"uname\" name=\"fullname\" required minlength=\"3\" maxlength=\"20\">\n    </p>\n    <button type=\"submit\">Submit Registration</button>\n  </form>\n\n</body>\n</html>\n```",
+      pro: "* 1. required खाली फॉर्म सबमिट होने से रोकता है।\n* 2. minlength कम से कम अक्षरों की सीमा तय करता है।\n* 3. maxlength अधिकतम अक्षरों की सीमा तय करता है।\n* 4. ब्राउज़र अपने आप एरर चेतावनी बबल दिखाता है।\n* 5. बिना किसी जावास्क्रिप्ट के काम करता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Form Validation</title>\n</head>\n<body>\n\n  <h2>Create Your Account</h2>\n  <form action=\"/register\" method=\"post\">\n    <p>\n      <label for=\"uname\">Full Name (Required, 3-20 chars):</label><br>\n      <input type=\"text\" id=\"uname\" name=\"fullname\" required minlength=\"3\" maxlength=\"20\">\n    </p>\n    <button type=\"submit\">Submit Registration</button>\n  </form>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. required खाली फॉर्म सबमिट होने से रोकता है।\n* 2. minlength कम से कम अक्षरों की सीमा तय करता है।\n* 3. maxlength अधिकतम अक्षरों की सीमा तय करता है।\n* 4. ब्राउज़र अपने आप एरर चेतावनी बबल दिखाता है।\n* 5. बिना किसी जावास्क्रिप्ट के काम करता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Form Validation</title>\n</head>\n<body>\n\n  <h2>Create Your Account</h2>\n  <form action=\"/register\" method=\"post\">\n    <p>\n      <label for=\"uname\">Full Name (Required, 3-20 chars):</label><br>\n      <input type=\"text\" id=\"uname\" name=\"fullname\" required minlength=\"3\" maxlength=\"20\">\n    </p>\n    <button type=\"submit\">Submit Registration</button>\n  </form>\n\n</body>\n</html>\n```",
+      pro: "* 1. required खाली फॉर्म सबमिट होने से रोकता है।\n* 2. minlength कम से कम अक्षरों की सीमा तय करता है।\n* 3. maxlength अधिकतम अक्षरों की सीमा तय करता है।\n* 4. ब्राउज़र अपने आप एरर चेतावनी बबल दिखाता है।\n* 5. बिना किसी जावास्क्रिप्ट के काम करता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Form Validation</title>\n</head>\n<body>\n\n  <h2>Create Your Account</h2>\n  <form action=\"/register\" method=\"post\">\n    <p>\n      <label for=\"uname\">Full Name (Required, 3-20 chars):</label><br>\n      <input type=\"text\" id=\"uname\" name=\"fullname\" required minlength=\"3\" maxlength=\"20\">\n    </p>\n    <button type=\"submit\">Submit Registration</button>\n  </form>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 92,
+    slug: "regex-pattern-matching-validation",
+    title: "Regex Pattern Matching (pattern attribute)",
+    unit: "Unit 10: Advanced Semantics, Validation & APIs",
+    bookRef: "HTML5: The Missing Manual Chapter 4",
+    exercise: {
+      english: {
+        question: "Which attribute validates an input's value against a regular expression pattern?",
+        options: ["pattern","regex","format","mask"],
+        correctAnswer: "pattern",
+        hint: "Use pattern=\"[0-9]{6}\" to validate numerical format constraints."
+      },
+      hinglish: {
+        question: "Which attribute validates an input's value against a regular expression pattern?",
+        options: ["pattern","regex","format","mask"],
+        correctAnswer: "pattern",
+        hint: "Use pattern=\"[0-9]{6}\" to validate numerical format constraints."
+      },
+      hindi: {
+        question: "Which attribute validates an input's value against a regular expression pattern?",
+        options: ["pattern","regex","format","mask"],
+        correctAnswer: "pattern",
+        hint: "Use pattern=\"[0-9]{6}\" to validate numerical format constraints."
+      }
+    },
+    english: {
+      kid: "* 1. pattern checks inputs against regular expressions.\n* 2. Validates PIN codes, phone formats, IDs.\n* 3. Submissions blocked if pattern check fails.\n* 4. Use title attribute for error instructions.\n* 5. Native browser regex evaluation on submit.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Pattern Validation</title>\n</head>\n<body>\n\n  <h2>Postal PIN Code Verification</h2>\n  <form>\n    <p>\n      <label for=\"pincode\">6-Digit PIN Code:</label><br>\n      <input type=\"text\" id=\"pincode\" name=\"pin\" pattern=\"[0-9]{6}\" title=\"Enter exactly 6 digits\" required>\n    </p>\n    <button type=\"submit\">Verify Code</button>\n  </form>\n\n</body>\n</html>\n```",
+      pro: "* 1. pattern checks inputs against regular expressions.\n* 2. Validates PIN codes, phone formats, IDs.\n* 3. Submissions blocked if pattern check fails.\n* 4. Use title attribute for error instructions.\n* 5. Native browser regex evaluation on submit.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Pattern Validation</title>\n</head>\n<body>\n\n  <h2>Postal PIN Code Verification</h2>\n  <form>\n    <p>\n      <label for=\"pincode\">6-Digit PIN Code:</label><br>\n      <input type=\"text\" id=\"pincode\" name=\"pin\" pattern=\"[0-9]{6}\" title=\"Enter exactly 6 digits\" required>\n    </p>\n    <button type=\"submit\">Verify Code</button>\n  </form>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. pattern रेगुलर एक्सप्रेशन (Regex) से जांच करता है।\n* 2. पिन कोड, फोन नंबर और आईडी का फॉर्मेट जांचता है।\n* 3. फॉर्मेट गलत होने पर फॉर्म सबमिट नहीं होता।\n* 4. title अट्रिब्यूट से यूजर को सही निर्देश दें।\n* 5. ब्राउज़र बिना स्क्रिप्ट के खुद जांच करता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Pattern Validation</title>\n</head>\n<body>\n\n  <h2>Postal PIN Code Verification</h2>\n  <form>\n    <p>\n      <label for=\"pincode\">6-Digit PIN Code:</label><br>\n      <input type=\"text\" id=\"pincode\" name=\"pin\" pattern=\"[0-9]{6}\" title=\"Enter exactly 6 digits\" required>\n    </p>\n    <button type=\"submit\">Verify Code</button>\n  </form>\n\n</body>\n</html>\n```",
+      pro: "* 1. pattern रेगुलर एक्सप्रेशन (Regex) से जांच करता है।\n* 2. पिन कोड, फोन नंबर और आईडी का फॉर्मेट जांचता है।\n* 3. फॉर्मेट गलत होने पर फॉर्म सबमिट नहीं होता।\n* 4. title अट्रिब्यूट से यूजर को सही निर्देश दें।\n* 5. ब्राउज़र बिना स्क्रिप्ट के खुद जांच करता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Pattern Validation</title>\n</head>\n<body>\n\n  <h2>Postal PIN Code Verification</h2>\n  <form>\n    <p>\n      <label for=\"pincode\">6-Digit PIN Code:</label><br>\n      <input type=\"text\" id=\"pincode\" name=\"pin\" pattern=\"[0-9]{6}\" title=\"Enter exactly 6 digits\" required>\n    </p>\n    <button type=\"submit\">Verify Code</button>\n  </form>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. pattern रेगुलर एक्सप्रेशन (Regex) से जांच करता है।\n* 2. पिन कोड, फोन नंबर और आईडी का फॉर्मेट जांचता है।\n* 3. फॉर्मेट गलत होने पर फॉर्म सबमिट नहीं होता।\n* 4. title अट्रिब्यूट से यूजर को सही निर्देश दें।\n* 5. ब्राउज़र बिना स्क्रिप्ट के खुद जांच करता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Pattern Validation</title>\n</head>\n<body>\n\n  <h2>Postal PIN Code Verification</h2>\n  <form>\n    <p>\n      <label for=\"pincode\">6-Digit PIN Code:</label><br>\n      <input type=\"text\" id=\"pincode\" name=\"pin\" pattern=\"[0-9]{6}\" title=\"Enter exactly 6 digits\" required>\n    </p>\n    <button type=\"submit\">Verify Code</button>\n  </form>\n\n</body>\n</html>\n```",
+      pro: "* 1. pattern रेगुलर एक्सप्रेशन (Regex) से जांच करता है।\n* 2. पिन कोड, फोन नंबर और आईडी का फॉर्मेट जांचता है।\n* 3. फॉर्मेट गलत होने पर फॉर्म सबमिट नहीं होता।\n* 4. title अट्रिब्यूट से यूजर को सही निर्देश दें।\n* 5. ब्राउज़र बिना स्क्रिप्ट के खुद जांच करता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Pattern Validation</title>\n</head>\n<body>\n\n  <h2>Postal PIN Code Verification</h2>\n  <form>\n    <p>\n      <label for=\"pincode\">6-Digit PIN Code:</label><br>\n      <input type=\"text\" id=\"pincode\" name=\"pin\" pattern=\"[0-9]{6}\" title=\"Enter exactly 6 digits\" required>\n    </p>\n    <button type=\"submit\">Verify Code</button>\n  </form>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 93,
+    slug: "html5-numeric-ranges-type-number-range",
+    title: "HTML5 Numeric Ranges (type=\"number\" & \"range\")",
+    unit: "Unit 10: Advanced Semantics, Validation & APIs",
+    bookRef: "HTML5: The Missing Manual Chapter 4",
+    exercise: {
+      english: {
+        question: "Which input type renders a visual slider bar on screen?",
+        options: ["type=\"range\"","type=\"slider\"","type=\"number\"","type=\"bar\""],
+        correctAnswer: "type=\"range\"",
+        hint: "type=\"range\" creates a slider control for selecting a number."
+      },
+      hinglish: {
+        question: "Which input type renders a visual slider bar on screen?",
+        options: ["type=\"range\"","type=\"slider\"","type=\"number\"","type=\"bar\""],
+        correctAnswer: "type=\"range\"",
+        hint: "type=\"range\" creates a slider control for selecting a number."
+      },
+      hindi: {
+        question: "Which input type renders a visual slider bar on screen?",
+        options: ["type=\"range\"","type=\"slider\"","type=\"number\"","type=\"bar\""],
+        correctAnswer: "type=\"range\"",
+        hint: "type=\"range\" creates a slider control for selecting a number."
+      }
+    },
+    english: {
+      kid: "* 1. type=\"number\" creates numeric spinner input boxes.\n* 2. type=\"range\" creates interactive slider controls.\n* 3. min and max define permitted bounds.\n* 4. step specifies allowed numeric increments.\n* 5. Mobile keyboards switch to number pads.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Numeric Inputs</title>\n</head>\n<body>\n\n  <h2>Developer Preferences</h2>\n  <form>\n    <p>\n      <label for=\"age\">Age (18 to 65):</label>\n      <input type=\"number\" id=\"age\" name=\"age\" min=\"18\" max=\"65\" value=\"21\">\n    </p>\n    <p>\n      <label for=\"volume\">Volume Slider (0 to 100):</label>\n      <input type=\"range\" id=\"volume\" name=\"vol\" min=\"0\" max=\"100\" value=\"75\">\n    </p>\n  </form>\n\n</body>\n</html>\n```",
+      pro: "* 1. type=\"number\" creates numeric spinner input boxes.\n* 2. type=\"range\" creates interactive slider controls.\n* 3. min and max define permitted bounds.\n* 4. step specifies allowed numeric increments.\n* 5. Mobile keyboards switch to number pads.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Numeric Inputs</title>\n</head>\n<body>\n\n  <h2>Developer Preferences</h2>\n  <form>\n    <p>\n      <label for=\"age\">Age (18 to 65):</label>\n      <input type=\"number\" id=\"age\" name=\"age\" min=\"18\" max=\"65\" value=\"21\">\n    </p>\n    <p>\n      <label for=\"volume\">Volume Slider (0 to 100):</label>\n      <input type=\"range\" id=\"volume\" name=\"vol\" min=\"0\" max=\"100\" value=\"75\">\n    </p>\n  </form>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. type=\"number\" नंबर टाइप करने का बॉक्स बनाता है।\n* 2. type=\"range\" स्लाइडर बार कंट्रोल बनाता है।\n* 3. min और max न्यूनतम और अधिकतम सीमा तय करते हैं।\n* 4. step आगे बढ़ने की संख्या (इंक्रीमेंट) तय करता है।\n* 5. मोबाइल में सीधे नंबर कीपैड खुलता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Numeric Inputs</title>\n</head>\n<body>\n\n  <h2>Developer Preferences</h2>\n  <form>\n    <p>\n      <label for=\"age\">Age (18 to 65):</label>\n      <input type=\"number\" id=\"age\" name=\"age\" min=\"18\" max=\"65\" value=\"21\">\n    </p>\n    <p>\n      <label for=\"volume\">Volume Slider (0 to 100):</label>\n      <input type=\"range\" id=\"volume\" name=\"vol\" min=\"0\" max=\"100\" value=\"75\">\n    </p>\n  </form>\n\n</body>\n</html>\n```",
+      pro: "* 1. type=\"number\" नंबर टाइप करने का बॉक्स बनाता है।\n* 2. type=\"range\" स्लाइडर बार कंट्रोल बनाता है।\n* 3. min और max न्यूनतम और अधिकतम सीमा तय करते हैं।\n* 4. step आगे बढ़ने की संख्या (इंक्रीमेंट) तय करता है।\n* 5. मोबाइल में सीधे नंबर कीपैड खुलता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Numeric Inputs</title>\n</head>\n<body>\n\n  <h2>Developer Preferences</h2>\n  <form>\n    <p>\n      <label for=\"age\">Age (18 to 65):</label>\n      <input type=\"number\" id=\"age\" name=\"age\" min=\"18\" max=\"65\" value=\"21\">\n    </p>\n    <p>\n      <label for=\"volume\">Volume Slider (0 to 100):</label>\n      <input type=\"range\" id=\"volume\" name=\"vol\" min=\"0\" max=\"100\" value=\"75\">\n    </p>\n  </form>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. type=\"number\" नंबर टाइप करने का बॉक्स बनाता है।\n* 2. type=\"range\" स्लाइडर बार कंट्रोल बनाता है।\n* 3. min और max न्यूनतम और अधिकतम सीमा तय करते हैं।\n* 4. step आगे बढ़ने की संख्या (इंक्रीमेंट) तय करता है।\n* 5. मोबाइल में सीधे नंबर कीपैड खुलता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Numeric Inputs</title>\n</head>\n<body>\n\n  <h2>Developer Preferences</h2>\n  <form>\n    <p>\n      <label for=\"age\">Age (18 to 65):</label>\n      <input type=\"number\" id=\"age\" name=\"age\" min=\"18\" max=\"65\" value=\"21\">\n    </p>\n    <p>\n      <label for=\"volume\">Volume Slider (0 to 100):</label>\n      <input type=\"range\" id=\"volume\" name=\"vol\" min=\"0\" max=\"100\" value=\"75\">\n    </p>\n  </form>\n\n</body>\n</html>\n```",
+      pro: "* 1. type=\"number\" नंबर टाइप करने का बॉक्स बनाता है।\n* 2. type=\"range\" स्लाइडर बार कंट्रोल बनाता है।\n* 3. min और max न्यूनतम और अधिकतम सीमा तय करते हैं।\n* 4. step आगे बढ़ने की संख्या (इंक्रीमेंट) तय करता है।\n* 5. मोबाइल में सीधे नंबर कीपैड खुलता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Numeric Inputs</title>\n</head>\n<body>\n\n  <h2>Developer Preferences</h2>\n  <form>\n    <p>\n      <label for=\"age\">Age (18 to 65):</label>\n      <input type=\"number\" id=\"age\" name=\"age\" min=\"18\" max=\"65\" value=\"21\">\n    </p>\n    <p>\n      <label for=\"volume\">Volume Slider (0 to 100):</label>\n      <input type=\"range\" id=\"volume\" name=\"vol\" min=\"0\" max=\"100\" value=\"75\">\n    </p>\n  </form>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 94,
+    slug: "progress-indicators-meter-gauges",
+    title: "Progress Indicators (<progress>) & Meter Gauges (<meter>)",
+    unit: "Unit 10: Advanced Semantics, Validation & APIs",
+    bookRef: "HTML5: The Missing Manual Chapter 4",
+    exercise: {
+      english: {
+        question: "Which tag is specifically designed to show task completion progress (e.g. downloading)?",
+        options: ["<progress>","<meter>","<gauge>","<status>"],
+        correctAnswer: "<progress>",
+        hint: "<progress> represents the completion progress of a task."
+      },
+      hinglish: {
+        question: "Which tag is specifically designed to show task completion progress (e.g. downloading)?",
+        options: ["<progress>","<meter>","<gauge>","<status>"],
+        correctAnswer: "<progress>",
+        hint: "<progress> represents the completion progress of a task."
+      },
+      hindi: {
+        question: "Which tag is specifically designed to show task completion progress (e.g. downloading)?",
+        options: ["<progress>","<meter>","<gauge>","<status>"],
+        correctAnswer: "<progress>",
+        hint: "<progress> represents the completion progress of a task."
+      }
+    },
+    english: {
+      kid: "* 1. <progress> displays task completion bar progress.\n* 2. <meter> displays scalar measurement gauge values.\n* 3. <progress> uses value and max attributes.\n* 4. <meter> uses min, max, and optimum.\n* 5. Semantic native alternatives to styled divs.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Progress and Meter</title>\n</head>\n<body>\n\n  <h2>System Dashboard</h2>\n  <p>File Download Progress:</p>\n  <progress value=\"75\" max=\"100\">75%</progress>\n\n  <p>Disk Storage Used:</p>\n  <meter value=\"0.6\" min=\"0\" max=\"1\" low=\"0.3\" high=\"0.8\" optimum=\"0.2\">60%</meter>\n\n</body>\n</html>\n```",
+      pro: "* 1. <progress> displays task completion bar progress.\n* 2. <meter> displays scalar measurement gauge values.\n* 3. <progress> uses value and max attributes.\n* 4. <meter> uses min, max, and optimum.\n* 5. Semantic native alternatives to styled divs.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Progress and Meter</title>\n</head>\n<body>\n\n  <h2>System Dashboard</h2>\n  <p>File Download Progress:</p>\n  <progress value=\"75\" max=\"100\">75%</progress>\n\n  <p>Disk Storage Used:</p>\n  <meter value=\"0.6\" min=\"0\" max=\"1\" low=\"0.3\" high=\"0.8\" optimum=\"0.2\">60%</meter>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. <progress> कार्य पूरा होने का प्रोग्रेस बार दिखाता है।\n* 2. <meter> मापन गेज (जैसे डिस्क स्पेस) दिखाता है।\n* 3. <progress> में value और max अट्रिब्यूट होते हैं।\n* 4. <meter> में min, max, और optimum मान होते हैं।\n* 5. सिमेंटिक और शुद्ध HTML5 तत्व हैं।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Progress and Meter</title>\n</head>\n<body>\n\n  <h2>System Dashboard</h2>\n  <p>File Download Progress:</p>\n  <progress value=\"75\" max=\"100\">75%</progress>\n\n  <p>Disk Storage Used:</p>\n  <meter value=\"0.6\" min=\"0\" max=\"1\" low=\"0.3\" high=\"0.8\" optimum=\"0.2\">60%</meter>\n\n</body>\n</html>\n```",
+      pro: "* 1. <progress> कार्य पूरा होने का प्रोग्रेस बार दिखाता है।\n* 2. <meter> मापन गेज (जैसे डिस्क स्पेस) दिखाता है।\n* 3. <progress> में value और max अट्रिब्यूट होते हैं।\n* 4. <meter> में min, max, और optimum मान होते हैं।\n* 5. सिमेंटिक और शुद्ध HTML5 तत्व हैं।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Progress and Meter</title>\n</head>\n<body>\n\n  <h2>System Dashboard</h2>\n  <p>File Download Progress:</p>\n  <progress value=\"75\" max=\"100\">75%</progress>\n\n  <p>Disk Storage Used:</p>\n  <meter value=\"0.6\" min=\"0\" max=\"1\" low=\"0.3\" high=\"0.8\" optimum=\"0.2\">60%</meter>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. <progress> कार्य पूरा होने का प्रोग्रेस बार दिखाता है।\n* 2. <meter> मापन गेज (जैसे डिस्क स्पेस) दिखाता है।\n* 3. <progress> में value और max अट्रिब्यूट होते हैं।\n* 4. <meter> में min, max, और optimum मान होते हैं।\n* 5. सिमेंटिक और शुद्ध HTML5 तत्व हैं।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Progress and Meter</title>\n</head>\n<body>\n\n  <h2>System Dashboard</h2>\n  <p>File Download Progress:</p>\n  <progress value=\"75\" max=\"100\">75%</progress>\n\n  <p>Disk Storage Used:</p>\n  <meter value=\"0.6\" min=\"0\" max=\"1\" low=\"0.3\" high=\"0.8\" optimum=\"0.2\">60%</meter>\n\n</body>\n</html>\n```",
+      pro: "* 1. <progress> कार्य पूरा होने का प्रोग्रेस बार दिखाता है।\n* 2. <meter> मापन गेज (जैसे डिस्क स्पेस) दिखाता है।\n* 3. <progress> में value और max अट्रिब्यूट होते हैं।\n* 4. <meter> में min, max, और optimum मान होते हैं।\n* 5. सिमेंटिक और शुद्ध HTML5 तत्व हैं।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Progress and Meter</title>\n</head>\n<body>\n\n  <h2>System Dashboard</h2>\n  <p>File Download Progress:</p>\n  <progress value=\"75\" max=\"100\">75%</progress>\n\n  <p>Disk Storage Used:</p>\n  <meter value=\"0.6\" min=\"0\" max=\"1\" low=\"0.3\" high=\"0.8\" optimum=\"0.2\">60%</meter>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 95,
+    slug: "autocomplete-datalist-input-suggestions",
+    title: "Autocomplete Data Lists (<datalist>)",
+    unit: "Unit 10: Advanced Semantics, Validation & APIs",
+    bookRef: "HTML5: The Missing Manual Chapter 4",
+    exercise: {
+      english: {
+        question: "Which attribute on <input> connects it to a <datalist id=\"...\"> element?",
+        options: ["list","datalist","options","autocomplete"],
+        correctAnswer: "list",
+        hint: "Use <input list=\"listId\"> to bind the suggestions."
+      },
+      hinglish: {
+        question: "Which attribute on <input> connects it to a <datalist id=\"...\"> element?",
+        options: ["list","datalist","options","autocomplete"],
+        correctAnswer: "list",
+        hint: "Use <input list=\"listId\"> to bind the suggestions."
+      },
+      hindi: {
+        question: "Which attribute on <input> connects it to a <datalist id=\"...\"> element?",
+        options: ["list","datalist","options","autocomplete"],
+        correctAnswer: "list",
+        hint: "Use <input list=\"listId\"> to bind the suggestions."
+      }
+    },
+    english: {
+      kid: "* 1. <datalist> provides autocomplete suggestion dropdown lists.\n* 2. Connects to input using list attribute.\n* 3. Users can pick suggestion or type.\n* 4. Contains <option> values inside.\n* 5. Unlike <select>, allows typing custom values.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Datalist Autocomplete</title>\n</head>\n<body>\n\n  <h2>Choose Code Editor</h2>\n  <form>\n    <label for=\"editorInput\">Your Preferred Editor:</label>\n    <input list=\"editors\" id=\"editorInput\" name=\"editor\" placeholder=\"Type or select...\">\n\n    <datalist id=\"editors\">\n      <option value=\"Visual Studio Code\">\n      <option value=\"Sublime Text\">\n      <option value=\"Vim\">\n      <option value=\"Neovim\">\n    </datalist>\n  </form>\n\n</body>\n</html>\n```",
+      pro: "* 1. <datalist> provides autocomplete suggestion dropdown lists.\n* 2. Connects to input using list attribute.\n* 3. Users can pick suggestion or type.\n* 4. Contains <option> values inside.\n* 5. Unlike <select>, allows typing custom values.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Datalist Autocomplete</title>\n</head>\n<body>\n\n  <h2>Choose Code Editor</h2>\n  <form>\n    <label for=\"editorInput\">Your Preferred Editor:</label>\n    <input list=\"editors\" id=\"editorInput\" name=\"editor\" placeholder=\"Type or select...\">\n\n    <datalist id=\"editors\">\n      <option value=\"Visual Studio Code\">\n      <option value=\"Sublime Text\">\n      <option value=\"Vim\">\n      <option value=\"Neovim\">\n    </datalist>\n  </form>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. <datalist> ऑटो-कंप्लीट सुझाव सूची देता है।\n* 2. input के list अट्रिब्यूट से जुड़ता है।\n* 3. यूजर सुझाव चुन सकता है या खुद टाइप कर सकता है।\n* 4. इसके अंदर <option> वैल्यू होती हैं।\n* 5. <select> से अलग, इसमें नया टेक्स्ट भी टाइप हो सकता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Datalist Autocomplete</title>\n</head>\n<body>\n\n  <h2>Choose Code Editor</h2>\n  <form>\n    <label for=\"editorInput\">Your Preferred Editor:</label>\n    <input list=\"editors\" id=\"editorInput\" name=\"editor\" placeholder=\"Type or select...\">\n\n    <datalist id=\"editors\">\n      <option value=\"Visual Studio Code\">\n      <option value=\"Sublime Text\">\n      <option value=\"Vim\">\n      <option value=\"Neovim\">\n    </datalist>\n  </form>\n\n</body>\n</html>\n```",
+      pro: "* 1. <datalist> ऑटो-कंप्लीट सुझाव सूची देता है।\n* 2. input के list अट्रिब्यूट से जुड़ता है।\n* 3. यूजर सुझाव चुन सकता है या खुद टाइप कर सकता है।\n* 4. इसके अंदर <option> वैल्यू होती हैं।\n* 5. <select> से अलग, इसमें नया टेक्स्ट भी टाइप हो सकता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Datalist Autocomplete</title>\n</head>\n<body>\n\n  <h2>Choose Code Editor</h2>\n  <form>\n    <label for=\"editorInput\">Your Preferred Editor:</label>\n    <input list=\"editors\" id=\"editorInput\" name=\"editor\" placeholder=\"Type or select...\">\n\n    <datalist id=\"editors\">\n      <option value=\"Visual Studio Code\">\n      <option value=\"Sublime Text\">\n      <option value=\"Vim\">\n      <option value=\"Neovim\">\n    </datalist>\n  </form>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. <datalist> ऑटो-कंप्लीट सुझाव सूची देता है।\n* 2. input के list अट्रिब्यूट से जुड़ता है।\n* 3. यूजर सुझाव चुन सकता है या खुद टाइप कर सकता है।\n* 4. इसके अंदर <option> वैल्यू होती हैं।\n* 5. <select> से अलग, इसमें नया टेक्स्ट भी टाइप हो सकता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Datalist Autocomplete</title>\n</head>\n<body>\n\n  <h2>Choose Code Editor</h2>\n  <form>\n    <label for=\"editorInput\">Your Preferred Editor:</label>\n    <input list=\"editors\" id=\"editorInput\" name=\"editor\" placeholder=\"Type or select...\">\n\n    <datalist id=\"editors\">\n      <option value=\"Visual Studio Code\">\n      <option value=\"Sublime Text\">\n      <option value=\"Vim\">\n      <option value=\"Neovim\">\n    </datalist>\n  </form>\n\n</body>\n</html>\n```",
+      pro: "* 1. <datalist> ऑटो-कंप्लीट सुझाव सूची देता है।\n* 2. input के list अट्रिब्यूट से जुड़ता है।\n* 3. यूजर सुझाव चुन सकता है या खुद टाइप कर सकता है।\n* 4. इसके अंदर <option> वैल्यू होती हैं।\n* 5. <select> से अलग, इसमें नया टेक्स्ट भी टाइप हो सकता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Datalist Autocomplete</title>\n</head>\n<body>\n\n  <h2>Choose Code Editor</h2>\n  <form>\n    <label for=\"editorInput\">Your Preferred Editor:</label>\n    <input list=\"editors\" id=\"editorInput\" name=\"editor\" placeholder=\"Type or select...\">\n\n    <datalist id=\"editors\">\n      <option value=\"Visual Studio Code\">\n      <option value=\"Sublime Text\">\n      <option value=\"Vim\">\n      <option value=\"Neovim\">\n    </datalist>\n  </form>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 96,
+    slug: "collapsible-accordions-details-summary",
+    title: "Collapsible Accordions (<details> and <summary>)",
+    unit: "Unit 10: Advanced Semantics, Validation & APIs",
+    bookRef: "HTML5: The Missing Manual Chapter 4",
+    exercise: {
+      english: {
+        question: "Which tag defines the visible clickable header for a <details> accordion?",
+        options: ["<summary>","<header>","<title>","<accordion>"],
+        correctAnswer: "<summary>",
+        hint: "<summary> provides the heading that toggles the <details> disclosure."
+      },
+      hinglish: {
+        question: "Which tag defines the visible clickable header for a <details> accordion?",
+        options: ["<summary>","<header>","<title>","<accordion>"],
+        correctAnswer: "<summary>",
+        hint: "<summary> provides the heading that toggles the <details> disclosure."
+      },
+      hindi: {
+        question: "Which tag defines the visible clickable header for a <details> accordion?",
+        options: ["<summary>","<header>","<title>","<accordion>"],
+        correctAnswer: "<summary>",
+        hint: "<summary> provides the heading that toggles the <details> disclosure."
+      }
+    },
+    english: {
+      kid: "* 1. <details> creates native collapsible accordion widgets.\n* 2. <summary> defines clickable accordion heading label.\n* 3. Clicking summary toggles content visibility smoothly.\n* 4. open attribute expands accordion by default.\n* 5. Zero JavaScript required for interactive accordions.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Accordion Details</title>\n</head>\n<body>\n\n  <h2>Frequently Asked Questions</h2>\n\n  <details open>\n    <summary>Is Nextsem Academy free?</summary>\n    <p>Yes! All curriculum, lessons, and tools are 100% free forever.</p>\n  </details>\n\n  <details>\n    <summary>Do I need prior coding experience?</summary>\n    <p>No prior coding experience is required. We start from ground zero!</p>\n  </details>\n\n</body>\n</html>\n```",
+      pro: "* 1. <details> creates native collapsible accordion widgets.\n* 2. <summary> defines clickable accordion heading label.\n* 3. Clicking summary toggles content visibility smoothly.\n* 4. open attribute expands accordion by default.\n* 5. Zero JavaScript required for interactive accordions.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Accordion Details</title>\n</head>\n<body>\n\n  <h2>Frequently Asked Questions</h2>\n\n  <details open>\n    <summary>Is Nextsem Academy free?</summary>\n    <p>Yes! All curriculum, lessons, and tools are 100% free forever.</p>\n  </details>\n\n  <details>\n    <summary>Do I need prior coding experience?</summary>\n    <p>No prior coding experience is required. We start from ground zero!</p>\n  </details>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. <details> अपने आप खुलने/बंद होने वाला अकॉर्डियन बनाता है।\n* 2. <summary> क्लिक करने वाला शीर्षक बनता है।\n* 3. क्लिक करने पर अंदर का विवरण तुरंत खुल जाता है।\n* 4. open अट्रिब्यूट से पहले से खुला रहता है।\n* 5. बिना किसी जावास्क्रिप्ट के काम करता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Accordion Details</title>\n</head>\n<body>\n\n  <h2>Frequently Asked Questions</h2>\n\n  <details open>\n    <summary>Is Nextsem Academy free?</summary>\n    <p>Yes! All curriculum, lessons, and tools are 100% free forever.</p>\n  </details>\n\n  <details>\n    <summary>Do I need prior coding experience?</summary>\n    <p>No prior coding experience is required. We start from ground zero!</p>\n  </details>\n\n</body>\n</html>\n```",
+      pro: "* 1. <details> अपने आप खुलने/बंद होने वाला अकॉर्डियन बनाता है।\n* 2. <summary> क्लिक करने वाला शीर्षक बनता है।\n* 3. क्लिक करने पर अंदर का विवरण तुरंत खुल जाता है।\n* 4. open अट्रिब्यूट से पहले से खुला रहता है।\n* 5. बिना किसी जावास्क्रिप्ट के काम करता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Accordion Details</title>\n</head>\n<body>\n\n  <h2>Frequently Asked Questions</h2>\n\n  <details open>\n    <summary>Is Nextsem Academy free?</summary>\n    <p>Yes! All curriculum, lessons, and tools are 100% free forever.</p>\n  </details>\n\n  <details>\n    <summary>Do I need prior coding experience?</summary>\n    <p>No prior coding experience is required. We start from ground zero!</p>\n  </details>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. <details> अपने आप खुलने/बंद होने वाला अकॉर्डियन बनाता है।\n* 2. <summary> क्लिक करने वाला शीर्षक बनता है।\n* 3. क्लिक करने पर अंदर का विवरण तुरंत खुल जाता है।\n* 4. open अट्रिब्यूट से पहले से खुला रहता है।\n* 5. बिना किसी जावास्क्रिप्ट के काम करता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Accordion Details</title>\n</head>\n<body>\n\n  <h2>Frequently Asked Questions</h2>\n\n  <details open>\n    <summary>Is Nextsem Academy free?</summary>\n    <p>Yes! All curriculum, lessons, and tools are 100% free forever.</p>\n  </details>\n\n  <details>\n    <summary>Do I need prior coding experience?</summary>\n    <p>No prior coding experience is required. We start from ground zero!</p>\n  </details>\n\n</body>\n</html>\n```",
+      pro: "* 1. <details> अपने आप खुलने/बंद होने वाला अकॉर्डियन बनाता है।\n* 2. <summary> क्लिक करने वाला शीर्षक बनता है।\n* 3. क्लिक करने पर अंदर का विवरण तुरंत खुल जाता है।\n* 4. open अट्रिब्यूट से पहले से खुला रहता है।\n* 5. बिना किसी जावास्क्रिप्ट के काम करता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Accordion Details</title>\n</head>\n<body>\n\n  <h2>Frequently Asked Questions</h2>\n\n  <details open>\n    <summary>Is Nextsem Academy free?</summary>\n    <p>Yes! All curriculum, lessons, and tools are 100% free forever.</p>\n  </details>\n\n  <details>\n    <summary>Do I need prior coding experience?</summary>\n    <p>No prior coding experience is required. We start from ground zero!</p>\n  </details>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 97,
+    slug: "native-modals-dialog-showmodal-methods",
+    title: "Native Modals & Popups (<dialog>)",
+    unit: "Unit 10: Advanced Semantics, Validation & APIs",
+    bookRef: "HTML5: The Missing Manual Chapter 4",
+    exercise: {
+      english: {
+        question: "Which attribute makes a <dialog> element open and visible by default on page load?",
+        options: ["open","visible","show","active"],
+        correctAnswer: "open",
+        hint: "Add the boolean attribute open to the <dialog> tag."
+      },
+      hinglish: {
+        question: "Which attribute makes a <dialog> element open and visible by default on page load?",
+        options: ["open","visible","show","active"],
+        correctAnswer: "open",
+        hint: "Add the boolean attribute open to the <dialog> tag."
+      },
+      hindi: {
+        question: "Which attribute makes a <dialog> element open and visible by default on page load?",
+        options: ["open","visible","show","active"],
+        correctAnswer: "open",
+        hint: "Add the boolean attribute open to the <dialog> tag."
+      }
+    },
+    english: {
+      kid: "* 1. <dialog> creates native modal popup windows.\n* 2. open attribute makes modal visible immediately.\n* 3. <form method=\"dialog\"> closes modal natively.\n* 4. Includes native backdrop behind modal popup.\n* 5. Replaces complex JavaScript modal library packages.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Native Dialog Modal</title>\n</head>\n<body>\n\n  <h1>Nextsem Academy Announcement</h1>\n\n  <dialog open>\n    <h2>Welcome Student!</h2>\n    <p>You are now on Lesson 97 of Full Stack Web Development.</p>\n    <form method=\"dialog\">\n      <button>Got it, continue!</button>\n    </form>\n  </dialog>\n\n</body>\n</html>\n```",
+      pro: "* 1. <dialog> creates native modal popup windows.\n* 2. open attribute makes modal visible immediately.\n* 3. <form method=\"dialog\"> closes modal natively.\n* 4. Includes native backdrop behind modal popup.\n* 5. Replaces complex JavaScript modal library packages.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Native Dialog Modal</title>\n</head>\n<body>\n\n  <h1>Nextsem Academy Announcement</h1>\n\n  <dialog open>\n    <h2>Welcome Student!</h2>\n    <p>You are now on Lesson 97 of Full Stack Web Development.</p>\n    <form method=\"dialog\">\n      <button>Got it, continue!</button>\n    </form>\n  </dialog>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. <dialog> नेटिव पॉपअप डायलॉग विंडो बनाता है।\n* 2. open अट्रिब्यूट से डायलॉग तुरंत दिखाई देता है।\n* 3. <form method=\"dialog\"> डायलॉग को सीधे बंद कर देता है।\n* 4. पीछे अपने आप बैकड्रॉप स्क्रीन लगाता है।\n* 5. भारी जावास्क्रिप्ट लाइब्रेरियों की जरूरत खत्म करता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Native Dialog Modal</title>\n</head>\n<body>\n\n  <h1>Nextsem Academy Announcement</h1>\n\n  <dialog open>\n    <h2>Welcome Student!</h2>\n    <p>You are now on Lesson 97 of Full Stack Web Development.</p>\n    <form method=\"dialog\">\n      <button>Got it, continue!</button>\n    </form>\n  </dialog>\n\n</body>\n</html>\n```",
+      pro: "* 1. <dialog> नेटिव पॉपअप डायलॉग विंडो बनाता है।\n* 2. open अट्रिब्यूट से डायलॉग तुरंत दिखाई देता है।\n* 3. <form method=\"dialog\"> डायलॉग को सीधे बंद कर देता है।\n* 4. पीछे अपने आप बैकड्रॉप स्क्रीन लगाता है।\n* 5. भारी जावास्क्रिप्ट लाइब्रेरियों की जरूरत खत्म करता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Native Dialog Modal</title>\n</head>\n<body>\n\n  <h1>Nextsem Academy Announcement</h1>\n\n  <dialog open>\n    <h2>Welcome Student!</h2>\n    <p>You are now on Lesson 97 of Full Stack Web Development.</p>\n    <form method=\"dialog\">\n      <button>Got it, continue!</button>\n    </form>\n  </dialog>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. <dialog> नेटिव पॉपअप डायलॉग विंडो बनाता है।\n* 2. open अट्रिब्यूट से डायलॉग तुरंत दिखाई देता है।\n* 3. <form method=\"dialog\"> डायलॉग को सीधे बंद कर देता है।\n* 4. पीछे अपने आप बैकड्रॉप स्क्रीन लगाता है।\n* 5. भारी जावास्क्रिप्ट लाइब्रेरियों की जरूरत खत्म करता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Native Dialog Modal</title>\n</head>\n<body>\n\n  <h1>Nextsem Academy Announcement</h1>\n\n  <dialog open>\n    <h2>Welcome Student!</h2>\n    <p>You are now on Lesson 97 of Full Stack Web Development.</p>\n    <form method=\"dialog\">\n      <button>Got it, continue!</button>\n    </form>\n  </dialog>\n\n</body>\n</html>\n```",
+      pro: "* 1. <dialog> नेटिव पॉपअप डायलॉग विंडो बनाता है।\n* 2. open अट्रिब्यूट से डायलॉग तुरंत दिखाई देता है।\n* 3. <form method=\"dialog\"> डायलॉग को सीधे बंद कर देता है।\n* 4. पीछे अपने आप बैकड्रॉप स्क्रीन लगाता है।\n* 5. भारी जावास्क्रिप्ट लाइब्रेरियों की जरूरत खत्म करता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Native Dialog Modal</title>\n</head>\n<body>\n\n  <h1>Nextsem Academy Announcement</h1>\n\n  <dialog open>\n    <h2>Welcome Student!</h2>\n    <p>You are now on Lesson 97 of Full Stack Web Development.</p>\n    <form method=\"dialog\">\n      <button>Got it, continue!</button>\n    </form>\n  </dialog>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 98,
+    slug: "web-components-template-slot-elements",
+    title: "Web Components Templates (<template> and <slot>)",
+    unit: "Unit 10: Advanced Semantics, Validation & APIs",
+    bookRef: "HTML5: The Missing Manual Chapter 13",
+    exercise: {
+      english: {
+        question: "Does content inside a <template> tag render visible on the screen when the page loads?",
+        options: ["No, it remains hidden until cloned and inserted via DOM","Yes, it renders as a regular <div>","Only on mobile screens","Only if open attribute is set"],
+        correctAnswer: "No, it remains hidden until cloned and inserted via DOM",
+        hint: "<template> contents are not rendered until instantiated."
+      },
+      hinglish: {
+        question: "Does content inside a <template> tag render visible on the screen when the page loads?",
+        options: ["No, it remains hidden until cloned and inserted via DOM","Yes, it renders as a regular <div>","Only on mobile screens","Only if open attribute is set"],
+        correctAnswer: "No, it remains hidden until cloned and inserted via DOM",
+        hint: "<template> contents are not rendered until instantiated."
+      },
+      hindi: {
+        question: "Does content inside a <template> tag render visible on the screen when the page loads?",
+        options: ["No, it remains hidden until cloned and inserted via DOM","Yes, it renders as a regular <div>","Only on mobile screens","Only if open attribute is set"],
+        correctAnswer: "No, it remains hidden until cloned and inserted via DOM",
+        hint: "<template> contents are not rendered until instantiated."
+      }
+    },
+    english: {
+      kid: "* 1. <template> holds hidden client-side markup fragments.\n* 2. Content is not rendered upon load.\n* 3. Cloned and inserted dynamically via DOM.\n* 4. <slot> creates placeholders for custom text.\n* 5. Building block for reusable Web Components.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Templates</title>\n</head>\n<body>\n\n  <h2>Course Card Blueprints</h2>\n\n  <template id=\"course-card-blueprint\">\n    <article>\n      <h3>Course Heading</h3>\n      <p>Course description goes here.</p>\n    </article>\n  </template>\n\n  <p>Template stored in DOM memory without rendering on screen.</p>\n\n</body>\n</html>\n```",
+      pro: "* 1. <template> holds hidden client-side markup fragments.\n* 2. Content is not rendered upon load.\n* 3. Cloned and inserted dynamically via DOM.\n* 4. <slot> creates placeholders for custom text.\n* 5. Building block for reusable Web Components.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Templates</title>\n</head>\n<body>\n\n  <h2>Course Card Blueprints</h2>\n\n  <template id=\"course-card-blueprint\">\n    <article>\n      <h3>Course Heading</h3>\n      <p>Course description goes here.</p>\n    </article>\n  </template>\n\n  <p>Template stored in DOM memory without rendering on screen.</p>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. <template> छिपे हुए HTML ब्लॉक को स्टोर करता है।\n* 2. पेज लोड होने पर यह स्क्रीन पर नहीं दिखता।\n* 3. DOM द्वारा क्लोन करके पेज में डाला जाता है।\n* 4. <slot> कस्टम टेक्स्ट के लिए खांचा (प्लेसहोल्डर) बनाता है।\n* 5. रीयूजेबल वेब कंपोनेंट्स की मजबूत नींव है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Templates</title>\n</head>\n<body>\n\n  <h2>Course Card Blueprints</h2>\n\n  <template id=\"course-card-blueprint\">\n    <article>\n      <h3>Course Heading</h3>\n      <p>Course description goes here.</p>\n    </article>\n  </template>\n\n  <p>Template stored in DOM memory without rendering on screen.</p>\n\n</body>\n</html>\n```",
+      pro: "* 1. <template> छिपे हुए HTML ब्लॉक को स्टोर करता है।\n* 2. पेज लोड होने पर यह स्क्रीन पर नहीं दिखता।\n* 3. DOM द्वारा क्लोन करके पेज में डाला जाता है।\n* 4. <slot> कस्टम टेक्स्ट के लिए खांचा (प्लेसहोल्डर) बनाता है।\n* 5. रीयूजेबल वेब कंपोनेंट्स की मजबूत नींव है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Templates</title>\n</head>\n<body>\n\n  <h2>Course Card Blueprints</h2>\n\n  <template id=\"course-card-blueprint\">\n    <article>\n      <h3>Course Heading</h3>\n      <p>Course description goes here.</p>\n    </article>\n  </template>\n\n  <p>Template stored in DOM memory without rendering on screen.</p>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. <template> छिपे हुए HTML ब्लॉक को स्टोर करता है।\n* 2. पेज लोड होने पर यह स्क्रीन पर नहीं दिखता।\n* 3. DOM द्वारा क्लोन करके पेज में डाला जाता है।\n* 4. <slot> कस्टम टेक्स्ट के लिए खांचा (प्लेसहोल्डर) बनाता है।\n* 5. रीयूजेबल वेब कंपोनेंट्स की मजबूत नींव है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Templates</title>\n</head>\n<body>\n\n  <h2>Course Card Blueprints</h2>\n\n  <template id=\"course-card-blueprint\">\n    <article>\n      <h3>Course Heading</h3>\n      <p>Course description goes here.</p>\n    </article>\n  </template>\n\n  <p>Template stored in DOM memory without rendering on screen.</p>\n\n</body>\n</html>\n```",
+      pro: "* 1. <template> छिपे हुए HTML ब्लॉक को स्टोर करता है।\n* 2. पेज लोड होने पर यह स्क्रीन पर नहीं दिखता।\n* 3. DOM द्वारा क्लोन करके पेज में डाला जाता है।\n* 4. <slot> कस्टम टेक्स्ट के लिए खांचा (प्लेसहोल्डर) बनाता है।\n* 5. रीयूजेबल वेब कंपोनेंट्स की मजबूत नींव है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Templates</title>\n</head>\n<body>\n\n  <h2>Course Card Blueprints</h2>\n\n  <template id=\"course-card-blueprint\">\n    <article>\n      <h3>Course Heading</h3>\n      <p>Course description goes here.</p>\n    </article>\n  </template>\n\n  <p>Template stored in DOM memory without rendering on screen.</p>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 99,
+    slug: "canvas-graphics-draw-shapes-context",
+    title: "Canvas Graphics (<canvas>)",
+    unit: "Unit 10: Advanced Semantics, Validation & APIs",
+    bookRef: "Duckett Chapter 9 (p. 222-226)",
+    exercise: {
+      english: {
+        question: "Which element provides a scriptable 2D drawing canvas for charts and games?",
+        options: ["<canvas>","<svg>","<draw>","<graphic>"],
+        correctAnswer: "<canvas>",
+        hint: "The <canvas> element provides a resolution-dependent bitmap canvas."
+      },
+      hinglish: {
+        question: "Which element provides a scriptable 2D drawing canvas for charts and games?",
+        options: ["<canvas>","<svg>","<draw>","<graphic>"],
+        correctAnswer: "<canvas>",
+        hint: "The <canvas> element provides a resolution-dependent bitmap canvas."
+      },
+      hindi: {
+        question: "Which element provides a scriptable 2D drawing canvas for charts and games?",
+        options: ["<canvas>","<svg>","<draw>","<graphic>"],
+        correctAnswer: "<canvas>",
+        hint: "The <canvas> element provides a resolution-dependent bitmap canvas."
+      }
+    },
+    english: {
+      kid: "* 1. <canvas> provides bitmap drawing graphic surfaces.\n* 2. width and height define pixel drawing area.\n* 3. Used for games, charts, and animations.\n* 4. Text inside serves as fallback message.\n* 5. Graphics are drawn via 2D context.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>HTML5 Canvas</title>\n</head>\n<body>\n\n  <h2>Interactive Game Canvas</h2>\n  <canvas id=\"gameCanvas\" width=\"400\" height=\"200\">\n    Your browser does not support HTML5 canvas graphics.\n  </canvas>\n\n</body>\n</html>\n```",
+      pro: "* 1. <canvas> provides bitmap drawing graphic surfaces.\n* 2. width and height define pixel drawing area.\n* 3. Used for games, charts, and animations.\n* 4. Text inside serves as fallback message.\n* 5. Graphics are drawn via 2D context.\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>HTML5 Canvas</title>\n</head>\n<body>\n\n  <h2>Interactive Game Canvas</h2>\n  <canvas id=\"gameCanvas\" width=\"400\" height=\"200\">\n    Your browser does not support HTML5 canvas graphics.\n  </canvas>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. <canvas> ग्राफिक्स और ड्रॉइंग के लिए सतह देता है।\n* 2. width और height पिक्सल एरिया तय करते हैं।\n* 3. 2D गेम्स, चार्ट्स, और एनिमेशन के काम आता है।\n* 4. अंदर का टेक्स्ट फॉलबैक संदेश बनता है।\n* 5. 2D कॉन्टेक्स्ट के माध्यम से रेंडर होता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>HTML5 Canvas</title>\n</head>\n<body>\n\n  <h2>Interactive Game Canvas</h2>\n  <canvas id=\"gameCanvas\" width=\"400\" height=\"200\">\n    Your browser does not support HTML5 canvas graphics.\n  </canvas>\n\n</body>\n</html>\n```",
+      pro: "* 1. <canvas> ग्राफिक्स और ड्रॉइंग के लिए सतह देता है।\n* 2. width और height पिक्सल एरिया तय करते हैं।\n* 3. 2D गेम्स, चार्ट्स, और एनिमेशन के काम आता है।\n* 4. अंदर का टेक्स्ट फॉलबैक संदेश बनता है।\n* 5. 2D कॉन्टेक्स्ट के माध्यम से रेंडर होता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>HTML5 Canvas</title>\n</head>\n<body>\n\n  <h2>Interactive Game Canvas</h2>\n  <canvas id=\"gameCanvas\" width=\"400\" height=\"200\">\n    Your browser does not support HTML5 canvas graphics.\n  </canvas>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. <canvas> ग्राफिक्स और ड्रॉइंग के लिए सतह देता है।\n* 2. width और height पिक्सल एरिया तय करते हैं।\n* 3. 2D गेम्स, चार्ट्स, और एनिमेशन के काम आता है।\n* 4. अंदर का टेक्स्ट फॉलबैक संदेश बनता है।\n* 5. 2D कॉन्टेक्स्ट के माध्यम से रेंडर होता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>HTML5 Canvas</title>\n</head>\n<body>\n\n  <h2>Interactive Game Canvas</h2>\n  <canvas id=\"gameCanvas\" width=\"400\" height=\"200\">\n    Your browser does not support HTML5 canvas graphics.\n  </canvas>\n\n</body>\n</html>\n```",
+      pro: "* 1. <canvas> ग्राफिक्स और ड्रॉइंग के लिए सतह देता है।\n* 2. width और height पिक्सल एरिया तय करते हैं।\n* 3. 2D गेम्स, चार्ट्स, और एनिमेशन के काम आता है।\n* 4. अंदर का टेक्स्ट फॉलबैक संदेश बनता है।\n* 5. 2D कॉन्टेक्स्ट के माध्यम से रेंडर होता है।\n\n### Example\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>HTML5 Canvas</title>\n</head>\n<body>\n\n  <h2>Interactive Game Canvas</h2>\n  <canvas id=\"gameCanvas\" width=\"400\" height=\"200\">\n    Your browser does not support HTML5 canvas graphics.\n  </canvas>\n\n</body>\n</html>\n```"
+    }
+  },
+  {
+    id: 100,
+    slug: "capstone-portfolio-layout-page",
+    title: "Capstone Project: Complete Semantic Portfolio",
+    unit: "Unit 10: Advanced Semantics, Validation & APIs",
+    bookRef: "Nextsem Academy Project Suite",
+    exercise: {
+      english: {
+        question: "Which semantic structure represents the complete modern HTML5 standard layout for a personal portfolio?",
+        options: ["<header>, <nav>, <main>, <section>, and <footer>","<div> tags only with custom IDs","<frameset> and <frame>","<table> with <tr> layout cells"],
+        correctAnswer: "<header>, <nav>, <main>, <section>, and <footer>",
+        hint: "Modern semantic HTML5 organizes pages with header, nav, main, section, and footer."
+      },
+      hinglish: {
+        question: "Which semantic structure represents the complete modern HTML5 standard layout for a personal portfolio?",
+        options: ["<header>, <nav>, <main>, <section>, and <footer>","<div> tags only with custom IDs","<frameset> and <frame>","<table> with <tr> layout cells"],
+        correctAnswer: "<header>, <nav>, <main>, <section>, and <footer>",
+        hint: "Modern semantic HTML5 organizes pages with header, nav, main, section, and footer."
+      },
+      hindi: {
+        question: "Which semantic structure represents the complete modern HTML5 standard layout for a personal portfolio?",
+        options: ["<header>, <nav>, <main>, <section>, and <footer>","<div> tags only with custom IDs","<frameset> and <frame>","<table> with <tr> layout cells"],
+        correctAnswer: "<header>, <nav>, <main>, <section>, and <footer>",
+        hint: "Modern semantic HTML5 organizes pages with header, nav, main, section, and footer."
+      }
+    },
+    english: {
+      kid: "* 1. Combines all HTML5 semantic tags learned.\n* 2. Implements header, nav, main, sections, footer.\n* 3. Includes working accessible forms and tables.\n* 4. 100% pure standard valid HTML5 markup.\n* 5. Ready for portfolio showcase and deployment.\n\n### Example\n```html\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>Jane Doe | Full Stack Web Developer</title>\n</head>\n<body>\n\n  <header>\n    <h1>Jane Doe</h1>\n    <p>Junior Full Stack Web Developer &bull; Nextsem Academy Graduate</p>\n    <nav>\n      <ul>\n        <li><a href=\"#about\">About</a></li>\n        <li><a href=\"#skills\">Skills</a></li>\n        <li><a href=\"#projects\">Projects</a></li>\n        <li><a href=\"#contact\">Contact</a></li>\n      </ul>\n    </nav>\n  </header>\n\n  <main>\n    <section id=\"about\">\n      <h2>About Me</h2>\n      <p>I build fast, accessible, and standards-compliant web applications using pure HTML5 and modern developer workflows.</p>\n    </section>\n\n    <section id=\"skills\">\n      <h2>Technical Skills</h2>\n      <ul>\n        <li>HTML5 Semantic Architecture</li>\n        <li>Windows 11 Command Prompt (cmd.exe)</li>\n        <li>Git Version Control</li>\n      </ul>\n    </section>\n\n    <section id=\"contact\">\n      <h2>Contact Me</h2>\n      <form action=\"/send-message\" method=\"post\">\n        <p>\n          <label for=\"cname\">Your Name:</label><br>\n          <input type=\"text\" id=\"cname\" name=\"name\" required>\n        </p>\n        <p>\n          <label for=\"cemail\">Your Email:</label><br>\n          <input type=\"email\" id=\"cemail\" name=\"email\" required>\n        </p>\n        <p>\n          <label for=\"cmsg\">Message:</label><br>\n          <textarea id=\"cmsg\" name=\"message\" rows=\"4\" cols=\"40\" required></textarea>\n        </p>\n        <button type=\"submit\">Send Message</button>\n      </form>\n    </section>\n  </main>\n\n  <footer>\n    <p>&copy; 2026 Jane Doe. Built with Nextsem Academy Curriculum.</p>\n  </footer>\n\n</body>\n</html>\n```",
+      pro: "* 1. Combines all HTML5 semantic tags learned.\n* 2. Implements header, nav, main, sections, footer.\n* 3. Includes working accessible forms and tables.\n* 4. 100% pure standard valid HTML5 markup.\n* 5. Ready for portfolio showcase and deployment.\n\n### Example\n```html\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>Jane Doe | Full Stack Web Developer</title>\n</head>\n<body>\n\n  <header>\n    <h1>Jane Doe</h1>\n    <p>Junior Full Stack Web Developer &bull; Nextsem Academy Graduate</p>\n    <nav>\n      <ul>\n        <li><a href=\"#about\">About</a></li>\n        <li><a href=\"#skills\">Skills</a></li>\n        <li><a href=\"#projects\">Projects</a></li>\n        <li><a href=\"#contact\">Contact</a></li>\n      </ul>\n    </nav>\n  </header>\n\n  <main>\n    <section id=\"about\">\n      <h2>About Me</h2>\n      <p>I build fast, accessible, and standards-compliant web applications using pure HTML5 and modern developer workflows.</p>\n    </section>\n\n    <section id=\"skills\">\n      <h2>Technical Skills</h2>\n      <ul>\n        <li>HTML5 Semantic Architecture</li>\n        <li>Windows 11 Command Prompt (cmd.exe)</li>\n        <li>Git Version Control</li>\n      </ul>\n    </section>\n\n    <section id=\"contact\">\n      <h2>Contact Me</h2>\n      <form action=\"/send-message\" method=\"post\">\n        <p>\n          <label for=\"cname\">Your Name:</label><br>\n          <input type=\"text\" id=\"cname\" name=\"name\" required>\n        </p>\n        <p>\n          <label for=\"cemail\">Your Email:</label><br>\n          <input type=\"email\" id=\"cemail\" name=\"email\" required>\n        </p>\n        <p>\n          <label for=\"cmsg\">Message:</label><br>\n          <textarea id=\"cmsg\" name=\"message\" rows=\"4\" cols=\"40\" required></textarea>\n        </p>\n        <button type=\"submit\">Send Message</button>\n      </form>\n    </section>\n  </main>\n\n  <footer>\n    <p>&copy; 2026 Jane Doe. Built with Nextsem Academy Curriculum.</p>\n  </footer>\n\n</body>\n</html>\n```"
+    },
+    hinglish: {
+      kid: "* 1. सीखे गए सभी HTML5 सिमेंटिक टैग्स का संगम।\n* 2. header, nav, main, section, footer का सही उपयोग।\n* 3. कार्यशील फॉर्म और डेटा टेबल शामिल हैं।\n* 4. 100% शुद्ध और वैध HTML5 मार्कअप।\n* 5. लाइव प्रोजेक्ट डिप्लॉयमेंट के लिए तैयार।\n\n### Example\n```html\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>Jane Doe | Full Stack Web Developer</title>\n</head>\n<body>\n\n  <header>\n    <h1>Jane Doe</h1>\n    <p>Junior Full Stack Web Developer &bull; Nextsem Academy Graduate</p>\n    <nav>\n      <ul>\n        <li><a href=\"#about\">About</a></li>\n        <li><a href=\"#skills\">Skills</a></li>\n        <li><a href=\"#projects\">Projects</a></li>\n        <li><a href=\"#contact\">Contact</a></li>\n      </ul>\n    </nav>\n  </header>\n\n  <main>\n    <section id=\"about\">\n      <h2>About Me</h2>\n      <p>I build fast, accessible, and standards-compliant web applications using pure HTML5 and modern developer workflows.</p>\n    </section>\n\n    <section id=\"skills\">\n      <h2>Technical Skills</h2>\n      <ul>\n        <li>HTML5 Semantic Architecture</li>\n        <li>Windows 11 Command Prompt (cmd.exe)</li>\n        <li>Git Version Control</li>\n      </ul>\n    </section>\n\n    <section id=\"contact\">\n      <h2>Contact Me</h2>\n      <form action=\"/send-message\" method=\"post\">\n        <p>\n          <label for=\"cname\">Your Name:</label><br>\n          <input type=\"text\" id=\"cname\" name=\"name\" required>\n        </p>\n        <p>\n          <label for=\"cemail\">Your Email:</label><br>\n          <input type=\"email\" id=\"cemail\" name=\"email\" required>\n        </p>\n        <p>\n          <label for=\"cmsg\">Message:</label><br>\n          <textarea id=\"cmsg\" name=\"message\" rows=\"4\" cols=\"40\" required></textarea>\n        </p>\n        <button type=\"submit\">Send Message</button>\n      </form>\n    </section>\n  </main>\n\n  <footer>\n    <p>&copy; 2026 Jane Doe. Built with Nextsem Academy Curriculum.</p>\n  </footer>\n\n</body>\n</html>\n```",
+      pro: "* 1. सीखे गए सभी HTML5 सिमेंटिक टैग्स का संगम।\n* 2. header, nav, main, section, footer का सही उपयोग।\n* 3. कार्यशील फॉर्म और डेटा टेबल शामिल हैं।\n* 4. 100% शुद्ध और वैध HTML5 मार्कअप।\n* 5. लाइव प्रोजेक्ट डिप्लॉयमेंट के लिए तैयार।\n\n### Example\n```html\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>Jane Doe | Full Stack Web Developer</title>\n</head>\n<body>\n\n  <header>\n    <h1>Jane Doe</h1>\n    <p>Junior Full Stack Web Developer &bull; Nextsem Academy Graduate</p>\n    <nav>\n      <ul>\n        <li><a href=\"#about\">About</a></li>\n        <li><a href=\"#skills\">Skills</a></li>\n        <li><a href=\"#projects\">Projects</a></li>\n        <li><a href=\"#contact\">Contact</a></li>\n      </ul>\n    </nav>\n  </header>\n\n  <main>\n    <section id=\"about\">\n      <h2>About Me</h2>\n      <p>I build fast, accessible, and standards-compliant web applications using pure HTML5 and modern developer workflows.</p>\n    </section>\n\n    <section id=\"skills\">\n      <h2>Technical Skills</h2>\n      <ul>\n        <li>HTML5 Semantic Architecture</li>\n        <li>Windows 11 Command Prompt (cmd.exe)</li>\n        <li>Git Version Control</li>\n      </ul>\n    </section>\n\n    <section id=\"contact\">\n      <h2>Contact Me</h2>\n      <form action=\"/send-message\" method=\"post\">\n        <p>\n          <label for=\"cname\">Your Name:</label><br>\n          <input type=\"text\" id=\"cname\" name=\"name\" required>\n        </p>\n        <p>\n          <label for=\"cemail\">Your Email:</label><br>\n          <input type=\"email\" id=\"cemail\" name=\"email\" required>\n        </p>\n        <p>\n          <label for=\"cmsg\">Message:</label><br>\n          <textarea id=\"cmsg\" name=\"message\" rows=\"4\" cols=\"40\" required></textarea>\n        </p>\n        <button type=\"submit\">Send Message</button>\n      </form>\n    </section>\n  </main>\n\n  <footer>\n    <p>&copy; 2026 Jane Doe. Built with Nextsem Academy Curriculum.</p>\n  </footer>\n\n</body>\n</html>\n```"
+    },
+    hindi: {
+      kid: "* 1. सीखे गए सभी HTML5 सिमेंटिक टैग्स का संगम।\n* 2. header, nav, main, section, footer का सही उपयोग।\n* 3. कार्यशील फॉर्म और डेटा टेबल शामिल हैं।\n* 4. 100% शुद्ध और वैध HTML5 मार्कअप।\n* 5. लाइव प्रोजेक्ट डिप्लॉयमेंट के लिए तैयार।\n\n### Example\n```html\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>Jane Doe | Full Stack Web Developer</title>\n</head>\n<body>\n\n  <header>\n    <h1>Jane Doe</h1>\n    <p>Junior Full Stack Web Developer &bull; Nextsem Academy Graduate</p>\n    <nav>\n      <ul>\n        <li><a href=\"#about\">About</a></li>\n        <li><a href=\"#skills\">Skills</a></li>\n        <li><a href=\"#projects\">Projects</a></li>\n        <li><a href=\"#contact\">Contact</a></li>\n      </ul>\n    </nav>\n  </header>\n\n  <main>\n    <section id=\"about\">\n      <h2>About Me</h2>\n      <p>I build fast, accessible, and standards-compliant web applications using pure HTML5 and modern developer workflows.</p>\n    </section>\n\n    <section id=\"skills\">\n      <h2>Technical Skills</h2>\n      <ul>\n        <li>HTML5 Semantic Architecture</li>\n        <li>Windows 11 Command Prompt (cmd.exe)</li>\n        <li>Git Version Control</li>\n      </ul>\n    </section>\n\n    <section id=\"contact\">\n      <h2>Contact Me</h2>\n      <form action=\"/send-message\" method=\"post\">\n        <p>\n          <label for=\"cname\">Your Name:</label><br>\n          <input type=\"text\" id=\"cname\" name=\"name\" required>\n        </p>\n        <p>\n          <label for=\"cemail\">Your Email:</label><br>\n          <input type=\"email\" id=\"cemail\" name=\"email\" required>\n        </p>\n        <p>\n          <label for=\"cmsg\">Message:</label><br>\n          <textarea id=\"cmsg\" name=\"message\" rows=\"4\" cols=\"40\" required></textarea>\n        </p>\n        <button type=\"submit\">Send Message</button>\n      </form>\n    </section>\n  </main>\n\n  <footer>\n    <p>&copy; 2026 Jane Doe. Built with Nextsem Academy Curriculum.</p>\n  </footer>\n\n</body>\n</html>\n```",
+      pro: "* 1. सीखे गए सभी HTML5 सिमेंटिक टैग्स का संगम।\n* 2. header, nav, main, section, footer का सही उपयोग।\n* 3. कार्यशील फॉर्म और डेटा टेबल शामिल हैं।\n* 4. 100% शुद्ध और वैध HTML5 मार्कअप।\n* 5. लाइव प्रोजेक्ट डिप्लॉयमेंट के लिए तैयार।\n\n### Example\n```html\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>Jane Doe | Full Stack Web Developer</title>\n</head>\n<body>\n\n  <header>\n    <h1>Jane Doe</h1>\n    <p>Junior Full Stack Web Developer &bull; Nextsem Academy Graduate</p>\n    <nav>\n      <ul>\n        <li><a href=\"#about\">About</a></li>\n        <li><a href=\"#skills\">Skills</a></li>\n        <li><a href=\"#projects\">Projects</a></li>\n        <li><a href=\"#contact\">Contact</a></li>\n      </ul>\n    </nav>\n  </header>\n\n  <main>\n    <section id=\"about\">\n      <h2>About Me</h2>\n      <p>I build fast, accessible, and standards-compliant web applications using pure HTML5 and modern developer workflows.</p>\n    </section>\n\n    <section id=\"skills\">\n      <h2>Technical Skills</h2>\n      <ul>\n        <li>HTML5 Semantic Architecture</li>\n        <li>Windows 11 Command Prompt (cmd.exe)</li>\n        <li>Git Version Control</li>\n      </ul>\n    </section>\n\n    <section id=\"contact\">\n      <h2>Contact Me</h2>\n      <form action=\"/send-message\" method=\"post\">\n        <p>\n          <label for=\"cname\">Your Name:</label><br>\n          <input type=\"text\" id=\"cname\" name=\"name\" required>\n        </p>\n        <p>\n          <label for=\"cemail\">Your Email:</label><br>\n          <input type=\"email\" id=\"cemail\" name=\"email\" required>\n        </p>\n        <p>\n          <label for=\"cmsg\">Message:</label><br>\n          <textarea id=\"cmsg\" name=\"message\" rows=\"4\" cols=\"40\" required></textarea>\n        </p>\n        <button type=\"submit\">Send Message</button>\n      </form>\n    </section>\n  </main>\n\n  <footer>\n    <p>&copy; 2026 Jane Doe. Built with Nextsem Academy Curriculum.</p>\n  </footer>\n\n</body>\n</html>\n```"
+    }
   }
-},
-{
-  "id": 32,
-  "slug": "italic-i-vs-semantic-emphasis-em-tag",
-  "title": "Presentational Italic (<i>) vs. Semantic Emphasis (<em>)",
-  "unit": "Unit 4: Semantic Content & Text Modifications",
-  "bookRef": "Duckett Chapter 2 (p. 35-36)",
-  "exercise": {
-    "question": "Which HTML element is semantically used to apply emphasis to a word inside a sentence?",
-    "options": [
-      "<em>",
-      "<i>",
-      "<emphasis>",
-      "<slant>"
-    ],
-    "correctAnswer": "<em>",
-    "hint": "Emphasis (em) changes the meaning of the sentence by placing stress on specific words."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Presentational Italic (<i>) vs. Semantic Emphasis (<em>)!\nToday, we are looking at the **`<em>`** tag, which represents **Emphasis** on our webpage!\n\n* **Analogy**: Imagine a **slanted stress tone voice**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<em>Please read this carefully.</em>\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Presentational Italic (<i>) vs. Semantic Emphasis (<em>)\nThe HTML `<em>` element is used to represent **Emphasis** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<em>Emphasized Text</em>\n```\n\nConsult the standard specifications in Duckett Chapter 2 (p. 35-36) for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Presentational Italic () vs. Semantic Emphasis () seekhein!\nWeb development me **`<em>`** tag ka use **Emphasis** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **slanted stress tone voice** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Presentational Italic () vs. Semantic Emphasis ()\n`<em>` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Presentational Italic () vs. Semantic Emphasis ()!\nआज हम **`<em>`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Emphasis** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **slanted stress tone voice** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Presentational Italic () vs. Semantic Emphasis ()\n`<em>` तत्व दस्तावेज़ के पदानुक्रम में **Emphasis** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 33,
-  "slug": "highlight-text-mark-tag-search-results",
-  "title": "Highlighted Text (<mark>)",
-  "unit": "Unit 4: Semantic Content & Text Modifications",
-  "bookRef": "Duckett Chapter 2 (p. 37-38)",
-  "exercise": {
-    "question": "Which HTML5 element is specifically designed to highlight keyword matches in search results?",
-    "options": [
-      "<mark>",
-      "<highlight>",
-      "<span>",
-      "<b>"
-    ],
-    "correctAnswer": "<mark>",
-    "hint": "It wraps text in a bright yellow background highlight by default."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Highlighted Text (<mark>)!\nToday, we are looking at the **`<mark>`** tag, which represents **Highlighted text** on our webpage!\n\n* **Analogy**: Imagine a **neon yellow marker pen**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of <mark> -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Highlighted Text (<mark>)\nThe HTML `<mark>` element is used to represent **Highlighted text** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- <mark> specification container -->\n```\n\nConsult the standard specifications in Duckett Chapter 2 (p. 37-38) for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Highlighted Text () seekhein!\nWeb development me **`<mark>`** tag ka use **Highlighted text** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **neon yellow marker pen** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Highlighted Text ()\n`<mark>` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Highlighted Text ()!\nआज हम **`<mark>`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Highlighted text** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **neon yellow marker pen** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Highlighted Text ()\n`<mark>` तत्व दस्तावेज़ के पदानुक्रम में **Highlighted text** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 34,
-  "slug": "monospace-code-snippet-code-tag",
-  "title": "Code Snippets (<code>)",
-  "unit": "Unit 4: Semantic Content & Text Modifications",
-  "bookRef": "Duckett Chapter 2 (p. 45)",
-  "exercise": {
-    "question": "Which HTML tag is used to display inline programming code in a monospaced font?",
-    "options": [
-      "<code>",
-      "<pre>",
-      "<monospace>",
-      "<tt>"
-    ],
-    "correctAnswer": "<code>",
-    "hint": "It renders characters with equal width, ideal for variable names like userEmail."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Code Snippets (<code>)!\nToday, we are looking at the **`<code>`** tag, which represents **Monospace code block** on our webpage!\n\n* **Analogy**: Imagine a **programmer text terminal font**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of <code> -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Code Snippets (<code>)\nThe HTML `<code>` element is used to represent **Monospace code block** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- <code> specification container -->\n```\n\nConsult the standard specifications in Duckett Chapter 2 (p. 45) for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Code Snippets () seekhein!\nWeb development me **`<code>`** tag ka use **Monospace code block** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **programmer text terminal font** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Code Snippets ()\n`<code>` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Code Snippets ()!\nआज हम **`<code>`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Monospace code block** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **programmer text terminal font** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Code Snippets ()\n`<code>` तत्व दस्तावेज़ के पदानुक्रम में **Monospace code block** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 35,
-  "slug": "preformatted-text-pre-tag-spaces-tabs",
-  "title": "Preformatted Text (<pre>)",
-  "unit": "Unit 4: Semantic Content & Text Modifications",
-  "bookRef": "Duckett Chapter 2 (p. 46)",
-  "exercise": {
-    "question": "Which tag is used to preserve whitespace, tabs, and line breaks exactly as written in source code?",
-    "options": [
-      "<pre>",
-      "<code>",
-      "<p>",
-      "<br>"
-    ],
-    "correctAnswer": "<pre>",
-    "hint": "Preformatted (pre) text keeps all spacing intact without browser layout collapse."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Preformatted Text (<pre>)!\nToday, we are looking at the **`<pre>`** tag, which represents **Preformatted text layout** on our webpage!\n\n* **Analogy**: Imagine a **photocopy machine that preserves spaces**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of <pre> -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Preformatted Text (<pre>)\nThe HTML `<pre>` element is used to represent **Preformatted text layout** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- <pre> specification container -->\n```\n\nConsult the standard specifications in Duckett Chapter 2 (p. 46) for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Preformatted Text () seekhein!\nWeb development me **`<pre>`** tag ka use **Preformatted text layout** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **photocopy machine that preserves spaces** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Preformatted Text ()\n`<pre>` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Preformatted Text ()!\nआज हम **`<pre>`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Preformatted text layout** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **photocopy machine that preserves spaces** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Preformatted Text ()\n`<pre>` तत्व दस्तावेज़ के पदानुक्रम में **Preformatted text layout** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 36,
-  "slug": "insert-ins-and-delete-del-tags",
-  "title": "Insertions (<ins>) & Deletions (<del>)",
-  "unit": "Unit 4: Semantic Content & Text Modifications",
-  "bookRef": "Duckett Chapter 2 (p. 48)",
-  "exercise": {
-    "question": "Which tag combination is used to show a revised price in an e-commerce catalog?",
-    "options": [
-      "<del> and <ins>",
-      "<s> and <u>",
-      "<strike> and <add>",
-      "<b> and <i>"
-    ],
-    "correctAnswer": "<del> and <ins>",
-    "hint": "Del strikes through the outdated content, and ins underlines the newly added content."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Insertions (<ins>) & Deletions (<del>)!\nToday, we are looking at the **`<del> and <ins>`** tag, which represents **Document edit markup** on our webpage!\n\n* **Analogy**: Imagine a **pen strikethrough and underline edits**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of <del> and <ins> -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Insertions (<ins>) & Deletions (<del>)\nThe HTML `<del> and <ins>` element is used to represent **Document edit markup** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- <del> and <ins> specification container -->\n```\n\nConsult the standard specifications in Duckett Chapter 2 (p. 48) for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Insertions () & Deletions () seekhein!\nWeb development me **`<del> and <ins>`** tag ka use **Document edit markup** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **pen strikethrough and underline edits** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Insertions () & Deletions ()\n`<del> and <ins>` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Insertions () & Deletions ()!\nआज हम **`<del> and <ins>`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Document edit markup** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **pen strikethrough and underline edits** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Insertions () & Deletions ()\n`<del> and <ins>` तत्व दस्तावेज़ के पदानुक्रम में **Document edit markup** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 37,
-  "slug": "strikethrough-s-tag-outdated-content",
-  "title": "Strikethrough (<s>)",
-  "unit": "Unit 4: Semantic Content & Text Modifications",
-  "bookRef": "Duckett Chapter 2 (p. 49)",
-  "exercise": {
-    "question": "Which element is used to represent content that is no longer accurate or relevant, like a sold-out item?",
-    "options": [
-      "<s>",
-      "<del>",
-      "<strike>",
-      "<u>"
-    ],
-    "correctAnswer": "<s>",
-    "hint": "Use <s> to show content that is no longer relevant, without indicating a document revision."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Strikethrough (<s>)!\nToday, we are looking at the **`<s>`** tag, which represents **Outdated content strikethrough** on our webpage!\n\n* **Analogy**: Imagine a **crossed out list item**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of <s> -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Strikethrough (<s>)\nThe HTML `<s>` element is used to represent **Outdated content strikethrough** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- <s> specification container -->\n```\n\nConsult the standard specifications in Duckett Chapter 2 (p. 49) for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Strikethrough () seekhein!\nWeb development me **`<s>`** tag ka use **Outdated content strikethrough** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **crossed out list item** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Strikethrough ()\n`<s>` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Strikethrough ()!\nआज हम **`<s>`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Outdated content strikethrough** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **crossed out list item** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Strikethrough ()\n`<s>` तत्व दस्तावेज़ के पदानुक्रम में **Outdated content strikethrough** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 38,
-  "slug": "abbreviation-abbr-tag-title-tooltip",
-  "title": "Abbreviations (<abbr>)",
-  "unit": "Unit 4: Semantic Content & Text Modifications",
-  "bookRef": "Duckett Chapter 2 (p. 42)",
-  "exercise": {
-    "question": "Which attribute inside the <abbr> tag holds the full explanation shown as a mouse hover tooltip?",
-    "options": [
-      "title",
-      "href",
-      "desc",
-      "alt"
-    ],
-    "correctAnswer": "title",
-    "hint": "Setting title=\"World Wide Web\" displays a standard browser tooltip on hover."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Abbreviations (<abbr>)!\nToday, we are looking at the **`<abbr>`** tag, which represents **Abbreviation tooltips** on our webpage!\n\n* **Analogy**: Imagine a **hover tooltip magnifier bubble**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of <abbr> -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Abbreviations (<abbr>)\nThe HTML `<abbr>` element is used to represent **Abbreviation tooltips** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- <abbr> specification container -->\n```\n\nConsult the standard specifications in Duckett Chapter 2 (p. 42) for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Abbreviations () seekhein!\nWeb development me **`<abbr>`** tag ka use **Abbreviation tooltips** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **hover tooltip magnifier bubble** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Abbreviations ()\n`<abbr>` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Abbreviations ()!\nआज हम **`<abbr>`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Abbreviation tooltips** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **hover tooltip magnifier bubble** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Abbreviations ()\n`<abbr>` तत्व दस्तावेज़ के पदानुक्रम में **Abbreviation tooltips** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 39,
-  "slug": "defining-term-dfn-tag-first-instance",
-  "title": "Defining Terms (<dfn>)",
-  "unit": "Unit 4: Semantic Content & Text Modifications",
-  "bookRef": "Duckett Chapter 2 (p. 41)",
-  "exercise": {
-    "question": "What is the semantic purpose of the <dfn> tag in HTML?",
-    "options": [
-      "To mark the defining instance of a term",
-      "To define a form",
-      "To make text bold",
-      "To cite external URLs"
-    ],
-    "correctAnswer": "To mark the defining instance of a term",
-    "hint": "It marks the first time a new term is introduced and defined in content."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Defining Terms (<dfn>)!\nToday, we are looking at the **`<dfn>`** tag, which represents **Defining term instance** on our webpage!\n\n* **Analogy**: Imagine a **dictionary entry highlight**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of <dfn> -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Defining Terms (<dfn>)\nThe HTML `<dfn>` element is used to represent **Defining term instance** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- <dfn> specification container -->\n```\n\nConsult the standard specifications in Duckett Chapter 2 (p. 41) for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Defining Terms () seekhein!\nWeb development me **`<dfn>`** tag ka use **Defining term instance** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **dictionary entry highlight** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Defining Terms ()\n`<dfn>` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Defining Terms ()!\nआज हम **`<dfn>`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Defining term instance** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **dictionary entry highlight** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Defining Terms ()\n`<dfn>` तत्व दस्तावेज़ के पदानुक्रम में **Defining term instance** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 40,
-  "slug": "superscript-sup-and-subscript-sub-tags",
-  "title": "Superscript (<sup>) & Subscript (<sub>)",
-  "unit": "Unit 4: Semantic Content & Text Modifications",
-  "bookRef": "Duckett Chapter 2 (p. 39)",
-  "exercise": {
-    "question": "Which tag is used to write mathematical exponents like X squared (X²)?",
-    "options": [
-      "<sup>",
-      "<sub>",
-      "<exp>",
-      "<up>"
-    ],
-    "correctAnswer": "<sup>",
-    "hint": "Superscript (sup) raises text upward, while subscript (sub) lowers it down."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Superscript (<sup>) & Subscript (<sub>)!\nToday, we are looking at the **`<sup> and <sub>`** tag, which represents **Superscript and subscript notation** on our webpage!\n\n* **Analogy**: Imagine a **hot air balloon and submarine**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of <sup> and <sub> -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Superscript (<sup>) & Subscript (<sub>)\nThe HTML `<sup> and <sub>` element is used to represent **Superscript and subscript notation** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- <sup> and <sub> specification container -->\n```\n\nConsult the standard specifications in Duckett Chapter 2 (p. 39) for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Superscript () & Subscript () seekhein!\nWeb development me **`<sup> and <sub>`** tag ka use **Superscript and subscript notation** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **hot air balloon and submarine** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Superscript () & Subscript ()\n`<sup> and <sub>` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Superscript () & Subscript ()!\nआज हम **`<sup> and <sub>`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Superscript and subscript notation** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **hot air balloon and submarine** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Superscript () & Subscript ()\n`<sup> and <sub>` तत्व दस्तावेज़ के पदानुक्रम में **Superscript and subscript notation** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 41,
-  "slug": "anchor-a-tag-href-hyperlinks",
-  "title": "Anchor Elements (<a>) & the href Attribute",
-  "unit": "Unit 5: Navigation & Hyperlinks",
-  "bookRef": "Duckett Chapter 4 (p. 74-76)",
-  "exercise": {
-    "question": "Which attribute inside the anchor (<a>) tag specifies the target URL destination?",
-    "options": [
-      "href",
-      "src",
-      "link",
-      "to"
-    ],
-    "correctAnswer": "href",
-    "hint": "Hypertext Reference (href) points to the webpage URL you want to open."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Anchor Elements (<a>) & the href Attribute!\nToday, we are looking at the **`<a>`** tag, which represents **Hyperlinks** on our webpage!\n\n* **Analogy**: Imagine a **teleportation portal door**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of <a> -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Anchor Elements (<a>) & the href Attribute\nThe HTML `<a>` element is used to represent **Hyperlinks** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- <a> specification container -->\n```\n\nConsult the standard specifications in Duckett Chapter 4 (p. 74-76) for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Anchor Elements () & the href Attribute seekhein!\nWeb development me **`<a>`** tag ka use **Hyperlinks** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **teleportation portal door** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Anchor Elements () & the href Attribute\n`<a>` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Anchor Elements () & the href Attribute!\nआज हम **`<a>`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Hyperlinks** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **teleportation portal door** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Anchor Elements () & the href Attribute\n`<a>` तत्व दस्तावेज़ के पदानुक्रम में **Hyperlinks** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 42,
-  "slug": "absolute-vs-relative-link-paths",
-  "title": "Absolute vs. Relative Paths",
-  "unit": "Unit 5: Navigation & Hyperlinks",
-  "bookRef": "Duckett Chapter 4 (p. 77-79)",
-  "exercise": {
-    "question": "Which of the following is an example of an absolute URL path?",
-    "options": [
-      "https://nextsem.online/about",
-      "/about",
-      "about.html",
-      "../about.html"
-    ],
-    "correctAnswer": "https://nextsem.online/about",
-    "hint": "Absolute URLs include the protocol (https) and domain name, pointing globally."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Absolute vs. Relative Paths!\nToday, we are looking at the **`relative/absolute`** tag, which represents **Link path types** on our webpage!\n\n* **Analogy**: Imagine a **global GPS coordinates vs. local directions**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of relative/absolute -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Absolute vs. Relative Paths\nThe HTML `relative/absolute` element is used to represent **Link path types** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- relative/absolute specification container -->\n```\n\nConsult the standard specifications in Duckett Chapter 4 (p. 77-79) for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Absolute vs. Relative Paths seekhein!\nWeb development me **`relative/absolute`** tag ka use **Link path types** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **global GPS coordinates vs. local directions** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Absolute vs. Relative Paths\n`relative/absolute` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Absolute vs. Relative Paths!\nआज हम **`relative/absolute`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Link path types** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **global GPS coordinates vs. local directions** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Absolute vs. Relative Paths\n`relative/absolute` तत्व दस्तावेज़ के पदानुक्रम में **Link path types** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 43,
-  "slug": "parent-directory-hopping-relative-paths",
-  "title": "Parent Directory Hopping (../)",
-  "unit": "Unit 5: Navigation & Hyperlinks",
-  "bookRef": "Duckett Chapter 4 (p. 80-82)",
-  "exercise": {
-    "question": "What does the '../' prefix represent in a relative link path?",
-    "options": [
-      "Go up one level to the parent directory",
-      "Reload current page",
-      "Jump to website root",
-      "Open a new window"
-    ],
-    "correctAnswer": "Go up one level to the parent directory",
-    "hint": "It moves the relative path pointer out of the current folder into the folder enclosing it."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Parent Directory Hopping (../)!\nToday, we are looking at the **`../`** tag, which represents **Relative path directory hopping** on our webpage!\n\n* **Analogy**: Imagine a **climbing up one ladder step to the parent folder**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of ../ -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Parent Directory Hopping (../)\nThe HTML `../` element is used to represent **Relative path directory hopping** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- ../ specification container -->\n```\n\nConsult the standard specifications in Duckett Chapter 4 (p. 80-82) for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Parent Directory Hopping (../) seekhein!\nWeb development me **`../`** tag ka use **Relative path directory hopping** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **climbing up one ladder step to the parent folder** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Parent Directory Hopping (../)\n`../` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Parent Directory Hopping (../)!\nआज हम **`../`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Relative path directory hopping** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **climbing up one ladder step to the parent folder** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Parent Directory Hopping (../)\n`../` तत्व दस्तावेज़ के पदानुक्रम में **Relative path directory hopping** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 44,
-  "slug": "grandparent-directory-hopping-double-slash",
-  "title": "Grandparent Directory Hopping (../../)",
-  "unit": "Unit 5: Navigation & Hyperlinks",
-  "bookRef": "Duckett Chapter 4 (p. 83-84)",
-  "exercise": {
-    "question": "How do you navigate upward two directory levels in a relative path?",
-    "options": [
-      "../../",
-      "../",
-      "///",
-      ".../"
-    ],
-    "correctAnswer": "../../",
-    "hint": "Each '../' moves up one level, so doubling it navigates up two levels."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Grandparent Directory Hopping (../../)!\nToday, we are looking at the **`../../`** tag, which represents **Grandparent directory navigation** on our webpage!\n\n* **Analogy**: Imagine a **climbing up two ladder steps**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of ../../ -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Grandparent Directory Hopping (../../)\nThe HTML `../../` element is used to represent **Grandparent directory navigation** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- ../../ specification container -->\n```\n\nConsult the standard specifications in Duckett Chapter 4 (p. 83-84) for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Grandparent Directory Hopping (../../) seekhein!\nWeb development me **`../../`** tag ka use **Grandparent directory navigation** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **climbing up two ladder steps** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Grandparent Directory Hopping (../../)\n`../../` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Grandparent Directory Hopping (../../)!\nआज हम **`../../`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Grandparent directory navigation** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **climbing up two ladder steps** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Grandparent Directory Hopping (../../)\n`../../` तत्व दस्तावेज़ के पदानुक्रम में **Grandparent directory navigation** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 45,
-  "slug": "email-mailto-links-anchor-tag",
-  "title": "Linking to Email Addresses (mailto:)",
-  "unit": "Unit 5: Navigation & Hyperlinks",
-  "bookRef": "Duckett Chapter 4 (p. 85)",
-  "exercise": {
-    "question": "What prefix is used inside href to configure a link that opens the user's default email client?",
-    "options": [
-      "mailto:",
-      "email:",
-      "send:",
-      "mail:"
-    ],
-    "correctAnswer": "mailto:",
-    "hint": "Writing href=\"mailto:support@nextsem.online\" triggers the system's mail application."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Linking to Email Addresses (mailto:)!\nToday, we are looking at the **`mailto:`** tag, which represents **Email links** on our webpage!\n\n* **Analogy**: Imagine a **auto envelope filler**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of mailto: -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Linking to Email Addresses (mailto:)\nThe HTML `mailto:` element is used to represent **Email links** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- mailto: specification container -->\n```\n\nConsult the standard specifications in Duckett Chapter 4 (p. 85) for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Linking to Email Addresses (mailto:) seekhein!\nWeb development me **`mailto:`** tag ka use **Email links** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **auto envelope filler** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Linking to Email Addresses (mailto:)\n`mailto:` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Linking to Email Addresses (mailto:)!\nआज हम **`mailto:`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Email links** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **auto envelope filler** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Linking to Email Addresses (mailto:)\n`mailto:` तत्व दस्तावेज़ के पदानुक्रम में **Email links** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 46,
-  "slug": "telephone-dialing-tel-links-mobile",
-  "title": "Telephone Dialing Links (tel:)",
-  "unit": "Unit 5: Navigation & Hyperlinks",
-  "bookRef": "Duckett Chapter 4 (p. 86)",
-  "exercise": {
-    "question": "Which prefix enables a clickable link to dial a phone number on mobile devices?",
-    "options": [
-      "tel:",
-      "phone:",
-      "call:",
-      "dial:"
-    ],
-    "correctAnswer": "tel:",
-    "hint": "Setting href=\"tel:+1234567890\" prompts mobile browsers to start a phone call."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Telephone Dialing Links (tel:)!\nToday, we are looking at the **`tel:`** tag, which represents **Telephone links** on our webpage!\n\n* **Analogy**: Imagine a **phone dial keypad shortkey**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of tel: -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Telephone Dialing Links (tel:)\nThe HTML `tel:` element is used to represent **Telephone links** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- tel: specification container -->\n```\n\nConsult the standard specifications in Duckett Chapter 4 (p. 86) for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Telephone Dialing Links (tel:) seekhein!\nWeb development me **`tel:`** tag ka use **Telephone links** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **phone dial keypad shortkey** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Telephone Dialing Links (tel:)\n`tel:` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Telephone Dialing Links (tel:)!\nआज हम **`tel:`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Telephone links** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **phone dial keypad shortkey** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Telephone Dialing Links (tel:)\n`tel:` तत्व दस्तावेज़ के पदानुक्रम में **Telephone links** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 47,
-  "slug": "open-link-new-tab-target-blank",
-  "title": "Target Targets (target=\"_blank\")",
-  "unit": "Unit 5: Navigation & Hyperlinks",
-  "bookRef": "Duckett Chapter 4 (p. 87)",
-  "exercise": {
-    "question": "Which attribute and value configuration forces a link to open in a new browser tab?",
-    "options": [
-      "target=\"_blank\"",
-      "target=\"_new\"",
-      "rel=\"newtab\"",
-      "href=\"_blank\""
-    ],
-    "correctAnswer": "target=\"_blank\"",
-    "hint": "The target attribute set to _blank launches the linked document in a fresh window tab."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Target Targets (target=\"_blank\")!\nToday, we are looking at the **`target=\"_blank\"`** tag, which represents **Opening links in new tabs** on our webpage!\n\n* **Analogy**: Imagine a **spawning a new catalog window**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of target=\"_blank\" -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Target Targets (target=\"_blank\")\nThe HTML `target=\"_blank\"` element is used to represent **Opening links in new tabs** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- target=\"_blank\" specification container -->\n```\n\nConsult the standard specifications in Duckett Chapter 4 (p. 87) for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Target Targets (target=\"_blank\") seekhein!\nWeb development me **`target=\"_blank\"`** tag ka use **Opening links in new tabs** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **spawning a new catalog window** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Target Targets (target=\"_blank\")\n`target=\"_blank\"` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Target Targets (target=\"_blank\")!\nआज हम **`target=\"_blank\"`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Opening links in new tabs** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **spawning a new catalog window** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Target Targets (target=\"_blank\")\n`target=\"_blank\"` तत्व दस्तावेज़ के पदानुक्रम में **Opening links in new tabs** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 48,
-  "slug": "link-security-rel-noopener-noreferrer",
-  "title": "Link Security (rel=\"noopener noreferrer\")",
-  "unit": "Unit 5: Navigation & Hyperlinks",
-  "bookRef": "The Definitive Guide to HTML5 Chapter 13",
-  "exercise": {
-    "question": "Why should you add rel=\"noopener noreferrer\" to links configured with target=\"_blank\"?",
-    "options": [
-      "To prevent security exploits and protect referral information",
-      "To load pages faster",
-      "To style external links",
-      "To index links in search engines"
-    ],
-    "correctAnswer": "To prevent security exploits and protect referral information",
-    "hint": "It blocks the new page from accessing the opening page's window.opener object, preventing phishing redirects."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Link Security (rel=\"noopener noreferrer\")!\nToday, we are looking at the **`noopener noreferrer`** tag, which represents **External link security** on our webpage!\n\n* **Analogy**: Imagine a **locking the window connection thread**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of noopener noreferrer -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Link Security (rel=\"noopener noreferrer\")\nThe HTML `noopener noreferrer` element is used to represent **External link security** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- noopener noreferrer specification container -->\n```\n\nConsult the standard specifications in The Definitive Guide to HTML5 Chapter 13 for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Link Security (rel=\"noopener noreferrer\") seekhein!\nWeb development me **`noopener noreferrer`** tag ka use **External link security** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **locking the window connection thread** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Link Security (rel=\"noopener noreferrer\")\n`noopener noreferrer` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Link Security (rel=\"noopener noreferrer\")!\nआज हम **`noopener noreferrer`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **External link security** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **locking the window connection thread** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Link Security (rel=\"noopener noreferrer\")\n`noopener noreferrer` तत्व दस्तावेज़ के पदानुक्रम में **External link security** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 49,
-  "slug": "hash-links-jump-to-page-sections",
-  "title": "Document Hash Links (href=\"#id\")",
-  "unit": "Unit 5: Navigation & Hyperlinks",
-  "bookRef": "Duckett Chapter 4 (p. 88-89)",
-  "exercise": {
-    "question": "What character is prefix-linked in href to jump to an element with a matching ID on the same page?",
-    "options": [
-      "#",
-      ".",
-      "/",
-      "@"
-    ],
-    "correctAnswer": "#",
-    "hint": "Use href=\"#section-id\" to scroll the browser instantly to the element with id=\"section-id\"."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Document Hash Links (href=\"#id\")!\nToday, we are looking at the **`href=\"#id\"`** tag, which represents **Same-page hash navigation** on our webpage!\n\n* **Analogy**: Imagine a **elevator button jumping to a specific building floor**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of href=\"#id\" -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Document Hash Links (href=\"#id\")\nThe HTML `href=\"#id\"` element is used to represent **Same-page hash navigation** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- href=\"#id\" specification container -->\n```\n\nConsult the standard specifications in Duckett Chapter 4 (p. 88-89) for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Document Hash Links (href=\"#id\") seekhein!\nWeb development me **`href=\"#id\"`** tag ka use **Same-page hash navigation** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **elevator button jumping to a specific building floor** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Document Hash Links (href=\"#id\")\n`href=\"#id\"` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Document Hash Links (href=\"#id\")!\nआज हम **`href=\"#id\"`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Same-page hash navigation** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **elevator button jumping to a specific building floor** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Document Hash Links (href=\"#id\")\n`href=\"#id\"` तत्व दस्तावेज़ के पदानुक्रम में **Same-page hash navigation** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 50,
-  "slug": "download-attribute-force-file-download",
-  "title": "Download Attribute (force download)",
-  "unit": "Unit 5: Navigation & Hyperlinks",
-  "bookRef": "The Definitive Guide to HTML5 Chapter 13",
-  "exercise": {
-    "question": "Which anchor tag attribute prompts the browser to download a linked file instead of navigating to it?",
-    "options": [
-      "download",
-      "save",
-      "action",
-      "type"
-    ],
-    "correctAnswer": "download",
-    "hint": "Setting the download attribute on <a> triggers a save dialog, optionally specifying the downloaded file name."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Download Attribute (force download)!\nToday, we are looking at the **`download`** tag, which represents **Forced file downloading** on our webpage!\n\n* **Analogy**: Imagine a **auto-save envelope trigger**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of download -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Download Attribute (force download)\nThe HTML `download` element is used to represent **Forced file downloading** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- download specification container -->\n```\n\nConsult the standard specifications in The Definitive Guide to HTML5 Chapter 13 for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Download Attribute (force download) seekhein!\nWeb development me **`download`** tag ka use **Forced file downloading** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **auto-save envelope trigger** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Download Attribute (force download)\n`download` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Download Attribute (force download)!\nआज हम **`download`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Forced file downloading** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **auto-save envelope trigger** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Download Attribute (force download)\n`download` तत्व दस्तावेज़ के पदानुक्रम में **Forced file downloading** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 51,
-  "slug": "image-src-alt-attributes-elements",
-  "title": "The Image Element (<img>)",
-  "unit": "Unit 6: Multimedia & Responsive Art Direction",
-  "bookRef": "Duckett Chapter 5 (p. 94-96)",
-  "exercise": {
-    "question": "Which of the following is a key syntactic characteristic of the <img> element?",
-    "options": [
-      "It is a self-closing empty element",
-      "It requires </img>",
-      "It must contain text content",
-      "It is a block-level wrapper"
-    ],
-    "correctAnswer": "It is a self-closing empty element",
-    "hint": "It is empty because it only references an external source file via attributes without enclosing text."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: The Image Element (<img>)!\nToday, we are looking at the **`<img>`** tag, which represents **Image embedding** on our webpage!\n\n* **Analogy**: Imagine a **picture frame window**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of <img> -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: The Image Element (<img>)\nThe HTML `<img>` element is used to represent **Image embedding** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- <img> specification container -->\n```\n\nConsult the standard specifications in Duckett Chapter 5 (p. 94-96) for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 The Image Element () seekhein!\nWeb development me **`<img>`** tag ka use **Image embedding** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **picture frame window** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for The Image Element ()\n`<img>` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: The Image Element ()!\nआज हम **`<img>`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Image embedding** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **picture frame window** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: The Image Element ()\n`<img>` तत्व दस्तावेज़ के पदानुक्रम में **Image embedding** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 52,
-  "slug": "image-sizing-width-height-attributes",
-  "title": "Image Sizing (width & height)",
-  "unit": "Unit 6: Multimedia & Responsive Art Direction",
-  "bookRef": "Duckett Chapter 5 (p. 97-99)",
-  "exercise": {
-    "question": "Why is it best practice to specify explicit width and height attributes on <img> tags?",
-    "options": [
-      "To reserve layout space and prevent Cumulative Layout Shift (CLS)",
-      "To compress image files",
-      "To enable zoom effects",
-      "To translate image content"
-    ],
-    "correctAnswer": "To reserve layout space and prevent Cumulative Layout Shift (CLS)",
-    "hint": "Setting dimensions lets browsers calculate the aspect ratio early, preventing page content jumps as images load."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Image Sizing (width & height)!\nToday, we are looking at the **`width/height`** tag, which represents **Image aspect ratio properties** on our webpage!\n\n* **Analogy**: Imagine a **cardboard template slots**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of width/height -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Image Sizing (width & height)\nThe HTML `width/height` element is used to represent **Image aspect ratio properties** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- width/height specification container -->\n```\n\nConsult the standard specifications in Duckett Chapter 5 (p. 97-99) for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Image Sizing (width & height) seekhein!\nWeb development me **`width/height`** tag ka use **Image aspect ratio properties** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **cardboard template slots** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Image Sizing (width & height)\n`width/height` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Image Sizing (width & height)!\nआज हम **`width/height`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Image aspect ratio properties** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **cardboard template slots** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Image Sizing (width & height)\n`width/height` तत्व दस्तावेज़ के पदानुक्रम में **Image aspect ratio properties** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 53,
-  "slug": "responsive-images-srcset-sizes-attributes",
-  "title": "Responsive Images (srcset & sizes)",
-  "unit": "Unit 6: Multimedia & Responsive Art Direction",
-  "bookRef": "The Definitive Guide to HTML5 Chapter 15",
-  "exercise": {
-    "question": "Which attribute allows specifying multiple source images for different viewport resolutions?",
-    "options": [
-      "srcset",
-      "srcs",
-      "media",
-      "sizes"
-    ],
-    "correctAnswer": "srcset",
-    "hint": "srcset (source set) lists image URLs and their widths (e.g., banner-320w.jpg 320w) so browsers load the best fit."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Responsive Images (srcset & sizes)!\nToday, we are looking at the **`srcset`** tag, which represents **Responsive layout image sources** on our webpage!\n\n* **Analogy**: Imagine a **different sized shoes based on foot size**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of srcset -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Responsive Images (srcset & sizes)\nThe HTML `srcset` element is used to represent **Responsive layout image sources** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- srcset specification container -->\n```\n\nConsult the standard specifications in The Definitive Guide to HTML5 Chapter 15 for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Responsive Images (srcset & sizes) seekhein!\nWeb development me **`srcset`** tag ka use **Responsive layout image sources** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **different sized shoes based on foot size** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Responsive Images (srcset & sizes)\n`srcset` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Responsive Images (srcset & sizes)!\nआज हम **`srcset`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Responsive layout image sources** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **different sized shoes based on foot size** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Responsive Images (srcset & sizes)\n`srcset` तत्व दस्तावेज़ के पदानुक्रम में **Responsive layout image sources** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 54,
-  "slug": "art-direction-picture-source-elements",
-  "title": "Art Direction with <picture> & <source>",
-  "unit": "Unit 6: Multimedia & Responsive Art Direction",
-  "bookRef": "The Definitive Guide to HTML5 Chapter 15",
-  "exercise": {
-    "question": "Which element is used as a wrapper to perform 'Art Direction' by serving cropped images for mobile viewports?",
-    "options": [
-      "<picture>",
-      "<figure>",
-      "<canvas>",
-      "<srcset>"
-    ],
-    "correctAnswer": "<picture>",
-    "hint": "It wraps multiple `<source>` tags and a single fallback `<img>` to dynamically select the best graphic profile."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Art Direction with <picture> & <source>!\nToday, we are looking at the **`<picture>`** tag, which represents **Art direction image swapping** on our webpage!\n\n* **Analogy**: Imagine a **wardrobe selector changing jackets based on weather**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of <picture> -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Art Direction with <picture> & <source>\nThe HTML `<picture>` element is used to represent **Art direction image swapping** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- <picture> specification container -->\n```\n\nConsult the standard specifications in The Definitive Guide to HTML5 Chapter 15 for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Art Direction with  & seekhein!\nWeb development me **`<picture>`** tag ka use **Art direction image swapping** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **wardrobe selector changing jackets based on weather** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Art Direction with  &\n`<picture>` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Art Direction with  &!\nआज हम **`<picture>`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Art direction image swapping** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **wardrobe selector changing jackets based on weather** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Art Direction with  &\n`<picture>` तत्व दस्तावेज़ के पदानुक्रम में **Art direction image swapping** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 55,
-  "slug": "lazy-loading-images-loading-attribute",
-  "title": "Lazy Loading Images (loading attribute)",
-  "unit": "Unit 6: Multimedia & Responsive Art Direction",
-  "bookRef": "The Definitive Guide to HTML5 Chapter 15",
-  "exercise": {
-    "question": "Which attribute and value configuration prevents images from loading until they are scrolled near the viewport?",
-    "options": [
-      "loading=\"lazy\"",
-      "defer=\"true\"",
-      "preload=\"none\"",
-      "async=\"lazy\""
-    ],
-    "correctAnswer": "loading=\"lazy\"",
-    "hint": "loading=\"lazy\" conserves bandwidth by fetching off-screen images only as they approach the screen boundary."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Lazy Loading Images (loading attribute)!\nToday, we are looking at the **`loading=\"lazy\"`** tag, which represents **Image lazy loading optimization** on our webpage!\n\n* **Analogy**: Imagine a **waiter bringing dessert only when requested**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of loading=\"lazy\" -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Lazy Loading Images (loading attribute)\nThe HTML `loading=\"lazy\"` element is used to represent **Image lazy loading optimization** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- loading=\"lazy\" specification container -->\n```\n\nConsult the standard specifications in The Definitive Guide to HTML5 Chapter 15 for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Lazy Loading Images (loading attribute) seekhein!\nWeb development me **`loading=\"lazy\"`** tag ka use **Image lazy loading optimization** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **waiter bringing dessert only when requested** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Lazy Loading Images (loading attribute)\n`loading=\"lazy\"` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Lazy Loading Images (loading attribute)!\nआज हम **`loading=\"lazy\"`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Image lazy loading optimization** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **waiter bringing dessert only when requested** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Lazy Loading Images (loading attribute)\n`loading=\"lazy\"` तत्व दस्तावेज़ के पदानुक्रम में **Image lazy loading optimization** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 56,
-  "slug": "figure-figcaption-semantic-image-wrappers",
-  "title": "Semantic Image Wrappers (<figure> & <figcaption>)",
-  "unit": "Unit 6: Multimedia & Responsive Art Direction",
-  "bookRef": "Duckett Chapter 5 (p. 100-101)",
-  "exercise": {
-    "question": "Which element is used to group an image with its caption semantically?",
-    "options": [
-      "<figure>",
-      "<section>",
-      "<div>",
-      "<aside>"
-    ],
-    "correctAnswer": "<figure>",
-    "hint": "The figure tag encloses the image, diagram, or code, while figcaption adds the description."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Semantic Image Wrappers (<figure> & <figcaption>)!\nToday, we are looking at the **`<figure>`** tag, which represents **Media figure mapping** on our webpage!\n\n* **Analogy**: Imagine a **museum exhibit display frame**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of <figure> -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Semantic Image Wrappers (<figure> & <figcaption>)\nThe HTML `<figure>` element is used to represent **Media figure mapping** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- <figure> specification container -->\n```\n\nConsult the standard specifications in Duckett Chapter 5 (p. 100-101) for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Semantic Image Wrappers ( & ) seekhein!\nWeb development me **`<figure>`** tag ka use **Media figure mapping** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **museum exhibit display frame** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Semantic Image Wrappers ( & )\n`<figure>` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Semantic Image Wrappers ( & )!\nआज हम **`<figure>`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Media figure mapping** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **museum exhibit display frame** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Semantic Image Wrappers ( & )\n`<figure>` तत्व दस्तावेज़ के पदानुक्रम में **Media figure mapping** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 57,
-  "slug": "inline-vector-graphics-svg-element",
-  "title": "Vector Graphics (<svg>)",
-  "unit": "Unit 6: Multimedia & Responsive Art Direction",
-  "bookRef": "The Definitive Guide to HTML5 Chapter 16",
-  "exercise": {
-    "question": "What is the primary benefit of Scalable Vector Graphics (SVG) over raster images like PNG or JPG?",
-    "options": [
-      "They scale infinitely without losing quality or blurring",
-      "They load faster on all servers",
-      "They are automatically animated",
-      "They store audio files"
-    ],
-    "correctAnswer": "They scale infinitely without losing quality or blurring",
-    "hint": "Since SVGs are drawn using math equations (xml coordinates) instead of pixel grids, they remain crisp on all screen displays."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Vector Graphics (<svg>)!\nToday, we are looking at the **`<svg>`** tag, which represents **Scalable vector graphics** on our webpage!\n\n* **Analogy**: Imagine a **infinitely stretchable rubber band drawing**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of <svg> -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Vector Graphics (<svg>)\nThe HTML `<svg>` element is used to represent **Scalable vector graphics** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- <svg> specification container -->\n```\n\nConsult the standard specifications in The Definitive Guide to HTML5 Chapter 16 for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Vector Graphics () seekhein!\nWeb development me **`<svg>`** tag ka use **Scalable vector graphics** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **infinitely stretchable rubber band drawing** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Vector Graphics ()\n`<svg>` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Vector Graphics ()!\nआज हम **`<svg>`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Scalable vector graphics** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **infinitely stretchable rubber band drawing** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Vector Graphics ()\n`<svg>` तत्व दस्तावेज़ के पदानुक्रम में **Scalable vector graphics** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 58,
-  "slug": "image-maps-map-area-coordinate-tags",
-  "title": "Image Maps (<map> & <area>)",
-  "unit": "Unit 6: Multimedia & Responsive Art Direction",
-  "bookRef": "Duckett Chapter 5 (p. 102-103)",
-  "exercise": {
-    "question": "Which element defines the clickable hotspot shapes inside an HTML image map?",
-    "options": [
-      "<area>",
-      "<spot>",
-      "<coord>",
-      "<link>"
-    ],
-    "correctAnswer": "<area>",
-    "hint": "The <map> tag coordinates with <area coords=\"...\"> to map clicks to specific geometric spots."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Image Maps (<map> & <area>)!\nToday, we are looking at the **`<map>`** tag, which represents **Clickable coordinate image map** on our webpage!\n\n* **Analogy**: Imagine a **clickable coordinate sectors on a map page**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of <map> -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Image Maps (<map> & <area>)\nThe HTML `<map>` element is used to represent **Clickable coordinate image map** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- <map> specification container -->\n```\n\nConsult the standard specifications in Duckett Chapter 5 (p. 102-103) for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Image Maps ( & ) seekhein!\nWeb development me **`<map>`** tag ka use **Clickable coordinate image map** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **clickable coordinate sectors on a map page** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Image Maps ( & )\n`<map>` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Image Maps ( & )!\nआज हम **`<map>`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Clickable coordinate image map** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **clickable coordinate sectors on a map page** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Image Maps ( & )\n`<map>` तत्व दस्तावेज़ के पदानुक्रम में **Clickable coordinate image map** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 59,
-  "slug": "favicon-modern-format-link-types",
-  "title": "Favicon Formats & Link Configurations",
-  "unit": "Unit 6: Multimedia & Responsive Art Direction",
-  "bookRef": "The Definitive Guide to HTML5 Chapter 6",
-  "exercise": {
-    "question": "Which rel attribute configuration attaches a modern PNG format icon to the browser tab?",
-    "options": [
-      "rel=\"icon\"",
-      "rel=\"shortcut\"",
-      "rel=\"stylesheet\"",
-      "rel=\"favicon\""
-    ],
-    "correctAnswer": "rel=\"icon\"",
-    "hint": "Writing rel=\"icon\" with type=\"image/png\" is the standard configuration for modern site badges."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Favicon Formats & Link Configurations!\nToday, we are looking at the **`rel=\"icon\"`** tag, which represents **Tab bar favicon formats** on our webpage!\n\n* **Analogy**: Imagine a **mini badge on a lapel pin**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of rel=\"icon\" -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Favicon Formats & Link Configurations\nThe HTML `rel=\"icon\"` element is used to represent **Tab bar favicon formats** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- rel=\"icon\" specification container -->\n```\n\nConsult the standard specifications in The Definitive Guide to HTML5 Chapter 6 for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Favicon Formats & Link Configurations seekhein!\nWeb development me **`rel=\"icon\"`** tag ka use **Tab bar favicon formats** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **mini badge on a lapel pin** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Favicon Formats & Link Configurations\n`rel=\"icon\"` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Favicon Formats & Link Configurations!\nआज हम **`rel=\"icon\"`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Tab bar favicon formats** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **mini badge on a lapel pin** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Favicon Formats & Link Configurations\n`rel=\"icon\"` तत्व दस्तावेज़ के पदानुक्रम में **Tab bar favicon formats** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 60,
-  "slug": "capstone-photo-gallery-responsive",
-  "title": "Capstone Project: Responsive Photo Gallery",
-  "unit": "Unit 6: Multimedia & Responsive Art Direction",
-  "bookRef": "Duckett Chapter 5 & 10",
-  "exercise": {
-    "question": "Which semantic tag combination is ideal for structuring a responsive photo grid listing?",
-    "options": [
-      "<figure> wrapping <img> and <figcaption>",
-      "<ul> wrapping raw text items",
-      "<table> grids containing headers",
-      "<form> boxes containing checkboxes"
-    ],
-    "correctAnswer": "<figure> wrapping <img> and <figcaption>",
-    "hint": "Figure structures provide semantic layout hooks to present images alongside text labels cleanly."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Capstone Project: Responsive Photo Gallery!\nToday, we are looking at the **`<figure> portfolio`** tag, which represents **HTML5 gallery integration** on our webpage!\n\n* **Analogy**: Imagine a **art gallery presentation walls**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of <figure> portfolio -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Capstone Project: Responsive Photo Gallery\nThe HTML `<figure> portfolio` element is used to represent **HTML5 gallery integration** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- <figure> portfolio specification container -->\n```\n\nConsult the standard specifications in Duckett Chapter 5 & 10 for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Capstone Project: Responsive Photo Gallery seekhein!\nWeb development me **`<figure> portfolio`** tag ka use **HTML5 gallery integration** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **art gallery presentation walls** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Capstone Project: Responsive Photo Gallery\n`<figure> portfolio` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Capstone Project: Responsive Photo Gallery!\nआज हम **`<figure> portfolio`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **HTML5 gallery integration** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **art gallery presentation walls** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Capstone Project: Responsive Photo Gallery\n`<figure> portfolio` तत्व दस्तावेज़ के पदानुक्रम में **HTML5 gallery integration** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 61,
-  "slug": "audio-elements-src-controls-autoplay-attributes",
-  "title": "Audio Elements (src & controls)",
-  "unit": "Unit 7: Native Audio, Video & Embeds",
-  "bookRef": "Duckett Chapter 9 (p. 200-202)",
-  "exercise": {
-    "question": "Which attribute must be declared on <audio> to display the native browser play, volume, and progress bar controls?",
-    "options": [
-      "controls",
-      "buttons",
-      "show",
-      "play"
-    ],
-    "correctAnswer": "controls",
-    "hint": "Adding the controls attribute tells the browser to render its default player controls interface."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Audio Elements (src & controls)!\nToday, we are looking at the **`<audio>`** tag, which represents **Native audio player** on our webpage!\n\n* **Analogy**: Imagine a **tape recorder buttons play pause**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of <audio> -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Audio Elements (src & controls)\nThe HTML `<audio>` element is used to represent **Native audio player** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- <audio> specification container -->\n```\n\nConsult the standard specifications in Duckett Chapter 9 (p. 200-202) for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Audio Elements (src & controls) seekhein!\nWeb development me **`<audio>`** tag ka use **Native audio player** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **tape recorder buttons play pause** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Audio Elements (src & controls)\n`<audio>` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Audio Elements (src & controls)!\nआज हम **`<audio>`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Native audio player** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **tape recorder buttons play pause** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Audio Elements (src & controls)\n`<audio>` तत्व दस्तावेज़ के पदानुक्रम में **Native audio player** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 62,
-  "slug": "audio-fallback-source-format-types",
-  "title": "Audio Fallback Formats & Sources",
-  "unit": "Unit 7: Native Audio, Video & Embeds",
-  "bookRef": "Duckett Chapter 9 (p. 203)",
-  "exercise": {
-    "question": "How do you specify multiple fallback audio files inside a single <audio> tag?",
-    "options": [
-      "Using nested <source> tags",
-      "Separating links with commas inside src",
-      "Declaring multiple src attributes",
-      "Adding multiple audio blocks"
-    ],
-    "correctAnswer": "Using nested <source> tags",
-    "hint": "Declaring multiple `<source src=\"...\">` tags lets the browser select the first format it supports."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Audio Fallback Formats & Sources!\nToday, we are looking at the **`<source>`** tag, which represents **Audio formats compatibility** on our webpage!\n\n* **Analogy**: Imagine a **different audio cassettes inside a player**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of <source> -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Audio Fallback Formats & Sources\nThe HTML `<source>` element is used to represent **Audio formats compatibility** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- <source> specification container -->\n```\n\nConsult the standard specifications in Duckett Chapter 9 (p. 203) for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Audio Fallback Formats & Sources seekhein!\nWeb development me **`<source>`** tag ka use **Audio formats compatibility** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **different audio cassettes inside a player** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Audio Fallback Formats & Sources\n`<source>` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Audio Fallback Formats & Sources!\nआज हम **`<source>`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Audio formats compatibility** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **different audio cassettes inside a player** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Audio Fallback Formats & Sources\n`<source>` तत्व दस्तावेज़ के पदानुक्रम में **Audio formats compatibility** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 63,
-  "slug": "video-elements-src-poster-preload-settings",
-  "title": "Video Elements (poster & preload)",
-  "unit": "Unit 7: Native Audio, Video & Embeds",
-  "bookRef": "Duckett Chapter 9 (p. 206-209)",
-  "exercise": {
-    "question": "Which video attribute displays a placeholder poster image while the video file loads?",
-    "options": [
-      "poster",
-      "src",
-      "thumbnail",
-      "preload"
-    ],
-    "correctAnswer": "poster",
-    "hint": "The poster attribute points to a static image URL displayed until the user presses play."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Video Elements (poster & preload)!\nToday, we are looking at the **`<video>`** tag, which represents **Native video element properties** on our webpage!\n\n* **Analogy**: Imagine a **home cinema movie projector screen**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of <video> -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Video Elements (poster & preload)\nThe HTML `<video>` element is used to represent **Native video element properties** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- <video> specification container -->\n```\n\nConsult the standard specifications in Duckett Chapter 9 (p. 206-209) for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Video Elements (poster & preload) seekhein!\nWeb development me **`<video>`** tag ka use **Native video element properties** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **home cinema movie projector screen** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Video Elements (poster & preload)\n`<video>` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Video Elements (poster & preload)!\nआज हम **`<video>`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Native video element properties** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **home cinema movie projector screen** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Video Elements (poster & preload)\n`<video>` तत्व दस्तावेज़ के पदानुक्रम में **Native video element properties** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 64,
-  "slug": "video-subtitles-tracks-element",
-  "title": "Video Subtitles & Captions (<track>)",
-  "unit": "Unit 7: Native Audio, Video & Embeds",
-  "bookRef": "The Definitive Guide to HTML5 Chapter 16",
-  "exercise": {
-    "question": "What is the standard file format referenced by the <track> tag to display video subtitles?",
-    "options": [
-      "WebVTT (.vtt)",
-      "SRT (.srt)",
-      "TXT (.txt)",
-      "XML (.xml)"
-    ],
-    "correctAnswer": "WebVTT (.vtt)",
-    "hint": "HTML5 track elements read Web Video Text Tracks (.vtt) to sync timestamps with caption text."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Video Subtitles & Captions (<track>)!\nToday, we are looking at the **`<track>`** tag, which represents **Video track caption syncing** on our webpage!\n\n* **Analogy**: Imagine a **movie subtitle text translation roll**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of <track> -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Video Subtitles & Captions (<track>)\nThe HTML `<track>` element is used to represent **Video track caption syncing** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- <track> specification container -->\n```\n\nConsult the standard specifications in The Definitive Guide to HTML5 Chapter 16 for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Video Subtitles & Captions () seekhein!\nWeb development me **`<track>`** tag ka use **Video track caption syncing** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **movie subtitle text translation roll** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Video Subtitles & Captions ()\n`<track>` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Video Subtitles & Captions ()!\nआज हम **`<track>`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Video track caption syncing** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **movie subtitle text translation roll** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Video Subtitles & Captions ()\n`<track>` तत्व दस्तावेज़ के पदानुक्रम में **Video track caption syncing** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 65,
-  "slug": "embedding-external-sites-iframe-sandbox",
-  "title": "External Site Embedding (<iframe> & sandbox)",
-  "unit": "Unit 7: Native Audio, Video & Embeds",
-  "bookRef": "Duckett Chapter 9 (p. 212-214)",
-  "exercise": {
-    "question": "Which iframe security attribute isolates embedded pages, preventing them from accessing cookies or forms?",
-    "options": [
-      "sandbox",
-      "security",
-      "protect",
-      "isolate"
-    ],
-    "correctAnswer": "sandbox",
-    "hint": "The sandbox attribute applies restrictions, locking down the iframe content to a secure runtime profile."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: External Site Embedding (<iframe> & sandbox)!\nToday, we are looking at the **`<iframe>`** tag, which represents **Iframe frame sandbox controls** on our webpage!\n\n* **Analogy**: Imagine a **security window looking at a remote house**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of <iframe> -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: External Site Embedding (<iframe> & sandbox)\nThe HTML `<iframe>` element is used to represent **Iframe frame sandbox controls** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- <iframe> specification container -->\n```\n\nConsult the standard specifications in Duckett Chapter 9 (p. 212-214) for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 External Site Embedding ( & sandbox) seekhein!\nWeb development me **`<iframe>`** tag ka use **Iframe frame sandbox controls** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **security window looking at a remote house** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for External Site Embedding ( & sandbox)\n`<iframe>` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: External Site Embedding ( & sandbox)!\nआज हम **`<iframe>`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Iframe frame sandbox controls** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **security window looking at a remote house** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: External Site Embedding ( & sandbox)\n`<iframe>` तत्व दस्तावेज़ के पदानुक्रम में **Iframe frame sandbox controls** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 66,
-  "slug": "plugin-insertion-embed-object-elements",
-  "title": "Plugin Insertion (<embed> & <object>)",
-  "unit": "Unit 7: Native Audio, Video & Embeds",
-  "bookRef": "The Definitive Guide to HTML5 Chapter 16",
-  "exercise": {
-    "question": "Which tag is used as a container to embed external documents, PDFs, or legacy Flash plugins?",
-    "options": [
-      "<object>",
-      "<iframe>",
-      "<media>",
-      "<plugin>"
-    ],
-    "correctAnswer": "<object>",
-    "hint": "The object element is a generic container for external resources, supporting data and type attributes."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Plugin Insertion (<embed> & <object>)!\nToday, we are looking at the **`<object>`** tag, which represents **Flash object plugin loaders** on our webpage!\n\n* **Analogy**: Imagine a **universal plug adapter adapter slots**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of <object> -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Plugin Insertion (<embed> & <object>)\nThe HTML `<object>` element is used to represent **Flash object plugin loaders** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- <object> specification container -->\n```\n\nConsult the standard specifications in The Definitive Guide to HTML5 Chapter 16 for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Plugin Insertion ( & ) seekhein!\nWeb development me **`<object>`** tag ka use **Flash object plugin loaders** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **universal plug adapter adapter slots** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Plugin Insertion ( & )\n`<object>` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Plugin Insertion ( & )!\nआज हम **`<object>`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Flash object plugin loaders** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **universal plug adapter adapter slots** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Plugin Insertion ( & )\n`<object>` तत्व दस्तावेज़ के पदानुक्रम में **Flash object plugin loaders** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 67,
-  "slug": "custom-data-attributes-data-prefix",
-  "title": "Custom Data Attributes (data-*)",
-  "unit": "Unit 7: Native Audio, Video & Embeds",
-  "bookRef": "The Definitive Guide to HTML5 Chapter 25",
-  "exercise": {
-    "question": "Which prefix prefix-labels custom attributes used to store user-defined metadata on HTML tags?",
-    "options": [
-      "data-",
-      "meta-",
-      "custom-",
-      "id-"
-    ],
-    "correctAnswer": "data-",
-    "hint": "Custom attributes must start with data- (e.g. data-user-role) to be accessed via JavaScript dataset APIs."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Custom Data Attributes (data-*)!\nToday, we are looking at the **`data-*`** tag, which represents **Custom data properties attributes** on our webpage!\n\n* **Analogy**: Imagine a **sticky note with metadata on a folder**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of data-* -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Custom Data Attributes (data-*)\nThe HTML `data-*` element is used to represent **Custom data properties attributes** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- data-* specification container -->\n```\n\nConsult the standard specifications in The Definitive Guide to HTML5 Chapter 25 for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Custom Data Attributes (data-*) seekhein!\nWeb development me **`data-*`** tag ka use **Custom data properties attributes** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **sticky note with metadata on a folder** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Custom Data Attributes (data-*)\n`data-*` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Custom Data Attributes (data-*)!\nआज हम **`data-*`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Custom data properties attributes** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **sticky note with metadata on a folder** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Custom Data Attributes (data-*)\n`data-*` तत्व दस्तावेज़ के पदानुक्रम में **Custom data properties attributes** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 68,
-  "slug": "iframe-communication-security-headers",
-  "title": "Iframe Communication & Security Headers",
-  "unit": "Unit 7: Native Audio, Video & Embeds",
-  "bookRef": "The Definitive Guide to HTML5 Chapter 16",
-  "exercise": {
-    "question": "Which API method enables safe, cross-origin communication between a main page and an iframe?",
-    "options": [
-      "window.postMessage()",
-      "window.send()",
-      "iframe.emit()",
-      "document.dispatch()"
-    ],
-    "correctAnswer": "window.postMessage()",
-    "hint": "postMessage allows sending message payloads between page contexts securely, ignoring strict origin checks."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Iframe Communication & Security Headers!\nToday, we are looking at the **`postMessage`** tag, which represents **Iframe cross-domain communication** on our webpage!\n\n* **Analogy**: Imagine a **safe telephone hotline between embassies**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of postMessage -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Iframe Communication & Security Headers\nThe HTML `postMessage` element is used to represent **Iframe cross-domain communication** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- postMessage specification container -->\n```\n\nConsult the standard specifications in The Definitive Guide to HTML5 Chapter 16 for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Iframe Communication & Security Headers seekhein!\nWeb development me **`postMessage`** tag ka use **Iframe cross-domain communication** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **safe telephone hotline between embassies** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Iframe Communication & Security Headers\n`postMessage` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Iframe Communication & Security Headers!\nआज हम **`postMessage`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Iframe cross-domain communication** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **safe telephone hotline between embassies** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Iframe Communication & Security Headers\n`postMessage` तत्व दस्तावेज़ के पदानुक्रम में **Iframe cross-domain communication** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 69,
-  "slug": "html5-native-geolocation-api-details",
-  "title": "HTML5 Geolocation API Basics",
-  "unit": "Unit 7: Native Audio, Video & Embeds",
-  "bookRef": "The Definitive Guide to HTML5 Chapter 28",
-  "exercise": {
-    "question": "Which JavaScript object is queried to retrieve the device coordinates in HTML5 Geolocation?",
-    "options": [
-      "navigator.geolocation",
-      "window.coords",
-      "document.location",
-      "system.gps"
-    ],
-    "correctAnswer": "navigator.geolocation",
-    "hint": "The navigator.geolocation object exposes methods like getCurrentPosition to retrieve latitude and longitude."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: HTML5 Geolocation API Basics!\nToday, we are looking at the **`navigator.geolocation`** tag, which represents **HTML5 location tracking api** on our webpage!\n\n* **Analogy**: Imagine a **compass indicator built into your browser**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of navigator.geolocation -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: HTML5 Geolocation API Basics\nThe HTML `navigator.geolocation` element is used to represent **HTML5 location tracking api** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- navigator.geolocation specification container -->\n```\n\nConsult the standard specifications in The Definitive Guide to HTML5 Chapter 28 for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 HTML5 Geolocation API Basics seekhein!\nWeb development me **`navigator.geolocation`** tag ka use **HTML5 location tracking api** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **compass indicator built into your browser** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for HTML5 Geolocation API Basics\n`navigator.geolocation` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: HTML5 Geolocation API Basics!\nआज हम **`navigator.geolocation`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **HTML5 location tracking api** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **compass indicator built into your browser** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: HTML5 Geolocation API Basics\n`navigator.geolocation` तत्व दस्तावेज़ के पदानुक्रम में **HTML5 location tracking api** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 70,
-  "slug": "capstone-interactive-video-player",
-  "title": "Capstone Project: Custom Video Player",
-  "unit": "Unit 7: Native Audio, Video & Embeds",
-  "bookRef": "The Definitive Guide to HTML5 Chapter 16",
-  "exercise": {
-    "question": "What elements are wrapped together to structure a responsive media player with customized controls?",
-    "options": [
-      "<video> with custom <button> and <input type=\"range\"> elements",
-      "<table> cells displaying frame pictures",
-      "<form> checkboxes mapping settings",
-      "<ul> list steps mapping playlist"
-    ],
-    "correctAnswer": "<video> with custom <button> and <input type=\"range\"> elements",
-    "hint": "Use HTML5 elements to structure the controls bar, and JavaScript to control video play/pause functions."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Capstone Project: Custom Video Player!\nToday, we are looking at the **`custom video layout`** tag, which represents **Video player interface structure** on our webpage!\n\n* **Analogy**: Imagine a **custom controller desk with dial sliders**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of custom video layout -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Capstone Project: Custom Video Player\nThe HTML `custom video layout` element is used to represent **Video player interface structure** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- custom video layout specification container -->\n```\n\nConsult the standard specifications in The Definitive Guide to HTML5 Chapter 16 for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Capstone Project: Custom Video Player seekhein!\nWeb development me **`custom video layout`** tag ka use **Video player interface structure** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **custom controller desk with dial sliders** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Capstone Project: Custom Video Player\n`custom video layout` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Capstone Project: Custom Video Player!\nआज हम **`custom video layout`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Video player interface structure** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **custom controller desk with dial sliders** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Capstone Project: Custom Video Player\n`custom video layout` तत्व दस्तावेज़ के पदानुक्रम में **Video player interface structure** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 71,
-  "slug": "unordered-lists-ul-li-bullet-points",
-  "title": "Unordered Lists (<ul> and <li>)",
-  "unit": "Unit 8: Lists, Tables & Layout Grids",
-  "bookRef": "Duckett Chapter 3 (p. 52-54)",
-  "exercise": {
-    "question": "Which tag is used as a container to define an unordered list of items?",
-    "options": [
-      "<ul>",
-      "<ol>",
-      "<list>",
-      "<dl>"
-    ],
-    "correctAnswer": "<ul>",
-    "hint": "Unordered list (ul) holds list item (li) children, displaying bullet points by default."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Unordered Lists (<ul> and <li>)!\nToday, we are looking at the **`<ul>`** tag, which represents **Unordered list syntax** on our webpage!\n\n* **Analogy**: Imagine a **shopping grocery list with bullets**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of <ul> -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Unordered Lists (<ul> and <li>)\nThe HTML `<ul>` element is used to represent **Unordered list syntax** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- <ul> specification container -->\n```\n\nConsult the standard specifications in Duckett Chapter 3 (p. 52-54) for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Unordered Lists ( and ) seekhein!\nWeb development me **`<ul>`** tag ka use **Unordered list syntax** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **shopping grocery list with bullets** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Unordered Lists ( and )\n`<ul>` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Unordered Lists ( and )!\nआज हम **`<ul>`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Unordered list syntax** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **shopping grocery list with bullets** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Unordered Lists ( and )\n`<ul>` तत्व दस्तावेज़ के पदानुक्रम में **Unordered list syntax** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 72,
-  "slug": "ordered-lists-ol-li-numbered-steps",
-  "title": "Ordered Lists (<ol> and <li>)",
-  "unit": "Unit 8: Lists, Tables & Layout Grids",
-  "bookRef": "Duckett Chapter 3 (p. 55-57)",
-  "exercise": {
-    "question": "Which tag is used to structure a sequential list of steps numbered 1, 2, 3?",
-    "options": [
-      "<ol>",
-      "<ul>",
-      "<dl>",
-      "<list>"
-    ],
-    "correctAnswer": "<ol>",
-    "hint": "Ordered list (ol) automatically increments step numbers for each list item (li)."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Ordered Lists (<ol> and <li>)!\nToday, we are looking at the **`<ol>`** tag, which represents **Ordered numbered list** on our webpage!\n\n* **Analogy**: Imagine a **cooking recipe step 1 step 2**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of <ol> -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Ordered Lists (<ol> and <li>)\nThe HTML `<ol>` element is used to represent **Ordered numbered list** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- <ol> specification container -->\n```\n\nConsult the standard specifications in Duckett Chapter 3 (p. 55-57) for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Ordered Lists ( and ) seekhein!\nWeb development me **`<ol>`** tag ka use **Ordered numbered list** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **cooking recipe step 1 step 2** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Ordered Lists ( and )\n`<ol>` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Ordered Lists ( and )!\nआज हम **`<ol>`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Ordered numbered list** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **cooking recipe step 1 step 2** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Ordered Lists ( and )\n`<ol>` तत्व दस्तावेज़ के पदानुक्रम में **Ordered numbered list** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 73,
-  "slug": "ordered-list-start-reversed-indexing",
-  "title": "Ordered Lists Start & Reversed Attributes",
-  "unit": "Unit 8: Lists, Tables & Layout Grids",
-  "bookRef": "The Definitive Guide to HTML5 Chapter 14",
-  "exercise": {
-    "question": "Which attribute is declared on <ol> to start numbering list items from 5 instead of 1?",
-    "options": [
-      "start",
-      "value",
-      "begin",
-      "from"
-    ],
-    "correctAnswer": "start",
-    "hint": "Use start=\"5\" to set the starting numerical index for the ordered list sequence."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Ordered Lists Start & Reversed Attributes!\nToday, we are looking at the **`reversed/start`** tag, which represents **Ordered list counters** on our webpage!\n\n* **Analogy**: Imagine a **rocket launch countdown timer**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of reversed/start -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Ordered Lists Start & Reversed Attributes\nThe HTML `reversed/start` element is used to represent **Ordered list counters** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- reversed/start specification container -->\n```\n\nConsult the standard specifications in The Definitive Guide to HTML5 Chapter 14 for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Ordered Lists Start & Reversed Attributes seekhein!\nWeb development me **`reversed/start`** tag ka use **Ordered list counters** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **rocket launch countdown timer** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Ordered Lists Start & Reversed Attributes\n`reversed/start` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Ordered Lists Start & Reversed Attributes!\nआज हम **`reversed/start`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Ordered list counters** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **rocket launch countdown timer** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Ordered Lists Start & Reversed Attributes\n`reversed/start` तत्व दस्तावेज़ के पदानुक्रम में **Ordered list counters** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 74,
-  "slug": "description-lists-dl-dt-dd-glossary",
-  "title": "Definition Lists (<dl>, <dt>, and <dd>)",
-  "unit": "Unit 8: Lists, Tables & Layout Grids",
-  "bookRef": "Duckett Chapter 3 (p. 58-60)",
-  "exercise": {
-    "question": "Which tag defines the actual description content for a term in a description list?",
-    "options": [
-      "<dd>",
-      "<dt>",
-      "<dl>",
-      "<term>"
-    ],
-    "correctAnswer": "<dd>",
-    "hint": "dl wraps the list, dt defines the term, and dd provides the description details."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Definition Lists (<dl>, <dt>, and <dd>)!\nToday, we are looking at the **`<dl>`** tag, which represents **Description list glossary structure** on our webpage!\n\n* **Analogy**: Imagine a **dictionary page with terms and definitions**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of <dl> -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Definition Lists (<dl>, <dt>, and <dd>)\nThe HTML `<dl>` element is used to represent **Description list glossary structure** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- <dl> specification container -->\n```\n\nConsult the standard specifications in Duckett Chapter 3 (p. 58-60) for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Definition Lists (, , and ) seekhein!\nWeb development me **`<dl>`** tag ka use **Description list glossary structure** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **dictionary page with terms and definitions** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Definition Lists (, , and )\n`<dl>` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Definition Lists (, , and )!\nआज हम **`<dl>`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Description list glossary structure** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **dictionary page with terms and definitions** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Definition Lists (, , and )\n`<dl>` तत्व दस्तावेज़ के पदानुक्रम में **Description list glossary structure** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 75,
-  "slug": "table-container-grid-rows-columns",
-  "title": "Tables Rows & Cells (<tr>, <td>, <th>)",
-  "unit": "Unit 8: Lists, Tables & Layout Grids",
-  "bookRef": "Duckett Chapter 6 (p. 126-128)",
-  "exercise": {
-    "question": "Which tag represents a standard data cell inside an HTML table row?",
-    "options": [
-      "<td>",
-      "<tr>",
-      "<th>",
-      "<table>"
-    ],
-    "correctAnswer": "<td>",
-    "hint": "tr defines the row, th represents a header cell, and td contains the cell data."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Tables Rows & Cells (<tr>, <td>, <th>)!\nToday, we are looking at the **`<table>`** tag, which represents **Table tags** on our webpage!\n\n* **Analogy**: Imagine a **checkerboard grid**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of <table> -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Tables Rows & Cells (<tr>, <td>, <th>)\nThe HTML `<table>` element is used to represent **Table tags** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- <table> specification container -->\n```\n\nConsult the standard specifications in Duckett Chapter 6 (p. 126-128) for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Tables Rows & Cells (, , ) seekhein!\nWeb development me **`<table>`** tag ka use **Table tags** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **checkerboard grid** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Tables Rows & Cells (, , )\n`<table>` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Tables Rows & Cells (, , )!\nआज हम **`<table>`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Table tags** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **checkerboard grid** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Tables Rows & Cells (, , )\n`<table>` तत्व दस्तावेज़ के पदानुक्रम में **Table tags** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 76,
-  "slug": "table-colspan-merge-columns",
-  "title": "Table Column Spanning (colspan & rowspan)",
-  "unit": "Unit 8: Lists, Tables & Layout Grids",
-  "bookRef": "Duckett Chapter 6 (p. 132-135)",
-  "exercise": {
-    "question": "Which attribute is used to stretch a cell horizontally to cover three columns?",
-    "options": [
-      "colspan=\"3\"",
-      "rowspan=\"3\"",
-      "width=\"3\"",
-      "span=\"3\""
-    ],
-    "correctAnswer": "colspan=\"3\"",
-    "hint": "Column Span (colspan) merges cells horizontally across columns in the same row."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Table Column Spanning (colspan & rowspan)!\nToday, we are looking at the **`colspan/rowspan`** tag, which represents **Table cell merging attributes** on our webpage!\n\n* **Analogy**: Imagine a **merging cells in Excel**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of colspan/rowspan -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Table Column Spanning (colspan & rowspan)\nThe HTML `colspan/rowspan` element is used to represent **Table cell merging attributes** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- colspan/rowspan specification container -->\n```\n\nConsult the standard specifications in Duckett Chapter 6 (p. 132-135) for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Table Column Spanning (colspan & rowspan) seekhein!\nWeb development me **`colspan/rowspan`** tag ka use **Table cell merging attributes** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **merging cells in Excel** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Table Column Spanning (colspan & rowspan)\n`colspan/rowspan` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Table Column Spanning (colspan & rowspan)!\nआज हम **`colspan/rowspan`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Table cell merging attributes** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **merging cells in Excel** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Table Column Spanning (colspan & rowspan)\n`colspan/rowspan` तत्व दस्तावेज़ के पदानुक्रम में **Table cell merging attributes** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 77,
-  "slug": "table-thead-tbody-tfoot-semantics",
-  "title": "Table Structured Sections (<thead>, <tbody>, <tfoot>)",
-  "unit": "Unit 8: Lists, Tables & Layout Grids",
-  "bookRef": "Duckett Chapter 6 (p. 136-138)",
-  "exercise": {
-    "question": "Which semantic tag groups the header row labels of a data table?",
-    "options": [
-      "<thead>",
-      "<tbody>",
-      "<tfoot>",
-      "<tr>"
-    ],
-    "correctAnswer": "<thead>",
-    "hint": "<thead>, <tbody>, and <tfoot> segment tables semantically, helping style columns and rows easily."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Table Structured Sections (<thead>, <tbody>, <tfoot>)!\nToday, we are looking at the **`<thead>`** tag, which represents **Table semantic layout blocks** on our webpage!\n\n* **Analogy**: Imagine a **splitting catalog paper into header body footer**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of <thead> -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Table Structured Sections (<thead>, <tbody>, <tfoot>)\nThe HTML `<thead>` element is used to represent **Table semantic layout blocks** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- <thead> specification container -->\n```\n\nConsult the standard specifications in Duckett Chapter 6 (p. 136-138) for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Table Structured Sections (, , ) seekhein!\nWeb development me **`<thead>`** tag ka use **Table semantic layout blocks** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **splitting catalog paper into header body footer** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Table Structured Sections (, , )\n`<thead>` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Table Structured Sections (, , )!\nआज हम **`<thead>`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Table semantic layout blocks** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **splitting catalog paper into header body footer** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Table Structured Sections (, , )\n`<thead>` तत्व दस्तावेज़ के पदानुक्रम में **Table semantic layout blocks** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 78,
-  "slug": "table-column-groups-colgroup-col-widths",
-  "title": "Table Column Groups (<colgroup> & <col>)",
-  "unit": "Unit 8: Lists, Tables & Layout Grids",
-  "bookRef": "The Definitive Guide to HTML5 Chapter 14",
-  "exercise": {
-    "question": "What is the primary benefit of using the <colgroup> tag in HTML tables?",
-    "options": [
-      "To apply styling rules to entire columns at once",
-      "To sort rows",
-      "To merge rows vertically",
-      "To define column titles"
-    ],
-    "correctAnswer": "To apply styling rules to entire columns at once",
-    "hint": "<colgroup> lets you define styles (like width or color) for columns without duplicating styles on every cell."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Table Column Groups (<colgroup> & <col>)!\nToday, we are looking at the **`<colgroup>`** tag, which represents **Table column width sizing controls** on our webpage!\n\n* **Analogy**: Imagine a **ruler setting column boundaries on paper**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of <colgroup> -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Table Column Groups (<colgroup> & <col>)\nThe HTML `<colgroup>` element is used to represent **Table column width sizing controls** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- <colgroup> specification container -->\n```\n\nConsult the standard specifications in The Definitive Guide to HTML5 Chapter 14 for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Table Column Groups ( & ) seekhein!\nWeb development me **`<colgroup>`** tag ka use **Table column width sizing controls** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **ruler setting column boundaries on paper** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Table Column Groups ( & )\n`<colgroup>` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Table Column Groups ( & )!\nआज हम **`<colgroup>`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Table column width sizing controls** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **ruler setting column boundaries on paper** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Table Column Groups ( & )\n`<colgroup>` तत्व दस्तावेज़ के पदानुक्रम में **Table column width sizing controls** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 79,
-  "slug": "table-borders-cellpadding-cellspacing",
-  "title": "Table Borders & Spacing Layouts",
-  "unit": "Unit 8: Lists, Tables & Layout Grids",
-  "bookRef": "Duckett Chapter 6 (p. 130)",
-  "exercise": {
-    "question": "Which CSS property is standard to collapse double table borders into a single line?",
-    "options": [
-      "border-collapse: collapse;",
-      "border-spacing: 0;",
-      "border-style: solid;",
-      "grid-gap: 0;"
-    ],
-    "correctAnswer": "border-collapse: collapse;",
-    "hint": "Setting border-collapse: collapse collapses cell borders into a single clean border."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Table Borders & Spacing Layouts!\nToday, we are looking at the **`border-collapse`** tag, which represents **Table layouts spacing styles** on our webpage!\n\n* **Analogy**: Imagine a **adjusting grid gaps between grid boxes**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of border-collapse -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Table Borders & Spacing Layouts\nThe HTML `border-collapse` element is used to represent **Table layouts spacing styles** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- border-collapse specification container -->\n```\n\nConsult the standard specifications in Duckett Chapter 6 (p. 130) for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Table Borders & Spacing Layouts seekhein!\nWeb development me **`border-collapse`** tag ka use **Table layouts spacing styles** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **adjusting grid gaps between grid boxes** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Table Borders & Spacing Layouts\n`border-collapse` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Table Borders & Spacing Layouts!\nआज हम **`border-collapse`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Table layouts spacing styles** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **adjusting grid gaps between grid boxes** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Table Borders & Spacing Layouts\n`border-collapse` तत्व दस्तावेज़ के पदानुक्रम में **Table layouts spacing styles** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 80,
-  "slug": "capstone-weekly-schedule-pricing-grid",
-  "title": "Capstone Project: Dynamic Pricing Grid",
-  "unit": "Unit 8: Lists, Tables & Layout Grids",
-  "bookRef": "Duckett Chapter 6 & 11",
-  "exercise": {
-    "question": "Which HTML structure is best suited to display a clear comparisons matrix of features across pricing tiers?",
-    "options": [
-      "A semantic <table> structured with thead, tbody, and colgroups",
-      "A series of line breaks and bold tags",
-      "A description list with start attributes",
-      "An unordered list nested in an address tag"
-    ],
-    "correctAnswer": "A semantic <table> structured with thead, tbody, and colgroups",
-    "hint": "Tables are the semantic standard to present comparisons data, ensuring columns and rows align."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Capstone Project: Dynamic Pricing Grid!\nToday, we are looking at the **`custom grid layout`** tag, which represents **Grid layout integration** on our webpage!\n\n* **Analogy**: Imagine a **price lists comparison cards**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of custom grid layout -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Capstone Project: Dynamic Pricing Grid\nThe HTML `custom grid layout` element is used to represent **Grid layout integration** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- custom grid layout specification container -->\n```\n\nConsult the standard specifications in Duckett Chapter 6 & 11 for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Capstone Project: Dynamic Pricing Grid seekhein!\nWeb development me **`custom grid layout`** tag ka use **Grid layout integration** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **price lists comparison cards** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Capstone Project: Dynamic Pricing Grid\n`custom grid layout` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Capstone Project: Dynamic Pricing Grid!\nआज हम **`custom grid layout`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Grid layout integration** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **price lists comparison cards** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Capstone Project: Dynamic Pricing Grid\n`custom grid layout` तत्व दस्तावेज़ के पदानुक्रम में **Grid layout integration** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 81,
-  "slug": "form-action-method-attributes-processing",
-  "title": "Form Action & Method (processing basics)",
-  "unit": "Unit 9: Interactive Forms & Inputs",
-  "bookRef": "Duckett Chapter 7 (p. 144-146)",
-  "exercise": {
-    "question": "Which attribute specifies the server URL destination where form data should be sent upon submission?",
-    "options": [
-      "action",
-      "method",
-      "target",
-      "post"
-    ],
-    "correctAnswer": "action",
-    "hint": "The action attribute specifies the API endpoint URL (e.g. /submit-form) handling the request."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Form Action & Method (processing basics)!\nToday, we are looking at the **`<form>`** tag, which represents **Form properties action method** on our webpage!\n\n* **Analogy**: Imagine a **letter envelope with target address and mail class**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of <form> -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Form Action & Method (processing basics)\nThe HTML `<form>` element is used to represent **Form properties action method** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- <form> specification container -->\n```\n\nConsult the standard specifications in Duckett Chapter 7 (p. 144-146) for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Form Action & Method (processing basics) seekhein!\nWeb development me **`<form>`** tag ka use **Form properties action method** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **letter envelope with target address and mail class** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Form Action & Method (processing basics)\n`<form>` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Form Action & Method (processing basics)!\nआज हम **`<form>`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Form properties action method** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **letter envelope with target address and mail class** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Form Action & Method (processing basics)\n`<form>` तत्व दस्तावेज़ के पदानुक्रम में **Form properties action method** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 82,
-  "slug": "form-labeling-for-attribute-linkage",
-  "title": "Form Labels (for attribute linkage)",
-  "unit": "Unit 9: Interactive Forms & Inputs",
-  "bookRef": "Duckett Chapter 7 (p. 150-152)",
-  "exercise": {
-    "question": "How do you associate a <label> tag with an <input> field semantically?",
-    "options": [
-      "Match the label's 'for' attribute with the input's 'id'",
-      "Match the label's 'name' with the input's 'name'",
-      "Nest the input inside a header tag",
-      "Assign matching class names"
-    ],
-    "correctAnswer": "Match the label's 'for' attribute with the input's 'id'",
-    "hint": "Setting for=\"user-email\" on a label matches it to the input with id=\"user-email\", enabling click-to-focus."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Form Labels (for attribute linkage)!\nToday, we are looking at the **`<label>`** tag, which represents **Label target inputs linkage** on our webpage!\n\n* **Analogy**: Imagine a **name tag physically tied to a suitcase handle**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of <label> -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Form Labels (for attribute linkage)\nThe HTML `<label>` element is used to represent **Label target inputs linkage** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- <label> specification container -->\n```\n\nConsult the standard specifications in Duckett Chapter 7 (p. 150-152) for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Form Labels (for attribute linkage) seekhein!\nWeb development me **`<label>`** tag ka use **Label target inputs linkage** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **name tag physically tied to a suitcase handle** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Form Labels (for attribute linkage)\n`<label>` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Form Labels (for attribute linkage)!\nआज हम **`<label>`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Label target inputs linkage** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **name tag physically tied to a suitcase handle** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Form Labels (for attribute linkage)\n`<label>` तत्व दस्तावेज़ के पदानुक्रम में **Label target inputs linkage** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 83,
-  "slug": "text-password-inputs-type-attributes",
-  "title": "Text & Password Inputs (type=\"text\", \"password\")",
-  "unit": "Unit 9: Interactive Forms & Inputs",
-  "bookRef": "Duckett Chapter 7 (p. 147-149)",
-  "exercise": {
-    "question": "Which attribute hides typed letters, displaying dots or asterisks instead?",
-    "options": [
-      "type=\"password\"",
-      "type=\"hide\"",
-      "type=\"mask\"",
-      "type=\"secure\""
-    ],
-    "correctAnswer": "type=\"password\"",
-    "hint": "type=\"password\" masks inputs visually to protect passwords on screen."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Text & Password Inputs (type=\"text\", \"password\")!\nToday, we are looking at the **`<input>`** tag, which represents **Input text password fields** on our webpage!\n\n* **Analogy**: Imagine a **writing on index cards vs. masking numbers**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of <input> -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Text & Password Inputs (type=\"text\", \"password\")\nThe HTML `<input>` element is used to represent **Input text password fields** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- <input> specification container -->\n```\n\nConsult the standard specifications in Duckett Chapter 7 (p. 147-149) for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Text & Password Inputs (type=\"text\", \"password\") seekhein!\nWeb development me **`<input>`** tag ka use **Input text password fields** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **writing on index cards vs. masking numbers** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Text & Password Inputs (type=\"text\", \"password\")\n`<input>` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Text & Password Inputs (type=\"text\", \"password\")!\nआज हम **`<input>`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Input text password fields** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **writing on index cards vs. masking numbers** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Text & Password Inputs (type=\"text\", \"password\")\n`<input>` तत्व दस्तावेज़ के पदानुक्रम में **Input text password fields** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 84,
-  "slug": "radio-buttons-grouping-name-attribute",
-  "title": "Radio Buttons (type=\"radio\")",
-  "unit": "Unit 9: Interactive Forms & Inputs",
-  "bookRef": "Duckett Chapter 7 (p. 154-155)",
-  "exercise": {
-    "question": "What attribute groups radio buttons together so that selecting one automatically deselects others?",
-    "options": [
-      "name",
-      "id",
-      "class",
-      "group"
-    ],
-    "correctAnswer": "name",
-    "hint": "Radio inputs must share the exact same name attribute value to act as a mutually exclusive choice group."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Radio Buttons (type=\"radio\")!\nToday, we are looking at the **`type=\"radio\"`** tag, which represents **Radio buttons mutual selection** on our webpage!\n\n* **Analogy**: Imagine a **car radio selector buttons where only one option stays pressed**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of type=\"radio\" -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Radio Buttons (type=\"radio\")\nThe HTML `type=\"radio\"` element is used to represent **Radio buttons mutual selection** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- type=\"radio\" specification container -->\n```\n\nConsult the standard specifications in Duckett Chapter 7 (p. 154-155) for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Radio Buttons (type=\"radio\") seekhein!\nWeb development me **`type=\"radio\"`** tag ka use **Radio buttons mutual selection** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **car radio selector buttons where only one option stays pressed** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Radio Buttons (type=\"radio\")\n`type=\"radio\"` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Radio Buttons (type=\"radio\")!\nआज हम **`type=\"radio\"`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Radio buttons mutual selection** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **car radio selector buttons where only one option stays pressed** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Radio Buttons (type=\"radio\")\n`type=\"radio\"` तत्व दस्तावेज़ के पदानुक्रम में **Radio buttons mutual selection** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 85,
-  "slug": "checkboxes-prechecked-multiple-selections",
-  "title": "Checkboxes (type=\"checkbox\")",
-  "unit": "Unit 9: Interactive Forms & Inputs",
-  "bookRef": "Duckett Chapter 7 (p. 156-157)",
-  "exercise": {
-    "question": "Which attribute is used to make a checkbox checked by default when the page loads?",
-    "options": [
-      "checked",
-      "selected",
-      "active",
-      "default"
-    ],
-    "correctAnswer": "checked",
-    "hint": "Adding the checked attribute (e.g. checked=\"checked\" or just checked) pre-selects the box on load."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Checkboxes (type=\"checkbox\")!\nToday, we are looking at the **`type=\"checkbox\"`** tag, which represents **Checkbox multi selections** on our webpage!\n\n* **Analogy**: Imagine a **checking multiple boxes on a questionnaire list**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of type=\"checkbox\" -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Checkboxes (type=\"checkbox\")\nThe HTML `type=\"checkbox\"` element is used to represent **Checkbox multi selections** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- type=\"checkbox\" specification container -->\n```\n\nConsult the standard specifications in Duckett Chapter 7 (p. 156-157) for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Checkboxes (type=\"checkbox\") seekhein!\nWeb development me **`type=\"checkbox\"`** tag ka use **Checkbox multi selections** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **checking multiple boxes on a questionnaire list** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Checkboxes (type=\"checkbox\")\n`type=\"checkbox\"` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Checkboxes (type=\"checkbox\")!\nआज हम **`type=\"checkbox\"`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Checkbox multi selections** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **checking multiple boxes on a questionnaire list** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Checkboxes (type=\"checkbox\")\n`type=\"checkbox\"` तत्व दस्तावेज़ के पदानुक्रम में **Checkbox multi selections** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 86,
-  "slug": "dropdown-select-lists-option-attributes",
-  "title": "Dropdown Select Lists (<select> and <option>)",
-  "unit": "Unit 9: Interactive Forms & Inputs",
-  "bookRef": "Duckett Chapter 7 (p. 158-159)",
-  "exercise": {
-    "question": "Which tag is nested inside <select> to define an individual option in a dropdown menu?",
-    "options": [
-      "<option>",
-      "<list>",
-      "<item>",
-      "<choice>"
-    ],
-    "correctAnswer": "<option>",
-    "hint": "Each menu option is defined using the `<option value=\"...\">Label</option>` tag."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Dropdown Select Lists (<select> and <option>)!\nToday, we are looking at the **`<select>`** tag, which represents **Dropdown menu selectors** on our webpage!\n\n* **Analogy**: Imagine a **expanding rolodex card slot list**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of <select> -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Dropdown Select Lists (<select> and <option>)\nThe HTML `<select>` element is used to represent **Dropdown menu selectors** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- <select> specification container -->\n```\n\nConsult the standard specifications in Duckett Chapter 7 (p. 158-159) for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Dropdown Select Lists ( and ) seekhein!\nWeb development me **`<select>`** tag ka use **Dropdown menu selectors** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **expanding rolodex card slot list** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Dropdown Select Lists ( and )\n`<select>` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Dropdown Select Lists ( and )!\nआज हम **`<select>`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Dropdown menu selectors** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **expanding rolodex card slot list** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Dropdown Select Lists ( and )\n`<select>` तत्व दस्तावेज़ के पदानुक्रम में **Dropdown menu selectors** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 87,
-  "slug": "multiline-textarea-rows-cols-settings",
-  "title": "Multi-line Input (<textarea>)",
-  "unit": "Unit 9: Interactive Forms & Inputs",
-  "bookRef": "Duckett Chapter 7 (p. 160-161)",
-  "exercise": {
-    "question": "Which attributes define the initial height and width of a <textarea> box?",
-    "options": [
-      "rows and cols",
-      "width and height",
-      "size and max",
-      "lines and letters"
-    ],
-    "correctAnswer": "rows and cols",
-    "hint": "rows sets the text lines height, and cols sets the character width spacing layout."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Multi-line Input (<textarea>)!\nToday, we are looking at the **`<textarea>`** tag, which represents **Textarea multi-line text input** on our webpage!\n\n* **Analogy**: Imagine a **large feedback notepad sheet**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of <textarea> -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Multi-line Input (<textarea>)\nThe HTML `<textarea>` element is used to represent **Textarea multi-line text input** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- <textarea> specification container -->\n```\n\nConsult the standard specifications in Duckett Chapter 7 (p. 160-161) for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Multi-line Input () seekhein!\nWeb development me **`<textarea>`** tag ka use **Textarea multi-line text input** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **large feedback notepad sheet** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Multi-line Input ()\n`<textarea>` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Multi-line Input ()!\nआज हम **`<textarea>`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Textarea multi-line text input** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **large feedback notepad sheet** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Multi-line Input ()\n`<textarea>` तत्व दस्तावेज़ के पदानुक्रम में **Textarea multi-line text input** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 88,
-  "slug": "buttons-submit-button-reset-types",
-  "title": "Buttons (type=\"submit\", \"button\", \"reset\")",
-  "unit": "Unit 9: Interactive Forms & Inputs",
-  "bookRef": "Duckett Chapter 7 (p. 162-163)",
-  "exercise": {
-    "question": "What is the default behavior of a <button> placed inside a <form> if no type attribute is specified?",
-    "options": [
-      "It submits the form data (type=\"submit\")",
-      "It clears the fields (type=\"reset\")",
-      "It acts as a neutral button",
-      "It disables the form"
-    ],
-    "correctAnswer": "It submits the form data (type=\"submit\")",
-    "hint": "By default, browser specifications treat raw buttons inside form blocks as submit buttons."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Buttons (type=\"submit\", \"button\", \"reset\")!\nToday, we are looking at the **`<button>`** tag, which represents **Button controller behaviors** on our webpage!\n\n* **Analogy**: Imagine a **physical launch trigger buttons**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of <button> -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Buttons (type=\"submit\", \"button\", \"reset\")\nThe HTML `<button>` element is used to represent **Button controller behaviors** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- <button> specification container -->\n```\n\nConsult the standard specifications in Duckett Chapter 7 (p. 162-163) for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Buttons (type=\"submit\", \"button\", \"reset\") seekhein!\nWeb development me **`<button>`** tag ka use **Button controller behaviors** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **physical launch trigger buttons** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Buttons (type=\"submit\", \"button\", \"reset\")\n`<button>` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Buttons (type=\"submit\", \"button\", \"reset\")!\nआज हम **`<button>`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Button controller behaviors** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **physical launch trigger buttons** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Buttons (type=\"submit\", \"button\", \"reset\")\n`<button>` तत्व दस्तावेज़ के पदानुक्रम में **Button controller behaviors** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 89,
-  "slug": "binding-input-labels-label-container",
-  "title": "Binding Input Labels (<label>)",
-  "unit": "Unit 9: Interactive Forms & Inputs",
-  "bookRef": "Duckett Chapter 7 (p. 150)",
-  "exercise": {
-    "question": "What is the accessibility advantage of wrapping an input tag directly inside a <label> tag?",
-    "options": [
-      "Clicking the label text automatically focuses/toggles the input",
-      "It loads scripts",
-      "It makes text bold",
-      "It sends data securely"
-    ],
-    "correctAnswer": "Clicking the label text automatically focuses/toggles the input",
-    "hint": "Nesting `<input>` inside `<label>` links them, enlarging the clickable target area for users."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Binding Input Labels (<label>)!\nToday, we are looking at the **`<label>`** tag, which represents **Form label containers accessibility** on our webpage!\n\n* **Analogy**: Imagine a **enveloping box with target description wrapper**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of <label> -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Binding Input Labels (<label>)\nThe HTML `<label>` element is used to represent **Form label containers accessibility** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- <label> specification container -->\n```\n\nConsult the standard specifications in Duckett Chapter 7 (p. 150) for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Binding Input Labels () seekhein!\nWeb development me **`<label>`** tag ka use **Form label containers accessibility** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **enveloping box with target description wrapper** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Binding Input Labels ()\n`<label>` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Binding Input Labels ()!\nआज हम **`<label>`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Form label containers accessibility** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **enveloping box with target description wrapper** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Binding Input Labels ()\n`<label>` तत्व दस्तावेज़ के पदानुक्रम में **Form label containers accessibility** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 90,
-  "slug": "form-groups-fieldset-legend-elements",
-  "title": "Form Groups (<fieldset> and <legend>)",
-  "unit": "Unit 9: Interactive Forms & Inputs",
-  "bookRef": "Duckett Chapter 7 (p. 164-165)",
-  "exercise": {
-    "question": "Which tag provides the text title caption for a <fieldset> border group?",
-    "options": [
-      "<legend>",
-      "<caption>",
-      "<title>",
-      "<label>"
-    ],
-    "correctAnswer": "<legend>",
-    "hint": "<legend> defines the text header displayed on the fieldset container border line."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Form Groups (<fieldset> and <legend>)!\nToday, we are looking at the **`<fieldset>`** tag, which represents **Form fieldset legend groupings** on our webpage!\n\n* **Analogy**: Imagine a **index divider tab dividing files inside a binder**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of <fieldset> -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Form Groups (<fieldset> and <legend>)\nThe HTML `<fieldset>` element is used to represent **Form fieldset legend groupings** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- <fieldset> specification container -->\n```\n\nConsult the standard specifications in Duckett Chapter 7 (p. 164-165) for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Form Groups ( and ) seekhein!\nWeb development me **`<fieldset>`** tag ka use **Form fieldset legend groupings** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **index divider tab dividing files inside a binder** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Form Groups ( and )\n`<fieldset>` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Form Groups ( and )!\nआज हम **`<fieldset>`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Form fieldset legend groupings** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **index divider tab dividing files inside a binder** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Form Groups ( and )\n`<fieldset>` तत्व दस्तावेज़ के पदानुक्रम में **Form fieldset legend groupings** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 91,
-  "slug": "form-validation-required-maxlength-minlength",
-  "title": "Form Field Required Validation",
-  "unit": "Unit 10: Advanced Semantics, Validation & APIs",
-  "bookRef": "The Definitive Guide to HTML5 Chapter 12",
-  "exercise": {
-    "question": "Which boolean attribute blocks form submission if an input field is left empty?",
-    "options": [
-      "required",
-      "validate",
-      "empty=\"false\"",
-      "disabled"
-    ],
-    "correctAnswer": "required",
-    "hint": "Adding the required attribute prompts the browser to show a validation warning if submitted empty."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Form Field Required Validation!\nToday, we are looking at the **`required`** tag, which represents **Required validation checks** on our webpage!\n\n* **Analogy**: Imagine a **red asterisk gate keeper checklist**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of required -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Form Field Required Validation\nThe HTML `required` element is used to represent **Required validation checks** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- required specification container -->\n```\n\nConsult the standard specifications in The Definitive Guide to HTML5 Chapter 12 for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Form Field Required Validation seekhein!\nWeb development me **`required`** tag ka use **Required validation checks** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **red asterisk gate keeper checklist** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Form Field Required Validation\n`required` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Form Field Required Validation!\nआज हम **`required`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Required validation checks** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **red asterisk gate keeper checklist** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Form Field Required Validation\n`required` तत्व दस्तावेज़ के पदानुक्रम में **Required validation checks** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 92,
-  "slug": "regex-pattern-matching-validation",
-  "title": "Regex Pattern Matching (pattern attribute)",
-  "unit": "Unit 10: Advanced Semantics, Validation & APIs",
-  "bookRef": "The Definitive Guide to HTML5 Chapter 12",
-  "exercise": {
-    "question": "Which attribute validates form input text using a Regular Expression (regex) pattern?",
-    "options": [
-      "pattern",
-      "regex",
-      "format",
-      "validate"
-    ],
-    "correctAnswer": "pattern",
-    "hint": "Use pattern=\"[0-9]{5}\" to restrict inputs to exactly 5 digits, validating client-side."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Regex Pattern Matching (pattern attribute)!\nToday, we are looking at the **`pattern`** tag, which represents **Regex pattern validation input checks** on our webpage!\n\n* **Analogy**: Imagine a **custom security stencil template shape matcher**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of pattern -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Regex Pattern Matching (pattern attribute)\nThe HTML `pattern` element is used to represent **Regex pattern validation input checks** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- pattern specification container -->\n```\n\nConsult the standard specifications in The Definitive Guide to HTML5 Chapter 12 for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Regex Pattern Matching (pattern attribute) seekhein!\nWeb development me **`pattern`** tag ka use **Regex pattern validation input checks** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **custom security stencil template shape matcher** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Regex Pattern Matching (pattern attribute)\n`pattern` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Regex Pattern Matching (pattern attribute)!\nआज हम **`pattern`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Regex pattern validation input checks** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **custom security stencil template shape matcher** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Regex Pattern Matching (pattern attribute)\n`pattern` तत्व दस्तावेज़ के पदानुक्रम में **Regex pattern validation input checks** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 93,
-  "slug": "html5-numeric-ranges-type-number-range",
-  "title": "HTML5 Numeric Ranges (type=\"range\", type=\"number\")",
-  "unit": "Unit 10: Advanced Semantics, Validation & APIs",
-  "bookRef": "The Definitive Guide to HTML5 Chapter 12",
-  "exercise": {
-    "question": "Which input type displays a native graphical slider knob to choose values between a min and max range?",
-    "options": [
-      "type=\"range\"",
-      "type=\"slider\"",
-      "type=\"number\"",
-      "type=\"dial\""
-    ],
-    "correctAnswer": "type=\"range\"",
-    "hint": "type=\"range\" renders a slider, while type=\"number\" renders a text box with increment spinners."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: HTML5 Numeric Ranges (type=\"range\", type=\"number\")!\nToday, we are looking at the **`type=\"range\"`** tag, which represents **Slider spinner number range fields** on our webpage!\n\n* **Analogy**: Imagine a **dimmer knob dial and speedometer counter**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of type=\"range\" -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: HTML5 Numeric Ranges (type=\"range\", type=\"number\")\nThe HTML `type=\"range\"` element is used to represent **Slider spinner number range fields** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- type=\"range\" specification container -->\n```\n\nConsult the standard specifications in The Definitive Guide to HTML5 Chapter 12 for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 HTML5 Numeric Ranges (type=\"range\", type=\"number\") seekhein!\nWeb development me **`type=\"range\"`** tag ka use **Slider spinner number range fields** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **dimmer knob dial and speedometer counter** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for HTML5 Numeric Ranges (type=\"range\", type=\"number\")\n`type=\"range\"` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: HTML5 Numeric Ranges (type=\"range\", type=\"number\")!\nआज हम **`type=\"range\"`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Slider spinner number range fields** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **dimmer knob dial and speedometer counter** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: HTML5 Numeric Ranges (type=\"range\", type=\"number\")\n`type=\"range\"` तत्व दस्तावेज़ के पदानुक्रम में **Slider spinner number range fields** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 94,
-  "slug": "progress-indicators-meter-gauges",
-  "title": "Progress Indicators (<progress>) & Meter Gauges (<meter>)",
-  "unit": "Unit 10: Advanced Semantics, Validation & APIs",
-  "bookRef": "The Definitive Guide to HTML5 Chapter 16",
-  "exercise": {
-    "question": "Which tag is semantically best to show a disk storage usage percentage or a fuel gauge reading?",
-    "options": [
-      "<meter>",
-      "<progress>",
-      "<gauge>",
-      "<range>"
-    ],
-    "correctAnswer": "<meter>",
-    "hint": "Use <progress> for task completion (e.g. downloading), and <meter> for static fraction measurements (e.g. space usage)."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Progress Indicators (<progress>) & Meter Gauges (<meter>)!\nToday, we are looking at the **`<progress>`** tag, which represents **Progress meter value indicators** on our webpage!\n\n* **Analogy**: Imagine a **downloading status bars and car fuel gauges**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of <progress> -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Progress Indicators (<progress>) & Meter Gauges (<meter>)\nThe HTML `<progress>` element is used to represent **Progress meter value indicators** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- <progress> specification container -->\n```\n\nConsult the standard specifications in The Definitive Guide to HTML5 Chapter 16 for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Progress Indicators () & Meter Gauges () seekhein!\nWeb development me **`<progress>`** tag ka use **Progress meter value indicators** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **downloading status bars and car fuel gauges** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Progress Indicators () & Meter Gauges ()\n`<progress>` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Progress Indicators () & Meter Gauges ()!\nआज हम **`<progress>`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Progress meter value indicators** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **downloading status bars and car fuel gauges** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Progress Indicators () & Meter Gauges ()\n`<progress>` तत्व दस्तावेज़ के पदानुक्रम में **Progress meter value indicators** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 95,
-  "slug": "autocomplete-datalist-input-suggestions",
-  "title": "Autocomplete Data Lists (<datalist>)",
-  "unit": "Unit 10: Advanced Semantics, Validation & APIs",
-  "bookRef": "The Definitive Guide to HTML5 Chapter 12",
-  "exercise": {
-    "question": "How do you connect a <datalist> suggestion dropdown to an <input> field?",
-    "options": [
-      "Link the input's 'list' attribute to the datalist's 'id'",
-      "Link the input's 'id' to the datalist's 'for'",
-      "Nest the input inside the datalist",
-      "By matching name values"
-    ],
-    "correctAnswer": "Link the input's 'list' attribute to the datalist's 'id'",
-    "hint": "Use list=\"browsers\" on the input, referencing a datalist with id=\"browsers\" holding option values."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Autocomplete Data Lists (<datalist>)!\nToday, we are looking at the **`<datalist>`** tag, which represents **Datalist options search input suggestions** on our webpage!\n\n* **Analogy**: Imagine a **search bar autocomplete suggestions drop list**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of <datalist> -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Autocomplete Data Lists (<datalist>)\nThe HTML `<datalist>` element is used to represent **Datalist options search input suggestions** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- <datalist> specification container -->\n```\n\nConsult the standard specifications in The Definitive Guide to HTML5 Chapter 12 for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Autocomplete Data Lists () seekhein!\nWeb development me **`<datalist>`** tag ka use **Datalist options search input suggestions** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **search bar autocomplete suggestions drop list** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Autocomplete Data Lists ()\n`<datalist>` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Autocomplete Data Lists ()!\nआज हम **`<datalist>`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Datalist options search input suggestions** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **search bar autocomplete suggestions drop list** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Autocomplete Data Lists ()\n`<datalist>` तत्व दस्तावेज़ के पदानुक्रम में **Datalist options search input suggestions** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 96,
-  "slug": "collapsible-accordions-details-summary",
-  "title": "Collapsible Accordions (<details> and <summary>)",
-  "unit": "Unit 10: Advanced Semantics, Validation & APIs",
-  "bookRef": "The Definitive Guide to HTML5 Chapter 14",
-  "exercise": {
-    "question": "Which element provides the visible clickable heading for a collapsible <details> accordion widget?",
-    "options": [
-      "<summary>",
-      "<title>",
-      "<heading>",
-      "<label>"
-    ],
-    "correctAnswer": "<summary>",
-    "hint": "<summary> acts as the click trigger that toggles the rest of the <details> accordion content."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Collapsible Accordions (<details> and <summary>)!\nToday, we are looking at the **`<details>`** tag, which represents **Accordion details summary elements** on our webpage!\n\n* **Analogy**: Imagine a **secret drawer box that pops open when pushed**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of <details> -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Collapsible Accordions (<details> and <summary>)\nThe HTML `<details>` element is used to represent **Accordion details summary elements** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- <details> specification container -->\n```\n\nConsult the standard specifications in The Definitive Guide to HTML5 Chapter 14 for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Collapsible Accordions ( and ) seekhein!\nWeb development me **`<details>`** tag ka use **Accordion details summary elements** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **secret drawer box that pops open when pushed** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Collapsible Accordions ( and )\n`<details>` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Collapsible Accordions ( and )!\nआज हम **`<details>`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Accordion details summary elements** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **secret drawer box that pops open when pushed** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Collapsible Accordions ( and )\n`<details>` तत्व दस्तावेज़ के पदानुक्रम में **Accordion details summary elements** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 97,
-  "slug": "native-modals-dialog-showmodal-methods",
-  "title": "Native Modals & Popups (<dialog>)",
-  "unit": "Unit 10: Advanced Semantics, Validation & APIs",
-  "bookRef": "The Definitive Guide to HTML5 Chapter 14",
-  "exercise": {
-    "question": "Which JavaScript method is called to open a <dialog> tag as a native modal overlay?",
-    "options": [
-      "dialog.showModal()",
-      "dialog.open()",
-      "dialog.show()",
-      "dialog.popup()"
-    ],
-    "correctAnswer": "dialog.showModal()",
-    "hint": "showModal() opens the dialog as a modal, rendering a backdrop and trapping page focus, unlike show()."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Native Modals & Popups (<dialog>)!\nToday, we are looking at the **`<dialog>`** tag, which represents **Dialog modals popup overlays** on our webpage!\n\n* **Analogy**: Imagine a **alert billboard popup that locks navigation flow**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of <dialog> -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Native Modals & Popups (<dialog>)\nThe HTML `<dialog>` element is used to represent **Dialog modals popup overlays** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- <dialog> specification container -->\n```\n\nConsult the standard specifications in The Definitive Guide to HTML5 Chapter 14 for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Native Modals & Popups () seekhein!\nWeb development me **`<dialog>`** tag ka use **Dialog modals popup overlays** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **alert billboard popup that locks navigation flow** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Native Modals & Popups ()\n`<dialog>` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Native Modals & Popups ()!\nआज हम **`<dialog>`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Dialog modals popup overlays** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **alert billboard popup that locks navigation flow** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Native Modals & Popups ()\n`<dialog>` तत्व दस्तावेज़ के पदानुक्रम में **Dialog modals popup overlays** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 98,
-  "slug": "web-components-template-slot-elements",
-  "title": "Web Components Templates (<template> and <slot>)",
-  "unit": "Unit 10: Advanced Semantics, Validation & APIs",
-  "bookRef": "The Definitive Guide to HTML5 Chapter 14",
-  "exercise": {
-    "question": "What is a key rendering characteristic of markup written inside the <template> tag?",
-    "options": [
-      "It is hidden and not rendered by the browser until cloned with JavaScript",
-      "It renders in italics",
-      "It is instantly loaded via styles",
-      "It redirects page parameters"
-    ],
-    "correctAnswer": "It is hidden and not rendered by the browser until cloned with JavaScript",
-    "hint": "Template content is parsed but dormant in the DOM, allowing scripts to safely copy it without triggering side-effects."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Web Components Templates (<template> and <slot>)!\nToday, we are looking at the **`<template>`** tag, which represents **Template slot elements web components** on our webpage!\n\n* **Analogy**: Imagine a **cookie stencil mold that sits in the drawer**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of <template> -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Web Components Templates (<template> and <slot>)\nThe HTML `<template>` element is used to represent **Template slot elements web components** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- <template> specification container -->\n```\n\nConsult the standard specifications in The Definitive Guide to HTML5 Chapter 14 for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Web Components Templates ( and ) seekhein!\nWeb development me **`<template>`** tag ka use **Template slot elements web components** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **cookie stencil mold that sits in the drawer** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Web Components Templates ( and )\n`<template>` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Web Components Templates ( and )!\nआज हम **`<template>`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Template slot elements web components** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **cookie stencil mold that sits in the drawer** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Web Components Templates ( and )\n`<template>` तत्व दस्तावेज़ के पदानुक्रम में **Template slot elements web components** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 99,
-  "slug": "canvas-graphics-draw-shapes-context",
-  "title": "Canvas Graphics (<canvas>)",
-  "unit": "Unit 10: Advanced Semantics, Validation & APIs",
-  "bookRef": "The Definitive Guide to HTML5 Chapter 16",
-  "exercise": {
-    "question": "Which tag is used as a container to draw shapes, graphs, and game graphics programmatically via JavaScript?",
-    "options": [
-      "<canvas>",
-      "<svg>",
-      "<paint>",
-      "<graphic>"
-    ],
-    "correctAnswer": "<canvas>",
-    "hint": "The canvas tag provides an empty bitmap canvas surface, which scripts target via the getContext('2d') API."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Canvas Graphics (<canvas>)!\nToday, we are looking at the **`<canvas>`** tag, which represents **Canvas drawing surface api** on our webpage!\n\n* **Analogy**: Imagine a **whiteboard screen and sketch pen controller**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of <canvas> -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Canvas Graphics (<canvas>)\nThe HTML `<canvas>` element is used to represent **Canvas drawing surface api** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- <canvas> specification container -->\n```\n\nConsult the standard specifications in The Definitive Guide to HTML5 Chapter 16 for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Canvas Graphics () seekhein!\nWeb development me **`<canvas>`** tag ka use **Canvas drawing surface api** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **whiteboard screen and sketch pen controller** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Canvas Graphics ()\n`<canvas>` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Canvas Graphics ()!\nआज हम **`<canvas>`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **Canvas drawing surface api** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **whiteboard screen and sketch pen controller** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Canvas Graphics ()\n`<canvas>` तत्व दस्तावेज़ के पदानुक्रम में **Canvas drawing surface api** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-},
-{
-  "id": 100,
-  "slug": "capstone-portfolio-layout-page",
-  "title": "Capstone Project: Portfolio Layout",
-  "unit": "Unit 10: Advanced Semantics, Validation & APIs",
-  "bookRef": "The Definitive Guide to HTML5",
-  "exercise": {
-    "question": "Which set of HTML5 tags represents the most semantic way to outline a portfolio page with headers, main articles, sidebars, and footers?",
-    "options": [
-      "<header>, <nav>, <main>, <aside>, <footer>",
-      "<div>, <span>, <table>, <p>",
-      "<fieldset>, <legend>, <form>, <button>",
-      "<dl>, <dt>, <dd>, <li>"
-    ],
-    "correctAnswer": "<header>, <nav>, <main>, <aside>, <footer>",
-    "hint": "Using layout tags describes document structure clearly to search engines and screen readers."
-  },
-  "english": {
-    "kid": "### 🧒 Let's Learn: Capstone Project: Portfolio Layout!\nToday, we are looking at the **`capstone project page`** tag, which represents **HTML5 validation structures integration** on our webpage!\n\n* **Analogy**: Imagine a **delivering a complete building structure blueprint**.\n* **How it works**: You wrap your content in the tag to tell the browser how it should look and behave.\n\n```html\n<!-- Example use of capstone project page -->\n```\n\nTry it out in the check questions below!",
-    "pro": "### 💻 Professional Specifications: Capstone Project: Portfolio Layout\nThe HTML `capstone project page` element is used to represent **HTML5 validation structures integration** semantically.\n\n* **DOM Specifications**: It belongs to the category of flow content and phrasing content, carrying standard accessibility traits.\n* **Best Practice**: Use this tag for semantic clarity to improve SEO index crawling and screen reader accessibility.\n\n```html\n<!-- Semantically valid usage -->\n<!-- capstone project page specification container -->\n```\n\nConsult the standard specifications in The Definitive Guide to HTML5 for advanced details."
-  },
-  "hinglish": {
-    "kid": "### 🧒 Capstone Project: Portfolio Layout seekhein!\nWeb development me **`capstone project page`** tag ka use **HTML5 validation structures integration** show karne ke liye kiya jata hai.\n\n* **Story Analogy**: Ise ek **delivering a complete building structure blueprint** ki tarah samjhein jo page ko neatly setup karta hai!\n* **Easy Implementation**: Bas text ya contents ko is tag ke andar wrap karein aur browser use automatically process kar lega.",
-    "pro": "### 💻 Technical Notes for Capstone Project: Portfolio Layout\n`capstone project page` element ka configuration details aur browser implementation guidelines:\n\n* **SEO Value**: Google crawler indexes parse attributes check karte waqt is tag ko target validation tags me query karte hain.\n* **Reset Styles**: User-agent styles properties customize karne ke liye baseline controls sets configure karein."
-  },
-  "hindi": {
-    "kid": "### 🧒 आइए सीखें: Capstone Project: Portfolio Layout!\nआज हम **`capstone project page`** टैग के बारे में जानेंगे, जिसका उपयोग वेबपेज में **HTML5 validation structures integration** दर्शाने के लिए किया जाता है।\n\n* **कहानी**: इसे एक **delivering a complete building structure blueprint** की तरह समझें, जो आपके वेबपेज को साफ और सुंदर बनाता है!\n* **उपयोग का तरीका**: बस अपने टेक्स्ट को इस टैग के भीतर रखें ताकि ब्राउज़र इसे सही ढंग से समझ सके।",
-    "pro": "### 💻 व्यावसायिक मार्गदर्शिका: Capstone Project: Portfolio Layout\n`capstone project page` तत्व दस्तावेज़ के पदानुक्रम में **HTML5 validation structures integration** का प्रतिनिधित्व करता है:\n\n* **एसईओ और पहुंच (SEO & Accessibility)**: यह स्क्रीन रीडर्स को सामग्री का सही महत्व समझने में मदद करता है।\n* **सिमेंटिक्स**: सामान्य डिब्बों के स्थान पर इसका उपयोग कोडिंग मानकों को बढ़ाता है।"
-  }
-}
 ];

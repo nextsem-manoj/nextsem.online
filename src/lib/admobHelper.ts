@@ -80,13 +80,13 @@ export async function showRewardedAd(
   let rewardGiven = false;
 
   // Register listeners
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   
   const rewardListener = await AdMob.addListener('rewardedVideoReward' as any, () => {
     rewardGiven = true;
     onRewardEarned();
   });
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   
   const closeListener = await AdMob.addListener('rewardedVideoClosed' as any, () => {
     try {
       rewardListener.remove();
@@ -201,13 +201,13 @@ export async function showRewardedInterstitialAd(
 
   let rewardGiven = false;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   
   const rewardListener = await AdMob.addListener('rewardedVideoReward' as any, () => {
     rewardGiven = true;
     onRewardEarned();
   });
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   
   const closeListener = await AdMob.addListener('rewardedVideoClosed' as any, () => {
     try {
       rewardListener.remove();

@@ -1,0 +1,249 @@
+{
+  "total": 134,
+  "passedCount": 100,
+  "errorCount": 34,
+  "errors": [
+    {
+      "route": "/animated-waves-animation/",
+      "status": 0,
+      "length": 0,
+      "hasError": true,
+      "errorReason": "Timeout (5s)"
+    },
+    {
+      "route": "/audio-spectrum-animation/",
+      "status": 0,
+      "length": 0,
+      "hasError": true,
+      "errorReason": "Timeout (5s)"
+    },
+    {
+      "route": "/black-hole-animation/",
+      "status": 0,
+      "length": 0,
+      "hasError": true,
+      "errorReason": "Timeout (5s)"
+    },
+    {
+      "route": "/candle-flame-animation/",
+      "status": 0,
+      "length": 0,
+      "hasError": true,
+      "errorReason": "Timeout (5s)"
+    },
+    {
+      "route": "/dna-helix-animation/",
+      "status": 0,
+      "length": 0,
+      "hasError": true,
+      "errorReason": "Timeout (5s)"
+    },
+    {
+      "route": "/glassmorphism-card-animation/",
+      "status": 0,
+      "length": 0,
+      "hasError": true,
+      "errorReason": "Timeout (5s)"
+    },
+    {
+      "route": "/holographic-card-animation/",
+      "status": 0,
+      "length": 0,
+      "hasError": true,
+      "errorReason": "Timeout (5s)"
+    },
+    {
+      "route": "/liquid-wave-animation/",
+      "status": 0,
+      "length": 0,
+      "hasError": true,
+      "errorReason": "Timeout (5s)"
+    },
+    {
+      "route": "/logo-studio/",
+      "status": 0,
+      "length": 0,
+      "hasError": true,
+      "errorReason": "Timeout (5s)"
+    },
+    {
+      "route": "/matrix-code-animation/",
+      "status": 0,
+      "length": 0,
+      "hasError": true,
+      "errorReason": "Timeout (5s)"
+    },
+    {
+      "route": "/neon-button-animation/",
+      "status": 0,
+      "length": 0,
+      "hasError": true,
+      "errorReason": "Timeout (5s)"
+    },
+    {
+      "route": "/rain-effect-animation/",
+      "status": 0,
+      "length": 0,
+      "hasError": true,
+      "errorReason": "Timeout (5s)"
+    },
+    {
+      "route": "/solar-system-animation/",
+      "status": 0,
+      "length": 0,
+      "hasError": true,
+      "errorReason": "Timeout (5s)"
+    },
+    {
+      "route": "/warp-speed-animation/",
+      "status": 0,
+      "length": 0,
+      "hasError": true,
+      "errorReason": "Timeout (5s)"
+    },
+    {
+      "route": "/cli/how-to-customize-windows-command-prompt/",
+      "status": 0,
+      "length": 0,
+      "hasError": true,
+      "errorReason": "Timeout (5s)"
+    },
+    {
+      "route": "/cli/windows-task-management-taskkill-schtasks/",
+      "status": 0,
+      "length": 0,
+      "hasError": true,
+      "errorReason": "Timeout (5s)"
+    },
+    {
+      "route": "/cli/network-troubleshooting-ping-tracert-ipconfig/",
+      "status": 0,
+      "length": 0,
+      "hasError": true,
+      "errorReason": "Timeout (5s)"
+    },
+    {
+      "route": "/cli/learn-windows-batch-files-scripting-basics/",
+      "status": 0,
+      "length": 0,
+      "hasError": true,
+      "errorReason": "Timeout (5s)"
+    },
+    {
+      "route": "/cli/windows-file-attributes-attrib-command/",
+      "status": 0,
+      "length": 0,
+      "hasError": true,
+      "errorReason": "Timeout (5s)"
+    },
+    {
+      "route": "/cli/windows-system-info-systeminfo-hostname/",
+      "status": 0,
+      "length": 0,
+      "hasError": true,
+      "errorReason": "Timeout (5s)"
+    },
+    {
+      "route": "/cli/windows-environment-path-system-variables/",
+      "status": 0,
+      "length": 0,
+      "hasError": true,
+      "errorReason": "Timeout (5s)"
+    },
+    {
+      "route": "/cli/windows-disk-management-chkdsk-diskpart/",
+      "status": 0,
+      "length": 0,
+      "hasError": true,
+      "errorReason": "Timeout (5s)"
+    },
+    {
+      "route": "/cli/windows-network-routing-tracert-pathping/",
+      "status": 0,
+      "length": 0,
+      "hasError": true,
+      "errorReason": "Timeout (5s)"
+    },
+    {
+      "route": "/cli/windows-cmd-text-filtering-findstr-more/",
+      "status": 0,
+      "length": 0,
+      "hasError": true,
+      "errorReason": "Timeout (5s)"
+    },
+    {
+      "route": "/cli/npm-scripts-dev-build-start/",
+      "status": 0,
+      "length": 0,
+      "hasError": true,
+      "errorReason": "Timeout (5s)"
+    },
+    {
+      "route": "/cli/env-files-dotenv-environment-variables/",
+      "status": 0,
+      "length": 0,
+      "hasError": true,
+      "errorReason": "Timeout (5s)"
+    },
+    {
+      "route": "/cli/curl-http-requests-api-testing-cli/",
+      "status": 0,
+      "length": 0,
+      "hasError": true,
+      "errorReason": "Timeout (5s)"
+    },
+    {
+      "route": "/cli/cloud-deployment-vercel-firebase-cli/",
+      "status": 0,
+      "length": 0,
+      "hasError": true,
+      "errorReason": "Timeout (5s)"
+    },
+    {
+      "route": "/cli/windows-cmd-command-chaining-and-or/",
+      "status": 0,
+      "length": 0,
+      "hasError": true,
+      "errorReason": "Timeout (5s)"
+    },
+    {
+      "route": "/cli/windows-cmd-piping-redirection-output/",
+      "status": 0,
+      "length": 0,
+      "hasError": true,
+      "errorReason": "Timeout (5s)"
+    },
+    {
+      "route": "/cli/windows-cmd-variables-set-arithmetic/",
+      "status": 0,
+      "length": 0,
+      "hasError": true,
+      "errorReason": "Timeout (5s)"
+    },
+    {
+      "route": "/cli/windows-cmd-for-loops-batch/",
+      "status": 0,
+      "length": 0,
+      "hasError": true,
+      "errorReason": "Timeout (5s)"
+    },
+    {
+      "route": "/cli/windows-cmd-if-else-errorlevel/",
+      "status": 0,
+      "length": 0,
+      "hasError": true,
+      "errorReason": "Timeout (5s)"
+    },
+    {
+      "route": "/cli/windows-cmd-date-time-timeout-commands/",
+      "status": 0,
+      "length": 0,
+      "hasError": true,
+      "errorReason": "Timeout (5s)"
+    }
+  ],
+  "staticRoutesCount": 34,
+  "cliLessonsCount": 100,
+  "htmlLessonsCount": 0,
+  "cssLessonsCount": 0
+}

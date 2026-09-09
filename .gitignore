@@ -50,6 +50,9 @@ firebase-debug.log*
 # turbo
 .turbo/
 
+# local test website
+/test_website/
+
 # binaries & packages
 *.apk
 *.aab

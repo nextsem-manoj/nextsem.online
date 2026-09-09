@@ -377,7 +377,7 @@ export default function CliLessonClient({ lesson }: CliLessonClientProps) {
               <CheckCircle2 size={15} className="text-[#04AA6D] shrink-0" />
             )}
             <span className="text-[#04AA6D]">Lesson #{lesson.id}</span>
-            <span className="text-slate-400">/ 1000</span>
+            <span className="text-slate-400">/ {cliLessons.length}</span>
           </div>
         </div>
 
@@ -670,7 +670,7 @@ export default function CliLessonClient({ lesson }: CliLessonClientProps) {
             <CheckCircle2 size={15} className="text-[#04AA6D] shrink-0" />
           )}
           <span className="text-[#04AA6D]">Lesson #{lesson.id}</span>
-          <span className="text-slate-400">/ 1000</span>
+          <span className="text-slate-400">/ {cliLessons.length}</span>
         </div>
 
         {nextLesson ? (
