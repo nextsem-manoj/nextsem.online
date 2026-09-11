@@ -650,6 +650,23 @@ const DEFAULT_PACKAGE_JSON = `{
   }
 }`;
 
+const COMMANDS_LIST = [
+  { id: "run", name: "Live Preview: Run & Refresh Web Sandbox", icon: "▶" },
+  { id: "toggle-sidebar", name: "View: Toggle Primary Side Bar (Explorer)", icon: "📁" },
+  { id: "toggle-terminal", name: "View: Toggle Integrated Terminal Panel", icon: "💻" },
+  { id: "layout-top", name: "Layout: Switch to Top Preview Drawer", icon: "⬆" },
+  { id: "layout-split", name: "Layout: Switch to Split Screen (Side-by-Side)", icon: "◫" },
+  { id: "download", name: "File: Download Project as Single HTML File", icon: "💾" },
+  { id: "reset", name: "File: Reset Project to Default Starter Template", icon: "🔄" },
+  { id: "template-counter", name: "Template: Load Interactive Counter", icon: "🔢" },
+  { id: "template-todo", name: "Template: Load Interactive Todo List", icon: "📝" },
+  { id: "template-tictactoe", name: "Template: Load Tic Tac Toe Game", icon: "🎮" },
+  { id: "template-glassmorphism", name: "Template: Load Glassmorphism Card", icon: "💎" },
+  { id: "theme-dark", name: "Theme: VS Code Dark+ (Default)", icon: "🎨" },
+  { id: "theme-contrast", name: "Theme: High Contrast Dark", icon: "🌓" },
+  { id: "theme-monokai", name: "Theme: Monokai Pro", icon: "🌙" },
+];
+
 export default function PlaygroundClient() {
   /* File & Workspace States */
   const [activeFile, setActiveFile] = useState<string>("index.html");
@@ -709,6 +726,27 @@ export default function PlaygroundClient() {
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const terminalEndRef = useRef<HTMLDivElement>(null);
+
+  const getCurrentCode = (): string => {
+    switch (activeFile) {
+      case "index.html": return htmlCode;
+      case "style.css": return cssCode;
+      case "script.js": return jsCode;
+      case "README.md": return readmeCode;
+      case "package.json": return pkgJsonCode;
+      default: return "";
+    }
+  };
+
+  const setCurrentCode = (val: string) => {
+    switch (activeFile) {
+      case "index.html": setHtmlCode(val); break;
+      case "style.css": setCssCode(val); break;
+      case "script.js": setJsCode(val); break;
+      case "README.md": setReadmeCode(val); break;
+      case "package.json": setPkgJsonCode(val); break;
+    }
+  };
 
   const showToast = (msg: string) => {
     setToastNotice(msg);
@@ -995,28 +1033,6 @@ export default function PlaygroundClient() {
     checkEmmetSuggestion(textarea.value, start);
   };
 
-
-  const getCurrentCode = (): string => {
-    switch (activeFile) {
-      case "index.html": return htmlCode;
-      case "style.css": return cssCode;
-      case "script.js": return jsCode;
-      case "README.md": return readmeCode;
-      case "package.json": return pkgJsonCode;
-      default: return "";
-    }
-  };
-
-  const setCurrentCode = (val: string) => {
-    switch (activeFile) {
-      case "index.html": setHtmlCode(val); break;
-      case "style.css": setCssCode(val); break;
-      case "script.js": setJsCode(val); break;
-      case "README.md": setReadmeCode(val); break;
-      case "package.json": setPkgJsonCode(val); break;
-    }
-  };
-
   const openFile = (filename: string) => {
     if (!openTabs.includes(filename)) {
       setOpenTabs([...openTabs, filename]);
@@ -1139,25 +1155,27 @@ export default function PlaygroundClient() {
     return <FileText size={12} className="text-[#94a3b8]" />;
   };
 
-  // Command palette filter
-  const COMMANDS = useMemo(() => [
-    { name: "Live Preview: Run & Refresh Web Sandbox", action: () => compileAndRun(), icon: "▶" },
-    { name: "View: Toggle Primary Side Bar (Explorer)", action: () => setIsSidebarOpen(!isSidebarOpen), icon: "📁" },
-    { name: "View: Toggle Integrated Terminal Panel", action: () => setShowBottomPanel(!showBottomPanel), icon: "💻" },
-    { name: "Layout: Switch to Top Preview Drawer", action: () => setLayoutMode("top"), icon: "⬆" },
-    { name: "Layout: Switch to Split Screen (Side-by-Side)", action: () => setLayoutMode("split"), icon: "◫" },
-    { name: "File: Download Project as Single HTML File", action: () => handleDownload(), icon: "💾" },
-    { name: "File: Reset Project to Default Starter Template", action: () => handleReset(), icon: "🔄" },
-    { name: "Template: Load Interactive Counter", action: () => loadTemplate("counter"), icon: "🔢" },
-    { name: "Template: Load Interactive Todo List", action: () => loadTemplate("todo"), icon: "📝" },
-    { name: "Template: Load Tic Tac Toe Game", action: () => loadTemplate("tictactoe"), icon: "🎮" },
-    { name: "Template: Load Glassmorphism Card", action: () => loadTemplate("glassmorphism"), icon: "💎" },
-    { name: "Theme: VS Code Dark+ (Default)", action: () => setThemeMode("dark-plus"), icon: "🎨" },
-    { name: "Theme: High Contrast Dark", action: () => setThemeMode("high-contrast"), icon: "🌓" },
-    { name: "Theme: Monokai Pro", action: () => setThemeMode("monokai"), icon: "🌙" },
-  ], [isSidebarOpen, showBottomPanel, layoutMode]);
+  const executeCommand = (id: string) => {
+    switch (id) {
+      case "run": compileAndRun(); break;
+      case "toggle-sidebar": setIsSidebarOpen((prev) => !prev); break;
+      case "toggle-terminal": setShowBottomPanel((prev) => !prev); break;
+      case "layout-top": setLayoutMode("top"); break;
+      case "layout-split": setLayoutMode("split"); break;
+      case "download": handleDownload(); break;
+      case "reset": handleReset(); break;
+      case "template-counter": loadTemplate("counter"); break;
+      case "template-todo": loadTemplate("todo"); break;
+      case "template-tictactoe": loadTemplate("tictactoe"); break;
+      case "template-glassmorphism": loadTemplate("glassmorphism"); break;
+      case "theme-dark": setThemeMode("dark-plus"); break;
+      case "theme-contrast": setThemeMode("high-contrast"); break;
+      case "theme-monokai": setThemeMode("monokai"); break;
+    }
+  };
 
-  const filteredCommands = COMMANDS.filter(c => c.name.toLowerCase().includes(paletteQuery.toLowerCase()));
+  // Command palette filter
+  const filteredCommands = COMMANDS_LIST.filter(c => c.name.toLowerCase().includes(paletteQuery.toLowerCase()));
 
   // Theme styling rules
   const themeBg = themeMode === "high-contrast" ? "bg-black" : themeMode === "monokai" ? "bg-[#272822]" : "bg-[#1e1e1e]";
@@ -2551,7 +2569,7 @@ export default function PlaygroundClient() {
                 <button
                   key={idx}
                   onClick={() => {
-                    cmd.action();
+                    executeCommand(cmd.id);
                     setIsCommandPaletteOpen(false);
                   }}
                   className="w-full px-3 py-2 text-left hover:bg-[#007acc] hover:text-white rounded flex items-center justify-between group transition-colors cursor-pointer"
