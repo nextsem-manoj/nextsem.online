@@ -1270,27 +1270,327 @@ ping nextsem.online
     unit: "Unit 1: HTML Introduction & Web Fundamentals",
     bookRef: "Freeman Chapter 3 (p. 40-44)",
     exercise: {
-      question: "Which HTTP verb/method is used to retrieve data from a server?",
-      options: [
-        "PUT",
-        "GET",
-        "DELETE",
-        "POST",
-      ],
-      correctAnswer: "GET",
-      hint: "When you want to 'get' a webpage, you use the GET method!"
+      english: {
+        question: "Which HTTP verb/method is used to retrieve data from a server?",
+        options: [
+          "PUT",
+          "GET",
+          "DELETE",
+          "POST",
+        ],
+        correctAnswer: "GET",
+        hint: "When you want to 'get' a webpage, you use the GET method!"
+      },
+      hinglish: {
+        question: "Server se webpage data laane ke liye kaun sa HTTP method use hota hai?",
+        options: [
+          "PUT",
+          "GET",
+          "DELETE",
+          "POST",
+        ],
+        correctAnswer: "GET",
+        hint: "Browser jab server se page maangta hai to GET method se request bhejta hai."
+      },
+      hindi: {
+        question: "Server se webpage data praapt karne ke liye kaun sa HTTP method upayog kiya jaata hai?",
+        options: [
+          "PUT",
+          "GET",
+          "DELETE",
+          "POST"
+        ],
+        correctAnswer: "GET",
+        hint: "Jab browser webpage mangwata hai to GET vidhi ka upayog hota hai."
+      }
     },
     english: {
-      kid: "### 📄 Writing a Letter to the Server (HTTP Request)\nWhen you want to visit a website, your browser writes a digital letter called an **HTTP Request**:\n\n* **The Command (Verb)**: Usually `GET` (meaning: *'Give me this page'*).\n* **The Path**: Which page you want, like `/html`.\n* **The Headers**: Extra info, like *'I speak English'* or *'I am using Chrome browser'*.",
-      pro: "### 📡 Anatomy of an HTTP Request Payload\nAn HTTP request consists of a request line, headers, and an optional message body:\n\n1. **Request Line**: Contains Method (`GET`, `POST`, `PUT`, `DELETE`), Request URI (`/index.html`), and HTTP Version (`HTTP/1.1`).\n2. **Headers**: Key-value pairs containing client details:\n   ```http\n   Host: nextsem.online\n   User-Agent: Mozilla/5.0 (Windows 11)\n   Accept-Language: en-US\n   ```\n3. **Payload Body**: Used in `POST`/`PUT` requests to send form data."
+      kid: `## 1. The HTTP Request Line & Verbs
+* 1. Browsers send HTTP requests to servers.
+* 2. Requests start with action verbs like GET.
+* 3. Request paths target specific website documents.
+* 4. Protocol version specifies HTTP standard used.
+* 5. Servers process request verbs to return content.
+
+\`\`\`http
+GET /index.html HTTP/1.1
+Host: 127.0.0.1:5500
+User-Agent: Mozilla/5.0 (Windows 11)
+Accept: text/html
+Connection: keep-alive
+\`\`\`
+
+---
+
+## 2. Inspecting HTTP Requests in Chrome DevTools
+![Google Chrome DevTools Network Tab HTTP Headers Inspection](/screenshots/html/lesson6_chrome_devtools_network_headers.png)
+* 1. Press F12 to open Chrome DevTools.
+* 2. Select Network tab from top bar.
+* 3. Reload page to capture active requests.
+* 4. Click index.html to view Request Headers.
+* 5. Panel displays method, status, and headers.
+
+---
+
+## 3. Inspecting Server Response Headers with curl.exe
+![Inspecting HTTP Response Headers using curl.exe](/screenshots/html/lesson6_curl_http_headers.png)
+* 1. Curl fetches raw headers in terminal.
+* 2. Flag -I requests header data only.
+* 3. Server returns status HTTP 200 OK.
+* 4. Content-Type verifies text/html document transfer.
+* 5. Headers report server caching and compression.
+
+\`\`\`powershell
+curl.exe -I https://nextsem.online/
+\`\`\`
+
+---
+
+## 4. Essential HTTP Verbs Reference
+* 1. GET requests and retrieves web documents.
+* 2. POST submits new form and data.
+* 3. PUT replaces existing server resources completely.
+* 4. PATCH applies partial modifications to data.
+* 5. DELETE removes targeted resources from server.`,
+      pro: `## 1. HTTP Request Architecture & Wire Protocol
+* 1. Clients dispatch structured HTTP request envelopes.
+* 2. Request line declares method, URI, and protocol.
+* 3. Headers carry user-agent, authorization, and caching rules.
+* 4. Body payload carries serialized form or JSON.
+* 5. TCP sockets transmit byte streams over port 443.
+
+\`\`\`http
+GET /index.html HTTP/1.1
+Host: 127.0.0.1:5500
+User-Agent: Mozilla/5.0 (Windows 11)
+Accept: text/html,application/xhtml+xml
+Connection: keep-alive
+\`\`\`
+
+---
+
+## 2. Real-Time Network Inspection in Chrome DevTools
+![Google Chrome DevTools Network Tab HTTP Headers Inspection](/screenshots/html/lesson6_chrome_devtools_network_headers.png)
+* 1. DevTools Network profiler captures HTTP lifecycles.
+* 2. Headers tab exposes General request parameters.
+* 3. Request headers confirm client accept encoding standards.
+* 4. Response headers reveal server cache tags and timestamps.
+* 5. Status 304 confirms browser cached content validation.
+
+---
+
+## 3. Command-Line HTTP Header Probing via curl.exe
+![Inspecting HTTP Response Headers using curl.exe](/screenshots/html/lesson6_curl_http_headers.png)
+* 1. Curl performs direct HTTP protocol diagnostics.
+* 2. Parameter -I sends HEAD request for headers.
+* 3. Header returns HTTP/1.1 200 OK verification.
+* 4. Strict-Transport-Security enforces HTTPS encrypted channels.
+* 5. Edge CDN reports cache HIT confirmation status.
+
+\`\`\`powershell
+curl.exe -I https://nextsem.online/
+\`\`\`
+
+---
+
+## 4. Standard RESTful HTTP Methods Specification
+* 1. GET initiates idempotent safe data retrieval.
+* 2. POST submits state-changing payload mutations.
+* 3. PUT replaces target resource representation idempotently.
+* 4. PATCH modifies specific fields of existing entity.
+* 5. DELETE purges designated entity from backend storage.`
     },
     hinglish: {
-      kid: "### 📄 Request Letter: Server Se Data Maangna\nBrowser jab server se page maangta hai, toh woh ek digital request letter likhta hai:\n\n* **GET Method**: Sabse common command, iska matlab hai *'Mujhe ye file de do'*.\n* **Request Headers**: Browser ki settings batate hain, jaise language preference aur software browser engine details.",
-      pro: "### 📡 Structure of HTTP Request Headers\nHTTP protocol interactions request structures build karte hain:\n\n* **Request Verb**: Operations define karta hai (GET fetching, POST submission).\n* **Headers Metadata**: Content-Type, Authorization tokens, cookies aur caching configurations convey karta hai server daemon systems ko."
+      kid: `## 1. HTTP Request Kya Hoti Hai?
+* 1. Browser server ko HTTP request bhejta.
+* 2. Request me GET jaise verbs hote.
+* 3. Request path se page select hota.
+* 4. Headers browser ki language details batate.
+* 5. Server request padhkar HTML file bhejta.
+
+\`\`\`http
+GET /index.html HTTP/1.1
+Host: 127.0.0.1:5500
+User-Agent: Mozilla/5.0 (Windows 11)
+Accept: text/html
+Connection: keep-alive
+\`\`\`
+
+---
+
+## 2. Chrome DevTools Me Request Check Karein
+![Google Chrome DevTools Network Tab HTTP Headers Inspection](/screenshots/html/lesson6_chrome_devtools_network_headers.png)
+* 1. Chrome me F12 dabakar DevTools kholein.
+* 2. Top bar se Network tab select karein.
+* 3. Page refresh karke requests list dekhein.
+* 4. index.html par click karke Headers kholein.
+* 5. Yahan method, status aur headers dikhte.
+
+---
+
+## 3. Terminal Me curl.exe Se Headers Dekhein
+![Inspecting HTTP Response Headers using curl.exe](/screenshots/html/lesson6_curl_http_headers.png)
+* 1. Terminal me curl command chalayein.
+* 2. Flag -I se sirf headers aate.
+* 3. Server HTTP 200 OK reply deta.
+* 4. Content-Type se text/html verify hota.
+* 5. Caching aur security headers saaf dikhte.
+
+\`\`\`powershell
+curl.exe -I https://nextsem.online/
+\`\`\`
+
+---
+
+## 4. Zaroori HTTP Methods
+* 1. GET server se page maangta hai.
+* 2. POST naya form data submit karta.
+* 3. PUT puraane data ko completely badalta.
+* 4. PATCH thoda sa data update karta.
+* 5. DELETE server se resource delete karta.`,
+      pro: `## 1. HTTP Request Architecture & Wire Protocol
+* 1. Client structured HTTP request packet banata hai.
+* 2. Request line verb, URI aur protocol specify karta.
+* 3. Request headers metadata client configuration transmit karte.
+* 4. Request body data form submission deliver karta.
+* 5. TCP socket connection stream par data travel karta.
+
+\`\`\`http
+GET /index.html HTTP/1.1
+Host: 127.0.0.1:5500
+User-Agent: Mozilla/5.0 (Windows 11)
+Accept: text/html,application/xhtml+xml
+Connection: keep-alive
+\`\`\`
+
+---
+
+## 2. Real-Time Network Inspection in Chrome DevTools
+![Google Chrome DevTools Network Tab HTTP Headers Inspection](/screenshots/html/lesson6_chrome_devtools_network_headers.png)
+* 1. DevTools Network profiler HTTP requests track karta.
+* 2. Headers tab General parameters display karta.
+* 3. Request headers encoding standards verify karte.
+* 4. Response headers server cache metadata show karte.
+* 5. Status 304 browser cache validation confirm karta.
+
+---
+
+## 3. Command-Line HTTP Header Probing via curl.exe
+![Inspecting HTTP Response Headers using curl.exe](/screenshots/html/lesson6_curl_http_headers.png)
+* 1. Curl tool HTTP protocol test karta hai.
+* 2. -I flag HEAD request dispatch karta.
+* 3. Header HTTP/1.1 200 OK return karta.
+* 4. Strict-Transport-Security HTTPS safety enforce karta hai.
+* 5. CDN headers cache HIT metrics report karte.
+
+\`\`\`powershell
+curl.exe -I https://nextsem.online/
+\`\`\`
+
+---
+
+## 4. Standard RESTful HTTP Methods
+* 1. GET idempotent safe resource retrieval karta.
+* 2. POST server par data insert karta hai.
+* 3. PUT resource ko completely replace karta.
+* 4. PATCH resource me partial edits karta.
+* 5. DELETE target resource server se hata deta.`
     },
     hindi: {
-      kid: "### 📄 सर्वर को अनुरोध पत्र लिखना (HTTP Request)\nजब आप किसी वेबसाइट पर जाते हैं, तो आपका ब्राउज़र सर्वर को एक डिजिटल अनुरोध पत्र (HTTP Request) भेजता है:\n\n* **विधि (Verb)**: आमतौर पर `GET` (यानी: *'मुझे यह पेज दो'*)\n* **पता (Path)**: आपको कौन सा पेज चाहिए, जैसे `/html`\n* **हेडर (Headers)**: अतिरिक्त जानकारी, जैसे *'मेरा ब्राउज़र क्रोम है'*।",
-      pro: "### 📡 HTTP अनुरोध पेलोड की शारीरिक रचना (Request Payload)\nएक HTTP अनुरोध में एक अनुरोध पंक्ति (Request Line), हेडर (Headers) और एक बॉडी शामिल होती है:\n\n* **अनुरोध पंक्ति**: विधि (उदा. `GET`), पथ (उदा. `/html`), और प्रोटोकॉल संस्करण (उदा. `HTTP/1.1`) को परिभाषित करती है।\n* **अनुरोध हेडर**: क्लाइंट क्रेडेंशियल और मेटाडेटा जैसे `Host`, `User-Agent` और `Accept-Language` प्रदान करते हैं।"
+      kid: `## 1. HTTP अनुरोध (Request) क्या है?
+* 1. ब्राउज़र सर्वर को HTTP अनुरोध भेजता है।
+* 2. अनुरोध में GET जैसी क्रियाएं होती हैं।
+* 3. पाथ से विशिष्ट फ़ाइल चुनी जाती है।
+* 4. हेडर ब्राउज़र की जानकारी भेजते हैं।
+* 5. सर्वर अनुरोध स्वीकार कर फ़ाइल भेजता है।
+
+\`\`\`http
+GET /index.html HTTP/1.1
+Host: 127.0.0.1:5500
+User-Agent: Mozilla/5.0 (Windows 11)
+Accept: text/html
+Connection: keep-alive
+\`\`\`
+
+---
+
+## 2. क्रोम DevTools में अनुरोध की जांच करें
+![Google Chrome DevTools Network Tab HTTP Headers Inspection](/screenshots/html/lesson6_chrome_devtools_network_headers.png)
+* 1. क्रोम में F12 दबाकर DevTools खोलें।
+* 2. ऊपर से Network टैब चुनें।
+* 3. पेज रीलोड कर सक्रिय अनुरोध देखें।
+* 4. index.html पर क्लिक कर हेडर देखें।
+* 5. यहां विधि, स्थिति और हेडर दिखते।
+
+---
+
+## 3. टर्मिनल में curl.exe से हेडर देखें
+![Inspecting HTTP Response Headers using curl.exe](/screenshots/html/lesson6_curl_http_headers.png)
+* 1. टर्मिनल में curl कमांड चलाएं।
+* 2. फ्लैग -I से केवल हेडर आते।
+* 3. सर्वर HTTP 200 OK उत्तर देता।
+* 4. Content-Type से text/html प्रमाणित होता।
+* 5. कैशिंग और सुरक्षा विवरण प्रदर्शित होते।
+
+\`\`\`powershell
+curl.exe -I https://nextsem.online/
+\`\`\`
+
+---
+
+## 4. प्रमुख HTTP विधियां (Verbs)
+* 1. GET सर्वर से पृष्ठ मंगाता है।
+* 2. POST नया फॉर्म डेटा भेजता है।
+* 3. PUT मौजूदा डेटा पूरी तरह बदलता।
+* 4. PATCH आंशिक जानकारी अपडेट करता है।
+* 5. DELETE सर्वर से फ़ाइल हटाता है।`,
+      pro: `## 1. HTTP अनुरोध संरचना एवं प्रोटोकॉल
+* 1. क्लाइंट संरचित HTTP अनुरोध पैकेट बनाता है।
+* 2. रिक्वेस्ट लाइन वर्ब और पाथ बताती।
+* 3. हेडर क्लाइंट विवरण सर्वर तक पहुंचाते।
+* 4. बॉडी में फॉर्म डेटा भेजा जाता है।
+* 5. टीसीपी सॉकेट पर डेटा स्ट्रीम चलता।
+
+\`\`\`http
+GET /index.html HTTP/1.1
+Host: 127.0.0.1:5500
+User-Agent: Mozilla/5.0 (Windows 11)
+Accept: text/html,application/xhtml+xml
+Connection: keep-alive
+\`\`\`
+
+---
+
+## 2. क्रोम DevTools में नेटवर्क निरीक्षण
+![Google Chrome DevTools Network Tab HTTP Headers Inspection](/screenshots/html/lesson6_chrome_devtools_network_headers.png)
+* 1. DevTools नेटवर्क टैब अनुरोधों को रिकॉर्ड करता।
+* 2. हेडर टैब सामान्य विवरण दिखाता है।
+* 3. अनुरोध हेडर एनकोडिंग मानक सत्यापित करते हैं।
+* 4. रिस्पॉन्स हेडर कैश मेटाडेटा दिखाते हैं।
+* 5. स्थिति 304 कैश सत्यापन प्रमाणित करती है।
+
+---
+
+## 3. कमांड-लाइन द्वारा HTTP हेडर की जांच
+![Inspecting HTTP Response Headers using curl.exe](/screenshots/html/lesson6_curl_http_headers.png)
+* 1. Curl नेटवर्क प्रोटोकॉल की जांच करता।
+* 2. पैरामीटर -I केवल हेडर मंगवाता है।
+* 3. हेडर HTTP 200 OK उत्तर देता।
+* 4. HSTS एन्क्रिप्टेड सुरक्षा लागू करता है।
+* 5. CDN हेडर कैश स्थिति रिपोर्ट करते।
+
+\`\`\`powershell
+curl.exe -I https://nextsem.online/
+\`\`\`
+
+---
+
+## 4. मानक RESTful HTTP विधियां
+* 1. GET सुरक्षित डेटा निष्कर्षण करता है।
+* 2. POST सर्वर पर डेटा जोड़ता है।
+* 3. PUT संसाधन को पूरी तरह प्रतिस्थापित करता।
+* 4. PATCH संसाधन में आंशिक सुधार करता।
+* 5. DELETE संसाधन को सर्वर से हटाता।`
     }
   },
   {

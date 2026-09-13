@@ -352,6 +352,19 @@ Approximate round trip times in milli-seconds:
 Trace complete. 4 physical hops resolved in 17 milliseconds!`;
   }
 
+  if (trimmed.startsWith("curl")) {
+    return `HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Length: 58129
+Cache-Control: max-age=3600
+Content-Type: text/html; charset=utf-8
+Etag: "4b2a58c512e5c9776fe87f1ba1c4b5268cc3833e7d1374d604ea55ccc45600ec"
+Strict-Transport-Security: max-age=31556926
+Accept-Ranges: bytes
+Date: Sun, 13 Sep 2026 15:29:27 GMT
+X-Cache: HIT`;
+  }
+
   if (trimmed.startsWith("ipconfig")) {
     return `Windows IP Configuration
 
