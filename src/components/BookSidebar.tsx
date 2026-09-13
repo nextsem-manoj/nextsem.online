@@ -173,10 +173,11 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, isCollapsed }: BookSideb
         ref={scrollContainerRef}
         style={{ width: `${effectiveWidth}px` }}
         className={`
-          fixed top-0 md:top-[98px] left-0 h-full md:h-[calc(100vh-98px)]
-          bg-[#0c1328] text-white border-r border-slate-800 shadow-2xl
-          transition-transform duration-300 z-50 md:z-30 overflow-y-auto overflow-x-hidden shrink-0 overscroll-contain
-          ${isOpen ? 'translate-x-0' : '-translate-x-full'}
+          fixed top-0 left-0 h-full z-50
+          md:relative md:top-0 md:sticky md:top-[114px] md:self-start md:h-[calc(100vh-130px)] md:z-20 md:shrink-0
+          bg-[#0c1328] text-white border border-slate-800/80 shadow-2xl md:rounded-2xl
+          transition-all duration-300 overflow-y-auto overflow-x-hidden overscroll-contain custom-scrollbar
+          ${isOpen ? 'translate-x-0 md:flex md:flex-col' : '-translate-x-full md:hidden'}
         `}
       >
         <div className="flex flex-col min-h-full py-2">

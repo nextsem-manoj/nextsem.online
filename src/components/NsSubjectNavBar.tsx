@@ -65,7 +65,7 @@ export default function NsSubjectNavBar({ currentUser, onSignIn, onToggleSidebar
     <>
       <header className="sticky top-0 z-40 bg-[#060c18] border-b border-slate-800/80 shadow-md select-none">
         {/* ── TOP HEADER BAR ── */}
-        <div className="w-full px-3 sm:px-6 lg:px-8 h-14 flex items-center justify-between gap-3">
+        <div className="w-full max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-14 flex items-center justify-between gap-3">
           {/* Left Section: Brand Logo */}
           <div className="flex items-center gap-3">
             <Link href="/" prefetch={true} className="flex items-center gap-2 group">
@@ -81,7 +81,7 @@ export default function NsSubjectNavBar({ currentUser, onSignIn, onToggleSidebar
           {/* Search Input Bar (Desktop) */}
           <div 
             onClick={() => window.dispatchEvent(new CustomEvent("open_search", { detail: { query: searchQuery } }))}
-            className="hidden md:flex items-center flex-1 max-w-sm mx-4 cursor-pointer"
+            className="hidden md:flex items-center flex-1 max-w-md mx-auto cursor-pointer"
           >
             <div className="relative w-full">
               <Search size={14} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
@@ -143,7 +143,7 @@ export default function NsSubjectNavBar({ currentUser, onSignIn, onToggleSidebar
         {/* ── SUB NAVIGATION BAR (Placed Just Below the Logo) ── */}
         {shouldShowSubjectBar && (
           <div className="bg-[#09101f] border-t border-slate-850 px-2 sm:px-6 lg:px-8">
-            <div className="w-full flex items-center gap-1.5 overflow-x-auto custom-scrollbar py-1.5 scroll-smooth">
+            <div className="w-full max-w-7xl mx-auto flex items-center md:justify-center gap-2 overflow-x-auto custom-scrollbar py-1.5 scroll-smooth">
               {/* Hamburger Menu Button inside Nav Bar */}
               {onToggleSidebar && (
                 <button

@@ -865,7 +865,7 @@ function VsCodeEditorCard({ code, blockKey }: { code: string; blockKey: string }
   const currentContent = rawContent;
 
   return (
-    <div className="w-full max-w-5xl mx-auto px-2 sm:px-4 md:px-6 space-y-6 pb-20 md:pb-8">
+    <div className="w-full max-w-5xl px-2 sm:px-4 md:px-0 space-y-6 pb-20 md:pb-8">
       {/* Top Banner Ad */}
       <AdSenseBanner />
 
