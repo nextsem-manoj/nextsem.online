@@ -52,6 +52,136 @@ interface BookSidebarProps {
   onCollapsedChange: (c: boolean) => void;
 }
 
+// Format lesson titles to be short, appealing, and fit neatly inside sidebar
+export function formatSidebarTitle(title: string, shortTitle?: string): string {
+  if (shortTitle && shortTitle.trim()) return shortTitle.trim();
+
+  const t = title.trim();
+
+  // Curated concise titles for optimal sidebar readability
+  const directMap: Record<string, string> = {
+    "Visual Studio Code Download, Windows 11 Setup & First HTML Page": "VS Code & Win 11 Setup",
+    "HTML Introduction (What is HTML?)": "What is HTML?",
+    "Client vs. Server Model": "Client vs Server",
+    "Understanding DNS Lookup": "DNS Lookup",
+    "IP Addresses Explained (IPv4 vs. IPv6)": "IP Addresses (v4 & v6)",
+    "TCP/IP 3-Way Handshake": "TCP 3-Way Handshake",
+    "Anatomy of an HTTP Request": "HTTP Request Anatomy",
+    "Anatomy of an HTTP Response": "HTTP Response Anatomy",
+    "Anatomy of a URL": "URL Anatomy",
+    "How Browsers Render HTML (DOM)": "How Browsers Render DOM",
+    "Introduction to Browser DevTools": "Browser DevTools",
+    "The <!DOCTYPE html> Declaration": "<!DOCTYPE html>",
+    "The <html> Root Element": "<html> Root Tag",
+    "The <head> Container": "<head> Metadata",
+    "The <title> Element": "<title> Tag & SEO",
+    "Responsive Viewport Configuration": "Responsive Viewport",
+    "Adding Favicons": "Adding Favicons",
+    "Linking CSS Stylesheets": "Linking CSS Files",
+    "Internal CSS with the <style> Tag": "Internal CSS (<style>)",
+    "Script Insertion with <script>": "Scripts (<script>)",
+    "The <body> Container": "<body> Container",
+    "Heading Elements (<h1> to <h6>)": "Headings (<h1> - <h6>)",
+    "The Paragraph Element (<p>)": "Paragraphs (<p>)",
+    "Line Breaks (<br />)": "Line Breaks (<br />)",
+    "Horizontal Rules (<hr />)": "Horizontal Rules (<hr />)",
+    "Div Containers (<div>)": "Div Containers (<div>)",
+    "Span Containers (<span>)": "Span Inline (<span>)",
+    "Blockquotes (<blockquote>)": "Blockquotes",
+    "Inline Quotes (<q>)": "Inline Quotes (<q>)",
+    "Address Details (<address>)": "Address (<address>)",
+    "Presentational Bold (<b>) vs. Semantic Strong (<strong>)": "Bold (<b>) vs Strong",
+    "Presentational Italic (<i>) vs. Semantic Emphasis (<em>)": "Italic (<i>) vs Emphasis",
+    "Highlighted Text (<mark>)": "Highlight Text (<mark>)",
+    "Code Snippets (<code>)": "Code Snippets (<code>)",
+    "Preformatted Text (<pre>)": "Preformatted (<pre>)",
+    "Insertions (<ins>) & Deletions (<del>)": "Insert & Delete Tags",
+    "Strikethrough (<s>)": "Strikethrough (<s>)",
+    "Abbreviations (<abbr>)": "Abbreviations (<abbr>)",
+    "Defining Terms (<dfn>)": "Defining Terms (<dfn>)",
+    "Superscript (<sup>) & Subscript (<sub>)": "Sup & Sub Tags",
+    "Anchor Elements (<a>) & the href Attribute": "Links (<a> & href)",
+    "Absolute vs. Relative Paths": "Absolute vs Relative Paths",
+    "Parent Directory Hopping (../)": "Parent Directory (../)",
+    "Grandparent Directory Hopping (../../)": "Grandparent Path (../../)",
+    "Linking to Email Addresses (mailto:)": "Email Links (mailto:)",
+    "Telephone Dialing Links (tel:)": "Telephone Links (tel:)",
+    "Target Attributes (target=\"_blank\")": "Target Blank (target)",
+    "Link Security (rel=\"noopener\")": "Link Security (rel)",
+    "Document Hash Links (href=\"#id\")": "Hash Jump Links",
+    "Download Attribute (force download)": "Download Attribute",
+    "The Image Element (<img>)": "Images (<img> Tag)",
+    "Image Sizing (width & height)": "Image Sizing",
+    "Responsive Images (srcset & sizes)": "Responsive Images",
+    "Art Direction with <picture> & <source>": "Art Direction (<picture>)",
+    "Lazy Loading Images (loading attribute)": "Lazy Loading Images",
+    "Semantic Image Wrappers (<figure> & <figcaption>)": "Figure & Figcaption",
+    "Vector Graphics (<svg>)": "Vector Graphics (<svg>)",
+    "Image Maps (<map> & <area>)": "Image Maps (<map>)",
+    "Favicon Formats & Link Configurations": "Favicon Formats",
+    "Capstone Project: Responsive Photo Gallery": "Project: Photo Gallery",
+    "Audio Elements (src & controls)": "Audio Player (<audio>)",
+    "Audio Fallback Formats & Sources": "Audio Fallbacks",
+    "Video Elements (poster & preload)": "Video Player (<video>)",
+    "Video Subtitles & Captions (<track>)": "Video Subtitles (<track>)",
+    "External Site Embedding (<iframe> & sandbox)": "Embed Sites (<iframe>)",
+    "Plugin Insertion (<embed> & <object>)": "Plugins (<embed>/<object>)",
+    "Custom Data Attributes (data-*)": "Custom Data (data-*)",
+    "Iframe Security & Permission Policies": "Iframe Security",
+    "HTML5 Geolocation Semantic Structure": "HTML5 Geolocation",
+    "Capstone Project: Media Showcase Layout": "Project: Media Showcase",
+    "Unordered Lists (<ul> and <li>)": "Unordered Lists (<ul>)",
+    "Ordered Lists (<ol> and <li>)": "Ordered Lists (<ol>)",
+    "Ordered Lists Start & Reversed Attributes": "Ordered List Attributes",
+    "Definition Lists (<dl>, <dt>, and <dd>)": "Definition Lists (<dl>)",
+    "Tables Rows & Cells (<tr>, <td>, <th>)": "Tables (<tr>, <td>, <th>)",
+    "Table Column Spanning (colspan & rowspan)": "Table Colspan & Rowspan",
+    "Table Structured Sections (<thead>, <tbody>, <tfoot>)": "Table Semantics",
+    "Table Column Groups (<colgroup> & <col>)": "Colgroup & Columns",
+    "Table Borders & Spacing Layouts": "Table Borders & Spacing",
+    "Capstone Project: Dynamic Pricing Grid": "Project: Pricing Grid",
+    "Form Action & Method (processing basics)": "Form Action & Method",
+    "Form Labels (for attribute linkage)": "Form Labels (<label>)",
+    "Text & Password Inputs (type=\"text/password\")": "Text & Password Inputs",
+    "Radio Buttons (type=\"radio\")": "Radio Buttons",
+    "Checkboxes (type=\"checkbox\")": "Checkboxes",
+    "Dropdown Select Lists (<select> and <option>)": "Dropdown Select (<select>)",
+    "Multi-line Input (<textarea>)": "Multi-line (<textarea>)",
+    "Buttons (type=\"submit/reset/button\")": "Buttons (<button>)",
+    "Binding Input Labels (<label> wrapping)": "Wrapping Labels",
+    "Form Groups (<fieldset> and <legend>)": "Fieldset & Legend",
+    "Form Field Required Validation": "Form Validation (required)",
+    "Regex Pattern Matching (pattern attribute)": "Regex Pattern Matching",
+    "HTML5 Numeric Ranges (type=\"number/range\")": "Numeric Ranges",
+    "Progress Indicators (<progress>) & Meter Gauges (<meter>)": "Progress & Meter",
+    "Autocomplete Data Lists (<datalist>)": "Autocomplete (<datalist>)",
+    "Collapsible Accordions (<details> and <summary>)": "Accordions (<details>)",
+    "Native Modals & Popups (<dialog>)": "Native Dialog (<dialog>)",
+    "Web Components Templates (<template> and <slot>)": "Templates & Slots",
+    "Canvas Graphics (<canvas>)": "Canvas Graphics (<canvas>)",
+    "Capstone Project: Complete Semantic Portfolio": "Project: Semantic Portfolio"
+  };
+
+  if (directMap[t]) return directMap[t];
+
+  // Algorithmic shortener for other subjects (CSS, JS, CLI, Git, etc.)
+  let clean = t
+    .replace(/^Character Encoding with <meta charset=.*$/i, "Meta Charset (UTF-8)")
+    .replace(/^Introduction to\s+/i, "")
+    .replace(/^Understanding\s+/i, "")
+    .replace(/^Presentational\s+/i, "")
+    .replace(/^The\s+/i, "")
+    .replace(/^How to\s+/i, "")
+    .replace(/^How\s+/i, "")
+    .replace(/Capstone Project:\s*/i, "Project: ")
+    .replace(/`([^`]+)`/g, "$1")
+    .replace(/\s+Elements?\b/i, "")
+    .replace(/\s+Containers?\b/i, "")
+    .trim();
+
+  return clean;
+}
+
 const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, isCollapsed }: BookSidebarProps) => {
   const pathname = usePathname() || "";
   const cleanPath = (pathname || "").replace(/\/+$/, "") || "/";
@@ -293,7 +423,7 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, isCollapsed }: BookSideb
                                   {isActive && (
                                     <span className="w-2 h-2 rounded-full bg-white animate-pulse shrink-0 mr-2 shadow-xs" />
                                   )}
-                                  <span className="truncate">{lesson.id}. {lesson.title}</span>
+                                  <span className="truncate">{lesson.id}. {formatSidebarTitle(lesson.title, (lesson as any).shortTitle)}</span>
                                 </span>
                                 {isActive && (
                                   <span className="text-[9px] font-black uppercase tracking-wider bg-white text-[#04AA6D] px-1.5 py-0.5 rounded shadow-xs shrink-0 font-mono">
@@ -371,7 +501,7 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, isCollapsed }: BookSideb
                               >
                                 <span className="truncate flex-1 text-left flex items-center min-w-0 mr-1.5">
                                   {isActive && <span className="w-2 h-2 rounded-full bg-white animate-pulse shrink-0 mr-2 shadow-xs" />}
-                                  <span className="truncate">{lesson.id}. {lesson.title}</span>
+                                  <span className="truncate">{lesson.id}. {formatSidebarTitle(lesson.title, (lesson as any).shortTitle)}</span>
                                 </span>
                                 {isActive && (
                                   <span className="text-[9px] font-black uppercase tracking-wider bg-white text-[#04AA6D] px-1.5 py-0.5 rounded shadow-xs shrink-0 font-mono">
@@ -449,7 +579,7 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, isCollapsed }: BookSideb
                               >
                                 <span className="truncate flex-1 text-left flex items-center min-w-0 mr-1.5">
                                   {isActive && <span className="w-2 h-2 rounded-full bg-white animate-pulse shrink-0 mr-2 shadow-xs" />}
-                                  <span className="truncate">{lesson.id}. {lesson.title}</span>
+                                  <span className="truncate">{lesson.id}. {formatSidebarTitle(lesson.title, (lesson as any).shortTitle)}</span>
                                 </span>
                                 {isActive && (
                                   <span className="text-[9px] font-black uppercase tracking-wider bg-white text-[#04AA6D] px-1.5 py-0.5 rounded shadow-xs shrink-0 font-mono">
@@ -527,7 +657,7 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, isCollapsed }: BookSideb
                               >
                                 <span className="truncate flex-1 text-left flex items-center min-w-0 mr-1.5">
                                   {isActive && <span className="w-2 h-2 rounded-full bg-white animate-pulse shrink-0 mr-2 shadow-xs" />}
-                                  <span className="truncate">{lesson.id}. {lesson.title}</span>
+                                  <span className="truncate">{lesson.id}. {formatSidebarTitle(lesson.title, (lesson as any).shortTitle)}</span>
                                 </span>
                                 {isActive && (
                                   <span className="text-[9px] font-black uppercase tracking-wider bg-white text-[#04AA6D] px-1.5 py-0.5 rounded shadow-xs shrink-0 font-mono">
@@ -605,7 +735,7 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, isCollapsed }: BookSideb
                               >
                                 <span className="truncate flex-1 text-left flex items-center min-w-0 mr-1.5">
                                   {isActive && <span className="w-2 h-2 rounded-full bg-white animate-pulse shrink-0 mr-2 shadow-xs" />}
-                                  <span className="truncate">{lesson.id}. {lesson.title}</span>
+                                  <span className="truncate">{lesson.id}. {formatSidebarTitle(lesson.title, (lesson as any).shortTitle)}</span>
                                 </span>
                                 {isActive && (
                                   <span className="text-[9px] font-black uppercase tracking-wider bg-white text-[#04AA6D] px-1.5 py-0.5 rounded shadow-xs shrink-0 font-mono">
@@ -697,7 +827,7 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, isCollapsed }: BookSideb
                               >
                                 <span className="truncate flex-1 text-left flex items-center min-w-0 mr-1.5">
                                   {isActive && <span className="w-2 h-2 rounded-full bg-white animate-pulse shrink-0 mr-2 shadow-xs" />}
-                                  <span className="truncate">{lesson.id}. {lesson.title.replace(/`([^`]+)`/g, '$1')}</span>
+                                  <span className="truncate">{lesson.id}. {formatSidebarTitle(lesson.title, (lesson as any).shortTitle)}</span>
                                 </span>
                                 {isActive && (
                                   <span className="text-[9px] font-black uppercase tracking-wider bg-white text-[#04AA6D] px-1.5 py-0.5 rounded shadow-xs shrink-0 font-mono">
@@ -775,7 +905,7 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, isCollapsed }: BookSideb
                               >
                                 <span className="truncate flex-1 text-left flex items-center min-w-0 mr-1.5">
                                   {isActive && <span className="w-2 h-2 rounded-full bg-white animate-pulse shrink-0 mr-2 shadow-xs" />}
-                                  <span className="truncate">{lesson.id}. {lesson.title.replace(/`([^`]+)`/g, '$1')}</span>
+                                  <span className="truncate">{lesson.id}. {formatSidebarTitle(lesson.title, (lesson as any).shortTitle)}</span>
                                 </span>
                                 {isActive && (
                                   <span className="text-[9px] font-black uppercase tracking-wider bg-white text-[#04AA6D] px-1.5 py-0.5 rounded shadow-xs shrink-0 font-mono">
@@ -868,7 +998,7 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, isCollapsed }: BookSideb
                               >
                                 <span className="truncate flex-1 text-left flex items-center min-w-0 mr-1.5">
                                   {isActive && <span className="w-2 h-2 rounded-full bg-white animate-pulse shrink-0 mr-2 shadow-xs" />}
-                                  <span className="truncate">{lesson.id}. {lesson.title}</span>
+                                  <span className="truncate">{lesson.id}. {formatSidebarTitle(lesson.title, (lesson as any).shortTitle)}</span>
                                 </span>
                                 {isActive && (
                                   <span className="text-[9px] font-black uppercase tracking-wider bg-white text-[#04AA6D] px-1.5 py-0.5 rounded shadow-xs shrink-0 font-mono">
@@ -915,7 +1045,7 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, isCollapsed }: BookSideb
                         >
                           <span className="truncate flex-1 text-left flex items-center min-w-0 mr-1.5">
                             {isActive && <span className="w-2 h-2 rounded-full bg-white animate-pulse shrink-0 mr-2 shadow-xs" />}
-                            <span className="truncate">{chapter.title.replace(/^(CLI\.\d+:|P\d+\.\d+:|Phase\s+\d+:)\s*/i, '').trim()}</span>
+                            <span className="truncate">{formatSidebarTitle(chapter.title.replace(/^(CLI\.\d+:|P\d+\.\d+:|Phase\s+\d+:)\s*/i, '').trim())}</span>
                           </span>
                           {isActive ? (
                             <span className="text-[9px] font-black uppercase tracking-wider bg-white text-[#04AA6D] px-1.5 py-0.5 rounded shadow-xs shrink-0 font-mono">

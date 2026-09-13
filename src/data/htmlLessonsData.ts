@@ -17,6 +17,7 @@ export interface Lesson {
   id: number;
   slug: string;
   title: string;
+  shortTitle?: string;
   unit: string;
   bookRef: string;
   /** Supports both legacy ExerciseBlock and new MultilingualExercise */

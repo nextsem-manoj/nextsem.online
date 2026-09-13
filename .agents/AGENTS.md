@@ -52,9 +52,7 @@
 - **Simulator Animation Mobile YouTube Shorts vs Desktop Wide Standard (PERMANENT RULE)**: The code compiler showcase animation (CompilerShowcaseAnimation.tsx) MUST render as a vertical YouTube Shorts video format (compact 9:16 / vertical mobile card, stacked preview drawer, and floating Shorts HUD controls) on mobile devices (< md), and as an expansive, wide landscape format with explorer sidebar, live simple browser drawer, and full-width breadcrumbs on desktop/tablet viewports (md: and above). All player controls HUD ([-10s], [Pause/Play], [+10s], [Reset]) must remain hidden by default and appear smoothly only when the user hovers over the animation (opacity-0 group-hover:opacity-100).
 - **Theme Toggle Button in Bottom Navigation Standard (IMPORTANT - PERMANENT RULE)**: On every instance, page, and mobile bottom navigation bar, always include a dedicated **Theme Toggle** button (`Moon 🌙 / Sun ☀️` with live theme switching and persistent `localStorage` synchronization across Dark and Light modes).
 
-
-
-
-
-
-
+- **Short & Appealing Sidebar Lesson Titles Standard (PERMANENT RULE)**:
+  Lesson titles displayed inside the course sidebar must always be concise, compact, and catchy (ideally 2 to 5 words max).
+  Avoid verbose, long-winded titles with redundant words that get clipped with ellipsis or wrap awkwardly inside the compact sidebar width (e.g., use "VS Code & Win 11 Setup" instead of "Visual Studio Code Download, Windows 11 Setup & First HTML Page"; "What is HTML?" instead of "HTML Introduction (What is HTML?)").
+  Titles in the sidebar should look neat, appealing to click, and fit beautifully within the sidebar container space.
