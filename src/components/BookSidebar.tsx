@@ -403,8 +403,8 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, isCollapsed }: BookSideb
                       {!isCollapsed && (
                         <div className="flex flex-col space-y-0.5 p-1.5 bg-[#090f24]/70">
                           {filteredLessons.map((lesson) => {
-                            const isActive = (lesson.slug && pathname.includes(lesson.slug)) || ((cleanPath === '/html' || pathname === '/html') && lesson.id === 0);
-                            const lessonHref = lesson.id === 0 ? '/html/' : `/html/${lesson.slug}/`;
+                            const isActive = Boolean(lesson.slug && pathname.includes(lesson.slug));
+                            const lessonHref = `/html/${lesson.slug}/`;
 
                             return (
                               <Link
