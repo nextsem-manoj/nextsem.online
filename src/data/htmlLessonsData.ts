@@ -753,25 +753,25 @@ code .
         hint: "HTML ka matlab Hyper Text Markup Language hota hai jo web pages ka structure banata hai."
       },
       hindi: {
-        question: "HTML का पूर्ण रूप (Full Form) क्या है?",
+        question: "HTML ka poora naam (Full Form) kya hai?",
         options: [
-          "हाई टेक मॉडर्न लैंग्वेज",
+          "High Tech Modern Language",
           "Hyper Text Markup Language",
-          "हाइपरलिंक टेक्स्ट मैनेजमेंट लैंग्वेज",
-          "होम टूल मार्कअप लैंग्वेज"
+          "Hyperlinks and Text Management Language",
+          "Home Tool Markup Language"
         ],
         correctAnswer: "Hyper Text Markup Language",
-        hint: "HTML का अर्थ Hyper Text Markup Language है जो वेब पेजों का ढांचा बनाता है।"
+        hint: "HTML ka matlab Hyper Text Markup Language hai jo web pages ko structure deta hai."
       }
     },
     english: {
-      kid: `* 1. HTML is the standard language for web pages.
-* 2. It defines the structure of web content.
-* 3. HTML consists of a series of elements.
+      kid: `* 1. HTML is standard language for web pages.
+* 2. It defines structure of web content.
+* 3. HTML consists of various building elements.
 * 4. Elements tell browsers how to display content.
 * 5. Elements label content like headings and paragraphs.
 
-### Example
+### Example: First HTML Page
 \`\`\`html
 <!DOCTYPE html>
 <html>
@@ -787,14 +787,36 @@ code .
 </html>
 \`\`\`
 
-![Windows 11 Google Chrome First HTML Page Live Preview](/screenshots/html/lesson1_html_first_page_chrome.png)`,
-      pro: `* 1. HTML is the standard language for web pages.
-* 2. It defines the structure of web content.
-* 3. HTML consists of a series of elements.
+---
+
+## Install Live Server Extension in VS Code
+![Step 5: Install Live Server in Visual Studio Code](/screenshots/vscode/step5_vscode_extensions_liveserver.png)
+* 1. Press Ctrl + Shift + X in editor.
+* 2. Search for "Live Server" by Ritwick Dey.
+* 3. Click the blue Install button to install.
+* 4. Or run CLI command in your terminal.
+* 5. Extension auto-reloads pages whenever you save changes.
+
+\`\`\`powershell
+code --install-extension ritwickdey.LiveServer
+\`\`\`
+
+---
+
+## Launch Your First HTML Page in Google Chrome
+![Windows 11 Google Chrome First HTML Page Live Preview](/screenshots/html/lesson1_html_first_page_chrome.png)
+* 1. Right-click anywhere inside your index.html file.
+* 2. Select "Open with Live Server" from menu.
+* 3. Keyboard shortcut is Alt + L, Alt + O.
+* 4. Or click "Go Live" at status bar.
+* 5. Chrome opens your page at port 5500.`,
+      pro: `* 1. HTML is standard language for web pages.
+* 2. It defines structure of web content.
+* 3. HTML consists of various building elements.
 * 4. Elements tell browsers how to display content.
 * 5. Elements label content like headings and paragraphs.
 
-### Example
+### Example: First HTML Page
 \`\`\`html
 <!DOCTYPE html>
 <html>
@@ -810,7 +832,29 @@ code .
 </html>
 \`\`\`
 
-![Windows 11 Google Chrome First HTML Page Live Preview](/screenshots/html/lesson1_html_first_page_chrome.png)`
+---
+
+## Install Live Server Extension in VS Code
+![Step 5: Install Live Server in Visual Studio Code](/screenshots/vscode/step5_vscode_extensions_liveserver.png)
+* 1. Press Ctrl + Shift + X in editor.
+* 2. Search for "Live Server" by Ritwick Dey.
+* 3. Click the blue Install button to install.
+* 4. Or run CLI command in your terminal.
+* 5. Extension auto-reloads pages whenever you save changes.
+
+\`\`\`powershell
+code --install-extension ritwickdey.LiveServer
+\`\`\`
+
+---
+
+## Launch Your First HTML Page in Google Chrome
+![Windows 11 Google Chrome First HTML Page Live Preview](/screenshots/html/lesson1_html_first_page_chrome.png)
+* 1. Right-click anywhere inside your index.html file.
+* 2. Select "Open with Live Server" from menu.
+* 3. Keyboard shortcut is Alt + L, Alt + O.
+* 4. Or click "Go Live" at status bar.
+* 5. Chrome opens your page at port 5500.`
     },
     hinglish: {
       kid: `* 1. HTML web pages banane ki standard language hai.
@@ -819,7 +863,7 @@ code .
 * 4. Elements browser ko content dikhana sikhate hain.
 * 5. Ye heading aur paragraph jaise content darshata.
 
-### Example
+### Example: Pehla HTML Page
 \`\`\`html
 <!DOCTYPE html>
 <html>
@@ -835,14 +879,36 @@ code .
 </html>
 \`\`\`
 
-![Windows 11 Google Chrome First HTML Page Live Preview](/screenshots/html/lesson1_html_first_page_chrome.png)`,
+---
+
+## VS Code Me Live Server Extension Install Karein
+![Step 5: Install Live Server in Visual Studio Code](/screenshots/vscode/step5_vscode_extensions_liveserver.png)
+* 1. VS Code me Ctrl + Shift + X dabayein.
+* 2. Search me "Live Server" likhein.
+* 3. Ritwick Dey ka Live Server install karein.
+* 4. Ya terminal me direct command chalayein.
+* 5. Ye save karte hi browser reload karta.
+
+\`\`\`powershell
+code --install-extension ritwickdey.LiveServer
+\`\`\`
+
+---
+
+## Google Chrome Me Live Website Kholein
+![Windows 11 Google Chrome First HTML Page Live Preview](/screenshots/html/lesson1_html_first_page_chrome.png)
+* 1. index.html file par right-click karein.
+* 2. "Open with Live Server" option chunein.
+* 3. Shortcut key Alt + L, Alt + O hai.
+* 4. Ya bottom bar par Go Live dabayein.
+* 5. Chrome port 5500 par page khol dega.`,
       pro: `* 1. HTML web pages banane ki standard language hai.
 * 2. Ye website ka basic structure banata hai.
 * 3. HTML alag alag elements se milkar banta.
 * 4. Elements browser ko content dikhana sikhate hain.
 * 5. Ye heading aur paragraph jaise content darshata.
 
-### Example
+### Example: Pehla HTML Page
 \`\`\`html
 <!DOCTYPE html>
 <html>
@@ -858,16 +924,38 @@ code .
 </html>
 \`\`\`
 
-![Windows 11 Google Chrome First HTML Page Live Preview](/screenshots/html/lesson1_html_first_page_chrome.png)`
+---
+
+## VS Code Me Live Server Extension Install Karein
+![Step 5: Install Live Server in Visual Studio Code](/screenshots/vscode/step5_vscode_extensions_liveserver.png)
+* 1. VS Code me Ctrl + Shift + X dabayein.
+* 2. Search me "Live Server" likhein.
+* 3. Ritwick Dey ka Live Server install karein.
+* 4. Ya terminal me direct command chalayein.
+* 5. Ye save karte hi browser reload karta.
+
+\`\`\`powershell
+code --install-extension ritwickdey.LiveServer
+\`\`\`
+
+---
+
+## Google Chrome Me Live Website Kholein
+![Windows 11 Google Chrome First HTML Page Live Preview](/screenshots/html/lesson1_html_first_page_chrome.png)
+* 1. index.html file par right-click karein.
+* 2. "Open with Live Server" option chunein.
+* 3. Shortcut key Alt + L, Alt + O hai.
+* 4. Ya bottom bar par Go Live dabayein.
+* 5. Chrome port 5500 par page khol dega.`
     },
     hindi: {
-      kid: `* 1. HTML वेब पेज बनाने की मानक भाषा है।
-* 2. यह वेब सामग्री का मूल ढांचा बनाती है।
-* 3. HTML विभिन्न एलिमेंट्स से मिलकर बना होता है।
-* 4. एलिमेंट्स ब्राउज़र को सामग्री दिखाना सिखाते हैं।
-* 5. यह हेडिंग और पैराग्राफ जैसी सामग्री दर्शाता।
+      kid: `* 1. HTML web pages banane ki mool bhasha hai.
+* 2. Yah har website ka dhaanchan banata hai.
+* 3. HTML vibhinn elements se milkar banta hai.
+* 4. Elements browser ko content dikhana sikhate hain.
+* 5. Yah heading aur paragraph darshata hai.
 
-### Example
+### Example: Pehla HTML Page
 \`\`\`html
 <!DOCTYPE html>
 <html>
@@ -883,14 +971,36 @@ code .
 </html>
 \`\`\`
 
-![Windows 11 Google Chrome First HTML Page Live Preview](/screenshots/html/lesson1_html_first_page_chrome.png)`,
-      pro: `* 1. HTML वेब पेज बनाने की मानक भाषा है।
-* 2. यह वेब सामग्री का मूल ढांचा बनाती है।
-* 3. HTML विभिन्न एलिमेंट्स से मिलकर बना होता है।
-* 4. एलिमेंट्स ब्राउज़र को सामग्री दिखाना सिखाते हैं।
-* 5. यह हेडिंग और पैराग्राफ जैसी सामग्री दर्शाता।
+---
 
-### Example
+## VS Code Me Live Server Extension Install Karein
+![Step 5: Install Live Server in Visual Studio Code](/screenshots/vscode/step5_vscode_extensions_liveserver.png)
+* 1. VS Code me Ctrl + Shift + X dabayein.
+* 2. Search me "Live Server" likhein.
+* 3. Ritwick Dey ka extension install karein.
+* 4. Ya terminal me command run karein.
+* 5. File save karte hi auto-reload hoga.
+
+\`\`\`powershell
+code --install-extension ritwickdey.LiveServer
+\`\`\`
+
+---
+
+## Google Chrome Me Live Website Kholein
+![Windows 11 Google Chrome First HTML Page Live Preview](/screenshots/html/lesson1_html_first_page_chrome.png)
+* 1. index.html par right click karein.
+* 2. "Open with Live Server" select karein.
+* 3. Shortcut key Alt + L, Alt + O dabayein.
+* 4. Ya Go Live button click karein.
+* 5. Chrome port 5500 par website khol dega.`,
+      pro: `* 1. HTML web pages banane ki mool bhasha hai.
+* 2. Yah har website ka dhaanchan banata hai.
+* 3. HTML vibhinn elements se milkar banta hai.
+* 4. Elements browser ko content dikhana sikhate hain.
+* 5. Yah heading aur paragraph darshata hai.
+
+### Example: Pehla HTML Page
 \`\`\`html
 <!DOCTYPE html>
 <html>
@@ -906,7 +1016,29 @@ code .
 </html>
 \`\`\`
 
-![Windows 11 Google Chrome First HTML Page Live Preview](/screenshots/html/lesson1_html_first_page_chrome.png)`
+---
+
+## VS Code Me Live Server Extension Install Karein
+![Step 5: Install Live Server in Visual Studio Code](/screenshots/vscode/step5_vscode_extensions_liveserver.png)
+* 1. VS Code me Ctrl + Shift + X dabayein.
+* 2. Search me "Live Server" likhein.
+* 3. Ritwick Dey ka extension install karein.
+* 4. Ya terminal me command run karein.
+* 5. File save karte hi auto-reload hoga.
+
+\`\`\`powershell
+code --install-extension ritwickdey.LiveServer
+\`\`\`
+
+---
+
+## Google Chrome Me Live Website Kholein
+![Windows 11 Google Chrome First HTML Page Live Preview](/screenshots/html/lesson1_html_first_page_chrome.png)
+* 1. index.html par right click karein.
+* 2. "Open with Live Server" select karein.
+* 3. Shortcut key Alt + L, Alt + O dabayein.
+* 4. Ya Go Live button click karein.
+* 5. Chrome port 5500 par website khol dega.`
     }
   },
   {

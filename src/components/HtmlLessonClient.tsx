@@ -376,6 +376,14 @@ Successfully installed Visual Studio Code!`;
 x64`;
   }
 
+  if (trimmed.startsWith("code --install-extension")) {
+    const parts = trimmed.split(/\s+/);
+    const ext = parts[2] || "ritwickdey.LiveServer";
+    return `Installing extensions...
+Installing extension '${ext}'...
+Extension '${ext}' v5.7.9 was successfully installed.`;
+  }
+
   if (trimmed.startsWith("code .")) {
     return `C:\\Users\\Student\\my-first-website> code .
 Opening current directory in Visual Studio Code... Workspace loaded!`;
