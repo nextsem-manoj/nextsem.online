@@ -1057,173 +1057,210 @@ code --install-extension ritwickdey.LiveServer
           "Only graphic design software rendering"
         ],
         correctAnswer: "Client-Server request/response, DNS domain resolution, IP addressing, and TCP 3-way handshake",
-        hint: "A web connection relies on 4 fundamental steps: finding the server (DNS), getting its address (IP), connecting (TCP Handshake), and requesting the page (Client-Server)."
+        hint: "A web connection relies on 4 fundamental steps: finding the server (DNS), getting its address (IP), connecting (TCP), and transferring data (Client-Server)!"
       },
       hinglish: {
-        question: "Web connection establish karne mein kaun se main steps involve hote hain?",
+        question: "Ek complete web connection banane ke liye kaun se components zaroori hote hain?",
         options: [
-          "Client-Server request/response, DNS domain resolution, IP addressing, aur TCP 3-way handshake",
-          "Sirf local file reading bina network ke",
-          "Sirf CSS styling sheets bina server communication ke",
-          "Sirf graphic design software rendering"
+          "Client-Server request/response, DNS domain resolution, IP addressing, and TCP 3-way handshake",
+          "Bina internet ke sirf local file kholna",
+          "Bina server ke sirf CSS stylesheet lagana",
+          "Sirf graphic design software se image banana"
         ],
-        correctAnswer: "Client-Server request/response, DNS domain resolution, IP addressing, aur TCP 3-way handshake",
-        hint: "Web connection 4 main steps par chalta hai: DNS resolution, IP addressing, TCP Handshake, aur Client-Server communication."
+        correctAnswer: "Client-Server request/response, DNS domain resolution, IP addressing, and TCP 3-way handshake",
+        hint: "Web connection 4 pillars par chalta hai: DNS resolution, IP address, TCP handshake aur Client-Server communication."
       },
       hindi: {
-        question: "वेब कनेक्शन स्थापित करने में कौन से मुख्य चरण शामिल हैं?",
+        question: "Ek poora web connection sthaapit karne ke liye kaun se ghatak shamil hote hain?",
         options: [
-          "क्लाइंट-सर्वर अनुरोध/प्रतिक्रिया, DNS डोमेन रिज़ॉल्यूशन, IP एड्रेसिंग, और TCP 3-वे हैंडशेक",
-          "बिना नेटवर्क के केवल लोकल फाइल रीडिंग",
-          "बिना सर्वर कम्युनिकेशन के केवल CSS स्टाइलिंग",
-          "केवल ग्राफिक्स डिजाइन सॉफ्टवेयर रेंडरिंग"
+          "Client-Server request/response, DNS domain resolution, IP addressing, and TCP 3-way handshake",
+          "Bina internet ke keval local file padhna",
+          "Bina server ke keval CSS style lagana",
+          "Keval graphic design software chalana"
         ],
-        correctAnswer: "क्लाइंट-सर्वर अनुरोध/प्रतिक्रिया, DNS डोमेन रिज़ॉल्यूशन, IP एड्रेसिंग, और TCP 3-वे हैंडशेक",
-        hint: "वेब कनेक्शन 4 मुख्य चरणों पर निर्भर करता है: DNS, IP एड्रेस, TCP हैंडशेक और क्लाइंट-सर्वर रिस्पांस!"
+        correctAnswer: "Client-Server request/response, DNS domain resolution, IP addressing, and TCP 3-way handshake",
+        hint: "Web connection 4 mool charano par nirbhar karta hai: DNS resolution, IP address, TCP handshake aur Client-Server model."
       }
     },
     english: {
-      kid: `### 🌐 Web Architecture: How the Web Works (All-in-One Guide)
-
-Web communications rely on four essential pillars working together seamlessly:
-
----
-
-### 1. 🧒 Client vs. Server Model
-* **The Client (You)**: This is your web browser (Chrome, Safari, Edge). It acts like a customer ordering food at a restaurant: *"Can I please have the HTML page?"*
-* **The Server (The Host)**: This is a powerful remote computer storing website files. It acts like the chef: it receives your request, finds the files, and sends them back to your screen.
+      kid: `## 1. Client vs. Server Model
+* 1. Clients request data from web servers.
+* 2. Browsers act as standard web clients.
+* 3. Servers store and host website files.
+* 4. Servers return HTML documents to browsers.
+* 5. Communication happens over standard HTTP protocols.
 
 ---
 
-### 2. 📞 DNS (Domain Name System): The Web's Phonebook
-* Computers don't understand words like \`nextsem.online\`; they only understand numeric **IP addresses** (like \`192.168.29.170\`).
-* **DNS** acts as the contacts phonebook of the internet. When you type a domain name, the DNS resolver looks up the name and retrieves the matching IP address in milliseconds!
+## 2. DNS & IP Addresses (Testing with Ping)
+![Pinging nextsem.online in Windows PowerShell](/screenshots/html/lesson2_ping_nextsem_online.png)
+* 1. Computers communicate using numeric IP addresses.
+* 2. DNS translates domain names into IPs.
+* 3. Ping command verifies live server connectivity.
+* 4. Packets travel across global fiber networks.
+* 5. Output shows round-trip latency in milliseconds.
+
+\`\`\`powershell
+ping nextsem.online
+\`\`\`
 
 ---
 
-### 3. 🏠 IP Addresses (IPv4 vs. IPv6)
-* Every connected device needs a unique address so data packets reach the right destination.
-* **IPv4**: The classic 32-bit format using 4 numbers separated by dots (e.g., \`192.168.1.1\`).
-* **IPv6**: The 128-bit hexadecimal format (e.g., \`2001:0db8:85a3::8a2e:0370:7334\`) created to provide trillions of new addresses.
+## 3. TCP 3-Way Handshake
+* 1. TCP establishes reliable connection before transmission.
+* 2. Client sends SYN packet to server.
+* 3. Server replies with SYN-ACK confirmation.
+* 4. Client acknowledges with final ACK packet.
+* 5. Connection established and data transfer starts.`,
+      pro: `## 1. Client-Server Architecture & Execution
+* 1. User agents dispatch standard HTTP requests.
+* 2. Edge web servers receive incoming connections.
+* 3. Daemons process request and locate assets.
+* 4. Servers stream HTML payload back to client.
+* 5. Browsers construct DOM and render layout.
 
 ---
 
-### 4. 🤝 The TCP 3-Way Handshake
-Before sending data, your browser and server perform a 3-step handshake to establish a reliable connection:
-1. **SYN (Hello)**: Client asks *"Can we connect?"*
-2. **SYN-ACK (Hello Back)**: Server replies *"Yes! I hear you, can you hear me?"*
-3. **ACK (Confirm)**: Client confirms *"Yes! Connection established, let's transfer data!"*`,
+## 2. DNS Resolution & ICMP Network Latency
+![Pinging nextsem.online in Windows PowerShell](/screenshots/html/lesson2_ping_nextsem_online.png)
+* 1. DNS maps hostnames to numeric IP addresses.
+* 2. Recursive resolvers query authoritative domain nameservers.
+* 3. IPv4 utilizes 32-bit dotted-decimal notation format.
+* 4. Ping utility sends ICMP echo request packets.
+* 5. Round-trip time measures global network performance.
 
-      pro: `### 🌐 Complete Web Communication & Infrastructure Stack
-
-A comprehensive analysis of Web Architecture covering Client-Server Roles, DNS Lookup Hierarchy, IP Protocols, and TCP Socket Management.
-
----
-
-### 1. Client-Server Architecture & Execution
-* **Client Side**: Executes HTTP user agent requests, processes DOM trees, CSSOM stylesheets, and JavaScript runtime engines.
-* **Server Side**: Listens on inbound transport ports (e.g., Port 80 for HTTP, 443 for HTTPS), executes backend daemons (Nginx/Apache), and returns HTTP payloads.
+\`\`\`powershell
+ping nextsem.online
+\`\`\`
 
 ---
 
-### 2. Hierarchical DNS Resolution Query Flow
-1. **Browser Cache & OS Host File**: Checks local memory records.
-2. **Recursive Resolver**: Queries Root Nameservers (\`.\`).
-3. **Top-Level Domain (TLD) Servers**: Resolves TLD extensions (e.g., \`.online\`).
-4. **Authoritative Nameservers**: Returns exact \`A\` / \`AAAA\` record IP bindings.
-
----
-
-### 3. IP Protocols: IPv4 Subnetting vs. IPv6 Datagrams
-* **IPv4**: 32-bit address space supporting $2^{32}$ (4.29 billion) addresses in dotted-decimal notation (\`172.217.16.14\`).
-* **IPv6**: 128-bit address space supporting $2^{128}$ ($3.4 \\times 10^{38}$) unique addresses in colon-separated hexadecimal blocks.
-
----
-
-### 4. TCP 3-Way Handshake & Socket Management
-1. **SYN**: Client sends sequence number $A$ with \`SYN\` flag.
-2. **SYN-ACK**: Server acknowledges $A+1$, generates sequence number $B$, sets \`SYN-ACK\` flags.
-3. **ACK**: Client acknowledges $B+1$, sets \`ACK\` flag, moving state to \`ESTABLISHED\`.`
+## 3. TCP 3-Way Handshake & Socket Management
+* 1. Reliable transport begins with SYN packet.
+* 2. Server synchronizes with SYN-ACK sequence number.
+* 3. Client responds with final ACK packet.
+* 4. Bidirectional socket connection transitions to ESTABLISHED.
+* 5. HTTP data streams securely across connection.`
     },
     hinglish: {
-      kid: `### 🌐 Web Architecture: Internet Kaise Kaam Karta Hai? (Full Guide)
-
-Internet par ek web page open hone ke peeche 4 main steps hote hain:
-
----
-
-### 1. 🧒 Client vs. Server
-* **Client (Aap)**: Aapka web browser (Chrome, Safari). Ye server ko request bhejta hai ki *"Mujhe website dikhao"*.
-* **Server (Website Computer)**: Ek powerful remote computer jo saari website files store karta hai aur request aane par unhe aapke screen par bhejta hai.
+      kid: `## 1. Client aur Server Model
+* 1. Client web server se data maangta.
+* 2. Chrome browser client ki tarah kaam karta.
+* 3. Server website ki saari files store karta.
+* 4. Server browser ko HTML code bhejta.
+* 5. Dono ke beech HTTP connection banta.
 
 ---
 
-### 2. 📞 DNS: Internet Ka Phonebook
-* Computers ko \`nextsem.online\` jaise naam samajh nahi aate, unhe sirf numbers (IP addresses) samajh aate hain.
-* **DNS** phonebook ki tarah \`nextsem.online\` ko IP address (jaise \`192.168.29.170\`) mein translate kar deta hai.
+## 2. DNS aur IP Address (Ping Test)
+![Pinging nextsem.online in Windows PowerShell](/screenshots/html/lesson2_ping_nextsem_online.png)
+* 1. Internet par har computer ka IP address.
+* 2. DNS website ka naam IP me badalta.
+* 3. Ping command se server connection check hota.
+* 4. Data packets fast speed se travel karte.
+* 5. Milliseconds me round-trip time pata chalta.
+
+\`\`\`powershell
+ping nextsem.online
+\`\`\`
 
 ---
 
-### 3. 🏠 IP Address: Aapka Network Address
-* **IPv4**: Purana 32-bit format (jaise \`192.168.1.1\`).
-* **IPv6**: Naya 128-bit lamba format (jaise \`2001:0db8...\`) kyunki dunia mein devices badhne se IPv4 addresses khatam ho rahe hain.
+## 3. TCP 3-Way Handshake
+* 1. Data transfer se pehle handshake hota.
+* 2. Client pehle SYN packet bhejta hai.
+* 3. Server SYN-ACK ke sath reply karta.
+* 4. Client final ACK packet bhej kar judta.
+* 5. Connection bante hi data aana shuru.`,
+      pro: `## 1. Client-Server Architecture & Execution
+* 1. Browser HTTP user agent requests bhejta hai.
+* 2. Web server port 80/443 par sunta.
+* 3. Backend daemons requested files fetch karte hain.
+* 4. Server HTML documents client ko bhejta.
+* 5. Browser DOM create karke screen par dikhata.
 
 ---
 
-### 4. 🤝 TCP 3-Way Handshake
-Data bhejne se pehle computer aur server 3-step handshake karte hain:
-1. **SYN**: Client bolta hai *"Connection banana hai?"*
-2. **SYN-ACK**: Server bolta hai *"Haan main ready hoon!"*
-3. **ACK**: Client bolta hai *"Okay, data bhejna shuru karo!"*`,
+## 2. DNS Resolution & ICMP Network Latency
+![Pinging nextsem.online in Windows PowerShell](/screenshots/html/lesson2_ping_nextsem_online.png)
+* 1. DNS domain name ko IP me map karta.
+* 2. Recursive resolvers authoritative servers se query karte.
+* 3. IPv4 32-bit dotted decimal format use karta.
+* 4. Ping utility ICMP echo request packets bhejti.
+* 5. Latency metrics se network speed verify hoti.
 
-      pro: `### 🌐 System Architecture & Transport Layers
+\`\`\`powershell
+ping nextsem.online
+\`\`\`
 
-Network layer se le kar application layer tak web communication flow:
+---
 
-1. **Client-Server Flow**: HTTP requests/responses isolated sockets ke zariye execute hote hain.
-2. **DNS Resolution**: Recursive resolver root aur TLD servers se query pass karke final \`A Record\` IP return karta hai.
-3. **IP Layer**: IPv4 (32-bit) vs IPv6 (128-bit) routing protocols packets ko destination address tak route karte hain.
-4. **TCP Handshake**: SYN ➔ SYN-ACK ➔ ACK sequence ke dwara socket streams active hoti hain.`
+## 3. TCP 3-Way Handshake & Socket Management
+* 1. Connection initiation SYN packet se shuru hota.
+* 2. Server SYN-ACK sequence number se acknowledge karta.
+* 3. Client final ACK packet deliver karta hai.
+* 4. Socket state ESTABLISHED status me switch hoti.
+* 5. Data payload secure stream me transfer hota.`
     },
     hindi: {
-      kid: `### 🌐 वेब आर्किटेक्चर: इंटरनेट कैसे काम करता है? (संपूर्ण गाइड)
-
-वेबसाइट खोलने के पीछे 4 मुख्य चरण काम करते हैं:
-
----
-
-### 1. 🧒 क्लाइंट और सर्वर मॉडल
-* **क्लाइंट (आप)**: आपका वेब ब्राउज़र (Chrome, Safari)। यह सर्वर से अनुरोध करता है: *"मुझे पेज दिखाएं।"*
-* **सर्वर**: एक शक्तिशाली कंप्यूटर जो वेबसाइट फाइलों को सुरक्षित रखता है और आपके मांगने पर उन्हें भेजता है।
+      kid: `## 1. क्लाइंट और सर्वर मॉडल
+* 1. क्लाइंट वेब सर्वर से डेटा मांगता है।
+* 2. ब्राउज़र क्लाइंट की भूमिका निभाता है।
+* 3. सर्वर वेबसाइट फाइलों को सुरक्षित रखता है।
+* 4. सर्वर ब्राउज़र को HTML कोड लौटाता है।
+* 5. यह संचार HTTP प्रोटोकॉल पर चलता है।
 
 ---
 
-### 2. 📞 DNS: इंटरनेट की फोनबुक
-* कंप्यूटर \`nextsem.online\` जैसे नामों को नहीं समझते; वे केवल आईपी नंबर समझते हैं।
-* **DNS** डोमेन नाम को सही आईपी एड्रेस (\`192.168.29.170\`) में अनुवादित करता है।
+## 2. DNS और आईपी एड्रेस (पिंग टेस्ट)
+![Pinging nextsem.online in Windows PowerShell](/screenshots/html/lesson2_ping_nextsem_online.png)
+* 1. इंटरनेट डिवाइस का अपना आईपी पता होता।
+* 2. DNS डोमेन नाम को आईपी में बदलता।
+* 3. पिंग कमांड से सर्वर कनेक्शन जांचते हैं।
+* 4. डेटा पैकेट वैश्विक नेटवर्क पर दौड़ते हैं।
+* 5. परिणाम मिलीसेकंड में नेटवर्क विलंबता बताता।
+
+\`\`\`powershell
+ping nextsem.online
+\`\`\`
 
 ---
 
-### 3. 🏠 आईपी एड्रेस (IPv4 बनाम IPv6)
-* **IPv4**: 32-बिट का पता (उदा. \`192.168.1.1\`)।
-* **IPv6**: 128-बिट का नया बड़ा पता, जो खरबों नई डिवाइसों को जोड़ सकता है।
+## 3. टीसीपी 3-वे हैंडशेक
+* 1. डेटा भेजने से पहले टीसीपी हैंडशेक होता।
+* 2. क्लाइंट सर्वर को SYN पैकेट भेजता।
+* 3. सर्वर SYN-ACK पैकेट से उत्तर देता।
+* 4. क्लाइंट अंतिम ACK पैकेट भेजकर जोड़ता।
+* 5. कनेक्शन बनने के बाद डेटा ट्रांसफर होता।`,
+      pro: `## 1. क्लाइंट-सर्वर आर्किटेक्चर एवं निष्पादन
+* 1. ब्राउज़र मानक HTTP अनुरोध प्रेषित करता है।
+* 2. वेब सर्वर पोर्ट 80/443 पर श्रवण करता।
+* 3. डेमन फाइलों को खोजकर पैकेट बनाता है।
+* 4. सर्वर HTML पेलोड क्लाइंट को लौटाता है।
+* 5. ब्राउज़र DOM बनाकर पृष्ठ प्रस्तुत करता है।
 
 ---
 
-### 4. 🤝 टीसीपी 3-वे हैंडशेक
-डेटा ट्रांसफर से पहले 3-स्टेप समझौता होता है:
-1. **SYN (हैलो)**: क्लाइंट पूछता है *"क्या हम जुड़ सकते हैं?"*
-2. **SYN-ACK**: सर्वर जवाब देता है *"हाँ, मैं तैयार हूँ!"*
-3. **ACK**: क्लाइंट पुष्टि करता है *"चाहिए, डेटा भेजें!"*`,
+## 2. डीएनएस रिज़ॉल्यूशन और नेटवर्क विलंबता
+![Pinging nextsem.online in Windows PowerShell](/screenshots/html/lesson2_ping_nextsem_online.png)
+* 1. DNS डोमेन नाम को आईपी में बदलता।
+* 2. रिकर्सिव रिज़ॉल्वर नेम-सर्वर से पता खोजते हैं।
+* 3. IPv4 32-बिट डॉटेड-डेसिमल प्रारूप का उपयोग करता।
+* 4. पिंग उपयोगिता ICMP इको पैकेट भेजती है।
+* 5. राउंड-ट्रिप समय नेटवर्क प्रदर्शन की पुष्टि करता।
 
-      pro: `### 🌐 पूर्ण वेब संचार एवं नेटवर्क इन्फ्रास्ट्रक्चर
+\`\`\`powershell
+ping nextsem.online
+\`\`\`
 
-वेब आर्किटेक्चर के 4 प्रमुख घटक: क्लाइंट-सर्वर मॉडल, डीएनएस रिज़ॉल्यूशन, आईपी प्रोटोकॉल और टीसीपी सॉकेट प्रबंधन।
+---
 
-1. **क्लाइंट-सर्वर सिस्टम**: क्लाइंट एचटीटीपी अनुरोध भेजता है, और सर्वर पोर्ट 80/443 पर रिस्पॉन्स लौटाता है।
-2. **डीएनएस पदानुक्रम**: ब्राउज़र कैशे से लेकर अथॉरिटेटिव सर्वर तक ए-रिकॉर्ड (A Record) रिज़ॉल्यूशन।
-3. **आईपी एड्रेसिंग**: 32-बिट IPv4 और 128-बिट IPv6 पैकेट राउटिंग।
-4. **टीसीपी हैंडशेक**: SYN ➔ SYN-ACK ➔ ACK अनुक्रम द्वारा विश्वसनीय सॉकेट स्ट्रीम की स्थापना।`
+## 3. टीसीपी 3-वे हैंडशेक और सॉकेट प्रबंधन
+* 1. विश्वसनीय संचार SYN पैकेट से प्रारंभ होता।
+* 2. सर्वर SYN-ACK अनुक्रम संख्या से पुष्टि करता।
+* 3. क्लाइंट अंतिम ACK पैकेट वापस भेजता है।
+* 4. सॉकेट स्थिति ESTABLISHED अवस्था में आती है।
+* 5. सुरक्षित डेटा स्ट्रीम का प्रवाह शुरू होता।`
     }
   },
   {
