@@ -1044,223 +1044,1311 @@ code --install-extension ritwickdey.LiveServer
   {
     id: 2,
     slug: "free-web-development-lessons-client-server-model",
-    title: "Web Architecture: Client-Server, DNS, IP Addresses & TCP Handshake",
+    title: "Client vs. Server Model",
     unit: "Unit 1: HTML Introduction & Web Fundamentals",
-    bookRef: "Duckett Chapter 1 (p. 6-10) & Freeman Chapter 2 (p. 25-35)",
+    bookRef: "Duckett Chapter 1 (p. 6-10)",
     exercise: {
       english: {
-        question: "Which components are involved in establishing a complete Web connection sequence?",
+        question: "In the Client-Server model, which entity requests the webpage and which entity delivers it?",
         options: [
-          "Client-Server request/response, DNS domain resolution, IP addressing, and TCP 3-way handshake",
-          "Only local file reading without network interfaces",
-          "Only CSS styling sheets without server communication",
-          "Only graphic design software rendering"
+          "Client requests, Server delivers",
+          "Server requests, Client delivers",
+          "Browser delivers, Server requests",
+          "Router requests, Database delivers"
         ],
-        correctAnswer: "Client-Server request/response, DNS domain resolution, IP addressing, and TCP 3-way handshake",
-        hint: "A web connection relies on 4 fundamental steps: finding the server (DNS), getting its address (IP), connecting (TCP), and transferring data (Client-Server)!"
+        correctAnswer: "Client requests, Server delivers",
+        hint: "Your browser is the client requesting pages from the remote server."
       },
       hinglish: {
-        question: "Ek complete web connection banane ke liye kaun se components zaroori hote hain?",
+        question: "Client-Server model me webpage kaun request karta hai aur kaun deliver karta hai?",
         options: [
-          "Client-Server request/response, DNS domain resolution, IP addressing, and TCP 3-way handshake",
-          "Bina internet ke sirf local file kholna",
-          "Bina server ke sirf CSS stylesheet lagana",
-          "Sirf graphic design software se image banana"
+          "Client requests, Server delivers",
+          "Server requests, Client delivers",
+          "Browser delivers, Server requests",
+          "Router requests, Database delivers"
         ],
-        correctAnswer: "Client-Server request/response, DNS domain resolution, IP addressing, and TCP 3-way handshake",
-        hint: "Web connection 4 pillars par chalta hai: DNS resolution, IP address, TCP handshake aur Client-Server communication."
+        correctAnswer: "Client requests, Server delivers",
+        hint: "Aapka browser client hota hai jo server se pages maangta hai."
       },
       hindi: {
-        question: "Ek poora web connection sthaapit karne ke liye kaun se ghatak shamil hote hain?",
+        question: "क्लाइंट-सर्वर मॉडल में वेबपेज का अनुरोध कौन करता है और इसे कौन डिलीवर करता है?",
         options: [
-          "Client-Server request/response, DNS domain resolution, IP addressing, and TCP 3-way handshake",
-          "Bina internet ke keval local file padhna",
-          "Bina server ke keval CSS style lagana",
-          "Keval graphic design software chalana"
+          "Client requests, Server delivers",
+          "Server requests, Client delivers",
+          "Browser delivers, Server requests",
+          "Router requests, Database delivers"
         ],
-        correctAnswer: "Client-Server request/response, DNS domain resolution, IP addressing, and TCP 3-way handshake",
-        hint: "Web connection 4 mool charano par nirbhar karta hai: DNS resolution, IP address, TCP handshake aur Client-Server model."
+        correctAnswer: "Client requests, Server delivers",
+        hint: "आपका ब्राउज़र क्लाइंट है जो सर्वर से पेज मंगवाता है।"
       }
     },
     english: {
-      kid: `## 1. Client vs. Server Model
-* 1. Clients request data from web servers.
-* 2. Browsers act as standard web clients.
-* 3. Servers store and host website files.
-* 4. Servers return HTML documents to browsers.
-* 5. Communication happens over standard HTTP protocols.
+      kid: `## 1. What is a Web Client?
+* 1. Clients are devices used by people.
+* 2. Your web browser acts as client.
+* 3. Clients request websites from web servers.
+* 4. Browsers send requests using internet protocols.
+* 5. Clients receive and display web documents.
 
 ---
 
-## 2. DNS & IP Addresses (Testing with Ping)
-![Pinging nextsem.online in Windows PowerShell](/screenshots/html/lesson2_ping_nextsem_online.png)
-* 1. Computers communicate using numeric IP addresses.
-* 2. DNS translates domain names into IPs.
-* 3. Ping command verifies live server connectivity.
-* 4. Packets travel across global fiber networks.
-* 5. Output shows round-trip latency in milliseconds.
+## 2. What is a Web Server?
+* 1. Servers are powerful remote computers worldwide.
+* 2. Servers store website files like HTML.
+* 3. Servers listen constantly for incoming requests.
+* 4. Servers process and validate client inquiries.
+* 5. Servers return requested web page files.
+
+---
+
+## 3. The Client-Server Request Loop
+* 1. User types website address in browser.
+* 2. Client sends request to remote server.
+* 3. Server locates requested website HTML file.
+* 4. Server sends back complete response packet.
+* 5. Browser renders page on user screen.
+
+---
+
+## 4. Testing Server Connectivity with ping
+![Pinging nextsem.online Server in Windows Terminal](/screenshots/html/lesson2_ping_nextsem_online.png)
+* 1. Ping tests connection to remote server.
+* 2. Command sends small test data packets.
+* 3. Server returns round trip response time.
+* 4. Fast response verifies healthy network path.
+* 5. Zero packet loss confirms server reachability.
 
 \`\`\`powershell
 ping nextsem.online
-\`\`\`
+\`\`\``,
+      pro: `## 1. Client Architecture & Request Dispatch
+* 1. Clients initiate transactional web socket connections.
+* 2. User agents formulate structured protocol requests.
+* 3. Browsers execute asynchronous background network queries.
+* 4. Operating systems buffer incoming binary stream data.
+* 5. Client engines parse transmitted HTML documents.
 
 ---
 
-## 3. TCP 3-Way Handshake
-* 1. TCP establishes reliable connection before transmission.
-* 2. Client sends SYN packet to server.
-* 3. Server replies with SYN-ACK confirmation.
-* 4. Client acknowledges with final ACK packet.
-* 5. Connection established and data transfer starts.`,
-      pro: `## 1. Client-Server Architecture & Execution
-* 1. User agents dispatch standard HTTP requests.
-* 2. Edge web servers receive incoming connections.
-* 3. Daemons process request and locate assets.
-* 4. Servers stream HTML payload back to client.
-* 5. Browsers construct DOM and render layout.
+## 2. Server Infrastructure & Daemon Listeners
+* 1. Servers execute high concurrency HTTP daemons.
+* 2. Systems bind sockets to port 443.
+* 3. Web servers route URI request paths.
+* 4. Edge nodes balance incoming global traffic.
+* 5. Servers stream serialized HTML markup payloads.
 
 ---
 
-## 2. DNS Resolution & ICMP Network Latency
-![Pinging nextsem.online in Windows PowerShell](/screenshots/html/lesson2_ping_nextsem_online.png)
-* 1. DNS maps hostnames to numeric IP addresses.
-* 2. Recursive resolvers query authoritative domain nameservers.
-* 3. IPv4 utilizes 32-bit dotted-decimal notation format.
-* 4. Ping utility sends ICMP echo request packets.
-* 5. Round-trip time measures global network performance.
+## 3. Distributed Request-Response Lifecycle
+* 1. Client initiates transport layer TCP handshake.
+* 2. Client dispatches HTTP application layer payload.
+* 3. Server routes query through reverse proxy.
+* 4. Server returns status codes and headers.
+* 5. Browser constructs DOM from received bytes.
+
+---
+
+## 4. Network Diagnostics with ICMP Ping
+![Pinging nextsem.online Server in Windows Terminal](/screenshots/html/lesson2_ping_nextsem_online.png)
+* 1. Ping utility dispatches ICMP echo packets.
+* 2. Diagnostics measure millisecond round trip latency.
+* 3. TTL values indicate gateway hop counts.
+* 4. Zero packet loss confirms route stability.
+* 5. Cloud edge answers within 17 milliseconds.
 
 \`\`\`powershell
 ping nextsem.online
-\`\`\`
-
----
-
-## 3. TCP 3-Way Handshake & Socket Management
-* 1. Reliable transport begins with SYN packet.
-* 2. Server synchronizes with SYN-ACK sequence number.
-* 3. Client responds with final ACK packet.
-* 4. Bidirectional socket connection transitions to ESTABLISHED.
-* 5. HTTP data streams securely across connection.`
+\`\`\``
     },
     hinglish: {
-      kid: `## 1. Client aur Server Model
-* 1. Client web server se data maangta.
-* 2. Chrome browser client ki tarah kaam karta.
-* 3. Server website ki saari files store karta.
-* 4. Server browser ko HTML code bhejta.
-* 5. Dono ke beech HTTP connection banta.
+      kid: `## 1. Web Client Kya Hota Hai?
+* 1. Client wo device hai jo aap chalate.
+* 2. Web browser ek client ki tarah kaam karta.
+* 3. Client server se website page maangta hai.
+* 4. Browser internet protocol se request bhejta hai.
+* 5. Client web documents receive karke dikhata hai.
 
 ---
 
-## 2. DNS aur IP Address (Ping Test)
-![Pinging nextsem.online in Windows PowerShell](/screenshots/html/lesson2_ping_nextsem_online.png)
-* 1. Internet par har computer ka IP address.
-* 2. DNS website ka naam IP me badalta.
-* 3. Ping command se server connection check hota.
-* 4. Data packets fast speed se travel karte.
-* 5. Milliseconds me round-trip time pata chalta.
+## 2. Web Server Kya Hota Hai?
+* 1. Server ek powerful remote computer hota hai.
+* 2. Server website ki HTML files sambhalta hai.
+* 3. Server har waqt requests ka intezar karta.
+* 4. Server client ki request ko process karta.
+* 5. Server requested web page bhej deta hai.
+
+---
+
+## 3. Client-Server Request Loop
+* 1. User browser me website address likhta hai.
+* 2. Client server ko request send karta hai.
+* 3. Server requested HTML file search karta hai.
+* 4. Server client ko complete response packet bhejta.
+* 5. Browser screen par page render kar deta.
+
+---
+
+## 4. Ping Se Server Connection Check Karein
+![Pinging nextsem.online Server in Windows Terminal](/screenshots/html/lesson2_ping_nextsem_online.png)
+* 1. Ping remote server ka connection test karta.
+* 2. Command chhote test data packets bhejti hai.
+* 3. Server round trip time return karta hai.
+* 4. Fast response network connection verify karta hai.
+* 5. Zero packet loss server connectivity prove karta.
 
 \`\`\`powershell
 ping nextsem.online
-\`\`\`
+\`\`\``,
+      pro: `## 1. Client Architecture & Request Dispatch
+* 1. Client browser socket connection initiate karta hai.
+* 2. User agent structured protocol requests formulate karta.
+* 3. Browser background network queries execute karta hai.
+* 4. Operating system incoming data stream buffer karta.
+* 5. Rendering engine received HTML parse karta hai.
 
 ---
 
-## 3. TCP 3-Way Handshake
-* 1. Data transfer se pehle handshake hota.
-* 2. Client pehle SYN packet bhejta hai.
-* 3. Server SYN-ACK ke sath reply karta.
-* 4. Client final ACK packet bhej kar judta.
-* 5. Connection bante hi data aana shuru.`,
-      pro: `## 1. Client-Server Architecture & Execution
-* 1. Browser HTTP user agent requests bhejta hai.
-* 2. Web server port 80/443 par sunta.
-* 3. Backend daemons requested files fetch karte hain.
-* 4. Server HTML documents client ko bhejta.
-* 5. Browser DOM create karke screen par dikhata.
+## 2. Server Infrastructure & Daemons
+* 1. Server concurrent HTTP daemons execute karta hai.
+* 2. Server ports 80 aur 443 listen karta.
+* 3. Web server requested URI paths resolve karta.
+* 4. Load balancers incoming traffic distribute karte hain.
+* 5. Server serialized HTML markup payload return karta.
 
 ---
 
-## 2. DNS Resolution & ICMP Network Latency
-![Pinging nextsem.online in Windows PowerShell](/screenshots/html/lesson2_ping_nextsem_online.png)
-* 1. DNS domain name ko IP me map karta.
-* 2. Recursive resolvers authoritative servers se query karte.
-* 3. IPv4 32-bit dotted decimal format use karta.
-* 4. Ping utility ICMP echo request packets bhejti.
-* 5. Latency metrics se network speed verify hoti.
+## 3. Request-Response Lifecycle
+* 1. Client TCP socket handshake establish karta hai.
+* 2. Client HTTP request headers transmit karta hai.
+* 3. Server reverse proxy through request route karta.
+* 4. Server status codes aur headers deliver karta.
+* 5. Browser incoming bytes se DOM create karta.
+
+---
+
+## 4. ICMP Network Diagnostics
+![Pinging nextsem.online Server in Windows Terminal](/screenshots/html/lesson2_ping_nextsem_online.png)
+* 1. Ping utility ICMP echo packets bhejti hai.
+* 2. Tool network round trip latency measure karta.
+* 3. TTL metrics routing hop counts represent karte.
+* 4. Zero packet loss route reliability confirm karta.
+* 5. Cloud edge server 17ms me reply deta.
 
 \`\`\`powershell
 ping nextsem.online
-\`\`\`
-
----
-
-## 3. TCP 3-Way Handshake & Socket Management
-* 1. Connection initiation SYN packet se shuru hota.
-* 2. Server SYN-ACK sequence number se acknowledge karta.
-* 3. Client final ACK packet deliver karta hai.
-* 4. Socket state ESTABLISHED status me switch hoti.
-* 5. Data payload secure stream me transfer hota.`
+\`\`\``
     },
     hindi: {
-      kid: `## 1. क्लाइंट और सर्वर मॉडल
-* 1. क्लाइंट वेब सर्वर से डेटा मांगता है।
-* 2. ब्राउज़र क्लाइंट की भूमिका निभाता है।
-* 3. सर्वर वेबसाइट फाइलों को सुरक्षित रखता है।
-* 4. सर्वर ब्राउज़र को HTML कोड लौटाता है।
-* 5. यह संचार HTTP प्रोटोकॉल पर चलता है।
+      kid: `## 1. वेब क्लाइंट क्या है?
+* 1. क्लाइंट वह उपकरण है जो आप चलाते।
+* 2. वेब ब्राउज़र क्लाइंट के रूप में काम करता।
+* 3. क्लाइंट सर्वर से वेबपेज मांगता है।
+* 4. ब्राउज़र इंटरनेट प्रोटोकॉल द्वारा अनुरोध भेजता।
+* 5. क्लाइंट वेब दस्तावेज़ प्राप्त कर प्रदर्शित करता।
 
 ---
 
-## 2. DNS और आईपी एड्रेस (पिंग टेस्ट)
-![Pinging nextsem.online in Windows PowerShell](/screenshots/html/lesson2_ping_nextsem_online.png)
-* 1. इंटरनेट डिवाइस का अपना आईपी पता होता।
-* 2. DNS डोमेन नाम को आईपी में बदलता।
-* 3. पिंग कमांड से सर्वर कनेक्शन जांचते हैं।
-* 4. डेटा पैकेट वैश्विक नेटवर्क पर दौड़ते हैं।
-* 5. परिणाम मिलीसेकंड में नेटवर्क विलंबता बताता।
+## 2. वेब सर्वर क्या है?
+* 1. सर्वर शक्तिशाली दूरस्थ कंप्यूटर होते हैं।
+* 2. सर्वर HTML जैसी फाइलें सुरक्षित रखते हैं।
+* 3. सर्वर हर समय अनुरोधों की प्रतीक्षा करते।
+* 4. सर्वर क्लाइंट के अनुरोधों को संसाधित करते।
+* 5. सर्वर मांगी गई वेब फाइलें वापस भेजते।
+
+---
+
+## 3. क्लाइंट-सर्वर अनुरोध चक्र
+* 1. उपयोगकर्ता ब्राउज़र में वेबसाइट पता लिखता है।
+* 2. क्लाइंट दूरस्थ सर्वर को अनुरोध भेजता है।
+* 3. सर्वर मांगी गई HTML फाइल खोजता है।
+* 4. सर्वर पूरा रिस्पॉन्स पैकेट वापस भेजता है।
+* 5. ब्राउज़र स्क्रीन पर पेज को रेंडर करता।
+
+---
+
+## 4. पिंग (ping) से सर्वर जांचें
+![Pinging nextsem.online Server in Windows Terminal](/screenshots/html/lesson2_ping_nextsem_online.png)
+* 1. पिंग दूरस्थ सर्वर का कनेक्शन जांचता है।
+* 2. कमांड छोटे परीक्षण डेटा पैकेट भेजती है।
+* 3. सर्वर राउंड ट्रिप समय लौटाता है।
+* 4. तेज़ प्रतिक्रिया नेटवर्क मार्ग प्रमाणित करती है।
+* 5. शून्य पैकेट हानि सर्वर उपलब्धता दिखाती है।
 
 \`\`\`powershell
 ping nextsem.online
+\`\`\``,
+      pro: `## 1. क्लाइंट आर्किटेक्चर एवं अनुरोध प्रेषण
+* 1. क्लाइंट वेब सॉकेट कनेक्शन शुरू करता है।
+* 2. यूज़र एजेंट संरचित प्रोटोकॉल अनुरोध बनाता है।
+* 3. ब्राउज़र बैकग्राउंड नेटवर्क क्वेरी निष्पादित करता है।
+* 4. ऑपरेटिंग सिस्टम आने वाले डेटा को बफर करता।
+* 5. रेंडरिंग इंजन प्राप्त HTML पार्स करता है।
+
+---
+
+## 2. सर्वर इन्फ्रास्ट्रक्चर एवं डिमन्स
+* 1. सर्वर समवर्ती HTTP डिमन्स निष्पादित करता है।
+* 2. सर्वर पोर्ट 80 और 443 सुनता है।
+* 3. वेब सर्वर अनुरोधित पथ को निर्देशित करता।
+* 4. लोड बैलेंसर वैश्विक ट्रैफ़िक को संभालते हैं।
+* 5. सर्वर सीरियलाइज़्ड HTML मार्कअप लौटाता है।
+
+---
+
+## 3. अनुरोध-प्रतिक्रिया जीवन चक्र
+* 1. क्लाइंट टीसीपी सॉकेट हैंडशेक स्थापित करता।
+* 2. क्लाइंट एचटीटीपी अनुरोध हेडर प्रसारित करता।
+* 3. सर्वर रिवर्स प्रॉक्सी द्वारा अनुरोध भेजता।
+* 4. सर्वर स्टेटस कोड और हेडर लौटाता।
+* 5. ब्राउज़र प्राप्त बाइट्स से डीओएम बनाता।
+
+---
+
+## 4. ICMP नेटवर्क डायग्नोस्टिक्स
+![Pinging nextsem.online Server in Windows Terminal](/screenshots/html/lesson2_ping_nextsem_online.png)
+* 1. पिंग उपयोगिता आईसीएमपी पैकेट भेजती है।
+* 2. टूल नेटवर्क राउंड ट्रिप लेटेंसी मापता।
+* 3. टीटीएल मान रूटिंग हॉप्स दर्शाते हैं।
+* 4. शून्य पैकेट हानि मार्ग स्थिरता प्रमाणित करती।
+* 5. क्लाउड एज सर्वर त्वरित उत्तर देता।
+
+\`\`\`powershell
+ping nextsem.online
+\`\`\``
+    }
+  },
+  {
+    id: 3,
+    slug: "how-dns-lookup-works-step-by-step",
+    title: "Understanding DNS Lookup",
+    unit: "Unit 1: HTML Introduction & Web Fundamentals",
+    bookRef: "Freeman Chapter 2 (p. 25-28)",
+    exercise: {
+      english: {
+        question: "What is the primary role of the Domain Name System (DNS)?",
+        options: [
+          "Translate domain names into IP addresses",
+          "Encrypt local computer storage disks",
+          "Format HTML text styling tags",
+          "Speed up browser keyboard typing"
+        ],
+        correctAnswer: "Translate domain names into IP addresses",
+        hint: "DNS acts like a phonebook, mapping names to numbers."
+      },
+      hinglish: {
+        question: "Domain Name System (DNS) ka primary role kya hai?",
+        options: [
+          "Translate domain names into IP addresses",
+          "Encrypt local computer storage disks",
+          "Format HTML text styling tags",
+          "Speed up browser keyboard typing"
+        ],
+        correctAnswer: "Translate domain names into IP addresses",
+        hint: "DNS phonebook ki tarah domain name ko IP number me translate karta hai."
+      },
+      hindi: {
+        question: "डोमेन नाम प्रणाली (DNS) की प्राथमिक भूमिका क्या है?",
+        options: [
+          "Translate domain names into IP addresses",
+          "Encrypt local computer storage disks",
+          "Format HTML text styling tags",
+          "Speed up browser keyboard typing"
+        ],
+        correctAnswer: "Translate domain names into IP addresses",
+        hint: "डीएनएस फोनबुक की तरह डोमेन नाम को आईपी पते में बदलता है।"
+      }
+    },
+    english: {
+      kid: `## 1. What is DNS?
+* 1. DNS translates website names into numbers.
+* 2. Computers only understand numerical IP addresses.
+* 3. DNS works like your phone contacts.
+* 4. You type names, DNS finds numbers.
+* 5. Browsers connect instantly using IP numbers.
+
+\`\`\`html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DNS Lookup Demo</title>
+</head>
+<body>
+  <h1>Domain Name System</h1>
+  <p>Translating nextsem.online to 199.36.158.100.</p>
+</body>
+</html>
 \`\`\`
 
 ---
 
-## 3. टीसीपी 3-वे हैंडशेक
-* 1. डेटा भेजने से पहले टीसीपी हैंडशेक होता।
-* 2. क्लाइंट सर्वर को SYN पैकेट भेजता।
-* 3. सर्वर SYN-ACK पैकेट से उत्तर देता।
-* 4. क्लाइंट अंतिम ACK पैकेट भेजकर जोड़ता।
-* 5. कनेक्शन बनने के बाद डेटा ट्रांसफर होता।`,
-      pro: `## 1. क्लाइंट-सर्वर आर्किटेक्चर एवं निष्पादन
-* 1. ब्राउज़र मानक HTTP अनुरोध प्रेषित करता है।
-* 2. वेब सर्वर पोर्ट 80/443 पर श्रवण करता।
-* 3. डेमन फाइलों को खोजकर पैकेट बनाता है।
-* 4. सर्वर HTML पेलोड क्लाइंट को लौटाता है।
-* 5. ब्राउज़र DOM बनाकर पृष्ठ प्रस्तुत करता है।
+## 2. The DNS Resolution Chain
+* 1. Browser checks local device DNS cache.
+* 2. Router forwards query to internet provider.
+* 3. Root servers direct query to TLD.
+* 4. TLD server locates authoritative name server.
+* 5. Authoritative server returns final website IP.
 
 ---
 
-## 2. डीएनएस रिज़ॉल्यूशन और नेटवर्क विलंबता
-![Pinging nextsem.online in Windows PowerShell](/screenshots/html/lesson2_ping_nextsem_online.png)
-* 1. DNS डोमेन नाम को आईपी में बदलता।
-* 2. रिकर्सिव रिज़ॉल्वर नेम-सर्वर से पता खोजते हैं।
-* 3. IPv4 32-बिट डॉटेड-डेसिमल प्रारूप का उपयोग करता।
-* 4. पिंग उपयोगिता ICMP इको पैकेट भेजती है।
-* 5. राउंड-ट्रिप समय नेटवर्क प्रदर्शन की पुष्टि करता।
+## 3. Querying DNS with nslookup
+* 1. Open Windows Terminal on your PC.
+* 2. Type nslookup followed by domain name.
+* 3. DNS server resolves requested web address.
+* 4. Output displays matching destination IP address.
+* 5. Command confirms domain mapping to server.
 
 \`\`\`powershell
-ping nextsem.online
+nslookup nextsem.online
 \`\`\`
 
 ---
 
-## 3. टीसीपी 3-वे हैंडशेक और सॉकेट प्रबंधन
-* 1. विश्वसनीय संचार SYN पैकेट से प्रारंभ होता।
-* 2. सर्वर SYN-ACK अनुक्रम संख्या से पुष्टि करता।
-* 3. क्लाइंट अंतिम ACK पैकेट वापस भेजता है।
-* 4. सॉकेट स्थिति ESTABLISHED अवस्था में आती है।
-* 5. सुरक्षित डेटा स्ट्रीम का प्रवाह शुरू होता।`
+## 4. Understanding DNS Record Types
+* 1. A records map domains to IPv4.
+* 2. AAAA records map domains to IPv6.
+* 3. CNAME records create domain address aliases.
+* 4. MX records direct domain email traffic.
+* 5. TXT records store domain verification data.`,
+      pro: `## 1. Domain Name System (DNS) Architecture
+* 1. DNS provides distributed global directory resolution.
+* 2. Fully qualified domain names map IPs.
+* 3. UDP port 53 handles DNS queries.
+* 4. Recursive resolvers query hierarchical namespaces.
+* 5. Distributed caching minimizes latency worldwide.
+
+\`\`\`html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DNS Architecture</title>
+</head>
+<body>
+  <h1>DNS Resolution Hierarchy</h1>
+  <p>Root servers guide authoritative record queries.</p>
+</body>
+</html>
+\`\`\`
+
+---
+
+## 2. Iterative & Recursive Resolution Stages
+* 1. Resolver inspects client resolver cache first.
+* 2. Recursive query queries root DNS clusters.
+* 3. Root servers refer query to TLD.
+* 4. TLD servers delegate authoritative zone authority.
+* 5. Authoritative server issues signed resource record.
+
+---
+
+## 3. Network Diagnostics with nslookup
+* 1. Nslookup queries DNS name servers directly.
+* 2. Command verifies A record binding resolution.
+* 3. Non-authoritative response confirms cached resolution data.
+* 4. Output exposes target edge IP addresses.
+* 5. Tool diagnoses name resolution transport delays.
+
+\`\`\`powershell
+nslookup nextsem.online
+\`\`\`
+
+---
+
+## 4. Standard DNS Resource Records
+* 1. A records resolve 32-bit IPv4 addresses.
+* 2. AAAA records resolve 128-bit IPv6 addresses.
+* 3. CNAME maps aliases to canonical names.
+* 4. NS records define authoritative zone nameservers.
+* 5. TTL defines client DNS caching lifespan.`
+    },
+    hinglish: {
+      kid: `## 1. DNS Kya Hota Hai?
+* 1. DNS website name ko number banata.
+* 2. Computers sirf numerical IP samajhte hain.
+* 3. DNS phone contact list jaisa hai.
+* 4. Aap naam likhte, DNS number dhundhta.
+* 5. Browser IP number se connect hota.
+
+\`\`\`html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DNS Demo</title>
+</head>
+<body>
+  <h1>Domain Name System</h1>
+  <p>nextsem.online translates to 199.36.158.100.</p>
+</body>
+</html>
+\`\`\`
+
+---
+
+## 2. DNS Kaise Kaam Karta Hai?
+* 1. Browser pehle local cache check karta.
+* 2. Phir router ISP server se puchhta.
+* 3. Root server TLD server tak bhejta.
+* 4. TLD server authoritative nameserver batata hai.
+* 5. Authoritative server final IP address deta.
+
+---
+
+## 3. Terminal Me nslookup Chalayein
+* 1. Windows Terminal me command prompt kholein.
+* 2. nslookup ke sath domain name likhein.
+* 3. DNS server domain name resolve karta.
+* 4. Output me website ka IP dikhta.
+* 5. Isse domain connection confirm hota hai.
+
+\`\`\`powershell
+nslookup nextsem.online
+\`\`\`
+
+---
+
+## 4. Zaroori DNS Records
+* 1. A record domain ko IPv4 deta.
+* 2. AAAA record domain ko IPv6 deta.
+* 3. CNAME record alias name setup karta.
+* 4. MX record email routing control karta.
+* 5. TXT record security verification store karta.`,
+      pro: `## 1. DNS Architecture & Name Resolution
+* 1. DNS distributed database system operate karta.
+* 2. Domain names IP address me convert hote.
+* 3. Port 53 UDP par queries travel karti.
+* 4. Recursive resolvers root servers consult karte.
+* 5. Global caching DNS response speed badhati.
+
+\`\`\`html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DNS Architecture</title>
+</head>
+<body>
+  <h1>DNS Resolution Hierarchy</h1>
+  <p>Root servers guide authoritative record queries.</p>
+</body>
+</html>
+\`\`\`
+
+---
+
+## 2. DNS Resolution Process Steps
+* 1. Resolver local OS cache query karta.
+* 2. ISP resolver root zone query karta.
+* 3. Root servers TLD nameserver point karte.
+* 4. TLD servers authoritative server return karte.
+* 5. Authoritative server final IP record deta.
+
+---
+
+## 3. Network Diagnostics with nslookup
+* 1. Nslookup utility DNS servers probe karti.
+* 2. Command A record mapping verify karti.
+* 3. Response non-authoritative cache status report karta.
+* 4. Output resolved edge IP display karta.
+* 5. Tool network connectivity issues detect karta.
+
+\`\`\`powershell
+nslookup nextsem.online
+\`\`\`
+
+---
+
+## 4. Core DNS Records Reference
+* 1. A records 32-bit IPv4 resolve karte.
+* 2. AAAA records 128-bit IPv6 resolve karte.
+* 3. CNAME canonical hostname alias map karta.
+* 4. NS records zone authoritative servers batate.
+* 5. TTL cache expiry time define karta.`
+    },
+    hindi: {
+      kid: `## 1. डीएनएस (DNS) क्या है?
+* 1. डीएनएस डोमेन नाम को संख्या बनाता।
+* 2. कंप्यूटर केवल आईपी संख्या को समझते।
+* 3. डीएनएस फोन कॉन्टैक्ट जैसा काम करता।
+* 4. आप नाम लिखते, डीएनएस नंबर खोजता।
+* 5. ब्राउज़र आईपी से तुरंत जुड़ जाता।
+
+\`\`\`html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DNS Demo</title>
+</head>
+<body>
+  <h1>Domain Name System</h1>
+  <p>nextsem.online translates to 199.36.158.100.</p>
+</body>
+</html>
+\`\`\`
+
+---
+
+## 2. डीएनएस कैसे काम करता है?
+* 1. ब्राउज़र पहले लोकल कैशे जांचता है।
+* 2. फिर इंटरनेट प्रोवाइडर से पूछता है।
+* 3. रूट सर्वर टीएलडी तक भेजता है।
+* 4. टीएलडी सर्वर मुख्य सर्वर बताता है।
+* 5. मुख्य सर्वर अंतिम आईपी लौटाता है।
+
+---
+
+## 3. टर्मिनल में nslookup चलाएं
+* 1. विंडोज़ टर्मिनल में कमांड प्रॉम्प्ट खोलें।
+* 2. nslookup के साथ डोमेन नाम लिखें।
+* 3. डीएनएस सर्वर डोमेन नाम खोजता है।
+* 4. आउटपुट में वेबसाइट का आईपी दिखता।
+* 5. इससे नेटवर्क कनेक्शन प्रमाणित होता है।
+
+\`\`\`powershell
+nslookup nextsem.online
+\`\`\`
+
+---
+
+## 4. प्रमुख डीएनएस रिकॉर्ड्स
+* 1. A रिकॉर्ड डोमेन को IPv4 देता।
+* 2. AAAA रिकॉर्ड डोमेन को IPv6 देता।
+* 3. CNAME रिकॉर्ड उपनाम जोड़ने में सहायक।
+* 4. MX रिकॉर्ड ईमेल रूटिंग संभालता है।
+* 5. TXT रिकॉर्ड सुरक्षा विवरण सुरक्षित रखता।`,
+      pro: `## 1. डीएनएस संरचना और नाम समाधान
+* 1. डीएनएस एक वैश्विक वितरित डेटाबेस प्रणाली।
+* 2. डोमेन नाम आईपी पते में बदलते।
+* 3. पोर्ट 53 पर यूडीपी पैकेट जाते।
+* 4. रिकर्सिव रिसॉल्वर रूट सर्वर खोजते हैं।
+* 5. वैश्विक कैशे रिस्पॉन्स को तेज़ बनाती।
+
+\`\`\`html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DNS Architecture</title>
+</head>
+<body>
+  <h1>DNS Resolution Hierarchy</h1>
+  <p>Root servers guide authoritative record queries.</p>
+</body>
+</html>
+\`\`\`
+
+---
+
+## 2. डीएनएस रिज़ॉल्यूशन प्रक्रिया चरण
+* 1. रिसॉल्वर स्थानीय ओएस कैशे जांचता है।
+* 2. आईएसपी रिसॉल्वर रूट ज़ोन खोजता है।
+* 3. रूट सर्वर टीएलडी सर्वर बताता है।
+* 4. टीएलडी सर्वर अधिकृत सर्वर बताता है।
+* 5. अधिकृत सर्वर अंतिम आईपी प्रदान करता।
+
+---
+
+## 3. nslookup द्वारा नेटवर्क परीक्षण
+* 1. Nslookup डीएनएस सर्वर की जांच करता।
+* 2. कमांड ए रिकॉर्ड मैपिंग प्रमाणित करती।
+* 3. रिस्पॉन्स कैश्ड स्थिति की पुष्टि करता।
+* 4. आउटपुट में गंतव्य आईपी दिखता है।
+* 5. टूल नाम समाधान समस्या का पता।
+
+\`\`\`powershell
+nslookup nextsem.online
+\`\`\`
+
+---
+
+## 4. मानक डीएनएस रिकॉर्ड्स
+* 1. A रिकॉर्ड 32-बिट IPv4 बताता।
+* 2. AAAA रिकॉर्ड 128-बिट IPv6 बताता।
+* 3. CNAME मुख्य डोमेन का उपनाम बनाता।
+* 4. NS रिकॉर्ड ज़ोन सर्वर परिभाषित करता।
+* 5. TTL कैशे की अवधि निर्धारित करता।`
+    }
+  },
+  {
+    id: 4,
+    slug: "ipv4-vs-ipv6-address-types-tutorial",
+    title: "IP Addresses Explained (IPv4 vs. IPv6)",
+    unit: "Unit 1: HTML Introduction & Web Fundamentals",
+    bookRef: "Freeman Chapter 2 (p. 29-32)",
+    exercise: {
+      english: {
+        question: "How many bits are in an IPv4 address compared to an IPv6 address?",
+        options: [
+          "32 bits vs 128 bits",
+          "64 bits vs 256 bits",
+          "16 bits vs 64 bits",
+          "8 bits vs 32 bits"
+        ],
+        correctAnswer: "32 bits vs 128 bits",
+        hint: "IPv4 uses 32 bits (4 octets), while IPv6 uses 128 bits (hexadecimal)."
+      },
+      hinglish: {
+        question: "IPv4 aur IPv6 address me kitne bits hote hain?",
+        options: [
+          "32 bits vs 128 bits",
+          "64 bits vs 256 bits",
+          "16 bits vs 64 bits",
+          "8 bits vs 32 bits"
+        ],
+        correctAnswer: "32 bits vs 128 bits",
+        hint: "IPv4 32 bits ka hota hai aur IPv6 128 bits ka hota hai."
+      },
+      hindi: {
+        question: "IPv4 पते में IPv6 पते की तुलना में कितने बिट्स होते हैं?",
+        options: [
+          "32 bits vs 128 bits",
+          "64 bits vs 256 bits",
+          "16 bits vs 64 bits",
+          "8 bits vs 32 bits"
+        ],
+        correctAnswer: "32 bits vs 128 bits",
+        hint: "IPv4 में 32 बिट्स और IPv6 में 128 बिट्स होते हैं।"
+      }
+    },
+    english: {
+      kid: `## 1. What is an IP Address?
+* 1. Every internet device needs an address.
+* 2. IP stands for Internet Protocol address.
+* 3. It works like postal home address.
+* 4. Packets travel using unique IP addresses.
+* 5. Routers direct data to correct destinations.
+
+\`\`\`html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>IP Address Demo</title>
+</head>
+<body>
+  <h1>Internet Protocol Addresses</h1>
+  <p>Local IP: 192.168.29.171</p>
+</body>
+</html>
+\`\`\`
+
+---
+
+## 2. IPv4: 32-Bit Dotted Decimal
+* 1. IPv4 uses four dotted decimal numbers.
+* 2. Format looks like 192.168.1.1 on networks.
+* 3. System allows 4.3 billion unique addresses.
+* 4. Rapid internet growth depleted IPv4 pool.
+* 5. Networks use NAT for address sharing.
+
+---
+
+## 3. IPv6: 128-Bit Hexadecimal
+* 1. IPv6 replaces exhausted older IPv4 pools.
+* 2. Format uses hexadecimal blocks with colons.
+* 3. Provides trillions of new unique addresses.
+* 4. Modern routers support dual stack protocols.
+* 5. Every smart device gets unique address.
+
+---
+
+## 4. Inspecting Network Configuration with ipconfig
+* 1. Windows ipconfig reveals active network settings.
+* 2. Open Windows Terminal on your computer.
+* 3. Type ipconfig and press Enter key.
+* 4. Output reveals local IPv4 and IPv6.
+* 5. Default gateway identifies local Wi-Fi router.
+
+\`\`\`powershell
+ipconfig
+\`\`\``,
+      pro: `## 1. Internet Protocol Layer Architecture
+* 1. Network layers assign unique logical addresses.
+* 2. IP packets encapsulate transport segment payloads.
+* 3. Routers inspect headers to forward datagrams.
+* 4. Host interfaces bind multiple IP addresses.
+* 5. Addressing separates local and public networks.
+
+\`\`\`html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>IP Addressing</title>
+</head>
+<body>
+  <h1>Network Protocol Layer</h1>
+  <p>Dotted decimal and hexadecimal addressing modes.</p>
+</body>
+</html>
+\`\`\`
+
+---
+
+## 2. IPv4 Protocol Specification & Subnetting
+* 1. IPv4 employs 32-bit structured numeric space.
+* 2. Space provides approximately 4.29 billion addresses.
+* 3. Subnet masks distinguish network and host.
+* 4. RFC 1918 reserves private address ranges.
+* 5. NAT enables private local address multiplexing.
+
+---
+
+## 3. IPv6 Protocol Specification & Hexadecimal
+* 1. IPv6 defines 128-bit global address space.
+* 2. Format provides 340 undecillion possible addresses.
+* 3. Eight colon-separated 16-bit hexadecimal groups format.
+* 4. Stateless address autoconfiguration simplifies client deployment.
+* 5. Dual-stack networking maintains backward compatibility.
+
+---
+
+## 4. Terminal Network Diagnostics via ipconfig
+* 1. Ipconfig audits Windows host network parameters.
+* 2. Command exposes interface link-local IPv6 addresses.
+* 3. Terminal displays assigned private IPv4 addresses.
+* 4. Subnet mask defines broadcast boundary limits.
+* 5. Default gateway establishes upstream router connectivity.
+
+\`\`\`powershell
+ipconfig
+\`\`\``
+    },
+    hinglish: {
+      kid: `## 1. IP Address Kya Hota Hai?
+* 1. Har internet device ka address hota.
+* 2. IP ka matlab Internet Protocol address.
+* 3. Ye ghar ke postal address jaisa.
+* 4. Data packets IP address se pahunchte.
+* 5. Routers data sahi device tak bhejte.
+
+\`\`\`html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>IP Address Demo</title>
+</head>
+<body>
+  <h1>Internet Protocol Addresses</h1>
+  <p>Local IP: 192.168.29.171</p>
+</body>
+</html>
+\`\`\`
+
+---
+
+## 2. IPv4 Format (32-Bit)
+* 1. IPv4 chaar numbers ka format hota.
+* 2. Example: 192.168.1.1 jaisa dikhta hai.
+* 3. Isme 4.3 billion addresses bante hain.
+* 4. Devices badhne se IPv4 addresses khatam.
+* 5. NAT technique se address share hota.
+
+---
+
+## 3. IPv6 Format (128-Bit)
+* 1. IPv6 naya aur super-sized format hai.
+* 2. Isme letters aur colons use hote.
+* 3. Ye trillions of new addresses deta.
+* 4. Sabhi modern devices IPv6 support karte.
+* 5. Har smart device ko unique address.
+
+---
+
+## 4. ipconfig Se Network Settings Dekhein
+* 1. ipconfig Windows network details show karta.
+* 2. Windows Terminal me command prompt kholein.
+* 3. ipconfig type karke Enter press karein.
+* 4. Local IPv4 aur IPv6 addresses dikhte.
+* 5. Default gateway aapka Wi-Fi router hota.
+
+\`\`\`powershell
+ipconfig
+\`\`\``,
+      pro: `## 1. Network Layer IP Architecture
+* 1. IP protocol unique logical addresses assign karta.
+* 2. Packets transport layer segments encapsulate karte.
+* 3. Routers IP headers inspect karke forward.
+* 4. Host interfaces multiple IPs bind karti.
+* 5. Network private aur public addresses differentiate.
+
+\`\`\`html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>IP Addressing</title>
+</head>
+<body>
+  <h1>Network Protocol Layer</h1>
+  <p>Dotted decimal and hexadecimal addressing modes.</p>
+</body>
+</html>
+\`\`\`
+
+---
+
+## 2. IPv4 Architecture & Subnetting
+* 1. IPv4 32-bit address space provide karta.
+* 2. Total 4.29 billion addresses create hote.
+* 3. Subnet mask network boundaries define karta.
+* 4. RFC 1918 private IP ranges allot.
+* 5. NAT protocol IP conservation manage karta.
+
+---
+
+## 3. IPv6 Architecture & Address Space
+* 1. IPv6 128-bit massive address space banata.
+* 2. Hexadecimal notation 8 blocks me split.
+* 3. Trillions of connected devices easily support.
+* 4. Auto-configuration network setup bahut smooth karta.
+* 5. Dual-stack systems parallel protocols run karte.
+
+---
+
+## 4. Diagnostics via ipconfig
+* 1. Ipconfig active network adapter interfaces inspect.
+* 2. Command host private IPv4 address reveal.
+* 3. Output assigned IPv6 global prefixes expose.
+* 4. Subnet mask local subnet scope define.
+* 5. Gateway address upstream routing hop identify.
+
+\`\`\`powershell
+ipconfig
+\`\`\``
+    },
+    hindi: {
+      kid: `## 1. आईपी एड्रेस क्या है?
+* 1. प्रत्येक इंटरनेट उपकरण का पता होता।
+* 2. आईपी का अर्थ इंटरनेट प्रोटोकॉल एड्रेस।
+* 3. यह घर के डाक पते जैसा।
+* 4. डेटा पैकेट आईपी पते से पहुंचते।
+* 5. राउटर डेटा को सही जगह भेजते।
+
+\`\`\`html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>IP Address Demo</title>
+</head>
+<body>
+  <h1>Internet Protocol Addresses</h1>
+  <p>Local IP: 192.168.29.171</p>
+</body>
+</html>
+\`\`\`
+
+---
+
+## 2. IPv4 प्रारूप (32-बिट)
+* 1. IPv4 चार दशमलव संख्याओं का समूह।
+* 2. उदाहरण: 192.168.1.1 जैसा दिखाई देता है।
+* 3. इसमें 4.3 अरब विशिष्ट पते संभव।
+* 4. उपकरणों की संख्या बढ़ने से यह समाप्त।
+* 5. नैट तकनीक द्वारा पते साझा होते।
+
+---
+
+## 3. IPv6 प्रारूप (128-बिट)
+* 1. IPv6 नया और बहुत बड़ा प्रारूप।
+* 2. इसमें हेक्साडेसिमल और कोलन प्रयुक्त होते।
+* 3. यह खरबों नए पते प्रदान करता।
+* 4. आधुनिक राउटर दोनों प्रारूप सपोर्ट करते।
+* 5. प्रत्येक स्मार्ट उपकरण को विशिष्ट पता।
+
+---
+
+## 4. ipconfig से नेटवर्क सेटिंग्स देखें
+* 1. ipconfig नेटवर्क विवरण प्रदर्शित करता है।
+* 2. विंडोज़ टर्मिनल में कमांड प्रॉम्प्ट खोलें।
+* 3. ipconfig टाइप करके एंटर बटन दबाएं।
+* 4. लोकल IPv4 और IPv6 पते दिखते।
+* 5. डिफ़ॉल्ट गेटवे आपका वाई-फ़ाई राउटर है।
+
+\`\`\`powershell
+ipconfig
+\`\`\``,
+      pro: `## 1. नेटवर्क लेयर आईपी संरचना
+* 1. आईपी नेटवर्क लेयर पर पते देता।
+* 2. पैकेट ट्रांसपोर्ट सेगमेंट्स को सुरक्षित रखते।
+* 3. राउटर हेडर पढ़कर डेटा फॉरवर्ड करते।
+* 4. इंटरफेस कई आईपी पते संभाल सकता।
+* 5. नेटवर्क निजी और सार्वजनिक पते बांटता।
+
+\`\`\`html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>IP Addressing</title>
+</head>
+<body>
+  <h1>Network Protocol Layer</h1>
+  <p>Dotted decimal and hexadecimal addressing modes.</p>
+</body>
+</html>
+\`\`\`
+
+---
+
+## 2. IPv4 विनिर्देश एवं सबनेटिंग
+* 1. IPv4 32-बिट संख्यात्मक पता प्रदान करता।
+* 2. इसमें 4.29 अरब पते उपलब्ध हैं।
+* 3. सबनेट मास्क नेटवर्क भाग अलग करता।
+* 4. RFC 1918 निजी पते सुरक्षित रखता।
+* 5. NAT तकनीक निजी पते साझा करती।
+
+---
+
+## 3. IPv6 विनिर्देश एवं हेक्साडेसिमल
+* 1. IPv6 128-बिट बड़ा पता स्पेस देता।
+* 2. हेक्साडेसिमल ब्लॉक कोलन द्वारा विभाजित होते।
+* 3. यह खरबों नई डिवाइसों को जोड़ता।
+* 4. स्वतः विन्यास नेटवर्क सेटअप आसान बनाता।
+* 5. डुअल-स्टैक दोनों प्रोटोकॉल साथ चलाता है।
+
+---
+
+## 4. ipconfig द्वारा नेटवर्क परीक्षण
+* 1. Ipconfig नेटवर्क पैरामीटर की जांच करता।
+* 2. कमांड निजी IPv4 पता प्रदर्शित करती।
+* 3. आउटपुट लिंक-लोकल IPv6 पता दिखाता।
+* 4. सबनेट मास्क प्रसारण सीमा तय करता।
+* 5. डिफ़ॉल्ट गेटवे राउटर से जोड़ता है।
+
+\`\`\`powershell
+ipconfig
+\`\`\``
+    }
+  },
+  {
+    id: 5,
+    slug: "tcp-ip-3-way-handshake-process",
+    title: "TCP/IP 3-Way Handshake",
+    unit: "Unit 1: HTML Introduction & Web Fundamentals",
+    bookRef: "Freeman Chapter 2 (p. 33-35)",
+    exercise: {
+      english: {
+        question: "What is the correct sequence of packets in a TCP 3-Way Handshake?",
+        options: [
+          "SYN -> SYN-ACK -> ACK",
+          "ACK -> SYN -> FIN",
+          "GET -> POST -> RESPOND",
+          "HELLO -> ACK -> DATA"
+        ],
+        correctAnswer: "SYN -> SYN-ACK -> ACK",
+        hint: "Remember: Synchronize (SYN), Synchronize-Acknowledge (SYN-ACK), Acknowledge (ACK)."
+      },
+      hinglish: {
+        question: "TCP 3-Way Handshake me packets ka sahi sequence kya hai?",
+        options: [
+          "SYN -> SYN-ACK -> ACK",
+          "ACK -> SYN -> FIN",
+          "GET -> POST -> RESPOND",
+          "HELLO -> ACK -> DATA"
+        ],
+        correctAnswer: "SYN -> SYN-ACK -> ACK",
+        hint: "Pehle SYN, fir SYN-ACK, aur aakhir me ACK."
+      },
+      hindi: {
+        question: "टीसीपी 3-वे हैंडशेक में पैकेटों का सही क्रम क्या है?",
+        options: [
+          "SYN -> SYN-ACK -> ACK",
+          "ACK -> SYN -> FIN",
+          "GET -> POST -> RESPOND",
+          "HELLO -> ACK -> DATA"
+        ],
+        correctAnswer: "SYN -> SYN-ACK -> ACK",
+        hint: "पहले SYN, फिर SYN-ACK, और अंत में ACK आता है।"
+      }
+    },
+    english: {
+      kid: `## 1. What is Transmission Control Protocol?
+* 1. TCP ensures reliable internet data delivery.
+* 2. Data divides into numbered smaller packets.
+* 3. Lost packets retransmit automatically until received.
+* 4. Packets reassemble in perfect sequential order.
+* 5. Web browsers rely on TCP streams.
+
+\`\`\`html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TCP Handshake Demo</title>
+</head>
+<body>
+  <h1>TCP Connection Established</h1>
+  <p>Data streams securely over port 443.</p>
+</body>
+</html>
+\`\`\`
+
+---
+
+## 2. The 3-Way Handshake Steps
+* 1. Client sends SYN synchronize packet first.
+* 2. Server replies with SYN-ACK acknowledgment packet.
+* 3. Client confirms with final ACK packet.
+* 4. Three steps establish secure socket connection.
+* 5. Data transmission begins after handshake completes.
+
+---
+
+## 3. Why the Handshake Matters
+* 1. Handshake prevents duplicate connection request confusion.
+* 2. Both sides agree on sequence numbers.
+* 3. Connection verifies server is truly listening.
+* 4. Sockets allocate memory for incoming streams.
+* 5. Unreachable servers fail before sending data.
+
+---
+
+## 4. Testing Port 443 with Test-NetConnection
+* 1. PowerShell tests specific server TCP ports.
+* 2. Test-NetConnection connects to port 443 safely.
+* 3. Tool performs full TCP 3-way handshake.
+* 4. TcpTestSucceeded confirms successful network socket setup.
+* 5. Remote address verifies connected cloud server.
+
+\`\`\`powershell
+Test-NetConnection nextsem.online -Port 443
+\`\`\``,
+      pro: `## 1. Transport Layer TCP Protocol Architecture
+* 1. TCP operates as connection-oriented transport protocol.
+* 2. Protocol guarantees in-order byte stream transmission.
+* 3. Flow control mechanisms prevent client buffer overflow.
+* 4. Checksums verify packet header and payload integrity.
+* 5. Retransmission timers resolve lost network segments.
+
+\`\`\`html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TCP Handshake</title>
+</head>
+<body>
+  <h1>Socket Stream Established</h1>
+  <p>SYN-ACK sequence verified over TCP.</p>
+</body>
+</html>
+\`\`\`
+
+---
+
+## 2. Formal 3-Way Handshake State Transitions
+* 1. Client sends SYN with random sequence A.
+* 2. Client transitions to SYN-SENT socket state.
+* 3. Server responds SYN-ACK with sequence B.
+* 4. Server acknowledges client sequence with A+1.
+* 5. Client returns ACK B+1 establishing ESTABLISHED.
+
+---
+
+## 3. Socket Lifecycle & Flow Control
+* 1. Handshake synchronizes sender and receiver windows.
+* 2. Sliding window algorithms optimize transfer throughput.
+* 3. Sockets bind local ephemeral client ports.
+* 4. Keepalive probes monitor dormant TCP connections.
+* 5. Four-way FIN exchange gracefully terminates sockets.
+
+---
+
+## 4. Windows Socket Diagnostics via Test-NetConnection
+* 1. Test-NetConnection probes remote TCP endpoint ports.
+* 2. Parameter -Port 443 targets HTTPS listener.
+* 3. Command verifies complete 3-way handshake execution.
+* 4. TcpTestSucceeded True confirms transport socket readiness.
+* 5. Output displays active source network adapter.
+
+\`\`\`powershell
+Test-NetConnection nextsem.online -Port 443
+\`\`\``
+    },
+    hinglish: {
+      kid: `## 1. TCP Protocol Kya Hota Hai?
+* 1. TCP data ko reliably deliver karta.
+* 2. Bada data chhote packets me bat-ta.
+* 3. Lost packets automatically dubara send hote.
+* 4. Packets sahi sequential order me judte.
+* 5. Browsers TCP streams par depend karte.
+
+\`\`\`html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TCP Handshake Demo</title>
+</head>
+<body>
+  <h1>TCP Connection Established</h1>
+  <p>Data streams securely over port 443.</p>
+</body>
+</html>
+\`\`\`
+
+---
+
+## 2. 3-Way Handshake Ke Steps
+* 1. Client pehle SYN packet bhejta hai.
+* 2. Server SYN-ACK acknowledgment reply bhejta hai.
+* 3. Client aakhir me ACK bhejta hai.
+* 4. Teen steps me connection establish hota.
+* 5. Handshake ke baad data transfer shuru.
+
+---
+
+## 3. Handshake Kyun Zaroori Hai?
+* 1. Ye duplicate packets se confusion rokta.
+* 2. Dono computers sequence numbers decide karte.
+* 3. Connection confirm karta ki server active hai.
+* 4. Sockets incoming data ke liye prepare hote.
+* 5. Offline server turant error de deta.
+
+---
+
+## 4. Test-NetConnection Se Port 443 Check Karein
+* 1. PowerShell server TCP ports test karta.
+* 2. Test-NetConnection 443 port connect karta.
+* 3. Tool pura TCP handshake perform karta.
+* 4. TcpTestSucceeded True aane par connection OK.
+* 5. Remote address cloud server confirm karta.
+
+\`\`\`powershell
+Test-NetConnection nextsem.online -Port 443
+\`\`\``,
+      pro: `## 1. Transport Layer TCP Architecture
+* 1. TCP connection-oriented byte stream protocol hai.
+* 2. Protocol guaranteed in-order packet delivery ensure.
+* 3. Flow control algorithms buffer congestion prevent.
+* 4. Checksums packet headers integrity verify karte.
+* 5. Retransmission timers lost segment recovery handle.
+
+---
+
+## 2. 3-Way Handshake Socket State Machine
+* 1. Client SYN packet sequence number A transmit.
+* 2. Client socket state SYN-SENT switch karta.
+* 3. Server SYN-ACK packet sequence B respond.
+* 4. Server client sequence acknowledgment A+1 assign.
+* 5. Client ACK B+1 transmit karke ESTABLISHED.
+
+---
+
+## 3. Socket Management & Flow Control
+* 1. Handshake TCP window size synchronize karta.
+* 2. Sliding window throughput maximize karne me madad.
+* 3. Operating system ephemeral client port allot.
+* 4. TCP keepalive probes connection alive rakhte.
+* 5. FIN handshake gracefully socket terminate karta.
+
+---
+
+## 4. PowerShell Port Diagnostics
+* 1. Test-NetConnection remote server TCP socket audit.
+* 2. Parameter -Port 443 HTTPS socket probe.
+* 3. Command 3-way handshake success measure.
+* 4. TcpTestSucceeded True socket connectivity confirm.
+* 5. Interface details source adapter binding verify.
+
+\`\`\`powershell
+Test-NetConnection nextsem.online -Port 443
+\`\`\``
+    },
+    hindi: {
+      kid: `## 1. टीसीपी (TCP) प्रोटोकॉल क्या है?
+* 1. टीसीपी सुरक्षित डेटा ट्रांसफर सुनिश्चित करता।
+* 2. डेटा छोटे क्रमबद्ध पैकेटों में बंटता।
+* 3. छूटे हुए पैकेट दोबारा भेजे जाते।
+* 4. पैकेट सही क्रम में पुनः जुड़ते।
+* 5. ब्राउज़र टीसीपी कनेक्शन पर निर्भर रहते।
+
+\`\`\`html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TCP Handshake Demo</title>
+</head>
+<body>
+  <h1>TCP Connection Established</h1>
+  <p>Data streams securely over port 443.</p>
+</body>
+</html>
+\`\`\`
+
+---
+
+## 2. 3-वे हैंडशेक के चरण
+* 1. क्लाइंट पहले SYN पैकेट भेजता है।
+* 2. सर्वर SYN-ACK पैकेट से उत्तर देता।
+* 3. क्लाइंट अंत में ACK भेजता है।
+* 4. तीन चरणों में सुरक्षित सॉकेट बनता।
+* 5. हैंडशेक पूरा होने पर डेटा बहता।
+
+---
+
+## 3. हैंडशेक क्यों आवश्यक है?
+* 1. यह गलत कनेक्शन अनुरोधों को रोकता।
+* 2. दोनों कंप्यूटर क्रम संख्या तय करते।
+* 3. यह सुनिश्चित करता कि सर्वर सक्रिय।
+* 4. सॉकेट मेमोरी डेटा के लिए तैयार।
+* 5. निष्क्रिय सर्वर तुरंत त्रुटि दे देता।
+
+---
+
+## 4. Test-NetConnection से पोर्ट 443 जांचें
+* 1. पॉवरशेल सर्वर टीसीपी पोर्ट जांचता है।
+* 2. Test-NetConnection पोर्ट 443 से जुड़ता है।
+* 3. टूल पूरा 3-वे हैंडशेक चलाता है।
+* 4. TcpTestSucceeded True सफल सॉकेट दर्शाता है।
+* 5. रिमोट एड्रेस क्लाउड सर्वर प्रमाणित करता।
+
+\`\`\`powershell
+Test-NetConnection nextsem.online -Port 443
+\`\`\``,
+      pro: `## 1. ट्रांसपोर्ट लेयर टीसीपी संरचना
+* 1. टीसीपी कनेक्शन-उन्मुख ट्रांसपोर्ट प्रोटोकॉल है।
+* 2. यह डेटा का सही क्रम सुनिश्चित।
+* 3. फ्लो कंट्रोल बफर ओवरफ्लो को रोकता।
+* 4. चेकसम डेटा की अखंडता प्रमाणित करते।
+* 5. टाइमर खोए हुए पैकेट दोबारा भेजते।
+
+---
+
+## 2. 3-वे हैंडशेक स्टेट मशीन
+* 1. क्लाइंट अनुक्रम संख्या A से SYN भेजता।
+* 2. सॉकेट स्थिति SYN-SENT में बदलती है।
+* 3. सर्वर अनुक्रम B से SYN-ACK लौटाता।
+* 4. सर्वर क्लाइंट अनुक्रम A+1 स्वीकार करता।
+* 5. क्लाइंट ACK B+1 भेजकर ESTABLISHED करता।
+
+---
+
+## 3. सॉकेट प्रबंधन एवं फ्लो कंट्रोल
+* 1. हैंडशेक टीसीपी विंडो साइज सिंक करता।
+* 2. स्लाइडिंग विंडो नेटवर्क थ्रूपुट को बढ़ाती।
+* 3. ऑपरेटिंग सिस्टम लोकल क्लाइंट पोर्ट जोड़ता।
+* 4. कीपअलाइव सिग्नल कनेक्शन बनाए रखते हैं।
+* 5. FIN प्रक्रिया सॉकेट को सुरक्षित बंद।
+
+---
+
+## 4. पॉवरशेल द्वारा पोर्ट डायग्नोस्टिक्स
+* 1. Test-NetConnection रिमोट पोर्ट की जांच करता।
+* 2. -Port 443 पैरामीटर HTTPS जांचता है।
+* 3. कमांड 3-वे हैंडशेक निष्पादित करती।
+* 4. TcpTestSucceeded True सॉकेट कनेक्टिविटी प्रमाणित।
+* 5. आउटपुट सक्रिय नेटवर्क इंटरफेस दिखाता है।
+
+\`\`\`powershell
+Test-NetConnection nextsem.online -Port 443
+\`\`\``
     }
   },
   {
