@@ -1600,215 +1600,396 @@ curl.exe -I https://nextsem.online/
     unit: "Unit 1: HTML Introduction & Web Fundamentals",
     bookRef: "Freeman Chapter 3 (p. 45-50)",
     exercise: {
-      question: "Which HTTP status code represents a successful page retrieval?",
-      options: [
-        "200 OK",
-        "404 Not Found",
-        "500 Internal Server Error",
-        "301 Moved Permanently"
-      ],
-      correctAnswer: "200 OK",
-      hint: "A successful operation returns the standard 'OK' status, which is 200!"
+      english: {
+        question: "Which HTTP status code signifies a successful request and delivery of the webpage?",
+        options: [
+          "200 OK",
+          "304 Not Modified",
+          "404 Not Found",
+          "500 Internal Server Error"
+        ],
+        correctAnswer: "200 OK",
+        hint: "Status code 200 indicates standard success in the HTTP protocol."
+      },
+      hinglish: {
+        question: "Kaun sa HTTP status code batata hai ki webpage request successfully deliver ho gayi?",
+        options: [
+          "200 OK",
+          "304 Not Modified",
+          "404 Not Found",
+          "500 Internal Server Error"
+        ],
+        correctAnswer: "200 OK",
+        hint: "200 OK standard HTTP success code hota hai."
+      },
+      hindi: {
+        question: "वेबपेज के सफल अनुरोध और वितरण को कौन सा HTTP स्टेटस कोड दर्शाता है?",
+        options: [
+          "200 OK",
+          "304 Not Modified",
+          "404 Not Found",
+          "500 Internal Server Error"
+        ],
+        correctAnswer: "200 OK",
+        hint: "200 OK मानक HTTP सफलता कोड है।"
+      }
     },
     english: {
-      kid: `### 📮 The Server's Reply (HTTP Response)
-When the server gets your request, it mails back an **HTTP Response** with a status code:
+      kid: `## 1. The HTTP Response Structure
+* 1. Servers send responses back to browsers.
+* 2. Status lines report success or error.
+* 3. Response headers explain the document type.
+* 4. Response body delivers actual HTML code.
+* 5. Browsers render HTML into visible web.
 
-* **200 OK**: *'Here is your webpage!'* 
-* **404 Not Found**: *'Oops! I cannot find that page!'*
-* **500 Server Error**: *'My database crashed!'*
+\`\`\`http
+HTTP/1.1 200 OK
+Content-Type: text/html; charset=utf-8
+Content-Length: 1250
+Date: Sun, 13 Sep 2026 15:31:43 GMT
 
-## Example
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>HTTP Response Example</title>
-  <style>
-    body { font-family: sans-serif; background: #0f172a; color: #fff; padding: 24px; }
-    .card { background: #1e293b; padding: 24px; border-radius: 12px; border: 1px solid #334155; max-width: 600px; margin: 0 auto; }
-    .badge { background: #04AA6D; color: #fff; font-weight: bold; padding: 6px 12px; border-radius: 6px; font-family: monospace; }
-  </style>
+  <title>Response Demo</title>
 </head>
 <body>
-
-  <div class="card">
-    <span class="badge">HTTP/1.1 200 OK</span>
-    <h2 style="color:#04AA6D; margin-top:16px;">Server Response Payload</h2>
-    <p>The web server successfully processed your request and returned this live HTML page to your browser!</p>
-  </div>
-
+  <h1>My First Heading</h1>
+  <p>My first paragraph.</p>
 </body>
-</html>`,
-      pro: `### 📡 HTTP Response Payload & Status Code Segments
-An HTTP response package contains a status line, headers, and the document payload:
+</html>
+\`\`\`
 
-1. **Status Line**: HTTP Version, status numeric code, and status text:
-   \`\`\`http
-   HTTP/1.1 200 OK
-   \`\`\`
-2. **Response Headers**: Metadata describing the content:
-   \`\`\`http
-   Content-Type: text/html; charset=UTF-8
-   Content-Length: 1250
-   \`\`\`
-3. **Response Body**: The actual HTML source code rendered by the client browser:
+---
 
-## Example
+## 2. Inspecting Response Headers in Chrome DevTools
+![Google Chrome DevTools Network Tab HTTP Response Headers](/screenshots/html/lesson7_chrome_devtools_response_headers.png)
+* 1. Open DevTools with shortcut key F12.
+* 2. Open Network tab and refresh page.
+* 3. Status 304 confirms cached webpage copy.
+* 4. Response headers show date and cache.
+* 5. Left window displays rendered HTML body.
+
+---
+
+## 3. Inspecting HTTP 200 OK via curl.exe
+![Inspecting HTTP 200 OK Response Headers using curl.exe](/screenshots/html/lesson7_curl_response_200.png)
+* 1. Curl tool displays server response headers.
+* 2. Flag -I fetches header data only.
+* 3. Status 200 OK confirms successful delivery.
+* 4. Content-Type verifies UTF-8 HTML document encoding.
+* 5. Server headers describe edge caching state.
+
+\`\`\`powershell
+curl.exe -I https://nextsem.online/
+\`\`\`
+
+---
+
+## 4. Essential HTTP Status Codes Reference
+* 1. 200 OK means request succeeded completely.
+* 2. 304 Not Modified serves cached files.
+* 3. 400 Bad Request indicates malformed query.
+* 4. 404 Not Found marks missing files.
+* 5. 500 Internal Error signals server crash.`,
+      pro: `## 1. HTTP Response Protocol Architecture
+* 1. HTTP responses deliver protocol status packets.
+* 2. Status lines declare protocol version codes.
+* 3. Headers transfer payload metadata and policies.
+* 4. Response body transmits raw document bytes.
+* 5. Browsers parse HTML bytes into DOM.
+
+\`\`\`http
+HTTP/1.1 200 OK
+Content-Type: text/html; charset=utf-8
+Content-Length: 1250
+Cache-Control: public, max-age=0
+Date: Sun, 13 Sep 2026 15:31:43 GMT
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>HTTP 200 OK Response Demo</title>
-  <style>
-    body { font-family: monospace; background: #0f172a; color: #38bdf8; padding: 24px; }
-    .headers { background: #1e293b; padding: 16px; border-radius: 8px; border: 1px solid #334155; margin-bottom: 20px; }
-    .content { background: #1e293b; padding: 16px; border-radius: 8px; border: 1px solid #04AA6D; color: #fff; font-family: sans-serif; }
-  </style>
+  <title>Response Demo</title>
 </head>
 <body>
-
-  <div class="headers">
-    <p><strong>HTTP/1.1 200 OK</strong></p>
-    <p>Content-Type: text/html; charset=UTF-8</p>
-    <p>Server: Nextsem-Edge/2.0</p>
-  </div>
-
-  <div class="content">
-    <h1 style="color:#04AA6D;">Welcome to Nextsem Academy!</h1>
-    <p>This is the HTML body returned by the HTTP 200 OK server response.</p>
-  </div>
-
+  <h1>My First Heading</h1>
+  <p>My first paragraph.</p>
 </body>
-</html>`
+</html>
+\`\`\`
+
+---
+
+## 2. Chrome DevTools Network Response Inspection
+![Google Chrome DevTools Network Tab HTTP Response Headers](/screenshots/html/lesson7_chrome_devtools_response_headers.png)
+* 1. DevTools Network profiler captures response headers.
+* 2. Status 304 validates browser local cache.
+* 3. ETag header confirms matching file fingerprint.
+* 4. Cache-Control dictates client storage longevity rules.
+* 5. Rendered DOM viewport reflects transmitted markup.
+
+---
+
+## 3. Command-Line Diagnostics via curl.exe
+![Inspecting HTTP 200 OK Response Headers using curl.exe](/screenshots/html/lesson7_curl_response_200.png)
+* 1. Curl inspects HTTP transport response headers.
+* 2. Flag -I executes HEAD method request.
+* 3. Protocol status returns HTTP/1.1 200 OK.
+* 4. Content-Type guarantees text/html charset utf-8 payload.
+* 5. Header X-Cache reveals edge CDN hit.
+
+\`\`\`powershell
+curl.exe -I https://nextsem.online/
+\`\`\`
+
+---
+
+## 4. Standard HTTP Status Code Categories
+* 1. 2xx status class indicates successful transactions.
+* 2. 3xx status class governs client redirection.
+* 3. 304 Not Modified optimizes bandwidth consumption.
+* 4. 4xx status class denotes client-side failures.
+* 5. 5xx status class specifies server-side exceptions.`
     },
     hinglish: {
-      kid: `### 📮 Server Ka Jawaab (HTTP Response)
-Server request milne par files ke sath ek **Status Code** bhejta hai jo connection status batata hai:
+      kid: `## 1. HTTP Response Kya Hota Hai?
+* 1. Server browser ko HTTP response bhejta.
+* 2. Status line success ya error batati.
+* 3. Response headers file type describe karte.
+* 4. Response body me HTML code hota.
+* 5. Browser HTML ko visually display karta.
 
-* **200 OK**: Sab sahi hai, ye rahi aapki file!
-* **404 Not Found**: Ye page website par exist nahi karta.
-* **500 Internal Server Error**: Server me koi coding crash ho gayi hai.
+\`\`\`http
+HTTP/1.1 200 OK
+Content-Type: text/html; charset=utf-8
+Content-Length: 1250
+Date: Sun, 13 Sep 2026 15:31:43 GMT
 
-## Example
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>HTTP Response Example</title>
-  <style>
-    body { font-family: sans-serif; background: #0f172a; color: #fff; padding: 24px; }
-    .card { background: #1e293b; padding: 24px; border-radius: 12px; border: 1px solid #334155; }
-    .badge { background: #04AA6D; color: #fff; font-weight: bold; padding: 6px 12px; border-radius: 6px; }
-  </style>
+  <title>Response Demo</title>
 </head>
 <body>
-
-  <div class="card">
-    <span class="badge">HTTP/1.1 200 OK</span>
-    <h2>Server Response Payload</h2>
-    <p>The web server successfully processed your request and returned this live HTML page!</p>
-  </div>
-
+  <h1>My First Heading</h1>
+  <p>My first paragraph.</p>
 </body>
-</html>`,
-      pro: `### 📡 HTTP Response Protocol & Status Classes
-Response packages content deliver status return karte hain:
+</html>
+\`\`\`
 
-* **Status Code Range**: 2xx (Success), 3xx (Redirect), 4xx (Client Errors), 5xx (Server Problems).
-* **Content headers**: Browser compiler engine ko parsing strategies configure karne me help karte hain (Content-Type header checks).
+---
 
-## Example
+## 2. Chrome DevTools Me Response Dekhein
+![Google Chrome DevTools Network Tab HTTP Response Headers](/screenshots/html/lesson7_chrome_devtools_response_headers.png)
+* 1. F12 dabakar Chrome DevTools kholein.
+* 2. Network tab me page refresh karein.
+* 3. Status 304 cached webpage verify karta.
+* 4. Response headers date aur cache batate.
+* 5. Left side par HTML render hota.
+
+---
+
+## 3. Terminal Me HTTP 200 Check Karein
+![Inspecting HTTP 200 OK Response Headers using curl.exe](/screenshots/html/lesson7_curl_response_200.png)
+* 1. Curl tool se response headers dekhein.
+* 2. -I flag sirf headers fetch karta.
+* 3. Status 200 OK successful reply hai.
+* 4. Content-Type text/html format confirm karta hai.
+* 5. Server cache aur connection details milti.
+
+\`\`\`powershell
+curl.exe -I https://nextsem.online/
+\`\`\`
+
+---
+
+## 4. Zaroori HTTP Status Codes
+* 1. 200 OK matlab request safal hui.
+* 2. 304 Not Modified cached file deta.
+* 3. 400 Bad Request galat syntax batata.
+* 4. 404 Not Found missing file batata.
+* 5. 500 Internal Error server problem batata.`,
+      pro: `## 1. HTTP Response Protocol Structure
+* 1. HTTP response packets status line bhejte.
+* 2. Status line protocol version return karti.
+* 3. Headers transfer metadata aur caching policies.
+* 4. Response body HTML byte streams deliver karta.
+* 5. Browser engine bytes se DOM banata.
+
+\`\`\`http
+HTTP/1.1 200 OK
+Content-Type: text/html; charset=utf-8
+Content-Length: 1250
+Cache-Control: public, max-age=0
+Date: Sun, 13 Sep 2026 15:31:43 GMT
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>HTTP 200 OK Response Demo</title>
-  <style>
-    body { font-family: monospace; background: #0f172a; color: #38bdf8; padding: 24px; }
-    .headers { background: #1e293b; padding: 16px; border-radius: 8px; border: 1px solid #334155; margin-bottom: 20px; }
-    .content { background: #1e293b; padding: 16px; border-radius: 8px; border: 1px solid #04AA6D; color: #fff; font-family: sans-serif; }
-  </style>
+  <title>Response Demo</title>
 </head>
 <body>
-
-  <div class="headers">
-    <p><strong>HTTP/1.1 200 OK</strong></p>
-    <p>Content-Type: text/html; charset=UTF-8</p>
-    <p>Server: Nextsem-Edge/2.0</p>
-  </div>
-
-  <div class="content">
-    <h1 style="color:#04AA6D;">Welcome to Nextsem Academy!</h1>
-    <p>This is the HTML body returned by the HTTP 200 OK server response.</p>
-  </div>
-
+  <h1>My First Heading</h1>
+  <p>My first paragraph.</p>
 </body>
-</html>`
+</html>
+\`\`\`
+
+---
+
+## 2. Chrome DevTools Network Inspection
+![Google Chrome DevTools Network Tab HTTP Response Headers](/screenshots/html/lesson7_chrome_devtools_response_headers.png)
+* 1. DevTools Network profiler headers capture karta.
+* 2. Status 304 browser cache validate karta.
+* 3. ETag header file hash verify karta.
+* 4. Cache-Control browser caching rules control karta.
+* 5. Rendered DOM window markup show karta.
+
+---
+
+## 3. Command-Line Diagnostics via curl.exe
+![Inspecting HTTP 200 OK Response Headers using curl.exe](/screenshots/html/lesson7_curl_response_200.png)
+* 1. Curl transport headers inspect karta hai.
+* 2. -I flag HEAD method execute karta.
+* 3. Protocol status HTTP/1.1 200 OK milta.
+* 4. Content-Type payload text/html charset verify karta.
+* 5. X-Cache header CDN hit report karta.
+
+\`\`\`powershell
+curl.exe -I https://nextsem.online/
+\`\`\`
+
+---
+
+## 4. HTTP Status Code Categories
+* 1. 2xx series successful requests represent karti.
+* 2. 3xx series redirection aur caching sambhalti.
+* 3. 304 Not Modified bandwidth save karta.
+* 4. 4xx series client-side mistakes report karti.
+* 5. 5xx series server failure explain karti.`
     },
     hindi: {
-      kid: `### 📮 सर्वर का उत्तर (HTTP Response)
-अनुरोध प्राप्त करने के बाद, सर्वर वेबसाइट की फाइलों के साथ एक प्रतिक्रिया (HTTP Response) और एक स्टेटस कोड भेजता है:
+      kid: `## 1. HTTP प्रतिक्रिया (Response) क्या है?
+* 1. सर्वर ब्राउज़र को HTTP रिस्पॉन्स भेजता।
+* 2. स्टेटस लाइन सफलता या त्रुटि बताती।
+* 3. हेडर फ़ाइल प्रकार की जानकारी देते।
+* 4. रिस्पॉन्स बॉडी में HTML कोड होता।
+* 5. ब्राउज़र HTML को स्क्रीन पर दिखाता।
 
-* **200 OK**: *'सब ठीक है! ये रही आपकी वेबसाइट।'*
-* **404 Not Found**: *'यह पेज मौजूद नहीं है!'*
-* **500 Server Error**: *'सर्वर की कोडिंग में कोई समस्या आ गई है!'*
+\`\`\`http
+HTTP/1.1 200 OK
+Content-Type: text/html; charset=utf-8
+Content-Length: 1250
+Date: Sun, 13 Sep 2026 15:31:43 GMT
 
-## Example
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>HTTP Response Example</title>
-  <style>
-    body { font-family: sans-serif; background: #0f172a; color: #fff; padding: 24px; }
-    .card { background: #1e293b; padding: 24px; border-radius: 12px; border: 1px solid #334155; }
-    .badge { background: #04AA6D; color: #fff; font-weight: bold; padding: 6px 12px; border-radius: 6px; }
-  </style>
+  <title>Response Demo</title>
 </head>
 <body>
-
-  <div class="card">
-    <span class="badge">HTTP/1.1 200 OK</span>
-    <h2>Server Response Payload</h2>
-    <p>The web server successfully processed your request and returned this live HTML page!</p>
-  </div>
-
+  <h1>My First Heading</h1>
+  <p>My first paragraph.</p>
 </body>
-</html>`,
-      pro: `### 📡 HTTP प्रतिक्रिया पेलोड और स्थिति कोड (Response Status Codes)
-एक HTTP प्रतिक्रिया में स्थिति पंक्ति (Status Line), हेडर (Headers) और दस्तावेज़ बॉडी शामिल होती है:
+</html>
+\`\`\`
 
-* **स्थिति पंक्ति**: प्रतिक्रिया स्थिति (उदा. \`HTTP/1.1 200 OK\`) लौटाती है।
-* **प्रतिक्रिया हेडर**: डेटा का प्रकार (उदा. \`Content-Type: text/html\`) और लंबाई परिभाषित करते हैं।
+---
 
-## Example
+## 2. क्रोम DevTools में प्रतिक्रिया जांचें
+![Google Chrome DevTools Network Tab HTTP Response Headers](/screenshots/html/lesson7_chrome_devtools_response_headers.png)
+* 1. F12 दबाकर क्रोम DevTools खोलें।
+* 2. नेटवर्क टैब में पेज रीफ्रेश करें।
+* 3. स्थिति 304 कैश्ड पेज दर्शाती है।
+* 4. रिस्पॉन्स हेडर दिनांक और कैश बताते।
+* 5. बाईं ओर HTML पेज दिखाई देता।
+
+---
+
+## 3. टर्मिनल में HTTP 200 जांचें
+![Inspecting HTTP 200 OK Response Headers using curl.exe](/screenshots/html/lesson7_curl_response_200.png)
+* 1. Curl से रिस्पॉन्स हेडर देखें।
+* 2. -I फ्लैग केवल हेडर मंगाता है।
+* 3. स्टेटस 200 OK सफल उत्तर है।
+* 4. Content-Type टेक्स्ट प्रारूप की पुष्टि करता।
+* 5. सर्वर कैश और सुरक्षा विवरण मिलते।
+
+\`\`\`powershell
+curl.exe -I https://nextsem.online/
+\`\`\`
+
+---
+
+## 4. प्रमुख HTTP स्टेटस कोड
+* 1. 200 OK का अर्थ सफल अनुरोध।
+* 2. 304 Not Modified कैश्ड फ़ाइल देता।
+* 3. 400 Bad Request अमान्य अनुरोध बताता।
+* 4. 404 Not Found अनुपलब्ध फ़ाइल बताता।
+* 5. 500 Internal Error सर्वर खराबी बताता।`,
+      pro: `## 1. HTTP रिस्पॉन्स प्रोटोकॉल संरचना
+* 1. HTTP रिस्पॉन्स में स्टेटस लाइन होती।
+* 2. स्टेटस लाइन प्रोटोकॉल वर्ज़न बताती है।
+* 3. हेडर मेटाडेटा और नीतियां स्थानांतरित करते।
+* 4. रिस्पॉन्स बॉडी HTML डेटा डिलीवर करती।
+* 5. ब्राउज़र इंजन कोड को रेंडर करता।
+
+\`\`\`http
+HTTP/1.1 200 OK
+Content-Type: text/html; charset=utf-8
+Content-Length: 1250
+Cache-Control: public, max-age=0
+Date: Sun, 13 Sep 2026 15:31:43 GMT
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>HTTP 200 OK Response Demo</title>
-  <style>
-    body { font-family: monospace; background: #0f172a; color: #38bdf8; padding: 24px; }
-    .headers { background: #1e293b; padding: 16px; border-radius: 8px; border: 1px solid #334155; margin-bottom: 20px; }
-    .content { background: #1e293b; padding: 16px; border-radius: 8px; border: 1px solid #04AA6D; color: #fff; font-family: sans-serif; }
-  </style>
+  <title>Response Demo</title>
 </head>
 <body>
-
-  <div class="headers">
-    <p><strong>HTTP/1.1 200 OK</strong></p>
-    <p>Content-Type: text/html; charset=UTF-8</p>
-    <p>Server: Nextsem-Edge/2.0</p>
-  </div>
-
-  <div class="content">
-    <h1 style="color:#04AA6D;">Welcome to Nextsem Academy!</h1>
-    <p>This is the HTML body returned by the HTTP 200 OK server response.</p>
-  </div>
-
+  <h1>My First Heading</h1>
+  <p>My first paragraph.</p>
 </body>
-</html>`
+</html>
+\`\`\`
+
+---
+
+## 2. क्रोम DevTools में नेटवर्क निरीक्षण
+![Google Chrome DevTools Network Tab HTTP Response Headers](/screenshots/html/lesson7_chrome_devtools_response_headers.png)
+* 1. DevTools नेटवर्क टैब हेडर रिकॉर्ड करता।
+* 2. स्थिति 304 ब्राउज़र कैश सत्यापित करती।
+* 3. ETag हेडर फ़ाइल फिंगरप्रिंट प्रमाणित करता।
+* 4. Cache-Control हेडर स्टोरेज नियम तय करता।
+* 5. रेंडर किया गया पेज बॉडी दिखाता।
+
+---
+
+## 3. कमांड-लाइन द्वारा 200 OK की जांच
+![Inspecting HTTP 200 OK Response Headers using curl.exe](/screenshots/html/lesson7_curl_response_200.png)
+* 1. Curl ट्रांसपोर्ट लेयर हेडर जांचता है।
+* 2. -I फ्लैग HEAD मेथड चलाता है।
+* 3. प्रोटोकॉल स्टेटस HTTP/1.1 200 OK मिलता।
+* 4. Content-Type टेक्स्ट HTML एनकोडिंग प्रमाणित करता।
+* 5. X-Cache हेडर CDN हिट दर्शाता है।
+
+\`\`\`powershell
+curl.exe -I https://nextsem.online/
+\`\`\`
+
+---
+
+## 4. HTTP स्टेटस कोड श्रेणियां
+* 1. 2xx श्रेणी सफल अनुरोध दर्शाती है।
+* 2. 3xx श्रेणी पुनर्निर्देशन और कैशिंग संभालती।
+* 3. 304 Not Modified बैंडविड्थ की बचत करता।
+* 4. 4xx श्रेणी क्लाइंट-साइड त्रुटियां दर्शाती है।
+* 5. 5xx श्रेणी सर्वर विफलता को दर्शाती।`
     }
   },
   {
