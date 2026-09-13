@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from "react";
 import Link from "next/link";
@@ -22,7 +22,7 @@ export default function LogoThemeStudio() {
     { id: "charcoal", name: "Charcoal Dark", value: "#17181c", border: "border-emerald-500/40" },
     { id: "navy", name: "Deep Navy Space", value: "#0c1328", border: "border-blue-500/40" },
     { id: "pitch", name: "Pure Pitch Black", value: "#000000", border: "border-slate-700" },
-    { id: "ignou", name: "IGNOU Navy", value: "#060c18", border: "border-amber-500/40" },
+    { id: "academic", name: "Deep Academic Navy", value: "#060c18", border: "border-amber-500/40" },
     { id: "light", name: "Print / Light", value: "#f8fafc", border: "border-slate-300", lightText: true },
   ];
 
@@ -115,8 +115,8 @@ export default function LogoThemeStudio() {
     },
     {
       id: "gold",
-      title: "4. IGNOU BCA Gold Edition",
-      badge: "IGNOU Hub & Certificates",
+      title: "4. Developer Gold Edition",
+      badge: "Developer Hub & Certificates",
       desc: "Imperial gold (#c1a648) with Nextsem emerald accents for academic dignity.",
       svg: `<svg viewBox="0 0 160 160" width="100%" height="100%">
   <rect x="4" y="4" width="152" height="152" rx="36" fill="#0c1328" stroke="#c1a648" stroke-width="4"/>
@@ -208,7 +208,7 @@ export default function LogoThemeStudio() {
             Nextsem <span className="text-[#04AA6D]">Logo & Theme Studio</span>
           </h1>
           <p className="mt-3 text-slate-300 text-sm sm:text-base leading-relaxed">
-            Yahan par sabhi official logos aur theme colors live test karein. Jab testing final ho jaye, toh isi standard ko hum <span className="text-white font-bold">IGNOU BCA</span>, <span className="text-white font-bold">Kids App</span>, aur <span className="text-white font-bold">NCERT</span> par seamlessly sync karenge.
+            Yahan par sabhi official logos aur theme colors live test karein. Jab testing final ho jaye, toh isi standard ko hum <span className="text-white font-bold">Full Stack Academy</span>, <span className="text-white font-bold">Kids App</span>, aur <span className="text-white font-bold">NCERT</span> par seamlessly sync karenge.
           </p>
         </div>
 
@@ -351,7 +351,7 @@ export default function LogoThemeStudio() {
             <div className="p-4 rounded-xl bg-[#17181c] border border-slate-800">
               <div className="w-full h-8 rounded-md bg-[#c1a648] mb-3 shadow-[0_0_12px_rgba(193,166,72,0.5)]" />
               <span className="text-[11px] font-mono font-bold text-white block">#c1a648</span>
-              <span className="text-[10px] text-slate-300">IGNOU Gold Accent</span>
+              <span className="text-[10px] text-slate-300">Developer Gold Accent</span>
             </div>
           </div>
 
@@ -365,7 +365,7 @@ export default function LogoThemeStudio() {
                 Cross-App Rollout Process
               </h4>
               <p className="text-xs text-slate-300 mt-1 leading-relaxed">
-                Jab aap Nextsem Online par logo aur theme final approve kar denge, hum <code className="text-white font-bold">logo for nextsem</code> folder ke exact SVGs aur tokens ko <span className="text-[#04AA6D] font-bold">ignou.nextsem.online</span>, <span className="text-[#04AA6D] font-bold">kids.nextsem.mobile</span>, aur <span className="text-[#04AA6D] font-bold">ncert.nextsem.online</span> me automatically copy & sync kar denge!
+                Jab aap Nextsem Online par logo aur theme final approve kar denge, hum <code className="text-white font-bold">logo for nextsem</code> folder ke exact SVGs aur tokens ko <span className="text-[#04AA6D] font-bold">nextsem.online</span>, <span className="text-[#04AA6D] font-bold">mobile apps</span>, aur <span className="text-[#04AA6D] font-bold">interactive studios</span> me automatically copy & sync kar denge!
               </p>
             </div>
           </div>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import Link from 'next/link';
@@ -54,6 +54,7 @@ interface BookSidebarProps {
 
 const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, isCollapsed }: BookSidebarProps) => {
   const pathname = usePathname() || "";
+  const cleanPath = (pathname || "").replace(/\/+$/, "") || "/";
   const { completedChapters } = useProgress();
   const activeItemRef = useRef<HTMLAnchorElement | null>(null);
   const scrollContainerRef = useRef<HTMLElement | null>(null);
@@ -94,19 +95,19 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, isCollapsed }: BookSideb
   useEffect(() => {
     let activeUnit = "";
     if (currentSubject === 'html') {
-      const active = htmlLessons.find((l) => (l.slug && pathname.includes(l.slug)) || (pathname === '/html' && l.id === 0));
+      const active = htmlLessons.find((l) => (l.slug && pathname.includes(l.slug)) || ((cleanPath === '/html' || pathname === '/html') && l.id === 0));
       if (active) activeUnit = active.unit;
     } else if (currentSubject === 'css') {
-      const active = cssLessons.find((l) => pathname.includes(l.slug) || (pathname === '/css' && l.id === 1));
+      const active = cssLessons.find((l) => pathname.includes(l.slug) || ((cleanPath === '/css' || pathname === '/css') && l.id === 1));
       if (active) activeUnit = active.unit;
     } else if (currentSubject === 'js') {
-      const active = jsLessons.find((l) => pathname.includes(l.slug) || (pathname === '/js' && l.id === 1));
+      const active = jsLessons.find((l) => pathname.includes(l.slug) || ((cleanPath === '/js' || pathname === '/js') && l.id === 1));
       if (active) activeUnit = active.unit;
     } else if (currentSubject === 'react') {
-      const active = reactLessons.find((l) => pathname.includes(l.slug) || (pathname === '/react' && l.id === 1));
+      const active = reactLessons.find((l) => pathname.includes(l.slug) || ((cleanPath === '/react' || pathname === '/react') && l.id === 1));
       if (active) activeUnit = active.unit;
     } else if (currentSubject === 'nodejs') {
-      const active = nodeLessons.find((l) => pathname.includes(l.slug) || ((pathname === '/nodejs' || pathname === '/node') && l.id === 1));
+      const active = nodeLessons.find((l) => pathname.includes(l.slug) || ((cleanPath === '/nodejs' || cleanPath === '/node' || pathname === '/nodejs') && l.id === 1));
       if (active) activeUnit = active.unit;
     } else if (currentSubject === 'cli') {
       const active = cliLessons.find((l) => pathname.includes(l.slug));
@@ -115,7 +116,7 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, isCollapsed }: BookSideb
       const active = cppLessons.find((l) => pathname.includes(l.slug));
       if (active) activeUnit = active.unit;
     } else if (currentSubject === 'git') {
-      const active = gitLessons.find((l) => pathname.includes(l.slug) || (pathname === '/git' && l.id === 1));
+      const active = gitLessons.find((l) => pathname.includes(l.slug) || ((cleanPath === '/git' || pathname === '/git') && l.id === 1));
       if (active) activeUnit = active.unit;
     }
 
@@ -236,7 +237,7 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, isCollapsed }: BookSideb
                   if (searchQuery && filteredLessons.length === 0) return null;
 
                   const isCollapsed = collapsedUnits[unitName] ?? false;
-                  const hasActiveLesson = unitLessons.some((l) => (l.slug && pathname.includes(l.slug)) || (pathname === '/html' && l.id === 0));
+                  const hasActiveLesson = unitLessons.some((l) => (l.slug && pathname.includes(l.slug)) || ((cleanPath === '/html' || pathname === '/html') && l.id === 0));
 
                   return (
                     <div key={uIdx} className="mb-2 bg-[#0d1733]/80 rounded-xl border border-slate-800/70 overflow-hidden shadow-xs">
@@ -271,7 +272,7 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, isCollapsed }: BookSideb
                       {!isCollapsed && (
                         <div className="flex flex-col space-y-0.5 p-1.5 bg-[#090f24]/70">
                           {filteredLessons.map((lesson) => {
-                            const isActive = (lesson.slug && pathname.includes(lesson.slug)) || (pathname === '/html' && lesson.id === 0);
+                            const isActive = (lesson.slug && pathname.includes(lesson.slug)) || ((cleanPath === '/html' || pathname === '/html') && lesson.id === 0);
                             const lessonHref = lesson.id === 0 ? '/html/' : `/html/${lesson.slug}/`;
 
                             return (
@@ -322,7 +323,7 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, isCollapsed }: BookSideb
                   if (searchQuery && filteredLessons.length === 0) return null;
 
                   const isCollapsed = collapsedUnits[unitName] ?? false;
-                  const hasActiveLesson = unitLessons.some((l) => pathname.includes(l.slug) || (pathname === '/css' && l.id === 1));
+                  const hasActiveLesson = unitLessons.some((l) => pathname.includes(l.slug) || ((cleanPath === '/css' || pathname === '/css') && l.id === 1));
 
                   return (
                     <div key={uIdx} className="mb-2 bg-[#0d1733]/80 rounded-xl border border-slate-800/70 overflow-hidden shadow-xs">
@@ -353,7 +354,7 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, isCollapsed }: BookSideb
                       {!isCollapsed && (
                         <div className="flex flex-col space-y-0.5 p-1.5 bg-[#090f24]/70">
                           {filteredLessons.map((lesson) => {
-                            const isActive = pathname.includes(lesson.slug) || (pathname === '/css' && lesson.id === 1);
+                            const isActive = pathname.includes(lesson.slug) || ((cleanPath === '/css' || pathname === '/css') && lesson.id === 1);
                             return (
                               <Link
                                 ref={isActive ? activeItemRef : undefined}
@@ -400,7 +401,7 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, isCollapsed }: BookSideb
                   if (searchQuery && filteredLessons.length === 0) return null;
 
                   const isCollapsed = collapsedUnits[unitName] ?? false;
-                  const hasActiveLesson = unitLessons.some((l) => pathname.includes(l.slug) || (pathname === '/js' && l.id === 1));
+                  const hasActiveLesson = unitLessons.some((l) => pathname.includes(l.slug) || ((cleanPath === '/js' || pathname === '/js') && l.id === 1));
 
                   return (
                     <div key={uIdx} className="mb-2 bg-[#0d1733]/80 rounded-xl border border-slate-800/70 overflow-hidden shadow-xs">
@@ -431,7 +432,7 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, isCollapsed }: BookSideb
                       {!isCollapsed && (
                         <div className="flex flex-col space-y-0.5 p-1.5 bg-[#090f24]/70">
                           {filteredLessons.map((lesson) => {
-                            const isActive = pathname.includes(lesson.slug) || (pathname === '/js' && lesson.id === 1);
+                            const isActive = pathname.includes(lesson.slug) || ((cleanPath === '/js' || pathname === '/js') && lesson.id === 1);
                             return (
                               <Link
                                 ref={isActive ? activeItemRef : undefined}
@@ -478,7 +479,7 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, isCollapsed }: BookSideb
                   if (searchQuery && filteredLessons.length === 0) return null;
 
                   const isCollapsed = collapsedUnits[unitName] ?? false;
-                  const hasActiveLesson = unitLessons.some((l) => pathname.includes(l.slug) || (pathname === '/react' && l.id === 1));
+                  const hasActiveLesson = unitLessons.some((l) => pathname.includes(l.slug) || ((cleanPath === '/react' || pathname === '/react') && l.id === 1));
 
                   return (
                     <div key={uIdx} className="mb-2 bg-[#0d1733]/80 rounded-xl border border-slate-800/70 overflow-hidden shadow-xs">
@@ -509,7 +510,7 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, isCollapsed }: BookSideb
                       {!isCollapsed && (
                         <div className="flex flex-col space-y-0.5 p-1.5 bg-[#090f24]/70">
                           {filteredLessons.map((lesson) => {
-                            const isActive = pathname.includes(lesson.slug) || (pathname === '/react' && lesson.id === 1);
+                            const isActive = pathname.includes(lesson.slug) || ((cleanPath === '/react' || pathname === '/react') && lesson.id === 1);
                             return (
                               <Link
                                 ref={isActive ? activeItemRef : undefined}
@@ -556,7 +557,7 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, isCollapsed }: BookSideb
                   if (searchQuery && filteredLessons.length === 0) return null;
 
                   const isCollapsed = collapsedUnits[unitName] ?? false;
-                  const hasActiveLesson = unitLessons.some((l) => pathname.includes(l.slug) || ((pathname === '/nodejs' || pathname === '/node') && l.id === 1));
+                  const hasActiveLesson = unitLessons.some((l) => pathname.includes(l.slug) || ((cleanPath === '/nodejs' || cleanPath === '/node' || pathname === '/nodejs') && l.id === 1));
 
                   return (
                     <div key={uIdx} className="mb-2 bg-[#0d1733]/80 rounded-xl border border-slate-800/70 overflow-hidden shadow-xs">
@@ -587,7 +588,7 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, isCollapsed }: BookSideb
                       {!isCollapsed && (
                         <div className="flex flex-col space-y-0.5 p-1.5 bg-[#090f24]/70">
                           {filteredLessons.map((lesson) => {
-                            const isActive = pathname.includes(lesson.slug) || ((pathname === '/nodejs' || pathname === '/node') && lesson.id === 1);
+                            const isActive = pathname.includes(lesson.slug) || ((cleanPath === '/nodejs' || cleanPath === '/node' || pathname === '/nodejs') && lesson.id === 1);
                             return (
                               <Link
                                 ref={isActive ? activeItemRef : undefined}
@@ -819,7 +820,7 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, isCollapsed }: BookSideb
                   if (searchQuery && filteredLessons.length === 0) return null;
 
                   const isCollapsed = collapsedUnits[unitName] ?? false;
-                  const hasActiveLesson = unitLessons.some((l) => pathname.includes(l.slug) || (pathname === '/git' && l.id === 1));
+                  const hasActiveLesson = unitLessons.some((l) => pathname.includes(l.slug) || ((cleanPath === '/git' || pathname === '/git') && l.id === 1));
 
                   return (
                     <div key={uIdx} className="mb-2 bg-[#0d1733]/80 rounded-xl border border-slate-800/70 overflow-hidden shadow-xs">
@@ -850,7 +851,7 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, isCollapsed }: BookSideb
                       {!isCollapsed && (
                         <div className="flex flex-col space-y-0.5 p-1.5 bg-[#090f24]/70">
                           {filteredLessons.map((lesson) => {
-                            const isActive = pathname.includes(lesson.slug) || (pathname === '/git' && lesson.id === 1);
+                            const isActive = pathname.includes(lesson.slug) || ((cleanPath === '/git' || pathname === '/git') && lesson.id === 1);
                             return (
                               <Link
                                 ref={isActive ? activeItemRef : undefined}

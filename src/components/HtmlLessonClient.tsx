@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
@@ -360,6 +360,26 @@ Ethernet adapter Ethernet:
    Subnet Mask . . . . . . . . . . . : 255.255.255.0
    Default Gateway . . . . . . . . . : 192.168.29.1`;
   }
+  if (trimmed.startsWith("winget")) {
+    return `Found Visual Studio Code [Microsoft.VisualStudioCode] Version 1.93.0
+This application is licensed to you by its owner.
+Downloading https://update.code.visualstudio.com/1.93.0/win32-x64-user/stable...
+  â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  98.4 MB / 98.4 MB
+Successfully verified installer hash
+Starting package install...
+Successfully installed Visual Studio Code!`;
+  }
+
+  if (trimmed.startsWith("code --version") || trimmed.startsWith("code -v")) {
+    return `1.93.0
+38c31bc77e0dd6ae88a4e9cc93428cc27a56ba40
+x64`;
+  }
+
+  if (trimmed.startsWith("code .")) {
+    return `C:\\Users\\Student\\my-first-website> code .
+Opening current directory in Visual Studio Code... Workspace loaded!`;
+  }
 
   return `C:\\Users\\Student> ${trimmed.split('\n')[0]}
 Execution successful! Output verified on Windows 11 Pro x86_64.`;
@@ -389,7 +409,7 @@ function VsCodeEditorCard({ code, blockKey }: { code: string; blockKey: string }
     trimmed.startsWith("winget") ||
     trimmed.startsWith("pacman") ||
     trimmed.startsWith("g++") ||
-    trimmed.startsWith("code .");
+    trimmed.startsWith("code .") || trimmed.startsWith("code ") || trimmed.startsWith("code");
 
   const handleCopy = () => {
     if (typeof window !== "undefined") {

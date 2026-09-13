@@ -1,4 +1,4 @@
-export interface ReactLesson {
+﻿export interface ReactLesson {
   id: number;
   slug: string;
   title: string;
@@ -104,7 +104,7 @@ export function CourseCard({ title, lessonsCount, isPopular = false }: CourseCar
           </span>
         )}
       </div>
-      <p className="text-xs text-slate-400">📚 {lessonsCount} Lessons</p>
+      <p className="text-xs text-slate-400">ðŸ“š {lessonsCount} Lessons</p>
     </div>
   );
 }
@@ -327,26 +327,103 @@ export function useWindowDimensions() {
     slug: "react-context-api-usecontext-global-state",
     title: "Context API, useContext & Global Application State",
     unit: "Unit 4: Advanced React Architecture",
-    content: `React Context allows you to share global state (e.g. current user, theme, cart items) across the entire component tree without prop drilling.
+    content: `Master state management in modern React applications by sharing state globally across components without prop drilling.
+
+## 1. The Prop Drilling Problem
+* In standard React, data flows downward through props from parent to child components.
+* When deeply nested components (e.g. 5 layers deep) need access to global state (such as the current authenticated user, active UI theme, or shopping cart), passing props through intermediate components that do not need them creates **prop drilling**.
+* **React Context** provides a way to pass data through the component tree without having to pass props down manually at every level.
+
+---
+
+## 2. Creating Context with createContext
+Create a Context object and establish fallback default values:
 
 \`\`\`jsx
-import React, { createContext, useContext, useState } from 'react';
+import { createContext } from 'react';
 
-const ThemeContext = createContext({ theme: 'dark', toggleTheme: () => {} });
+// Create context with sensible default values
+export const ThemeContext = createContext({
+  theme: 'dark',
+  toggleTheme: () => {}
+});
+\`\`\`
+
+---
+
+## 3. The Context Provider Pattern
+Wrap your component tree in a custom Provider component that owns and manages the state:
+
+\`\`\`jsx
+import React, { useState } from 'react';
+import { ThemeContext } from './ThemeContext';
 
 export function ThemeProvider({ children }) {
   const [theme, setTheme] = useState('dark');
-  const toggleTheme = () => setTheme(prev => (prev === 'dark' ? 'light' : 'dark'));
+
+  const toggleTheme = () => {
+    setTheme((prevTheme) => (prevTheme === 'dark' ? 'light' : 'dark'));
+  };
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      {children}
+      <div className={theme === 'dark' ? 'bg-[#060c18] text-white' : 'bg-white text-slate-900'}>
+        {children}
+      </div>
     </ThemeContext.Provider>
   );
 }
-
-export const useTheme = () => useContext(ThemeContext);
 \`\`\`
+
+---
+
+## 4. Consuming State with useContext
+Create a custom consumer hook to safely access the context anywhere in your application:
+
+\`\`\`jsx
+import { useContext } from 'react';
+import { ThemeContext } from './ThemeContext';
+
+export function useTheme() {
+  const context = useContext(ThemeContext);
+  if (!context) {
+    throw new Error('useTheme must be used within a ThemeProvider');
+  }
+  return context;
+}
+\`\`\`
+
+---
+
+## 5. Complete Global State Implementation
+Here is how consumer components cleanly toggle and read global state:
+
+\`\`\`jsx
+import React from 'react';
+import { useTheme } from './ThemeContext';
+
+export function HeaderNav() {
+  const { theme, toggleTheme } = useTheme();
+
+  return (
+    <header className="flex items-center justify-between p-4 border-b border-slate-800">
+      <h1 className="text-xl font-bold">Nextsem Academy</h1>
+      <button
+        onClick={toggleTheme}
+        className="px-4 py-2 bg-[#04AA6D] hover:bg-[#039861] text-white font-bold rounded-lg transition-colors"
+      >
+        Current Theme: {theme.toUpperCase()}
+      </button>
+    </header>
+  );
+}
+\`\`\`
+
+---
+
+## 6. Context Performance Best Practices
+* **Split Independent Contexts:** Avoid putting all state into a single giant context object. Keep authentication, UI theme, and notification state in separate providers.
+* **Separate State and Dispatch:** If a component only needs to trigger an action (e.g. dispatch a toggle), provide a separate context for action handlers so state updates do not re-render that component.
 `
   },
   {
@@ -354,18 +431,86 @@ export const useTheme = () => useContext(ThemeContext);
     slug: "react-router-dom-spa-routes-links",
     title: "React Router & Next.js App Router Architecture",
     unit: "Unit 4: Advanced React Architecture",
-    content: `Single Page Applications (SPAs) use client-side routing to switch views instantly without full browser page reloads.
+    content: `Build seamless Single Page Applications (SPAs) with modern declarative routing, dynamic parameters, and instant page transitions.
+
+## 1. Client-Side Routing vs Multi-Page Apps
+* **Traditional Websites:** Every link click triggers a full browser reload, fetching HTML from the server and reloading all CSS/JS assets from scratch.
+* **Single Page Applications (SPAs):** The browser loads one initial bundle. When links are clicked, client-side routing intercepts navigation, updates the browser URL via the History API, and renders matching components instantly without any page flash.
+
+---
+
+## 2. Declarative Navigation with Link
+Never use standard HTML \`<a>\` tags for internal links in React or Next.js, as they trigger full page reloads. Always use the optimized \`<Link>\` component:
 
 \`\`\`jsx
 import Link from 'next/link';
 
 export function NavigationBar() {
   return (
-    <nav className="flex gap-4">
-      <Link href="/html" className="text-emerald-400 hover:underline">HTML Lessons</Link>
-      <Link href="/css" className="text-emerald-400 hover:underline">CSS Lessons</Link>
-      <Link href="/react" className="text-emerald-400 hover:underline">React Lessons</Link>
+    <nav className="flex items-center gap-6 p-4 bg-[#09101f] border-b border-slate-800">
+      <Link href="/html" className="text-slate-300 hover:text-[#04AA6D] font-bold transition-colors">
+        HTML5 Lessons
+      </Link>
+      <Link href="/css" className="text-slate-300 hover:text-[#04AA6D] font-bold transition-colors">
+        CSS3 Mastery
+      </Link>
+      <Link href="/react" className="text-slate-300 hover:text-[#04AA6D] font-bold transition-colors">
+        React.js Architecture
+      </Link>
+      <Link href="/nodejs" className="text-slate-300 hover:text-[#04AA6D] font-bold transition-colors">
+        Node.js Backend
+      </Link>
     </nav>
+  );
+}
+\`\`\`
+
+---
+
+## 3. Programmatic Navigation with useRouter
+When you need to redirect users after an asynchronous action (such as login completion or quiz submission), use programmatic navigation:
+
+\`\`\`jsx
+'use client';
+
+import { useRouter } from 'next/navigation';
+
+export function QuizSubmitButton({ score, totalQuestions }) {
+  const router = useRouter();
+
+  const handleFinish = async () => {
+    // Save student score to database
+    await saveScore(score);
+
+    // Programmatically navigate to results page
+    router.push('/quiz/results');
+  };
+
+  return (
+    <button
+      onClick={handleFinish}
+      className="px-6 py-2.5 bg-[#04AA6D] hover:bg-[#039861] text-white font-black rounded-xl shadow-lg"
+    >
+      Complete Assessment
+    </button>
+  );
+}
+\`\`\`
+
+---
+
+## 4. Dynamic Route Segments
+Dynamic segments allow your application to render matching content from database slugs (e.g. \`/react/[slug]\`):
+
+\`\`\`jsx
+// src/app/react/[slug]/page.tsx
+export default async function LessonPage({ params }) {
+  const { slug } = await params;
+
+  return (
+    <div className="p-8 max-w-4xl mx-auto">
+      <h1 className="text-3xl font-extrabold text-white">Active Lesson: {slug}</h1>
+    </div>
   );
 }
 \`\`\`
@@ -376,33 +521,105 @@ export function NavigationBar() {
     slug: "react-performance-memo-usememo-usecallback",
     title: "React Performance: React.memo, useMemo & useCallback",
     unit: "Unit 4: Advanced React Architecture",
-    content: `Optimize high-scale React applications by eliminating unnecessary component re-renders.
+    content: `Master React performance optimization by eliminating unnecessary component re-renders, caching expensive computations, and maintaining stable function references.
+
+## 1. How React Re-renders Components
+* By default, whenever a parent component re-renders, **all of its children re-render recursively**, regardless of whether their props changed.
+* In JavaScript, objects and functions are compared by **reference equality**, not value:
+  * \`{} !== {}\` (two separate object instances)
+  * \`(() => {}) !== (() => {})\` (two separate function instances)
+* Passing inline objects or callbacks causes child components to see "new" props on every render, triggering redundant redraw cycles.
+
+---
+
+## 2. React.memo: Component-Level Memoization
+Wrap a functional component with \`React.memo\` to skip re-rendering if its incoming props are shallowly equal:
 
 \`\`\`jsx
-import React, { useMemo, useCallback } from 'react';
+import React, { memo } from 'react';
 
-export function AnalyticsDashboard({ rawData, onExport }) {
-  // Memoize expensive calculations
-  const totalRevenue = useMemo(() => {
-    return rawData.reduce((acc, curr) => acc + curr.amount, 0);
-  }, [rawData]);
+// This component only re-renders if 'title' or 'count' value actually changes
+export const MetricCard = memo(function MetricCard({ title, count }) {
+  console.log('Rendering MetricCard:', title);
+  return (
+    <div className="p-4 bg-slate-900 border border-slate-800 rounded-xl">
+      <span className="text-xs text-slate-400 font-bold uppercase">{title}</span>
+      <p className="text-2xl font-black text-[#04AA6D]">{count}</p>
+    </div>
+  );
+});
+\`\`\`
 
-  // Memoize callback function reference
-  const handleExport = useCallback(() => {
-    onExport(totalRevenue);
-  }, [onExport, totalRevenue]);
+---
+
+## 3. useMemo: Caching Expensive Computations
+Use \`useMemo\` to cache the calculated result of expensive operations (e.g. filtering 10,000 items, calculating statistics) between renders:
+
+\`\`\`jsx
+import React, { useState, useMemo } from 'react';
+
+export function TransactionAnalytics({ transactions }) {
+  const [filter, setFilter] = useState('all');
+
+  // Cache filtered calculation: only re-calculates when transactions or filter change
+  const totalVolume = useMemo(() => {
+    console.log('Calculating total transaction volume...');
+    return transactions
+      .filter((item) => filter === 'all' || item.type === filter)
+      .reduce((sum, item) => sum + item.amount, 0);
+  }, [transactions, filter]);
 
   return (
-    <div className="p-6 bg-slate-900 rounded-2xl text-white">
-      <h2 className="text-xl font-bold">Total Revenue: \${totalRevenue.toLocaleString()}</h2>
-      <button onClick={handleExport} className="mt-4 px-4 py-2 bg-emerald-500 rounded-xl font-bold">
-        Export CSV
-      </button>
+    <div className="p-6 bg-[#0c1328] border border-slate-800 rounded-2xl">
+      <h2 className="text-xl font-bold text-white">Total Volume: \${totalVolume.toLocaleString()}</h2>
+      <div className="flex gap-2 mt-4">
+        <button onClick={() => setFilter('all')} className="px-3 py-1 bg-slate-800 text-white rounded">All</button>
+        <button onClick={() => setFilter('crypto')} className="px-3 py-1 bg-slate-800 text-white rounded">Crypto</button>
+      </div>
     </div>
-
   );
 }
 \`\`\`
+
+---
+
+## 4. useCallback: Preserving Function References
+Use \`useCallback\` to memoize a callback function instance between renders, preventing memoized child components from re-rendering:
+
+\`\`\`jsx
+import React, { useState, useCallback } from 'react';
+import { MetricCard } from './MetricCard';
+
+export function PerformanceDashboard() {
+  const [counter, setCounter] = useState(0);
+
+  // Stable callback reference: function identity does not change on counter updates
+  const handleExport = useCallback((format) => {
+    console.log('Exporting analytics report in format:', format);
+  }, []);
+
+  return (
+    <div className="space-y-4">
+      <button
+        onClick={() => setCounter((c) => c + 1)}
+        className="px-4 py-2 bg-[#04AA6D] text-white font-bold rounded-lg"
+      >
+        Increment: {counter}
+      </button>
+
+      {/* MetricCard will NOT re-render when counter increments */}
+      <MetricCard title="Completed Lessons" count={counter} onExport={handleExport} />
+    </div>
+  );
+}
+\`\`\`
+
+---
+
+## 5. Golden Rules for Performance
+1. **Profile Before Optimizing:** Do not wrap every single component in \`React.memo\` or every function in \`useCallback\`. Memoization has its own memory and comparison overhead.
+2. **Use useMemo for Expensive Loops:** Calculations with hundreds or thousands of array iterations benefit most from \`useMemo\`.
+3. **Use useCallback with React.memo:** \`useCallback\` is primarily useful when passing functions to child components wrapped in \`React.memo\` or to \`useEffect\` dependency arrays.
 `
   }
 ];

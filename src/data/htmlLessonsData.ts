@@ -1,4 +1,4 @@
-/** Single language exercise (legacy format) */
+﻿/** Single language exercise (legacy format) */
 export interface ExerciseBlock {
   question: string;
   options: string[];
@@ -66,15 +66,15 @@ export const htmlLessons: Lesson[] = [
         hint: "Is option se aap Windows PC par kisi bhi folder par right-click karke direct 'Open with Code' kar sakte hain!"
       },
       hindi: {
-        question: "🪟 Windows 11 पर VS Code इंस्टॉल करते समय कौन सा चेकबॉक्स चुनना सबसे जरूरी है ताकि आप किसी भी फोल्डर पर राइट-क्लिक करके उसे सीधे VS Code में खोल सकें?",
+        question: "Windows 11 me VS Code install karte samay kaun sa checkbox sabse mahatvapoorna hai jisse kisi bhi folder par right-click karke 'Open with Code' kiya ja sake?",
         options: [
-          "केवल डेस्कटॉप शॉर्टकट बनाएं",
+          "Keval Desktop shortcut banayein",
           "Add 'Open with Code' action to Windows Explorer directory context menu",
-          "GPU एक्सेलेरेशन बंद करें",
-          "माइक्रोसॉफ्ट एज एक्सटेंशन इंस्टॉल करें"
+          "GPU acceleration band karein",
+          "Edge browser extension install karein"
         ],
         correctAnswer: "Add 'Open with Code' action to Windows Explorer directory context menu",
-        hint: "यह विकल्प आपको विंडोज में किसी भी प्रोजेक्ट फोल्डर पर राइट-क्लिक करके 'Open with Code' करने की सुविधा देता है!"
+        hint: "Yah option Windows 11 File Explorer me kisi bhi project folder par right-click karke direct 'Open with Code' karne ki suvidha deta hai!"
       }
     },
     english: {
@@ -82,69 +82,116 @@ export const htmlLessons: Lesson[] = [
 
 ## What is Visual Studio Code (VS Code)?
 ![Visual Studio Code Windows 11 Developer Workspace](/screenshots/vscode/step0_vscode_windows11_workspace.png)
-* **Visual Studio Code (VS Code)** is the world's most popular, free, and lightning-fast code editor built by Microsoft.
-* It includes syntax color highlighting, intelligent auto-completion, integrated terminal, built-in Git, and thousands of powerful developer extensions.
+* VS Code is a free code editor.
+* Microsoft built it for web software engineering.
+* Includes terminal, Git, and syntax highlighting.
+* Extensions provide live server and formatting.
+* Works natively across all Windows 11 computers.
 
 ---
 
-## Step 1: Search for VS Code Download on Google
+## Method 1: Download & Install via Command Line (CLI - Fastest)
+If you prefer Windows Terminal or PowerShell, you can install VS Code with a single command using the official Microsoft Windows Package Manager (winget).
+
+![Step 1: Install VS Code using winget in Windows Terminal](/screenshots/vscode/cli_step1_winget_install.png)
+* Open Windows Terminal using Win + X.
+* Run official Windows Package Manager command.
+* Download and PATH configuration happen automatically.
+* Verify your installation with version command.
+* Open any directory using code dot.
+
+\`\`\`powershell
+winget install Microsoft.VisualStudioCode
+\`\`\`
+
+![Step 2: Verify VS Code Installation with code --version](/screenshots/vscode/cli_step2_code_version.png)
+Verify your installation by checking the installed version:
+\`\`\`powershell
+code --version
+\`\`\`
+
+![Step 3: Launch VS Code Workspace with code dot](/screenshots/vscode/cli_step3_code_dot.png)
+Launch VS Code directly into your workspace from the command line:
+\`\`\`powershell
+code .
+\`\`\`
+
+---
+
+## Method 2: Direct Download from Official Website (Setup Wizard)
+
+### Step 1: Open Google Chrome and Visit Official Site
 ![Step 1: Search for VS Code on Google Chrome Windows 11](/screenshots/vscode/step1_google_search_vscode.png)
-1. Open Google Chrome and search for: \`download visual studio code windows 11\`
-2. Click the official Microsoft result: **Download Visual Studio Code** (\`https://code.visualstudio.com/Download\`).
+* Open Google Chrome on your computer.
+* Navigate to official Microsoft download portal.
+* Official URL is https://code.visualstudio.com/Download.
+* Download page displays all platform installers.
+* Select Windows 11 64-bit installer option.
 
 ---
 
-## Step 2: Download the Official Windows 11 Installer
+### Step 2: Download the Official Windows 11 User Installer
 ![Step 2: Download Visual Studio Code for Windows 11](/screenshots/vscode/step2_vscode_download_page.png)
-1. On the official download page, click the prominent blue **"Windows (64-bit User Installer)"** button.
-2. The installation setup file \`VSCodeUserSetup-x64.exe\` (~98 MB) will automatically begin downloading in Google Chrome.
+* Click blue Windows 64-bit User Installer button.
+* Download begins for VSCodeUserSetup-x64.exe installer package.
+* Total download size is approximately 98 megabytes.
+* File saves automatically in Downloads folder.
+* Verify download completes before launching installer.
 
 ---
 
-## Step 3: Open Downloads Folder in Windows 11
+### Step 3: Open Downloads Folder in Windows 11
 ![Step 3: Downloaded VSCodeUserSetup-x64.exe in Windows 11 Downloads](/screenshots/vscode/step3_windows11_downloads_folder.png)
-1. Open Windows File Explorer (\`Win + E\`) and navigate to your **Downloads** folder.
-2. Locate the downloaded file: \`VSCodeUserSetup-x64.exe\`.
-3. Double-click the file to launch the Microsoft Setup Wizard.
+* Press Win + E for File Explorer.
+* Navigate directly to your Downloads folder.
+* Locate downloaded installer named VSCodeUserSetup-x64.exe file.
+* Double-click file to launch Microsoft Setup Wizard.
+* Click Yes when User Account Control appears.
 
 ---
 
-## Step 4: Installation Wizard & Crucial Windows Checkboxes
+### Step 4: Installation Wizard & Crucial Windows Checkboxes
 ![Step 4: Check Crucial Setup Checkboxes on Windows 11](/screenshots/vscode/step4_vscode_setup_wizard_checkboxes.png)
-1. Accept the Microsoft software license agreement and click **Next**.
-2. **CRITICAL STEP:** On the **"Select Additional Tasks"** screen, make sure you CHECK ALL of these boxes:
-   * **Add "Open with Code" action to Windows Explorer file context menu**
-   * **Add "Open with Code" action to Windows Explorer directory context menu**
-   * **Register Code as an editor for supported file types**
-   * **Add to PATH (requires shell restart)**
-3. Click **Install** and then click **Finish** to launch Visual Studio Code!
+* Accept Microsoft software license agreement prompt.
+* Check "Open with Code" file context menu.
+* Check "Open with Code" directory context menu.
+* Check "Register Code as supported file editor".
+* Check "Add to PATH" environment variable checkbox.
+* Click Install to complete Windows 11 setup.
 
 ---
 
 ## Step 5: Install Essential Web Developer Extensions
 ![Step 5: Install Live Server and Prettier in Visual Studio Code](/screenshots/vscode/step5_vscode_extensions_liveserver.png)
-VS Code extensions supercharge your development workflow:
-1. Press \`Ctrl + Shift + X\` (or click the Extensions icon on the left Activity Bar).
-2. Search and click **Install** for these essential tools:
-   * **Live Server** *(by Ritwick Dey)*: Launches a local development server with auto-reload for static HTML/CSS/JS pages.
-   * **Prettier - Code Formatter**: Automatically formats your code into clean, beautiful syntax every time you press \`Ctrl + S\`.
-   * **Auto Rename Tag**: Automatically renames paired HTML tags when you change the opening tag.
+* Press Ctrl + Shift + X in editor.
+* Install Live Server extension for Chrome preview.
+* Install Prettier code formatter for clean syntax.
+* Install Auto Rename Tag for faster editing.
+* Extensions automatically activate inside your editor.
 
 ---
 
 ## Step 6: Create Your Project Folder & "Open with Code"
 ![Step 6: Windows 11 Right-Click Folder -> Open with Code](/screenshots/vscode/step6_windows11_rightclick_open_with_code.png)
-1. In Windows Explorer, create a new folder named \`my-first-website\`.
-2. **Right-click the folder** ➔ select **Show more options** (Windows 11) ➔ click **"Open with Code"**.
-3. VS Code will immediately open the folder as your active developer workspace!
+* Create new folder named my-first-website on desktop.
+* Right-click folder and select Show more options.
+* Click "Open with Code" from context menu.
+* Or run code dot inside Windows Terminal.
+* VS Code loads workspace with active explorer.
+
+\`\`\`powershell
+code .
+\`\`\`
 
 ---
 
 ## Step 7: Create index.html & Run Google Chrome Live Server
 ![Step 7: Visual Studio Code on Windows 11 and Google Chrome Live Server Preview](/screenshots/vscode/step7_first_index_html_live_server.png)
-1. In the VS Code Explorer panel (left side), click the **New File** icon and name it \`index.html\`.
-2. **Emmet Boilerplate Shortcut:** Inside the editor, type \`!\` (exclamation mark) and press **Enter** (or **Tab**).
-3. VS Code will automatically generate the standard HTML5 skeleton:
+* Create index.html inside the project explorer.
+* Type exclamation mark and press Enter key.
+* Emmet generates complete HTML5 boilerplate skeleton.
+* Right-click index.html and select Live Server.
+* Chrome opens page at localhost port 5500.
 
 \`\`\`html
 <!DOCTYPE html>
@@ -155,233 +202,525 @@ VS Code extensions supercharge your development workflow:
   <title>My First Website | Nextsem</title>
 </head>
 <body>
-  <h1>Hello World! My First Web Page 🚀</h1>
+  <h1>Hello World! My First Web Page</h1>
   <p>I am learning Full Stack Web Development on Nextsem Academy.</p>
 </body>
 </html>
 \`\`\`
 
-4. Right-click anywhere in \`index.html\` ➔ select **"Open with Live Server"** (Shortcut: \`Alt + L, Alt + O\`).
-5. Google Chrome will instantly open \`http://127.0.0.1:5500/index.html\` displaying your live website!
-
 ---
 
 ## Essential Windows 11 VS Code Keyboard Shortcuts Drill
-* **\`Ctrl + S\`**: Save current file
-* **\`Ctrl + \`\` (backtick)**: Toggle integrated developer terminal
-* **\`Ctrl + Shift + P\`**: Open Command Palette
-* **\`Alt + Up / Down\`**: Move the current line of code up or down
-* **\`Ctrl + /\`**: Toggle comment (\`<!-- code -->\`)
-* **\`Alt + Shift + F\`**: Auto-format entire document with Prettier`,
+* Ctrl + S saves the active file.
+* Ctrl + \` toggles integrated developer terminal.
+* Ctrl + Shift + P opens Command Palette.
+* Alt + Up / Down moves lines.
+* Alt + Shift + F formats code document.`,
       pro: `Professional Web Development Workstation Setup on Windows 11 using Visual Studio Code.
 
 ## Industry-Standard Editor: Visual Studio Code
 ![Visual Studio Code Windows 11 Developer Workspace](/screenshots/vscode/step0_vscode_windows11_workspace.png)
-* **VS Code** is the premier IDE for Full Stack JavaScript/TypeScript, React, Node.js, and web application development.
-* Features native terminal integration, Git version control, multi-root workspaces, and language server protocols (LSP).
+* VS Code is premier full stack IDE.
+* Microsoft engineered it for TypeScript and React.
+* Includes native terminal, Git, and LSP integration.
+* Multi-root workspaces optimize large full-stack codebases.
+* Runs high-performance V8 engine on Windows 11.
 
 ---
 
-## Step 1 & 2: Search & Download for Windows 11
+## Installation Method 1: Windows Package Manager (winget CLI)
+![Step 1: Install VS Code using winget in Windows Terminal](/screenshots/vscode/cli_step1_winget_install.png)
+* Open Windows Terminal using Win + X.
+* Execute winget install for Visual Studio Code.
+* Package manager configures PATH variables automatically.
+* Query compiler version to verify system integration.
+* Launch workspace using terminal code dot syntax.
+
+\`\`\`powershell
+winget install Microsoft.VisualStudioCode
+\`\`\`
+
+![Step 2: Verify VS Code Installation with code --version](/screenshots/vscode/cli_step2_code_version.png)
+Verify binary and PATH availability:
+\`\`\`powershell
+code --version
+\`\`\`
+
+![Step 3: Launch VS Code Workspace with code dot](/screenshots/vscode/cli_step3_code_dot.png)
+Launch workspace from command line:
+\`\`\`powershell
+code .
+\`\`\`
+
+---
+
+## Installation Method 2: Official Direct Installer Download
 ![Step 1: Search for VS Code on Google Chrome Windows 11](/screenshots/vscode/step1_google_search_vscode.png)
 ![Step 2: Download Visual Studio Code for Windows 11](/screenshots/vscode/step2_vscode_download_page.png)
-* Direct Installer: Download the x64 User Installer from [code.visualstudio.com/Download](https://code.visualstudio.com/Download).
-* Windows Package Manager: \`winget install Microsoft.VisualStudioCode\`
+* Direct official download: [code.visualstudio.com/Download](https://code.visualstudio.com/Download)
+* Select Windows (64-bit User Installer) binary.
+* Run downloaded package VSCodeUserSetup-x64.exe from Downloads folder.
 
----
-
-## Step 3 & 4: Installation & Windows Context Shell Integration
 ![Step 3: Downloaded VSCodeUserSetup-x64.exe in Windows 11 Downloads](/screenshots/vscode/step3_windows11_downloads_folder.png)
 ![Step 4: Check Crucial Setup Checkboxes on Windows 11](/screenshots/vscode/step4_vscode_setup_wizard_checkboxes.png)
-* In the installation wizard, activate directory context menu integration and PATH registration.
+* Crucial setup flags: Directory context menu integration and system PATH registration.
 
 ---
 
-## Step 5, 6 & 7: Toolchain Extensions, Workspace & First Server Launch
+## Toolchain Extensions, Workspace & First Server Launch
 ![Step 5: Install Live Server and Prettier in Visual Studio Code](/screenshots/vscode/step5_vscode_extensions_liveserver.png)
 ![Step 6: Windows 11 Right-Click Folder -> Open with Code](/screenshots/vscode/step6_windows11_rightclick_open_with_code.png)
 ![Step 7: Visual Studio Code on Windows 11 and Google Chrome Live Server Preview](/screenshots/vscode/step7_first_index_html_live_server.png)
-* Extensions: \`Live Server\` (\`ritwickdey.liveserver\`) and \`Prettier\` (\`esbenp.prettier-vscode\`).
-* Workspace Launch: Right-click folder ➔ **Open with Code** or run \`code .\` in terminal.
-* HTML5 Boilerplate: Emmet expansion with \`!\` ➔ Launch Google Chrome on \`http://127.0.0.1:5500\`.`
+* Extensions: Live Server (ritwickdey.liveserver) and Prettier (esbenp.prettier-vscode).
+* Workspace Launch: Right-click folder -> Open with Code or run code dot in terminal.
+* HTML5 Boilerplate: Emmet expansion with exclamation mark -> Launch Google Chrome on port 5500.
+
+\`\`\`powershell
+code .
+\`\`\`
+
+\`\`\`html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My First Website | Nextsem</title>
+</head>
+<body>
+  <h1>Hello World! My First Web Page</h1>
+  <p>I am learning Full Stack Web Development on Nextsem Academy.</p>
+</body>
+</html>
+\`\`\`
+
+## Professional Shortcuts Drill
+* Ctrl + S: Atomic save current buffer.
+* Ctrl + \`: Toggle integrated PowerShell terminal.
+* Ctrl + Shift + P: Global Command Palette search.
+* Alt + Shift + F: Run Prettier formatting engine.`
     },
     hinglish: {
       kid: `Full Stack Web Developer banne ke safar me aapka swagat hai! Web development shuru karne ke liye sabse pehle hume apne Windows 11 PC par **Visual Studio Code (VS Code)** download aur install karna hoga.
 
-### Visual Studio Code Kya Hai?
+## Visual Studio Code (VS Code) Kya Hai?
 ![Visual Studio Code Windows 11 Developer Workspace](/screenshots/vscode/step0_vscode_windows11_workspace.png)
-* **VS Code** Microsoft ka banaya hua world ka #1 free code editor hai jisme professional software engineers code likhte hain.
-* Isme syntax colors, auto-completion, terminal, aur extensions milte hain jo coding ko aasan banate hain.
+* VS Code free modern code editor hai.
+* Microsoft ise professional web engineers banata hai.
+* Isme built-in terminal aur Git milta hai.
+* Extensions se live reload features judte hain.
+* Ye Windows 11 par fast chalta hai.
 
 ---
 
-### Step 1: Google Par "VS Code Download" Search Karein
+## Tareeka 1: Command Line Se Install Karein (CLI - Sabse Fast)
+Agar aap Windows Terminal ya PowerShell use karte hain, to sirf ek command se direct VS Code install kar sakte hain:
+
+![Step 1: Install VS Code using winget in Windows Terminal](/screenshots/vscode/cli_step1_winget_install.png)
+* Win + X dabakar Windows Terminal kholein.
+* Microsoft winget package manager command chalayein.
+* Download aur PATH setup automatically ho jayega.
+* Version check karke installation verify karein.
+* Kisi bhi folder me code dot likhein.
+
+\`\`\`powershell
+winget install Microsoft.VisualStudioCode
+\`\`\`
+
+![Step 2: Verify VS Code Installation with code --version](/screenshots/vscode/cli_step2_code_version.png)
+Installation check karne ke liye ye command chalayein:
+\`\`\`powershell
+code --version
+\`\`\`
+
+![Step 3: Launch VS Code Workspace with code dot](/screenshots/vscode/cli_step3_code_dot.png)
+Command line se workspace launch karein:
+\`\`\`powershell
+code .
+\`\`\`
+
+---
+
+## Tareeka 2: Official Website Se Direct Download Karein
+
+### Step 1: Google Chrome Me Official Site Kholein
 ![Step 1: Search for VS Code on Google Chrome Windows 11](/screenshots/vscode/step1_google_search_vscode.png)
-1. Apne Google Chrome browser me search karein: \`download visual studio code windows 11\`
-2. Official link par click karein: \`https://code.visualstudio.com/Download\`
+* Chrome browser me official website open karein.
+* Official link hai https://code.visualstudio.com/Download.
+* Download page par alag platforms dikhenge.
+* Windows 11 64-bit installer option chunein.
 
 ---
 
-### Step 2: Windows 11 Installer Download Karein
+### Step 2: Windows 11 User Installer Download Karein
 ![Step 2: Download Visual Studio Code for Windows 11](/screenshots/vscode/step2_vscode_download_page.png)
-1. Website par blue **"Windows (64-bit User Installer)"** button par click karein.
-2. \`VSCodeUserSetup-x64.exe\` file download hona shuru ho jayegi.
+* Blue Windows 64-bit User Installer button dabayein.
+* VSCodeUserSetup-x64.exe file download hona shuru hogi.
+* Setup file lagbhag 98 MB ki hai.
+* File seedhe Downloads folder me save hogi.
 
 ---
 
-### Step 3: Downloads Folder Me File Kholein
+### Step 3: Downloads Folder Me Setup File Kholein
 ![Step 3: Downloaded VSCodeUserSetup-x64.exe in Windows 11 Downloads](/screenshots/vscode/step3_windows11_downloads_folder.png)
-1. Windows Explorer (\`Win + E\`) me **Downloads** folder open karein.
-2. \`VSCodeUserSetup-x64.exe\` file par double click karein.
+* Win + E dabakar File Explorer kholein.
+* Downloads folder me double click karein.
+* VSCodeUserSetup-x64.exe file par double-click karein.
+* Microsoft Setup Wizard open ho jayega.
 
 ---
 
-### Step 4: Windows 11 me Install Karein (Zaroori Checkboxes!)
+### Step 4: Installation Wizard Me Zaroori Checkboxes Tick Karein
 ![Step 4: Check Crucial Setup Checkboxes on Windows 11](/screenshots/vscode/step4_vscode_setup_wizard_checkboxes.png)
-1. License accept karke **Next** dabayein.
-2. **ZAROORI STEP:** "Select Additional Tasks" screen par in saare boxes ko zaroor tick karein:
-   * **Add "Open with Code" action to Windows Explorer file context menu**
-   * **Add "Open with Code" action to Windows Explorer directory context menu**
-   * **Register Code as an editor for supported file types**
-   * **Add to PATH (requires shell restart)**
-3. **Install** par click karein aur setup finish karein!
+* License agreement accept karke Next dabayein.
+* "Open with Code" file context menu tick karein.
+* "Open with Code" directory context menu tick karein.
+* "Register Code as supported editor" tick karein.
+* "Add to PATH" checkbox zaroor select karein.
+* Install button dabakar setup complete karein.
 
 ---
 
-### Step 5: Zaroori Extensions Install Karein
+## Step 5: Live Server & Prettier Extensions Install Karein
 ![Step 5: Install Live Server and Prettier in Visual Studio Code](/screenshots/vscode/step5_vscode_extensions_liveserver.png)
-1. VS Code me \`Ctrl + Shift + X\` dabayein (Extensions tab).
-2. Ye 2 zaroori extensions search karke **Install** karein:
-   * **Live Server**: Google Chrome me direct live website dekhne ke liye.
-   * **Prettier - Code Formatter**: Code ko automatic clean aur format rakhne ke liye.
+* VS Code me Ctrl + Shift + X dabayein.
+* Live Server extension search karke install karein.
+* Prettier code formatter extension install karein.
+* Auto Rename Tag extension install karein.
+* Extensions automatically editor me active ho jayengi.
 
 ---
 
-### Step 6: Naya Folder Banayein & "Open with Code" Karein
+## Step 6: Project Folder Banayein & "Open with Code" Karein
 ![Step 6: Windows 11 Right-Click Folder -> Open with Code](/screenshots/vscode/step6_windows11_rightclick_open_with_code.png)
-1. Desktop ya Documents me \`my-first-website\` naam ka folder banayein.
-2. Folder par Right Click karein ➔ **Show more options** ➔ **Open with Code** par click karein.
+* Desktop par my-first-website folder banayein.
+* Folder par right click karke options kholein.
+* "Open with Code" option par click karein.
+* Ya terminal me code dot command chalayein.
+* VS Code aapka naya workspace open karega.
+
+\`\`\`powershell
+code .
+\`\`\`
 
 ---
 
-### Step 7: Pehli File (index.html) Banayein aur Google Chrome me Live Chalayein!
+## Step 7: index.html Banayein aur Live Server Chalayein!
 ![Step 7: Visual Studio Code on Windows 11 and Google Chrome Live Server Preview](/screenshots/vscode/step7_first_index_html_live_server.png)
-1. VS Code Explorer me **New File** icon par click karke \`index.html\` banayein.
-2. Editor me sirf \`!\` (exclamation) type karke **Enter** dabayein (Emmet magic boilerplate).
-3. \`index.html\` par right-click karein ➔ **Open with Live Server** select karein.
-4. Google Chrome \`http://127.0.0.1:5500/index.html\` par live website open kar dega!`,
-      pro: `Professional 🪟 Windows 11 Web Developer Workstation Setup using Visual Studio Code.
+* Explorer me new file index.html banayein.
+* Exclamation mark type karke Enter dabayein.
+* Emmet poora HTML5 boilerplate generate karega.
+* Right-click karke Open with Live Server chunein.
+* Chrome port 5500 par website open karega.
 
-### 🛠️ Environment Configuration
-1. **Download & Binary Verification**:
-   * [code.visualstudio.com/Download](https://code.visualstudio.com/Download) se Windows User Installer x64 download karein.
-   * Verify PATH integration in Windows Terminal: \`code --version\`.
+\`\`\`html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My First Website | Nextsem</title>
+</head>
+<body>
+  <h1>Hello World! My First Web Page</h1>
+  <p>I am learning Full Stack Web Development on Nextsem Academy.</p>
+</body>
+</html>
+\`\`\`
 
-![Step 1: Search for VS Code Download on Google](/screenshots/vscode/step1_google_search_vscode.png)
-![Step 2: Official Visual Studio Code Windows 11 Download Page](/screenshots/vscode/step2_vscode_download_page.png)
+---
 
-2. **Context Menu Shell Integration**:
-   * Installation wizard me Directory Context Menu option ko enable karein taaki kisi bhi folder se \`code .\` execute kiya ja sake.
+## Zaroori Windows 11 Keyboard Shortcuts Drill
+* Ctrl + S file save karta hai.
+* Ctrl + \` developer terminal toggle karta hai.
+* Ctrl + Shift + P Command Palette kholta hai.
+* Alt + Up / Down line move karta hai.
+* Alt + Shift + F code auto-format karta hai.`,
+      pro: `Professional Windows 11 Web Developer Workstation Setup using Visual Studio Code.
+
+## Visual Studio Code Setup Overview
+![Visual Studio Code Windows 11 Developer Workspace](/screenshots/vscode/step0_vscode_windows11_workspace.png)
+* VS Code world standard code editor hai.
+* Terminal, Git, aur IntelliSense built-in hain.
+* Web development workflow ke liye fastest toolchain hai.
+
+---
+
+## Installation Method 1: winget Package Manager (CLI)
+![Step 1: Install VS Code using winget in Windows Terminal](/screenshots/vscode/cli_step1_winget_install.png)
+* Windows Terminal open karein (Win + X).
+* winget command se direct install karein.
+* Environment variables automatically PATH me add hote hain.
+
+\`\`\`powershell
+winget install Microsoft.VisualStudioCode
+\`\`\`
+
+![Step 2: Verify VS Code Installation with code --version](/screenshots/vscode/cli_step2_code_version.png)
+Verify version:
+\`\`\`powershell
+code --version
+\`\`\`
+
+![Step 3: Launch VS Code Workspace with code dot](/screenshots/vscode/cli_step3_code_dot.png)
+\`\`\`powershell
+code .
+\`\`\`
+
+---
+
+## Installation Method 2: Official Direct Installer Download
+![Step 1: Search for VS Code on Google Chrome Windows 11](/screenshots/vscode/step1_google_search_vscode.png)
+![Step 2: Download Visual Studio Code for Windows 11](/screenshots/vscode/step2_vscode_download_page.png)
+* Direct download URL: [code.visualstudio.com/Download](https://code.visualstudio.com/Download)
+* Windows (64-bit User Installer) download karein.
+* Downloads folder se installer run karein.
 
 ![Step 3: Downloaded VSCodeUserSetup-x64.exe in Windows 11 Downloads](/screenshots/vscode/step3_windows11_downloads_folder.png)
-![Step 4: Windows 11 Setup Wizard Checkboxes (Enable Open with Code & PATH)](/screenshots/vscode/step4_vscode_setup_wizard_checkboxes.png)
+![Step 4: Check Crucial Setup Checkboxes on Windows 11](/screenshots/vscode/step4_vscode_setup_wizard_checkboxes.png)
+* Setup checkboxes me Directory Context Menu aur Add to PATH zaroor enable karein.
 
-3. **Productivity Extensions & First Launch Loop**:
-   * \`ritwickdey.liveserver\` (Live Server on port 5500)
-   * \`esbenp.prettier-vscode\` (Format On Save enabled in settings.json)
-   * Launch workspace: Right-click folder ➔ **Open with Code** ➔ Emmet \`!\` ➔ Live Server \`http://127.0.0.1:5500\`.
+---
 
-![Step 5: Install Live Server & Prettier Extensions in VS Code](/screenshots/vscode/step5_vscode_extensions_liveserver.png)
+## Extensions, Workspace & First Launch
+![Step 5: Install Live Server and Prettier in Visual Studio Code](/screenshots/vscode/step5_vscode_extensions_liveserver.png)
 ![Step 6: Windows 11 Right-Click Folder -> Open with Code](/screenshots/vscode/step6_windows11_rightclick_open_with_code.png)
-![Step 7: Create index.html and Launch Live Server Preview](/screenshots/vscode/step7_first_index_html_live_server.png)`
+![Step 7: Visual Studio Code on Windows 11 and Google Chrome Live Server Preview](/screenshots/vscode/step7_first_index_html_live_server.png)
+* Extensions: Live Server aur Prettier.
+* Workspace: Folder right click -> Open with Code ya terminal me code dot.
+* First page: index.html boilerplate + Chrome Live Server port 5500.
+
+\`\`\`powershell
+code .
+\`\`\`
+
+\`\`\`html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My First Website | Nextsem</title>
+</head>
+<body>
+  <h1>Hello World! My First Web Page</h1>
+  <p>I am learning Full Stack Web Development on Nextsem Academy.</p>
+</body>
+</html>
+\`\`\`
+
+## Professional Shortcuts
+* Ctrl + S: Save file.
+* Ctrl + \`: Terminal open/close.
+* Ctrl + Shift + P: Command Palette.
+* Alt + Shift + F: Prettier format.`
     },
     hindi: {
-      kid: `फुल स्टैक वेब डेवलपर बनने के सफर में आपका स्वागत है! कोडिंग शुरू करने से पहले हमें अपने 🪟 Windows 11 कंप्यूटर पर **Visual Studio Code (VS Code)** डाउनलोड और इंस्टॉल करना होगा।
+      kid: `Full Stack Web Developer banne ke safar me aapka swagat hai! Web development shuru karne ke liye sabse pehle hume apne Windows 11 PC par Visual Studio Code (VS Code) download aur install karna hoga.
 
-### 🛠️ विजुअल स्टूडियो कोड क्या है?
-* **VS Code** माइक्रोसॉफ्ट द्वारा बनाया गया दुनिया का सबसे लोकप्रिय और मुफ्त कोड एडिटर है।
-* इसमें सिंटैक्स कलरिंग, स्वतः पूर्णता (Auto-complete), टर्मिनल और उपयोगी एक्सटेंशन मिलते हैं।
-
----
-
-### 🔍 चरण 1: गूगल पर "VS Code Download" खोजें
-1. अपने ब्राउज़र में सर्च करें: \`download visual studio code windows 11\`
-2. आधिकारिक लिंक खोलें: \`https://code.visualstudio.com/Download\`
-
-![Step 1: Search for VS Code Download on Google](/screenshots/vscode/step1_google_search_vscode.png)
+## Visual Studio Code (VS Code) Kya Hai?
+![Visual Studio Code Windows 11 Developer Workspace](/screenshots/vscode/step0_vscode_windows11_workspace.png)
+* VS Code ek muft modern code editor hai.
+* Microsoft ise web engineering ke liye banata hai.
+* Isme built-in terminal aur Git milta hai.
+* Extensions se live reloading features judte hain.
+* Ye Windows 11 par tez chalta hai.
 
 ---
 
-### 📥 चरण 2: आधिकारिक विंडोज 11 इंस्टॉलर डाउनलोड करें
-1. डाउनलोड पेज पर नीले **"Windows (64-bit User Installer)"** बटन पर क्लिक करें।
-2. आपकी **Downloads** डायरेक्टरी में इंस्टॉलर \`VSCodeUserSetup-x64.exe\` डाउनलोड हो जाएगा।
+## Tareeka 1: Command Line Se Install Karein (CLI - Sabse Fast)
+Agar aap Windows Terminal ya PowerShell use karte hain, to sirf ek command se direct VS Code install kar sakte hain:
 
-![Step 2: Official Visual Studio Code Windows 11 Download Page](/screenshots/vscode/step2_vscode_download_page.png)
+![Step 1: Install VS Code using winget in Windows Terminal](/screenshots/vscode/cli_step1_winget_install.png)
+* Win + X dabakar Windows Terminal kholein.
+* Microsoft winget package manager command chalayein.
+* Download aur PATH setup automatically ho jayega.
+* Version check karke installation verify karein.
+* Kisi bhi folder me code dot likhein.
+
+\`\`\`powershell
+winget install Microsoft.VisualStudioCode
+\`\`\`
+
+![Step 2: Verify VS Code Installation with code --version](/screenshots/vscode/cli_step2_code_version.png)
+Installation check karne ke liye ye command chalayein:
+\`\`\`powershell
+code --version
+\`\`\`
+
+![Step 3: Launch VS Code Workspace with code dot](/screenshots/vscode/cli_step3_code_dot.png)
+\`\`\`powershell
+code .
+\`\`\`
 
 ---
 
-### 📂 चरण 3: डाउनलोड फोल्डर खोलें
-1. विंडोज फाइल एक्सप्लोरर में **Downloads** फोल्डर खोलें।
-2. \`VSCodeUserSetup-x64.exe\` पर डबल-क्लिक करें।
+## Tareeka 2: Official Website Se Direct Download Karein
+
+### Step 1: Google Chrome Me Official Site Kholein
+![Step 1: Search for VS Code on Google Chrome Windows 11](/screenshots/vscode/step1_google_search_vscode.png)
+* Chrome browser me official website open karein.
+* Official link hai https://code.visualstudio.com/Download.
+* Download page par Windows 11 option chunein.
+
+---
+
+### Step 2: Windows 11 User Installer Download Karein
+![Step 2: Download Visual Studio Code for Windows 11](/screenshots/vscode/step2_vscode_download_page.png)
+* Blue Windows 64-bit User Installer button dabayein.
+* VSCodeUserSetup-x64.exe file download hona shuru hogi.
+* Setup file lagbhag 98 MB ki hai.
+
+---
+
+### Step 3: Downloads Folder Me Setup File Kholein
+![Step 3: Downloaded VSCodeUserSetup-x64.exe in Windows 11 Downloads](/screenshots/vscode/step3_windows11_downloads_folder.png)
+* Win + E dabakar File Explorer kholein.
+* Downloads folder me double click karein.
+* VSCodeUserSetup-x64.exe file par double-click karein.
+
+---
+
+### Step 4: Installation Wizard Me Zaroori Checkboxes Tick Karein
+![Step 4: Check Crucial Setup Checkboxes on Windows 11](/screenshots/vscode/step4_vscode_setup_wizard_checkboxes.png)
+* License agreement accept karke Next dabayein.
+* "Open with Code" file context menu tick karein.
+* "Open with Code" directory context menu tick karein.
+* "Register Code as supported editor" tick karein.
+* "Add to PATH" checkbox zaroor select karein.
+* Install button dabakar setup complete karein.
+
+---
+
+## Step 5: Live Server & Prettier Extensions Install Karein
+![Step 5: Install Live Server and Prettier in Visual Studio Code](/screenshots/vscode/step5_vscode_extensions_liveserver.png)
+* VS Code me Ctrl + Shift + X dabayein.
+* Live Server extension search karke install karein.
+* Prettier code formatter extension install karein.
+* Auto Rename Tag extension install karein.
+
+---
+
+## Step 6: Project Folder Banayein & "Open with Code" Karein
+![Step 6: Windows 11 Right-Click Folder -> Open with Code](/screenshots/vscode/step6_windows11_rightclick_open_with_code.png)
+* Desktop par my-first-website folder banayein.
+* Folder par right click karke options kholein.
+* "Open with Code" option par click karein.
+* Ya terminal me code dot command chalayein.
+
+\`\`\`powershell
+code .
+\`\`\`
+
+---
+
+## Step 7: index.html Banayein aur Live Server Chalayein!
+![Step 7: Visual Studio Code on Windows 11 and Google Chrome Live Server Preview](/screenshots/vscode/step7_first_index_html_live_server.png)
+* Explorer me new file index.html banayein.
+* Exclamation mark type karke Enter dabayein.
+* Emmet poora HTML5 boilerplate generate karega.
+* Right-click karke Open with Live Server chunein.
+* Chrome port 5500 par website open karega.
+
+\`\`\`html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My First Website | Nextsem</title>
+</head>
+<body>
+  <h1>Hello World! My First Web Page</h1>
+  <p>I am learning Full Stack Web Development on Nextsem Academy.</p>
+</body>
+</html>
+\`\`\`
+
+---
+
+## Zaroori Windows 11 Keyboard Shortcuts
+* Ctrl + S: File save karta hai.
+* Ctrl + \`: Terminal open/close karta hai.
+* Ctrl + Shift + P: Command Palette kholta hai.
+* Alt + Shift + F: Code auto-format karta hai.`,
+      pro: `Professional Windows 11 Web Developer Workstation Setup using Visual Studio Code.
+
+## Visual Studio Code Setup
+![Visual Studio Code Windows 11 Developer Workspace](/screenshots/vscode/step0_vscode_windows11_workspace.png)
+* VS Code standard web development code editor hai.
+* Terminal, Git, aur auto-complete built-in hain.
+
+---
+
+## Installation Method 1: winget Package Manager (CLI)
+![Step 1: Install VS Code using winget in Windows Terminal](/screenshots/vscode/cli_step1_winget_install.png)
+* Windows Terminal open karein (Win + X).
+* winget command se direct install karein.
+* PATH automatically configure hota hai.
+
+\`\`\`powershell
+winget install Microsoft.VisualStudioCode
+\`\`\`
+
+![Step 2: Verify VS Code Installation with code --version](/screenshots/vscode/cli_step2_code_version.png)
+Verify version:
+\`\`\`powershell
+code --version
+\`\`\`
+
+![Step 3: Launch VS Code Workspace with code dot](/screenshots/vscode/cli_step3_code_dot.png)
+\`\`\`powershell
+code .
+\`\`\`
+
+---
+
+## Installation Method 2: Official Direct Installer Download
+![Step 1: Search for VS Code on Google Chrome Windows 11](/screenshots/vscode/step1_google_search_vscode.png)
+![Step 2: Download Visual Studio Code for Windows 11](/screenshots/vscode/step2_vscode_download_page.png)
+* Official URL: [code.visualstudio.com/Download](https://code.visualstudio.com/Download)
+* Windows (64-bit User Installer) download karein.
+* Downloads folder se setup file run karein.
 
 ![Step 3: Downloaded VSCodeUserSetup-x64.exe in Windows 11 Downloads](/screenshots/vscode/step3_windows11_downloads_folder.png)
+![Step 4: Check Crucial Setup Checkboxes on Windows 11](/screenshots/vscode/step4_vscode_setup_wizard_checkboxes.png)
+* Directory Context Menu aur Add to PATH checkboxes enable karein.
 
 ---
 
-### ⚙️ चरण 4: विंडोज 11 में इंस्टॉल करें (महत्वपूर्ण चेकबॉक्स!)
-1. लाइसेंस स्वीकार करें और **Next** पर क्लिक करें।
-2. ⚠️ **अति महत्वपूर्ण:** "Select Additional Tasks" स्क्रीन पर इन सभी विकल्पों को टिक (☑) करें:
-   * ☑ **Add "Open with Code" action to Windows Explorer file context menu**
-   * ☑ **Add "Open with Code" action to Windows Explorer directory context menu**
-   * ☑ **Register Code as an editor for supported file types**
-   * ☑ **Add to PATH (requires shell restart)**
-3. **Install** पर क्लिक करें और प्रक्रिया पूरी करें।
-
-![Step 4: Windows 11 Setup Wizard Checkboxes (Enable Open with Code & PATH)](/screenshots/vscode/step4_vscode_setup_wizard_checkboxes.png)
-
----
-
-### 🧩 चरण 5: आवश्यक एक्सटेंशन इंस्टॉल करें
-1. VS Code में \`Ctrl + Shift + X\` दबाएं।
-2. निम्नलिखित एक्सटेंशन इंस्टॉल करें:
-   * 🌟 **Live Server**: ब्राउज़र में वास्तविक समय में लाइव पेज देखने के लिए।
-   * 🌟 **Prettier - Code Formatter**: कोड को स्वतः सुंदर और व्यवस्थित रखने के लिए।
-
-![Step 5: Install Live Server & Prettier Extensions in VS Code](/screenshots/vscode/step5_vscode_extensions_liveserver.png)
-
----
-
-### 📁 चरण 6: अपना पहला प्रोजेक्ट फोल्डर बनाएं और VS Code में खोलें
-1. कंप्यूटर पर \`my-first-website\` नाम का फोल्डर बनाएं।
-2. फोल्डर पर राइट-क्लिक करें ➔ **Show more options** ➔ **Open with Code** 🪟 चुनें।
-
+## Extensions, Workspace & First Launch
+![Step 5: Install Live Server and Prettier in Visual Studio Code](/screenshots/vscode/step5_vscode_extensions_liveserver.png)
 ![Step 6: Windows 11 Right-Click Folder -> Open with Code](/screenshots/vscode/step6_windows11_rightclick_open_with_code.png)
+![Step 7: Visual Studio Code on Windows 11 and Google Chrome Live Server Preview](/screenshots/vscode/step7_first_index_html_live_server.png)
+* Extensions: Live Server aur Prettier.
+* Workspace: Folder right-click -> Open with Code ya terminal me code dot.
+* First page: index.html boilerplate aur Chrome Live Server port 5500.
 
----
+\`\`\`powershell
+code .
+\`\`\`
 
-### 📄 चरण 7: पहली फाइल (\`index.html\`) बनाएं और लाइव सर्वर शुरू करें
-1. VS Code में नई फाइल \`index.html\` बनाएं और Emmet \`!\` दबाकर HTML5 संरचना प्राप्त करें।
-2. एडिटर में राइट-क्लिक करें ➔ **Open with Live Server** चुनें।
-3. आपका ब्राउज़र \`http://127.0.0.1:5500/index.html\` पर तुरंत लाइव वेबसाइट प्रदर्शित करेगा!
+\`\`\`html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My First Website | Nextsem</title>
+</head>
+<body>
+  <h1>Hello World! My First Web Page</h1>
+  <p>I am learning Full Stack Web Development on Nextsem Academy.</p>
+</body>
+</html>
+\`\`\`
 
-![Step 7: Create index.html and Launch Live Server Preview](/screenshots/vscode/step7_first_index_html_live_server.png)`,
-      pro: `🪟 Windows 11 पर विजुअल स्टूडियो कोड का पेशेवर वातावरण सेटअप और पहली HTML फाइल का निर्माण।
-
-### 🛠️ सेटअप और विन्यास
-1. **डाउनलोड व इंस्टॉलेशन**: [code.visualstudio.com/Download](https://code.visualstudio.com/Download) से विंडोज x64 इंस्टॉलर प्राप्त करें और PATH एनवायरनमेंट वेरिएबल चेकबॉक्स को सक्रिय रखें।
-
-![Step 1: Search for VS Code Download on Google](/screenshots/vscode/step1_google_search_vscode.png)
-![Step 2: Official Visual Studio Code Windows 11 Download Page](/screenshots/vscode/step2_vscode_download_page.png)
-![Step 3: Downloaded VSCodeUserSetup-x64.exe in Windows 11 Downloads](/screenshots/vscode/step3_windows11_downloads_folder.png)
-![Step 4: Windows 11 Setup Wizard Checkboxes (Enable Open with Code & PATH)](/screenshots/vscode/step4_vscode_setup_wizard_checkboxes.png)
-
-2. **एक्सटेंशन टूलचेन व पहला प्रोजेक्ट**:
-   * \`Live Server\` और \`Prettier\` एक्सटेंशन सक्रिय करें।
-   * फोल्डर पर राइट-क्लिक करके **Open with Code** खोलें और \`index.html\` लाइव सर्वर पर चलाएं।
-
-![Step 5: Install Live Server & Prettier Extensions in VS Code](/screenshots/vscode/step5_vscode_extensions_liveserver.png)
-![Step 6: Windows 11 Right-Click Folder -> Open with Code](/screenshots/vscode/step6_windows11_rightclick_open_with_code.png)
-![Step 7: Create index.html and Launch Live Server Preview](/screenshots/vscode/step7_first_index_html_live_server.png)`
+## Professional Shortcuts
+* Ctrl + S: Save file.
+* Ctrl + \`: Terminal toggle.
+* Ctrl + Shift + P: Command Palette.
+* Alt + Shift + F: Prettier format.`
     }
   },
   {

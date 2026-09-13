@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
@@ -790,7 +790,7 @@ Execution successful! Output verified on Windows 11 Pro x86_64.
         {/* Left: Previous Lesson */}
         {prevLesson ? (
           <Link
-            href={`${subjectDashboardUrl}/${prevLesson.slug}`}
+            href={`${subjectDashboardUrl}/${prevLesson.slug}/`}
             onClick={async () => {
               await triggerNavigationAd();
             }}
@@ -842,7 +842,7 @@ Execution successful! Output verified on Windows 11 Pro x86_64.
 
           {nextLesson ? (
             <Link
-              href={`${subjectDashboardUrl}/${nextLesson.slug}`}
+              href={`${subjectDashboardUrl}/${nextLesson.slug}/`}
               onClick={async () => {
                 await triggerNavigationAd();
               }}
