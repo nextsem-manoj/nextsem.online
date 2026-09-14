@@ -134,13 +134,46 @@
   {
     "id": "html-free-web-development-lessons-client-server-model",
     "slug": "free-web-development-lessons-client-server-model",
-    "title": "Web Architecture: Client-Server, DNS, IP Addresses & TCP Handshake",
+    "title": "Client vs. Server Model",
     "content": "Unit 1: HTML Introduction & Web Fundamentals. HTML5 semantic lesson covering tags, syntax, and live browser output on Windows 11.",
     "phase": "HTML5 Web Dev",
     "duration": "5 mins read",
     "color": "bg-[#2980b9]",
     "icon": "📄",
     "url": "/html/free-web-development-lessons-client-server-model"
+  },
+  {
+    "id": "html-how-dns-lookup-works-step-by-step",
+    "slug": "how-dns-lookup-works-step-by-step",
+    "title": "Understanding DNS Lookup",
+    "content": "Unit 1: HTML Introduction & Web Fundamentals. HTML5 semantic lesson covering tags, syntax, and live browser output on Windows 11.",
+    "phase": "HTML5 Web Dev",
+    "duration": "5 mins read",
+    "color": "bg-[#2980b9]",
+    "icon": "📄",
+    "url": "/html/how-dns-lookup-works-step-by-step"
+  },
+  {
+    "id": "html-ipv4-vs-ipv6-address-types-tutorial",
+    "slug": "ipv4-vs-ipv6-address-types-tutorial",
+    "title": "IP Addresses Explained (IPv4 vs. IPv6)",
+    "content": "Unit 1: HTML Introduction & Web Fundamentals. HTML5 semantic lesson covering tags, syntax, and live browser output on Windows 11.",
+    "phase": "HTML5 Web Dev",
+    "duration": "5 mins read",
+    "color": "bg-[#2980b9]",
+    "icon": "📄",
+    "url": "/html/ipv4-vs-ipv6-address-types-tutorial"
+  },
+  {
+    "id": "html-tcp-ip-3-way-handshake-process",
+    "slug": "tcp-ip-3-way-handshake-process",
+    "title": "TCP/IP 3-Way Handshake",
+    "content": "Unit 1: HTML Introduction & Web Fundamentals. HTML5 semantic lesson covering tags, syntax, and live browser output on Windows 11.",
+    "phase": "HTML5 Web Dev",
+    "duration": "5 mins read",
+    "color": "bg-[#2980b9]",
+    "icon": "📄",
+    "url": "/html/tcp-ip-3-way-handshake-process"
   },
   {
     "id": "html-anatomy-of-http-request-headers-verbs",
