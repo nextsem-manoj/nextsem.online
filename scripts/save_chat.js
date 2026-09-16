@@ -107,7 +107,10 @@ async function main() {
   }
 
   // Clean filename (replace invalid characters with dashes or strip them)
-  const cleanTitle = rawTitle.replace(/[\\/:*?"<>|]/g, '-').trim();
+  let cleanTitle = rawTitle.replace(/[\\/:*?"<>|@\[\]]/g, '-').replace(/\s+/g, ' ').trim();
+  if (cleanTitle.length > 80) {
+    cleanTitle = cleanTitle.substring(0, 80).trim();
+  }
   const outputFileName = `${cleanTitle}.md`;
   const outputPath = path.join(outputDir, outputFileName);
 
