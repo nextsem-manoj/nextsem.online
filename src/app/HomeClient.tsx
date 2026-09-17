@@ -6,12 +6,15 @@ import { useRouter } from 'next/navigation';
 import { auth, signInWithGoogle } from '@/lib/firebase';
 import { signOut } from 'firebase/auth';
 import CompilerShowcaseAnimation from '@/components/CompilerShowcaseAnimation';
+import StudentProjectsSection from '@/components/StudentProjectsSection';
+import FullStackRoadmap from '@/components/FullStackRoadmap';
 import Footer from '@/components/Footer';
 import WindowsIcon from '@/components/WindowsIcon';
 import BrandLogoIcon from '@/components/BrandLogoIcon';
 import searchIndexData from '@/data/searchIndex.json';
 import { 
-  Code, Terminal, Play, LogIn, LogOut, Search, Sparkles, ArrowRight, Rocket, X, CornerDownLeft
+  Code, Terminal, Play, LogIn, LogOut, Search, Sparkles, ArrowRight, Rocket, X,
+  Layers, Laptop, CheckCircle2, ShieldCheck, Zap, BookOpen, ChevronRight, ExternalLink
 } from 'lucide-react';
 
 interface UserProfile {
@@ -58,17 +61,16 @@ const AUTOCOMPLETE_DICTIONARY = [
 
 const highlightMatch = (text: string, query: string) => {
   if (!query || !query.trim()) return <span>{text}</span>;
-  const terms = query.trim().toLowerCase().split(/\s+/).filter(Boolean);
-  if (terms.length === 0) return <span>{text}</span>;
-  const regex = new RegExp(`(${terms.map(t => t.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')).join('|')})`, 'gi');
+  const escapedQuery = query.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const regex = new RegExp(`(${escapedQuery})`, 'gi');
   const parts = text.split(regex);
   return (
     <span>
-      {parts.map((part, i) => 
+      {parts.map((part, i) =>
         regex.test(part) ? (
-          <mark key={i} className="bg-[#04AA6D]/30 text-[#04AA6D] font-bold px-0.5 rounded">
+          <span key={i} className="text-[#04AA6D] font-bold underline decoration-[#04AA6D]">
             {part}
-          </mark>
+          </span>
         ) : (
           part
         )
@@ -79,15 +81,14 @@ const highlightMatch = (text: string, query: string) => {
 
 const QUICK_TOPIC_PILLS = [
   { label: "HTML5 Tags", query: "HTML5 semantic tags" },
-  { label: "CSS Flexbox", query: "CSS Flexbox & Grid" },
-  { label: "JavaScript ES6", query: "JavaScript ES6+" },
-  { label: "React Hooks", query: "React hooks useState" },
-  { label: "Node.js APIs", query: "Node Express APIs" },
   { label: "🪟 Windows CMD", query: "dir copy mkdir" },
-  { label: "Git Branching", query: "git init commit branch" }
+  { label: "CSS Flex & Grid", query: "CSS Flexbox & Grid" },
+  { label: "JavaScript ES6", query: "JavaScript functions" },
+  { label: "React Components", query: "React useState" },
+  { label: "Git & GitHub", query: "git commit push" },
 ];
 
-// ── NEW APP FEATURES SHOWCASE (HORIZONTAL SCROLL) ──
+// ── NEW APP FEATURES SHOWCASE (HORIZONTAL SCROLL UNDER HEADER) ──
 const NEW_APP_FEATURES = [
   {
     id: "playground",
@@ -127,6 +128,98 @@ const NEW_APP_FEATURES = [
   },
 ];
 
+const CAREER_TRACKS = [
+  {
+    id: "cli",
+    icon: "🪟",
+    title: "Windows 11 CLI & CMD",
+    lessons: "15 Chapters",
+    badge: "FOUNDATION",
+    desc: "Master directory navigation (dir, cd), file attributes (attrib), scripting, and networking tools in authentic Windows CMD.",
+    href: "/cli",
+    color: "from-blue-500/20 to-transparent",
+    border: "border-blue-500/30 hover:border-blue-400",
+  },
+  {
+    id: "html",
+    icon: "🌐",
+    title: "HTML5 Semantic Engine",
+    lessons: "98+ Tags",
+    badge: "CORE WEB",
+    desc: "Build modern, accessible web layouts with semantic tags, 1-to-1 authentic PC screenshots, and pure HTML structure.",
+    href: "/html",
+    color: "from-emerald-500/20 to-transparent",
+    border: "border-emerald-500/30 hover:border-[#04AA6D]",
+  },
+  {
+    id: "css",
+    icon: "🎨",
+    title: "Modern CSS3 & Styling",
+    lessons: "40+ Lessons",
+    badge: "DESIGN",
+    desc: "Master Flexbox, CSS Grid, keyframe animations, dark mode themes, and responsive design for every device viewport.",
+    href: "/css",
+    color: "from-cyan-500/20 to-transparent",
+    border: "border-cyan-500/30 hover:border-cyan-400",
+  },
+  {
+    id: "js",
+    icon: "⚡",
+    title: "JavaScript ES6+ & DOM",
+    lessons: "50+ Concepts",
+    badge: "PROGRAMMING",
+    desc: "Understand closures, array methods (map, filter, reduce), async/await, fetch API, and interactive event listeners.",
+    href: "/tracks",
+    color: "from-amber-500/20 to-transparent",
+    border: "border-amber-500/30 hover:border-amber-400",
+  },
+  {
+    id: "react",
+    icon: "⚛️",
+    title: "React 19 Engineering",
+    lessons: "Components & Hooks",
+    badge: "FRONTEND",
+    desc: "Build dynamic, scalable client applications with custom hooks, state management, component composition, and Tailwind.",
+    href: "/tracks",
+    color: "from-sky-500/20 to-transparent",
+    border: "border-sky-500/30 hover:border-sky-400",
+  },
+  {
+    id: "backend",
+    icon: "🚀",
+    title: "Full-Stack Node & Git Flow",
+    lessons: "APIs & Deployment",
+    badge: "FULL-STACK",
+    desc: "Create RESTful APIs with Node.js and Express, master Git branch and merge workflows, and deploy live to production.",
+    href: "/tracks",
+    color: "from-purple-500/20 to-transparent",
+    border: "border-purple-500/30 hover:border-purple-400",
+  },
+];
+
+const CORE_PILLARS = [
+  {
+    icon: <Zap className="w-6 h-6 text-[#04AA6D]" />,
+    title: "100% Free Forever",
+    desc: "Zero paywalls, no trial periods, and no credit card required. Pure open education for every aspiring engineer.",
+  },
+  {
+    icon: <Laptop className="w-6 h-6 text-[#04AA6D]" />,
+    title: "1-to-1 Windows 11 Verification",
+    desc: "Every lesson features authentic PC screenshots and Command Prompt outputs so you can verify your work line-by-line.",
+  },
+  {
+    icon: <CheckCircle2 className="w-6 h-6 text-[#04AA6D]" />,
+    title: "5-Point Concise Lesson Standard",
+    desc: "No overwhelming walls of text. Maximum 5 bullet points with maximum 8 words per point for lightning-fast comprehension.",
+  },
+  {
+    icon: <ShieldCheck className="w-6 h-6 text-[#04AA6D]" />,
+    title: "Pure Native Flutter Companion",
+    desc: "High-performance offline mobile client on Android & iOS with 60-120 FPS interactive simulators and zero lag.",
+  },
+];
+
 export default function HomeClient() {
   const router = useRouter();
   const [currentUser, setCurrentUser] = useState<UserProfile | null>(null);
@@ -150,12 +243,18 @@ export default function HomeClient() {
         setCurrentUser(null);
       }
     };
+
     handleAuthChange();
-    window.addEventListener("nextsem_auth_changed", handleAuthChange);
-    return () => window.removeEventListener("nextsem_auth_changed", handleAuthChange);
+    window.addEventListener('storage', handleAuthChange);
+    window.addEventListener('nextsem_auth_changed', handleAuthChange);
+
+    return () => {
+      window.removeEventListener('storage', handleAuthChange);
+      window.removeEventListener('nextsem_auth_changed', handleAuthChange);
+    };
   }, []);
 
-  // Close dropdown on click outside
+  // Click outside to close search dropdown
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (searchContainerRef.current && !searchContainerRef.current.contains(e.target as Node)) {
@@ -168,15 +267,27 @@ export default function HomeClient() {
 
   const handleSignIn = async () => {
     try {
-      await signInWithGoogle();
-    } catch (err) {
-      console.error("Sign-In Error: ", err);
+      const res = await signInWithGoogle();
+      if (res?.user) {
+        const profile: UserProfile = {
+          name: res.user.displayName || "Developer",
+          email: res.user.email || "",
+          avatar: res.user.displayName ? res.user.displayName.charAt(0).toUpperCase() : "D",
+          photo: res.user.photoURL || undefined
+        };
+        localStorage.setItem("nextsem_user", JSON.stringify(profile));
+        setCurrentUser(profile);
+        window.dispatchEvent(new Event("nextsem_auth_changed"));
+      }
+    } catch (e) {
+      console.error("Sign-in failed:", e);
     }
   };
 
   const handleSignOut = async () => {
     try {
       await signOut(auth);
+      setCurrentUser(null);
       localStorage.removeItem("nextsem_user");
       window.dispatchEvent(new Event("nextsem_auth_changed"));
     } catch (e) {
@@ -241,28 +352,24 @@ export default function HomeClient() {
 
   // Keyboard navigation
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    // Press Tab to autocomplete suggestion
     if (e.key === 'Tab' && autocompleteSuggestion) {
       e.preventDefault();
       setHeroSearchQuery(autocompleteSuggestion);
       return;
     }
 
-    // Navigate down in dropdown list
     if (e.key === 'ArrowDown' && isDropdownOpen && searchResults.length > 0) {
       e.preventDefault();
       setSelectedIndex(prev => (prev < searchResults.length - 1 ? prev + 1 : 0));
       return;
     }
 
-    // Navigate up in dropdown list
     if (e.key === 'ArrowUp' && isDropdownOpen && searchResults.length > 0) {
       e.preventDefault();
       setSelectedIndex(prev => (prev > 0 ? prev - 1 : searchResults.length - 1));
       return;
     }
 
-    // Enter to open selected or top result
     if (e.key === 'Enter') {
       e.preventDefault();
       if (selectedIndex >= 0 && selectedIndex < searchResults.length) {
@@ -277,7 +384,6 @@ export default function HomeClient() {
       return;
     }
 
-    // Escape to dismiss dropdown
     if (e.key === 'Escape') {
       setIsDropdownOpen(false);
       inputRef.current?.blur();
@@ -294,63 +400,52 @@ export default function HomeClient() {
   return (
     <div className="min-h-screen bg-[#17181c] text-white flex flex-col font-sans selection:bg-[#04AA6D]/30">
       
-      {/* ── TOP STREAMLINED NAVBAR WITH HORIZONTAL NEW FEATURES SCROLL ── */}
+      {/* ── TOP STREAMLINED NAVBAR (CLEAN & SPACIOUS) ── */}
       <header className="sticky top-0 z-40 bg-[#17181c]/95 backdrop-blur-md border-b border-slate-800 shadow-sm select-none">
-        <div className="max-w-7xl mx-auto px-3 sm:px-6 h-14 flex items-center justify-between gap-2 sm:gap-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
           
           {/* Left: Brand Logo */}
           <div className="flex items-center flex-shrink-0">
             <Link href="/" className="flex items-center gap-2.5 select-none group">
               <BrandLogoIcon className="w-8 h-8 text-xs" roundedClass="rounded-lg" />
               <div className="flex flex-col justify-center text-left">
-                <span className="font-extrabold text-sm sm:text-base tracking-tight text-white uppercase leading-none">
+                <span className="font-extrabold text-base sm:text-lg tracking-tight text-white uppercase leading-none">
                   NextSem<span className="text-[#04AA6D] lowercase font-bold">.online</span>
                 </span>
-                <span className="text-[8px] font-bold text-[#04AA6D] tracking-wider uppercase font-mono mt-0.5 leading-none">
+                <span className="text-[9px] font-bold text-[#04AA6D] tracking-wider uppercase font-mono mt-0.5 leading-none">
                   Full Stack Dev Curriculum
                 </span>
               </div>
             </Link>
           </div>
 
-          {/* Center: Horizontal Auto-Moving Features Marquee (Left to Right) */}
-          <div className="flex-1 min-w-0 relative flex items-center mx-1 sm:mx-3 overflow-hidden">
-            {/* Left Subtle Gradient Fade */}
-            <div className="absolute left-0 top-0 bottom-0 w-6 bg-gradient-to-r from-[#17181c] to-transparent z-10 pointer-events-none" />
-
-            {/* Continuous Seamless Auto-Moving Marquee Container */}
-            <div className="w-full overflow-hidden">
-              <div className="flex items-center gap-2.5 w-max animate-marquee-ltr hover:[animation-play-state:paused] py-1.5 px-2">
-                {[...NEW_APP_FEATURES, ...NEW_APP_FEATURES].map((item, idx) => (
-                  <Link
-                    key={`${item.id}-${idx}`}
-                    href={item.href}
-                    className="flex items-center gap-2 px-3 py-1 bg-[#141824] hover:bg-[#1a2030] border border-slate-700/80 hover:border-[#04AA6D] rounded-full text-xs text-slate-200 hover:text-white transition-all duration-200 flex-shrink-0 group/pill shadow-sm"
-                  >
-                    <span className="text-[9px] font-black uppercase px-1.5 py-0.5 rounded bg-[#04AA6D]/20 text-[#04AA6D] border border-[#04AA6D]/30 group-hover/pill:bg-[#04AA6D] group-hover/pill:text-white transition-colors">
-                      {item.badge}
-                    </span>
-                    <span className="font-semibold whitespace-nowrap text-[11px] sm:text-xs text-slate-200 group-hover/pill:text-white">
-                      {item.title}
-                    </span>
-                    <ArrowRight size={11} className="text-slate-500 group-hover/pill:text-[#04AA6D] group-hover/pill:translate-x-0.5 transition-all" />
-                  </Link>
-                ))}
-              </div>
-            </div>
-
-            {/* Right Subtle Gradient Fade */}
-            <div className="absolute right-0 top-0 bottom-0 w-6 bg-gradient-to-l from-[#17181c] to-transparent z-10 pointer-events-none" />
-          </div>
+          {/* Center: Clean Desktop Navigation Links */}
+          <nav className="hidden md:flex items-center gap-6 text-xs font-bold text-slate-300">
+            <Link href="/html" className="hover:text-[#04AA6D] transition-colors flex items-center gap-1">
+              <span>HTML5 Course</span>
+            </Link>
+            <Link href="/cli" className="hover:text-[#04AA6D] transition-colors flex items-center gap-1">
+              <span>🪟 Windows CLI</span>
+            </Link>
+            <Link href="/tracks" className="hover:text-[#04AA6D] transition-colors flex items-center gap-1">
+              <span>Career Tracks</span>
+            </Link>
+            <Link href="/projects" className="hover:text-[#04AA6D] transition-colors flex items-center gap-1">
+              <span>15+ Projects</span>
+            </Link>
+            <Link href="/playground" className="text-[#04AA6D] hover:text-[#039861] transition-colors flex items-center gap-1 font-extrabold bg-[#04AA6D]/10 px-2.5 py-1 rounded-full border border-[#04AA6D]/20">
+              <Code size={13} />
+              <span>Playground</span>
+            </Link>
+          </nav>
 
           {/* Right: User Authentication / Profile */}
           <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
-            {/* Auth Button */}
             {currentUser ? (
               <div className="flex items-center gap-2">
                 <Link
                   href="/profile"
-                  className="flex items-center gap-2 bg-slate-800/80 border border-slate-700 px-2.5 py-1 rounded-full text-xs font-bold text-slate-200 hover:text-white transition-colors"
+                  className="flex items-center gap-2 bg-slate-800/80 border border-slate-700 px-2.5 py-1.5 rounded-full text-xs font-bold text-slate-200 hover:text-white transition-colors"
                 >
                   {currentUser.photo ? (
                     <img src={currentUser.photo} alt="" className="w-5 h-5 rounded-full object-cover" />
@@ -359,7 +454,7 @@ export default function HomeClient() {
                       {currentUser.name.charAt(0).toUpperCase()}
                     </div>
                   )}
-                  <span className="hidden sm:inline max-w-[80px] truncate">{currentUser.name.split(" ")[0]}</span>
+                  <span className="hidden sm:inline max-w-[90px] truncate">{currentUser.name.split(" ")[0]}</span>
                 </Link>
                 <button 
                   onClick={handleSignOut}
@@ -372,7 +467,7 @@ export default function HomeClient() {
             ) : (
               <button 
                 onClick={handleSignIn}
-                className="flex items-center gap-1.5 bg-[#04AA6D] hover:bg-[#039861] text-white px-3.5 py-1.5 rounded-full text-xs font-bold transition-all shadow-md shadow-[#04AA6D]/20 cursor-pointer flex-shrink-0"
+                className="flex items-center gap-1.5 bg-[#04AA6D] hover:bg-[#039861] text-white px-4 py-2 rounded-full text-xs font-bold transition-all shadow-md shadow-[#04AA6D]/20 cursor-pointer flex-shrink-0"
               >
                 <LogIn size={13} />
                 <span>Sign In</span>
@@ -382,7 +477,39 @@ export default function HomeClient() {
         </div>
       </header>
 
-      {/* ── HERO SECTION WITH INLINE INSTANT SEARCH & TAB AUTOCOMPLETE ── */}
+      {/* ── SUB-HEADER FEATURE TICKER BAR (PLACED UNDER THE HEADER, NOT INSIDE) ── */}
+      <div className="w-full bg-[#12141c] border-b border-slate-800/80 py-2.5 overflow-hidden relative select-none z-30">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 relative flex items-center">
+          {/* Left Subtle Gradient Fade */}
+          <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-[#12141c] to-transparent z-10 pointer-events-none" />
+
+          {/* Continuous Seamless Auto-Moving Marquee Container */}
+          <div className="w-full overflow-hidden">
+            <div className="flex items-center gap-3 w-max animate-marquee-ltr hover:[animation-play-state:paused] py-0.5 px-2">
+              {[...NEW_APP_FEATURES, ...NEW_APP_FEATURES].map((item, idx) => (
+                <Link
+                  key={`${item.id}-${idx}`}
+                  href={item.href}
+                  className="flex items-center gap-2 px-3 py-1.5 bg-[#171b26] hover:bg-[#1f2535] border border-slate-700/80 hover:border-[#04AA6D] rounded-full text-xs text-slate-200 hover:text-white transition-all duration-200 flex-shrink-0 group/pill shadow-sm"
+                >
+                  <span className="text-[9px] font-black uppercase px-2 py-0.5 rounded bg-[#04AA6D]/20 text-[#04AA6D] border border-[#04AA6D]/30 group-hover/pill:bg-[#04AA6D] group-hover/pill:text-white transition-colors">
+                    {item.badge}
+                  </span>
+                  <span className="font-semibold whitespace-nowrap text-xs text-slate-200 group-hover/pill:text-white">
+                    {item.title}
+                  </span>
+                  <ArrowRight size={12} className="text-slate-500 group-hover/pill:text-[#04AA6D] group-hover/pill:translate-x-0.5 transition-all" />
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* Right Subtle Gradient Fade */}
+          <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-[#12141c] to-transparent z-10 pointer-events-none" />
+        </div>
+      </div>
+
+      {/* ── SECTION 1: HERO WITH INLINE SEARCH & COMPILER SHOWCASE ── */}
       <section className="relative py-12 sm:py-20 px-4 sm:px-6 border-b border-slate-800 overflow-visible text-center bg-gradient-to-b from-[#17181c] via-[#1a1b22] to-[#17181c]">
         {/* Subtle Ambient Glow */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-5xl h-full opacity-10 pointer-events-none bg-[radial-gradient(#04AA6D_1px,transparent_1px)] [background-size:24px_24px]" />
@@ -491,8 +618,6 @@ export default function HomeClient() {
             {/* ── INLINE SEARCH RESULTS DROPDOWN CARD ── */}
             {isDropdownOpen && heroSearchQuery.trim().length > 0 && (
               <div className="absolute left-0 right-0 top-full mt-2 z-50 bg-[#10131d] border border-slate-700/90 rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.9)] overflow-hidden text-left animate-in fade-in-50 zoom-in-95 duration-150">
-                
-                {/* Dropdown Header */}
                 <div className="px-3.5 py-2 bg-[#161a27] border-b border-slate-800 flex items-center justify-between text-[11px] text-slate-400 font-medium">
                   <span className="text-white font-bold flex items-center gap-1.5">
                     <Sparkles size={12} className="text-[#04AA6D]" />
@@ -507,7 +632,6 @@ export default function HomeClient() {
                   </span>
                 </div>
 
-                {/* Results List */}
                 {searchResults.length > 0 ? (
                   <div className="max-h-[360px] overflow-y-auto divide-y divide-slate-800/60 p-1.5">
                     {searchResults.map((item, idx) => {
@@ -608,7 +732,7 @@ export default function HomeClient() {
             </Link>
           </div>
 
-          {/* ── 1-MIN VIDEO SHOWCASE: ONLINE COMPILER (MOBILE SHORTS VS DESKTOP WIDE) ── */}
+          {/* ── 1-MIN VIDEO SHOWCASE: ONLINE COMPILER ── */}
           <div className="max-w-[340px] sm:max-w-[380px] md:max-w-3xl lg:max-w-4xl mx-auto pt-6 text-left space-y-2.5">
             <div className="flex flex-wrap items-center justify-between gap-2 px-1 select-none">
               <div className="flex items-center gap-2 text-xs font-bold text-slate-300">
@@ -630,6 +754,217 @@ export default function HomeClient() {
             <CompilerShowcaseAnimation />
           </div>
 
+        </div>
+      </section>
+
+      {/* ── SECTION 2: 6 STRUCTURED CAREER TRACKS ── */}
+      <section className="py-16 sm:py-24 px-4 sm:px-6 max-w-7xl mx-auto w-full border-b border-slate-800">
+        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+          <span className="px-3 py-1 rounded-full bg-[#04AA6D]/10 text-[#04AA6D] border border-[#04AA6D]/30 text-xs font-extrabold uppercase tracking-wider">
+            Structured Pathways
+          </span>
+          <h2 className="text-2xl sm:text-4xl font-extrabold text-white mt-3 tracking-tight">
+            6 Master Pathways from Novice to Architect
+          </h2>
+          <p className="text-slate-400 text-sm sm:text-base mt-2">
+            Each track is engineered step-by-step with 1-to-1 authentic PC screenshots, interactive terminal practice, and zero fluff.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {CAREER_TRACKS.map((track) => (
+            <Link
+              key={track.id}
+              href={track.href}
+              className={`p-6 rounded-2xl bg-gradient-to-b ${track.color} bg-[#161a26] border ${track.border} transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl hover:shadow-[#04AA6D]/10 flex flex-col justify-between group cursor-pointer`}
+            >
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <span className="text-3xl p-2 rounded-xl bg-slate-800/80 border border-slate-700">
+                    {track.icon}
+                  </span>
+                  <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">
+                    {track.badge}
+                  </span>
+                </div>
+                <h3 className="text-lg font-bold text-white group-hover:text-[#04AA6D] transition-colors">
+                  {track.title}
+                </h3>
+                <p className="text-xs text-[#04AA6D] font-mono font-bold mt-1">
+                  {track.lessons}
+                </p>
+                <p className="text-xs text-slate-400 leading-relaxed mt-3">
+                  {track.desc}
+                </p>
+              </div>
+
+              <div className="flex items-center gap-1 text-xs font-bold text-slate-300 group-hover:text-[#04AA6D] mt-6 pt-4 border-t border-slate-800">
+                <span>Start Learning Track</span>
+                <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* ── SECTION 3: INTERACTIVE SIMULATOR & PLAYGROUND ARENA ── */}
+      <section className="py-16 sm:py-24 px-4 sm:px-6 max-w-7xl mx-auto w-full border-b border-slate-800">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          
+          {/* Card 1: Windows CMD Simulator */}
+          <div className="p-6 sm:p-8 rounded-2xl bg-[#131622] border border-slate-700/80 hover:border-[#04AA6D]/60 transition-all flex flex-col justify-between shadow-xl group">
+            <div>
+              <div className="flex items-center gap-2 mb-3">
+                <span className="px-2 py-0.5 rounded bg-blue-500/20 text-blue-400 border border-blue-500/30 text-[10px] font-black uppercase tracking-wider">
+                  Authentic PC Shell
+                </span>
+                <span className="text-xs text-slate-400">• Windows 11</span>
+              </div>
+              <h3 className="text-xl sm:text-2xl font-extrabold text-white group-hover:text-[#04AA6D] transition-colors">
+                🪟 Windows 11 Command Prompt Simulator
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mt-2">
+                Practice 30+ fundamental CMD commands in a realistic terminal sandbox without risk to your PC. Learn directory trees, file copies, batch scripting, and networking tools.
+              </p>
+
+              {/* Terminal Code Snippet Preview */}
+              <div className="mt-5 p-3.5 rounded-xl bg-black/80 border border-slate-800 font-mono text-xs text-slate-300 space-y-1 select-none">
+                <div className="text-slate-500">Microsoft Windows [Version 10.0.22631.3296]</div>
+                <div className="text-slate-500">(c) Microsoft Corporation. All rights reserved.</div>
+                <div className="pt-1 text-[#04AA6D]">C:\Users\Developer&gt; dir /a:h</div>
+                <div className="text-slate-400 pl-2">Volume in drive C is OS</div>
+                <div className="text-slate-400 pl-2">Directory of C:\Users\Developer</div>
+              </div>
+            </div>
+
+            <div className="mt-6 pt-4 border-t border-slate-800 flex items-center justify-between">
+              <span className="text-xs text-slate-400 font-bold">15 Interactive Chapters</span>
+              <Link
+                href="/cli"
+                className="px-4 py-2 bg-[#04AA6D] hover:bg-[#039861] text-white text-xs font-bold rounded-xl transition-all flex items-center gap-1.5 shadow-md"
+              >
+                <span>Launch CLI Simulator</span>
+                <ArrowRight size={13} />
+              </Link>
+            </div>
+          </div>
+
+          {/* Card 2: Online Code Playground */}
+          <div className="p-6 sm:p-8 rounded-2xl bg-[#131622] border border-slate-700/80 hover:border-[#04AA6D]/60 transition-all flex flex-col justify-between shadow-xl group">
+            <div>
+              <div className="flex items-center gap-2 mb-3">
+                <span className="px-2 py-0.5 rounded bg-emerald-500/20 text-[#04AA6D] border border-emerald-500/30 text-[10px] font-black uppercase tracking-wider">
+                  Live Web Server
+                </span>
+                <span className="text-xs text-slate-400">• Emmet + Prettier</span>
+              </div>
+              <h3 className="text-xl sm:text-2xl font-extrabold text-white group-hover:text-[#04AA6D] transition-colors">
+                ⚡ Instant Live Code Playground
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mt-2">
+                Write HTML5, CSS3, and modern JavaScript with real-time browser preview. Includes auto-formatting, Emmet abbreviations, and zero setup required.
+              </p>
+
+              {/* Editor Preview */}
+              <div className="mt-5 p-3.5 rounded-xl bg-black/80 border border-slate-800 font-mono text-xs text-slate-300 space-y-1 select-none">
+                <div className="text-slate-500">&lt;!-- Live Web Sandbox --&gt;</div>
+                <div><span className="text-blue-400">&lt;div</span> <span className="text-yellow-300">class</span>=<span className="text-emerald-300">&quot;dev-card&quot;</span><span className="text-blue-400">&gt;</span></div>
+                <div className="pl-4 text-white">&lt;h1&gt;Hello World!&lt;/h1&gt;</div>
+                <div><span className="text-blue-400">&lt;/div&gt;</span></div>
+              </div>
+            </div>
+
+            <div className="mt-6 pt-4 border-t border-slate-800 flex items-center justify-between">
+              <span className="text-xs text-slate-400 font-bold">Zero Installation Needed</span>
+              <Link
+                href="/playground"
+                className="px-4 py-2 bg-[#1f2433] hover:bg-[#282f42] text-white border border-slate-600 hover:border-[#04AA6D] text-xs font-bold rounded-xl transition-all flex items-center gap-1.5 shadow-md"
+              >
+                <span>Open Playground</span>
+                <ArrowRight size={13} />
+              </Link>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* ── SECTION 4: FEATURED STUDENT PROJECTS & CANVAS LABS ── */}
+      <section className="py-16 sm:py-24 px-4 sm:px-6 max-w-7xl mx-auto w-full border-b border-slate-800">
+        <StudentProjectsSection />
+      </section>
+
+      {/* ── SECTION 5: THE NEXTSEM ADVANTAGE (4 CORE PILLARS) ── */}
+      <section className="py-16 sm:py-24 px-4 sm:px-6 max-w-7xl mx-auto w-full border-b border-slate-800">
+        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+          <span className="px-3 py-1 rounded-full bg-[#04AA6D]/10 text-[#04AA6D] border border-[#04AA6D]/30 text-xs font-extrabold uppercase tracking-wider">
+            Engineered for Mastery
+          </span>
+          <h2 className="text-2xl sm:text-4xl font-extrabold text-white mt-3 tracking-tight">
+            Why Nextsem Academy Is Different
+          </h2>
+          <p className="text-slate-400 text-sm sm:text-base mt-2">
+            Built from the ground up for developers learning on PC while practicing on mobile.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {CORE_PILLARS.map((pillar, idx) => (
+            <div
+              key={idx}
+              className="p-6 rounded-2xl bg-[#141824] border border-slate-800 hover:border-[#04AA6D]/40 transition-all shadow-lg flex flex-col justify-between"
+            >
+              <div>
+                <div className="w-12 h-12 rounded-xl bg-[#04AA6D]/10 border border-[#04AA6D]/20 flex items-center justify-center mb-4">
+                  {pillar.icon}
+                </div>
+                <h3 className="text-base font-bold text-white mb-2">
+                  {pillar.title}
+                </h3>
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  {pillar.desc}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── SECTION 6: FULL STACK DEVELOPER ROADMAP ── */}
+      <section className="py-16 sm:py-24 px-4 sm:px-6 max-w-7xl mx-auto w-full border-b border-slate-800">
+        <FullStackRoadmap />
+      </section>
+
+      {/* ── SECTION 7: FINAL CALL TO ACTION ── */}
+      <section className="py-16 sm:py-24 px-4 sm:px-6 text-center max-w-5xl mx-auto w-full">
+        <div className="p-8 sm:p-14 rounded-3xl bg-gradient-to-b from-[#182030] to-[#12151e] border border-[#04AA6D]/30 shadow-2xl relative overflow-hidden">
+          <div className="absolute -top-24 -right-24 w-72 h-72 bg-[#04AA6D]/15 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
+
+          <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight">
+            Start Your Software Engineering Journey Today
+          </h2>
+          <p className="text-slate-300 text-sm sm:text-base max-w-xl mx-auto mt-3 leading-relaxed">
+            From your very first Windows terminal command to deploying production full-stack web applications. 100% free and open.
+          </p>
+
+          <div className="flex flex-wrap items-center justify-center gap-3.5 mt-8">
+            <Link
+              href="/html"
+              className="px-8 py-4 bg-[#04AA6D] hover:bg-[#039861] text-white font-extrabold text-sm sm:text-base uppercase tracking-wider rounded-xl shadow-xl shadow-[#04AA6D]/25 transition-all transform hover:-translate-y-0.5 flex items-center gap-2 cursor-pointer border border-emerald-400/40"
+            >
+              <Play size={18} className="fill-white" />
+              <span>Launch Free Curriculum »</span>
+            </Link>
+
+            <Link
+              href="/tracks"
+              className="px-6 py-4 bg-[#141824] hover:bg-[#1a2030] text-white font-bold text-sm sm:text-base rounded-xl border border-slate-700 hover:border-white transition-all flex items-center gap-2 cursor-pointer shadow-lg"
+            >
+              <span>Explore All 6 Tracks</span>
+              <ArrowRight size={16} />
+            </Link>
+          </div>
         </div>
       </section>
 

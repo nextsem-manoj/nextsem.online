@@ -114,7 +114,7 @@ class _DesktopSimulatorScreenState extends State<DesktopSimulatorScreen> {
           ],
         ),
         content: const Text(
-          "You've run out of hearts! Watch a sponsored video to instantly refill all 5 hearts and continue training.",
+          "You've run out of hearts! View a quick sponsor card (5-second static ad) to instantly refill all 5 hearts and continue training.",
           style: TextStyle(color: Colors.white70, fontSize: 14),
         ),
         actions: [
@@ -131,27 +131,18 @@ class _DesktopSimulatorScreenState extends State<DesktopSimulatorScreen> {
               foregroundColor: Colors.black,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
             ),
-            icon: const Icon(Icons.play_circle_fill, color: Colors.black),
-            label: const Text("Watch Video (+5 ❤️)", style: TextStyle(fontWeight: FontWeight.bold)),
+            icon: const Icon(Icons.bolt, color: Colors.black),
+            label: const Text("Instant Refill (+5 ❤️)", style: TextStyle(fontWeight: FontWeight.bold)),
             onPressed: () {
               Navigator.of(ctx).pop();
-              AdService.instance.showRewardedAd(
-                onUserEarnedReward: () {
+              AdService.instance.showInterstitialAd(
+                onAdClosed: () {
                   widget.state.replenishHearts();
                   if (mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         content: Text("✨ 5 Hearts Restored! Keep going! ❤️❤️❤️❤️❤️"),
                         backgroundColor: Color(0xFF04AA6D),
-                      ),
-                    );
-                  }
-                },
-                onAdFailed: () {
-                  if (mounted) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text("Ad not ready yet. Please try again in a moment."),
                       ),
                     );
                   }
