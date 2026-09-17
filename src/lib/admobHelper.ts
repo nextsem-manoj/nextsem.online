@@ -7,7 +7,7 @@ const TEST_INTERSTITIAL_ID = 'ca-app-pub-3940256099942544/1033173712';
 
 // Production AdMob Unit IDs — v20 (2.3.0)
 export const PROD_REWARDED_ID = 'ca-app-pub-5947565211927754/3747294963';
-export const PROD_INTERSTITIAL_ID = 'ca-app-pub-5947565211927754/8710374859';
+export const PROD_INTERSTITIAL_ID = 'ca-app-pub-5947565211927754/5893147977';
 export const PROD_BANNER_ID = 'ca-app-pub-5947565211927754/4565552616';
 export const PROD_REWARDED_INTERSTITIAL_ID = 'ca-app-pub-5947565211927754/7318318434'; // Rewarded Interstitial (BETA)
 export const PROD_APP_OPEN_ID = 'ca-app-pub-5947565211927754/4753305205';              // App Open Ad

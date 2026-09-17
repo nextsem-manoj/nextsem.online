@@ -6,6 +6,7 @@ import { CheckCircle, Lock } from 'lucide-react';
 import { AdMob } from '@capacitor-community/admob';
 import { useRouter } from 'next/navigation';
 import searchIndex from '../data/searchIndex.json';
+import { PROD_INTERSTITIAL_ID } from '@/lib/admobHelper';
 
 export default function MarkCompleteButton({ chapterId, hasAssignment }: { chapterId: string, hasAssignment?: boolean }) {
   const { completedChapters, markCompleted, markIncomplete, completedAssignments } = useProgress();
@@ -16,7 +17,7 @@ export default function MarkCompleteButton({ chapterId, hasAssignment }: { chapt
   const prepareAd = async () => {
     try {
       await AdMob.prepareInterstitial({
-        adId: 'ca-app-pub-5947565211927754/8710374859', // Production AdMob Interstitial ID
+        adId: PROD_INTERSTITIAL_ID, // Production AdMob Interstitial ID
         isTesting: false
       });
     } catch (e) {

@@ -43,7 +43,7 @@
 - `[x]` **Production AdMob Units:** ✅
   * **App ID:** `ca-app-pub-5947565211927754~5718902515` (Injected in [`AndroidManifest.xml`](file:///c:/Users/manoj2403/Documents/nextsem.online/android/app/src/main/AndroidManifest.xml))
   * **Banner ID:** `ca-app-pub-5947565211927754/4565552616` (Bottom anchored banner)
-  * **Interstitial ID:** `ca-app-pub-5947565211927754/8710374859` (Triggered on every 2nd link navigation)
+  * **Interstitial ID:** `ca-app-pub-5947565211927754/5893147977` (Triggered on every 2nd link navigation & lesson completion)
   * **Rewarded ID:** `ca-app-pub-5947565211927754/3747294963` (Replenishes 5 gamification hearts)
   * **App Open ID:** `ca-app-pub-5947565211927754/4753305205` (App launch screen)
 
