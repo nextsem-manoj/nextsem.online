@@ -1,6 +1,6 @@
 # @[c:\Users\nextsem\Documents\ncert.nextsem.online\public\pdf\Class 09\Ganita Manjari-9th\iemh104.pdf] @[c:\Users\nextsem\Documents\ncert.nextsem.online\public\pdf\Class 09\Ganita Manjari-9th\iemh105.pdf] make mcq from these two pdfs of medium to hard level only of graphcal numerical and conceptual based
 
-*Saved on: 16/9/2026, 10:10:13 pm*
+*Saved on: 17/9/2026, 1:03:14 pm*
 *Conversation ID: 75ad6789-f3fe-4b22-bc79-34dbb63d5b0d*
 
 ---
@@ -276,6 +276,106 @@ Each of the 10 problems in the document includes:
 ### 👤 User
 
 show me link of  Overview of the 10 Computer Science Problem
+
+---
+
+### 🤖 Antigravity AI
+
+### 🔗 Live Interactive Links: Overview of the 10 Computer Science Problems
+
+The **Overview of the 10 Computer Science Problems** (with full algorithms, Mermaid flowcharts, ASCII diagrams, variable tables, and dry-run trace tables) has been rendered into an interactive web page and opened directly in Google Chrome.
+
+---
+
+#### 🌐 1. NextSem Academy Portal (Port 3000)
+* **Localhost URL:**  
+  👉 [http://localhost:3000/algorithms-and-flowcharts-10-master-problems.html](http://localhost:3000/algorithms-and-flowcharts-10-master-problems.html)
+* **PC Network IP URL (Mobile & Tablet):**  
+  👉 [http://192.168.29.170:3000/algorithms-and-flowcharts-10-master-problems.html](http://192.168.29.170:3000/algorithms-and-flowcharts-10-master-problems.html)
+
+---
+
+#### 📚 2. NCERT / Study Guide Suite (Port 3002)
+* **Localhost URL:**  
+  👉 [http://localhost:3002/algorithms-and-flowcharts-10-master-problems.html](http://localhost:3002/algorithms-and-flowcharts-10-master-problems.html)
+* **PC Network IP URL (Mobile & Tablet):**  
+  👉 [http://192.168.29.171:3002/algorithms-and-flowcharts-10-master-problems.html](http://192.168.29.171:3002/algorithms-and-flowcharts-10-master-problems.html)
+
+---
+
+#### 📂 3. Source Markdown Documentation Files
+* **CS-Guide Workspace:**  
+  [algorithms_and_flowcharts_10_master_problems.md](file:///c:/Users/nextsem/Documents/CS-Guide/docs/algorithms_and_flowcharts_10_master_problems.md)
+* **NextSem Academy Documentation:**  
+  [algorithms_and_flowcharts_10_master_problems.md](file:///c:/Users/nextsem/Documents/nextsem.online/docs/algorithms_and_flowcharts_10_master_problems.md)
+
+---
+
+### ✨ Features Available on the Live Page:
+1. **Master Overview Table:** Instant jump links to all 10 problems with categorized badges and variable previews.
+2. **Logic Filter Pills:** Quick filters for *Conditionals & Branching*, *Loops & Series*, *Math & Accumulators*, *Arrays & Search*, and *Menu-Driven*.
+3. **ANSI Geometric Flowchart Symbols Guide:** Color-coded reference card for terminals, processes, decisions, and connectors.
+4. **Interactive Mermaid Flowcharts:** High-contrast graphical SVG rendering powered by Mermaid.js.
+5. **Terminal ASCII Flowcharts:** Monospaced box-drawing text diagrams with a 1-click **📋 Copy** button.
+6. **Execution Dry-Run Trace Tables:** Step-by-step variable mutation inspection with test cases.
+7. **Print & PDF Export:** Integrated 🖨️ **Print / Save PDF** button configured for clean, border-fitted output.
+
+---
+
+### 👤 User
+
+save and update al project on github in opur workspace
+
+---
+
+### 🤖 Antigravity AI
+
+### 🚀 GitHub Synchronization Complete: All Workspace Projects Updated
+
+All projects across your workspace have been saved, committed, and pushed to GitHub (`origin/main`). Every working tree is **100% clean and synchronized**:
+
+---
+
+### 📦 Repository Synchronization Summary
+
+| Project / Repository | Branch | Latest Commit | GitHub Remote URL | Status |
+| :--- | :---: | :---: | :--- | :---: |
+| **`nextsem.online`** | `main` | [`3104bf5`](https://github.com/nextsemacademy-max/nextsem.online/commit/3104bf5) | [github.com/nextsemacademy-max/nextsem.online](https://github.com/nextsemacademy-max/nextsem.online) | **Clean & Up to Date** |
+| **`ncert.nextsem.online`** | `main` | [`327b00b`](https://github.com/nextsemacademy-max/ncert.nextsem.online/commit/327b00b) | [github.com/nextsemacademy-max/ncert.nextsem.online](https://github.com/nextsemacademy-max/ncert.nextsem.online) | **Clean & Up to Date** |
+| **`box-blast-2d`** | `main` | [`8661ead`](https://github.com/nextsemacademy-max/box-blast-2d/commit/8661ead) | [github.com/nextsemacademy-max/box-blast-2d](https://github.com/nextsemacademy-max/box-blast-2d) | **Clean & Up to Date** |
+| **`CS-Guide`** | `main` | [`cd9fde6`](https://github.com/nextsemacademy-max/CS-Guide/commit/cd9fde6) | [github.com/nextsemacademy-max/CS-Guide](https://github.com/nextsemacademy-max/CS-Guide) | **Clean & Up to Date** |
+| **`NextSem-Ranker-`** | `main` | [`6be7a3f`](https://github.com/nextsemacademy-max/NextSem-Ranker-/commit/6be7a3f) | [github.com/nextsemacademy-max/NextSem-Ranker-](https://github.com/nextsemacademy-max/NextSem-Ranker-) | **Clean & Up to Date** |
+
+---
+
+### 📝 Key Changes Committed Across Repositories
+
+1. **`nextsem.online`** ([`3104bf5`](https://github.com/nextsemacademy-max/nextsem.online/commit/3104bf5)):
+   * Added master guide on **10 Fundamental Computer Science Algorithms & Flowcharts** (`docs/algorithms_and_flowcharts_10_master_problems.md`).
+   * Generated standalone interactive web guide (`public/algorithms-and-flowcharts-10-master-problems.html`) with dynamic Mermaid rendering and ASCII charts.
+   * Updated `scripts/save_chat.js` with filename length limits and safe character sanitization.
+   * Archived session chat logs.
+
+2. **`ncert.nextsem.online`** ([`327b00b`](https://github.com/nextsemacademy-max/ncert.nextsem.online/commit/327b00b)):
+   * Created **Class 9 Ganita Manjari Chapters 4 & 5 Master MCQ Challenge (40 Marks)** (`public/class9-maths-ch4-ch5-question-paper-40-marks.html`).
+   * Updated data models (`src/data/class9Data.ts`) with new 2026 NEP textbook chapter titles and quizzes.
+   * Synchronized the 10 Computer Science problems guide to `public/`.
+   * Added Ganita Manjari textbook PDFs.
+
+3. **`box-blast-2d`** ([`8661ead`](https://github.com/nextsemacademy-max/box-blast-2d/commit/8661ead)):
+   * Gameplay mechanics enhancements: instant board socket clearing, clean slate combo titles, and high score celebrations.
+   * Pause & settings modal, haptic feedback toggle, and vector SVG sound switches.
+   * Guaranteed smart playable hand generator algorithm.
+   * Built and synchronized Flutter mobile web assets.
+
+4. **`CS-Guide`** ([`cd9fde6`](https://github.com/nextsemacademy-max/CS-Guide/commit/cd9fde6)):
+   * Added complete master curriculum on **10 Computer Science Problems** (ANSI flowchart symbols, Mermaid diagrams, ASCII terminal diagrams, variable tables, dry runs, and developer takeaways).
+
+---
+
+### 👤 User
+
+@[c:\Users\nextsem\Documents\nextsem.online]
 
 ---
 
