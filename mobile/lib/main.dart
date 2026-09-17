@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:nextsem_mobile/services/ad_service.dart';
 import 'package:nextsem_mobile/screens/login_screen.dart';
 import 'package:nextsem_mobile/screens/course_screen.dart';
 import 'package:nextsem_mobile/state.dart';
@@ -7,12 +7,8 @@ import 'package:nextsem_mobile/state.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   
-  // Initialize Google Mobile Ads SDK
-  try {
-    await MobileAds.instance.initialize();
-  } catch (e) {
-    debugPrint("MobileAds initialization failed: $e");
-  }
+  // Initialize Google Mobile Ads SDK & preload units
+  await AdService.instance.initialize();
 
   final state = GamificationState();
   // Wait a short moment to load preferences

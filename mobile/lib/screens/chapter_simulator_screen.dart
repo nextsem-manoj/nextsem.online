@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nextsem_mobile/data.dart';
 import 'package:nextsem_mobile/models.dart';
 import 'package:nextsem_mobile/state.dart';
+import 'package:nextsem_mobile/services/ad_service.dart';
 import 'course_screen.dart';
 
 class ChapterSimulatorScreen extends StatefulWidget {
@@ -89,6 +90,9 @@ class _ChapterSimulatorScreenState extends State<ChapterSimulatorScreen> {
       });
       widget.state.deductHearts(1);
       _scrollTerminal();
+      if (widget.state.hearts <= 0) {
+        _showOutOfHeartsDialog();
+      }
     }
     _terminalFocusNode.requestFocus();
   }
@@ -135,10 +139,15 @@ class _ChapterSimulatorScreenState extends State<ChapterSimulatorScreen> {
           ElevatedButton(
             onPressed: () {
               Navigator.of(context).pop(); // Dismiss dialog
-              Navigator.of(context).pushReplacement(
-                MaterialPageRoute(
-                  builder: (context) => CourseScreen(state: widget.state),
-                ),
+              AdService.instance.showInterstitialAd(
+                onAdClosed: () {
+                  if (!mounted) return;
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(
+                      builder: (context) => CourseScreen(state: widget.state),
+                    ),
+                  );
+                },
               );
             },
             style: ElevatedButton.styleFrom(
@@ -146,6 +155,74 @@ class _ChapterSimulatorScreenState extends State<ChapterSimulatorScreen> {
               foregroundColor: Colors.black,
             ),
             child: const Text("Back to Levels List 🏆", style: TextStyle(fontWeight: FontWeight.bold)),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showOutOfHeartsDialog() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (ctx) => AlertDialog(
+        backgroundColor: const Color(0xFF0C1328),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+          side: const BorderSide(color: Colors.redAccent, width: 1.5),
+        ),
+        title: const Row(
+          children: [
+            Text("💔", style: TextStyle(fontSize: 22)),
+            SizedBox(width: 8),
+            Text("Out of Energy!", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+          ],
+        ),
+        content: const Text(
+          "You've run out of hearts! Watch a sponsored video to instantly refill all 5 hearts and continue training.",
+          style: TextStyle(color: Colors.white70, fontSize: 14),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(ctx).pop();
+              Navigator.of(context).pop(); // Exit to dashboard
+            },
+            child: const Text("Exit to Dashboard", style: TextStyle(color: Colors.white54)),
+          ),
+          ElevatedButton.icon(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF39FF14),
+              foregroundColor: Colors.black,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            ),
+            icon: const Icon(Icons.play_circle_fill, color: Colors.black),
+            label: const Text("Watch Video (+5 ❤️)", style: TextStyle(fontWeight: FontWeight.bold)),
+            onPressed: () {
+              Navigator.of(ctx).pop();
+              AdService.instance.showRewardedAd(
+                onUserEarnedReward: () {
+                  widget.state.replenishHearts();
+                  if (mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text("✨ 5 Hearts Restored! Keep going! ❤️❤️❤️❤️❤️"),
+                        backgroundColor: Color(0xFF04AA6D),
+                      ),
+                    );
+                  }
+                },
+                onAdFailed: () {
+                  if (mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text("Ad not ready yet. Please try again in a moment."),
+                      ),
+                    );
+                  }
+                },
+              );
+            },
           ),
         ],
       ),

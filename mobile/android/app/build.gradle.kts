@@ -14,19 +14,27 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
+    signingConfigs {
+        create("release") {
+            storeFile = file("nextsem-release-key.keystore")
+            storePassword = "nextsem123"
+            keyAlias = "nextsem-alias"
+            keyPassword = "nextsem123"
+        }
+    }
+
     defaultConfig {
         applicationId = "online.nextsem.app"
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
-        versionCode = 35
-        versionName = "3.5.0"
+        versionCode = 36
+        versionName = "3.6.0"
 
     }
 
     buildTypes {
         release {
-            // Signing with the debug keys for now so local release build works out-of-the-box
-            signingConfig = signingConfigs.getByName("debug")
+            signingConfig = signingConfigs.getByName("release")
         }
     }
 }

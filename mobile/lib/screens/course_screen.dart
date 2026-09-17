@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nextsem_mobile/data.dart';
 import 'package:nextsem_mobile/models.dart';
 import 'package:nextsem_mobile/state.dart';
+import 'package:nextsem_mobile/services/ad_service.dart';
 import 'boot_screen.dart';
 import 'login_screen.dart';
 
@@ -52,15 +53,84 @@ class _CourseScreenState extends State<CourseScreen> {
     }
   }
 
-  void _launchChapter(Topic topic) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => BootScreen(
-          state: widget.state,
-          chapterId: topic.path,
-          chapterTitle: topic.label,
+  void _promptReplenishHearts() {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        backgroundColor: const Color(0xFF0C1328),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+          side: const BorderSide(color: Color(0xFF39FF14), width: 1.5),
         ),
+        title: const Row(
+          children: [
+            Text("❤️", style: TextStyle(fontSize: 22)),
+            SizedBox(width: 8),
+            Text("Replenish Energy", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+          ],
+        ),
+        content: Text(
+          "You currently have ${widget.state.hearts}/5 hearts.\n\nWatch a short sponsored video to instantly refill all 5 hearts and continue training!",
+          style: const TextStyle(color: Colors.white70, fontSize: 14),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(ctx).pop(),
+            child: const Text("Later", style: TextStyle(color: Colors.white54)),
+          ),
+          ElevatedButton.icon(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF39FF14),
+              foregroundColor: Colors.black,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            ),
+            icon: const Icon(Icons.play_circle_fill, color: Colors.black),
+            label: const Text("Watch Video (+5 ❤️)", style: TextStyle(fontWeight: FontWeight.bold)),
+            onPressed: () {
+              Navigator.of(ctx).pop();
+              AdService.instance.showRewardedAd(
+                onUserEarnedReward: () {
+                  widget.state.replenishHearts();
+                  if (mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text("✨ 5 Hearts Restored! Keep coding! ❤️❤️❤️❤️❤️"),
+                        backgroundColor: Color(0xFF04AA6D),
+                      ),
+                    );
+                  }
+                },
+                onAdFailed: () {
+                  if (mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text("Ad not ready yet. Please try again in a few moments."),
+                      ),
+                    );
+                  }
+                },
+              );
+            },
+          ),
+        ],
       ),
+    );
+  }
+
+  void _launchChapter(Topic topic) {
+    AdService.instance.showInterstitialAd(
+      onAdClosed: () {
+        if (!mounted) return;
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => BootScreen(
+              state: widget.state,
+              chapterId: topic.path,
+              chapterTitle: topic.label,
+            ),
+          ),
+        );
+      },
     );
   }
 
@@ -157,7 +227,10 @@ class _CourseScreenState extends State<CourseScreen> {
                       const SizedBox(width: 8),
                       _buildStatItem("🪙", "${widget.state.points}"),
                       const SizedBox(width: 8),
-                      _buildStatItem("❤️", "${widget.state.hearts}"),
+                      GestureDetector(
+                        onTap: _promptReplenishHearts,
+                        child: _buildStatItem("❤️", "${widget.state.hearts}"),
+                      ),
                     ],
                   ),
                 ],
@@ -408,6 +481,9 @@ class _CourseScreenState extends State<CourseScreen> {
                 ],
               ),
             ),
+
+            // 🏷️ AdMob Banner Unit
+            const AdBannerWidget(),
 
             // 🧭 Bottom Navigation Bar
             Container(

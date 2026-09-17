@@ -11,6 +11,9 @@
     "save-chat": "node scripts/save_chat.js",
     "status": "node scripts/project-status.js",
     "task": "node scripts/project-status.js",
+    "mobile:bundle": "cd mobile && flutter build appbundle --target-platform android-arm,android-arm64",
+    "mobile:apk": "cd mobile && flutter build apk --split-per-abi",
+    "mobile:run": "cd mobile && flutter run",
     "deploy:staging": "npm run build && npx firebase-tools deploy --only hosting:staging --project bca-nextsem",
     "deploy:prod": "npm run build && npx firebase-tools deploy --only hosting:production --project bca-nextsem"
   },
