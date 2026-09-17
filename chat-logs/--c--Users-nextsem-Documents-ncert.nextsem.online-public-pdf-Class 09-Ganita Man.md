@@ -1,6 +1,6 @@
 # @[c:\Users\nextsem\Documents\ncert.nextsem.online\public\pdf\Class 09\Ganita Manjari-9th\iemh104.pdf] @[c:\Users\nextsem\Documents\ncert.nextsem.online\public\pdf\Class 09\Ganita Manjari-9th\iemh105.pdf] make mcq from these two pdfs of medium to hard level only of graphcal numerical and conceptual based
 
-*Saved on: 17/9/2026, 1:18:05 pm*
+*Saved on: 17/9/2026, 2:26:07 pm*
 *Conversation ID: 75ad6789-f3fe-4b22-bc79-34dbb63d5b0d*
 
 ---
@@ -518,6 +518,175 @@ The release build pipeline is actively compiling and packaging your Android App 
 * ✅ **Environment Config:** Configured Android SDK location (`C:\Android\sdk`) and resolved legacy repository paths
 * ✅ **Version Bump:** Configured `versionCode 36` and `versionName "3.6.0"`
 * ⏳ **Gradle AAB Compilation:** `.\gradlew.bat bundleRelease` is compiling assets and running R8 optimization to generate `app-release.aab`. I will notify you the moment the `.aab` file is ready.
+
+---
+
+### 🤖 Antigravity AI
+
+### 🎉 Deployment & Production Android `.aab` Build Complete!
+
+Both the live web production deployment and the release Android App Bundle (`.aab`) packaging have succeeded without errors.
+
+---
+
+### 📦 Production Android Release Bundle Details
+
+| Parameter | Specification |
+| :--- | :--- |
+| **Package Name** | `online.nextsem.app` |
+| **Release File Name** | `app-release.aab` |
+| **Version Code** | **`36`** (Incremented for Google Play Console) |
+| **Version Name** | **`"3.6.0"`** |
+| **File Size** | **7.70 MB** (`8,080,449` bytes) — *Ultra-optimized, under 10MB!* |
+| **Signing Status** | Signed with production `nextsem-release-key.keystore` (V1 & V2 schemes) |
+| **Target SDK** | Android 15 / 14 compatible (`minSdkVersion 22`, `targetSdkVersion 34`) |
+| **File Path** | [`android/app/build/outputs/bundle/release/app-release.aab`](file:///c:/Users/nextsem/Documents/nextsem.online/android/app/build/outputs/bundle/release/app-release.aab) |
+
+---
+
+### 🌐 Live Production Deployment
+
+| Target | Status | Live Production Link |
+| :--- | :---: | :--- |
+| **Custom Domain** | ✅ Live | [https://nextsem.online](https://nextsem.online) |
+| **Firebase Production** | ✅ Live | [https://bca-nextsem.web.app](https://bca-nextsem.web.app) |
+| **Integrated AdMob Interstitial** | ✅ Live | `ca-app-pub-5947565211927754/5893147977` |
+
+---
+
+### 🚀 Google Play Console Upload Steps
+
+1. Open your [Google Play Console](https://play.google.com/console).
+2. Select your app: **NS NextSem** (`online.nextsem.app`).
+3. Navigate to **Production** ➔ **Create new release**.
+4. Drag and drop the generated bundle file:
+   ```text
+   C:\Users\nextsem\Documents\nextsem.online\android\app\build\outputs\bundle\release\app-release.aab
+   ```
+5. Set Release Name: **`3.6.0 (36)`**
+6. Click **Next** ➔ **Save** ➔ **Review release** ➔ **Start rollout to Production**!
+
+---
+
+### 📜 GitHub Synchronization
+* **Latest Commit:** [`fa5ca92`](https://github.com/nextsemacademy-max/nextsem.online/commit/fa5ca92) (`"chore(release): bump Android versionCode to 36 (3.6.0) and generate production AAB bundle"`)
+* **Remote:** [github.com/nextsemacademy-max/nextsem.online](https://github.com/nextsemacademy-max/nextsem.online) (100% clean & up to date with `main`).
+
+---
+
+### 👤 User
+
+why ads of a specfici type is showing only
+
+---
+
+### 🤖 Antigravity AI
+
+When you notice that **only a specific type of ad** (e.g., only tech/coding ads, only gaming video ads, or only e-commerce ads) is appearing, it is usually driven by **5 core mechanisms** in Google AdMob and Google AdSense:
+
+---
+
+### 1. Contextual Relevance (Website & App Content Matching)
+* **How it works:** Google’s advertising crawlers analyze the text, headings, and metadata of your app and website.
+* Since `nextsem.online` is heavily focused on **Software Engineering, Web Development, Windows CLI, and Computer Science**, Google’s Real-Time Bidding (RTB) algorithm preferentially serves advertisers paying for keywords like:
+  * Coding bootcamps & online degrees
+  * Cloud hosting & developer tools
+  * Tech job portals & learning apps
+* Advertisers with matching keywords bid higher for your audience than irrelevant advertisers (like auto insurance or real estate).
+
+---
+
+### 2. Google Account Personalization (Your Browsing Profile)
+* **How it works:** Google serves **Personalized Ads** based on the Google Account and device cookies of the person viewing the app.
+* If you frequently browse coding tutorials, tech documentation, developer tools, or specific apps, Google’s ad profile assigns you those interest segments.
+* **How to verify:** Open the app on a friend's phone, another Google account, or in a fresh test profile—you will see a completely different variety of ads.
+
+---
+
+### 3. Ad Unit Type Selection in AdMob Console
+Inside your Google AdMob Dashboard, every ad unit has format restrictions:
+* **Video vs. Display/Static:** When creating or editing an Interstitial or Banner unit, there are checkboxes for:
+  - ☑️ **Display (Images / Text / Rich Media)**
+  - ☑️ **Video**
+* If an ad unit has only **Video** or only **Display** checked, Google will exclude all other creative types.
+* **How to check:**
+  1. Go to [AdMob Console](https://apps.admob.com/) ➔ **Apps** ➔ **NS NextSem**.
+  2. Click **Ad units** ➔ Select your Interstitial ad unit (`/5893147977`).
+  3. Under **Advanced settings** ➔ **Ad type**, ensure **both Display and Video** are selected.
+
+---
+
+### 4. New Ad Unit "Cold Start" Phase (First 24–48 Hours)
+* The ad unit you created today (`ca-app-pub-5947565211927754/5893147977`) was just generated.
+* During the first **24 to 48 hours**, Google's ad exchange is still profiling the traffic quality, geography, and retention of requests coming from that unit.
+* In this ramp-up window, only 1 or 2 high-volume global ad campaigns (often casual games or app install campaigns) have blanket bids that immediately fill requests. As your traffic grows, the bidding pool diversifies.
+
+---
+
+### 5. Blocking Controls & Category Settings
+In your AdMob / AdSense dashboard, check if certain ad categories are restricted:
+1. Go to **AdMob** ➔ **Blocking controls** (or **Brand safety**).
+2. Look at **General categories** and **Sensitive categories**.
+3. If categories were disabled in the past, Google restricts auctions to only the remaining permitted categories.
+
+---
+
+### 💡 Quick Troubleshooting Checklist
+| What you are seeing | Likely Cause | Fix / Next Step |
+| :--- | :--- | :--- |
+| **Only Video ads (No static images)** | Ad unit set to "Video only" | Edit ad unit in AdMob ➔ check "Display" |
+| **Only Programming / Tech ads** | High contextual keyword match | Normal behavior for developer education apps |
+| **Same 1–2 game ads repeating** | New ad unit / low traffic fill | Will diversify automatically within 24–48 hours |
+| **Ads for things you recently searched** | User personalization | Turn off personalized ads in Google Account to see generic ads |
+
+---
+
+### 🤖 Antigravity AI
+
+### 🔍 The Answer is Right in Your Screenshot: You Only Have 2 Ad Units Created!
+
+Look at the bottom-right corner of your AdMob table:
+> **`1 - 2 of 2`**
+
+Inside this AdMob app dashboard, **only 2 ad units exist in total**:
+
+| # | Ad Unit Name in Your Console | Format | What It Does |
+| :-: | :--- | :--- | :--- |
+| **1** | **`ad11`** | **Interstitial** | Full-screen pop-up ad between screen transitions |
+| **2** | **`Nextsem Rew...`** | **Rewarded interstitial** | Full-screen ad offering in-app rewards (hearts/lives) |
+
+---
+
+### 💡 Why Only This Specific Type of Ad is Showing:
+
+1. **No Banner Ad Unit Exists:**
+   * Your code has a banner caller (`showBannerAd()`), but in your AdMob app dashboard, **there is NO Banner ad unit created**.
+   * Therefore, bottom or top anchored banner ads cannot appear until you create one.
+
+2. **No App Open Ad Unit Exists:**
+   * Full-screen splash / launch ads cannot appear because no App Open ad unit has been created.
+
+3. **Both of Your Ad Units are Full-Screen Interstitials:**
+   * Since both created units are **Interstitial / Rewarded Interstitial**, you will *only* see full-screen interstitial overlay ads!
+
+---
+
+### 🛠️ How to Add Other Types of Ads (Banner, App Open, etc.):
+
+If you want **small anchored banner ads** or other types to show:
+
+1. Click the blue **`Add ad unit`** button (top-left above the table).
+2. Choose the ad format you want:
+   * 🏷️ **Banner:** For small banner ads at the top/bottom of lesson pages.
+   * 🚀 **App Open:** For ads that appear when opening the app.
+   * 🎁 **Rewarded Video:** For classic opt-in rewarded video ads.
+3. Give it a name (e.g., `Nextsem Bottom Banner`).
+4. Click **Create ad unit**.
+5. Copy the generated ID (e.g., `ca-app-pub-5947565211927754/XXXXXXXXXX`) and share it here so we can plug it right into the app!
+
+---
+
+*(P.S. If you click on the second row **`Nextsem Rew...`**, could you share its ID so we make sure the rewarded heart replenishment is also 100% matched to your live unit?)*
 
 ---
 
