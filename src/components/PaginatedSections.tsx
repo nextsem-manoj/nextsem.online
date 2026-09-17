@@ -9,6 +9,7 @@ import BookPagination from "./BookPagination";
 import AdSenseBanner from "./AdSenseBanner";
 import { AdMob } from "@capacitor-community/admob";
 import { generateAndDownloadLessonPdf } from '../lib/pdfHelper';
+import { PROD_REWARDED_ID } from '../lib/admobHelper';
 
 
 interface PaginatedSectionsProps {
@@ -38,7 +39,7 @@ export default function PaginatedSections({
       try {
         // Prepare Rewarded Video Ad
         await AdMob.prepareRewardVideoAd({
-          adId: 'ca-app-pub-5947565211927754/3747294963', // Production AdMob Rewarded Ad ID
+          adId: PROD_REWARDED_ID, // Production AdMob Rewarded Ad ID
           isTesting: false
         });
 

@@ -25,7 +25,7 @@
 - `[x]` **AdMob App ID:** `ca-app-pub-5947565211927754~5718902515` (Updated in `AndroidManifest.xml`).
 - `[x]` **Banner Ad Unit:** `ca-app-pub-5947565211927754/4565552616`
 - `[x]` **Interstitial Ad Unit:** `ca-app-pub-5947565211927754/5893147977` (Configured for 2nd-link navigation clicks & lesson completion).
-- `[x]` **Rewarded Video Ad Unit:** `ca-app-pub-5947565211927754/3747294963`
+- `[x]` **Rewarded Video Ad Unit:** `ca-app-pub-5947565211927754/6967837750` (Configured for hearts refill & PDF downloads).
 - `[x]` **App Open Ad Unit:** `ca-app-pub-5947565211927754/4753305205`
 
 ---
