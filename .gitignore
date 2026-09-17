@@ -50,6 +50,12 @@ firebase-debug.log*
 # turbo
 .turbo/
 
+# secrets & credentials
+*.keystore
+*.jks
+play_store*.json
+scripts/keystore_base64.txt
+
 # local test website
 /test_website/
 

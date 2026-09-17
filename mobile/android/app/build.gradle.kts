@@ -16,10 +16,11 @@ android {
 
     signingConfigs {
         create("release") {
-            storeFile = file("nextsem-release-key.keystore")
-            storePassword = "nextsem123"
-            keyAlias = "nextsem-alias"
-            keyPassword = "nextsem123"
+            val customKeystore = System.getenv("KEYSTORE_PATH")
+            storeFile = if (customKeystore != null && file(customKeystore).exists()) file(customKeystore) else file("nextsem-release-key.keystore")
+            storePassword = System.getenv("STORE_PASSWORD") ?: "nextsem123"
+            keyAlias = System.getenv("KEY_ALIAS") ?: "nextsem-alias"
+            keyPassword = System.getenv("KEY_PASSWORD") ?: "nextsem123"
         }
     }
 
