@@ -56,3 +56,6 @@
   Lesson titles displayed inside the course sidebar must always be concise, compact, and catchy (ideally 2 to 5 words max).
   Avoid verbose, long-winded titles with redundant words that get clipped with ellipsis or wrap awkwardly inside the compact sidebar width (e.g., use "VS Code & Win 11 Setup" instead of "Visual Studio Code Download, Windows 11 Setup & First HTML Page"; "What is HTML?" instead of "HTML Introduction (What is HTML?)").
   Titles in the sidebar should look neat, appealing to click, and fit beautifully within the sidebar container space.
+
+- **Complete Home Page Breadcrumb Navigation Standard (PERMANENT RULE - ALL LINKS & PAGES)**: Across all existing, new, and standalone curriculum pages, subject dashboards, semester hubs, lesson templates, and special studios, ALWAYS render a complete, clickable breadcrumb navigation trail starting from the Home Page (`🏠 Home`) all the way to the current active page (e.g., `🏠 Home ❯ BCA Hub ❯ Semester X ❯ Subject Code / Unit ❯ Lesson / Studio`). Every parent step in the breadcrumb trail MUST be an interactive, clickable hyperlink so students can instantly jump back to Home or any ancestor level from anywhere on the platform across both mobile and desktop viewports.
+
