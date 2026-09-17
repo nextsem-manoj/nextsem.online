@@ -115,7 +115,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                         decoration: BoxDecoration(
-                          color: theme.colorScheme.primary.withOpacity(0.15),
+                          color: theme.colorScheme.primary.withValues(alpha: 0.15),
                           borderRadius: BorderRadius.circular(4),
                           border: Border.all(color: theme.colorScheme.primary),
                         ),
@@ -261,7 +261,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               });
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: theme.colorScheme.primary.withOpacity(0.2),
+                              backgroundColor: theme.colorScheme.primary.withValues(alpha: 0.2),
                               foregroundColor: theme.colorScheme.primary,
                               side: BorderSide(color: theme.colorScheme.primary),
                               padding: const EdgeInsets.symmetric(vertical: 16),
@@ -284,7 +284,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 borderRadius: BorderRadius.circular(12),
                               ),
                               elevation: 8,
-                              shadowColor: theme.colorScheme.primary.withOpacity(0.5),
+                              shadowColor: theme.colorScheme.primary.withValues(alpha: 0.5),
                             ),
                             child: const Row(
                               mainAxisAlignment: MainAxisAlignment.center,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nextsem_mobile/data.dart';
 import 'package:nextsem_mobile/state.dart';
+import 'package:nextsem_mobile/services/ad_service.dart';
 import 'chapter_simulator_screen.dart';
 
 class DesktopSimulatorScreen extends StatefulWidget {
@@ -41,20 +42,22 @@ class _DesktopSimulatorScreenState extends State<DesktopSimulatorScreen> {
   }
 
   void _checkAction(String action, String targetId) {
-    final currentStep = desktopSimulatorSteps[widget.state.desktopStepIdx];
+    final stepIdx = widget.state.desktopStepIdx.clamp(0, desktopSimulatorSteps.length - 1);
+    final currentStep = desktopSimulatorSteps[stepIdx];
     if (currentStep.action == action && currentStep.targetElement == targetId) {
       _advanceStep();
     }
   }
 
   void _advanceStep() {
-    final nextIdx = widget.state.desktopStepIdx + 1;
+    final currentIdx = widget.state.desktopStepIdx;
+    final nextIdx = currentIdx + 1;
     widget.state.addPoints(10);
     if (nextIdx < desktopSimulatorSteps.length) {
       widget.state.setDesktopStepIdx(nextIdx);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text("✓ Correct! ${desktopSimulatorSteps[widget.state.desktopStepIdx - 1].successMsg}"),
+          content: Text("✓ Correct! ${desktopSimulatorSteps[currentIdx].successMsg}"),
           backgroundColor: Colors.green,
           duration: const Duration(seconds: 2),
         ),
@@ -82,17 +85,89 @@ class _DesktopSimulatorScreenState extends State<DesktopSimulatorScreen> {
   void _wrongAction() {
     widget.state.deductHearts(1);
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: const Text("❌ Incorrect action! Keep trying."),
+      const SnackBar(
+        content: Text("❌ Incorrect action! Keep trying."),
         backgroundColor: Colors.red,
-        duration: const Duration(milliseconds: 800),
+        duration: Duration(milliseconds: 800),
+      ),
+    );
+    if (widget.state.hearts <= 0) {
+      _showOutOfHeartsDialog();
+    }
+  }
+
+  void _showOutOfHeartsDialog() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (ctx) => AlertDialog(
+        backgroundColor: const Color(0xFF0C1328),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+          side: const BorderSide(color: Colors.redAccent, width: 1.5),
+        ),
+        title: const Row(
+          children: [
+            Text("💔", style: TextStyle(fontSize: 22)),
+            SizedBox(width: 8),
+            Text("Out of Energy!", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+          ],
+        ),
+        content: const Text(
+          "You've run out of hearts! Watch a sponsored video to instantly refill all 5 hearts and continue training.",
+          style: TextStyle(color: Colors.white70, fontSize: 14),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(ctx).pop();
+              Navigator.of(context).pop(); // Exit to dashboard
+            },
+            child: const Text("Exit to Dashboard", style: TextStyle(color: Colors.white54)),
+          ),
+          ElevatedButton.icon(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF39FF14),
+              foregroundColor: Colors.black,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            ),
+            icon: const Icon(Icons.play_circle_fill, color: Colors.black),
+            label: const Text("Watch Video (+5 ❤️)", style: TextStyle(fontWeight: FontWeight.bold)),
+            onPressed: () {
+              Navigator.of(ctx).pop();
+              AdService.instance.showRewardedAd(
+                onUserEarnedReward: () {
+                  widget.state.replenishHearts();
+                  if (mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text("✨ 5 Hearts Restored! Keep going! ❤️❤️❤️❤️❤️"),
+                        backgroundColor: Color(0xFF04AA6D),
+                      ),
+                    );
+                  }
+                },
+                onAdFailed: () {
+                  if (mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text("Ad not ready yet. Please try again in a moment."),
+                      ),
+                    );
+                  }
+                },
+              );
+            },
+          ),
+        ],
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    final currentStep = desktopSimulatorSteps[widget.state.desktopStepIdx];
+    final stepIdx = widget.state.desktopStepIdx.clamp(0, desktopSimulatorSteps.length - 1);
+    final currentStep = desktopSimulatorSteps[stepIdx];
     final theme = Theme.of(context);
 
     return Scaffold(
@@ -347,10 +422,10 @@ class _DesktopSimulatorScreenState extends State<DesktopSimulatorScreen> {
             left: 20,
             right: 20,
             child: Card(
-              color: const Color(0xFF0C1328).withOpacity(0.9),
+              color: const Color(0xFF0C1328).withValues(alpha: 0.9),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
-                side: BorderSide(color: theme.colorScheme.primary.withOpacity(0.5), width: 1.5),
+                side: BorderSide(color: theme.colorScheme.primary.withValues(alpha: 0.5), width: 1.5),
               ),
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
@@ -360,7 +435,7 @@ class _DesktopSimulatorScreenState extends State<DesktopSimulatorScreen> {
                     Row(
                       children: [
                         Text(
-                          "Step ${widget.state.desktopStepIdx + 1}/${desktopSimulatorSteps.length}",
+                          "Step ${stepIdx + 1}/${desktopSimulatorSteps.length}",
                           style: TextStyle(
                             color: theme.colorScheme.primary,
                             fontWeight: FontWeight.bold,
@@ -599,7 +674,7 @@ class _DesktopSimulatorScreenState extends State<DesktopSimulatorScreen> {
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
-            color: isHovered ? Colors.green.withOpacity(0.15) : Colors.transparent,
+            color: isHovered ? Colors.green.withValues(alpha: 0.15) : Colors.transparent,
             border: isHovered ? Border.all(color: Colors.green) : null,
           ),
           child: Column(

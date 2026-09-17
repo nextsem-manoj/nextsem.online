@@ -180,7 +180,7 @@ class _CourseScreenState extends State<CourseScreen> {
                         border: Border.all(color: theme.colorScheme.primary, width: 2),
                         boxShadow: [
                           BoxShadow(
-                            color: theme.colorScheme.primary.withOpacity(0.3),
+                            color: theme.colorScheme.primary.withValues(alpha: 0.3),
                             blurRadius: 8,
                           )
                         ],
@@ -190,6 +190,11 @@ class _CourseScreenState extends State<CourseScreen> {
                         backgroundColor: const Color(0xFF0C1328),
                         backgroundImage: widget.state.photoUrl.isNotEmpty
                             ? NetworkImage(widget.state.photoUrl)
+                            : null,
+                        onBackgroundImageError: widget.state.photoUrl.isNotEmpty
+                            ? (exception, stackTrace) {
+                                debugPrint("User avatar load error: $exception");
+                              }
                             : null,
                         child: widget.state.photoUrl.isEmpty
                             ? Text(
@@ -244,9 +249,9 @@ class _CourseScreenState extends State<CourseScreen> {
               margin: const EdgeInsets.symmetric(horizontal: 16),
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
-                color: theme.colorScheme.primary.withOpacity(0.08),
+                color: theme.colorScheme.primary.withValues(alpha: 0.08),
                 borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: theme.colorScheme.primary.withOpacity(0.3)),
+                border: Border.all(color: theme.colorScheme.primary.withValues(alpha: 0.3)),
               ),
               child: Row(
                 children: [
@@ -440,11 +445,11 @@ class _CourseScreenState extends State<CourseScreen> {
 
                         if (isCompleted) {
                           borderCol = Colors.green;
-                          bgCol = Colors.green.withOpacity(0.2);
+                          bgCol = Colors.green.withValues(alpha: 0.2);
                           child = const Icon(Icons.check, color: Colors.green, size: 16);
                         } else if (isActive) {
                           borderCol = theme.colorScheme.primary;
-                          bgCol = theme.colorScheme.primary.withOpacity(0.1);
+                          bgCol = theme.colorScheme.primary.withValues(alpha: 0.1);
                           child = Text(
                             "${topicIdx + 1}",
                             style: TextStyle(color: theme.colorScheme.primary, fontWeight: FontWeight.bold),
@@ -465,7 +470,7 @@ class _CourseScreenState extends State<CourseScreen> {
                                 border: Border.all(color: borderCol, width: 2),
                                 boxShadow: isActive ? [
                                   BoxShadow(
-                                    color: theme.colorScheme.primary.withOpacity(0.4),
+                                    color: theme.colorScheme.primary.withValues(alpha: 0.4),
                                     blurRadius: 6,
                                     spreadRadius: 1,
                                   )

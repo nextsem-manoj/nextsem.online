@@ -246,7 +246,7 @@ class _ChapterSimulatorScreenState extends State<ChapterSimulatorScreen> {
             fontWeight: FontWeight.bold,
             decoration: TextDecoration.underline,
             decorationColor: highlightColor,
-            backgroundColor: highlightColor.withOpacity(0.12),
+            backgroundColor: highlightColor.withValues(alpha: 0.12),
           ),
         ),
       );
@@ -309,7 +309,7 @@ class _ChapterSimulatorScreenState extends State<ChapterSimulatorScreen> {
 
   Widget _buildTextbookPanel(ChapterLesson lesson, ThemeData theme) {
     return Container(
-      color: const Color(0xFF0C1328).withOpacity(0.4),
+      color: const Color(0xFF0C1328).withValues(alpha: 0.4),
       padding: const EdgeInsets.all(16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -407,9 +407,9 @@ class _ChapterSimulatorScreenState extends State<ChapterSimulatorScreen> {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: theme.colorScheme.primary.withOpacity(0.08),
+                color: theme.colorScheme.primary.withValues(alpha: 0.08),
                 borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: theme.colorScheme.primary.withOpacity(0.3)),
+                border: Border.all(color: theme.colorScheme.primary.withValues(alpha: 0.3)),
               ),
               child: Text(
                 "💡 Hint: ${lesson.hint}",

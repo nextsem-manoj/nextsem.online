@@ -184,10 +184,12 @@ class _AdBannerWidgetState extends State<AdBannerWidget> {
     if (_isBannerLoaded && _bannerAd != null) {
       return Padding(
         padding: widget.padding,
-        child: SizedBox(
-          width: _bannerAd!.size.width.toDouble(),
-          height: _bannerAd!.size.height.toDouble(),
-          child: AdWidget(ad: _bannerAd!),
+        child: Center(
+          child: SizedBox(
+            width: _bannerAd!.size.width.toDouble(),
+            height: _bannerAd!.size.height.toDouble(),
+            child: AdWidget(ad: _bannerAd!),
+          ),
         ),
       );
     }

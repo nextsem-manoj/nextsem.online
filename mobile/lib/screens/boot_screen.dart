@@ -114,7 +114,7 @@ class _BootScreenState extends State<BootScreen> with SingleTickerProviderStateM
                   borderRadius: BorderRadius.circular(12),
                   boxShadow: [
                     BoxShadow(
-                      color: theme.colorScheme.primary.withOpacity(0.2),
+                      color: theme.colorScheme.primary.withValues(alpha: 0.2),
                       blurRadius: 20,
                       spreadRadius: 2,
                     )
@@ -158,7 +158,7 @@ class _BootScreenState extends State<BootScreen> with SingleTickerProviderStateM
                               width: 6,
                               height: 6,
                               decoration: BoxDecoration(
-                                color: theme.colorScheme.primary.withOpacity(1.0 - (index * 0.15)),
+                                color: theme.colorScheme.primary.withValues(alpha: 1.0 - (index * 0.15)),
                                 shape: BoxShape.circle,
                               ),
                             ),
