@@ -17,5 +17,6 @@
     "editor.suggestOnTriggerCharacters": true,
     "editor.wordBasedSuggestions": "matchingDocuments",
     "editor.acceptSuggestionOnEnter": "off"
-  }
+  },
+  "cmake.sourceDirectory": "C:/Users/nextsem/Documents/nextsem.online/mobile/linux/flutter"
 }
