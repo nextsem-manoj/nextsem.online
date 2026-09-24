@@ -62,6 +62,8 @@ scripts/keystore_base64.txt
 # binaries & packages
 *.apk
 *.aab
+*.mp4
+*.webm
 
 # executables
 *.exe

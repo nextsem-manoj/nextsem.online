@@ -1,6 +1,7 @@
 import React, { Suspense } from "react";
 import { Metadata } from "next";
 import HtmlDashboardClient from "@/components/HtmlDashboardClient";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Free HTML5 Full Stack Course & Syllabus Dashboard | Nextsem Academy",
@@ -61,15 +62,18 @@ export default function HtmlRootPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <Suspense
-        fallback={
-          <div className="min-h-screen bg-[#060c18] text-white flex items-center justify-center text-sm font-mono">
-            Loading HTML Course Dashboard...
-          </div>
-        }
-      >
-        <HtmlDashboardClient />
-      </Suspense>
+      <div className="flex-1 flex flex-col min-h-screen bg-[#060c18]">
+        <Suspense
+          fallback={
+            <div className="min-h-screen bg-[#060c18] text-white flex items-center justify-center text-sm font-mono">
+              Loading HTML Course Dashboard...
+            </div>
+          }
+        >
+          <HtmlDashboardClient />
+        </Suspense>
+        <Footer />
+      </div>
     </>
   );
 }

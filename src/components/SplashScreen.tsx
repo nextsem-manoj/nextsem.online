@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Capacitor } from '@capacitor/core';
+import { showAppOpenAd } from '@/lib/admobHelper';
 
 
 // Animation phases:
@@ -103,6 +104,9 @@ export default function SplashScreen() {
       [2200, () => setPhase(3)], // start fade out
       [3000, () => {
         setGone(true);
+        if (Capacitor.isNativePlatform()) {
+          showAppOpenAd();
+        }
       }],
     ] as [number, () => void][];
     const timers = timings.map(([ms, fn]) => setTimeout(fn, ms));

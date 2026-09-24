@@ -9,6 +9,8 @@ class AdService {
   static const String bannerUnitId = 'ca-app-pub-5947565211927754/4565552616';
   static const String interstitialUnitId = 'ca-app-pub-5947565211927754/5893147977';
   static const String rewardedUnitId = 'ca-app-pub-5947565211927754/6967837750';
+  static const String rewardedInterstitialUnitId = 'ca-app-pub-5947565211927754/3747294963';
+  static const String appOpenUnitId = 'ca-app-pub-5947565211927754/4753305205';
 
   InterstitialAd? _interstitialAd;
   bool _isInterstitialLoading = false;
@@ -16,13 +18,83 @@ class AdService {
   RewardedAd? _rewardedAd;
   bool _isRewardedLoading = false;
 
+  RewardedInterstitialAd? _rewardedInterstitialAd;
+  bool _isRewardedInterstitialLoading = false;
+
+  AppOpenAd? _appOpenAd;
+  bool _isAppOpenLoading = false;
+
+  int _completedLessonCount = 0;
+
   Future<void> initialize() async {
     try {
       await MobileAds.instance.initialize();
+      loadAppOpenAd();
       loadInterstitialAd();
       loadRewardedAd();
+      loadRewardedInterstitialAd();
     } catch (e) {
       debugPrint("Google Mobile Ads initialization failed: $e");
+    }
+  }
+
+  // ==================== LESSON PROGRESSION INTERSTITIAL TRIGGER ====================
+  /// Called when a lesson is solved/finished. Shows full screen interstitial ad every 2 lessons.
+  void onLessonCompleted({VoidCallback? onContinue}) {
+    _completedLessonCount++;
+    if (_completedLessonCount % 2 == 0) {
+      debugPrint("AdService: 2 lessons reached ($_completedLessonCount). Showing Interstitial Ad.");
+      showInterstitialAd(onAdClosed: onContinue);
+    } else {
+      debugPrint("AdService: Lesson $_completedLessonCount completed. Next ad in 1 lesson.");
+      if (onContinue != null) onContinue();
+    }
+  }
+
+  // ==================== APP OPEN AD ====================
+  void loadAppOpenAd() {
+    if (_isAppOpenLoading || _appOpenAd != null) return;
+    _isAppOpenLoading = true;
+
+    AppOpenAd.load(
+      adUnitId: appOpenUnitId,
+      request: const AdRequest(),
+      adLoadCallback: AppOpenAdLoadCallback(
+        onAdLoaded: (ad) {
+          debugPrint("AdService: App Open Ad loaded successfully.");
+          _appOpenAd = ad;
+          _isAppOpenLoading = false;
+        },
+        onAdFailedToLoad: (error) {
+          debugPrint("AdService: App Open Ad failed to load: $error");
+          _appOpenAd = null;
+          _isAppOpenLoading = false;
+        },
+      ),
+    );
+  }
+
+  void showAppOpenAdIfAvailable({VoidCallback? onAdClosed}) {
+    if (_appOpenAd != null) {
+      _appOpenAd!.fullScreenContentCallback = FullScreenContentCallback(
+        onAdDismissedFullScreenContent: (ad) {
+          ad.dispose();
+          _appOpenAd = null;
+          loadAppOpenAd(); // Preload next
+          if (onAdClosed != null) onAdClosed();
+        },
+        onAdFailedToShowFullScreenContent: (ad, error) {
+          debugPrint("AdService: Failed to show App Open ad: $error");
+          ad.dispose();
+          _appOpenAd = null;
+          loadAppOpenAd();
+          if (onAdClosed != null) onAdClosed();
+        },
+      );
+      _appOpenAd!.show();
+    } else {
+      loadAppOpenAd();
+      if (onAdClosed != null) onAdClosed();
     }
   }
 
@@ -69,6 +141,62 @@ class AdService {
       _interstitialAd!.show();
     } else {
       loadInterstitialAd();
+      if (onAdClosed != null) onAdClosed();
+    }
+  }
+
+  // ==================== REWARDED INTERSTITIAL AD ====================
+  void loadRewardedInterstitialAd() {
+    if (_isRewardedInterstitialLoading || _rewardedInterstitialAd != null) return;
+    _isRewardedInterstitialLoading = true;
+
+    RewardedInterstitialAd.load(
+      adUnitId: rewardedInterstitialUnitId,
+      request: const AdRequest(),
+      rewardedInterstitialAdLoadCallback: RewardedInterstitialAdLoadCallback(
+        onAdLoaded: (ad) {
+          debugPrint("AdService: Rewarded Interstitial Ad loaded successfully.");
+          _rewardedInterstitialAd = ad;
+          _isRewardedInterstitialLoading = false;
+        },
+        onAdFailedToLoad: (error) {
+          debugPrint("AdService: Rewarded Interstitial Ad failed to load: $error");
+          _rewardedInterstitialAd = null;
+          _isRewardedInterstitialLoading = false;
+        },
+      ),
+    );
+  }
+
+  void showRewardedInterstitialAd({
+    required VoidCallback onUserEarnedReward,
+    VoidCallback? onAdClosed,
+  }) {
+    if (_rewardedInterstitialAd != null) {
+      _rewardedInterstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
+        onAdDismissedFullScreenContent: (ad) {
+          ad.dispose();
+          _rewardedInterstitialAd = null;
+          loadRewardedInterstitialAd();
+          if (onAdClosed != null) onAdClosed();
+        },
+        onAdFailedToShowFullScreenContent: (ad, error) {
+          debugPrint("AdService: Failed to show rewarded interstitial ad: $error");
+          ad.dispose();
+          _rewardedInterstitialAd = null;
+          loadRewardedInterstitialAd();
+          if (onAdClosed != null) onAdClosed();
+        },
+      );
+
+      _rewardedInterstitialAd!.show(
+        onUserEarnedReward: (AdWithoutView ad, RewardItem reward) {
+          debugPrint("AdService: User earned reward (Interstitial): ${reward.amount} ${reward.type}");
+          onUserEarnedReward();
+        },
+      );
+    } else {
+      loadRewardedInterstitialAd();
       if (onAdClosed != null) onAdClosed();
     }
   }

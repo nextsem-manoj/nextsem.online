@@ -1,0 +1,15 @@
+{
+  "title": "Day 1/100: Everyone Thinks Windows CMD is Dead... Until This! 👀🔥 #Shorts #Windows11",
+  "description": "Everyone thinks Windows Command Prompt is dead until they see what real developers actually use it for 👀🔥\n\nMost people only know \"dir\" and \"cd\"… but real developers control their entire PC with these 5 terminal secrets:\n\n1. netsh wlan show profile name=\"NAME\" key=clear (Extract saved Wi-Fi key)\n2. curl wttr.in (Live ASCII weather radar in terminal)\n3. systeminfo (Instant CPU, RAM, & Windows build specs)\n4. tree /F (Visual ASCII project folder tree structure)\n5. code . (Launch VS Code workspace in 1 second)\n\nIf this made you understand the Windows terminal better, SAVE IT for later 📌\nLike this reel if you want more developer secrets ❤️\nFollow @nextsemacademy for daily 60-second coding drills and full-stack guides 🚀\n\n👉 Practice 100+ interactive Windows terminal commands free at: https://nextsem.online/cli\n\n#webdevelopment #fullstack #windows11 #coding #programming #developer #cmd #terminal #techtips #nextsemacademy #100DaysOfCode",
+  "tags": [
+    "Shorts",
+    "Windows 11",
+    "Command Prompt",
+    "Coding",
+    "Programming",
+    "Nextsem Academy",
+    "Tech Tips",
+    "Web Development",
+    "Terminal Tricks"
+  ]
+}

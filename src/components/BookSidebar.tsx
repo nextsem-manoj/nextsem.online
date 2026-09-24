@@ -411,7 +411,7 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, isCollapsed }: BookSideb
                                 ref={isActive ? activeItemRef : undefined}
                                 key={lesson.id}
                                 href={lessonHref}
-                                prefetch={true}
+                                prefetch={false}
                                 onClick={handleLinkClick}
                                 className={`flex items-center justify-between px-3 py-2 text-[12px] sm:text-[13px] rounded-lg transition-all cursor-pointer touch-manipulation group ${
                                   isActive
@@ -491,7 +491,7 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, isCollapsed }: BookSideb
                                 ref={isActive ? activeItemRef : undefined}
                                 key={lesson.id}
                                 href={`/css/${lesson.slug}/`}
-                                prefetch={true}
+                                prefetch={false}
                                 onClick={handleLinkClick}
                                 className={`flex items-center justify-between px-3 py-2 text-[12px] sm:text-[13px] rounded-lg transition-all cursor-pointer touch-manipulation group ${
                                   isActive
@@ -569,7 +569,7 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, isCollapsed }: BookSideb
                                 ref={isActive ? activeItemRef : undefined}
                                 key={lesson.id}
                                 href={`/js/${lesson.slug}/`}
-                                prefetch={true}
+                                prefetch={false}
                                 onClick={handleLinkClick}
                                 className={`flex items-center justify-between px-3 py-2 text-[12px] sm:text-[13px] rounded-lg transition-all cursor-pointer touch-manipulation group ${
                                   isActive
@@ -647,7 +647,7 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, isCollapsed }: BookSideb
                                 ref={isActive ? activeItemRef : undefined}
                                 key={lesson.id}
                                 href={`/react/${lesson.slug}/`}
-                                prefetch={true}
+                                prefetch={false}
                                 onClick={handleLinkClick}
                                 className={`flex items-center justify-between px-3 py-2 text-[12px] sm:text-[13px] rounded-lg transition-all cursor-pointer touch-manipulation group ${
                                   isActive
@@ -725,7 +725,7 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, isCollapsed }: BookSideb
                                 ref={isActive ? activeItemRef : undefined}
                                 key={lesson.id}
                                 href={`/nodejs/${lesson.slug}/`}
-                                prefetch={true}
+                                prefetch={false}
                                 onClick={handleLinkClick}
                                 className={`flex items-center justify-between px-3 py-2 text-[12px] sm:text-[13px] rounded-lg transition-all cursor-pointer touch-manipulation group ${
                                   isActive
@@ -817,7 +817,7 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, isCollapsed }: BookSideb
                                 ref={isActive ? activeItemRef : undefined}
                                 key={lesson.id}
                                 href={`/cli/${lesson.slug}/`}
-                                prefetch={true}
+                                prefetch={false}
                                 onClick={handleLinkClick}
                                 className={`flex items-center justify-between px-3 py-2 text-[12px] sm:text-[13px] rounded-lg transition-all cursor-pointer touch-manipulation group ${
                                   isActive
@@ -895,7 +895,7 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, isCollapsed }: BookSideb
                                 ref={isActive ? activeItemRef : undefined}
                                 key={lesson.id}
                                 href={`/cpp/${lesson.slug}/`}
-                                prefetch={true}
+                                prefetch={false}
                                 onClick={handleLinkClick}
                                 className={`flex items-center justify-between px-3 py-2 text-[12px] sm:text-[13px] rounded-lg transition-all cursor-pointer touch-manipulation group ${
                                   isActive
@@ -930,7 +930,7 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, isCollapsed }: BookSideb
                 <div className="px-2 py-1 mb-2">
                   <Link
                     href="/git/"
-                    prefetch={true}
+                    prefetch={false}
                     onClick={handleLinkClick}
                     className="flex items-center gap-2 px-3 py-2 rounded-xl bg-[#04AA6D]/20 border border-[#04AA6D] text-white font-bold text-xs hover:bg-[#04AA6D]/30 transition-all shadow-sm group cursor-pointer"
                   >
@@ -988,7 +988,7 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, isCollapsed }: BookSideb
                                 ref={isActive ? activeItemRef : undefined}
                                 key={lesson.id}
                                 href={`/git/${lesson.slug}/`}
-                                prefetch={true}
+                                prefetch={false}
                                 onClick={handleLinkClick}
                                 className={`flex items-center justify-between px-3 py-2 text-[12px] sm:text-[13px] rounded-lg transition-all cursor-pointer touch-manipulation group ${
                                   isActive
@@ -1035,7 +1035,7 @@ const BookSidebar = ({ isOpen, setIsOpen, sidebarWidth, isCollapsed }: BookSideb
                           ref={isActive ? activeItemRef : undefined}
                           key={chapter.id}
                           href={getChapterUrl(chapter.id)}
-                          prefetch={true}
+                          prefetch={false}
                           onClick={handleLinkClick}
                           className={`flex items-center justify-between px-3.5 py-2 text-xs sm:text-[13px] rounded-lg font-medium transition-all cursor-pointer touch-manipulation ${
                             isActive

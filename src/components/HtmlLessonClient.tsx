@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
@@ -13,7 +13,7 @@ import { useProgress } from "../context/ProgressContext";
 import { triggerCelebration } from "../lib/celebration";
 import { AdMob } from "@capacitor-community/admob";
 import { Capacitor } from "@capacitor/core";
-import { showRewardedAd } from "@/lib/admobHelper";
+import { showRewardedAd, showBannerAd, triggerNavigationAd } from "@/lib/admobHelper";
 import { generateAndDownloadLessonPdf } from "../lib/pdfHelper";
 
 interface HtmlLessonClientProps {
@@ -67,6 +67,9 @@ export default function HtmlLessonClient({ lesson }: HtmlLessonClientProps) {
 
       setShowTutorTip(false); // Help guide hidden by default
       setMounted(true);
+      if (Capacitor.isNativePlatform()) {
+        showBannerAd();
+      }
     }
   }, [lesson.id]);
 
@@ -901,7 +904,7 @@ function VsCodeEditorCard({ code, blockKey }: { code: string; blockKey: string }
 
             {prevLesson ? (
               <Link
-                href={prevLesson.id === 1 ? "/html" : `/html/${prevLesson.slug}`}
+                href={`/html/${prevLesson.slug}/`}
                 className="px-3 py-1.5 bg-[#09101f] hover:bg-[#15203b] border border-slate-800 hover:border-slate-700 text-slate-300 hover:text-white rounded-xl text-xs font-bold transition-all flex items-center gap-1 cursor-pointer shadow-sm"
                 title="Previous Lesson"
               >
@@ -925,7 +928,8 @@ function VsCodeEditorCard({ code, blockKey }: { code: string; blockKey: string }
 
             {nextLesson && (
               <Link
-                href={`/html/${nextLesson.slug}`}
+                href={`/html/${nextLesson.slug}/`}
+                onClick={() => triggerNavigationAd()}
                 className="px-3.5 py-1.5 bg-[#04AA6D] hover:bg-[#039861] text-white rounded-xl text-xs font-extrabold transition-all flex items-center gap-1 shadow-md shadow-[#04AA6D]/20 cursor-pointer"
                 title="Next Lesson"
               >
@@ -995,7 +999,7 @@ function VsCodeEditorCard({ code, blockKey }: { code: string; blockKey: string }
       <div className="hidden md:flex items-center justify-between gap-4 border-t border-slate-800/80 pt-6 mt-8">
         {prevLesson ? (
           <Link
-            href={prevLesson.id === 1 ? "/html" : `/html/${prevLesson.slug}`}
+            href={`/html/${prevLesson.slug}/`}
             className="px-5 py-2.5 bg-[#141b30] hover:bg-[#1b2542] border border-slate-700 hover:border-[#04AA6D]/50 text-white rounded-xl text-xs font-bold tracking-wider uppercase transition-all flex items-center gap-2 shadow-md cursor-pointer group"
           >
             <ChevronLeft size={16} className="stroke-[3] text-[#04AA6D] group-hover:-translate-x-1 transition-transform" />
@@ -1019,7 +1023,8 @@ function VsCodeEditorCard({ code, blockKey }: { code: string; blockKey: string }
 
         {nextLesson ? (
           <Link
-            href={`/html/${nextLesson.slug}`}
+            href={`/html/${nextLesson.slug}/`}
+            onClick={() => triggerNavigationAd()}
             className="px-6 py-2.5 bg-[#04AA6D] hover:bg-[#039861] text-white rounded-xl text-xs font-black uppercase tracking-wider transition-all flex items-center gap-2 shadow-lg shadow-[#04AA6D]/25 cursor-pointer group"
           >
             <span>Next Lesson</span>

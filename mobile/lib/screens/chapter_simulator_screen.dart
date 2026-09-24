@@ -111,17 +111,23 @@ class _ChapterSimulatorScreenState extends State<ChapterSimulatorScreen> {
 
   void _nextLesson() {
     final nextIdx = _currentLessonIdx + 1;
-    if (nextIdx < _simulator.lessons.length) {
-      setState(() {
-        _currentLessonIdx = nextIdx;
-        _initializeLesson();
-      });
-    } else {
-      // Finished all lessons in this chapter
-      widget.state.completeLevel(widget.chapterId);
-      widget.state.addPoints(50);
-      _showChapterCompletedDialog();
-    }
+    // Trigger Full-Screen Interstitial Ad every 2 lessons
+    AdService.instance.onLessonCompleted(
+      onContinue: () {
+        if (!mounted) return;
+        if (nextIdx < _simulator.lessons.length) {
+          setState(() {
+            _currentLessonIdx = nextIdx;
+            _initializeLesson();
+          });
+        } else {
+          // Finished all lessons in this chapter
+          widget.state.completeLevel(widget.chapterId);
+          widget.state.addPoints(50);
+          _showChapterCompletedDialog();
+        }
+      },
+    );
   }
 
   void _showChapterCompletedDialog() {
@@ -294,6 +300,9 @@ class _ChapterSimulatorScreenState extends State<ChapterSimulatorScreen> {
             }
           },
         ),
+      ),
+      bottomNavigationBar: const SafeArea(
+        child: AdBannerWidget(),
       ),
     );
   }

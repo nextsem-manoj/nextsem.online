@@ -9,7 +9,7 @@ const TEST_INTERSTITIAL_ID = 'ca-app-pub-3940256099942544/1033173712';
 export const PROD_REWARDED_ID = 'ca-app-pub-5947565211927754/6967837750';
 export const PROD_INTERSTITIAL_ID = 'ca-app-pub-5947565211927754/5893147977';
 export const PROD_BANNER_ID = 'ca-app-pub-5947565211927754/4565552616';
-export const PROD_REWARDED_INTERSTITIAL_ID = 'ca-app-pub-5947565211927754/7318318434'; // Rewarded Interstitial (BETA)
+export const PROD_REWARDED_INTERSTITIAL_ID = 'ca-app-pub-5947565211927754/3747294963'; // Rewarded Interstitial
 export const PROD_APP_OPEN_ID = 'ca-app-pub-5947565211927754/4753305205';              // App Open Ad
 
 let isInitialized = false;
@@ -181,10 +181,22 @@ export async function triggerNavigationAd(): Promise<boolean> {
 }
 
 /**
- * App Open Ad is permanently disabled to ensure an immediate, clean, ad-free startup experience.
+ * Shows App Open Ad on native platform startup.
  */
 export async function showAppOpenAd(): Promise<boolean> {
-  return false;
+  if (!Capacitor.isNativePlatform()) return false;
+  await ensureAdMobInitialized();
+  try {
+    await AdMob.prepareInterstitial({
+      adId: PROD_APP_OPEN_ID,
+      isTesting: false
+    });
+    await AdMob.showInterstitial();
+    return true;
+  } catch (e) {
+    console.warn("App Open Ad request notice:", e);
+    return false;
+  }
 }
 
 /**
