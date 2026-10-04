@@ -16,8 +16,12 @@ import {
   Lightbulb,
   Award,
   Play,
-  Tv
+  Tv,
+  Bot,
+  Zap
 } from "lucide-react";
+import AiCompilerSageWidget from "@/components/AiCompilerSageWidget";
+import { diagnoseCommand } from "@/lib/aiCompilerSage";
 
 interface VideoTimestamp {
   seconds: number;
@@ -147,6 +151,7 @@ export default function TerminalFastTrackClient() {
   const [activeVideoUrl, setActiveVideoUrl] = useState<string>(
     "https://www.youtube-nocookie.com/embed/2E-jgpGTahE?rel=0"
   );
+  const [showSageModal, setShowSageModal] = useState(false);
 
   const executeAutoDemo = async () => {
     if (isAutoPlaying) return;
@@ -280,28 +285,16 @@ export default function TerminalFastTrackClient() {
         triggerCelebration();
       }
     } else {
-      // Smart beginner typo advisor (Early AI Compiler Sage)
-      let suggestion = `Command unrecognized for Step ${currentStep.stepNumber}. Expected: '${currentStep.expectedCmd}'`;
-
-      const low = raw.toLowerCase();
-      if (low === "clear") {
-        suggestion = "💡 You typed 'clear' (Linux command). In 🪟 Windows 11 Command Prompt, use 'cls' to clear the screen!";
-      } else if (low.startsWith("mkdir") && !low.includes(" ")) {
-        suggestion = "💡 Don't forget the space between 'mkdir' and your folder name!";
-      } else if (low.startsWith("cd") && !low.includes(" ")) {
-        suggestion = "💡 Remember to add a space after 'cd' (e.g. 'cd my-portfolio')!";
-      } else if (low === "code" || low === "code.") {
-        suggestion = "💡 Remember to put a space before the dot: 'code .'";
-      } else if (low.includes("mkdr")) {
-        suggestion = "💡 Typo detected: 'mkdr' should be 'mkdir' (Make Directory)!";
-      }
-
-      setAdviceMessage(suggestion);
+      // AI Compiler Sage CLI Diagnostics
+      const sage = diagnoseCommand(raw, currentStep.expectedCmd);
+      setAdviceMessage(
+        `${sage.explanation}${sage.suggestedCmd ? ` Recommended: '${sage.suggestedCmd}'` : ""}`
+      );
       setHistory((prev) => [
         ...prev,
         {
           type: "error",
-          text: `'${raw}' is not recognized. Check the prompt guide above!`
+          text: `'${raw}' is not recognized. AI Compiler Sage suggests: '${sage.suggestedCmd || currentStep.expectedCmd}'`
         }
       ]);
     }
@@ -506,15 +499,39 @@ export default function TerminalFastTrackClient() {
               <span>UTF-8 | Windows 11 Command Prompt Simulation</span>
             </div>
 
-            <button
-              onClick={resetFastTrack}
-              className="text-white/70 hover:text-white flex items-center gap-1 text-[11px] font-bold cursor-pointer"
-            >
-              <RotateCcw size={12} />
-              <span>Reset Simulator</span>
-            </button>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setShowSageModal(!showSageModal)}
+                className="text-[#04AA6D] hover:text-[#039861] flex items-center gap-1.5 text-[11px] font-extrabold cursor-pointer px-2.5 py-1 rounded-md bg-[#04AA6D]/10 hover:bg-[#04AA6D]/20 border border-[#04AA6D]/40 transition-all"
+              >
+                <Bot size={13} />
+                <span>{showSageModal ? "Hide AI Sage" : "AI Compiler Sage"}</span>
+              </button>
+
+              <button
+                onClick={resetFastTrack}
+                className="text-white/70 hover:text-white flex items-center gap-1 text-[11px] font-bold cursor-pointer"
+              >
+                <RotateCcw size={12} />
+                <span>Reset Simulator</span>
+              </button>
+            </div>
           </div>
         </section>
+
+        {/* ── AI COMPILER SAGE WIDGET (MILESTONE 3.1) ── */}
+        {showSageModal && (
+          <div className="animate-in fade-in duration-300">
+            <AiCompilerSageWidget
+              initialCommand={inputVal || currentStep.expectedCmd}
+              expectedCommand={currentStep.expectedCmd}
+              onApplyFix={(fixedCmd) => {
+                handleInsertCommand(fixedCmd);
+                setShowSageModal(false);
+              }}
+            />
+          </div>
+        )}
 
         {/* ── ADVISOR SPEECH BUBBLE (IF TYPO) ── */}
         {adviceMessage && (
@@ -524,6 +541,13 @@ export default function TerminalFastTrackClient() {
               <strong className="text-amber-300 font-bold block mb-0.5">Friendly Terminal Tip:</strong>
               <span className="text-white">{adviceMessage}</span>
             </div>
+            <button
+              onClick={() => setShowSageModal(true)}
+              className="shrink-0 px-2.5 py-1 rounded bg-[#04AA6D]/20 hover:bg-[#04AA6D]/30 border border-[#04AA6D] text-[#04AA6D] text-[10px] font-extrabold uppercase transition-all cursor-pointer flex items-center gap-1"
+            >
+              <Bot size={11} />
+              <span>Ask AI Sage</span>
+            </button>
           </div>
         )}
 

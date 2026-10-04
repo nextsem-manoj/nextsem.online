@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev -p 3000",
     "server": "next dev -p 3000",
-    "build": "node scripts/generate-search-index.js && next build && node scripts/verify-sitemap.js",
+    "build": "node scripts/generate-search-index.js && next build --webpack && node scripts/verify-sitemap.js",
     "start": "next start -p 3000",
     "lint": "eslint",
     "save-chat": "node scripts/save_chat.js",

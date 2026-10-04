@@ -24,8 +24,8 @@
 - `[x]` **Creative Coding Video Engine:** Automated 1080×1920 60 FPS Short/Reel generator with Web Audio mixer.
 - `[x]` **Homepage YouTube Shorts Player:** Integrated live YouTube Shorts showcase with 1-click audio toggle.
 - `[x]` **Social Community Channel:** Connected official Instagram `@nextsemacademy` and YouTube Shorts pipeline.
-- `[ ]` **Milestone 3.1 (NEXT CURRENT TASK):** **AI Compiler Sage CLI & Code Hint Generator** (Real-time syntax corrections, error explanations, and intelligent terminal autocomplete).
-- `[ ]` **Milestone 3.2:** **Student Sandbox & Static Portfolio Publishing Backend** (1-click portfolio export & live preview).
+- `[x]` **Milestone 3.1:** **AI Compiler Sage CLI & Code Hint Generator** (Real-time syntax corrections, error explanations, and intelligent terminal autocomplete). ✅
+- `[ ]` **Milestone 3.2 (NEXT CURRENT TASK):** **Student Sandbox & Static Portfolio Publishing Backend** (1-click portfolio export & live preview).
 
 ---
 
