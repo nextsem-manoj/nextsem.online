@@ -2,69 +2,1055 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NCERT Class 6 Ganita Prakash Ch 4: Data Handling — 50 Numericals-Only Test</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>NCERT Class 6 Ganita Prakash Ch 4: Data Handling — 50 Numericals-Only Mastery Test</title>
+  <meta name="description" content="100% calculation-driven practice for NCERT Class 6 Ganita Prakash Chapter 4 (Data Handling Numericals / आँकड़ों के आंकिक प्रश्न) with step-by-step arithmetic solutions.">
+  <link rel="icon" type="image/png" href="/image-20.png">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.4/dist/confetti.browser.min.js"></script>
+
   <style>
-    body { background-color: #080d1a; color: #f8fafc; font-family: system-ui, -apple-system, sans-serif; }
-    .emerald-glow { box-shadow: 0 0 25px rgba(4, 170, 109, 0.25); }
-    .correct-btn { background-color: #064e3b !important; border-color: #10b981 !important; color: #ffffff !important; }
-    .wrong-btn { background-color: #7f1d1d !important; border-color: #ef4444 !important; color: #ffffff !important; }
+    :root {
+      --bg-body: #060b18;
+      --bg-card: #0d1527;
+      --bg-card-hover: #131f38;
+      --bg-card-alt: #0a1020;
+      --bg-hud: rgba(13, 21, 39, 0.85);
+      --border-card: rgba(255, 255, 255, 0.08);
+      --border-glow: rgba(6, 182, 212, 0.35);
+      
+      --brand-cyan: #06b6d4;
+      --brand-cyan-hover: #0891b2;
+      --brand-blue: #3b82f6;
+      --brand-green: #04AA6D;
+      --brand-gold: #e5b842;
+      
+      --color-correct: #10b981;
+      --color-correct-bg: rgba(16, 185, 129, 0.15);
+      --color-correct-border: #10b981;
+      
+      --color-wrong: #ef4444;
+      --color-wrong-bg: rgba(239, 68, 68, 0.15);
+      --color-wrong-border: #ef4444;
+      
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      
+      --font-main: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-devanagari: 'Noto Sans Devanagari', 'Plus Jakarta Sans', sans-serif;
+      
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-xl: 28px;
+    }
+
+    body.light-theme {
+      --bg-body: #f1f5f9;
+      --bg-card: #ffffff;
+      --bg-card-hover: #f8fafc;
+      --bg-card-alt: #f8fafc;
+      --bg-hud: rgba(255, 255, 255, 0.9);
+      --border-card: #e2e8f0;
+      --border-glow: rgba(6, 182, 212, 0.4);
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --text-dim: #94a3b8;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-main);
+      background-color: var(--bg-body);
+      color: var(--text-main);
+      min-height: 100vh;
+      line-height: 1.6;
+      background-image: 
+        radial-gradient(circle at 10% 15%, rgba(6, 182, 212, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 90% 85%, rgba(59, 130, 246, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 50% 50%, rgba(4, 170, 109, 0.04) 0%, transparent 60%);
+      background-attachment: fixed;
+      padding-bottom: 80px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .top-navbar {
+      width: 100%;
+      background: var(--bg-hud);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-card);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 10px 20px;
+    }
+
+    .nav-container {
+      max-width: 1080px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: var(--text-main);
+      font-weight: 800;
+      font-size: 0.95rem;
+    }
+
+    .nav-brand-icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #06b6d4, #3b82f6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 900;
+    }
+
+    .breadcrumb-trail {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    .breadcrumb-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+      padding: 2px 4px;
+      border-radius: 4px;
+    }
+
+    .breadcrumb-link:hover {
+      color: var(--brand-cyan);
+      background: rgba(6, 182, 212, 0.1);
+    }
+
+    .breadcrumb-separator {
+      color: var(--text-dim);
+      font-size: 0.75rem;
+    }
+
+    .breadcrumb-current {
+      color: var(--brand-cyan);
+      font-weight: 700;
+      background: rgba(6, 182, 212, 0.12);
+      padding: 2px 8px;
+      border-radius: 6px;
+      border: 1px solid rgba(6, 182, 212, 0.25);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-btn {
+      padding: 6px 12px;
+      border-radius: 10px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: 1px solid var(--border-card);
+      background: var(--bg-card);
+      color: var(--text-main);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .nav-btn:hover {
+      border-color: var(--brand-cyan);
+      color: var(--brand-cyan);
+      transform: translateY(-1px);
+    }
+
+    .hero-wrapper {
+      max-width: 1080px;
+      margin: 24px auto 16px;
+      padding: 0 16px;
+    }
+
+    .hero-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-xl);
+      padding: 28px 24px;
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .hero-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #06b6d4, #3b82f6, #04AA6D, #e5b842);
+    }
+
+    .hero-header-content {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .badge-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .tag-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .tag-badge-cyan {
+      background: rgba(6, 182, 212, 0.15);
+      border: 1px solid rgba(6, 182, 212, 0.4);
+      color: var(--brand-cyan);
+    }
+
+    .tag-badge-blue {
+      background: rgba(59, 130, 246, 0.15);
+      border: 1px solid rgba(59, 130, 246, 0.4);
+      color: var(--brand-blue);
+    }
+
+    .hero-title {
+      font-size: 2rem;
+      font-weight: 900;
+      color: #ffffff;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+    }
+
+    body.light-theme .hero-title {
+      color: #0f172a;
+    }
+
+    .hero-title-highlight {
+      background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      max-width: 800px;
+      font-weight: 500;
+    }
+
+    .controls-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-card);
+    }
+
+    .lang-switcher-group {
+      display: flex;
+      align-items: center;
+      background: var(--bg-card-alt);
+      padding: 4px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-card);
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 6px 14px;
+      border-radius: 10px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      background: transparent;
+      color: var(--text-muted);
+      transition: all 0.2s ease;
+    }
+
+    .lang-btn.active {
+      background: var(--brand-cyan);
+      color: #000000;
+      font-weight: 800;
+      box-shadow: 0 2px 8px rgba(6, 182, 212, 0.3);
+    }
+
+    .action-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn-action {
+      padding: 8px 16px;
+      border-radius: var(--radius-md);
+      font-size: 0.8rem;
+      font-weight: 800;
+      cursor: pointer;
+      border: 1px solid var(--border-card);
+      background: var(--bg-card-alt);
+      color: var(--text-main);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-action:hover {
+      border-color: var(--brand-cyan);
+      color: var(--brand-cyan);
+    }
+
+    .btn-primary-action {
+      background: linear-gradient(135deg, #06b6d4, #0891b2);
+      color: #000000;
+      border: none;
+      box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
+    }
+
+    .btn-primary-action:hover {
+      background: linear-gradient(135deg, #0891b2, #0e7490);
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    .sticky-hud-wrapper {
+      position: sticky;
+      top: 56px;
+      z-index: 90;
+      max-width: 1080px;
+      margin: 0 auto 20px;
+      padding: 0 16px;
+    }
+
+    .hud-card {
+      background: var(--bg-hud);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-lg);
+      padding: 12px 18px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .hud-top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .hud-stat-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .stat-val-highlight {
+      font-size: 1.15rem;
+      font-weight: 900;
+      color: var(--brand-cyan);
+    }
+
+    .progress-bar-container {
+      flex: 1;
+      min-width: 180px;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 999px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    body.light-theme .progress-bar-container {
+      background: #e2e8f0;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #06b6d4, #3b82f6);
+      border-radius: 999px;
+      transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      width: 0%;
+    }
+
+    .topic-filter-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: thin;
+    }
+
+    .topic-filter-btn {
+      padding: 5px 12px;
+      border-radius: 10px;
+      font-size: 0.73rem;
+      font-weight: 700;
+      border: 1px solid var(--border-card);
+      background: var(--bg-card);
+      color: var(--text-muted);
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .topic-filter-btn:hover {
+      border-color: var(--brand-cyan);
+      color: var(--text-main);
+    }
+
+    .topic-filter-btn.active {
+      background: rgba(6, 182, 212, 0.2);
+      border-color: var(--brand-cyan);
+      color: var(--brand-cyan);
+      font-weight: 800;
+    }
+
+    .quiz-container {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .q-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .q-card:hover {
+      border-color: rgba(6, 182, 212, 0.3);
+    }
+
+    .q-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-card);
+    }
+
+    .q-topic-tag {
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: var(--brand-cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .q-number-pill {
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: var(--text-muted);
+      background: var(--bg-card-alt);
+      padding: 3px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border-card);
+    }
+
+    .q-body {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .q-text-en {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.45;
+    }
+
+    .q-text-hi {
+      font-family: var(--font-devanagari);
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #93c5fd;
+      background: rgba(59, 130, 246, 0.08);
+      border-left: 3px solid #06b6d4;
+      padding: 8px 12px;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      line-height: 1.5;
+    }
+
+    body.light-theme .q-text-hi {
+      color: #0369a1;
+      background: rgba(6, 182, 212, 0.08);
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .opt-btn {
+      width: 100%;
+      text-align: left;
+      padding: 12px 16px;
+      background: var(--bg-card-alt);
+      border: 1.5px solid var(--border-card);
+      border-radius: var(--radius-md);
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .opt-btn:hover:not(:disabled) {
+      background: var(--bg-card-hover);
+      border-color: var(--brand-cyan);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .opt-content {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+    }
+
+    .opt-letter {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-card);
+      color: var(--brand-cyan);
+      font-weight: 800;
+      font-size: 0.78rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .opt-btn.opt-correct {
+      background: var(--color-correct-bg) !important;
+      border-color: var(--color-correct-border) !important;
+      color: #ffffff !important;
+      box-shadow: 0 0 16px rgba(16, 185, 129, 0.25) !important;
+    }
+
+    .opt-btn.opt-correct .opt-letter {
+      background: #10b981 !important;
+      color: #000000 !important;
+      border-color: #10b981 !important;
+    }
+
+    .opt-btn.opt-wrong {
+      background: var(--color-wrong-bg) !important;
+      border-color: var(--color-wrong-border) !important;
+      color: #ffffff !important;
+      box-shadow: 0 0 16px rgba(239, 68, 68, 0.25) !important;
+    }
+
+    .opt-btn.opt-wrong .opt-letter {
+      background: #ef4444 !important;
+      color: #ffffff !important;
+      border-color: #ef4444 !important;
+    }
+
+    .opt-btn.opt-dimmed {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .opt-status-icon {
+      font-size: 1rem;
+      font-weight: 900;
+      flex-shrink: 0;
+    }
+
+    .exp-box {
+      margin-top: 10px;
+      padding: 14px 18px;
+      border-radius: var(--radius-md);
+      font-size: 0.85rem;
+      line-height: 1.55;
+      animation: fadeIn 0.3s ease-out;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .exp-box.exp-correct {
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: #a7f3d0;
+    }
+
+    body.light-theme .exp-box.exp-correct {
+      color: #065f46;
+    }
+
+    .exp-box.exp-wrong {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #fecaca;
+    }
+
+    body.light-theme .exp-box.exp-wrong {
+      color: #991b1b;
+    }
+
+    .exp-header {
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(2, 6, 23, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-xl);
+      max-width: 600px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 28px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      transform: scale(0.92);
+      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .modal-overlay.active .modal-card {
+      transform: scale(1);
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .modal-title {
+      font-size: 1.3rem;
+      font-weight: 900;
+      color: var(--text-main);
+    }
+
+    .modal-close-btn {
+      background: var(--bg-card-alt);
+      border: 1px solid var(--border-card);
+      color: var(--text-muted);
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: bold;
+    }
+
+    .matrix-grid {
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      gap: 8px;
+    }
+
+    @media (max-width: 640px) {
+      .matrix-grid {
+        grid-template-columns: repeat(5, 1fr);
+      }
+    }
+
+    .matrix-btn {
+      aspect-ratio: 1;
+      border-radius: 10px;
+      border: 1px solid var(--border-card);
+      background: var(--bg-card-alt);
+      color: var(--text-muted);
+      font-weight: 800;
+      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .matrix-btn:hover {
+      border-color: var(--brand-cyan);
+      transform: scale(1.08);
+    }
+
+    .matrix-btn.correct {
+      background: #10b981 !important;
+      color: #000000 !important;
+      border-color: #10b981 !important;
+    }
+
+    .matrix-btn.wrong {
+      background: #ef4444 !important;
+      color: #ffffff !important;
+      border-color: #ef4444 !important;
+    }
+
+    .score-hero-circle {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      margin: 0 auto;
+      background: radial-gradient(circle, rgba(6, 182, 212, 0.2), rgba(0, 0, 0, 0.4));
+      border: 3px solid var(--brand-cyan);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 30px rgba(6, 182, 212, 0.3);
+    }
+
+    .score-circle-num {
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: var(--brand-cyan);
+      line-height: 1;
+    }
+
+    .score-circle-total {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .stats-breakdown-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .stat-box {
+      background: var(--bg-card-alt);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-md);
+      padding: 12px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .stat-box-val {
+      font-size: 1.25rem;
+      font-weight: 900;
+    }
+
+    .stat-box-lbl {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      font-weight: 700;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      .hero-title { font-size: 1.55rem; }
+      .controls-bar { flex-direction: column; align-items: stretch; }
+      .lang-switcher-group { justify-content: center; }
+      .action-group { justify-content: center; }
+      .q-card { padding: 18px 16px; }
+      .options-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
-<body class="min-h-screen flex flex-col items-center p-3 sm:p-6 selection:bg-[#04AA6D] selection:text-black">
+<body>
 
-  <!-- Header Section -->
-  <header class="w-full max-w-4xl mx-auto mb-6 bg-[#0f172a] border border-slate-800 rounded-2xl p-5 emerald-glow text-center sm:text-left flex flex-col sm:flex-row justify-between items-center gap-4">
-    <div class="space-y-1">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#04AA6D]/15 border border-[#04AA6D]/40 text-[#04AA6D] text-xs font-black uppercase tracking-wider">
-        <span>🧮 Pure Calculation & Numericals Edition • 50 Problems</span>
+  <!-- Top Navbar with Breadcrumb Navigation (Permanent Rule) -->
+  <header class="top-navbar">
+    <div class="nav-container">
+      <div class="nav-left">
+        <a href="/" class="nav-brand" style="display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; flex-shrink: 0;">
+          <div style="width: 38px; height: 38px; border-radius: 9px; background: rgba(255, 255, 255, 0.05); border: 1.5px solid rgba(255, 255, 255, 0.15); display: flex; align-items: center; justify-content: center; padding: 3px; flex-shrink: 0; box-shadow: 0 2px 6px rgba(0,0,0,0.12);">
+            <img src="/image-20.png" alt="Nextsem Logo" style="height: 28px; width: auto; object-fit: contain;">
+          </div>
+          <div style="display: flex; flex-direction: column; text-align: left; line-height: 1.15;">
+            <span style="font-weight: 900; font-size: 1.12rem; letter-spacing: -0.02em; color: var(--text-main, #f8fafc);">Study Guide</span>
+            <span style="color: #4f46e5; font-size: 0.62rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 1px;">NextSem Academy</span>
+          </div>
+        </a>
+        <nav class="breadcrumb-trail" aria-label="Breadcrumb">
+          <a href="/" class="breadcrumb-link">Home</a>
+          <span class="breadcrumb-separator">❯</span>
+          <a href="/?class=6" class="breadcrumb-link">Class 6</a>
+          <span class="breadcrumb-separator">❯</span>
+          <a href="/?class=6&subject=mathematics" class="breadcrumb-link">Ganita Prakash</a>
+          <span class="breadcrumb-separator">❯</span>
+          <a href="/?class=6&subject=mathematics&chapter=4" class="breadcrumb-link">Chapter 4</a>
+          <span class="breadcrumb-separator">❯</span>
+          <span class="breadcrumb-current">50 Numericals Test</span>
+        </nav>
       </div>
-      <h1 class="text-2xl sm:text-3xl font-black text-white tracking-tight">
-        Data Handling Numericals <span class="text-[#04AA6D] text-lg font-bold block sm:inline">| आँकड़ों के आंकिक प्रश्न</span>
-      </h1>
-      <p class="text-xs sm:text-sm text-slate-300">NCERT Grade 6 Ganita Prakash Ch 4 • 100% Arithmetic & Problem Solving (English + हिन्दी)</p>
-    </div>
 
-    <!-- Controls: Language Toggle & Reset -->
-    <div class="flex items-center gap-2 shrink-0">
-      <button id="langToggle" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs border border-slate-700 transition-all flex items-center gap-2 cursor-pointer shadow-md">
-        <span>🌐 Language: <strong class="text-[#04AA6D]" id="langDisplay">Both</strong></span>
-      </button>
-      <button id="resetQuizBtn" class="px-3 py-2 rounded-xl bg-[#04AA6D] hover:bg-[#039861] text-black font-extrabold text-xs transition-all cursor-pointer shadow-md">
-        Restart
-      </button>
+      <div class="nav-right">
+        <button id="themeToggleBtn" class="nav-btn" title="Toggle Dark/Light Mode">
+          <span id="themeIcon">☀️</span>
+        </button>
+        <a href="/" class="nav-btn">
+          <span>🏠 App Hub</span>
+        </a>
+      </div>
     </div>
   </header>
 
-  <!-- Sticky Stats Bar -->
-  <div class="w-full max-w-4xl mx-auto mb-6 bg-[#0f172a]/90 backdrop-blur-md border border-slate-800 rounded-xl p-4 sticky top-3 z-30 shadow-xl flex items-center justify-between gap-3 flex-wrap">
-    <div class="flex items-center gap-3">
-      <div class="text-xs text-slate-400">Score: <strong id="scoreCount" class="text-xl text-[#04AA6D] font-black ml-1">0</strong> / 50</div>
-      <div class="text-xs text-slate-400">Answered: <strong id="answeredCount" class="text-white font-bold ml-1">0</strong> / 50</div>
+  <!-- Hero Header -->
+  <div class="hero-wrapper">
+    <div class="hero-card">
+      <div class="hero-header-content">
+        <div class="badge-row">
+          <span class="tag-badge tag-badge-cyan">🧮 Pure Calculation & Numericals</span>
+          <span class="tag-badge tag-badge-blue">⚡ 50 Arithmetic Problems</span>
+          <span class="tag-badge tag-badge-cyan">🌐 Bilingual EN + HI</span>
+        </div>
+        <h1 class="hero-title">
+          Data Handling Numericals <span class="hero-title-highlight">| आँकड़ों के आंकिक प्रश्न</span>
+        </h1>
+        <p class="hero-subtitle">
+          50 pure-calculation arithmetic numericals covering Range (Max-Min), Frequency Totals, Tally Arithmetic, Pictograph Scale Quantities, and Bar Graph Unit Heights.
+        </p>
+      </div>
+
+      <!-- Controls Toolbar -->
+      <div class="controls-bar">
+        <div class="lang-switcher-group">
+          <button class="lang-btn active" onclick="setLanguage('both')">🌐 Both (द्विभाषी)</button>
+          <button class="lang-btn" onclick="setLanguage('en')">🇬🇧 English</button>
+          <button class="lang-btn" onclick="setLanguage('hi')">🇮🇳 हिन्दी</button>
+        </div>
+
+        <div class="action-group">
+          <button class="btn-action" onclick="openMatrixModal()">
+            <span>🎯 Question Matrix</span>
+          </button>
+          <button class="btn-action" onclick="resetQuiz()">
+            <span>🔄 Restart</span>
+          </button>
+          <button class="btn-action btn-primary-action" onclick="openScorecardModal()">
+            <span>🏆 View Scorecard</span>
+          </button>
+        </div>
+      </div>
     </div>
-    <div class="w-full sm:w-64 h-2.5 bg-slate-800 rounded-full overflow-hidden">
-      <div id="progressBar" class="h-full bg-[#04AA6D] transition-all duration-300 w-0"></div>
-    </div>
-    <!-- Topic Filter Dropdown -->
-    <select id="topicFilter" class="bg-slate-900 border border-slate-700 text-xs text-slate-200 rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-[#04AA6D]">
-      <option value="all">All 10 Calculation Categories (1 to 50)</option>
-      <option value="1">Cat 1: Range Calculations (Max - Min)</option>
-      <option value="2">Cat 2: Frequency Table Totals & Missing Values</option>
-      <option value="3">Cat 3: Tally Mark Arithmetic</option>
-      <option value="4">Cat 4: Pictograph Total Quantities</option>
-      <option value="5">Cat 5: Pictograph Symbols Count (Total ÷ Scale)</option>
-      <option value="6">Cat 6: Pictograph Differences & Sums</option>
-      <option value="7">Cat 7: Bar Graph Unit Heights (Value ÷ Scale)</option>
-      <option value="8">Cat 8: Bar Graph Values (Height × Scale)</option>
-      <option value="9">Cat 9: Multiple Bars Differences & Totals</option>
-      <option value="10">Cat 10: Multi-Step Real-Life Numericals</option>
-    </select>
   </div>
 
-  <!-- Questions Container -->
-  <main id="questionsContainer" class="w-full max-w-4xl mx-auto space-y-6 pb-20"></main>
+  <!-- Sticky HUD Stats & Topic Filter -->
+  <div class="sticky-hud-wrapper">
+    <div class="hud-card">
+      <div class="hud-top-row">
+        <div class="hud-stat-pill">
+          <span>Score:</span>
+          <span id="hudScore" class="stat-val-highlight">0</span>
+          <span>/ 50</span>
+        </div>
+        <div class="hud-stat-pill">
+          <span>Answered:</span>
+          <strong id="hudAnswered" style="color: var(--text-main);">0</strong>
+          <span>/ 50</span>
+        </div>
+        <div class="progress-bar-container">
+          <div id="hudProgressBar" class="progress-bar-fill"></div>
+        </div>
+        <div class="hud-stat-pill">
+          <span>Accuracy:</span>
+          <span id="hudAccuracy" style="font-weight: 800; color: var(--brand-cyan);">0%</span>
+        </div>
+      </div>
+
+      <!-- Topic Pills -->
+      <div class="topic-filter-row" id="topicFilterRow">
+        <button class="topic-filter-btn active" onclick="filterByTopic('all')">All 10 Calculation Categories (50)</button>
+        <button class="topic-filter-btn" onclick="filterByTopic('1')">Cat 1: Range (Max-Min)</button>
+        <button class="topic-filter-btn" onclick="filterByTopic('2')">Cat 2: Frequency Totals</button>
+        <button class="topic-filter-btn" onclick="filterByTopic('3')">Cat 3: Tally Arithmetic</button>
+        <button class="topic-filter-btn" onclick="filterByTopic('4')">Cat 4: Pictograph Quantities</button>
+        <button class="topic-filter-btn" onclick="filterByTopic('5')">Cat 5: Symbol Counts</button>
+        <button class="topic-filter-btn" onclick="filterByTopic('6')">Cat 6: Differences & Sums</button>
+        <button class="topic-filter-btn" onclick="filterByTopic('7')">Cat 7: Unit Heights</button>
+        <button class="topic-filter-btn" onclick="filterByTopic('8')">Cat 8: Bar Values</button>
+        <button class="topic-filter-btn" onclick="filterByTopic('9')">Cat 9: Multiple Bars</button>
+        <button class="topic-filter-btn" onclick="filterByTopic('10')">Cat 10: Multi-Step Real-Life</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Questions Container -->
+  <main class="quiz-container" id="quizContainer"></main>
+
+  <!-- Question Matrix Modal -->
+  <div class="modal-overlay" id="matrixModal" onclick="closeMatrixModal()">
+    <div class="modal-card" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <h3 class="modal-title">🎯 Calculation Matrix (1 to 50)</h3>
+        <button class="modal-close-btn" onclick="closeMatrixModal()">✕</button>
+      </div>
+      <p style="font-size: 0.8rem; color: var(--text-muted);">Click any number to jump directly to that numerical problem.</p>
+      <div class="matrix-grid" id="matrixGrid"></div>
+    </div>
+  </div>
+
+  <!-- Scorecard Modal -->
+  <div class="modal-overlay" id="scoreModal" onclick="closeScoreModal()">
+    <div class="modal-card" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <h3 class="modal-title">🏆 Numericals Mastery Scorecard</h3>
+        <button class="modal-close-btn" onclick="closeScoreModal()">✕</button>
+      </div>
+
+      <div class="score-hero-circle">
+        <div class="score-circle-num" id="modalScoreVal">0</div>
+        <div class="score-circle-total">OUT OF 50</div>
+      </div>
+
+      <div style="text-align: center;">
+        <h4 id="modalGradeTitle" style="font-size: 1.25rem; font-weight: 800; color: var(--text-main);">Keep Calculating! 🚀</h4>
+        <p id="modalGradeMsg" style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">Complete all 50 numericals to evaluate your calculation precision.</p>
+      </div>
+
+      <div class="stats-breakdown-grid">
+        <div class="stat-box">
+          <div class="stat-box-val" id="modalCorrectCount" style="color: var(--color-correct);">0</div>
+          <div class="stat-box-lbl">Correct</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-box-val" id="modalWrongCount" style="color: var(--color-wrong);">0</div>
+          <div class="stat-box-lbl">Incorrect</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-box-val" id="modalAccuracyVal" style="color: var(--brand-cyan);">0%</div>
+          <div class="stat-box-lbl">Accuracy</div>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 10px; justify-content: center; margin-top: 10px;">
+        <button class="btn-action" onclick="closeScoreModal()">Continue Practice</button>
+        <button class="btn-action btn-primary-action" onclick="resetQuiz(); closeScoreModal();">Retake Test</button>
+      </div>
+    </div>
+  </div>
 
   <script>
     const QUESTIONS = [
@@ -592,37 +1578,54 @@
     let currentLang = "both";
     let selectedAnswers = {};
     let currentTopic = "all";
+    let isLightMode = false;
 
-    const langToggle = document.getElementById("langToggle");
-    const langDisplay = document.getElementById("langDisplay");
-    const topicFilter = document.getElementById("topicFilter");
-    const resetQuizBtn = document.getElementById("resetQuizBtn");
-    const questionsContainer = document.getElementById("questionsContainer");
-    const scoreCount = document.getElementById("scoreCount");
-    const answeredCount = document.getElementById("answeredCount");
-    const progressBar = document.getElementById("progressBar");
+    // DOM Elements
+    const quizContainer = document.getElementById("quizContainer");
+    const hudScore = document.getElementById("hudScore");
+    const hudAnswered = document.getElementById("hudAnswered");
+    const hudProgressBar = document.getElementById("hudProgressBar");
+    const hudAccuracy = document.getElementById("hudAccuracy");
+    const themeToggleBtn = document.getElementById("themeToggleBtn");
+    const themeIcon = document.getElementById("themeIcon");
 
-    langToggle.addEventListener("click", () => {
-      if (currentLang === "both") currentLang = "en";
-      else if (currentLang === "en") currentLang = "hi";
-      else currentLang = "both";
-
-      langDisplay.innerText = currentLang === "both" ? "Both (द्विभाषी)" : currentLang === "en" ? "English" : "हिन्दी";
-      renderQuestions();
+    // Theme Toggle
+    themeToggleBtn.addEventListener("click", () => {
+      isLightMode = !isLightMode;
+      document.body.classList.toggle("light-theme", isLightMode);
+      themeIcon.innerText = isLightMode ? "🌙" : "☀️";
     });
 
-    topicFilter.addEventListener("change", (e) => {
-      currentTopic = e.target.value;
-      renderQuestions();
-    });
+    function setLanguage(lang) {
+      currentLang = lang;
+      document.querySelectorAll(".lang-btn").forEach((btn, idx) => {
+        const langs = ['both', 'en', 'hi'];
+        btn.classList.toggle("active", langs[idx] === lang);
+      });
+      renderQuiz();
+    }
 
-    resetQuizBtn.addEventListener("click", () => {
-      if (confirm("Restart numericals test and reset your score?")) {
-        selectedAnswers = {};
-        updateStats();
-        renderQuestions();
+    function filterByTopic(topicId) {
+      currentTopic = topicId;
+      document.querySelectorAll(".topic-filter-btn").forEach(btn => {
+        btn.classList.remove("active");
+      });
+      event.target.classList.add("active");
+      renderQuiz();
+    }
+
+    function handleSelectOption(qIdx, optIdx) {
+      if (selectedAnswers[qIdx] !== undefined) return;
+      selectedAnswers[qIdx] = optIdx;
+      updateStats();
+      renderQuiz();
+
+      if (optIdx === QUESTIONS[qIdx].correct) {
+        if (typeof confetti === 'function') {
+          confetti({ particleCount: 35, spread: 55, origin: { y: 0.8 } });
+        }
       }
-    });
+    }
 
     function updateStats() {
       const answeredKeys = Object.keys(selectedAnswers);
@@ -632,70 +1635,95 @@
         if (selectedAnswers[idx] === QUESTIONS[idx].correct) score++;
       });
 
-      scoreCount.innerText = score;
-      answeredCount.innerText = totalAnswered;
-      progressBar.style.width = `${(totalAnswered / QUESTIONS.length) * 100}%`;
+      hudScore.innerText = score;
+      hudAnswered.innerText = totalAnswered;
+      const pct = (totalAnswered / QUESTIONS.length) * 100;
+      hudProgressBar.style.width = `${pct}%`;
+
+      const accuracy = totalAnswered > 0 ? Math.round((score / totalAnswered) * 100) : 0;
+      hudAccuracy.innerText = `${accuracy}%`;
 
       if (totalAnswered === QUESTIONS.length && score >= 40) {
-        confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+        if (typeof confetti === 'function') {
+          confetti({ particleCount: 120, spread: 80, origin: { y: 0.5 } });
+        }
       }
     }
 
-    function handleSelectOption(qIdx, optIdx) {
-      if (selectedAnswers[qIdx] !== undefined) return;
-      selectedAnswers[qIdx] = optIdx;
-      updateStats();
-      renderQuestions();
-
-      if (optIdx === QUESTIONS[qIdx].correct) {
-        confetti({ particleCount: 30, spread: 50, origin: { y: 0.8 } });
+    function resetQuiz() {
+      if (confirm("Restart numericals test and reset your score?")) {
+        selectedAnswers = {};
+        updateStats();
+        renderQuiz();
       }
     }
 
-    function renderQuestions() {
-      questionsContainer.innerHTML = "";
+    function renderQuiz() {
+      quizContainer.innerHTML = "";
 
       const filtered = QUESTIONS.map((q, idx) => ({ ...q, originalIndex: idx }))
         .filter(q => currentTopic === "all" || q.topic.toString() === currentTopic);
 
-      filtered.forEach((q, displayIdx) => {
+      if (filtered.length === 0) {
+        quizContainer.innerHTML = `<div style="text-align: center; padding: 40px; color: var(--text-muted);">No questions found for this topic.</div>`;
+        return;
+      }
+
+      filtered.forEach((q) => {
         const isAnswered = selectedAnswers[q.originalIndex] !== undefined;
         const userAnswer = selectedAnswers[q.originalIndex];
 
         const card = document.createElement("div");
-        card.className = "bg-[#0f172a] border border-slate-800 rounded-2xl p-5 sm:p-6 transition-all shadow-lg text-left space-y-4";
+        card.className = "q-card";
+        card.id = `q-card-${q.originalIndex}`;
 
-        let qTitle = "";
+        const headerHtml = `
+          <div class="q-header">
+            <span class="q-topic-tag">🧮 ${q.topicName}</span>
+            <span class="q-number-pill">Problem ${q.originalIndex + 1} of 50</span>
+          </div>
+        `;
+
+        let bodyHtml = '<div class="q-body">';
         if (currentLang === "both") {
-          qTitle = `<div class="font-bold text-white text-base sm:text-lg">Q${q.originalIndex + 1}. ${q.qEn}</div>
-                    <div class="text-slate-300 text-sm mt-1">हिन्दी: ${q.qHi}</div>`;
+          bodyHtml += `
+            <div class="q-text-en">Q${q.originalIndex + 1}. ${q.qEn}</div>
+            <div class="q-text-hi">🇮🇳 हिन्दी: ${q.qHi}</div>
+          `;
         } else if (currentLang === "en") {
-          qTitle = `<div class="font-bold text-white text-base sm:text-lg">Q${q.originalIndex + 1}. ${q.qEn}</div>`;
+          bodyHtml += `<div class="q-text-en">Q${q.originalIndex + 1}. ${q.qEn}</div>`;
         } else {
-          qTitle = `<div class="font-bold text-white text-base sm:text-lg">प्र${q.originalIndex + 1}. ${q.qHi}</div>`;
+          bodyHtml += `<div class="q-text-hi" style="font-size: 1.05rem;">प्र${q.originalIndex + 1}. ${q.qHi}</div>`;
         }
+        bodyHtml += '</div>';
 
-        let optionsHtml = '<div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-2">';
+        let optionsHtml = '<div class="options-grid">';
         q.optsEn.forEach((optEn, oIdx) => {
           const optHi = q.optsHi[oIdx];
-          let optText = currentLang === "both" ? `${optEn}` : currentLang === "en" ? optEn : optHi;
+          let optText = currentLang === "both" ? `${optEn}` : (currentLang === "en" ? optEn : optHi);
 
-          let btnClass = "bg-[#1e293b] hover:bg-slate-700 text-slate-200 border-slate-700";
+          let optClass = "opt-btn";
+          let statusIcon = "";
+
           if (isAnswered) {
             if (oIdx === q.correct) {
-              btnClass = "correct-btn font-black";
+              optClass += " opt-correct";
+              statusIcon = '<span class="opt-status-icon">✓</span>';
             } else if (oIdx === userAnswer && userAnswer !== q.correct) {
-              btnClass = "wrong-btn";
+              optClass += " opt-wrong";
+              statusIcon = '<span class="opt-status-icon">✗</span>';
             } else {
-              btnClass = "bg-slate-900/50 text-slate-600 border-slate-800 cursor-not-allowed";
+              optClass += " opt-dimmed";
             }
           }
 
           optionsHtml += `
-            <button onclick="handleSelectOption(${q.originalIndex}, ${oIdx})" ${isAnswered ? 'disabled' : ''} class="px-4 py-3 rounded-xl border text-xs sm:text-sm text-left transition-all flex items-center justify-between gap-2 cursor-pointer ${btnClass}">
-              <span><strong class="text-[#04AA6D] mr-1.5">${String.fromCharCode(65 + oIdx)}.</strong> ${optText}</span>
-              ${isAnswered && oIdx === q.correct ? '<span>✓</span>' : ''}
-              ${isAnswered && oIdx === userAnswer && userAnswer !== q.correct ? '<span>✗</span>' : ''}
+            <button class="${optClass}" onclick="handleSelectOption(${q.originalIndex}, ${oIdx})" ${isAnswered ? 'disabled' : ''}>
+              <div class="opt-content">
+                <span class="opt-letter">${String.fromCharCode(65 + oIdx)}</span>
+                <span>${optText}</span>
+              </div>
+              ${statusIcon}
             </button>
           `;
         });
@@ -705,27 +1733,104 @@
         if (isAnswered) {
           const isCorrect = userAnswer === q.correct;
           explanationHtml = `
-            <div class="p-3.5 rounded-xl text-xs sm:text-sm border ${isCorrect ? 'bg-emerald-950/40 border-emerald-500/30 text-emerald-300' : 'bg-rose-950/40 border-rose-500/30 text-rose-300'}">
-              <strong>${isCorrect ? '✓ Correct Calculation!' : '✗ Calculation Error!'}</strong> Step-by-Step Solution: ${q.exp}
+            <div class="exp-box ${isCorrect ? 'exp-correct' : 'exp-wrong'}">
+              <div class="exp-header">
+                <span>${isCorrect ? '✓ Correct Calculation!' : '✗ Calculation Error!'}</span>
+              </div>
+              <div><strong>Step-by-Step Solution:</strong> ${q.exp}</div>
             </div>
           `;
         }
 
-        card.innerHTML = `
-          <div class="flex items-center justify-between text-[11px] font-bold uppercase tracking-wider text-[#04AA6D]">
-            <span>${q.topicName}</span>
-            <span>Numerical ${q.originalIndex + 1} of 50</span>
-          </div>
-          ${qTitle}
-          ${optionsHtml}
-          ${explanationHtml}
-        `;
-
-        questionsContainer.appendChild(card);
+        card.innerHTML = headerHtml + bodyHtml + optionsHtml + explanationHtml;
+        quizContainer.appendChild(card);
       });
     }
 
-    renderQuestions();
+    // Modal Matrix
+    function openMatrixModal() {
+      const grid = document.getElementById("matrixGrid");
+      grid.innerHTML = "";
+
+      QUESTIONS.forEach((q, idx) => {
+        const btn = document.createElement("button");
+        btn.className = "matrix-btn";
+        btn.innerText = idx + 1;
+
+        if (selectedAnswers[idx] !== undefined) {
+          if (selectedAnswers[idx] === q.correct) {
+            btn.classList.add("correct");
+          } else {
+            btn.classList.add("wrong");
+          }
+        }
+
+        btn.onclick = () => {
+          closeMatrixModal();
+          currentTopic = "all";
+          renderQuiz();
+          setTimeout(() => {
+            const el = document.getElementById(`q-card-${idx}`);
+            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }, 100);
+        };
+
+        grid.appendChild(btn);
+      });
+
+      document.getElementById("matrixModal").classList.add("active");
+    }
+
+    function closeMatrixModal() {
+      document.getElementById("matrixModal").classList.remove("active");
+    }
+
+    // Modal Scorecard
+    function openScorecardModal() {
+      const answeredKeys = Object.keys(selectedAnswers);
+      const totalAnswered = answeredKeys.length;
+      let score = 0;
+      answeredKeys.forEach(idx => {
+        if (selectedAnswers[idx] === QUESTIONS[idx].correct) score++;
+      });
+
+      const wrong = totalAnswered - score;
+      const accuracy = totalAnswered > 0 ? Math.round((score / totalAnswered) * 100) : 0;
+
+      document.getElementById("modalScoreVal").innerText = score;
+      document.getElementById("modalCorrectCount").innerText = score;
+      document.getElementById("modalWrongCount").innerText = wrong;
+      document.getElementById("modalAccuracyVal").innerText = `${accuracy}%`;
+
+      const gradeTitle = document.getElementById("modalGradeTitle");
+      const gradeMsg = document.getElementById("modalGradeMsg");
+
+      if (score >= 45) {
+        gradeTitle.innerText = "Calculation Prodigy! 🧮🏆";
+        gradeMsg.innerText = "Flawless arithmetic and data interpretation accuracy!";
+      } else if (score >= 35) {
+        gradeTitle.innerText = "Great Problem Solver! 🎯";
+        gradeMsg.innerText = "Strong speed and calculation precision.";
+      } else if (score >= 25) {
+        gradeTitle.innerText = "Good Effort! 📚";
+        gradeMsg.innerText = "Review step solutions and re-attempt for full score.";
+      } else {
+        gradeTitle.innerText = "Keep Calculating! 💡";
+        gradeMsg.innerText = "Check arithmetic steps carefully and try again.";
+      }
+
+      document.getElementById("scoreModal").classList.add("active");
+      if (score >= 35 && typeof confetti === 'function') {
+        confetti({ particleCount: 70, spread: 60, origin: { y: 0.6 } });
+      }
+    }
+
+    function closeScoreModal() {
+      document.getElementById("scoreModal").classList.remove("active");
+    }
+
+    // Initial render
+    renderQuiz();
     updateStats();
   </script>
 </body>

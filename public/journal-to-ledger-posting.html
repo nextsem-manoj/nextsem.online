@@ -2,37 +2,416 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <title>Financial Accounting: Journal to Ledger Accounts (10 Transactions Step-by-Step)</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="description" content="Step-by-step practical accounting masterclass: 10 Business Transactions → Journal Entries → 12 T-Shape Ledger Accounts → Trial Balance.">
+  <link rel="icon" type="image/png" href="/image-20.png">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
   <style>
-    body { background-color: #080d1a; color: #f8fafc; font-family: system-ui, -apple-system, sans-serif; }
-    .emerald-glow { box-shadow: 0 0 25px rgba(4, 170, 109, 0.25); }
-    .ledger-table th { background-color: #1e293b; color: #04AA6D; padding: 6px 8px; border: 1px solid #334155; font-size: 11px; }
-    .ledger-table td { padding: 6px 8px; border: 1px solid #334155; font-size: 11px; }
+    :root {
+      --bg-body: #060b18;
+      --bg-card: #0d1527;
+      --bg-card-hover: #131f38;
+      --bg-card-alt: #0a1020;
+      --bg-hud: rgba(13, 21, 39, 0.85);
+      --border-card: rgba(255, 255, 255, 0.08);
+      
+      --brand-green: #04AA6D;
+      --brand-green-hover: #03945f;
+      --brand-emerald: #10b981;
+      --brand-purple: #a855f7;
+      
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      
+      --font-main: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-devanagari: 'Noto Sans Devanagari', 'Plus Jakarta Sans', sans-serif;
+      
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-xl: 28px;
+    }
+
+    body.light-theme {
+      --bg-body: #f1f5f9;
+      --bg-card: #ffffff;
+      --bg-card-hover: #f8fafc;
+      --bg-card-alt: #f8fafc;
+      --bg-hud: rgba(255, 255, 255, 0.9);
+      --border-card: #e2e8f0;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --text-dim: #94a3b8;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-main);
+      background-color: var(--bg-body);
+      color: var(--text-main);
+      min-height: 100vh;
+      line-height: 1.6;
+      background-image: 
+        radial-gradient(circle at 10% 15%, rgba(4, 170, 109, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 90% 85%, rgba(168, 85, 247, 0.08) 0%, transparent 40%);
+      background-attachment: fixed;
+      padding-bottom: 80px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .top-navbar {
+      width: 100%;
+      background: var(--bg-hud);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-card);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 10px 20px;
+    }
+
+    .nav-container {
+      max-width: 1080px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: var(--text-main);
+      font-weight: 800;
+      font-size: 0.95rem;
+    }
+
+    .nav-brand-icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #04AA6D, #a855f7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 900;
+    }
+
+    .breadcrumb-trail {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    .breadcrumb-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+      padding: 2px 4px;
+      border-radius: 4px;
+    }
+
+    .breadcrumb-link:hover {
+      color: var(--brand-green);
+      background: rgba(4, 170, 109, 0.1);
+    }
+
+    .breadcrumb-separator {
+      color: var(--text-dim);
+      font-size: 0.75rem;
+    }
+
+    .breadcrumb-current {
+      color: var(--brand-green);
+      font-weight: 700;
+      background: rgba(4, 170, 109, 0.12);
+      padding: 2px 8px;
+      border-radius: 6px;
+      border: 1px solid rgba(4, 170, 109, 0.25);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-btn {
+      padding: 6px 12px;
+      border-radius: 10px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: 1px solid var(--border-card);
+      background: var(--bg-card);
+      color: var(--text-main);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .nav-btn:hover {
+      border-color: var(--brand-green);
+      color: var(--brand-green);
+      transform: translateY(-1px);
+    }
+
+    .hero-wrapper {
+      max-width: 1080px;
+      margin: 24px auto 20px;
+      padding: 0 16px;
+    }
+
+    .hero-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-xl);
+      padding: 28px 24px;
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .hero-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #04AA6D, #a855f7, #ec4899);
+    }
+
+    .tag-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .tag-badge-green {
+      background: rgba(4, 170, 109, 0.15);
+      border: 1px solid rgba(4, 170, 109, 0.4);
+      color: var(--brand-green);
+    }
+
+    .hero-title {
+      font-size: 2rem;
+      font-weight: 900;
+      color: #ffffff;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+    }
+
+    body.light-theme .hero-title {
+      color: #0f172a;
+    }
+
+    .hero-title-highlight {
+      background: linear-gradient(135deg, #04AA6D 0%, #a855f7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      max-width: 800px;
+      font-weight: 500;
+    }
+
+    .content-container {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .master-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-card);
+      padding-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: 1.15rem;
+      font-weight: 900;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .step-badge {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: rgba(4, 170, 109, 0.2);
+      color: var(--brand-green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 900;
+    }
+
+    .tx-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 10px;
+    }
+
+    .tx-card {
+      padding: 12px 16px;
+      background: var(--bg-card-alt);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-md);
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+
+    .ledger-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8rem;
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+    }
+
+    .ledger-table th {
+      background: var(--bg-card-alt);
+      color: var(--brand-green);
+      padding: 8px 10px;
+      border: 1px solid var(--border-card);
+      font-weight: 800;
+      text-align: left;
+    }
+
+    .ledger-table td {
+      padding: 8px 10px;
+      border: 1px solid var(--border-card);
+      color: var(--text-main);
+    }
+
+    @media print {
+      .top-navbar, .hero-wrapper { display: none; }
+      body { background: white; color: black; }
+    }
   </style>
 </head>
-<body class="min-h-screen flex flex-col items-center p-3 sm:p-6 selection:bg-[#04AA6D] selection:text-black">
+<body>
 
-  <!-- Header -->
-  <header class="w-full max-w-5xl mx-auto mb-8 bg-[#0f172a] border border-slate-800 rounded-2xl p-6 emerald-glow flex flex-col sm:flex-row justify-between items-center gap-4">
-    <div>
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#04AA6D]/15 border border-[#04AA6D]/40 text-[#04AA6D] text-xs font-black uppercase tracking-wider mb-2">
-        <span>Accounting Masterclass • Practical Ledger Posting</span>
+  <!-- Top Navbar with Breadcrumb Navigation (Permanent Rule) -->
+  <header class="top-navbar">
+    <div class="nav-container">
+      <div class="nav-left">
+        <a href="/" class="nav-brand" style="display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; flex-shrink: 0;">
+          <div style="width: 38px; height: 38px; border-radius: 9px; background: rgba(255, 255, 255, 0.05); border: 1.5px solid rgba(255, 255, 255, 0.15); display: flex; align-items: center; justify-content: center; padding: 3px; flex-shrink: 0; box-shadow: 0 2px 6px rgba(0,0,0,0.12);">
+            <img src="/image-20.png" alt="Nextsem Logo" style="height: 28px; width: auto; object-fit: contain;">
+          </div>
+          <div style="display: flex; flex-direction: column; text-align: left; line-height: 1.15;">
+            <span style="font-weight: 900; font-size: 1.12rem; letter-spacing: -0.02em; color: var(--text-main, #f8fafc);">Study Guide</span>
+            <span style="color: #4f46e5; font-size: 0.62rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 1px;">NextSem Academy</span>
+          </div>
+        </a>
+        <nav class="breadcrumb-trail" aria-label="Breadcrumb">
+          <a href="/" class="breadcrumb-link">Home</a>
+          <span class="breadcrumb-separator">❯</span>
+          <a href="/?class=11" class="breadcrumb-link">Class 11</a>
+          <span class="breadcrumb-separator">❯</span>
+          <a href="/?class=11&subject=accountancy" class="breadcrumb-link">Financial Accounting</a>
+          <span class="breadcrumb-separator">❯</span>
+          <a href="/?class=11&subject=accountancy&chapter=4" class="breadcrumb-link">Chapter 4</a>
+          <span class="breadcrumb-separator">❯</span>
+          <span class="breadcrumb-current">Journal to Ledger Masterclass</span>
+        </nav>
       </div>
-      <h1 class="text-2xl sm:text-3xl font-black text-white tracking-tight">
-        Journal to Ledger Posting <span class="text-[#04AA6D] text-lg font-bold block sm:inline">| जर्नल से खाता बही में खतौनी</span>
-      </h1>
-      <p class="text-xs sm:text-sm text-slate-300">Complete practical workflow: 10 Transactions → Journal Entries → 12 T-Ledger Accounts → Trial Balance</p>
-    </div>
-    <div class="flex items-center gap-2 shrink-0">
-      <button onclick="window.print()" class="px-4 py-2 bg-[#04AA6D] hover:bg-[#039861] text-black font-extrabold text-xs rounded-xl transition-all shadow-md cursor-pointer">
-        🖨️ Print / Save PDF
-      </button>
+
+      <div class="nav-right">
+        <button onclick="window.print()" class="nav-btn" style="background: var(--brand-green); color: black; font-weight: 800;">
+          <span>🖨️ Print / PDF</span>
+        </button>
+        <a href="/" class="nav-btn">
+          <span>🏠 App Hub</span>
+        </a>
+      </div>
     </div>
   </header>
 
-  <div class="w-full max-w-5xl mx-auto space-y-10 pb-20">
+  <!-- Hero Header -->
+  <div class="hero-wrapper">
+    <div class="hero-card">
+      <div>
+        <div class="tag-badge tag-badge-green" style="margin-bottom: 8px;">
+          <span>Accounting Masterclass • Practical Ledger Posting</span>
+        </div>
+        <h1 class="hero-title">
+          Journal to Ledger Posting <span class="hero-title-highlight">| जर्नल से खाता बही में खतौनी</span>
+        </h1>
+        <p class="hero-subtitle">
+          Complete practical workflow: 10 Business Transactions → Journal Entries → 12 T-Shape Ledger Accounts → Trial Balance.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-container">
 
     <!-- Section 1: The 10 Business Transactions -->
     <section class="bg-[#0f172a] border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">

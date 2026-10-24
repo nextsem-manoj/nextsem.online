@@ -2,61 +2,375 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <title>Microbes: The Invisible Superheroes! | Class 12 Biology Ch 8 (Class 6 Kid's Fun Edition)</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <meta name="description" content="Page-by-page illustrated storybook of NCERT Class 12 Biology Chapter 8 (Microbes in Human Welfare) with cartoon mascots and interactive quiz.">
+  <link rel="icon" type="image/png" href="/image-20.png">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.4/dist/confetti.browser.min.js"></script>
+
   <style>
-    body { background-color: #060d1f; color: #f8fafc; font-family: 'Comic Sans MS', 'Chalkboard SE', system-ui, -apple-system, sans-serif; }
-    .gold-glow { box-shadow: 0 0 25px rgba(245, 158, 11, 0.25); }
-    .emerald-glow { box-shadow: 0 0 25px rgba(16, 185, 129, 0.25); }
-    .fun-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-    .fun-card:hover { transform: translateY(-4px); }
+    :root {
+      --bg-body: #060d1f;
+      --bg-card: #0f1b35;
+      --bg-card-hover: #162447;
+      --bg-card-alt: #0a1329;
+      --bg-hud: rgba(15, 27, 53, 0.9);
+      --border-card: rgba(245, 158, 11, 0.25);
+      
+      --brand-amber: #f59e0b;
+      --brand-amber-hover: #d97706;
+      --brand-emerald: #10b981;
+      --brand-cyan: #06b6d4;
+      
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      
+      --font-main: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-xl: 28px;
+    }
+
+    body.light-theme {
+      --bg-body: #f8fafc;
+      --bg-card: #ffffff;
+      --bg-card-hover: #f1f5f9;
+      --bg-card-alt: #f1f5f9;
+      --bg-hud: rgba(255, 255, 255, 0.95);
+      --border-card: #e2e8f0;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --text-dim: #94a3b8;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-main);
+      background-color: var(--bg-body);
+      color: var(--text-main);
+      min-height: 100vh;
+      line-height: 1.6;
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(245, 158, 11, 0.1) 0%, transparent 40%),
+        radial-gradient(circle at 85% 85%, rgba(16, 185, 129, 0.1) 0%, transparent 40%);
+      background-attachment: fixed;
+      padding-bottom: 80px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .top-navbar {
+      width: 100%;
+      background: var(--bg-hud);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-card);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 10px 20px;
+    }
+
+    .nav-container {
+      max-width: 1080px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: var(--text-main);
+      font-weight: 800;
+      font-size: 0.95rem;
+    }
+
+    .nav-brand-icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #f59e0b, #10b981);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #000000;
+      font-size: 16px;
+      font-weight: 900;
+    }
+
+    .breadcrumb-trail {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    .breadcrumb-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+      padding: 2px 4px;
+      border-radius: 4px;
+    }
+
+    .breadcrumb-link:hover {
+      color: var(--brand-amber);
+      background: rgba(245, 158, 11, 0.1);
+    }
+
+    .breadcrumb-separator {
+      color: var(--text-dim);
+      font-size: 0.75rem;
+    }
+
+    .breadcrumb-current {
+      color: var(--brand-amber);
+      font-weight: 700;
+      background: rgba(245, 158, 11, 0.12);
+      padding: 2px 8px;
+      border-radius: 6px;
+      border: 1px solid rgba(245, 158, 11, 0.25);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-btn {
+      padding: 6px 12px;
+      border-radius: 10px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: 1px solid var(--border-card);
+      background: var(--bg-card);
+      color: var(--text-main);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .nav-btn:hover {
+      border-color: var(--brand-amber);
+      color: var(--brand-amber);
+      transform: translateY(-1px);
+    }
+
+    .hero-wrapper {
+      max-width: 1080px;
+      margin: 24px auto 16px;
+      padding: 0 16px;
+    }
+
+    .hero-card {
+      background: var(--bg-card);
+      border: 2px solid rgba(245, 158, 11, 0.35);
+      border-radius: var(--radius-xl);
+      padding: 28px 24px;
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .hero-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #f59e0b, #10b981, #06b6d4);
+    }
+
+    .tag-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .tag-badge-amber {
+      background: rgba(245, 158, 11, 0.2);
+      border: 1px solid rgba(245, 158, 11, 0.5);
+      color: var(--brand-amber);
+    }
+
+    .hero-title {
+      font-size: 2.1rem;
+      font-weight: 900;
+      color: #ffffff;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+    }
+
+    body.light-theme .hero-title {
+      color: #0f172a;
+    }
+
+    .hero-subtitle {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      max-width: 800px;
+      font-weight: 500;
+    }
+
+    .page-nav-ribbon {
+      max-width: 1080px;
+      margin: 0 auto 24px;
+      padding: 10px 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      overflow-x: auto;
+    }
+
+    .ribbon-btn {
+      padding: 6px 12px;
+      border-radius: 10px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      border: 1px solid var(--border-card);
+      background: var(--bg-card-alt);
+      color: var(--text-muted);
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .ribbon-btn:hover {
+      background: var(--brand-amber);
+      color: #000000;
+      border-color: var(--brand-amber);
+    }
+
+    .story-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-xl);
+      padding: 28px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
   </style>
 </head>
-<body class="min-h-screen flex flex-col items-center p-3 sm:p-6 selection:bg-[#f59e0b] selection:text-black">
+<body>
 
-  <!-- Header -->
-  <header class="w-full max-w-5xl mx-auto mb-6 bg-[#0f1b35] border-2 border-amber-500/40 rounded-3xl p-6 gold-glow flex flex-col sm:flex-row justify-between items-center gap-4 text-center sm:text-left">
-    <div class="space-y-1">
-      <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/20 border border-amber-500/50 text-amber-300 text-xs font-black uppercase tracking-wider">
-        <span>🦠 NCERT Class 12 Biology • Chapter 8 (Class 6 Fun Edition)</span>
+  <!-- Top Navbar with Breadcrumb Navigation (Permanent Rule) -->
+  <header class="top-navbar">
+    <div class="nav-container">
+      <div class="nav-left">
+        <a href="/" class="nav-brand" style="display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; flex-shrink: 0;">
+          <div style="width: 38px; height: 38px; border-radius: 9px; background: rgba(255, 255, 255, 0.05); border: 1.5px solid rgba(255, 255, 255, 0.15); display: flex; align-items: center; justify-content: center; padding: 3px; flex-shrink: 0; box-shadow: 0 2px 6px rgba(0,0,0,0.12);">
+            <img src="/image-20.png" alt="Nextsem Logo" style="height: 28px; width: auto; object-fit: contain;">
+          </div>
+          <div style="display: flex; flex-direction: column; text-align: left; line-height: 1.15;">
+            <span style="font-weight: 900; font-size: 1.12rem; letter-spacing: -0.02em; color: var(--text-main, #f8fafc);">Study Guide</span>
+            <span style="color: #4f46e5; font-size: 0.62rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 1px;">NextSem Academy</span>
+          </div>
+        </a>
+        <nav class="breadcrumb-trail" aria-label="Breadcrumb">
+          <a href="/" class="breadcrumb-link">Home</a>
+          <span class="breadcrumb-separator">❯</span>
+          <a href="/?class=12" class="breadcrumb-link">Class 12</a>
+          <span class="breadcrumb-separator">❯</span>
+          <a href="/?class=12&subject=biology" class="breadcrumb-link">Biology</a>
+          <span class="breadcrumb-separator">❯</span>
+          <a href="/?class=12&subject=biology&chapter=8" class="breadcrumb-link">Chapter 8: Microbes</a>
+          <span class="breadcrumb-separator">❯</span>
+          <span class="breadcrumb-current">Kids Storybook Edition</span>
+        </nav>
       </div>
-      <h1 class="text-2xl sm:text-4xl font-black text-white tracking-tight">
-        Microbes: The Invisible Superheroes! 🦸‍♂️🧫
-      </h1>
-      <p class="text-xs sm:text-sm text-slate-300">
-        Page-by-Page & Topic-by-Topic Storybook: How tiny invisible organisms make our curd, bread, medicine & clean energy!
-      </p>
-    </div>
 
-    <!-- Quick Buttons -->
-    <div class="flex items-center gap-2 shrink-0">
-      <a href="/" class="px-4 py-2.5 rounded-2xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-extrabold text-xs border border-slate-700 transition-all flex items-center gap-1.5 cursor-pointer shadow-md">
-        🏠 NCERT Home
-      </a>
-      <a href="/quiz.html" class="px-4 py-2.5 rounded-2xl bg-[#04AA6D] hover:bg-[#039861] text-black font-black text-xs transition-all flex items-center gap-1.5 cursor-pointer shadow-md">
-        🎯 Quizzes Hub
-      </a>
+      <div class="nav-right">
+        <a href="/quiz.html?chapter=bio8" class="nav-btn" style="background: var(--brand-emerald); color: black; font-weight: 800;">
+          <span>🎯 MCQ Quiz</span>
+        </a>
+        <a href="/" class="nav-btn">
+          <span>🏠 App Hub</span>
+        </a>
+      </div>
     </div>
   </header>
 
+  <!-- Hero Header -->
+  <div class="hero-wrapper">
+    <div class="hero-card">
+      <div>
+        <div class="tag-badge tag-badge-amber" style="margin-bottom: 8px;">
+          <span>🦠 NCERT Class 12 Biology • Chapter 8 (Class 6 Fun Edition)</span>
+        </div>
+        <h1 class="hero-title">
+          Microbes: The Invisible Superheroes! 🦸‍♂️🧫
+        </h1>
+        <p class="hero-subtitle">
+          Page-by-Page Illustrated Storybook: How tiny invisible organisms make our curd, bread, medicine & clean energy!
+        </p>
+      </div>
+    </div>
+  </div>
+
   <!-- Page Navigator Ribbon -->
-  <nav class="w-full max-w-5xl mx-auto mb-8 bg-[#0a1428] border border-slate-800 rounded-2xl p-3 flex items-center gap-2 overflow-x-auto shadow-lg">
-    <span class="text-xs font-black text-amber-400 uppercase tracking-wider px-2 shrink-0">📖 Jump to Page:</span>
-    <button onclick="scrollToPage('page1')" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-amber-500 hover:text-black text-xs font-bold whitespace-nowrap transition-all">Pg 1: Meet Microbes</button>
-    <button onclick="scrollToPage('page2')" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-amber-500 hover:text-black text-xs font-bold whitespace-nowrap transition-all">Pg 2: Kitchen Chefs</button>
-    <button onclick="scrollToPage('page3')" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-amber-500 hover:text-black text-xs font-bold whitespace-nowrap transition-all">Pg 3: Life-Saving Drugs</button>
-    <button onclick="scrollToPage('page4')" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-amber-500 hover:text-black text-xs font-bold whitespace-nowrap transition-all">Pg 4: Body Mechanics</button>
-    <button onclick="scrollToPage('page5')" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-amber-500 hover:text-black text-xs font-bold whitespace-nowrap transition-all">Pg 5: River Cleaners</button>
-    <button onclick="scrollToPage('page6')" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-amber-500 hover:text-black text-xs font-bold whitespace-nowrap transition-all">Pg 6: Poop Power (Biogas)</button>
-    <button onclick="scrollToPage('page7')" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-amber-500 hover:text-black text-xs font-bold whitespace-nowrap transition-all">Pg 7: Nature's Bodyguards</button>
-    <button onclick="scrollToPage('page8')" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-amber-500 hover:text-black text-xs font-bold whitespace-nowrap transition-all">Pg 8: Super Root Buddies</button>
-    <button onclick="scrollToPage('quiz-section')" class="px-3.5 py-1.5 rounded-xl bg-emerald-600 text-black font-black text-xs whitespace-nowrap transition-all">⚡ Kid's Quiz</button>
+  <nav class="page-nav-ribbon">
+    <span style="font-size: 0.75rem; font-weight: 800; color: var(--brand-amber); text-transform: uppercase; white-space: nowrap; margin-right: 4px;">📖 Jump to:</span>
+    <button onclick="scrollToPage('page1')" class="ribbon-btn">Pg 1: Meet Microbes</button>
+    <button onclick="scrollToPage('page2')" class="ribbon-btn">Pg 2: Kitchen Chefs</button>
+    <button onclick="scrollToPage('page3')" class="ribbon-btn">Pg 3: Life-Saving Drugs</button>
+    <button onclick="scrollToPage('page4')" class="ribbon-btn">Pg 4: Body Mechanics</button>
+    <button onclick="scrollToPage('page5')" class="ribbon-btn">Pg 5: River Cleaners</button>
+    <button onclick="scrollToPage('page6')" class="ribbon-btn">Pg 6: Poop Power</button>
+    <button onclick="scrollToPage('page7')" class="ribbon-btn">Pg 7: Bodyguards</button>
+    <button onclick="scrollToPage('page8')" class="ribbon-btn">Pg 8: Root Buddies</button>
+    <button onclick="scrollToPage('quiz-section')" class="ribbon-btn" style="background: var(--brand-emerald); color: black; font-weight: 800;">⚡ Kid's Quiz</button>
   </nav>
 
   <!-- Main Pages Container -->
-  <main class="w-full max-w-5xl mx-auto space-y-12 pb-20">
+  <main style="max-width: 1080px; margin: 0 auto; padding: 0 16px;">
 
     <!-- PAGE 1: Meet the Microbes -->
     <section id="page1" class="bg-[#0f1b35] border border-slate-800 rounded-3xl p-6 sm:p-8 fun-card space-y-6">
