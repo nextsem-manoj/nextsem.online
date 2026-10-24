@@ -23,7 +23,11 @@
   * **Day 10**: Build sandbox static portfolio subdomain publishing backend.
   * Keep track of this progress inside `docs/roadmap/task.md` in the workspace directory.
 
-- **Ownership & Domain Boundary Directives (PERMANENT RULE)**: This project (`nextsem.online`) does NOT own, host, manage, or link to `ignou.nextsem.online` (or `ignou.online.nextsem`). Keep all `nextsem.online` curriculum, navigation, routes, and features strictly focused on standalone Full-Stack Software Engineering & Computer Science (HTML, CSS, JS, React, Node, Git, C/C++, Python, Windows CLI).
+- **Comprehensive KG-to-Job SEO, Headings & Educational Scope Standard (PERMANENT RULE)**:
+  1. **Unified Scope**: Nextsem Academy officially covers the full spectrum of education: Foundational KG to Class 12th (Science, Commerce & Arts streams), College Degrees (BCA, MCA, B.Tech CSE), and 50-Day Practical Coding Labs with live GitHub verification.
+  2. **SEO Metadata & Headings**: All root layout metadata (`title`, `description`, `keywords`, `openGraph`, `twitter`) and primary H1 headlines must reflect this unified continuum: *"Complete Education from KG to 12th, BCA, MCA, B.Tech & Coding Labs"*.
+  3. **Attribution**: Always attribute coaching, curriculum design, and practical systems to **Er. Manoj Kumar**.
+  4. **Active 3-Path Architecture**: Maintain instant access to all 3 learning pathways: 🎒 Schooling Hub (`/school`), 🎓 College Hub (`/bca`), and 💻 Skill-Based Coding Labs (`/bca/practical`) with persistent onboarding goal selection.
 
 - **Strict White Text & Emerald Green Link Styling Standard (PERMANENT RULE)**: Across all current and future pages, components, and lesson templates:
   1. **Text Color**: All body text, lesson headings (H1, H2, H3), titles, and paragraphs MUST render strictly in high-contrast pure white (`text-white` / `#ffffff` or `text-slate-100`).

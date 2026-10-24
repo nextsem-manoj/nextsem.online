@@ -100,15 +100,15 @@ export default function SimpleHeroClient() {
 
               {/* Main Headline */}
               <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.15]">
-                Learn to Code from Scratch.{" "}
+                Complete Education from{" "}
                 <span className="block text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-[#04AA6D] to-teal-300">
-                  Simple, Visual & Practical.
+                  KG to 12th, BCA &amp; Coding.
                 </span>
               </h1>
 
               {/* High-Impact Subtitle */}
               <p className="text-base sm:text-lg text-slate-300 font-normal leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                From your very first line of HTML &amp; <span className="text-white font-bold inline-flex items-center gap-1"><WindowsIcon className="w-4 h-4 inline-block text-cyan-400" /> Windows 11</span> terminal command to building modern React and Node.js web applications. Concise 5-point visual lessons verified live on your PC.
+                100% Free Coaching by <strong>Er. Manoj Kumar</strong>. Foundational Schooling (Class 1–12 Science, Commerce &amp; Arts), College Degrees (BCA, MCA, B.Tech CSE), and 50-Day Practical Coding Labs verified live on <span className="text-white font-bold inline-flex items-center gap-1"><WindowsIcon className="w-4 h-4 inline-block text-cyan-400" /> Windows 11</span> VS Code.
               </p>
 
               {/* CTA Buttons */}
