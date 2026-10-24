@@ -118,6 +118,8 @@ import CookieBanner from "../components/CookieBanner";
 
 
 import TranslateWidget from "../components/TranslateWidget";
+import { StudentProgressProvider } from "../context/StudentProgressContext";
+import { CrossDeviceSyncProvider } from "../context/CrossDeviceSyncContext";
 import SearchWidget from "../components/SearchWidget";
 import GlobalNavigationWidget from "../components/GlobalNavigationWidget";
 import OnboardingTour from "../components/OnboardingTour";
@@ -176,20 +178,24 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <ProgressProvider>
-            <FontScaleHydrator />
-            <OfflineGuard />
-            <SplashScreen />
+            <StudentProgressProvider>
+              <CrossDeviceSyncProvider>
+                <FontScaleHydrator />
+                <OfflineGuard />
+                <SplashScreen />
 
-            <RateAppPrompt />
-            <UpdateBanner />
-            {children}
-            <CookieBanner />
-            <AndroidBackButtonHandler />
-            <TranslateWidget />
-            <SearchWidget />
-            <GlobalNavigationWidget />
+                <RateAppPrompt />
+                <UpdateBanner />
+                {children}
+                <CookieBanner />
+                <AndroidBackButtonHandler />
+                <TranslateWidget />
+                <SearchWidget />
+                <GlobalNavigationWidget />
 
-            <BottomNavigation />
+                <BottomNavigation />
+              </CrossDeviceSyncProvider>
+            </StudentProgressProvider>
           </ProgressProvider>
         </ThemeProvider>
       </body>

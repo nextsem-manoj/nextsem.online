@@ -100,6 +100,14 @@ export default function SimpleHeroClient() {
                 </Link>
 
                 <Link
+                  href="/bca/practical"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-extrabold text-sm sm:text-base shadow-lg shadow-blue-500/25 transition-all transform hover:-translate-y-0.5"
+                >
+                  <Laptop className="w-4 h-4 text-white" />
+                  <span>50-Day Practical Lab ⚡</span>
+                </Link>
+
+                <Link
                   href="/tracks"
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 text-white font-bold text-sm sm:text-base border border-slate-700/80 transition-all hover:border-slate-500"
                 >
@@ -391,7 +399,28 @@ export default function SimpleHeroClient() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+            {/* 50-Day BCA Practical Lab */}
+            <Link
+              href="/bca/practical"
+              className="p-5 rounded-xl bg-[#17181c] border border-slate-800 hover:border-emerald-500 transition-all group flex items-start gap-4"
+            >
+              <div className="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center flex-shrink-0">
+                <Laptop className="w-6 h-6 text-emerald-400" />
+              </div>
+              <div className="space-y-1">
+                <h3 className="text-sm font-bold text-white group-hover:text-emerald-400 transition-colors">
+                  ⚡ 50-Day BCA Practical Lab
+                </h3>
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  Real VS Code specs, GitHub verification tests, and daily viva checks across 50 days of coding.
+                </p>
+                <span className="text-[11px] text-emerald-400 font-semibold inline-block pt-1">
+                  50 Daily Sprints • Live Lab »
+                </span>
+              </div>
+            </Link>
+
             {/* Windows 11 CLI */}
             <Link
               href="/cli"

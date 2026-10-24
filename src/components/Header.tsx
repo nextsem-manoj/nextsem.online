@@ -84,6 +84,12 @@ const Header = () => {
               Git
             </Link>
             <Link
+              href="/bca/practical"
+              className="px-3 py-1.5 rounded-lg text-emerald-400 hover:bg-slate-800/80 transition-colors font-bold"
+            >
+              BCA Lab ⚡
+            </Link>
+            <Link
               href="/projects"
               className="px-3 py-1.5 rounded-lg hover:text-[#04AA6D] hover:bg-slate-800/80 transition-colors"
             >

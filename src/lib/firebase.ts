@@ -1,5 +1,15 @@
 import { initializeApp, getApps, getApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithCredential } from "firebase/auth";
+import { 
+  getAuth, 
+  GoogleAuthProvider, 
+  signInWithPopup, 
+  signInWithRedirect,
+  getRedirectResult,
+  signInWithCredential,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  updateProfile
+} from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { Capacitor } from "@capacitor/core";
 
@@ -36,8 +46,30 @@ async function signInWithGoogle() {
     const credential = GoogleAuthProvider.credential(googleUser.authentication.idToken);
     return signInWithCredential(auth, credential);
   } else {
-    return signInWithPopup(auth, googleProvider);
+    try {
+      return await signInWithPopup(auth, googleProvider);
+    } catch (popupErr: any) {
+      if (popupErr?.code === "auth/popup-blocked" || popupErr?.code === "auth/cancelled-popup-request") {
+        return await signInWithRedirect(auth, googleProvider);
+      }
+      throw popupErr;
+    }
   }
 }
 
-export { app, auth, googleProvider, db, signInWithGoogle };
+export { 
+  app, 
+  auth, 
+  googleProvider, 
+  GoogleAuthProvider,
+  db, 
+  signInWithGoogle,
+  signInWithPopup,
+  signInWithRedirect,
+  getRedirectResult,
+  signInWithCredential,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  updateProfile
+};
+
