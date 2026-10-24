@@ -129,6 +129,7 @@ import SplashScreen from "../components/SplashScreen";
 import RateAppPrompt from "../components/RateAppPrompt";
 import OfflineGuard from "../components/OfflineGuard";
 import { FontScaleHydrator } from "../components/FontSizeControl";
+import LearningPathOnboardingModal from "../components/LearningPathOnboardingModal";
 
 
 export default function RootLayout({
@@ -186,6 +187,7 @@ export default function RootLayout({
 
                 <RateAppPrompt />
                 <UpdateBanner />
+                <LearningPathOnboardingModal />
                 {children}
                 <CookieBanner />
                 <AndroidBackButtonHandler />

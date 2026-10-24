@@ -35,11 +35,22 @@ const Header = () => {
               Tracks
             </Link>
             <Link
-              href="/guide"
-              className="px-3 py-1.5 rounded-lg hover:text-[#04AA6D] hover:bg-slate-800/80 transition-colors text-white font-bold flex items-center gap-1"
+              href="/school"
+              className="px-3 py-1.5 rounded-lg text-amber-400 hover:bg-slate-800/80 transition-colors font-bold"
             >
-              <Compass size={13} className="text-[#04AA6D]" />
-              <span>Learning Guide</span>
+              Schooling 🎒
+            </Link>
+            <Link
+              href="/bca"
+              className="px-3 py-1.5 rounded-lg text-blue-400 hover:bg-slate-800/80 transition-colors font-bold"
+            >
+              College 🎓
+            </Link>
+            <Link
+              href="/bca/practical"
+              className="px-3 py-1.5 rounded-lg text-emerald-400 hover:bg-slate-800/80 transition-colors font-bold"
+            >
+              BCA Lab ⚡
             </Link>
             <Link
               href="/html"
@@ -84,12 +95,6 @@ const Header = () => {
               Git
             </Link>
             <Link
-              href="/bca/practical"
-              className="px-3 py-1.5 rounded-lg text-emerald-400 hover:bg-slate-800/80 transition-colors font-bold"
-            >
-              BCA Lab ⚡
-            </Link>
-            <Link
               href="/projects"
               className="px-3 py-1.5 rounded-lg hover:text-[#04AA6D] hover:bg-slate-800/80 transition-colors"
             >
@@ -106,6 +111,17 @@ const Header = () => {
 
         {/* Right Action: Search Trigger & Quick Links */}
         <div className="flex items-center gap-2 sm:gap-3">
+          {/* Learning Goal Switcher Button */}
+          <button
+            onClick={() => window.dispatchEvent(new CustomEvent("open_learning_path_modal"))}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-neutral-800/90 hover:bg-neutral-700 border border-neutral-700 hover:border-amber-500/50 text-slate-200 hover:text-white text-xs font-bold transition-all cursor-pointer shadow-sm"
+            title="Switch Learning Goal (Schooling, College, Skills)"
+          >
+            <span>🎯</span>
+            <span className="hidden sm:inline">Path</span>
+            <span className="text-[10px] text-slate-400">▾</span>
+          </button>
+
           {/* Quick Search Button */}
           <button
             onClick={() => window.dispatchEvent(new CustomEvent("open_search", { detail: { query: "" } }))}

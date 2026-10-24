@@ -73,7 +73,29 @@ export default function SimpleHeroClient() {
               {/* Badge */}
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs sm:text-sm font-bold shadow-sm">
                 <Sparkles className="w-4 h-4 text-[#04AA6D]" />
-                <span>100% Free Developer Curriculum • Zero Paywalls</span>
+                <span>100% Free Complete Curriculum • KG to Job Placement</span>
+              </div>
+
+              {/* 3 Pathway Quick Switcher */}
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2">
+                <Link
+                  href="/school"
+                  className="px-3.5 py-1.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-300 text-xs font-bold transition-all flex items-center gap-1.5"
+                >
+                  <span>🎒 Schooling (1-12)</span>
+                </Link>
+                <Link
+                  href="/bca"
+                  className="px-3.5 py-1.5 rounded-xl bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/30 text-blue-300 text-xs font-bold transition-all flex items-center gap-1.5"
+                >
+                  <span>🎓 College (BCA/Degree)</span>
+                </Link>
+                <Link
+                  href="/bca/practical"
+                  className="px-3.5 py-1.5 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 text-xs font-bold transition-all flex items-center gap-1.5"
+                >
+                  <span>💻 Skill-Based (Coding Lab)</span>
+                </Link>
               </div>
 
               {/* Main Headline */}
