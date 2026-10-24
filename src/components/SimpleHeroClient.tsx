@@ -19,6 +19,7 @@ import {
   Copy,
   Check,
   Compass,
+  GraduationCap,
 } from "lucide-react";
 import WindowsIcon from "@/components/WindowsIcon";
 
@@ -54,7 +55,7 @@ export default function SimpleHeroClient() {
             <span>Home</span>
           </Link>
           <span className="text-slate-600 font-normal">❯</span>
-          <span className="text-[#04AA6D] font-semibold">Web Developer Academy</span>
+          <span className="text-[#04AA6D] font-semibold">Nextsem Academy • Universal Education Platform (KG to 12th, College &amp; Coding)</span>
         </div>
       </nav>
 
@@ -111,38 +112,38 @@ export default function SimpleHeroClient() {
                 100% Free Coaching by <strong>Er. Manoj Kumar</strong>. Foundational Schooling (Class 1–12 Science, Commerce &amp; Arts), College Degrees (BCA, MCA, B.Tech CSE), and 50-Day Practical Coding Labs verified live on <span className="text-white font-bold inline-flex items-center gap-1"><WindowsIcon className="w-4 h-4 inline-block text-cyan-400" /> Windows 11</span> VS Code.
               </p>
 
-              {/* CTA Buttons */}
-              <div className="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5">
+              {/* Primary 3-Pathway CTA Buttons */}
+              <div className="pt-2 flex flex-wrap items-center justify-center lg:justify-start gap-3">
                 <Link
-                  href="/html"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-[#04AA6D] hover:bg-[#039861] text-white font-extrabold text-sm sm:text-base shadow-lg shadow-emerald-500/25 transition-all transform hover:-translate-y-0.5 active:translate-y-0"
+                  href="/school"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black font-extrabold text-sm sm:text-base shadow-lg shadow-amber-500/20 transition-all transform hover:-translate-y-0.5"
                 >
-                  <Play className="w-4 h-4 fill-white" />
-                  <span>Start Learning Free »</span>
+                  <BookOpen className="w-4 h-4 text-black" />
+                  <span>🎒 Schooling Hub (KG-12) »</span>
+                </Link>
+
+                <Link
+                  href="/bca"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-extrabold text-sm sm:text-base shadow-lg shadow-blue-500/25 transition-all transform hover:-translate-y-0.5"
+                >
+                  <GraduationCap className="w-4 h-4 text-white" />
+                  <span>🎓 College Hub (BCA) »</span>
                 </Link>
 
                 <Link
                   href="/bca/practical"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-extrabold text-sm sm:text-base shadow-lg shadow-blue-500/25 transition-all transform hover:-translate-y-0.5"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-[#04AA6D] hover:bg-[#039861] text-white font-extrabold text-sm sm:text-base shadow-lg shadow-emerald-500/25 transition-all transform hover:-translate-y-0.5"
                 >
                   <Laptop className="w-4 h-4 text-white" />
-                  <span>50-Day Practical Lab ⚡</span>
+                  <span>💻 50-Day Coding Lab ⚡</span>
                 </Link>
 
                 <Link
                   href="/tracks"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 text-white font-bold text-sm sm:text-base border border-slate-700/80 transition-all hover:border-slate-500"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 text-white font-bold text-sm sm:text-base border border-slate-700/80 transition-all hover:border-slate-500"
                 >
                   <Compass className="w-4 h-4 text-[#04AA6D]" />
-                  <span>Explore 4-Step Pathway</span>
-                </Link>
-
-                <Link
-                  href="/playground"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-cyan-950/40 hover:bg-cyan-900/40 text-cyan-300 font-bold text-sm sm:text-base border border-cyan-800/60 transition-all"
-                >
-                  <Zap className="w-4 h-4 text-cyan-400" />
-                  <span>Live Playground ⚡</span>
+                  <span>Web Dev Tracks</span>
                 </Link>
               </div>
 
@@ -231,17 +232,191 @@ export default function SimpleHeroClient() {
         </div>
       </section>
 
-      {/* ── 2. "WHERE TO START" — THE 4-STEP DEVELOPER PATHWAY ── */}
+      {/* ── 2. THE 3 PRIMARY LEARNING GATEWAYS ── */}
+      <section id="gateways" className="py-14 md:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full border-b border-slate-800/80">
+        <div className="text-center max-w-3xl mx-auto space-y-3 mb-12">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-800 text-amber-400 text-xs font-extrabold uppercase tracking-wider border border-slate-700">
+            <span>🎯</span>
+            <span>Choose Your Learning Gateway</span>
+          </div>
+          <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
+            The 3 Core Learning Pathways
+          </h2>
+          <p className="text-sm sm:text-base text-slate-400 font-normal">
+            Whether you need school coaching, college degree preparation, or job-ready software engineering skills, select your pathway below.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Pathway 1: Schooling */}
+          <div className="rounded-3xl bg-gradient-to-b from-[#15161c] to-[#0f1015] border border-amber-500/30 hover:border-amber-400 p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-amber-950/20 flex flex-col justify-between group">
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <span className="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-2xl">
+                  🎒
+                </span>
+                <span className="text-[11px] font-black uppercase px-2.5 py-1 rounded-full bg-amber-950/80 text-amber-300 border border-amber-800">
+                  KG to 12th
+                </span>
+              </div>
+
+              <div>
+                <h3 className="text-xl font-extrabold text-white group-hover:text-amber-400 transition-colors">
+                  Schooling Hub
+                </h3>
+                <p className="text-xs text-slate-400 mt-2 leading-relaxed">
+                  Complete NCERT Class 1–12 education, authentic 3D book covers, bilingual notes (English &amp; हिंदी), and all 3 senior secondary streams.
+                </p>
+              </div>
+
+              <ul className="space-y-2 text-xs text-slate-300 border-t border-slate-800/80 pt-4">
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-amber-400 shrink-0" />
+                  <span>NCERT Textbooks &amp; Solved Exercises (1-12)</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-amber-400 shrink-0" />
+                  <span>Class 11 &amp; 12: Science, Commerce &amp; Arts</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-amber-400 shrink-0" />
+                  <span>140+ Interactive Studios &amp; Solved Worksheets</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-amber-400 shrink-0" />
+                  <span>Middle School Doubt Diagnostic Studio</span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="pt-6 mt-4 border-t border-slate-800/60">
+              <Link
+                href="/school"
+                className="w-full inline-flex items-center justify-between px-5 py-3 rounded-xl bg-amber-500/10 hover:bg-amber-500 text-amber-300 hover:text-black font-extrabold text-xs transition-colors border border-amber-500/30 hover:border-amber-500 shadow-sm"
+              >
+                <span>Enter Schooling Hub »</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
+
+          {/* Pathway 2: College */}
+          <div className="rounded-3xl bg-gradient-to-b from-[#15161c] to-[#0f1015] border border-blue-500/30 hover:border-blue-400 p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-blue-950/20 flex flex-col justify-between group">
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <span className="w-12 h-12 rounded-2xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-2xl">
+                  🎓
+                </span>
+                <span className="text-[11px] font-black uppercase px-2.5 py-1 rounded-full bg-blue-950/80 text-blue-300 border border-blue-800">
+                  Degrees &amp; BCA
+                </span>
+              </div>
+
+              <div>
+                <h3 className="text-xl font-extrabold text-white group-hover:text-blue-400 transition-colors">
+                  College Education Hub
+                </h3>
+                <p className="text-xs text-slate-400 mt-2 leading-relaxed">
+                  University degree courses (BCA, MCA, B.Tech CSE), comprehensive semester-wise syllabi, theory units, and exam preparation guides.
+                </p>
+              </div>
+
+              <ul className="space-y-2 text-xs text-slate-300 border-t border-slate-800/80 pt-4">
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-blue-400 shrink-0" />
+                  <span>BCA Semesters 1 to 6 Complete Syllabi</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-blue-400 shrink-0" />
+                  <span>C, C++, Data Structures, DBMS, Java &amp; OS</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-blue-400 shrink-0" />
+                  <span>University Solved Question Banks &amp; Papers</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-blue-400 shrink-0" />
+                  <span>Official Reference Links &amp; Exam Notes</span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="pt-6 mt-4 border-t border-slate-800/60">
+              <Link
+                href="/bca"
+                className="w-full inline-flex items-center justify-between px-5 py-3 rounded-xl bg-blue-500/10 hover:bg-blue-600 text-blue-300 hover:text-white font-extrabold text-xs transition-colors border border-blue-500/30 hover:border-blue-500 shadow-sm"
+              >
+                <span>Enter College Hub »</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
+
+          {/* Pathway 3: Coding Lab */}
+          <div className="rounded-3xl bg-gradient-to-b from-[#15161c] to-[#0f1015] border border-emerald-500/30 hover:border-emerald-400 p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-emerald-950/20 flex flex-col justify-between group">
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <span className="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-2xl">
+                  💻
+                </span>
+                <span className="text-[11px] font-black uppercase px-2.5 py-1 rounded-full bg-emerald-950/80 text-emerald-300 border border-emerald-800">
+                  Job-Ready Labs
+                </span>
+              </div>
+
+              <div>
+                <h3 className="text-xl font-extrabold text-white group-hover:text-emerald-400 transition-colors">
+                  Skill-Based Coding Labs
+                </h3>
+                <p className="text-xs text-slate-400 mt-2 leading-relaxed">
+                  50-Day Practical Coding Labs verified live from your personal GitHub repository, plus full-stack web development and terminal workflow.
+                </p>
+              </div>
+
+              <ul className="space-y-2 text-xs text-slate-300 border-t border-slate-800/80 pt-4">
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <span>50-Day Hands-on VS Code Guided Specifications</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <span>Live GitHub Push Verification to Unlock Next Day</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <span>Full-Stack Web Dev: HTML5, CSS3, JS, React, Node</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <span>Technical Viva simulation &amp; verified portfolio</span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="pt-6 mt-4 border-t border-slate-800/60">
+              <Link
+                href="/bca/practical"
+                className="w-full inline-flex items-center justify-between px-5 py-3 rounded-xl bg-emerald-500/10 hover:bg-emerald-500 text-emerald-300 hover:text-black font-extrabold text-xs transition-colors border border-emerald-500/30 hover:border-emerald-500 shadow-sm"
+              >
+                <span>Enter 50-Day Coding Lab ⚡ »</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 3. "SKILL-BASED CODING TRACK" — THE 4-STEP DEVELOPER PATHWAY ── */}
       <section id="pathways" className="py-16 md:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
         <div className="text-center max-w-3xl mx-auto space-y-3 mb-12">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-800 text-[#04AA6D] text-xs font-extrabold uppercase tracking-wider">
-            Clear Structured Steps
+            Web &amp; Software Placement
           </div>
           <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
-            The 4-Step Learning Pathway
+            Full-Stack Developer Learning Pathway
           </h2>
           <p className="text-sm sm:text-base text-slate-400 font-normal">
-            Never wonder what to learn next. Follow this sequential, battle-tested roadmap from zero to production developer.
+            Step-by-step developer progression from markup basics to production cloud deployment on Windows 11.
           </p>
         </div>
 
