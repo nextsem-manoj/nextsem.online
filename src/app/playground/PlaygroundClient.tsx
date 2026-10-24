@@ -677,6 +677,10 @@ export default function PlaygroundClient() {
   const [readmeCode, setReadmeCode] = useState<string>(DEFAULT_README);
   const [pkgJsonCode, setPkgJsonCode] = useState<string>(DEFAULT_PACKAGE_JSON);
 
+  /* Mobile View States */
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+  const [mobileTab, setMobileTab] = useState<"code" | "preview">("code");
+
   /* VS Code UI Layout States */
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(true);
   const [activeActivity, setActiveActivity] = useState<"explorer" | "search" | "git" | "debug" | "extensions">("explorer");
@@ -859,8 +863,25 @@ export default function PlaygroundClient() {
 </html>`;
   };
 
+  // Mobile viewport detector & responsive initializer
+  useEffect(() => {
+    const handleResize = () => {
+      const mobile = window.innerWidth < 768;
+      setIsMobile(mobile);
+      if (mobile) {
+        setIsSidebarOpen(false); // auto-collapse sidebar on phone so editor has 100% width
+      }
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   // Compile and run in live preview
   const compileAndRun = () => {
+    if (window.innerWidth < 768) {
+      setMobileTab("preview");
+    }
     if (layoutMode === "hidden") setLayoutMode("top");
     setTimeout(() => {
       if (!iframeRef.current) return;
@@ -872,6 +893,22 @@ export default function PlaygroundClient() {
       }
     }, 50);
   };
+
+  // Sync code to mobile full-screen preview when active
+  useEffect(() => {
+    if (isMobile && mobileTab === "preview") {
+      const timer = setTimeout(() => {
+        if (!iframeRef.current) return;
+        const doc = iframeRef.current.contentDocument || iframeRef.current.contentWindow?.document;
+        if (doc) {
+          doc.open();
+          doc.write(generateCombinedDoc());
+          doc.close();
+        }
+      }, 60);
+      return () => clearTimeout(timer);
+    }
+  }, [isMobile, mobileTab, htmlCode, cssCode, jsCode]);
 
   // Auto Live Reload (Hot Reload) when typing if Live Server is active
   useEffect(() => {
@@ -1038,6 +1075,10 @@ export default function PlaygroundClient() {
       setOpenTabs([...openTabs, filename]);
     }
     setActiveFile(filename);
+    if (isMobile) {
+      setIsSidebarOpen(false);
+      setMobileTab("code");
+    }
   };
 
   const closeTab = (e: React.MouseEvent, filename: string) => {
@@ -1349,7 +1390,7 @@ export default function PlaygroundClient() {
         {/* Center: Command Palette / File Quick Open Omnibar */}
         <div 
           onClick={() => setIsCommandPaletteOpen(true)}
-          className="flex items-center gap-2 bg-[#1e1e1e] hover:bg-[#252526] border border-[#3c3c3c] hover:border-[#04AA6D]/60 px-3 py-0.5 rounded text-[11px] text-[#858585] max-w-sm sm:max-w-md w-full justify-between shadow-inner cursor-pointer transition-all"
+          className="hidden sm:flex items-center gap-2 bg-[#1e1e1e] hover:bg-[#252526] border border-[#3c3c3c] hover:border-[#04AA6D]/60 px-3 py-0.5 rounded text-[11px] text-[#858585] max-w-sm sm:max-w-md w-full justify-between shadow-inner cursor-pointer transition-all"
           title="Open Command Palette (Ctrl+Shift+P / F1)"
         >
           <div className="flex items-center gap-1.5 truncate">
@@ -1379,7 +1420,7 @@ export default function PlaygroundClient() {
           {/* Toggle Layout (Top Drawer vs Split Right) */}
           <button
             onClick={() => setLayoutMode(layoutMode === "top" ? "split" : layoutMode === "split" ? "hidden" : "top")}
-            className={`p-1 rounded hover:bg-[#454545] transition-colors ${layoutMode !== "hidden" ? "text-[#04AA6D]" : "text-[#cccccc]"}`}
+            className={`hidden md:block p-1 rounded hover:bg-[#454545] transition-colors ${layoutMode !== "hidden" ? "text-[#04AA6D]" : "text-[#cccccc]"}`}
             title={`Toggle Live Preview Layout (Current: ${layoutMode.toUpperCase()})`}
           >
             {layoutMode === "split" ? <Columns size={13} /> : layoutMode === "top" ? <Split size={13} /> : <EyeOff size={13} />}
@@ -1388,7 +1429,7 @@ export default function PlaygroundClient() {
           {/* Toggle Bottom Terminal Panel */}
           <button
             onClick={() => setShowBottomPanel(!showBottomPanel)}
-            className={`p-1 rounded hover:bg-[#454545] transition-colors ${showBottomPanel ? "text-[#04AA6D]" : "text-[#cccccc]"}`}
+            className={`hidden sm:block p-1 rounded hover:bg-[#454545] transition-colors ${showBottomPanel ? "text-[#04AA6D]" : "text-[#cccccc]"}`}
             title="Toggle Integrated Terminal (Ctrl+`)"
           >
             <Terminal size={13} />
@@ -1416,11 +1457,71 @@ export default function PlaygroundClient() {
 
       </header>
 
+      {/* ── MOBILE WORKSPACE STRIP (< 768px) ── */}
+      <div className="md:hidden bg-[#252526] border-b border-[#1e1e1e] px-2.5 py-1.5 flex items-center justify-between z-30 shrink-0">
+        {/* Mobile Tab Switcher */}
+        <div className="flex items-center bg-[#1e1e1e] p-0.5 rounded-lg border border-[#3c3c3c]">
+          <button
+            onClick={() => setMobileTab("code")}
+            className={`px-3 py-1 rounded-md text-xs font-sans font-bold flex items-center gap-1.5 transition-all ${
+              mobileTab === "code"
+                ? "bg-[#007acc] text-white shadow-sm"
+                : "text-[#858585] hover:text-white"
+            }`}
+          >
+            <Code2 size={13} />
+            <span>Editor</span>
+          </button>
+          <button
+            onClick={() => {
+              compileAndRun();
+              setMobileTab("preview");
+            }}
+            className={`px-3 py-1 rounded-md text-xs font-sans font-bold flex items-center gap-1.5 transition-all ${
+              mobileTab === "preview"
+                ? "bg-[#04AA6D] text-white shadow-sm"
+                : "text-[#858585] hover:text-white"
+            }`}
+          >
+            <Play size={12} className={mobileTab === "preview" ? "fill-white" : ""} />
+            <span>Preview</span>
+          </button>
+        </div>
+
+        {/* Mobile Quick Actions */}
+        <div className="flex items-center gap-1.5">
+          <button
+            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+            className={`px-2.5 py-1 rounded-md text-xs font-sans font-medium flex items-center gap-1 border transition-colors ${
+              isSidebarOpen
+                ? "bg-[#37373d] text-white border-[#007acc]"
+                : "bg-[#1e1e1e] text-[#cccccc] border-[#3c3c3c] hover:bg-[#2d2d2d]"
+            }`}
+            title="Open Files Explorer"
+          >
+            <Folder size={12} className="text-[#dcb67a]" />
+            <span>Files</span>
+          </button>
+
+          <button
+            onClick={() => {
+              compileAndRun();
+              showToast("⚡ Code compiled and running in Preview!");
+            }}
+            className="px-2.5 py-1 bg-[#04AA6D] hover:bg-[#039861] text-white text-xs font-sans font-bold rounded-md flex items-center gap-1 shadow-sm active:scale-95 transition-all"
+            title="Run Code"
+          >
+            <Flame size={12} className="fill-white" />
+            <span>Run</span>
+          </button>
+        </div>
+      </div>
+
       {/* ── 2. MAIN VS CODE WORKSPACE: ACTIVITY BAR + SIDEBAR + CODE EDITOR + LIVE SANDBOX ── */}
       <div className="flex-1 flex min-h-0 relative">
         
         {/* ── A. ACTIVITY BAR (SLIM LEFT ICON STRIP) ── */}
-        <aside className="w-12 bg-[#333333] border-r border-[#252526] flex flex-col justify-between items-center py-1 shrink-0 z-20">
+        <aside className="hidden md:flex w-12 bg-[#333333] border-r border-[#252526] flex-col justify-between items-center py-1 shrink-0 z-20">
           
           {/* Top Activity Icons */}
           <div className="flex flex-col gap-1 w-full items-center">
@@ -1540,13 +1641,21 @@ export default function PlaygroundClient() {
 
         </aside>
 
+        {/* Mobile Sidebar Backdrop */}
+        {isSidebarOpen && (
+          <div 
+            className="md:hidden fixed inset-0 bg-black/70 z-40 backdrop-blur-xs animate-in fade-in duration-150"
+            onClick={() => setIsSidebarOpen(false)}
+          />
+        )}
+
         {/* ── B. PRIMARY SIDE BAR (EXPLORER / SEARCH / GIT / EXTENSIONS) ── */}
         {isSidebarOpen && (
-          <div className="w-60 sm:w-64 bg-[#252526] border-r border-[#1e1e1e] flex flex-col shrink-0 text-xs select-none z-10">
+          <div className="fixed md:relative inset-y-0 left-0 z-50 md:z-10 w-72 md:w-60 lg:w-64 bg-[#252526] border-r border-[#1e1e1e] flex flex-col shrink-0 text-xs select-none shadow-2xl md:shadow-none animate-in slide-in-from-left duration-200">
             
             {/* Sidebar Header Title with Actions */}
             <div className="px-4 py-2 flex items-center justify-between text-[11px] font-sans font-bold tracking-wider text-[#bbbbbb] uppercase border-b border-[#1e1e1e]">
-              <span>
+              <span className="truncate">
                 {activeActivity === "explorer" && "Explorer: Nextsem-Workspace"}
                 {activeActivity === "search" && "Search & Replace"}
                 {activeActivity === "git" && "Source Control: Git"}
@@ -1554,7 +1663,7 @@ export default function PlaygroundClient() {
                 {activeActivity === "extensions" && "Extensions"}
               </span>
               
-              <div className="flex items-center gap-1">
+              <div className="flex items-center gap-1 shrink-0">
                 {activeActivity === "explorer" && (
                   <>
                     <button onClick={() => openFile("index.html")} className="p-0.5 hover:text-white text-[#858585]" title="New File">
@@ -1567,10 +1676,11 @@ export default function PlaygroundClient() {
                 )}
                 <button 
                   onClick={() => setIsSidebarOpen(false)}
-                  className="p-0.5 hover:text-white text-[#858585] ml-1"
-                  title="Hide Sidebar (Ctrl+B)"
+                  className="p-1 hover:text-white text-[#858585] ml-1 flex items-center gap-1 text-[11px] font-sans"
+                  title="Close Sidebar"
                 >
-                  <Minimize2 size={12} />
+                  <X size={14} className="md:hidden" />
+                  <Minimize2 size={12} className="hidden md:inline" />
                 </button>
               </div>
             </div>
@@ -1982,91 +2092,138 @@ export default function PlaygroundClient() {
         {/* ── C. MAIN EDITOR CONTAINER WITH TABS, BREADCRUMBS, GLOVE & PREVIEW ── */}
         <div className={`flex-1 flex flex-col min-w-0 ${editorBg} overflow-hidden`}>
           
-          {/* 1. Editor Tabs Bar */}
-          <div className="bg-[#252526] flex items-center justify-between border-b border-[#1e1e1e] shrink-0 overflow-x-auto select-none">
-            <div className="flex items-center">
-              {openTabs.map((tab) => (
-                <div
-                  key={tab}
-                  onClick={() => setActiveFile(tab)}
-                  className={`flex items-center gap-2 px-3 py-1.5 text-xs border-r border-[#1e1e1e] cursor-pointer group transition-colors ${
-                    activeFile === tab
-                      ? "bg-[#1e1e1e] text-white border-t-2 border-t-[#007acc] font-medium"
-                      : "bg-[#2d2d2d] text-[#969696] hover:bg-[#252526]"
-                  }`}
-                >
-                  {getFileIcon(tab)}
-                  <span className="font-mono text-[11px]">{tab}</span>
-                  <button
-                    onClick={(e) => closeTab(e, tab)}
-                    className="opacity-0 group-hover:opacity-100 hover:text-white rounded-full p-0.5 transition-opacity"
+          {/* 1. Editor Tabs Bar (Visible on desktop or when mobileTab is code) */}
+          {(!isMobile || mobileTab === "code") && (
+            <div className="bg-[#252526] flex items-center justify-between border-b border-[#1e1e1e] shrink-0 overflow-x-auto select-none">
+              <div className="flex items-center">
+                {openTabs.map((tab) => (
+                  <div
+                    key={tab}
+                    onClick={() => {
+                      setActiveFile(tab);
+                      if (isMobile) setMobileTab("code");
+                    }}
+                    className={`flex items-center gap-2 px-3 py-1.5 text-xs border-r border-[#1e1e1e] cursor-pointer group transition-colors ${
+                      activeFile === tab
+                        ? "bg-[#1e1e1e] text-white border-t-2 border-t-[#007acc] font-medium"
+                        : "bg-[#2d2d2d] text-[#969696] hover:bg-[#252526]"
+                    }`}
                   >
-                    <X size={10} />
+                    {getFileIcon(tab)}
+                    <span className="font-mono text-[11px]">{tab}</span>
+                    <button
+                      onClick={(e) => closeTab(e, tab)}
+                      className="opacity-0 group-hover:opacity-100 hover:text-white rounded-full p-0.5 transition-opacity"
+                    >
+                      <X size={10} />
+                    </button>
+                  </div>
+                ))}
+
+                {/* Add New Tab Button */}
+                <button
+                  onClick={() => openFile("README.md")}
+                  className="p-1.5 text-[#858585] hover:text-white transition-colors"
+                  title="Open Other Files"
+                >
+                  <Plus size={12} />
+                </button>
+              </div>
+
+              {/* Tab Bar Action Icons */}
+              <div className="flex items-center gap-1 px-3">
+                {/* Green Run Shortcut */}
+                <button
+                  onClick={compileAndRun}
+                  className="p-1 hover:bg-[#3c3c3c] rounded text-[#04AA6D] hover:text-white transition-colors"
+                  title="Run in Live Preview (Ctrl+Enter)"
+                >
+                  <Play size={13} className="fill-[#04AA6D]" />
+                </button>
+                
+                {/* Split Editor Toggle */}
+                <button
+                  onClick={() => setLayoutMode(layoutMode === "split" ? "top" : "split")}
+                  className={`hidden md:block p-1 hover:bg-[#3c3c3c] rounded transition-colors ${layoutMode === "split" ? "text-[#007acc]" : "text-[#cccccc]"}`}
+                  title="Toggle Split Screen Live Preview"
+                >
+                  <Split size={13} />
+                </button>
+
+                {/* Copy Code */}
+                <button
+                  onClick={handleCopy}
+                  className="p-1 hover:bg-[#3c3c3c] rounded text-[#cccccc] transition-colors"
+                  title="Copy Active Code"
+                >
+                  {copied ? <Check size={13} className="text-[#04AA6D]" /> : <Copy size={13} />}
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* 2. Breadcrumbs Bar (Visible on desktop or when mobileTab is code) */}
+          {(!isMobile || mobileTab === "code") && (
+            <div className="bg-[#1e1e1e] px-3 sm:px-4 py-1 text-[10px] sm:text-[11px] text-[#858585] border-b border-[#252526] flex items-center gap-1.5 select-none font-sans overflow-x-auto">
+              <span className="hover:text-white cursor-pointer">nextsem-workspace</span>
+              <span>›</span>
+              <span className="hover:text-white cursor-pointer">src</span>
+              <span>›</span>
+              <span className="text-[#cccccc] font-mono">{activeFile}</span>
+              <span>›</span>
+              <span className="text-[#858585] font-mono text-[10px]">
+                {activeFile === "index.html" ? "<body>" : activeFile === "style.css" ? ".app-container" : "updateCount()"}
+              </span>
+            </div>
+          )}
+
+          {/* ── 3A. MOBILE FULL-SCREEN PREVIEW (< 768px when mobileTab === "preview") ── */}
+          {isMobile && mobileTab === "preview" && (
+            <div className="flex-1 flex flex-col h-full w-full bg-[#141414] overflow-hidden">
+              {/* Mobile Simple Browser Header */}
+              <div className="bg-[#2d2d2d] px-3 py-1.5 border-b border-[#1e1e1e] flex items-center justify-between text-xs select-none shrink-0">
+                <div className="flex items-center gap-2 flex-1 min-w-0 mr-2">
+                  <span className="w-2 h-2 rounded-full bg-[#04AA6D] animate-pulse shrink-0" />
+                  <div className="flex-1 bg-[#1e1e1e] border border-[#3c3c3c] px-2.5 py-0.5 rounded text-[11px] text-[#cccccc] font-mono truncate">
+                    http://127.0.0.1:5500/{activeFile === "README.md" ? "index.html" : activeFile}
+                  </div>
+                </div>
+                <div className="flex items-center gap-1.5 shrink-0">
+                  <button
+                    onClick={compileAndRun}
+                    className="p-1.5 bg-[#1e1e1e] hover:bg-[#3c3c3c] rounded text-[#04AA6D] border border-[#3c3c3c]"
+                    title="Refresh Live View"
+                  >
+                    <RefreshCw size={12} />
+                  </button>
+                  <button
+                    onClick={() => setMobileTab("code")}
+                    className="px-2.5 py-1 bg-[#007acc] hover:bg-[#0062a3] text-white rounded text-[11px] font-sans font-bold flex items-center gap-1 shadow-xs"
+                    title="Return to Code Editor"
+                  >
+                    <Code2 size={12} />
+                    <span>Editor</span>
                   </button>
                 </div>
-              ))}
+              </div>
 
-              {/* Add New Tab Button */}
-              <button
-                onClick={() => openFile("README.md")}
-                className="p-1.5 text-[#858585] hover:text-white transition-colors"
-                title="Open Other Files"
-              >
-                <Plus size={12} />
-              </button>
+              {/* Full Mobile Sandboxed Iframe */}
+              <div className="flex-1 w-full h-full bg-white overflow-hidden">
+                <iframe
+                  ref={iframeRef}
+                  title="VS Code Mobile Live Preview"
+                  sandbox="allow-scripts allow-modals"
+                  className="w-full h-full border-0"
+                />
+              </div>
             </div>
+          )}
 
-            {/* Tab Bar Action Icons */}
-            <div className="flex items-center gap-1 px-3">
-              {/* Green Run Shortcut */}
-              <button
-                onClick={compileAndRun}
-                className="p-1 hover:bg-[#3c3c3c] rounded text-[#04AA6D] hover:text-white transition-colors"
-                title="Run in Live Preview (Ctrl+Enter)"
-              >
-                <Play size={13} className="fill-[#04AA6D]" />
-              </button>
-              
-              {/* Split Editor Toggle */}
-              <button
-                onClick={() => setLayoutMode(layoutMode === "split" ? "top" : "split")}
-                className={`p-1 hover:bg-[#3c3c3c] rounded transition-colors ${layoutMode === "split" ? "text-[#007acc]" : "text-[#cccccc]"}`}
-                title="Toggle Split Screen Live Preview"
-              >
-                <Split size={13} />
-              </button>
-
-              {/* Copy Code */}
-              <button
-                onClick={handleCopy}
-                className="p-1 hover:bg-[#3c3c3c] rounded text-[#cccccc] transition-colors"
-                title="Copy Active Code"
-              >
-                {copied ? <Check size={13} className="text-[#04AA6D]" /> : <Copy size={13} />}
-              </button>
-            </div>
-          </div>
-
-          {/* 2. Breadcrumbs Bar */}
-          <div className="bg-[#1e1e1e] px-4 py-1 text-[11px] text-[#858585] border-b border-[#252526] flex items-center gap-1.5 select-none font-sans">
-            <span className="hover:text-white cursor-pointer">nextsem-workspace</span>
-            <span>›</span>
-            <span className="hover:text-white cursor-pointer">src</span>
-            <span>›</span>
-            <span className="text-[#cccccc] font-mono">{activeFile}</span>
-            <span>›</span>
-            <span className="text-[#858585] font-mono text-[10px]">
-              {activeFile === "index.html" ? "<body>" : activeFile === "style.css" ? ".app-container" : "updateCount()"}
-            </span>
-          </div>
-
-          {/* ── 3. LIVE SANDBOX PREVIEW (TOP DRAWER MODE) ── */}
-          {layoutMode === "top" && (
+          {/* ── 3B. DESKTOP LIVE PREVIEW (TOP DRAWER MODE) ── */}
+          {!isMobile && layoutMode === "top" && (
             <div className="border-b-2 border-[#04AA6D]/50 bg-[#141414] flex flex-col shrink-0 max-h-[46vh] transition-all duration-200 shadow-2xl z-10">
-              
               {/* VS Code Simple Browser Navigation Toolbar */}
               <div className="bg-[#2d2d2d] px-3 py-1.5 border-b border-[#1e1e1e] flex items-center justify-between text-xs select-none">
-                
                 {/* Simulated Browser URL bar */}
                 <div className="flex items-center gap-2 flex-1 min-w-0 mr-3">
                   <span className="w-2 h-2 rounded-full bg-[#04AA6D] animate-pulse" />
@@ -2124,7 +2281,6 @@ export default function PlaygroundClient() {
                     <X size={13} />
                   </button>
                 </div>
-
               </div>
 
               {/* Sandboxed Live Viewport */}
@@ -2138,123 +2294,116 @@ export default function PlaygroundClient() {
                   />
                 </div>
               </div>
-
             </div>
           )}
 
-          {/* ── 4. CODE EDITOR CANVAS (SUPPORTS SPLIT RIGHT IF ACTIVE) ── */}
-          <div className="flex-1 flex min-h-0 relative overflow-hidden">
-            
-            {/* Editor Text Pane with Line Numbers & Minimap */}
-            <div className="flex-1 flex min-h-0 overflow-hidden relative">
-              
-              {/* Line Numbers Gutter */}
-              <div className="w-12 py-3 bg-[#1e1e1e] border-r border-[#2d2d2d] flex flex-col text-right pr-3 font-mono text-xs text-[#858585] select-none shrink-0 leading-[1.65]">
-                {lineNumbers.map((num) => (
-                  <div key={num} className={`relative group ${num === cursorPos.line ? "text-[#c6c6c6] font-bold" : ""}`}>
-                    {/* Hover Breakpoint Dot */}
-                    <span className="hidden group-hover:inline-block absolute left-1 top-1 w-2 h-2 rounded-full bg-red-500 cursor-pointer" />
-                    <span>{num}</span>
-                  </div>
-                ))}
-              </div>
+          {/* ── 4. CODE EDITOR CANVAS (Visible on desktop or when mobileTab is code) ── */}
+          {(!isMobile || mobileTab === "code") && (
+            <div className="flex-1 flex min-h-0 relative overflow-hidden">
+              {/* Editor Text Pane with Line Numbers & Minimap */}
+              <div className="flex-1 flex min-h-0 overflow-hidden relative">
+                {/* Line Numbers Gutter */}
+                <div className="w-8 sm:w-12 py-3 bg-[#1e1e1e] border-r border-[#2d2d2d] flex flex-col text-right pr-1.5 sm:pr-3 font-mono text-[10px] sm:text-xs text-[#858585] select-none shrink-0 leading-[1.65]">
+                  {lineNumbers.map((num) => (
+                    <div key={num} className={`relative group ${num === cursorPos.line ? "text-[#c6c6c6] font-bold" : ""}`}>
+                      <span className="hidden group-hover:inline-block absolute left-1 top-1 w-2 h-2 rounded-full bg-red-500 cursor-pointer" />
+                      <span>{num}</span>
+                    </div>
+                  ))}
+                </div>
 
-              {/* Code Textarea Input */}
-              <div className="flex-1 relative overflow-hidden flex bg-[#1e1e1e]">
-                <textarea
-                  ref={textareaRef}
-                  value={getCurrentCode()}
-                  onChange={(e) => {
-                    setCurrentCode(e.target.value);
-                    const start = e.target.selectionStart;
-                    checkEmmetSuggestion(e.target.value, start);
-                  }}
-                  onKeyDown={handleTextareaKeyDown}
-                  onKeyUp={handleCursorMove}
-                  onClick={handleCursorMove}
-                  spellCheck={false}
-                  autoCapitalize="none"
-                  autoCorrect="off"
-                  className="w-full h-full bg-transparent text-[#d4d4d4] font-mono text-xs sm:text-[13px] leading-[1.65] p-3 resize-none focus:outline-none selection:bg-[#264f78] custom-scrollbar border-0"
-                  placeholder={`Type HTML/CSS code or Emmet abbreviations (e.g. div.card>h3+p+button, ul>li*3, !) in ${activeFile}...`}
-                />
+                {/* Code Textarea Input */}
+                <div className="flex-1 relative overflow-hidden flex bg-[#1e1e1e]">
+                  <textarea
+                    ref={textareaRef}
+                    value={getCurrentCode()}
+                    onChange={(e) => {
+                      setCurrentCode(e.target.value);
+                      const start = e.target.selectionStart;
+                      checkEmmetSuggestion(e.target.value, start);
+                    }}
+                    onKeyDown={handleTextareaKeyDown}
+                    onKeyUp={handleCursorMove}
+                    onClick={handleCursorMove}
+                    spellCheck={false}
+                    autoCapitalize="none"
+                    autoCorrect="off"
+                    className="w-full h-full bg-transparent text-[#d4d4d4] font-mono text-xs sm:text-[13px] leading-[1.65] p-2 sm:p-3 resize-none focus:outline-none selection:bg-[#264f78] custom-scrollbar border-0"
+                    placeholder={`Type HTML/CSS code or Emmet abbreviations (e.g. div.card>h3+p+button, ul>li*3, !) in ${activeFile}...`}
+                  />
 
-                {/* Floating VS Code Emmet Suggestion Card */}
-                {emmetSuggestion && (
-                  <div
-                    onClick={executeEmmetExpansion}
-                    className="absolute right-4 bottom-4 z-30 bg-[#252526] border border-[#007acc] text-[#cccccc] shadow-2xl rounded-lg p-2.5 max-w-xs sm:max-w-sm text-xs cursor-pointer hover:bg-[#2a2d2e] transition-all animate-in fade-in slide-in-from-bottom-2 duration-150 select-none"
-                    title="Click or press Tab ⇥ to expand Emmet abbreviation"
-                  >
-                    <div className="flex items-center justify-between pb-1.5 border-b border-[#3c3c3c] mb-1.5">
-                      <div className="flex items-center gap-1.5 text-[#007acc] font-bold text-[11px]">
-                        <Zap size={13} className="text-[#007acc] fill-[#007acc]" />
-                        <span>Emmet Abbreviation</span>
+                  {/* Floating VS Code Emmet Suggestion Card */}
+                  {emmetSuggestion && (
+                    <div
+                      onClick={executeEmmetExpansion}
+                      className="absolute right-4 bottom-4 z-30 bg-[#252526] border border-[#007acc] text-[#cccccc] shadow-2xl rounded-lg p-2.5 max-w-xs sm:max-w-sm text-xs cursor-pointer hover:bg-[#2a2d2e] transition-all animate-in fade-in slide-in-from-bottom-2 duration-150 select-none"
+                      title="Click or press Tab ⇥ to expand Emmet abbreviation"
+                    >
+                      <div className="flex items-center justify-between pb-1.5 border-b border-[#3c3c3c] mb-1.5">
+                        <div className="flex items-center gap-1.5 text-[#007acc] font-bold text-[11px]">
+                          <Zap size={13} className="text-[#007acc] fill-[#007acc]" />
+                          <span>Emmet Abbreviation</span>
+                        </div>
+                        <kbd className="bg-[#1e1e1e] border border-[#3c3c3c] px-1.5 py-0.5 rounded text-[10px] text-[#04AA6D] font-mono font-bold">
+                          Tab ⇥
+                        </kbd>
                       </div>
-                      <kbd className="bg-[#1e1e1e] border border-[#3c3c3c] px-1.5 py-0.5 rounded text-[10px] text-[#04AA6D] font-mono font-bold">
-                        Tab ⇥
-                      </kbd>
+                      <div className="font-mono text-[11px] text-white font-semibold truncate mb-1">
+                        <span className="text-[#04AA6D] font-bold">{emmetSuggestion.abbreviation}</span>
+                        <span className="text-[#858585] text-[10px] ml-1.5 font-normal">➔ Expand snippet</span>
+                      </div>
+                      <pre className="text-[10px] text-[#9cdcfe] font-mono bg-[#181818] p-1.5 rounded border border-[#333333] max-h-24 overflow-hidden whitespace-pre-wrap leading-tight">
+                        {emmetSuggestion.expanded.length > 140 ? emmetSuggestion.expanded.substring(0, 140) + "..." : emmetSuggestion.expanded}
+                      </pre>
                     </div>
-                    <div className="font-mono text-[11px] text-white font-semibold truncate mb-1">
-                      <span className="text-[#04AA6D] font-bold">{emmetSuggestion.abbreviation}</span>
-                      <span className="text-[#858585] text-[10px] ml-1.5 font-normal">➔ Expand snippet</span>
+                  )}
+                </div>
+
+                {/* Minimap Simulation on Right Edge */}
+                <div className="w-14 bg-[#1a1a1a] border-l border-[#282828] hidden md:flex flex-col py-3 px-1 select-none shrink-0 opacity-40 hover:opacity-90 transition-opacity">
+                  {lineNumbers.slice(0, 45).map((n) => (
+                    <div 
+                      key={n} 
+                      className="h-1 bg-[#858585]/40 rounded-sm mb-0.5" 
+                      style={{ width: `${Math.min(100, Math.max(20, (n * 17) % 100))}%` }}
+                    />
+                  ))}
+                </div>
+              </div>
+
+              {/* ── 5. DESKTOP SPLIT RIGHT PREVIEW MODE (IF ACTIVE) ── */}
+              {!isMobile && layoutMode === "split" && (
+                <div className="w-1/2 border-l border-[#2d2d2d] bg-[#141414] flex flex-col shrink-0 transition-all">
+                  <div className="bg-[#2d2d2d] px-3 py-1.5 border-b border-[#1e1e1e] flex items-center justify-between text-xs select-none">
+                    <div className="flex items-center gap-2 flex-1 min-w-0 mr-2">
+                      <span className="w-2 h-2 rounded-full bg-[#04AA6D] animate-pulse" />
+                      <span className="text-[11px] text-[#cccccc] font-mono truncate">http://127.0.0.1:5500/</span>
                     </div>
-                    <pre className="text-[10px] text-[#9cdcfe] font-mono bg-[#181818] p-1.5 rounded border border-[#333333] max-h-24 overflow-hidden whitespace-pre-wrap leading-tight">
-                      {emmetSuggestion.expanded.length > 140 ? emmetSuggestion.expanded.substring(0, 140) + "..." : emmetSuggestion.expanded}
-                    </pre>
+                    <div className="flex items-center gap-1">
+                      <button onClick={compileAndRun} className="p-1 hover:bg-[#3c3c3c] rounded text-[#cccccc]" title="Refresh">
+                        <RefreshCw size={12} />
+                      </button>
+                      <button onClick={() => setLayoutMode("top")} className="p-1 hover:bg-[#3c3c3c] rounded text-[#cccccc]" title="Switch to Top Drawer">
+                        <Split size={12} />
+                      </button>
+                      <button onClick={() => setLayoutMode("hidden")} className="p-1 hover:bg-[#3c3c3c] rounded text-[#cccccc]" title="Close Preview">
+                        <X size={12} />
+                      </button>
+                    </div>
                   </div>
-                )}
-              </div>
 
-              {/* Minimap Simulation on Right Edge */}
-              <div className="w-14 bg-[#1a1a1a] border-l border-[#282828] hidden md:flex flex-col py-3 px-1 select-none shrink-0 opacity-40 hover:opacity-90 transition-opacity">
-                {lineNumbers.slice(0, 45).map((n) => (
-                  <div 
-                    key={n} 
-                    className="h-1 bg-[#858585]/40 rounded-sm mb-0.5" 
-                    style={{ width: `${Math.min(100, Math.max(20, (n * 17) % 100))}%` }}
-                  />
-                ))}
-              </div>
-
+                  <div className="flex-1 bg-white p-2">
+                    <iframe
+                      ref={iframeRef}
+                      title="VS Code Split Live Preview"
+                      sandbox="allow-scripts allow-modals"
+                      className="w-full h-full border-0"
+                    />
+                  </div>
+                </div>
+              )}
             </div>
-
-
-            {/* ── 5. SPLIT RIGHT PREVIEW MODE (IF ACTIVE) ── */}
-            {layoutMode === "split" && (
-              <div className="w-1/2 border-l border-[#2d2d2d] bg-[#141414] flex flex-col shrink-0 transition-all">
-                {/* Browser bar */}
-                <div className="bg-[#2d2d2d] px-3 py-1.5 border-b border-[#1e1e1e] flex items-center justify-between text-xs select-none">
-                  <div className="flex items-center gap-2 flex-1 min-w-0 mr-2">
-                    <span className="w-2 h-2 rounded-full bg-[#04AA6D] animate-pulse" />
-                    <span className="text-[11px] text-[#cccccc] font-mono truncate">http://127.0.0.1:5500/</span>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <button onClick={compileAndRun} className="p-1 hover:bg-[#3c3c3c] rounded text-[#cccccc]" title="Refresh">
-                      <RefreshCw size={12} />
-                    </button>
-                    <button onClick={() => setLayoutMode("top")} className="p-1 hover:bg-[#3c3c3c] rounded text-[#cccccc]" title="Switch to Top Drawer">
-                      <Split size={12} />
-                    </button>
-                    <button onClick={() => setLayoutMode("hidden")} className="p-1 hover:bg-[#3c3c3c] rounded text-[#cccccc]" title="Close Preview">
-                      <X size={12} />
-                    </button>
-                  </div>
-                </div>
-
-                {/* Split Sandbox Viewport */}
-                <div className="flex-1 bg-white p-2">
-                  <iframe
-                    ref={iframeRef}
-                    title="VS Code Split Live Preview"
-                    sandbox="allow-scripts allow-modals"
-                    className="w-full h-full border-0"
-                  />
-                </div>
-              </div>
-            )}
-
-          </div>
+          )}
 
           {/* ── 6. COLLAPSIBLE BOTTOM PANEL (TERMINAL / CONSOLE / OUTPUT / PROBLEMS) ── */}
           {showBottomPanel && (
