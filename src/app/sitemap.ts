@@ -7,15 +7,21 @@ import { nodeLessons } from "../data/nodeLessonsData";
 import { cliLessons } from "../data/cliLessonsData";
 import { gitLessons } from "../data/gitLessonsData";
 import { cppLessons } from "../data/cppLessonsData";
+import { PRACTICAL_LESSONS } from "../data/bcaPracticalData";
 
 export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://nextsem.online";
 
-  // Core base paths (Excluding sandbox/tools disallowed in robots.ts)
+  // Core base paths (Excluding internal/admin disallowed in robots.ts)
   const baseRoutes = [
     "",
+    "/school",
+    "/bca",
+    "/bca/practical",
+    "/bca/practical/how-it-works",
+    "/playground",
     "/about",
     "/contact",
     "/privacy",
@@ -43,12 +49,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/cpp",
     "/c",
     "/sitemap",
-  ].map((route) => ({
-    url: `${baseUrl}${route}`,
-    lastModified: new Date(),
-    changeFrequency: "weekly" as const,
-    priority: route === "" ? 1.0 : 0.8,
-  }));
+  ].map((route) => {
+    let priority = 0.8;
+    if (route === "") priority = 1.0;
+    else if (["/school", "/bca", "/bca/practical", "/playground"].includes(route)) priority = 0.95;
+    else if (["/html", "/css", "/js", "/react", "/nodejs", "/cli", "/git"].includes(route)) priority = 0.9;
+
+    return {
+      url: `${baseUrl}${route}`,
+      lastModified: new Date(),
+      changeFrequency: (route === "" || route === "/school" || route === "/bca") ? ("daily" as const) : ("weekly" as const),
+      priority,
+    };
+  });
 
   // Dynamic HTML lesson paths (98+ HTML Lessons)
   const htmlLessonRoutes = htmlLessons.map((lesson) => ({
@@ -114,6 +127,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
+  // Dynamic BCA Practical lesson paths (50+ Hands-On Lab Days)
+  const bcaPracticalLessonRoutes = PRACTICAL_LESSONS.map((lesson) => ({
+    url: `${baseUrl}/bca/practical/${lesson.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly" as const,
+    priority: 0.85,
+  }));
+
   return [
     ...baseRoutes,
     ...htmlLessonRoutes,
@@ -124,5 +145,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...cliLessonRoutes,
     ...gitLessonRoutes,
     ...cppLessonRoutes,
+    ...bcaPracticalLessonRoutes,
   ];
 }
