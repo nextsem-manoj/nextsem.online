@@ -66,6 +66,76 @@ function extractCliLessons() {
 
 const CORE_SUBJECT_ITEMS = [
   {
+    id: 'portal-schooling',
+    title: 'Schooling Hub (KG to Class 12th) — All Streams',
+    content: 'Complete NCERT textbooks, bilingual notes (Hindi/English), authentic 3D book covers, Class 11-12 Science, Commerce & Arts, and Middle School Doubt Studio.',
+    phase: 'Schooling Education',
+    duration: 'KG to 12th',
+    color: 'bg-amber-600',
+    icon: '🎒',
+    url: '/school'
+  },
+  {
+    id: 'portal-middle-school-doubt',
+    title: 'Middle School Doubt Diagnostic Studio',
+    content: 'Personalized doubt clearing for Ganita Prakash (Maths) and Curiosity (Science) for Classes 6, 7 & 8 with verified student login.',
+    phase: 'Middle School (6-8)',
+    duration: 'Diagnostic Lab',
+    color: 'bg-blue-600',
+    icon: '🧭',
+    url: '/middle-school-doubt-diagnostic-studio.html'
+  },
+  {
+    id: 'portal-senior-science',
+    title: 'Class 11 & 12 Science Stream (PCM / PCB / CS)',
+    content: 'Physics derivations studio, Chemistry haloalkanes & alcohols, Biology, and Computer Science with Python & MySQL on Windows 11.',
+    phase: 'Senior Secondary',
+    duration: 'PCM / PCB',
+    color: 'bg-cyan-600',
+    icon: '🧪',
+    url: '/school#senior-secondary'
+  },
+  {
+    id: 'portal-senior-commerce',
+    title: 'Class 11 & 12 Commerce Stream (Accounts, BST, Economics)',
+    content: 'Financial Accounting cash book numerical solver, ledger balancing, Business Studies 25 MCQs, and Micro/Macro Economics.',
+    phase: 'Senior Secondary',
+    duration: 'Commerce',
+    color: 'bg-amber-600',
+    icon: '💼',
+    url: '/school#senior-secondary'
+  },
+  {
+    id: 'portal-senior-arts',
+    title: 'Class 11 & 12 Arts & Humanities Stream',
+    content: 'History 80 MCQs studio, Political Science CBSE Sample Paper 2026 solutions, and Physical Geography solutions.',
+    phase: 'Senior Secondary',
+    duration: 'Humanities',
+    color: 'bg-fuchsia-600',
+    icon: '🎨',
+    url: '/school#senior-secondary'
+  },
+  {
+    id: 'portal-college-bca',
+    title: 'College Education Hub (BCA, MCA, B.Tech CSE)',
+    content: 'University degree computer science curriculum: BCA Semesters 1 to 6 complete syllabi, C, C++, Data Structures, DBMS, Java & OS.',
+    phase: 'University Degrees',
+    duration: 'Semesters 1-6',
+    color: 'bg-indigo-600',
+    icon: '🎓',
+    url: '/bca'
+  },
+  {
+    id: 'portal-bca-practical-lab',
+    title: '50-Day Coding Practical Lab (Live GitHub Verification)',
+    content: '50 Daily guided hands-on coding challenges in VS Code. Real-time GitHub commit verification required to unlock subsequent days.',
+    phase: 'Job-Ready Labs',
+    duration: '50 Days',
+    color: 'bg-[#04AA6D]',
+    icon: '⚡',
+    url: '/bca/practical'
+  },
+  {
     id: 'subject-html',
     title: 'HTML5 & Web Architecture',
     content: 'Complete HTML5 fundamentals, semantic elements, forms, tables, media tags, accessibility, and Windows 11 Chrome execution.',
