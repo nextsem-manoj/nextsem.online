@@ -13,6 +13,20 @@ import CollegeHubClient from "@/components/college/CollegeHubClient";
 export const metadata: Metadata = {
   title: "College Computer Science & IT Hub — BCA, MCA & B.Tech CSE Syllabus & 50-Day Lab | Nextsem Academy",
   description: "Complete free college computer education portal for BCA, MCA, and B.Tech CSE. Full 6-semester theory notes, university codes (BCS-111, MCS-011, Java, DBMS), and 50-day hands-on VS Code & GitHub practical labs.",
+  keywords: [
+    "bca syllabus",
+    "bca notes pdf",
+    "ignou bca semester 1",
+    "bcs-111 computer basics",
+    "mca syllabus notes",
+    "btech cse study material",
+    "bca practical coding lab",
+    "nextsem college hub"
+  ],
+  robots: {
+    index: true,
+    follow: true,
+  },
   alternates: {
     canonical: "https://nextsem.online/bca"
   },
@@ -20,13 +34,44 @@ export const metadata: Metadata = {
     title: "College Computer Science & IT Hub | Nextsem Academy",
     description: "Comprehensive university degree curriculum for BCA, MCA, and B.Tech CSE with 6 full semesters of course notes and 50-Day Coding Lab.",
     url: "https://nextsem.online/bca",
-    type: "website"
+    type: "website",
+    siteName: "Nextsem Academy"
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "College Computer Science & IT Hub | Nextsem Academy",
+    description: "6 full semesters of BCA, MCA, and B.Tech CSE notes plus 50-day GitHub verified coding labs.",
+  }
+};
+
+const collegeJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "EducationalOccupationalProgram",
+  "name": "Nextsem College Computer Science & IT Hub",
+  "description": "Accredited University Degree Curriculum for BCA, MCA, and B.Tech CSE across all 6 semesters with 50-Day Coding Labs.",
+  "provider": {
+    "@type": "EducationalOrganization",
+    "name": "Nextsem Academy",
+    "url": "https://nextsem.online"
+  },
+  "educationalCredentialAwarded": "BCA / MCA / B.Tech Computer Science Preparation",
+  "hasCourse": [
+    { "@type": "Course", "name": "BCA 1st to 6th Semester Curriculum", "description": "Complete semester course materials for Computer Basics, C Programming, Data Structures, Java, DBMS, and Web Technologies." },
+    { "@type": "Course", "name": "50-Day Hands-on Coding Lab", "description": "Real-world development in VS Code, Git version control, and GitHub verified project deployments." }
+  ],
+  "author": {
+    "@type": "Person",
+    "name": "Er. Manoj Kumar"
   }
 };
 
 export default function BcaGatewayPage() {
   return (
     <div className="min-h-screen bg-[#07080b] text-white selection:bg-emerald-500 selection:text-black">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collegeJsonLd) }}
+      />
       {/* ── BREADCRUMB NAVIGATION TRAIL ── */}
       <div className="border-b border-neutral-800 bg-[#0d0e12] py-3 px-4 sm:px-8">
         <nav className="max-w-6xl mx-auto flex items-center gap-2 text-xs font-semibold text-slate-400 overflow-x-auto">
