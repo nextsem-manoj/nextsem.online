@@ -28,6 +28,13 @@
   - Separate 3-file download (`index.html`, `style.css`, `script.js`) for GitHub Pages & BCA practical submissions.
   - Instant Base64 shareable live link with URL hash auto-loader (`#share=...`).
 
+### B. Scheduled Automation & Verification Scripts
+- 🕒 **[scripts/schedule-seo-audit.js](file:///c:/Users/Manoj/Nextsem%20Repositories/nextsem.online/scripts/schedule-seo-audit.js)**: Automated 5-minute scheduled auditor checking `sitemap.xml`, `robots.txt`, 458 static routes, and monetization milestones (`npm run audit:schedule`).
+- 📊 **[scripts/project-status.js](file:///c:/Users/Manoj/Nextsem%20Repositories/nextsem.online/scripts/project-status.js)**: Live Roadmap Status, active task orientation, and AdSense/AdMob telemetry (`npm run task`).
+- 🔍 **[scripts/verify-sitemap.js](file:///c:/Users/Manoj/Nextsem%20Repositories/nextsem.online/scripts/verify-sitemap.js)**: XML format and required URL integrity validator executed automatically during `npm run build`.
+- 💾 **[scripts/save_chat.js](file:///c:/Users/Manoj/Nextsem%20Repositories/nextsem.online/scripts/save_chat.js)**: Dynamic session chat transcript archiver saving structured logs to `chat-logs/` (`npm run save-chat`).
+- ⚡ **[scripts/generate-search-index.js](file:///c:/Users/Manoj/Nextsem%20Repositories/nextsem.online/scripts/generate-search-index.js)**: Extracts full-text search indexes for 210+ HTML & Windows CMD lessons (`src/data/searchIndex.json`).
+
 ---
 
 ## 🎯 2. Latest Work To Be Done (Immediate Priority Queue)

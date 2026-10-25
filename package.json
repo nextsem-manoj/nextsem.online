@@ -11,6 +11,7 @@
     "save-chat": "node scripts/save_chat.js",
     "status": "node scripts/repo-manager.js status",
     "task": "node scripts/project-status.js",
+    "audit:schedule": "node scripts/schedule-seo-audit.js",
     "mobile:bundle": "cd mobile && flutter build appbundle --target-platform android-arm,android-arm64",
     "mobile:apk": "cd mobile && flutter build apk --split-per-abi",
     "mobile:run": "cd mobile && flutter run",
