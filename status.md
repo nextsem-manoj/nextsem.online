@@ -35,6 +35,12 @@
 - 💾 **[scripts/save_chat.js](file:///c:/Users/Manoj/Nextsem%20Repositories/nextsem.online/scripts/save_chat.js)**: Dynamic session chat transcript archiver saving structured logs to `chat-logs/` (`npm run save-chat`).
 - ⚡ **[scripts/generate-search-index.js](file:///c:/Users/Manoj/Nextsem%20Repositories/nextsem.online/scripts/generate-search-index.js)**: Extracts full-text search indexes for 210+ HTML & Windows CMD lessons (`src/data/searchIndex.json`).
 
+### C. 1-Click Desktop Automation Suite (`manoj_auto/`)
+- 🚀 **[manoj_auto/ONE_CLICK_AUTO_SYNC.bat](file:///c:/Users/Manoj/Nextsem%20Repositories/nextsem.online/manoj_auto/ONE_CLICK_AUTO_SYNC.bat)**: Double-click to execute full end-to-end pipeline: SEO audit -> Roadmap check -> Static Build -> Staging Deploy -> Chat Archive -> Git Push -> Chrome Launch.
+- 🔍 **[manoj_auto/QUICK_AUDIT_ONLY.bat](file:///c:/Users/Manoj/Nextsem%20Repositories/nextsem.online/manoj_auto/QUICK_AUDIT_ONLY.bat)**: Fast 5-second health check of all routes, sitemap integrity, and roadmap tasks without building or deploying.
+- 🌐 **[manoj_auto/OPEN_LIVE_STAGING.bat](file:///c:/Users/Manoj/Nextsem%20Repositories/nextsem.online/manoj_auto/OPEN_LIVE_STAGING.bat)**: Instantly opens all 3 live staging environments (Sandbox, Schooling, College BCA) in Google Chrome.
+- 📖 **[manoj_auto/README.md](file:///c:/Users/Manoj/Nextsem%20Repositories/nextsem.online/manoj_auto/README.md)**: Full instructions on how to create a 1-click Windows Desktop shortcut.
+
 ---
 
 ## 🎯 2. Latest Work To Be Done (Immediate Priority Queue)
