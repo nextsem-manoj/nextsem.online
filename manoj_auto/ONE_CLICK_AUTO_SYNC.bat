@@ -1,6 +1,6 @@
 @echo off
 chcp 65001 >nul
-title Nextsem Academy — One-Click Automated Master Suite
+title Nextsem Academy — One-Click Master Automation & Antigravity Agent
 color 0A
 
 echo ================================================================
@@ -11,6 +11,56 @@ echo ================================================================
 echo.
 
 cd /d "%~dp0\.."
+
+echo   [1] 🤖 Ask Antigravity AI Agent (Chat me puche aur schedule kaam kare) - [DEFAULT]
+echo   [2] ⚡ Direct CMD Pipeline (Audit + Build + Staging Deploy + Git Sync)
+echo   [3] 🔍 Quick 5-Sec SEO & Sitemap Integrity Audit Only
+echo   [4] 🌐 Open Live Staging in Google Chrome
+echo.
+echo ================================================================
+echo.
+
+choice /c 1234 /t 5 /d 1 /m "Aapka chunav (Default 1 - Antigravity Agent in 5s): "
+set USER_CHOICE=%ERRORLEVEL%
+echo.
+
+if "%USER_CHOICE%"=="1" goto trigger_antigravity
+if "%USER_CHOICE%"=="2" goto run_full_pipeline
+if "%USER_CHOICE%"=="3" goto run_quick_audit
+if "%USER_CHOICE%"=="4" goto open_staging
+
+:trigger_antigravity
+echo ================================================================
+echo   🤖 CALLING ANTIGRAVITY AGENT TO REVIEW SCHEDULE & ASK NEXT STEPS
+echo ================================================================
+echo.
+set CUSTOM_PROMPT=
+set /p CUSTOM_PROMPT="Antigravity se kuch specific puchna hai? (Press ENTER for default schedule check): "
+
+if "%CUSTOM_PROMPT%"=="" (
+    set PROMPT_TEXT=Antigravity, please review our scheduled tasks in status.md and task.md. Check the 5-minute recurring SEO audit and sitemap integrity, report current progress toward the Rs 10 Lakh/month ad revenue goal, and ask me what scheduled milestone we should execute next!
+) else (
+    set PROMPT_TEXT=%CUSTOM_PROMPT%
+)
+
+echo.
+echo 📌 Antigravity IDE ko prompt bheja ja raha hai...
+call "C:\Users\Manoj\AppData\Local\Programs\Antigravity IDE\bin\antigravity-ide.cmd" chat -r -m agent --maximize -a "%~dp0\..\status.md" -a "%~dp0\..\docs\roadmap\task.md" "%PROMPT_TEXT%"
+
+echo.
+echo ================================================================
+echo   ✅ Antigravity Agent ko command bhej di gayi hai!
+echo   Apni Antigravity IDE window par switch karein.
+echo ================================================================
+echo.
+timeout /t 5 >nul
+exit /b 0
+
+:run_full_pipeline
+echo ================================================================
+echo   ⚡ RUNNING DIRECT SCRIPT PIPELINE (OFFLINE / BACKGROUND)
+echo ================================================================
+echo.
 
 echo 📌 [Step 1/6] Running 5-Minute SEO & Platform Integrity Audit...
 node scripts\schedule-seo-audit.js
@@ -60,17 +110,33 @@ if %ERRORLEVEL% EQU 0 (
 echo.
 
 echo ================================================================
-echo   🎉 ALL AUTOMATION STEPS COMPLETED SUCCESSFULLY!
+echo   🎉 DIRECT PIPELINE COMPLETED SUCCESSFULLY!
 echo ================================================================
 echo   🌐 Live Sandbox: https://nextsem-staging.web.app/playground/
 echo   🎒 Schooling:    https://nextsem-staging.web.app/school
 echo   🎓 College BCA:  https://nextsem-staging.web.app/bca
 echo ================================================================
 echo.
-
 echo Launching Live Staging Sandbox in Google Chrome...
 start chrome "https://nextsem-staging.web.app/playground/"
+pause
+exit /b 0
 
+:run_quick_audit
+echo ================================================================
+echo   🔍 QUICK 5-SECOND SEO & SITEMAP AUDIT
+echo ================================================================
+node scripts\schedule-seo-audit.js
 echo.
-echo Press any key to close this window...
-pause >nul
+pause
+exit /b 0
+
+:open_staging
+echo ================================================================
+echo   🌐 OPENING LIVE STAGING IN GOOGLE CHROME
+echo ================================================================
+start chrome "https://nextsem-staging.web.app/playground/"
+start chrome "https://nextsem-staging.web.app/school"
+start chrome "https://nextsem-staging.web.app/bca"
+timeout /t 3 >nul
+exit /b 0

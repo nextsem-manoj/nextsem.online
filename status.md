@@ -36,10 +36,12 @@
 - ⚡ **[scripts/generate-search-index.js](file:///c:/Users/Manoj/Nextsem%20Repositories/nextsem.online/scripts/generate-search-index.js)**: Extracts full-text search indexes for 210+ HTML & Windows CMD lessons (`src/data/searchIndex.json`).
 
 ### C. 1-Click Desktop Automation Suite (`manoj_auto/`)
-- 🚀 **[manoj_auto/ONE_CLICK_AUTO_SYNC.bat](file:///c:/Users/Manoj/Nextsem%20Repositories/nextsem.online/manoj_auto/ONE_CLICK_AUTO_SYNC.bat)**: Double-click to execute full end-to-end pipeline: SEO audit -> Roadmap check -> Static Build -> Staging Deploy -> Chat Archive -> Git Push -> Chrome Launch.
+- 🚀 **[manoj_auto/ONE_CLICK_AUTO_SYNC.bat](file:///c:/Users/Manoj/Nextsem%20Repositories/nextsem.online/manoj_auto/ONE_CLICK_AUTO_SYNC.bat)**: Double-click to launch interactive runner: Defaults to calling Antigravity AI Agent in active chat to review schedule and ask next steps (5-second auto timer), with fallback direct CMD pipeline (SEO audit -> Next.js Build -> Firebase Staging -> Git Push).
+- 🤖 **[manoj_auto/TRIGGER_ANTIGRAVITY_AGENT.bat](file:///c:/Users/Manoj/Nextsem%20Repositories/nextsem.online/manoj_auto/TRIGGER_ANTIGRAVITY_AGENT.bat)**: Direct agent caller via CLI (`antigravity-ide.cmd chat -r -m agent`) that attaches `status.md` & `task.md` and opens chat with user prompt input.
+- 🖥️ **[manoj_auto/CREATE_DESKTOP_SHORTCUT.bat](file:///c:/Users/Manoj/Nextsem%20Repositories/nextsem.online/manoj_auto/CREATE_DESKTOP_SHORTCUT.bat)**: 1-Click desktop shortcut creator generating `Antigravity Schedule Runner.lnk` directly on Windows Desktop.
 - 🔍 **[manoj_auto/QUICK_AUDIT_ONLY.bat](file:///c:/Users/Manoj/Nextsem%20Repositories/nextsem.online/manoj_auto/QUICK_AUDIT_ONLY.bat)**: Fast 5-second health check of all routes, sitemap integrity, and roadmap tasks without building or deploying.
 - 🌐 **[manoj_auto/OPEN_LIVE_STAGING.bat](file:///c:/Users/Manoj/Nextsem%20Repositories/nextsem.online/manoj_auto/OPEN_LIVE_STAGING.bat)**: Instantly opens all 3 live staging environments (Sandbox, Schooling, College BCA) in Google Chrome.
-- 📖 **[manoj_auto/README.md](file:///c:/Users/Manoj/Nextsem%20Repositories/nextsem.online/manoj_auto/README.md)**: Full instructions on how to create a 1-click Windows Desktop shortcut.
+- 📖 **[manoj_auto/README.md](file:///c:/Users/Manoj/Nextsem%20Repositories/nextsem.online/manoj_auto/README.md)**: Full instructions on how to use all batch files and shortcuts.
 
 ---
 
