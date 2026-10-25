@@ -13,7 +13,7 @@ import {
   Bug, AlertCircle, AlertTriangle, Info, Columns, 
   Layout, MoreHorizontal, Download, Command, 
   FolderPlus, FilePlus, Sparkle, CornerDownLeft, Trash2, Zap,
-  Sliders, Power, Wifi, Radio
+  Sliders, Power, Wifi, Radio, Share2
 } from "lucide-react";
 import { expandEmmet, expandEmmetWithIndentation, getEmmetAbbreviationAtCursor } from "@/utils/emmetEngine";
 import { formatDocument, DEFAULT_PRETTIER_CONFIG, PrettierConfig } from "@/utils/codeFormatter";
@@ -695,6 +695,10 @@ export default function PlaygroundClient() {
   const [sidebarSearchQuery, setSidebarSearchQuery] = useState<string>("");
   const [themeMode, setThemeMode] = useState<"dark-plus" | "high-contrast" | "monokai">("dark-plus");
 
+  /* Export & Share Modal States */
+  const [isExportModalOpen, setIsExportModalOpen] = useState<boolean>(false);
+  const [shareUrlCopied, setShareUrlCopied] = useState<boolean>(false);
+
   /* Device & Execution States */
   const [deviceMode, setDeviceMode] = useState<"desktop" | "tablet" | "mobile">("desktop");
   const [consoleLogs, setConsoleLogs] = useState<string[]>([]);
@@ -804,9 +808,30 @@ export default function PlaygroundClient() {
     }
   };
 
-  // Load from localStorage
+  // Load from URL share link or localStorage
   useEffect(() => {
     if (typeof window !== "undefined") {
+      // 1. Check if there is a shared project in URL hash (#share=...)
+      const hash = window.location.hash;
+      if (hash && hash.includes("share=")) {
+        try {
+          const raw = hash.split("share=")[1];
+          if (raw) {
+            const jsonStr = decodeURIComponent(atob(raw));
+            const parsed = JSON.parse(jsonStr);
+            if (parsed.h) setHtmlCode(parsed.h);
+            if (parsed.c) setCssCode(parsed.c);
+            if (parsed.j) setJsCode(parsed.j);
+            showToast("🎉 Shared project loaded successfully!");
+            setTimeout(() => compileAndRun(), 250);
+            return;
+          }
+        } catch (err) {
+          console.error("Failed to parse shared code from URL:", err);
+        }
+      }
+
+      // 2. Otherwise restore from localStorage
       const savedHtml = localStorage.getItem("nextsem_vscode_html");
       const savedCss = localStorage.getItem("nextsem_vscode_css");
       const savedJs = localStorage.getItem("nextsem_vscode_js");
@@ -1120,15 +1145,86 @@ export default function PlaygroundClient() {
     }
   };
 
-  // Download project as single HTML file
-  const handleDownload = () => {
-    const blob = new Blob([generateCombinedDoc()], { type: "text/html" });
+  // Generate Base64 compressed share URL
+  const generateShareUrl = (): string => {
+    try {
+      const payload = {
+        h: htmlCode,
+        c: cssCode,
+        j: jsCode,
+        t: Date.now()
+      };
+      const encoded = btoa(encodeURIComponent(JSON.stringify(payload)));
+      if (typeof window !== "undefined") {
+        return `${window.location.origin}/playground#share=${encoded}`;
+      }
+      return `https://nextsem.online/playground#share=${encoded}`;
+    } catch {
+      return typeof window !== "undefined" ? window.location.href : "https://nextsem.online/playground";
+    }
+  };
+
+  const handleCopyShareUrl = () => {
+    const url = generateShareUrl();
+    navigator.clipboard.writeText(url);
+    setShareUrlCopied(true);
+    showToast("🔗 Project share link copied to clipboard!");
+    setTimeout(() => setShareUrlCopied(false), 2500);
+  };
+
+  // Download project as single standalone HTML file
+  const downloadStandaloneHtml = () => {
+    const doc = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nextsem Exported Web Project</title>
+  <!-- Generated via Nextsem Online Code Sandbox & Web IDE -->
+  <style>
+${cssCode}
+  </style>
+</head>
+<body>
+${htmlCode.replace(/<!DOCTYPE[\s\S]*?<body[^>]*>/i, '').replace(/<\/body>[\s\S]*?<\/html>/i, '') || htmlCode}
+  <script>
+${jsCode}
+  <\/script>
+</body>
+</html>`;
+    const blob = new Blob([doc], { type: "text/html;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "nextsem-project.html";
+    a.download = "index.html";
     a.click();
     URL.revokeObjectURL(url);
+    showToast("📦 Downloaded standalone index.html");
+  };
+
+  // Download separate files (index.html, style.css, script.js)
+  const downloadSeparateFiles = () => {
+    const files = [
+      { name: "index.html", content: htmlCode, type: "text/html" },
+      { name: "style.css", content: cssCode, type: "text/css" },
+      { name: "script.js", content: jsCode, type: "text/javascript" }
+    ];
+    files.forEach((f, idx) => {
+      setTimeout(() => {
+        const blob = new Blob([f.content], { type: `${f.type};charset=utf-8` });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = f.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }, idx * 250);
+    });
+    showToast("📁 Downloaded index.html, style.css & script.js");
+  };
+
+  const handleDownload = () => {
+    setIsExportModalOpen(true);
   };
 
   // Terminal interactive commands
@@ -1259,8 +1355,8 @@ export default function PlaygroundClient() {
                   <button onClick={() => { compileAndRun(); setActiveMenu(null); }} className="w-full px-3 py-1.5 hover:bg-[#04AA6D] hover:text-white flex justify-between text-left">
                     <span>Save & Run</span> <span className="text-[#858585]">Ctrl+S</span>
                   </button>
-                  <button onClick={() => { handleDownload(); setActiveMenu(null); }} className="w-full px-3 py-1.5 hover:bg-[#04AA6D] hover:text-white flex justify-between text-left">
-                    <span>Export as HTML</span> <span className="text-[#858585]">Ctrl+E</span>
+                  <button onClick={() => { setIsExportModalOpen(true); setActiveMenu(null); }} className="w-full px-3 py-1.5 hover:bg-[#04AA6D] hover:text-white flex justify-between text-left">
+                    <span>Export &amp; Share...</span> <span className="text-[#858585]">Ctrl+E</span>
                   </button>
                   <div className="h-[1px] bg-[#3c3c3c] my-1" />
                   <button onClick={() => { handleReset(); setActiveMenu(null); }} className="w-full px-3 py-1.5 hover:bg-red-600 hover:text-white flex justify-between text-left">
@@ -1444,13 +1540,14 @@ export default function PlaygroundClient() {
             <Layout size={13} />
           </button>
 
-          {/* Export Project */}
+          {/* Export & Share Project */}
           <button
-            onClick={handleDownload}
-            className="p-1 rounded hover:bg-[#454545] text-[#cccccc] transition-colors hidden sm:block"
-            title="Download Workspace (HTML)"
+            onClick={() => setIsExportModalOpen(true)}
+            className="px-2 py-0.5 rounded bg-[#252526] hover:bg-[#30363d] text-[#cccccc] hover:text-white border border-[#3c3c3c] text-[11px] font-sans font-medium flex items-center gap-1 transition-colors cursor-pointer shadow-sm hidden sm:flex"
+            title="Export, Download & Share Project"
           >
-            <Download size={13} />
+            <Share2 size={11} className="text-[#04AA6D]" />
+            <span>Export</span>
           </button>
 
         </div>
@@ -1501,6 +1598,15 @@ export default function PlaygroundClient() {
           >
             <Folder size={12} className="text-[#dcb67a]" />
             <span>Files</span>
+          </button>
+
+          <button
+            onClick={() => setIsExportModalOpen(true)}
+            className="px-2.5 py-1 rounded-md text-xs font-sans font-medium flex items-center gap-1 bg-[#1e1e1e] text-[#cccccc] border border-[#3c3c3c] hover:bg-[#2d2d2d] active:scale-95 transition-all"
+            title="Share or Export Project"
+          >
+            <Share2 size={12} className="text-[#04AA6D]" />
+            <span>Share</span>
           </button>
 
           <button
@@ -2685,6 +2791,151 @@ export default function PlaygroundClient() {
         <div className="fixed bottom-9 right-6 z-50 bg-[#1e1e1e] border border-[#007acc] text-white px-3.5 py-2 rounded-lg shadow-2xl text-xs font-sans flex items-center gap-2 animate-in fade-in slide-in-from-bottom-2 duration-150">
           <Sparkles size={13} className="text-[#007acc]" />
           <span>{toastNotice}</span>
+        </div>
+      )}
+
+      {/* ── 5. EXPORT, DOWNLOAD & SHARE MODAL ── */}
+      {isExportModalOpen && (
+        <div 
+          className="fixed inset-0 bg-black/75 z-50 flex items-center justify-center p-4 backdrop-blur-xs"
+          onClick={() => setIsExportModalOpen(false)}
+        >
+          <div 
+            className="bg-[#1e1e1e] border border-[#3c3c3c] rounded-2xl max-w-lg w-full p-5 sm:p-6 shadow-2xl space-y-5 text-white animate-in fade-in zoom-in-95 duration-150"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div className="flex items-center justify-between border-b border-[#30363d] pb-3">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-lg bg-[#04AA6D]/20 border border-[#04AA6D]/40 flex items-center justify-center text-[#04AA6D]">
+                  <Share2 size={16} />
+                </div>
+                <div>
+                  <h3 className="text-base font-bold text-white font-sans">Export &amp; Share Project</h3>
+                  <p className="text-[11px] text-slate-400 font-sans">Download code or copy an instant live shareable link.</p>
+                </div>
+              </div>
+              <button 
+                onClick={() => setIsExportModalOpen(false)}
+                className="text-slate-400 hover:text-white p-1 rounded-md hover:bg-[#2d2d2d] transition-colors cursor-pointer"
+              >
+                <X size={16} />
+              </button>
+            </div>
+
+            {/* Section 1: Instant Web Share Link */}
+            <div className="space-y-2 bg-[#252526] p-3.5 rounded-xl border border-[#30363d]">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold text-slate-200 font-sans flex items-center gap-1.5">
+                  <Globe size={13} className="text-[#04AA6D]" />
+                  <span>Instant Web Share Link</span>
+                </span>
+                <span className="text-[10px] text-emerald-400 bg-emerald-950/60 border border-emerald-500/30 px-2 py-0.5 rounded-full font-sans font-semibold">
+                  Zero Server Required
+                </span>
+              </div>
+              <p className="text-[11px] text-slate-400 font-sans leading-relaxed">
+                Generates a live link that anyone can open on mobile or PC to immediately run your project in the Nextsem Sandbox.
+              </p>
+              <div className="flex items-center gap-2 pt-1">
+                <input
+                  type="text"
+                  readOnly
+                  value={generateShareUrl()}
+                  className="w-full bg-[#1e1e1e] border border-[#3c3c3c] text-slate-300 font-mono text-[11px] px-3 py-2 rounded-lg outline-none select-all truncate"
+                />
+                <button
+                  onClick={handleCopyShareUrl}
+                  className={`px-3.5 py-2 rounded-lg font-sans text-xs font-bold flex items-center gap-1.5 shrink-0 transition-all cursor-pointer ${
+                    shareUrlCopied
+                      ? "bg-emerald-600 text-white shadow-md shadow-emerald-600/30"
+                      : "bg-[#04AA6D] hover:bg-[#039861] text-white active:scale-95"
+                  }`}
+                >
+                  {shareUrlCopied ? <Check size={13} /> : <Copy size={13} />}
+                  <span>{shareUrlCopied ? "Copied!" : "Copy Link"}</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Section 2: 1-Click Download Options */}
+            <div className="space-y-2.5">
+              <span className="text-xs font-bold text-slate-300 font-sans">Download Workspace Files</span>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {/* Option A: Standalone HTML */}
+                <div className="bg-[#252526] hover:border-[#04AA6D]/50 border border-[#30363d] p-3.5 rounded-xl flex flex-col justify-between space-y-3 transition-colors">
+                  <div className="space-y-1">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold text-white font-sans flex items-center gap-1">
+                        <FileCode size={13} className="text-amber-400" />
+                        <span>Standalone HTML</span>
+                      </span>
+                      <span className="text-[9px] text-amber-400 bg-amber-950/60 px-1.5 py-0.5 rounded font-sans">Offline Ready</span>
+                    </div>
+                    <p className="text-[11px] text-slate-400 font-sans leading-normal">
+                      Single <code className="text-amber-300">index.html</code> with CSS &amp; JS bundled inside. Runs anywhere offline with 1 double-click.
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => {
+                      downloadStandaloneHtml();
+                      setIsExportModalOpen(false);
+                    }}
+                    className="w-full py-2 bg-[#2d2d2d] hover:bg-[#383838] hover:text-white text-slate-200 border border-[#404040] rounded-lg font-sans text-xs font-bold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                  >
+                    <Download size={13} />
+                    <span>Download index.html</span>
+                  </button>
+                </div>
+
+                {/* Option B: Separate Web Files */}
+                <div className="bg-[#252526] hover:border-[#007acc]/50 border border-[#30363d] p-3.5 rounded-xl flex flex-col justify-between space-y-3 transition-colors">
+                  <div className="space-y-1">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold text-white font-sans flex items-center gap-1">
+                        <Layers size={13} className="text-[#9cdcfe]" />
+                        <span>Separate Web Files</span>
+                      </span>
+                      <span className="text-[9px] text-[#9cdcfe] bg-blue-950/60 px-1.5 py-0.5 rounded font-sans">GitHub Pages</span>
+                    </div>
+                    <p className="text-[11px] text-slate-400 font-sans leading-normal">
+                      Downloads 3 files: <code className="text-slate-300">index.html</code>, <code className="text-slate-300">style.css</code>, and <code className="text-slate-300">script.js</code> ready for GitHub.
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => {
+                      downloadSeparateFiles();
+                      setIsExportModalOpen(false);
+                    }}
+                    className="w-full py-2 bg-[#2d2d2d] hover:bg-[#383838] hover:text-white text-slate-200 border border-[#404040] rounded-lg font-sans text-xs font-bold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                  >
+                    <Download size={13} />
+                    <span>Download All 3 Files</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Section 3: Open in External Tab */}
+            <div className="pt-1 flex items-center justify-between text-xs font-sans text-slate-400 border-t border-[#30363d]">
+              <button
+                onClick={() => {
+                  openExternalPreview();
+                  setIsExportModalOpen(false);
+                }}
+                className="hover:text-emerald-400 flex items-center gap-1.5 transition-colors cursor-pointer"
+              >
+                <ExternalLink size={13} />
+                <span>Open Clean Fullscreen Preview in New Tab</span>
+              </button>
+              <button
+                onClick={() => setIsExportModalOpen(false)}
+                className="px-3 py-1 rounded bg-[#2d2d2d] hover:bg-[#383838] text-slate-300 hover:text-white transition-colors cursor-pointer"
+              >
+                Close
+              </button>
+            </div>
+          </div>
         </div>
       )}
 

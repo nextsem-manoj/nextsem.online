@@ -49,5 +49,5 @@ console.log('  🎥 YouTube Shorts: https://youtube.com/shorts/jfnopGGIogE');
 console.log('');
 
 console.log('================================================================');
-console.log('👉 CURRENT ACTIVE TASK: Milestone 3.3 — Student Sandbox & Static Portfolio Publishing Backend');
+console.log('👉 CURRENT ACTIVE TASK: Milestone 4.1 — Daily Creative Coding Shorts Series & Global Developer SEO');
 console.log('================================================================\n');

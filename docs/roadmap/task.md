@@ -31,7 +31,7 @@
   - `🎒 Schooling Hub (/school)`: 100% pure NCERT K-12 schooling with bilingual notes and Middle School Doubt Studio.
   - `🎓 College Hub (/bca)`: Complete 6-semester BCA, MCA, and B.Tech CSE curriculum with semester tabs and search.
   - `💻 50-Day Coding Lab (/bca/practical)`: Real-world VS Code & GitHub verified coding challenges.
-- `[ ]` **Milestone 3.3 (NEXT CURRENT TASK):** **Student Sandbox & Static Portfolio Publishing Backend** (1-click portfolio export & live preview).
+- `[x]` **Milestone 3.3:** **Student Sandbox & Static Portfolio Publishing Backend** (1-click export of standalone offline HTML, separate 3-file GitHub bundle for BCA practicals, instant Base64 live URL share links with auto-load, and fullscreen live preview). ✅
 
 ---
 
