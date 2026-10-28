@@ -20,6 +20,7 @@ import {
   Check,
   Compass,
   GraduationCap,
+  Briefcase,
 } from "lucide-react";
 import WindowsIcon from "@/components/WindowsIcon";
 
@@ -55,7 +56,7 @@ export default function SimpleHeroClient() {
             <span>Home</span>
           </Link>
           <span className="text-slate-600 font-normal">❯</span>
-          <span className="text-[#04AA6D] font-semibold">Nextsem Academy • Universal Education Platform (KG to 12th, College &amp; Coding)</span>
+          <span className="text-[#04AA6D] font-semibold">Nextsem Academy • College &amp; Higher Studies Platform (BCA, MCA, B.Tech, Jobs &amp; Coding)</span>
         </div>
       </nav>
 
@@ -74,22 +75,22 @@ export default function SimpleHeroClient() {
               {/* Badge */}
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs sm:text-sm font-bold shadow-sm">
                 <Sparkles className="w-4 h-4 text-[#04AA6D]" />
-                <span>100% Free Complete Curriculum • KG to Job Placement</span>
+                <span>100% Free Higher Education • College to Tech Job Placement</span>
               </div>
 
               {/* 3 Pathway Quick Switcher */}
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2">
                 <Link
-                  href="/school"
-                  className="px-3.5 py-1.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-300 text-xs font-bold transition-all flex items-center gap-1.5"
-                >
-                  <span>🎒 Schooling (1-12)</span>
-                </Link>
-                <Link
                   href="/bca"
                   className="px-3.5 py-1.5 rounded-xl bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/30 text-blue-300 text-xs font-bold transition-all flex items-center gap-1.5"
                 >
                   <span>🎓 College (BCA/Degree)</span>
+                </Link>
+                <Link
+                  href="/jobs"
+                  className="px-3.5 py-1.5 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 text-rose-300 text-xs font-bold transition-all flex items-center gap-1.5"
+                >
+                  <span>💼 Tech Jobs &amp; Hiring</span>
                 </Link>
                 <Link
                   href="/bca/practical"
@@ -101,33 +102,33 @@ export default function SimpleHeroClient() {
 
               {/* Main Headline */}
               <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.15]">
-                Complete Education from{" "}
+                Higher Education for{" "}
                 <span className="block text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-[#04AA6D] to-teal-300">
-                  KG to 12th, BCA &amp; Coding.
+                  BCA, MCA, B.Tech &amp; Tech Jobs.
                 </span>
               </h1>
 
               {/* High-Impact Subtitle */}
               <p className="text-base sm:text-lg text-slate-300 font-normal leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                100% Free Coaching by <strong>Er. Manoj Kumar</strong>. Foundational Schooling (Class 1–12 Science, Commerce &amp; Arts), College Degrees (BCA, MCA, B.Tech CSE), and 50-Day Practical Coding Labs verified live on <span className="text-white font-bold inline-flex items-center gap-1"><WindowsIcon className="w-4 h-4 inline-block text-cyan-400" /> Windows 11</span> VS Code.
+                100% Free Higher Education &amp; Career Coaching by <strong>Er. Manoj Kumar</strong>. College Degrees (BCA, MCA, B.Tech CSE), 50-Day Practical Coding Labs verified live on <span className="text-white font-bold inline-flex items-center gap-1"><WindowsIcon className="w-4 h-4 inline-block text-cyan-400" /> Windows 11</span> VS Code, and Curated Tech Jobs &amp; Internships.
               </p>
 
               {/* Primary 3-Pathway CTA Buttons */}
               <div className="pt-2 flex flex-wrap items-center justify-center lg:justify-start gap-3">
-                <Link
-                  href="/school"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black font-extrabold text-sm sm:text-base shadow-lg shadow-amber-500/20 transition-all transform hover:-translate-y-0.5"
-                >
-                  <BookOpen className="w-4 h-4 text-black" />
-                  <span>🎒 Schooling Hub (KG-12) »</span>
-                </Link>
-
                 <Link
                   href="/bca"
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-extrabold text-sm sm:text-base shadow-lg shadow-blue-500/25 transition-all transform hover:-translate-y-0.5"
                 >
                   <GraduationCap className="w-4 h-4 text-white" />
                   <span>🎓 College Hub (BCA) »</span>
+                </Link>
+
+                <Link
+                  href="/jobs"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-500 hover:to-pink-500 text-white font-extrabold text-sm sm:text-base shadow-lg shadow-rose-500/20 transition-all transform hover:-translate-y-0.5"
+                >
+                  <Briefcase className="w-4 h-4 text-white" />
+                  <span>💼 Tech Jobs &amp; Internships »</span>
                 </Link>
 
                 <Link
@@ -248,53 +249,53 @@ export default function SimpleHeroClient() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Pathway 1: Schooling */}
-          <div className="rounded-3xl bg-gradient-to-b from-[#15161c] to-[#0f1015] border border-amber-500/30 hover:border-amber-400 p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-amber-950/20 flex flex-col justify-between group">
+          {/* Pathway 1: Tech Jobs & Internships */}
+          <div className="rounded-3xl bg-gradient-to-b from-[#15161c] to-[#0f1015] border border-rose-500/30 hover:border-rose-400 p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-rose-950/20 flex flex-col justify-between group">
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <span className="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-2xl">
-                  🎒
+                <span className="w-12 h-12 rounded-2xl bg-rose-500/10 border border-rose-500/30 flex items-center justify-center text-2xl">
+                  💼
                 </span>
-                <span className="text-[11px] font-black uppercase px-2.5 py-1 rounded-full bg-amber-950/80 text-amber-300 border border-amber-800">
-                  KG to 12th
+                <span className="text-[11px] font-black uppercase px-2.5 py-1 rounded-full bg-rose-950/80 text-rose-300 border border-rose-800">
+                  Hiring &amp; Placement
                 </span>
               </div>
 
               <div>
-                <h3 className="text-xl font-extrabold text-white group-hover:text-amber-400 transition-colors">
-                  Schooling Hub
+                <h3 className="text-xl font-extrabold text-white group-hover:text-rose-400 transition-colors">
+                  Tech Jobs &amp; Internships
                 </h3>
                 <p className="text-xs text-slate-400 mt-2 leading-relaxed">
-                  Complete NCERT Class 1–12 education, authentic 3D book covers, bilingual notes (English &amp; हिंदी), and all 3 senior secondary streams.
+                  Curated tech jobs, off-campus hiring drives (TCS, Accenture, C-DOT, Wipro), paid internships, and central government IT officer openings.
                 </p>
               </div>
 
               <ul className="space-y-2 text-xs text-slate-300 border-t border-slate-800/80 pt-4">
                 <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-amber-400 shrink-0" />
-                  <span>NCERT Textbooks &amp; Solved Exercises (1-12)</span>
+                  <CheckCircle2 className="w-4 h-4 text-rose-400 shrink-0" />
+                  <span>Curated Off-Campus Drives &amp; GET Roles</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-amber-400 shrink-0" />
-                  <span>Class 11 &amp; 12: Science, Commerce &amp; Arts</span>
+                  <CheckCircle2 className="w-4 h-4 text-rose-400 shrink-0" />
+                  <span>Govt IT &amp; Autonomous R&amp;D Circulars (C-DOT, NIC)</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-amber-400 shrink-0" />
-                  <span>140+ Interactive Studios &amp; Solved Worksheets</span>
+                  <CheckCircle2 className="w-4 h-4 text-rose-400 shrink-0" />
+                  <span>BCA, MCA &amp; B.Tech Freshers Eligibility</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-amber-400 shrink-0" />
-                  <span>Middle School Doubt Diagnostic Studio</span>
+                  <CheckCircle2 className="w-4 h-4 text-rose-400 shrink-0" />
+                  <span>Direct Official Notification PDF Downloads</span>
                 </li>
               </ul>
             </div>
 
             <div className="pt-6 mt-4 border-t border-slate-800/60">
               <Link
-                href="/school"
-                className="w-full inline-flex items-center justify-between px-5 py-3 rounded-xl bg-amber-500/10 hover:bg-amber-500 text-amber-300 hover:text-black font-extrabold text-xs transition-colors border border-amber-500/30 hover:border-amber-500 shadow-sm"
+                href="/jobs"
+                className="w-full inline-flex items-center justify-between px-5 py-3 rounded-xl bg-rose-500/10 hover:bg-rose-500 text-rose-300 hover:text-white font-extrabold text-xs transition-colors border border-rose-500/30 hover:border-rose-500 shadow-sm"
               >
-                <span>Enter Schooling Hub »</span>
+                <span>Enter Tech Jobs Portal 💼 »</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>

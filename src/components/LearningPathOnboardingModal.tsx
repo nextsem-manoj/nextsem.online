@@ -17,10 +17,10 @@ import {
 } from "lucide-react";
 import { useStudentProgress } from "@/context/StudentProgressContext";
 
-export type LearningPathType = "schooling" | "college" | "skills" | null;
+export type LearningPathType = "jobs" | "college" | "skills" | null;
 
 interface PathOption {
-  id: "schooling" | "college" | "skills";
+  id: "jobs" | "college" | "skills";
   emoji: string;
   badge: string;
   title: string;
@@ -36,22 +36,22 @@ interface PathOption {
 
 const PATH_OPTIONS: PathOption[] = [
   {
-    id: "schooling",
-    emoji: "🎒",
-    badge: "KG to Class 12th",
-    title: "Schooling Hub",
-    subtitle: "Complete NCERT Class 1–12 education, bilingual notes & all stream specializations.",
-    targetClasses: "Primary, Middle (6-8), Secondary (9-10) & Senior Secondary (11-12)",
-    colorBorder: "border-amber-500/40 hover:border-amber-400",
-    colorBg: "bg-amber-500/10 hover:bg-amber-500/15",
-    colorText: "text-amber-400",
-    colorGlow: "shadow-amber-500/10",
-    redirectUrl: "/school",
+    id: "jobs",
+    emoji: "💼",
+    badge: "Careers & Hiring",
+    title: "Tech Jobs & Placement",
+    subtitle: "Curated tech jobs, off-campus hiring drives, paid internships, and central govt IT notifications.",
+    targetClasses: "BCA, MCA, B.Tech CS/IT Freshers & Developers",
+    colorBorder: "border-rose-500/40 hover:border-rose-400",
+    colorBg: "bg-rose-500/10 hover:bg-rose-500/15",
+    colorText: "text-rose-400",
+    colorGlow: "shadow-rose-500/10",
+    redirectUrl: "/jobs",
     highlights: [
-      "NCERT Textbooks & Solutions (Class 1 to 12)",
-      "Class 11 & 12: Science, Commerce & Arts streams",
-      "Bilingual Notes (English & हिंदी) + Daily Quizzes",
-      "Middle School Doubt Diagnostic Studio"
+      "Off-Campus Drives (TCS, Accenture, Wipro, C-DOT)",
+      "Govt IT & Autonomous R&D Notifications (₹12 LPA)",
+      "Paid Internships with Full-Stack Mentorship",
+      "Direct Official Notification PDF Downloads"
     ]
   },
   {
@@ -100,7 +100,7 @@ export default function LearningPathOnboardingModal() {
   const { user } = useStudentProgress();
 
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedPath, setSelectedPath] = useState<"schooling" | "college" | "skills" | null>(null);
+  const [selectedPath, setSelectedPath] = useState<"jobs" | "college" | "skills" | null>(null);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -110,7 +110,7 @@ export default function LearningPathOnboardingModal() {
     const storedPath = localStorage.getItem("nextsem_learning_path");
     
     // Automatically trigger on first launch if not yet selected
-    if (!storedPath) {
+    if (!storedPath || storedPath === "schooling") {
       // Small timeout for smooth initial render
       const timer = setTimeout(() => {
         setIsOpen(true);
@@ -129,7 +129,7 @@ export default function LearningPathOnboardingModal() {
     };
   }, []);
 
-  const handleSelectPath = (pathId: "schooling" | "college" | "skills", redirectUrl: string) => {
+  const handleSelectPath = (pathId: "jobs" | "college" | "skills", redirectUrl: string) => {
     setSelectedPath(pathId);
     if (typeof window !== "undefined") {
       localStorage.setItem("nextsem_learning_path", pathId);

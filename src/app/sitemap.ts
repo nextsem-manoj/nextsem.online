@@ -17,8 +17,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Core base paths (Excluding internal/admin disallowed in robots.ts)
   const baseRoutes = [
     "",
-    "/school",
     "/bca",
+    "/jobs",
     "/bca/practical",
     "/bca/practical/how-it-works",
     "/playground",
@@ -45,20 +45,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/git",
     "/batch",
     "/batch/open-browser-tabs-script",
-    "/jobs",
     "/cpp",
     "/c",
     "/sitemap",
   ].map((route) => {
     let priority = 0.8;
     if (route === "") priority = 1.0;
-    else if (["/school", "/bca", "/bca/practical", "/playground"].includes(route)) priority = 0.95;
+    else if (["/jobs", "/bca", "/bca/practical", "/playground"].includes(route)) priority = 0.95;
     else if (["/html", "/css", "/js", "/react", "/nodejs", "/cli", "/git"].includes(route)) priority = 0.9;
 
     return {
       url: `${baseUrl}${route}`,
       lastModified: new Date(),
-      changeFrequency: (route === "" || route === "/school" || route === "/bca") ? ("daily" as const) : ("weekly" as const),
+      changeFrequency: (route === "" || route === "/jobs" || route === "/bca") ? ("daily" as const) : ("weekly" as const),
       priority,
     };
   });

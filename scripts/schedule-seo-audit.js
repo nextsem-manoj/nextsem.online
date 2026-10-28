@@ -73,6 +73,32 @@ if (fs.existsSync(taskMdPath)) {
   check('Monetization target matches ₹10 Lakh/month', taskMd.includes('₹10 LAKH'));
 }
 
+// 5. Audit Hero Page Quality, Introduction & Courses Directory
+const heroPath = path.join(rootDir, 'src', 'components', 'SimpleHeroClient.tsx');
+const pagePath = path.join(rootDir, 'src', 'app', 'page.tsx');
+
+if (fs.existsSync(heroPath)) {
+  const heroContent = fs.readFileSync(heroPath, 'utf8');
+  check('Hero Component exists (SimpleHeroClient.tsx)', true);
+  check('Hero contains Introduction to Nextsem Academy by Er. Manoj Kumar', heroContent.includes('Er. Manoj Kumar') && heroContent.includes('Nextsem Academy'));
+  check('Hero includes Schooling Hub link (/school)', heroContent.includes('href="/school"'));
+  check('Hero includes College Hub link (/bca)', heroContent.includes('href="/bca"'));
+  check('Hero includes 50-Day Coding Lab link (/bca/practical)', heroContent.includes('href="/bca/practical"'));
+  check('Hero includes Online Sandbox link (/playground)', heroContent.includes('href="/playground"'));
+  check('Hero includes Web Dev Tracks link (/tracks or /html)', heroContent.includes('href="/html"') && heroContent.includes('href="/css"'));
+  check('Hero includes Windows 11 CLI link (/cli)', heroContent.includes('href="/cli"'));
+  check('Hero includes interactive Code & Preview Sandbox widget', heroContent.includes('activeCodeTab') && heroContent.includes('Run in Playground'));
+  check('Hero complies with Emerald & White theme (#04AA6D)', heroContent.includes('#04AA6D'));
+} else {
+  check('Hero Component exists', false);
+}
+
+if (fs.existsSync(pagePath)) {
+  const pageContent = fs.readFileSync(pagePath, 'utf8');
+  check('Root page metadata contains Comprehensive Educational Continuum', pageContent.includes('Free Education from KG to 12th, BCA, B.Tech & Coding Labs'));
+  check('Root page schema.org EducationalOrganization includes OfferCatalog courses', pageContent.includes('EducationalOrganization') && pageContent.includes('Course'));
+}
+
 console.log('\n----------------------------------------------------------------');
 console.log(`📊 Audit Summary: ${passCount} Passed, ${failCount} Failed`);
 console.log('🌐 Staging Target: https://nextsem-staging.web.app/playground/');
@@ -80,3 +106,4 @@ console.log('🎯 Ad Revenue Target: Rs. 10,00,000 / month (Google AdSense & AdM
 console.log('----------------------------------------------------------------\n');
 
 process.exit(failCount === 0 ? 0 : 1);
+

@@ -254,6 +254,44 @@ export default function BcaPracticalHubClient() {
           </div>
         </section>
 
+        {/* ── NEW: .NET Enterprise Track Spotlight Banner ── */}
+        <section className="mb-10 rounded-3xl bg-gradient-to-r from-blue-900/40 via-indigo-900/30 to-purple-900/40 border border-blue-500/30 p-6 sm:p-7 relative overflow-hidden shadow-lg">
+          <div className="absolute -top-12 -right-12 w-48 h-48 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div className="space-y-2 max-w-2xl">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 text-blue-400 border border-blue-500/40 text-xs font-black uppercase tracking-wider">
+                <Sparkles size={12} className="animate-pulse" />
+                <span>New Dedicated Track Live</span>
+              </div>
+              <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight">
+                .NET Enterprise Practical Portal
+              </h2>
+              <p className="text-sm text-slate-300 leading-relaxed">
+                C# 12, Entity Framework Core 9, ASP.NET Core Web APIs, Blazor Full Stack, and Azure CI/CD. 50 Enterprise production-grade labs with GitHub repository verification.
+              </p>
+              <div className="flex flex-wrap items-center gap-2 pt-1 text-xs text-slate-400">
+                <span className="px-2.5 py-1 rounded-lg bg-black/40 border border-white/10 font-bold text-white">50 Days Labs</span>
+                <span className="px-2.5 py-1 rounded-lg bg-black/40 border border-white/10 font-bold text-white">5 Sprints</span>
+                <span className="px-2.5 py-1 rounded-lg bg-black/40 border border-white/10 font-bold text-white">VS Code & CLI</span>
+                <span className="px-2.5 py-1 rounded-lg bg-black/40 border border-white/10 font-bold text-white">Viva Checks</span>
+              </div>
+            </div>
+
+            <div className="shrink-0 flex flex-col sm:flex-row md:flex-col gap-2.5">
+              <Link
+                href="/practical/dotnet"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white font-black text-sm transition-all active:scale-95 shadow-md shadow-blue-600/30 cursor-pointer"
+              >
+                <span>Launch .NET Portal</span>
+                <ArrowRight size={16} />
+              </Link>
+              <span className="text-[11px] text-center text-slate-400 font-semibold">
+                URL: /practical/dotnet
+              </span>
+            </div>
+          </div>
+        </section>
+
         {/* 4 Career Specialization Tracks */}
         <section className="mb-10">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">

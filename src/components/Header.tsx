@@ -35,16 +35,16 @@ const Header = () => {
               Tracks
             </Link>
             <Link
-              href="/school"
-              className="px-3 py-1.5 rounded-lg text-amber-400 hover:bg-slate-800/80 transition-colors font-bold"
-            >
-              Schooling 🎒
-            </Link>
-            <Link
               href="/bca"
               className="px-3 py-1.5 rounded-lg text-blue-400 hover:bg-slate-800/80 transition-colors font-bold"
             >
               College 🎓
+            </Link>
+            <Link
+              href="/jobs"
+              className="px-3 py-1.5 rounded-lg text-rose-400 hover:bg-slate-800/80 transition-colors font-bold"
+            >
+              Jobs 💼
             </Link>
             <Link
               href="/bca/practical"

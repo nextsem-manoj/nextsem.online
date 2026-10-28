@@ -5,22 +5,19 @@ import SimpleHeroClient from "@/components/SimpleHeroClient";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Nextsem Academy — Free Education from KG to 12th, BCA, B.Tech & Coding Labs",
+  title: "Nextsem Academy — College Computer Science, BCA, MCA, B.Tech & Tech Jobs",
   description:
-    "Free comprehensive coaching by Er. Manoj Kumar covering KG to Class 12th (Science, Commerce & Arts), University Degrees (BCA, MCA, B.Tech), and 50-Day Practical Coding Labs with live GitHub verification.",
+    "Free comprehensive higher education & coding platform by Er. Manoj Kumar covering University Degrees (BCA, MCA, B.Tech CSE), Curated Tech Jobs & Internships, and 50-Day Practical Coding Labs with live GitHub verification.",
   keywords: [
     "nextsem academy",
     "er manoj kumar coaching",
-    "free schooling portal",
-    "ncert class 1 to 12 notes",
-    "class 11 12 science commerce arts",
-    "class 10 board exam preparation ncert",
     "bca practical coding lab",
     "50 days coding lab github verification",
     "ignou bca mca study materials",
     "btech cse engineering notes",
-    "kg nursery phonics number tracing",
-    "cbse ncert bilingual solutions hindi english",
+    "tech jobs india",
+    "bca freshers jobs",
+    "off campus drives 2026",
     "full stack web development course free",
     "learn html css javascript react nodejs",
     "windows cmd terminal for developers",
@@ -28,17 +25,17 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "https://nextsem.online/" },
   openGraph: {
-    title: "Nextsem Academy — Free Education from KG to 12th, BCA, B.Tech & Coding Labs",
+    title: "Nextsem Academy — College Computer Science, BCA, MCA, B.Tech & Tech Jobs",
     description:
-      "Free comprehensive coaching from KG, Class 1-12 (Science, Commerce, Arts) to BCA, MCA, B.Tech & Job-Ready 50-Day Coding Labs by Er. Manoj Kumar.",
+      "Free comprehensive higher education from College Degrees (BCA, MCA, B.Tech) to Curated Tech Jobs, Internships & 50-Day Coding Labs by Er. Manoj Kumar.",
     url: "https://nextsem.online/",
     type: "website",
     siteName: "Nextsem Academy"
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nextsem Academy — Free Education: KG to 12th, BCA, B.Tech & Coding",
-    description: "Free coaching from KG to 12th (All Streams) to College BCA/B.Tech & 50-Day Coding Labs with live GitHub verification by Er. Manoj Kumar."
+    title: "Nextsem Academy — Higher Education: BCA, MCA, B.Tech, Jobs & Coding",
+    description: "Free higher education and placement coaching for BCA, MCA, B.Tech & 50-Day Coding Labs with live GitHub verification by Er. Manoj Kumar."
   }
 };
 
@@ -49,21 +46,21 @@ export default function Home() {
     "name": "Nextsem Academy",
     "url": "https://nextsem.online",
     "description":
-      "Free comprehensive coaching platform covering Foundational Schooling (KG to Class 12 Science, Commerce, Arts), University Degrees (BCA, MCA, B.Tech), and 50-Day Practical Coding Labs with live GitHub verification.",
+      "Free comprehensive higher education platform covering University Degrees (BCA, MCA, B.Tech CSE), Curated Tech Jobs & Internships, and 50-Day Practical Coding Labs with live GitHub verification.",
     "isAccessibleForFree": true,
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
-      "name": "Comprehensive Educational Continuum (KG to Job Placement)",
+      "name": "Higher Education & Tech Placement Continuum",
       "itemListElement": [
-        {
-          "@type": "Course",
-          "name": "Schooling Hub (Class 1 to 12 & KG)",
-          "description": "100% Free NCERT Textbooks, bilingual solutions (Hindi/English), Class 11-12 Science, Commerce & Arts streams, and Middle School Doubt Studio."
-        },
         {
           "@type": "Course",
           "name": "College Education Hub (BCA, MCA & B.Tech)",
           "description": "University Degree curriculum covering BCA Semesters 1 to 6, C, C++, Data Structures, DBMS, Java, Operating Systems & exam question banks."
+        },
+        {
+          "@type": "Course",
+          "name": "Tech Jobs & Internships Hub",
+          "description": "Curated off-campus hiring drives (TCS, Accenture, C-DOT, Wipro), paid internships, and central government IT notifications with downloadable circular PDFs."
         },
         {
           "@type": "Course",

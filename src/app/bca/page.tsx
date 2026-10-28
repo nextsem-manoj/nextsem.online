@@ -6,7 +6,8 @@ import {
   Sparkles, 
   Flame, 
   ArrowRight,
-  BookOpen
+  BookOpen,
+  Briefcase
 } from "lucide-react";
 import CollegeHubClient from "@/components/college/CollegeHubClient";
 
@@ -103,24 +104,24 @@ export default function BcaGatewayPage() {
         {/* ── INTERACTIVE COLLEGE DEGREE CLIENT (BCA / MCA / B.TECH CSE CURRICULUM) ── */}
         <CollegeHubClient />
 
-        {/* ── CROSS-NAVIGATION BANNER (SCHOOLING HUB & CODING LABS) ── */}
+        {/* ── CROSS-NAVIGATION BANNER (TECH JOBS & CODING LABS) ── */}
         <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-neutral-900 via-neutral-900/90 to-neutral-950 border border-neutral-800 flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="space-y-1.5 text-center md:text-left">
             <h3 className="text-xl font-bold text-white flex items-center justify-center md:justify-start gap-2">
-              <BookOpen size={20} className="text-amber-400" />
-              <span>Looking for Schooling (KG to 12th) or Coding Sandbox?</span>
+              <Briefcase size={20} className="text-rose-400" />
+              <span>Looking for Tech Jobs &amp; Paid Internships?</span>
             </h3>
             <p className="text-xs sm:text-sm text-slate-400">
-              Explore NCERT K-12 notes, Middle School Doubt Studio, or write code in our browser-based IDE Playground.
+              Explore curated off-campus hiring drives (TCS, Accenture, C-DOT ₹12 LPA), paid internships, and developer career opportunities.
             </p>
           </div>
 
           <div className="flex flex-wrap items-center gap-3">
             <Link
-              href="/school"
-              className="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-extrabold text-xs transition-colors shadow-lg shadow-amber-500/20"
+              href="/jobs"
+              className="px-5 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-extrabold text-xs transition-colors shadow-lg shadow-rose-600/20"
             >
-              🎒 Schooling Hub (KG-12)
+              💼 Tech Jobs &amp; Placement
             </Link>
             <Link
               href="/playground"
